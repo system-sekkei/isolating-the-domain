@@ -1,0 +1,22 @@
+dea
+.idea
+*.iml
+
+# For Gradle
+**/build
+.gradle
+
+# For astah
+*.lock
+
+# For local
+temp
+*/test/groovy/fa/datasource/*
+*/test/groovy/fa/model/*
+
+# For mac
+.DS_Store
+
+# backup files
+*.un~
+
