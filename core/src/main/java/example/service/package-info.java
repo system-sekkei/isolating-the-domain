@@ -1,4 +1,4 @@
 /**
  * Service層 ユースケースとなるサービス郡です。
  */
-package service;
+package example.service;

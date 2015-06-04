@@ -1,4 +1,4 @@
 /**
  * Domain Model です。
  */
-package model;
+package example.model;

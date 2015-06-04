@@ -11,8 +11,6 @@ dea
 
 # For local
 temp
-*/test/groovy/fa/datasource/*
-*/test/groovy/fa/model/*
 
 # For mac
 .DS_Store

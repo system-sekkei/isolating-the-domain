@@ -1,4 +1,4 @@
 /**
  * ユースケースの自動テスト郡です。
  */
-package service;
+package example.service;
