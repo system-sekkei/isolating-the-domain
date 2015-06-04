@@ -1,50 +1,20 @@
 buildscript {
-    ext {
-        springBootVersion = '1.2.3.RELEASE'
-        encoding = 'UTF-8'
-        compatibility = 1.8
-    }
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
     }
 }
 
-apply plugin: 'java'
-apply plugin: 'groovy'
-apply plugin: 'idea'
 apply plugin: 'spring-boot'
-
-sourceCompatibility = compatibility
-targetCompatibility = compatibility
-
-tasks.withType(AbstractCompile) each { it.options.encoding = encoding }
-tasks.withType(GroovyCompile) each { it.groovyOptions.encoding = encoding }
 
 jar {
     baseName = 'ddd-base-ui'
     version = '0.1.0'
 }
 
-test {
-    if (project.hasProperty('sysprops')) {
-        project.sysprops.split('\\s+').each {
-            systemProperty it.split('=')[0], it.split('=')[1]
-        }
-    }
-}
-
 bootRun {
     if (project.hasProperty('args')) {
         args project.args.split('\\s+')
     }
-}
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {
