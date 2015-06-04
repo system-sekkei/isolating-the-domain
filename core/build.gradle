@@ -8,15 +8,11 @@ buildscript {
         mavenCentral()
         jcenter()
     }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
 }
 
 apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'idea'
-apply plugin: 'spring-boot'
 
 sourceCompatibility = compatibility
 targetCompatibility = compatibility
@@ -34,12 +30,6 @@ test {
         project.sysprops.split('\\s+').each {
             systemProperty it.split('=')[0], it.split('=')[1]
         }
-    }
-}
-
-bootRun {
-    if (project.hasProperty('args')) {
-        args project.args.split('\\s+')
     }
 }
 
