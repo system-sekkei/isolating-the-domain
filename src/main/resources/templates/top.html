@@ -1,7 +1,11 @@
 ﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:include="fragments/layout :: htmlhead"
+      th:with="title='トップ'"/>
 <body>
 TOP
+
+<footer th:include="fragments/layout :: footer"/>
 </body>
 </html>

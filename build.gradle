@@ -63,6 +63,11 @@ dependencies {
     compile("org.mybatis:mybatis:3.2.8")
     compile("org.mybatis:mybatis-spring:1.2.2")
 
+    runtime("org.webjars:bootstrap:3.3.4")
+    runtime("org.webjars:font-awesome:4.3.0-1")
+    runtime("org.webjars:html5shiv:3.7.2")
+    runtime("org.webjars:respond:1.4.2")
+
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
     testCompile("junit:junit:4.12")
     testCompile("org.spockframework:spock-core:1.0-groovy-2.4") {
