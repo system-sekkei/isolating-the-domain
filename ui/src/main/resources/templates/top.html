@@ -1,10 +1,25 @@
 ﻿<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/layout :: htmlhead"
       th:with="title='トップ'"/>
 <body>
-TOP
+<div class="panel col-md-4 col-md-offset-4">
+    <table class="table table-striped">
+        <caption>利用者一覧</caption>
+        <thead>
+        <tr>
+            <th>利用者ID</th>
+            <th>利用者名</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users.list()}">
+            <td th:text="${user.id.value}"/>
+            <td th:text="${user.name.value}"/>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 <footer th:include="fragments/layout :: footer"/>
 </body>

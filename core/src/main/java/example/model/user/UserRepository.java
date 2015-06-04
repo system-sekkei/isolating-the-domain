@@ -7,4 +7,6 @@ import java.util.Optional;
  */
 public interface UserRepository {
     Optional<User> findBy(UserId id);
+
+    Users list();
 }

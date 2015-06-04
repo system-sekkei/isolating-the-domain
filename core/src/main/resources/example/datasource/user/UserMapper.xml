@@ -3,12 +3,17 @@
 <mapper namespace="example.datasource.user.UserMapper">
     <resultMap id="user" type="example.model.user.User">
         <id property="id.value" column="user_id"/>
-        <result property="name" column="name"/>
-        <result property="password" column="password"/>
+        <result property="name.value" column="name"/>
+        <result property="password.value" column="password"/>
     </resultMap>
     <select id="findBy" resultMap="user">
         SELECT user_id, name, password
         FROM user.users
         WHERE user_id = #{id.value}
+    </select>
+    <select id="list" resultMap="user">
+        SELECT user_id, name, password
+        FROM user.users
+        ORDER BY user_id;
     </select>
 </mapper>

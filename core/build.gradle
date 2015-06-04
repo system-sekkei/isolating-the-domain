@@ -16,9 +16,7 @@ dependencies {
 
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
     testCompile("junit:junit:4.12")
-    testCompile("org.spockframework:spock-core:1.0-groovy-2.4") {
-        exclude group: 'org.codehaus.groovy'
-    }
+    testCompile("org.spockframework:spock-core:1.0-groovy-2.4")
     testCompile("org.spockframework:spock-spring:1.0-groovy-2.4") {
         exclude group: 'org.codehaus.groovy'
     }
