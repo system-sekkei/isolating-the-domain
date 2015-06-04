@@ -25,7 +25,7 @@ tasks.withType(AbstractCompile) each { it.options.encoding = encoding }
 tasks.withType(GroovyCompile) each { it.groovyOptions.encoding = encoding }
 
 jar {
-    baseName = 'ddd-base'
+    baseName = 'ddd-base-ui'
     version = '0.1.0'
 }
 
