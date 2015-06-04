@@ -1,0 +1,68 @@
+buildscript {
+    ext {
+        springBootVersion = '1.2.3.RELEASE'
+        encoding = 'UTF-8'
+        compatibility = 1.8
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+sourceCompatibility = compatibility
+targetCompatibility = compatibility
+
+tasks.withType(AbstractCompile) each { it.options.encoding = encoding }
+tasks.withType(GroovyCompile) each { it.groovyOptions.encoding = encoding }
+
+jar {
+    baseName = 'ddd-base'
+    version = '0.1.0'
+}
+
+test {
+    if (project.hasProperty('sysprops')) {
+        project.sysprops.split('\\s+').each {
+            systemProperty it.split('=')[0], it.split('=')[1]
+        }
+    }
+}
+
+bootRun {
+    if (project.hasProperty('args')) {
+        args project.args.split('\\s+')
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
+
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
+    compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity3:2.1.1.RELEASE')
+
+    //<![if lt IE9]--><![endif]-->などのHTML条件付きコメント内部でthymeleafのexpressionを有効にする。
+    compile('org.thymeleaf.extras:thymeleaf-extras-conditionalcomments:2.1.1.RELEASE')
+
+    compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+
+    compile project(':core')
+
+    runtime("org.webjars:bootstrap:3.3.4")
+    runtime("org.webjars:font-awesome:4.3.0-1")
+    runtime("org.webjars:html5shiv:3.7.2")
+    runtime("org.webjars:respond:1.4.2")
+}

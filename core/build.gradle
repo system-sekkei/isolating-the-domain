@@ -1,0 +1,69 @@
+buildscript {
+    ext {
+        springBootVersion = '1.2.3.RELEASE'
+        encoding = 'UTF-8'
+        compatibility = 1.8
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+sourceCompatibility = compatibility
+targetCompatibility = compatibility
+
+tasks.withType(AbstractCompile) each { it.options.encoding = encoding }
+tasks.withType(GroovyCompile) each { it.groovyOptions.encoding = encoding }
+
+jar {
+    baseName = 'ddd-base'
+    version = '0.1.0'
+}
+
+test {
+    if (project.hasProperty('sysprops')) {
+        project.sysprops.split('\\s+').each {
+            systemProperty it.split('=')[0], it.split('=')[1]
+        }
+    }
+}
+
+bootRun {
+    if (project.hasProperty('args')) {
+        args project.args.split('\\s+')
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}")
+    compile("org.mybatis:mybatis:3.2.8")
+    compile("org.mybatis:mybatis-spring:1.2.2")
+    runtime('org.postgresql:postgresql:9.4-1201-jdbc41')
+    runtime("com.h2database:h2:1.4.187")
+
+    compile("org.springframework.boot:spring-boot-starter-mail:${springBootVersion}")
+
+    compile("commons-lang:commons-lang:2.6")
+
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
+    testCompile("junit:junit:4.12")
+    testCompile("org.spockframework:spock-core:1.0-groovy-2.4") {
+        exclude group: 'org.codehaus.groovy'
+    }
+    testCompile("org.spockframework:spock-spring:1.0-groovy-2.4") {
+        exclude group: 'org.codehaus.groovy'
+    }
+}
