@@ -54,6 +54,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-mail:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
     compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity3:2.1.1.RELEASE')
+    compile('org.thymeleaf.extras:thymeleaf-extras-conditionalcomments:2.1.1.RELEASE')
     compile("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}")
 
     runtime('org.postgresql:postgresql:9.4-1201-jdbc41')
