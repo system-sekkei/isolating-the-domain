@@ -3,7 +3,7 @@ description 'ドメイン駆動設計によるアプリケーション開発の�
 subprojects {
     buildscript {
         ext {
-            springBootVersion = '1.2.3.RELEASE'
+            springBootVersion = '1.2.4.RELEASE'
             encoding = 'UTF-8'
             compatibility = 1.8
         }
