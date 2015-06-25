@@ -1,5 +1,5 @@
 jar {
-    baseName = 'ddd-base-core'
+    baseName = 'isolating-the-domain-core'
     version = '0.1.0'
 }
 

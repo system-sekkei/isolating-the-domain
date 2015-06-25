@@ -7,7 +7,7 @@ buildscript {
 apply plugin: 'spring-boot'
 
 jar {
-    baseName = 'ddd-base-ui'
+    baseName = 'isolating-the-domain-ui'
     version = '0.1.0'
 }
 

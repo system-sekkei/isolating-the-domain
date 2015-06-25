@@ -1,4 +1,4 @@
-rootProject.name='ddd-base'
+rootProject.name='isolating-the-domain'
 include 'ui'
 include 'core'
 include 'database'
