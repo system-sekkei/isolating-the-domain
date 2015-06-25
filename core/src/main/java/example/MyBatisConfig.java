@@ -1,6 +1,9 @@
 package example;
 
+import example.datasource.infrastructure.mybatis.LocalDateHandler;
+import example.datasource.infrastructure.mybatis.LocalDateTimeHandler;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.type.TypeHandler;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
@@ -20,7 +23,10 @@ public class MyBatisConfig {
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
-        sessionFactory.setTypeHandlersPackage("example.datasource.infrastructure.mybatis");
+        sessionFactory.setTypeHandlers(new TypeHandler[]{
+                new LocalDateHandler(),
+                new LocalDateTimeHandler()
+        });
         sessionFactory.setConfigLocation(new ClassPathResource("mybatis.xml"));
         return sessionFactory.getObject();
     }
