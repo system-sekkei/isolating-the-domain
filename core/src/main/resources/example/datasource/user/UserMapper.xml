@@ -8,12 +8,12 @@
     </resultMap>
     <select id="findBy" resultMap="user">
         SELECT user_id, name, password
-        FROM user.users
+        FROM users.users
         WHERE user_id = #{id.value}
     </select>
     <select id="list" resultMap="user">
         SELECT user_id, name, password
-        FROM user.users
+        FROM users.users
         ORDER BY user_id;
     </select>
 </mapper>
