@@ -1,4 +1,4 @@
-# ddd-base
+# ドメインを隔離する Isolating the Domain
 gradle based Spring Boot &amp; MVC &amp; Thymeleaf &amp; Security &amp; MyBatis template project
 
 ## 起動方法
