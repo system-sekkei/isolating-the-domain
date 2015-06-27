@@ -4,13 +4,13 @@ gradle based Spring Boot &amp; MVC &amp; Thymeleaf &amp; Security &amp; MyBatis 
 ## 起動方法
 
 ```sh
-./gradlew clean ui:bootRun
+./gradlew clean bootRun
 ```
 
 ## 実行可能Jarのビルド
 
 ```sh
-./gradlew clean ui:build
+./gradlew clean build
 ```
 
 ## アーキテクチャ
