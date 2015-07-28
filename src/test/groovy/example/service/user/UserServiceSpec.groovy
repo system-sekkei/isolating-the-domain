@@ -25,12 +25,12 @@ class UserServiceSpec extends Specification {
     JdbcTemplate jdbcTemplate;
 
     def setup() {
-        jdbcTemplate.execute("DELETE FROM USER.USERS")
-        jdbcTemplate.execute(
-                "INSERT INTO USER.USERS(USER_ID, NAME, PASSWORD) VALUES " +
-                "('seiji.kawakami@sora-works.com', '河上 晴司','password1234')," +
-                "('someone@ddd-alliance.org', 'DDD ALLIANCE','password5678')"
-        )
+        jdbcTemplate.execute("DELETE FROM USERS.USERS")
+        jdbcTemplate.execute("""
+                INSERT INTO USERS.USERS(USER_ID, NAME, PASSWORD) VALUES
+                ('seiji.kawakami@sora-works.com', '河上 晴司','password1234'),
+                ('someone@ddd-alliance.org', 'DDD ALLIANCE','password5678')
+                """)
     }
 
 
