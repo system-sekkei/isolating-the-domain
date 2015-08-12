@@ -53,4 +53,13 @@ class UserServiceSpec extends Specification {
         then:
         users.list().size() == 2;
     }
+
+    def "ユーザがIDで削除できること" () {
+        given:
+        def id = new UserId('seiji.kawakami@sora-works.com')
+        when:
+        def count = service.delete(id)
+        then:
+        count.equals(1)
+    }
 }

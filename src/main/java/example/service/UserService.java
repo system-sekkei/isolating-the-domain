@@ -25,4 +25,8 @@ public class UserService {
     public Users list() {
         return userRepository.list();
     }
+
+    public int delete(UserId id) {
+        return userRepository.delete(id);
+    }
 }

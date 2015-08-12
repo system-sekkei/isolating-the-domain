@@ -9,4 +9,6 @@ public interface UserRepository {
     Optional<User> findBy(UserId id);
 
     Users list();
+
+    int delete(UserId id);
 }

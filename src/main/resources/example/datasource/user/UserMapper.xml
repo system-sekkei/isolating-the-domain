@@ -16,4 +16,8 @@
         FROM users.users
         ORDER BY user_id;
     </select>
+    <delete id="delete">
+        DELETE FROM users.users
+        WHERE user_id = #{id.value}
+    </delete>
 </mapper>

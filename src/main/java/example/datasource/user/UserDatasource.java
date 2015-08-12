@@ -26,4 +26,9 @@ public class UserDatasource implements UserRepository {
     public Users list() {
         return new Users(mapper.list());
     }
+
+    @Override
+    public int delete(UserId id) {
+        return mapper.delete(id);
+    }
 }
