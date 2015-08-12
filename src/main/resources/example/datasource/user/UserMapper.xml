@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="example.datasource.user.UserMapper">
-    <resultMap id="user" type="example.model.user.User">
+    <resultMap id="user" type="example.model.user.UserSummary">
         <id property="id.value" column="user_id"/>
         <result property="name.value" column="name"/>
         <result property="password.value" column="password"/>

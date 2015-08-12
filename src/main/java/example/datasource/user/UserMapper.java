@@ -2,6 +2,7 @@ package example.datasource.user;
 
 import example.model.user.User;
 import example.model.user.UserId;
+import example.model.user.UserSummary;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,9 +13,9 @@ import java.util.Set;
  */
 public interface UserMapper {
 
-    User findBy(@Param("id") UserId id);
+    UserSummary findBy(@Param("id") UserId id);
 
-    List<User> list();
+    List<UserSummary> list();
 
     void register(@Param("user") User user);
 }
