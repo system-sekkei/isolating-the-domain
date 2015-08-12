@@ -53,7 +53,8 @@ public class RegistrationController {
     }
 
     @RequestMapping(value = "/register", params = "action=register", method = RequestMethod.POST)
-    String register(@ModelAttribute User user, RedirectAttributes attributes, BindingResult result) {
+    String register(@Validated @ModelAttribute User user, BindingResult result, RedirectAttributes attributes) {
+        if (result.hasErrors()) return "user/registration";
         if (userService.findById(user.getId()).isPresent()) {
             result.reject("", new Object[]{user.getId().getValue()}, "ユーザー {0} は登録済みです");
             return "user/registration";
