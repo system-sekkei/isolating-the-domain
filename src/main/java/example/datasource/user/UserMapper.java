@@ -13,7 +13,7 @@ import java.util.Set;
  */
 public interface UserMapper {
 
-    UserSummary findBy(@Param("id") UserId id);
+    User findBy(@Param("id") UserId id);
 
     List<UserSummary> list();
 

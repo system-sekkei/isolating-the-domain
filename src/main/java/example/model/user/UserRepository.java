@@ -6,7 +6,7 @@ import java.util.Optional;
  * Created by haljik on 15/06/04.
  */
 public interface UserRepository {
-    Optional<UserSummary> findBy(UserId id);
+    Optional<User> findBy(UserId id);
 
     UserSummaries list();
 

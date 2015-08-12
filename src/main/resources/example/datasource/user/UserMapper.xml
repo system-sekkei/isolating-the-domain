@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="example.datasource.user.UserMapper">
-    <resultMap id="user" type="example.model.user.UserSummary">
+    <resultMap id="user" type="example.model.user.User">
+        <id property="id.value" column="user_id"/>
+        <result property="name.value" column="name"/>
+        <result property="password.value" column="password"/>
+        <result property="age.value" column="age"/>
+        <result property="phoneNumber.value" column="phone_number"/>
+    </resultMap>
+    <resultMap id="userSummary" type="example.model.user.UserSummary">
         <id property="id.value" column="user_id"/>
         <result property="name.value" column="name"/>
         <result property="password.value" column="password"/>
     </resultMap>
     <select id="findBy" resultMap="user">
-        SELECT user_id, name, password
+        SELECT user_id, name, password, age, phone_number
         FROM users.users
         WHERE user_id = #{id.value}
     </select>
-    <select id="list" resultMap="user">
+    <select id="list" resultMap="userSummary">
         SELECT user_id, name, password
         FROM users.users
         ORDER BY user_id;

@@ -1,8 +1,10 @@
 package example.service.user
 
 import example.TestConfiguration
+import example.model.user.Age
 import example.model.user.Name
 import example.model.user.Password
+import example.model.user.PhoneNumber
 import example.model.user.User
 import example.model.user.UserId
 import example.service.UserService
@@ -61,15 +63,23 @@ class UserServiceSpec extends Specification {
         def user = new User()
         def id = new UserId("hogefuga@example.com")
         def name = new Name()
+        def age = new Age()
+        def phoneNumber = new PhoneNumber()
         user.id = id
         name.value = "Hoge Fuga"
         user.name = name
+        age.value = 89
+        user.age = age
+        phoneNumber.value = "0120-888-888"
+        user.phoneNumber = phoneNumber
         when:
         service.register(user)
         then:
         def actual = service.findById(id).get()
         actual.id.value == "hogefuga@example.com"
         actual.name.value == "Hoge Fuga"
+        actual.age.value == 89
+        actual.phoneNumber.value == "0120-888-888"
 
     }
 }
