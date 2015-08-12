@@ -35,12 +35,20 @@ public class RegistrationController {
     @RequestMapping(value = "/confirm", params = "action=withoutPhone", method = RequestMethod.POST)
     String confirm(@Validated @ModelAttribute User user, BindingResult result) {
         if (result.hasErrors()) return "user/registration";
+        if (userService.findById(user.getId()).isPresent()) {
+            result.reject("", new Object[]{user.getId().getValue()}, "ユーザー {0} は登録済みです");
+            return "user/registration";
+        }
         return "user/confirm";
     }
 
     @RequestMapping(value = "/confirm", params = "action=withPhone", method = RequestMethod.POST)
     String confirmWithPhoneNumber(@Validated(OnRegisterWithPhoneNumber.class) @ModelAttribute User user, BindingResult result) {
         if (result.hasErrors()) return "user/registration";
+        if (userService.findById(user.getId()).isPresent()) {
+            result.reject("", new Object[]{user.getId().getValue()}, "ユーザー {0} は登録済みです");
+            return "user/registration";
+        }
         return "user/confirm";
     }
 
