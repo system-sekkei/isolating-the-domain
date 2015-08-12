@@ -1,7 +1,9 @@
 package example.service.user
 
 import example.TestConfiguration
+import example.model.user.Name
 import example.model.user.Password
+import example.model.user.User
 import example.model.user.UserId
 import example.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -52,5 +54,22 @@ class UserServiceSpec extends Specification {
         def users = service.list();
         then:
         users.list().size() == 2;
+    }
+
+    def "ユーザーを登録できること"() {
+        given:
+        def user = new User()
+        def id = new UserId("hogefuga@example.com")
+        def name = new Name()
+        user.id = id
+        name.value = "Hoge Fuga"
+        user.name = name
+        when:
+        service.register(user)
+        then:
+        def actual = service.findById(id).get()
+        actual.id.value == "hogefuga@example.com"
+        actual.name.value == "Hoge Fuga"
+
     }
 }
