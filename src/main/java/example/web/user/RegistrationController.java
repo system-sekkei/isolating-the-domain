@@ -52,7 +52,7 @@ public class RegistrationController {
         return "user/confirm";
     }
 
-    @RequestMapping(value = "/register", params = "action=register", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     String register(@Validated @ModelAttribute User user, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) return "user/registration";
         if (userService.findById(user.getId()).isPresent()) {
@@ -62,11 +62,6 @@ public class RegistrationController {
         userService.register(user);
         attributes.addFlashAttribute("userId", user.getId().getValue());
         return "redirect:/user/registration/complete";
-    }
-
-    @RequestMapping(value = "/register", params = "action=back", method = RequestMethod.POST)
-    String back(@ModelAttribute User user) {
-        return "user/registration";
     }
 
     @RequestMapping(value = "/complete", method = RequestMethod.GET)

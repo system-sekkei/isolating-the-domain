@@ -5,7 +5,7 @@
 <body>
 <div class="container">
     <h1>ユーザー確認画面</h1>
-    <form name="body" method="post" th:object="${user}" action="#" th:action="@{/user/registration/register}">
+    <div th:object="${user}">
         <div>
             <label class="control-label">ユーザーID</label>
             <div class="control-label" th:text="*{id.value}">hoge@example.com</div>
@@ -14,9 +14,17 @@
             <label class="control-label">名前</label>
             <div class="control-label" th:text="*{name.value}">hoge fuga</div>
         </div>
-    <button class="btn btn-primary" name="action" value="register">登録する</button>
-    <button class="btn btn-default" name="action" value="back">戻る</button>
-    </form>
+        <div>
+            <label class="control-label">年齢</label>
+            <div class="control-label" th:text="*{age.value}">88</div>
+        </div>
+        <div>
+            <label class="control-label">電話番号</label>
+            <div class="control-label" th:text="*{phoneNumber.value}">0120-888-888</div>
+        </div>
+    <a th:href="@{/user/registration/register}" class="btn btn-primary">登録する</a>
+    <a th:href="@{/user/registration}" class="btn btn-default">戻る</a>
+    </div>
 </div>
 
 <footer th:include="fragments/layout :: footer"/>
