@@ -25,4 +25,8 @@ public class UserService {
     public Users list() {
         return userRepository.list();
     }
+
+    public void register(User user) {
+        userRepository.register(user);
+    }
 }

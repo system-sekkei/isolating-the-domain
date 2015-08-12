@@ -2,20 +2,18 @@ package example.model.user;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.hibernate.validator.constraints.NotEmpty;
 
-/**
- * Created by haljik on 15/06/04.
- */
-public class Name {
-    @NotEmpty(message = "名前を入力してください。")
-    String value;
+import javax.validation.constraints.Min;
 
-    public String getValue() {
-        return this.value;
+public class Age {
+    @Min(value = 20, message = "20歳以上の方が登録できます。")
+    Integer value;
+
+    public Integer getValue() {
+        return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Integer value) {
         this.value = value;
     }
 

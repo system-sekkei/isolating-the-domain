@@ -16,4 +16,7 @@
         FROM users.users
         ORDER BY user_id;
     </select>
+    <insert id="register">
+        INSERT INTO users.users (user_id, name, password) VALUES (#{user.id.value}, #{user.name.value}, 'hogehoge');
+    </insert>
 </mapper>

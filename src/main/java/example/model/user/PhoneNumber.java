@@ -1,29 +1,19 @@
 package example.model.user;
 
+import example.model.user.validation.OnRegisterWithPhoneNumber;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Pattern;
 
-/**
- * Created by haljik on 15/06/04.
- */
-public class UserId {
-    @NotBlank(message = "ユーザーIDを入力してください。")
-    @Pattern(regexp = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$", message = "ユーザーIDはメールアドレスを入力してください。")
+public class PhoneNumber {
+    @NotBlank(message = "電話番号を入力してください", groups = OnRegisterWithPhoneNumber.class)
+    @Pattern(regexp = "[0-9()-]*", message = "数字、ハイフン、括弧で入力してください")
     String value;
 
-    public UserId(String value) {
-        this.value = value;
-    }
-
-    //For MyBatis
-    public UserId() {
-    }
-
     public String getValue() {
-        return this.value;
+        return value;
     }
 
     public void setValue(String value) {

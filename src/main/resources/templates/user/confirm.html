@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/layout :: htmlhead"
+      th:with="title='ユーザー登録 確認画面'"/>
+<body>
+<div class="container">
+    <h1>ユーザー確認画面</h1>
+    <form name="body" method="post" th:object="${user}" action="#" th:action="@{/user/registration/register}">
+        <div>
+            <label class="control-label">ユーザーID</label>
+            <div class="control-label" th:text="*{id.value}">hoge@example.com</div>
+        </div>
+        <div>
+            <label class="control-label">名前</label>
+            <div class="control-label" th:text="*{name.value}">hoge fuga</div>
+        </div>
+    <button class="btn btn-primary" name="action" value="register">登録する</button>
+    <button class="btn btn-default" name="action" value="back">戻る</button>
+    </form>
+</div>
+
+<footer th:include="fragments/layout :: footer"/>
+</body>
+</html>
