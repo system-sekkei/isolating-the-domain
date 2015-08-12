@@ -27,4 +27,8 @@
         INSERT INTO users.users (user_id, name, password, age, phone_number)
         VALUES (#{user.id.value}, #{user.name.value}, 'hogehoge', #{user.age.value}, #{user.phoneNumber.value});
     </insert>
+    <update id="update">
+        UPDATE users.users SET name = #{user.name.value}, age = #{user.age.value}, phone_number = #{user.phoneNumber.value}
+        WHERE user_id = #{user.id.value};
+    </update>
 </mapper>

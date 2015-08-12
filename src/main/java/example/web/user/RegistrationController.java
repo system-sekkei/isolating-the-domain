@@ -1,6 +1,7 @@
 package example.web.user;
 
 import example.model.user.User;
+import example.model.user.validation.OnRegister;
 import example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("user/registration")
 @SessionAttributes("user")
-public class RegistrationController {
+class RegistrationController {
 
     @Autowired
     UserService userService;
@@ -28,25 +29,25 @@ public class RegistrationController {
 
     @RequestMapping(method = RequestMethod.GET)
     String start() {
-        return "user/registration";
+        return "user/registration/register";
     }
 
     @RequestMapping(value = "/confirm", method = RequestMethod.POST)
-    String confirm(@Validated @ModelAttribute User user, BindingResult result) {
-        if (result.hasErrors()) return "user/registration";
+    String confirm(@Validated(OnRegister.class) @ModelAttribute User user, BindingResult result) {
+        if (result.hasErrors()) return "user/registration/register";
         if (userService.findById(user.getId()).isPresent()) {
             result.reject("", new Object[]{user.getId().getValue()}, "ユーザー {0} は登録済みです");
-            return "user/registration";
+            return "user/registration/register";
         }
-        return "user/confirm";
+        return "user/registration/confirm";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
-    String register(@Validated @ModelAttribute User user, BindingResult result, RedirectAttributes attributes) {
-        if (result.hasErrors()) return "user/registration";
+    String register(@Validated(OnRegister.class) @ModelAttribute User user, BindingResult result, RedirectAttributes attributes) {
+        if (result.hasErrors()) return "user/registration/register";
         if (userService.findById(user.getId()).isPresent()) {
             result.reject("", new Object[]{user.getId().getValue()}, "ユーザー {0} は登録済みです");
-            return "user/registration";
+            return "user/registration/register";
         }
         userService.register(user);
         attributes.addFlashAttribute("userId", user.getId().getValue());
@@ -56,6 +57,6 @@ public class RegistrationController {
     @RequestMapping(value = "/complete", method = RequestMethod.GET)
     String complete(SessionStatus status) {
         status.setComplete();
-        return "user/complete";
+        return "user/registration/complete";
     }
 }

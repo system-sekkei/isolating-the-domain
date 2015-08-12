@@ -26,4 +26,8 @@ public class UserService {
     public void register(User user) {
         userRepository.register(user);
     }
+
+    public void update(User user) {
+        userRepository.update(user);
+    }
 }

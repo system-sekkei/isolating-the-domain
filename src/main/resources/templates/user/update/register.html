@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/layout :: htmlhead"
+      th:with="title='ユーザー更新'"/>
+<body>
+<div class="container">
+    <h1>ユーザー更新画面</h1>
+    <form name="body" method="post" th:object="${user}" action="#" th:action="@{/user/update/confirm}">
+    <ul class="bg-danger">
+        <li th:each="e : ${#fields.globalErrors()}" th:class="text-danger" th:text="${e}" />
+    </ul>
+    <fieldset>
+        <div class="form-group" >
+            <legend>登録情報</legend>
+            <div>
+                <label class="control-label" for="userId">ユーザーID</label>
+                <div class="control-label" th:text="*{id.value}" id="userId">hoge@example.com</div>
+            </div>
+            <div th:classappend="${#fields.hasErrors('name.value')}? 'has-error'">
+                <label class="control-label" for="name">名前</label>
+                <input class="form-control" th:field="*{name.value}" type="text" id="name"/>
+                <div class="control-label" for="name" th:if="${#fields.hasErrors('name.value')}">
+                    <label th:errors="*{name.value}">名前　入力エラー</label>
+                </div>
+            </div>
+            <div th:classappend="${#fields.hasErrors('age.value')}? 'has-error'">
+                <label class="control-label" for="age">年齢</label>
+                <input class="form-control" th:field="*{age.value}" type="text" id="age" />
+                <div class="control-label" for="age" th:if="${#fields.hasErrors('age.value')}">
+                    <label th:errors="*{age.value}">年齢　入力エラー</label>
+                </div>
+            </div>
+            <div th:classappend="${#fields.hasErrors('phoneNumber.value')}? 'has-error'">
+                <label class="control-label" for="phoneNumber">電話番号</label>
+                <input class="form-control" th:field="*{phoneNumber.value}" type="text" id="phoneNumber"/>
+                <div class="control-label" for="phoneNumber" th:if="${#fields.hasErrors('phoneNumber.value')}">
+                    <label th:errors="*{phoneNumber.value}">年齢　入力エラー</label>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    <button class="btn btn-primary">確認する</button>
+    </form>
+</div>
+
+<footer th:include="fragments/layout :: footer"/>
+</body>
+</html>

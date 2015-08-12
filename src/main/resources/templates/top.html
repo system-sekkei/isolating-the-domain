@@ -11,12 +11,14 @@
         <tr>
             <th>利用者ID</th>
             <th>利用者名</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user : ${users.list()}">
             <td th:text="${user.id.value}"/>
             <td th:text="${user.name.value}"/>
+            <td><a class="btn btn-primary btn-sm" th:href="@{/user/update(userId=${user.id.value})}">更新</a></td>
         </tr>
         </tbody>
     </table>

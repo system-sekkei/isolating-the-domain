@@ -11,4 +11,6 @@ public interface UserRepository {
     UserSummaries list();
 
     void register(User user);
+
+    void update(User user);
 }

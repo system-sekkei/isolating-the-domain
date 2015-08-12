@@ -1,5 +1,6 @@
 package example.model.user;
 
+import example.model.user.validation.OnRegister;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 import org.hibernate.validator.constraints.Email;
@@ -11,8 +12,8 @@ import javax.validation.constraints.Pattern;
  * Created by haljik on 15/06/04.
  */
 public class UserId {
-    @NotBlank(message = "ユーザーIDを入力してください。")
-    @Email(message = "ユーザーIDはメールアドレスを入力してください。")
+    @NotBlank(message = "ユーザーIDを入力してください。", groups = OnRegister.class)
+    @Email(message = "ユーザーIDはメールアドレスを入力してください。", groups = OnRegister.class)
     String value;
 
     public UserId(String value) {
