@@ -2,6 +2,7 @@ package example.model.user;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Pattern;
@@ -11,7 +12,7 @@ import javax.validation.constraints.Pattern;
  */
 public class UserId {
     @NotBlank(message = "ユーザーIDを入力してください。")
-    @Pattern(regexp = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$", message = "ユーザーIDはメールアドレスを入力してください。")
+    @Email(message = "ユーザーIDはメールアドレスを入力してください。")
     String value;
 
     public UserId(String value) {
