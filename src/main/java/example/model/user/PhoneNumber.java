@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 
 public class PhoneNumber {
     @NotBlank(message = "電話番号を入力してください", groups = OnRegisterWithPhoneNumber.class)
-    @Pattern(regexp = "[0-9()-]*", message = "数字、ハイフン、括弧で入力してください")
+    @Pattern(regexp = "([0-9]{2,4}-[0-9]{2,4}-[0-9]{2,4})?", message = "xx-xxxx-xxxxの形式で入力してください")
     String value;
 
     public String getValue() {
