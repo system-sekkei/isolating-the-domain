@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div th:classappend="${#fields.hasErrors('phoneNumber.value')}? 'has-error'">
-                <label class="control-label" for="age">電話番号</label>
+                <label class="control-label" for="phoneNumber">電話番号</label>
                 <input class="form-control" th:field="*{phoneNumber.value}" type="text" id="phoneNumber" size="30" />
                 <div class="control-label" for="phoneNumber" th:if="${#fields.hasErrors('phoneNumber.value')}">
                     <label th:errors="*{phoneNumber.value}">年齢　入力エラー</label>
