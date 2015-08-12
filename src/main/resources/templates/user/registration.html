@@ -14,7 +14,7 @@
             <legend>登録情報</legend>
             <div th:classappend="${#fields.hasErrors('id.value')}? 'has-error'">
                 <label class="control-label" for="userId">ユーザーID</label>
-                <input class="form-control" th:field="*{id.value}" type="text" id="userId" size="30" />
+                <input class="form-control" th:field="*{id.value}" type="email" id="userId" size="30" />
                 <div class="control-label" for="userId" th:if="${#fields.hasErrors('id.value')}">
                     <label th:errors="*{id.value}">ユーザーID 入力エラー</label>
                 </div>
