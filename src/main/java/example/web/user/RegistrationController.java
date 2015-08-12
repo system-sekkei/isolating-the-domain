@@ -1,7 +1,6 @@
 package example.web.user;
 
 import example.model.user.User;
-import example.model.user.validation.OnRegisterWithPhoneNumber;
 import example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +31,7 @@ public class RegistrationController {
         return "user/registration";
     }
 
-    @RequestMapping(value = "/confirm", params = "action=withoutPhone", method = RequestMethod.POST)
+    @RequestMapping(value = "/confirm", method = RequestMethod.POST)
     String confirm(@Validated @ModelAttribute User user, BindingResult result) {
         if (result.hasErrors()) return "user/registration";
         if (userService.findById(user.getId()).isPresent()) {
@@ -42,17 +41,7 @@ public class RegistrationController {
         return "user/confirm";
     }
 
-    @RequestMapping(value = "/confirm", params = "action=withPhone", method = RequestMethod.POST)
-    String confirmWithPhoneNumber(@Validated(OnRegisterWithPhoneNumber.class) @ModelAttribute User user, BindingResult result) {
-        if (result.hasErrors()) return "user/registration";
-        if (userService.findById(user.getId()).isPresent()) {
-            result.reject("", new Object[]{user.getId().getValue()}, "ユーザー {0} は登録済みです");
-            return "user/registration";
-        }
-        return "user/confirm";
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     String register(@Validated @ModelAttribute User user, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) return "user/registration";
         if (userService.findById(user.getId()).isPresent()) {
