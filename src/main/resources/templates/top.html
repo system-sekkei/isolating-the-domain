@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/layout :: htmlhead"
       th:with="title='トップ'"/>
@@ -10,12 +10,14 @@
         <tr>
             <th>利用者ID</th>
             <th>利用者名</th>
+            <th>削除</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user : ${users.list()}">
             <td th:text="${user.id.value}"/>
             <td th:text="${user.name.value}"/>
+           <td><a class="btn btn-primary" th:href="@{/user/deletion/confirm(userId=${user.id.value})}">削除</a></td>
         </tr>
         </tbody>
     </table>

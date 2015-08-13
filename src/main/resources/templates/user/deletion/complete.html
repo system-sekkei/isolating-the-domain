@@ -1,0 +1,15 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/layout :: htmlhead"
+      th:with="title='利用者削除完了'"/>
+<body>
+<div class="container">
+    <h1>利用者削除完了画面</h1>
+
+    <p th:text="${userId} + さんを削除しました">登録完了しました。</p><br/>
+    <a th:href="@{/}">利用者一覧へ</a>
+</div>
+
+<footer th:include="fragments/layout :: footer"/>
+</body>
+</html>
