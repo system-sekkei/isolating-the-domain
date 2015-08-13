@@ -16,5 +16,5 @@ public interface UserMapper {
 
     List<User> list();
 
-    int delete(@Param("id") UserId id);
+    int delete(@Param("user") User user);
 }

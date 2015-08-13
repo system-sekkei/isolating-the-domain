@@ -2,6 +2,7 @@ package example.service.user
 
 import example.TestConfiguration
 import example.model.user.Password
+import example.model.user.User
 import example.model.user.UserId
 import example.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
@@ -54,11 +55,12 @@ class UserServiceSpec extends Specification {
         users.list().size() == 2;
     }
 
-    def "ユーザがIDで削除できること" () {
+    def "ユーザが削除できること" () {
         given:
-        def id = new UserId('seiji.kawakami@sora-works.com')
+        def user = new User()
+        user.id = new UserId("seiji.kawakami@sora-works.com")
         when:
-        def count = service.delete(id)
+        def count = service.delete(user)
         then:
         count.equals(1)
     }

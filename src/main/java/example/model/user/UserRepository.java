@@ -10,5 +10,5 @@ public interface UserRepository {
 
     Users list();
 
-    int delete(UserId id);
+    int delete(User user);
 }

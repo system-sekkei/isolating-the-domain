@@ -26,7 +26,7 @@ public class UserService {
         return userRepository.list();
     }
 
-    public int delete(UserId id) {
-        return userRepository.delete(id);
+    public int delete(User user) {
+        return userRepository.delete(user);
     }
 }

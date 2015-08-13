@@ -18,6 +18,6 @@
     </select>
     <delete id="delete">
         DELETE FROM users.users
-        WHERE user_id = #{id.value}
+        WHERE user_id = #{user.id.value}
     </delete>
 </mapper>
