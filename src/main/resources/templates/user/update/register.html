@@ -23,18 +23,28 @@
                     <label th:errors="*{name.value}">名前　入力エラー</label>
                 </div>
             </div>
-            <div th:classappend="${#fields.hasErrors('age.value')}? 'has-error'">
-                <label class="control-label" for="age">年齢</label>
-                <input class="form-control" th:field="*{age.value}" type="text" id="age" />
-                <div class="control-label" for="age" th:if="${#fields.hasErrors('age.value')}">
-                    <label th:errors="*{age.value}">年齢　入力エラー</label>
+            <div th:classappend="${#fields.hasErrors('birthDate.*')}? 'has-error'">
+                <label class="control-label" >生年月日</label>
+                <div class="form-inline">
+                    <div class="form-group">
+                        <label class="control-label">西暦</label>
+                        <input class="form-control" type="text" th:field="*{birthDate.year}" placeholder="2015"/>
+                        <label class="control-label">年</label>
+                        <input class="form-control" type="text" th:field="*{birthDate.month}" placeholder="12"/>
+                        <label class="control-label">月</label>
+                        <input class="form-control" type="text" th:field="*{birthDate.day}" placeholder="31"/>
+                        <label class="control-label">日</label>
+                    </div>
+                </div>
+                <div class="control-label" th:if="${#fields.hasErrors('birthDate.*')}">
+                    <label th:each="err : ${#fields.errors('birthDate.*')}" th:text="${err}"></label>
                 </div>
             </div>
             <div th:classappend="${#fields.hasErrors('phoneNumber.value')}? 'has-error'">
                 <label class="control-label" for="phoneNumber">電話番号</label>
                 <input class="form-control" th:field="*{phoneNumber.value}" type="text" id="phoneNumber"/>
                 <div class="control-label" for="phoneNumber" th:if="${#fields.hasErrors('phoneNumber.value')}">
-                    <label th:errors="*{phoneNumber.value}">年齢　入力エラー</label>
+                    <label th:errors="*{phoneNumber.value}">電話番号　入力エラー</label>
                 </div>
             </div>
         </div>

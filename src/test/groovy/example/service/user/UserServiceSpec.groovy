@@ -1,7 +1,7 @@
 package example.service.user
 
 import example.TestConfiguration
-import example.model.user.Age
+import example.model.user.BirthDate
 import example.model.user.Name
 import example.model.user.Password
 import example.model.user.PhoneNumber
@@ -14,6 +14,8 @@ import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
+
+import java.time.LocalDate
 
 /**
  * Created by haljik on 15/06/04.
@@ -63,13 +65,15 @@ class UserServiceSpec extends Specification {
         def user = new User()
         def id = new UserId("hogefuga@example.com")
         def name = new Name()
-        def age = new Age()
+        def birthDate = new BirthDate()
         def phoneNumber = new PhoneNumber()
         user.id = id
         name.value = "Hoge Fuga"
         user.name = name
-        age.value = 89
-        user.age = age
+        birthDate.year = 1989
+        birthDate.month = 11
+        birthDate.day = 21
+        user.birthDate = birthDate
         phoneNumber.value = "0120-888-888"
         user.phoneNumber = phoneNumber
         when:
@@ -78,7 +82,7 @@ class UserServiceSpec extends Specification {
         def actual = service.findById(id).get()
         actual.id.value == "hogefuga@example.com"
         actual.name.value == "Hoge Fuga"
-        actual.age.value == 89
+        actual.birthDate.value.isEqual(LocalDate.of(1989, 11, 21)) == true
         actual.phoneNumber.value == "0120-888-888"
 
     }

@@ -12,7 +12,7 @@ public class User {
     @Valid
     Name name;
     @Valid
-    Age age;
+    BirthDate birthDate;
     @Valid
     PhoneNumber phoneNumber;
     Password password;
@@ -25,8 +25,8 @@ public class User {
         return this.name;
     }
 
-    public Age getAge() {
-        return age;
+    public BirthDate getBirthDate() {
+        return birthDate;
     }
 
     public PhoneNumber getPhoneNumber() {
@@ -41,8 +41,8 @@ public class User {
         this.name = name;
     }
 
-    public void setAge(Age age) {
-        this.age = age;
+    public void setBirthDate(BirthDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public void setPhoneNumber(PhoneNumber phoneNumber) {

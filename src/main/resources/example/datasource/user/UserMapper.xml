@@ -5,7 +5,7 @@
         <id property="id.value" column="user_id"/>
         <result property="name.value" column="name"/>
         <result property="password.value" column="password"/>
-        <result property="age.value" column="age"/>
+        <result property="birthDate.value" column="birth_date"/>
         <result property="phoneNumber.value" column="phone_number"/>
     </resultMap>
     <resultMap id="userSummary" type="example.model.user.UserSummary">
@@ -14,7 +14,7 @@
         <result property="password.value" column="password"/>
     </resultMap>
     <select id="findBy" resultMap="user">
-        SELECT user_id, name, password, age, phone_number
+        SELECT user_id, name, password, birth_date, phone_number
         FROM users.users
         WHERE user_id = #{id.value}
     </select>
@@ -24,11 +24,11 @@
         ORDER BY user_id;
     </select>
     <insert id="register">
-        INSERT INTO users.users (user_id, name, password, age, phone_number)
-        VALUES (#{user.id.value}, #{user.name.value}, 'hogehoge', #{user.age.value}, #{user.phoneNumber.value});
+        INSERT INTO users.users (user_id, name, password, birth_date, phone_number)
+        VALUES (#{user.id.value}, #{user.name.value}, 'hogehoge', #{user.birthDate.value}, #{user.phoneNumber.value});
     </insert>
     <update id="update">
-        UPDATE users.users SET name = #{user.name.value}, age = #{user.age.value}, phone_number = #{user.phoneNumber.value}
+        UPDATE users.users SET name = #{user.name.value}, birth_date = #{user.birthDate.value}, phone_number = #{user.phoneNumber.value}
         WHERE user_id = #{user.id.value};
     </update>
 </mapper>
