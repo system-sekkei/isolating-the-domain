@@ -4,23 +4,25 @@
       th:with="title='トップ'"/>
 <body>
 <div class="panel col-md-4 col-md-offset-4">
+    <a th:href="@{/user/registration}">利用者登録へ</a>
     <table class="table table-striped">
         <caption>利用者一覧</caption>
         <thead>
         <tr>
             <th>利用者ID</th>
             <th>利用者名</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="user : ${users.list()}">
             <td th:text="${user.id.value}"/>
             <td th:text="${user.name.value}"/>
+            <td><a class="btn btn-primary btn-sm" th:href="@{/user/update(userId=${user.id.value})}">更新</a></td>
         </tr>
         </tbody>
     </table>
 </div>
-
 <footer th:include="fragments/layout :: footer"/>
 </body>
 </html>

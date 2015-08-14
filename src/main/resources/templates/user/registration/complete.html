@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/layout :: htmlhead"
+      th:with="title='ユーザー登録完了'"/>
+<body>
+<div class="container">
+    <h1>ユーザー登録完了画面</h1>
+    <p th:text="${userId} + さんを登録しました">登録完了しました。</p><br/>
+    <a th:href="@{/}">利用者一覧へ</a>
+</div>
+
+<footer th:include="fragments/layout :: footer"/>
+</body>
+</html>

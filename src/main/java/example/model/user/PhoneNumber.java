@@ -1,31 +1,20 @@
 package example.model.user;
 
 import example.model.user.validation.OnRegister;
+import example.model.user.validation.OnUpdate;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.Pattern;
 
-/**
- * Created by haljik on 15/06/04.
- */
-public class UserId {
-    @NotBlank(message = "ユーザーIDを入力してください。", groups = OnRegister.class)
-    @Email(message = "ユーザーIDはメールアドレスを入力してください。", groups = OnRegister.class)
+public class PhoneNumber {
+    @NotBlank(message = "電話番号を入力してください", groups = OnUpdate.class)
+    @Pattern(regexp = "([0-9]{2,4}-[0-9]{2,4}-[0-9]{2,4})?", message = "xx-xxxx-xxxxの形式で入力してください", groups = {OnRegister.class, OnUpdate.class})
     String value;
 
-    public UserId(String value) {
-        this.value = value;
-    }
-
-    //For MyBatis
-    public UserId() {
-    }
-
     public String getValue() {
-        return this.value;
+        return value;
     }
 
     public void setValue(String value) {

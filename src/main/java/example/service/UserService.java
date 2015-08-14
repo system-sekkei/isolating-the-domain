@@ -1,9 +1,6 @@
 package example.service;
 
-import example.model.user.User;
-import example.model.user.UserId;
-import example.model.user.UserRepository;
-import example.model.user.Users;
+import example.model.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +19,15 @@ public class UserService {
         return userRepository.findBy(id);
     }
 
-    public Users list() {
+    public UserSummaries list() {
         return userRepository.list();
+    }
+
+    public void register(User user) {
+        userRepository.register(user);
+    }
+
+    public void update(User user) {
+        userRepository.update(user);
     }
 }

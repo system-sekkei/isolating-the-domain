@@ -8,5 +8,9 @@ import java.util.Optional;
 public interface UserRepository {
     Optional<User> findBy(UserId id);
 
-    Users list();
+    UserSummaries list();
+
+    void register(User user);
+
+    void update(User user);
 }

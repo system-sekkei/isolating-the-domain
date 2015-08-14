@@ -1,9 +1,6 @@
 package example.datasource.user;
 
-import example.model.user.User;
-import example.model.user.UserId;
-import example.model.user.UserRepository;
-import example.model.user.Users;
+import example.model.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +20,17 @@ public class UserDatasource implements UserRepository {
     }
 
     @Override
-    public Users list() {
-        return new Users(mapper.list());
+    public UserSummaries list() {
+        return new UserSummaries(mapper.list());
+    }
+
+    @Override
+    public void register(User user) {
+        mapper.register(user);
+    }
+
+    @Override
+    public void update(User user) {
+        mapper.update(user);
     }
 }

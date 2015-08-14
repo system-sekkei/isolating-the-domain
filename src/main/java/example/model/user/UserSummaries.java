@@ -9,14 +9,14 @@ import java.util.List;
 /**
  * Created by haljik on 15/06/04.
  */
-public class Users {
-    final List<User> values;
+public class UserSummaries {
+    final List<UserSummary> values;
 
-    public Users(List<User> values) {
+    public UserSummaries(List<UserSummary> values) {
         this.values = values;
     }
 
-    public List<User> list() {
+    public List<UserSummary> list() {
         return Collections.unmodifiableList(values);
     }
 
