@@ -17,7 +17,7 @@
         <tr th:each="user : ${users.list()}">
             <td th:text="${user.id.value}"/>
             <td th:text="${user.name.value}"/>
-           <td><a class="btn btn-primary" th:href="@{/user/deletion/confirm(userId=${user.id.value})}">削除</a></td>
+           <td><a class="btn btn-primary btn-sm" th:href="@{/user/deletion/confirm(userId=${user.id.value})}">削除</a></td>
         </tr>
         </tbody>
     </table>
