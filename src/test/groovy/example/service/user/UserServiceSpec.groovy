@@ -60,8 +60,9 @@ class UserServiceSpec extends Specification {
         def user = new User()
         user.id = new UserId("seiji.kawakami@sora-works.com")
         when:
-        def count = service.delete(user)
+        service.delete(user)
+        def deleteUser = service.findById(user.id)
         then:
-        count.equals(1)
+        !deleteUser.isPresent()
     }
 }
