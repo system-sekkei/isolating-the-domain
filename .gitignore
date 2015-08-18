@@ -1,6 +1,9 @@
-dea
+# For idea
+**/out
 .idea
 *.iml
+*.ipr
+*.iws
 
 # For Gradle
 **/build
