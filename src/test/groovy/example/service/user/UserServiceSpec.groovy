@@ -1,7 +1,10 @@
 package example.service.user
 
 import example.TestConfiguration
+import example.model.user.BirthDate
+import example.model.user.Name
 import example.model.user.Password
+import example.model.user.PhoneNumber
 import example.model.user.User
 import example.model.user.UserId
 import example.service.UserService
@@ -11,6 +14,8 @@ import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
+
+import java.time.LocalDate
 
 /**
  * Created by haljik on 15/06/04.
@@ -53,6 +58,33 @@ class UserServiceSpec extends Specification {
         def users = service.list();
         then:
         users.list().size() == 2;
+    }
+
+    def "ユーザーを登録できること"() {
+        given:
+        def user = new User()
+        def id = new UserId("hogefuga@example.com")
+        def name = new Name()
+        def birthDate = new BirthDate()
+        def phoneNumber = new PhoneNumber()
+        user.id = id
+        name.value = "Hoge Fuga"
+        user.name = name
+        birthDate.year = 1989
+        birthDate.month = 11
+        birthDate.day = 21
+        user.birthDate = birthDate
+        phoneNumber.value = "0120-888-888"
+        user.phoneNumber = phoneNumber
+        when:
+        service.register(user)
+        then:
+        def actual = service.findById(id).get()
+        actual.id.value == "hogefuga@example.com"
+        actual.name.value == "Hoge Fuga"
+        actual.birthDate.value.isEqual(LocalDate.of(1989, 11, 21)) == true
+        actual.phoneNumber.value == "0120-888-888"
+
     }
 
     def "ユーザが削除できること" () {

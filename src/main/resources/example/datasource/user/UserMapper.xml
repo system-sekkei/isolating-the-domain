@@ -5,17 +5,32 @@
         <id property="id.value" column="user_id"/>
         <result property="name.value" column="name"/>
         <result property="password.value" column="password"/>
+        <result property="birthDate.value" column="birth_date"/>
+        <result property="phoneNumber.value" column="phone_number"/>
+    </resultMap>
+    <resultMap id="userSummary" type="example.model.user.UserSummary">
+        <id property="id.value" column="user_id"/>
+        <result property="name.value" column="name"/>
+        <result property="password.value" column="password"/>
     </resultMap>
     <select id="findBy" resultMap="user">
-        SELECT user_id, name, password
+        SELECT user_id, name, password, birth_date, phone_number
         FROM users.users
         WHERE user_id = #{id.value}
     </select>
-    <select id="list" resultMap="user">
+    <select id="list" resultMap="userSummary">
         SELECT user_id, name, password
         FROM users.users
         ORDER BY user_id;
     </select>
+    <insert id="register">
+        INSERT INTO users.users (user_id, name, password, birth_date, phone_number)
+        VALUES (#{user.id.value}, #{user.name.value}, 'hogehoge', #{user.birthDate.value}, #{user.phoneNumber.value});
+    </insert>
+    <update id="update">
+        UPDATE users.users SET name = #{user.name.value}, birth_date = #{user.birthDate.value}, phone_number = #{user.phoneNumber.value}
+        WHERE user_id = #{user.id.value};
+    </update>
     <delete id="delete">
         DELETE FROM users.users
         WHERE user_id = #{user.id.value}

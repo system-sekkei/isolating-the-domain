@@ -1,6 +1,6 @@
 package example.web;
 
-import example.model.user.Users;
+import example.model.user.UserSummaries;
 import example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,7 @@ class TopController {
 
 
     @ModelAttribute("users")
-    Users users() {
+    UserSummaries users() {
         return userService.list();
     }
 
