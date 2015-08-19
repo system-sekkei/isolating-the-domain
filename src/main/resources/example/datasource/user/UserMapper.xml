@@ -31,4 +31,8 @@
         UPDATE users.users SET name = #{user.name.value}, birth_date = #{user.birthDate.value}, phone_number = #{user.phoneNumber.value}
         WHERE user_id = #{user.id.value};
     </update>
+    <delete id="delete">
+        DELETE FROM users.users
+        WHERE user_id = #{user.id.value}
+    </delete>
 </mapper>

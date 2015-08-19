@@ -86,4 +86,15 @@ class UserServiceSpec extends Specification {
         actual.phoneNumber.value == "0120-888-888"
 
     }
+
+    def "ユーザが削除できること" () {
+        given:
+        def user = new User()
+        user.id = new UserId("seiji.kawakami@sora-works.com")
+        when:
+        service.delete(user)
+        def deleteUser = service.findById(user.id)
+        then:
+        !deleteUser.isPresent()
+    }
 }

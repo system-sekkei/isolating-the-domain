@@ -1,0 +1,25 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/layout :: htmlhead"
+      th:with="title='利用者削除 確認画面'"/>
+<body>
+<div class="container">
+    <h1>利用者削除確認画面</h1>
+    <ul class="bg-danger">
+        <li th:each="e : ${#fields.globalErrors()}" th:class="text-danger" th:text="${e}"/>
+    </ul>
+    <div th:if="${user.id.value != null}"
+         th:object="${user}">
+        <label class="control-label">利用者ID</label>
+
+        <div class="control-label" th:text="${user.id.value}"></div>
+        <label class="control-label">名前</label>
+
+        <div class="control-label" th:text="${user.name.value}"></div>
+        <a th:href="@{/user/deletion/execute}" class="btn btn-primary">削除</a>
+    </div>
+</div>
+
+<footer th:include="fragments/layout :: footer"/>
+</body>
+</html>

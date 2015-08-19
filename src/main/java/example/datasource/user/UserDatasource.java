@@ -33,4 +33,9 @@ public class UserDatasource implements UserRepository {
     public void update(User user) {
         mapper.update(user);
     }
+
+    @Override
+    public void delete(User user) {
+        mapper.delete(user);
+    }
 }
