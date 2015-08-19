@@ -43,6 +43,14 @@
                     <label th:each="err : ${#fields.errors('birthDate.*')}" th:text="${err}"></label>
                 </div>
             </div>
+            <div>
+                <label class="control-label" for="gender">性別</label>
+                <div>
+                    <label th:each="gender:${genderTypes}" id="gender">
+                        <input type="radio" th:text="${gender.name()}" th:value="${gender.code}" th:field="*{gender.value}" />
+                    </label>
+                </div>
+            </div>
             <div th:classappend="${#fields.hasErrors('phoneNumber.value')}? 'has-error'">
                 <label class="control-label" for="phoneNumber">電話番号</label>
                 <input class="form-control" th:field="*{phoneNumber.value}" type="text" id="phoneNumber"/>

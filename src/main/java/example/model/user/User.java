@@ -1,5 +1,8 @@
 package example.model.user;
 
+import example.model.user.validation.OnUpdate;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.validation.Valid;
 import java.util.Objects;
 
@@ -15,6 +18,8 @@ public class User {
     BirthDate birthDate;
     @Valid
     PhoneNumber phoneNumber;
+    @Valid
+    Gender gender;
     Password password;
 
     public UserId getId() {
@@ -33,6 +38,7 @@ public class User {
         return phoneNumber;
     }
 
+
     public void setId(UserId id) {
         this.id = id;
     }
@@ -47,6 +53,14 @@ public class User {
 
     public void setPhoneNumber(PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     public boolean hasSamePassword(Password password) {
