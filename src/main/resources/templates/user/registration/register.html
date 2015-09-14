@@ -43,12 +43,15 @@
                     <label th:each="err : ${#fields.errors('birthDate.*')}" th:text="${err}"></label>
                 </div>
             </div>
-            <div>
+            <div th:classappend="${#fields.hasErrors('gender')}? 'has-error'">
                 <label class="control-label" for="gender">性別</label>
                 <div>
-                    <label th:each="gender:${genderTypes}" id="gender">
-                        <input type="radio" th:text="${gender.name()}" th:value="${gender.code}" th:field="*{gender.value}" />
+                    <label class="control-label" th:each="gender:${genderTypes}" id="gender">
+                        <input type="radio" th:text="${gender.name()}" th:value="${gender.name()}" th:field="*{gender}"/>
                     </label>
+                    <div class="control-label" for="gender" th:if="${#fields.hasErrors('gender')}">
+                        <label th:errors="*{gender}">性別　入力エラー</label>
+                    </div>
                 </div>
             </div>
             <div th:classappend="${#fields.hasErrors('phoneNumber.value')}? 'has-error'">

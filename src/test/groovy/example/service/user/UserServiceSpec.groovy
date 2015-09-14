@@ -2,7 +2,7 @@ package example.service.user
 
 import example.TestConfiguration
 import example.model.user.BirthDate
-import example.model.user.Gender
+import example.model.user.GenderType
 import example.model.user.Name
 import example.model.user.Password
 import example.model.user.PhoneNumber
@@ -68,7 +68,6 @@ class UserServiceSpec extends Specification {
         def name = new Name()
         def birthDate = new BirthDate()
         def phoneNumber = new PhoneNumber()
-        def gender = new Gender()
         user.id = id
         name.value = "Hoge Fuga"
         user.name = name
@@ -78,8 +77,7 @@ class UserServiceSpec extends Specification {
         user.birthDate = birthDate
         phoneNumber.value = "0120-888-888"
         user.phoneNumber = phoneNumber
-        gender.value ="1"
-        user.gender = gender
+        user.gender = GenderType.男性
         when:
         service.register(user)
         then:
@@ -88,7 +86,7 @@ class UserServiceSpec extends Specification {
         actual.name.value == "Hoge Fuga"
         actual.birthDate.value.isEqual(LocalDate.of(1989, 11, 21)) == true
         actual.phoneNumber.value == "0120-888-888"
-        actual.gender.value == "1"
+        actual.gender == GenderType.男性
     }
 
     def "ユーザーを更新できること"() {
@@ -98,7 +96,6 @@ class UserServiceSpec extends Specification {
         def name = new Name()
         def birthDate = new BirthDate()
         def phoneNumber = new PhoneNumber()
-        def gender = new Gender()
         user.id = id
         name.value = "Foo Bar"
         user.name = name
@@ -108,8 +105,7 @@ class UserServiceSpec extends Specification {
         user.birthDate = birthDate
         phoneNumber.value = "03-1234-5678"
         user.phoneNumber = phoneNumber
-        gender.value ="2"
-        user.gender = gender
+        user.gender = GenderType.女性
         when:
         service.update(user)
         then:
@@ -118,7 +114,7 @@ class UserServiceSpec extends Specification {
         actual.name.value == "Foo Bar"
         actual.birthDate.value.isEqual(LocalDate.of(2011, 8, 19)) == true
         actual.phoneNumber.value == "03-1234-5678"
-        actual.gender.value == "2"
+        actual.gender == GenderType.女性
     }
 
     def "ユーザが削除できること" () {

@@ -1,9 +1,11 @@
 package example.model.user;
 
+import example.model.user.validation.OnRegister;
 import example.model.user.validation.OnUpdate;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
@@ -18,8 +20,8 @@ public class User {
     BirthDate birthDate;
     @Valid
     PhoneNumber phoneNumber;
-    @Valid
-    Gender gender;
+    @NotNull(message = "性別を選択してください。", groups = {OnRegister.class, OnUpdate.class})
+    GenderType gender;
     Password password;
 
     public UserId getId() {
@@ -55,11 +57,11 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public Gender getGender() {
+    public GenderType getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(GenderType gender) {
         this.gender = gender;
     }
 
