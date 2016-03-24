@@ -3,10 +3,12 @@
 <head th:include="fragments/layout :: htmlhead"
       th:with="title='トップ'"/>
 <body>
-<div class="panel col-md-4 col-md-offset-4">
-    <a th:href="@{/user/registration}">利用者登録へ</a>
+<div class="panel col-md-6 col-md-offset-1">
+    <h1>利用者一覧</h1>
+    <div class="row">
+        <a class="btn pull-right btn-success btn-large" th:href="@{/user/registration}">利用者登録へ</a>
+    </div>
     <table class="table table-striped">
-        <caption>利用者一覧</caption>
         <thead>
         <tr>
             <th>利用者ID</th>
@@ -19,8 +21,8 @@
         <tr th:each="user : ${users.list()}">
             <td th:text="${user.id.value}"/>
             <td th:text="${user.name.value}"/>
-            <td><a class="btn btn-primary btn-sm" th:href="@{/user/update(userId=${user.id.value})}">更新</a></td>
-            <td><a class="btn btn-primary btn-sm" th:href="@{/user/deletion/confirm(userId=${user.id.value})}">削除</a></td>
+            <td><a class="btn btn-warning btn-sm" th:href="@{/user/update(userId=${user.id.value})}">更新</a></td>
+            <td><a class="btn btn-danger btn-sm" th:href="@{/user/deletion/confirm(userId=${user.id.value})}">削除</a></td>
         </tr>
         </tbody>
     </table>
