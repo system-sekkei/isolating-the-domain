@@ -1,5 +1,6 @@
 package example.web.user;
 
+import example.model.user.GenderType;
 import example.model.user.User;
 import example.model.user.UserId;
 import example.model.user.validation.OnUpdate;
@@ -16,6 +17,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("user/update")
 @SessionAttributes("user")
 class UpdateController {
+
+    @ModelAttribute("genderTypes")
+    GenderType[] genderTypes() {
+        return GenderType.values();
+    }
 
     @Autowired
     UserService userService;

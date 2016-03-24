@@ -1,6 +1,11 @@
 package example.model.user;
 
+import example.model.user.validation.OnRegister;
+import example.model.user.validation.OnUpdate;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
@@ -15,6 +20,8 @@ public class User {
     BirthDate birthDate;
     @Valid
     PhoneNumber phoneNumber;
+    @NotNull(message = "性別を選択してください。", groups = {OnRegister.class, OnUpdate.class})
+    GenderType gender;
     Password password;
 
     public UserId getId() {
@@ -33,6 +40,7 @@ public class User {
         return phoneNumber;
     }
 
+
     public void setId(UserId id) {
         this.id = id;
     }
@@ -47,6 +55,14 @@ public class User {
 
     public void setPhoneNumber(PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public GenderType getGender() {
+        return gender;
+    }
+
+    public void setGender(GenderType gender) {
+        this.gender = gender;
     }
 
     public boolean hasSamePassword(Password password) {

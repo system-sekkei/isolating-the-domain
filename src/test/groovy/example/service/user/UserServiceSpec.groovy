@@ -2,6 +2,7 @@ package example.service.user
 
 import example.TestConfiguration
 import example.model.user.BirthDate
+import example.model.user.GenderType
 import example.model.user.Name
 import example.model.user.Password
 import example.model.user.PhoneNumber
@@ -76,6 +77,7 @@ class UserServiceSpec extends Specification {
         user.birthDate = birthDate
         phoneNumber.value = "0120-888-888"
         user.phoneNumber = phoneNumber
+        user.gender = GenderType.男性
         when:
         service.register(user)
         then:
@@ -84,7 +86,35 @@ class UserServiceSpec extends Specification {
         actual.name.value == "Hoge Fuga"
         actual.birthDate.value.isEqual(LocalDate.of(1989, 11, 21)) == true
         actual.phoneNumber.value == "0120-888-888"
+        actual.gender == GenderType.男性
+    }
 
+    def "ユーザーを更新できること"() {
+        given:
+        def user = new User()
+        def id = new UserId("someone@ddd-alliance.org")
+        def name = new Name()
+        def birthDate = new BirthDate()
+        def phoneNumber = new PhoneNumber()
+        user.id = id
+        name.value = "Foo Bar"
+        user.name = name
+        birthDate.year = 2011
+        birthDate.month = 8
+        birthDate.day = 19
+        user.birthDate = birthDate
+        phoneNumber.value = "03-1234-5678"
+        user.phoneNumber = phoneNumber
+        user.gender = GenderType.女性
+        when:
+        service.update(user)
+        then:
+        def actual = service.findById(id).get()
+        actual.id.value == "someone@ddd-alliance.org"
+        actual.name.value == "Foo Bar"
+        actual.birthDate.value.isEqual(LocalDate.of(2011, 8, 19)) == true
+        actual.phoneNumber.value == "03-1234-5678"
+        actual.gender == GenderType.女性
     }
 
     def "ユーザが削除できること" () {
