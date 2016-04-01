@@ -52,6 +52,7 @@ public class BirthDate {
         this.day = date.getDayOfMonth();
     }
 
+    private boolean empty ;
     @AssertFalse(message = "生年月日を入力してください", groups = OnUpdate.class)
     public boolean isEmpty() {
         if (year == null || month == null || day == null) {

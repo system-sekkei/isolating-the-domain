@@ -20,7 +20,7 @@
         <tbody>
         <tr th:each="user : ${users.list()}">
             <td th:text="${user.id.value}"/>
-            <td th:text="${user.name.value}"/>
+            <td th:text="${user.name}"/>
             <td><a class="btn btn-warning btn-sm" th:href="@{/user/update(userId=${user.id.value})}">更新</a></td>
             <td><a class="btn btn-danger btn-sm" th:href="@{/user/deletion/confirm(userId=${user.id.value})}">削除</a></td>
         </tr>

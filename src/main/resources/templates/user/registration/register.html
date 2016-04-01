@@ -19,11 +19,11 @@
                     <label th:errors="*{id.value}">ユーザーID 入力エラー</label>
                 </div>
             </div>
-            <div th:classappend="${#fields.hasErrors('name.value')}? 'has-error'">
+            <div th:classappend="${#fields.hasErrors('name')}? 'has-error'">
                 <label class="control-label" for="name">名前</label>
-                <input class="form-control" th:field="*{name.value}" type="text" id="name"/>
-                <div class="control-label" for="name" th:if="${#fields.hasErrors('name.value')}">
-                    <label th:errors="*{name.value}">名前　入力エラー</label>
+                <input class="form-control" th:field="*{name}" type="text" id="name"/>
+                <div class="control-label" for="name" th:if="${#fields.hasErrors('name')}">
+                    <label th:errors="*{name}">名前　入力エラー</label>
                 </div>
             </div>
             <div th:classappend="${#fields.hasErrors('birthDate.*')}? 'has-error'">
