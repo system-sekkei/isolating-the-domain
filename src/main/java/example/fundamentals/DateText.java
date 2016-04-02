@@ -26,7 +26,7 @@ public class DateText {
             try {
                 return LocalDate.parse(source, each);
             } catch (DateTimeParseException e) {
-                continue;
+                // 失敗したら、次のフォーマットで試す
             }
         }
         throw new IllegalArgumentException();
