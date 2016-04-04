@@ -26,7 +26,7 @@ public class DateText {
             try {
                 return LocalDate.parse(source, each);
             } catch (DateTimeParseException e) {
-                // ¸”s‚µ‚½‚çAŸ‚ÌƒtƒH[ƒ}ƒbƒg‚Å‚·
+                // ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Ìƒtï¿½Hï¿½[ï¿½}ï¿½bï¿½gï¿½Åï¿½ï¿½ï¿½
             }
         }
         throw new IllegalArgumentException();
