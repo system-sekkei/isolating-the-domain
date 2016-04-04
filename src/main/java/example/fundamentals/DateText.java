@@ -15,7 +15,7 @@ public class DateText {
         this.source = source;
     }
 
-    static final DateTimeFormatter[] formatters = {
+    private static final DateTimeFormatter[] formatters = {
         DateTimeFormatter.ofPattern("yyyy/MM/dd"),
         DateTimeFormatter.ofPattern("yyyy-MM-dd"),
         DateTimeFormatter.ofPattern("yyyyMMdd")
