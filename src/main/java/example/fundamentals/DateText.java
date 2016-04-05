@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.HashSet;
 
 /**
@@ -28,10 +29,12 @@ public class DateText {
     }
 
     private static final HashSet<DateTimeFormatter> formatters;
+    private static final ResolverStyle style = ResolverStyle.STRICT;
 
     static {
         formatters = new HashSet<DateTimeFormatter>();
-        for( String each : patterns ) formatters.add(DateTimeFormatter.ofPattern(each));
+        for( String each : patterns ) formatters.add(
+                DateTimeFormatter.ofPattern(each).withResolverStyle(style));
     }
 
     public LocalDate toLocalDate() {

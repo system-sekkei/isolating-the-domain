@@ -19,9 +19,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @SessionAttributes("user")
 class UpdateController {
 
+    private static final String[] allowFields ;
+    static {
+        allowFields = new String[] {
+                "name",
+                "dateOfBirth"
+        };
+    }
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        binder.setAllowedFields("name");
+        binder.setAllowedFields(allowFields);
     }
 
     @ModelAttribute("genderTypes")
