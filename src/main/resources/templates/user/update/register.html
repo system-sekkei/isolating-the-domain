@@ -12,49 +12,61 @@
         </ul>
 
         <div class="form-group">
-            <label class="control-label col-xs-2" for="userId">ユーザーID</label>
-            <div class="control-label col-xs-5" th:text="*{id.value}" id="userId">someone@example.com</div>
+            <label class="col-xs-1 control-label">対象ID</label>
+            <div class="col-xs-2 control-label">
+                <p class="text-left" th:text="*{id.value}">someone@example.com</p>
+            </div>
         </div>
 
         <div class="form-group" th:classappend="${#fields.hasErrors('name.*')}? 'has-error'">
-            <label class="control-label col-xs-2" for="name">名前</label>
-            <div class="col-xs-5">
+            <label class="col-xs-1 control-label" for="name">名前</label>
+            <div class="col-xs-2">
                 <input class="form-control" th:field="*{name}" type="text" id="name"/>
             </div>
-            <div class="control-label" for="name" th:if="${#fields.hasErrors('name.*')}">
-                <label th:errors="*{name.*}">名前　入力エラー</label>
-            </div>
-        </div>
-        <div class="form-group" th:classappend="${#fields.hasErrors('dateOfBirth.*')}? 'has-error'">
-            <label class="control-label col-xs-2" for="name">生年月日</label>
-            <div class="col-xs-5">
-                <input class="form-control" th:field="*{dateOfBirth}" type="text" id="name"/>
-            </div>
-            <div class="control-label" for="name" th:if="${#fields.hasErrors('dateOfBirth.*')}">
-                <label th:errors="*{dateOfBirth.*}">生年月日　入力エラー</label>
-            </div>
-        </div>
-        <div th:classappend="${#fields.hasErrors('gender')}? 'has-error'">
-            <label class="control-label" for="gender">性別</label>
-            <div>
-                <label class="control-label" th:each="gender:${genderTypes}" id="gender">
-                    <input type="radio" th:text="${gender.name()}" th:value="${gender.name()}" th:field="*{gender}"
-                           name="genderType"/>
-                </label>
-                <div class="control-label" for="gender" th:if="${#fields.hasErrors('gender')}">
-                    <label th:errors="*{gender}">性別　入力エラー</label>
-                </div>
-            </div>
-        </div>
-        <div th:classappend="${#fields.hasErrors('phoneNumber.value')}? 'has-error'">
-            <label class="control-label" for="phoneNumber">電話番号</label>
-            <input class="form-control" th:field="*{phoneNumber.value}" type="text" id="phoneNumber"/>
-            <div class="control-label" for="phoneNumber" th:if="${#fields.hasErrors('phoneNumber.value')}">
-                <label th:errors="*{phoneNumber.value}">電話番号　入力エラー</label>
+            <div class="col-xs-4 control-label" th:if="${#fields.hasErrors('name.*')}">
+                <p class="text-left" th:errors="*{name.*}">名前　入力エラー</p>
             </div>
         </div>
 
-        <button class="btn btn-primary">確認する</button>
+        <div class="form-group" th:classappend="${#fields.hasErrors('dateOfBirth.*')}? 'has-error'">
+            <label class="col-xs-1 control-label" for="dateOfBirth">生年月日</label>
+            <div class="col-xs-2">
+                <input class="form-control" th:field="*{dateOfBirth}" type="text" id="dateOfBirth"/>
+            </div>
+            <div class="col-xs-4 control-label" th:if="${#fields.hasErrors('dateOfBirth.*')}">
+                <p class="text-left" th:errors="*{dateOfBirth.*}">生年月日　入力エラー</p>
+            </div>
+        </div>
+
+        <div class="form-group" th:classappend="${#fields.hasErrors('gender')}? 'has-error'">
+            <label class="col-xs-1 control-label" for="gender">性別</label>
+            <div class="col-xs-3" id="gender">
+                <label class="radio-inline control-label" th:each="gender:${genderTypes}">
+                    <input type="radio" th:text="${gender.name()}" th:value="${gender.name()}" th:field="*{gender}"
+                           name="genderType"/>
+                </label>
+
+            </div>
+            <div class="col-xs-4 col-xs-pull-1 control-label" for="gender" th:if="${#fields.hasErrors('gender')}">
+                <p class="text-left" th:errors="*{gender}">性別　入力エラー</p>
+            </div>
+        </div>
+
+        <div class="form-group" th:classappend="${#fields.hasErrors('phoneNumber.value')}? 'has-error'">
+            <label class="col-xs-1 control-label" for="phoneNumber">電話番号</label>
+            <div class="col-xs-2">
+                <input class="form-control" th:field="*{phoneNumber.value}" type="text" id="phoneNumber"/>
+            </div>
+            <div class="col-xs-4 control-label" th:if="${#fields.hasErrors('phoneNumber.value')}">
+                <p class="text-left" th:errors="*{phoneNumber.value}">電話番号　入力エラー</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-xs-3 text-right">
+                <button class="btn btn-warning">確認する</button>
+            </div>
+        </div>
     </form>
 </div>
 
