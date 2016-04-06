@@ -27,13 +27,9 @@ public class DateOfBirth {
         } catch ( DateTimeException exception) {
             valid = false;
         }
-
-        System.out.println("source="+source);
-        System.out.println("date="+date);
-        System.out.println("valid="+valid);
     }
 
-    @AssertTrue(message = "形式が不正です", groups = {OnRegister.class, OnUpdate.class})
+    @AssertTrue(message = "日付が正しくありません。", groups = {OnRegister.class, OnUpdate.class})
     public boolean isValid() {
         if(source.equals("")) return true;
         return valid;

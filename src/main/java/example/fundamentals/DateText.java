@@ -22,9 +22,11 @@ public class DateText {
 
     static {
         patterns = new String[]{
-                "yyyy/MM/dd",
-                "yyyy-MM-dd",
-                "yyyyMMdd"
+                "uuuu/M/d",
+                "uuuu-M-d",
+                "uuuuMMdd",
+                "uuuu M d"
+                //uuuu for STRICT Resolve. yyyy causes parse error
         };
     }
 
