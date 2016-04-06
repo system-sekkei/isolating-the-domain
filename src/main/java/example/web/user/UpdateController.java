@@ -7,12 +7,15 @@ import example.model.user.validation.OnUpdate;
 import example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.ReportAsSingleViolation;
 
 @Controller
 @RequestMapping("user/update")
@@ -45,13 +48,18 @@ class UpdateController {
 
     @ModelAttribute
     User user(@RequestParam(required = false, value = "userId") UserId userId) {
-        if (userId == null) return new User();
-        User user = userService.findById(userId).orElseThrow(RuntimeException::new);
-        return user;
+       return userService.findById(userId);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    String start() {
+    String entryPoint(SessionStatus sessionStatus,@RequestParam(value="userId") UserId userId) {
+        sessionStatus.setComplete();
+        return "redirect:/user/update/register?clear=true&userId=" + userId.getValue();
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET,params="clear")
+    String startWithCleanState() {
         return "user/update/register";
     }
 

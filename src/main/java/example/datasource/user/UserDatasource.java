@@ -15,8 +15,8 @@ public class UserDatasource implements UserRepository {
     UserMapper mapper;
 
     @Override
-    public Optional<User> findBy(UserId id) {
-        return Optional.ofNullable(mapper.findBy(id));
+    public User findBy(UserId id) {
+        return mapper.findBy(id);
     }
 
     @Override

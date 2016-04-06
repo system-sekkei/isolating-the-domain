@@ -38,7 +38,7 @@ class RegistrationController {
     @RequestMapping(value = "/confirm", method = RequestMethod.POST)
     String confirm(@Validated(OnRegister.class) @ModelAttribute User user, BindingResult result) {
         if (result.hasErrors()) return "user/registration/register";
-        if (userService.findById(user.getId()).isPresent()) {
+        if (userService.findById(user.getId()) != null) {
             result.reject("", new Object[]{user.getId().getValue()}, "ユーザー {0} は登録済みです");
             return "user/registration/register";
         }
@@ -48,7 +48,7 @@ class RegistrationController {
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     String register(@Validated(OnRegister.class) @ModelAttribute User user, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors()) return "user/registration/register";
-        if (userService.findById(user.getId()).isPresent()) {
+        if (userService.findById(user.getId()) != null) {
             result.reject("", new Object[]{user.getId().getValue()}, "ユーザー {0} は登録済みです");
             return "user/registration/register";
         }

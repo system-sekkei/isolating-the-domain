@@ -27,7 +27,7 @@ public class DeletionController {
     @ModelAttribute
     User user(@RequestParam(required = false, value = "userId") UserId userId) {
         if (userId == null) return new User();
-        return userService.findById(userId).orElseThrow(RuntimeException::new);
+        return userService.findById(userId);
     }
 
     @RequestMapping(value = "confirm", method = RequestMethod.GET)
