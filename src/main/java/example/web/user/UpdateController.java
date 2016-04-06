@@ -49,10 +49,10 @@ class UpdateController {
     @RequestMapping(method = RequestMethod.GET)
     String entryPoint(SessionStatus sessionStatus,@RequestParam(value="userId") UserId userId) {
         sessionStatus.setComplete();
-        return "redirect:/user/update/register?init=&userId=" + userId.getValue();
+        return "redirect:/user/update/start?userId=" + userId.getValue();
     }
 
-    @RequestMapping(value="/register", params="init", method = RequestMethod.GET)
+    @RequestMapping(value="/start", method = RequestMethod.GET)
     String init(@RequestParam(value="userId") UserId userId,Model model) {
         User user = userService.findById(userId);
         model.addAttribute("user", user);
