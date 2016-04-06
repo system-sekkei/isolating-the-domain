@@ -46,27 +46,17 @@ class UpdateController {
     @Autowired
     UserService userService;
 
-    @ModelAttribute
-    User user(@RequestParam(required = false, value = "userId") UserId userId) {
-       return userService.findById(userId);
-    }
-
     @RequestMapping(method = RequestMethod.GET)
     String entryPoint(SessionStatus sessionStatus,@RequestParam(value="userId") UserId userId) {
         sessionStatus.setComplete();
-        return "redirect:/user/update/register?clear=true&userId=" + userId.getValue();
+        return "redirect:/user/update/register?init=&userId=" + userId.getValue();
     }
 
-
-    @RequestMapping(method = RequestMethod.GET,params="clear")
-    String startWithCleanState() {
+    @RequestMapping(value="/register", params="init", method = RequestMethod.GET)
+    String init(@RequestParam(value="userId") UserId userId,Model model) {
+        User user = userService.findById(userId);
+        model.addAttribute("user", user);
         return "user/update/register";
-    }
-
-    @RequestMapping(value = "/confirm", method = RequestMethod.POST)
-    String confirm(@Validated(OnUpdate.class) @ModelAttribute User user, BindingResult result) {
-        if (result.hasErrors()) return "user/update/register";
-        return "user/update/confirm";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -76,6 +66,14 @@ class UpdateController {
         attributes.addFlashAttribute("userId", user.getId().getValue());
         return "redirect:/user/update/complete";
     }
+
+    @RequestMapping(value = "/confirm", method = RequestMethod.POST)
+    String confirm(@Validated(OnUpdate.class) @ModelAttribute User user, BindingResult result) {
+        if (result.hasErrors()) return "user/update/register";
+        return "user/update/confirm";
+    }
+
+
 
     @RequestMapping(value = "/complete", method = RequestMethod.GET)
     String complete(SessionStatus status) {
