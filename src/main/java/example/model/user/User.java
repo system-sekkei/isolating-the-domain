@@ -14,12 +14,14 @@ public class User {
     UserId id;
     @Valid
     Name name;
+
     @Valid
     DateOfBirth dateOfBirth;
     @Valid
     PhoneNumber phoneNumber;
     @NotNull(message = "性別を選択してください。", groups = {OnRegister.class, OnUpdate.class})
     GenderType gender;
+
     Password password;
 
     public UserId getId() {
@@ -27,30 +29,40 @@ public class User {
     }
 
 
-
-    public PhoneNumber getPhoneNumber() {
-        return phoneNumber;
-    }
-
     public void setId(UserId id) {
         this.id = id;
     }
 
 
+    public Name getName() {
+        return name;
+    }
 
-    public void setPhoneNumber(PhoneNumber phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public DateOfBirth getDateOfBirth() {
+        return dateOfBirth;
     }
 
     public GenderType getGender() {
         return gender;
     }
 
-    public void setGender(GenderType gender) {
-        this.gender = gender;
+    public PhoneNumber getPhoneNumber() {
+        return phoneNumber;
     }
 
     public boolean hasSamePassword(Password password) {
         return password.hasSameValue(password);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name=" + name +
+                ", dateOfBirth=" + dateOfBirth +
+                ", phoneNumber=" + phoneNumber +
+                ", gender=" + gender +
+                ", password=" + password +
+                '}';
     }
 }

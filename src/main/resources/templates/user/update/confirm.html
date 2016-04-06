@@ -8,15 +8,15 @@
     <div th:object="${user}">
         <div>
             <label class="control-label">ユーザーID</label>
-            <div class="control-label" th:text="*{id.value}">hoge@example.com</div>
+            <div class="control-label" th:text="*{id.value}">someone@example.com</div>
         </div>
         <div>
             <label class="control-label">名前</label>
-            <div class="control-label" th:text="*{name.value}">hoge fuga</div>
+            <div class="control-label" th:text="*{name}">someone</div>
         </div>
         <div>
             <label class="control-label">生年月日</label>
-            <div class="control-label" th:text="*{birthDate.value}">1900/10/21</div>
+            <div class="control-label" th:text="*{dateOfBirth}">1900/10/21</div>
         </div>
         <div>
             <label class="control-label">性別</label>
@@ -24,7 +24,7 @@
         </div>
         <div>
             <label class="control-label">電話番号</label>
-            <div class="control-label" th:text="*{phoneNumber.value}">0120-888-888</div>
+            <div class="control-label" th:text="*{phoneNumber}">0120-888-888</div>
         </div>
     <a th:href="@{/user/update/register}" class="btn btn-primary">更新する</a>
     <a th:href="@{/user/update}" class="btn btn-default">戻る</a>

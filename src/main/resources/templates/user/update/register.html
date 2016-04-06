@@ -52,13 +52,13 @@
             </div>
         </div>
 
-        <div class="form-group" th:classappend="${#fields.hasErrors('phoneNumber.value')}? 'has-error'">
+        <div class="form-group" th:classappend="${#fields.hasErrors('phoneNumber.*')}? 'has-error'">
             <label class="col-xs-1 control-label" for="phoneNumber">電話番号</label>
             <div class="col-xs-2">
-                <input class="form-control" th:field="*{phoneNumber.value}" type="text" id="phoneNumber"/>
+                <input class="form-control" th:field="*{phoneNumber}" type="text" id="phoneNumber"/>
             </div>
-            <div class="col-xs-4 control-label" th:if="${#fields.hasErrors('phoneNumber.value')}">
-                <p class="text-left" th:errors="*{phoneNumber.value}">電話番号　入力エラー</p>
+            <div class="col-xs-4 control-label" th:if="${#fields.hasErrors('phoneNumber.*')}">
+                <p class="text-left" th:errors="*{phoneNumber.*}">電話番号　入力エラー</p>
             </div>
         </div>
 

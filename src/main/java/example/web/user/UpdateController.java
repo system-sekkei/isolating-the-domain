@@ -22,9 +22,11 @@ class UpdateController {
     private static final String[] allowFields ;
     static {
         allowFields = new String[] {
+                "UserId",
                 "name",
                 "dateOfBirth",
                 "gender",
+                "phoneNumber",
         };
     }
 
@@ -44,7 +46,8 @@ class UpdateController {
     @ModelAttribute
     User user(@RequestParam(required = false, value = "userId") UserId userId) {
         if (userId == null) return new User();
-        return userService.findById(userId).orElseThrow(RuntimeException::new);
+        User user = userService.findById(userId).orElseThrow(RuntimeException::new);
+        return user;
     }
 
     @RequestMapping(method = RequestMethod.GET)
