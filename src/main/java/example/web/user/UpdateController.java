@@ -1,6 +1,5 @@
 package example.web.user;
 
-import example.datasource.infrastructure.url.URLcoding;
 import example.model.user.GenderType;
 import example.model.user.User;
 import example.model.user.UserId;
@@ -48,18 +47,14 @@ class UpdateController {
     @RequestMapping(method = RequestMethod.GET)
     String clearSessionAttribute(SessionStatus sessionStatus,@RequestParam(value="userId") String userId) {
         sessionStatus.setComplete();
-        return "forward:/user/update/" + new URLcoding(userId).encode()+"/input";
+        return "forward:/user/update/" +userId + "/input";
     }
 
     @RequestMapping(value="/{userId}/input", method = RequestMethod.GET)
     String input(@PathVariable(value="userId") String userId,Model model) {
-        model.addAttribute("user", getUser(userId)); //sessionAttributeに格納
+        User user = userService.findById(new UserId(userId));
+        model.addAttribute("user", user); //sessionAttributeに格納
         return "user/update/input";
-    }
-
-    private User getUser(String userId) {
-        String decoded = new URLcoding(userId).decode();
-        return userService.findById(new UserId(decoded));
     }
 
     @RequestMapping(value = "/confirm", method = RequestMethod.POST)
