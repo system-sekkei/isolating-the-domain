@@ -12,15 +12,15 @@
         </ul>
 
         <div class="form-group">
-            <label class="col-xs-1 control-label">対象ID</label>
-            <div class="col-xs-2 control-label">
+            <label class="col-xs-2 control-label">対象ID</label>
+            <div class="col-xs-3 control-label">
                 <p class="text-left" th:text="*{id.value}">someone@example.com</p>
             </div>
         </div>
 
         <div class="form-group" th:classappend="${#fields.hasErrors('name.*')}? 'has-error'">
-            <label class="col-xs-1 control-label" for="name">名前</label>
-            <div class="col-xs-2">
+            <label class="col-xs-2 control-label" for="name">名前</label>
+            <div class="col-xs-3">
                 <input class="form-control" th:field="*{name}" type="text" id="name"/>
             </div>
             <div class="col-xs-4 control-label" th:if="${#fields.hasErrors('name.*')}">
@@ -29,8 +29,8 @@
         </div>
 
         <div class="form-group" th:classappend="${#fields.hasErrors('dateOfBirth.*')}? 'has-error'">
-            <label class="col-xs-1 control-label" for="dateOfBirth">生年月日</label>
-            <div class="col-xs-2">
+            <label class="col-xs-2 control-label" for="dateOfBirth">生年月日</label>
+            <div class="col-xs-3">
                 <input class="form-control" th:field="*{dateOfBirth}" type="text" id="dateOfBirth"/>
             </div>
             <div class="col-xs-4 control-label" th:if="${#fields.hasErrors('dateOfBirth.*')}">
@@ -39,7 +39,7 @@
         </div>
 
         <div class="form-group" th:classappend="${#fields.hasErrors('gender')}? 'has-error'">
-            <label class="col-xs-1 control-label" for="gender">性別</label>
+            <label class="col-xs-2 control-label" for="gender">性別</label>
             <div class="col-xs-3" id="gender">
                 <label class="radio-inline control-label" th:each="gender:${genderTypes}">
                     <input type="radio" th:text="${gender.name()}" th:value="${gender.name()}" th:field="*{gender}"
@@ -47,14 +47,14 @@
                 </label>
 
             </div>
-            <div class="col-xs-4 col-xs-pull-1 control-label" for="gender" th:if="${#fields.hasErrors('gender')}">
+            <div class="col-xs-4 control-label" for="gender" th:if="${#fields.hasErrors('gender')}">
                 <p class="text-left" th:errors="*{gender}">性別　入力エラー</p>
             </div>
         </div>
 
         <div class="form-group" th:classappend="${#fields.hasErrors('phoneNumber.*')}? 'has-error'">
-            <label class="col-xs-1 control-label" for="phoneNumber">電話番号</label>
-            <div class="col-xs-2">
+            <label class="col-xs-2 control-label" for="phoneNumber">電話番号</label>
+            <div class="col-xs-3">
                 <input class="form-control" th:field="*{phoneNumber}" type="text" id="phoneNumber"/>
             </div>
             <div class="col-xs-4 control-label" th:if="${#fields.hasErrors('phoneNumber.*')}">
@@ -63,7 +63,7 @@
         </div>
 
         <div class="form-group">
-            <div class="col-xs-3 text-right">
+            <div class="col-xs-4 text-right">
                 <button class="btn btn-warning">確認する</button>
             </div>
         </div>
