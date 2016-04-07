@@ -5,29 +5,43 @@
 <body>
 <div class="container">
     <h1>ユーザー更新確認画面</h1>
-    <div th:object="${user}">
-        <div>
-            <label class="control-label">ユーザーID</label>
-            <div class="control-label" th:text="*{id.value}">someone@example.com</div>
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            <label class="col-xs-2 control-label">ユーザーID</label>
+            <div class="col-xs-4 control-label">
+                <p class="text-left" th:text="${user.id.value}">someone@example.com</p>
+            </div>
         </div>
-        <div>
-            <label class="control-label">名前</label>
-            <div class="control-label" th:text="${user.name}">someone</div>
+        <div class="form-group">
+            <label class="col-xs-2 control-label">名前</label>
+            <div class="col-xs-4 control-label" >
+                <p class="text-left" th:text="${user.name()}">someone</p>
+            </div>
         </div>
-        <div>
-            <label class="control-label">生年月日</label>
-            <div class="control-label" th:text="*{dateOfBirth}">1900/10/21</div>
+        <div class="form-group" >
+            <label class="col-xs-2 control-label">生年月日</label>
+            <div class="col-xs-4 control-label" >
+                <p class="text-left" th:text="${user.dateOfBirth()}">1900/10/21</p>
+            </div>
         </div>
-        <div>
-            <label class="control-label">性別</label>
-            <div class="control-label" th:text="*{gender.name()}">男性</div>
+        <div class="form-group">
+            <label class="col-xs-2 control-label">性別</label>
+            <div class="col-xs-4 control-label">
+                <p class="text-left" th:text="${user.gender()}">男性</p>
+            </div>
         </div>
-        <div>
-            <label class="control-label">電話番号</label>
-            <div class="control-label" th:text="*{phoneNumber}">0120-888-888</div>
+        <div class="form-group">
+            <label class="col-xs-2 control-label">電話番号</label>
+            <div class="col-xs-4 control-label">
+                <p class="text-left" th:text="${user.phoneNumber()}">0120-888-888</p>
+            </div>
         </div>
-    <a th:href="@{/user/update/update}" class="btn btn-primary">更新する</a>
-    <a th:href="@{/user/update}" class="btn btn-default">戻る</a>
+
+        <div class="col-xs-3 col-xs-push-2 form-group">
+            <a class="btn btn-primary" th:href="@{/user/update/update}">更新する</a>
+            <a class="btn btn-default" th:href="@{/user/update}" >戻る</a>
+        </div>
     </div>
 </div>
 

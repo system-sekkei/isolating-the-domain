@@ -27,26 +27,23 @@ public class User {
     public UserId getId() {
         return this.id;
     }
-
-
     public void setId(UserId id) {
         this.id = id;
     }
 
-
-    public Name getName() {
+    public Name name() {
         return name;
     }
 
-    public DateOfBirth getDateOfBirth() {
+    public DateOfBirth dateOfBirth() {
         return dateOfBirth;
     }
 
-    public GenderType getGender() {
+    public GenderType gender() {
         return gender;
     }
 
-    public PhoneNumber getPhoneNumber() {
+    public PhoneNumber phoneNumber() {
         return phoneNumber;
     }
 
