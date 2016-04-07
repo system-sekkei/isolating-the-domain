@@ -1,5 +1,6 @@
 package example.web.user;
 
+import example.datasource.infrastructure.url.URLCoding;
 import example.model.user.GenderType;
 import example.model.user.User;
 import example.model.user.UserId;
@@ -14,10 +15,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 
 @Controller
 @RequestMapping("user/update")
@@ -51,35 +48,13 @@ class UpdateController {
     @RequestMapping(method = RequestMethod.GET)
     String entryPoint(SessionStatus sessionStatus,@RequestParam(value="userId") UserId userId) {
         sessionStatus.setComplete();
-        return "forward:/user/update/" + encode(userId.getValue())+"/start";
-    }
-
-    private String encode(String source) {
-        try {
-            String result;
-            result = URLEncoder.encode(source, "UTF-8");
-            System.out.println(result);
-            return result;
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private String decode(String source) {
-        try {
-            String result;
-            result = URLDecoder.decode(source, "UTF-8");
-            System.out.println(result);
-            return result;
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
-        }
+        return "forward:/user/update/" + new URLCoding(userId.getValue()).encode()+"/start";
     }
 
     @RequestMapping(value="/{userId}/start", method = RequestMethod.GET)
     String init(@PathVariable(value="userId") String userId,Model model) {
-        System.out.println(userId);
-        User user = userService.findById(new UserId(decode(userId)));
+        String decoded = new URLCoding(userId).decode();
+        User user = userService.findById(new UserId(decoded));
         model.addAttribute("user", user);
         return "user/update/register";
     }
