@@ -3,10 +3,10 @@
 <head th:include="fragments/layout :: htmlhead"
       th:with="title='トップ'"/>
 <body>
-<div class="panel col-md-6 col-md-offset-1">
+<div class="container col-xs-6 col-xs-offset-1">
     <h1>利用者一覧</h1>
-    <div class="row">
-        <a class="btn pull-right btn-success btn-large" th:href="@{/user/registration}">利用者登録へ</a>
+    <div class="row col-xs-1 col-xs-push-8">
+        <a class="btn btn-success btn-large" th:href="@{/user/registration}">利用者の新規登録へ</a>
     </div>
     <table class="table table-striped">
         <thead>
