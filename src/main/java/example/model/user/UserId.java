@@ -1,12 +1,10 @@
 package example.model.user;
 
 import example.model.user.validation.OnRegister;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by haljik on 15/06/04.
@@ -16,12 +14,12 @@ public class UserId {
     @Email(message = "ユーザーIDはメールアドレスを入力してください。", groups = OnRegister.class)
     String value;
 
-    public UserId(String value) {
+    public UserId(@NotNull String value) {
         this.value = value;
     }
 
-    //For MyBatis
     public UserId() {
+        this.value = "";
     }
 
     public String getValue() {
@@ -34,6 +32,6 @@ public class UserId {
 
     @Override
     public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+        return value;
     }
 }

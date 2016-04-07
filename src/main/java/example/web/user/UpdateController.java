@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("user/update")
@@ -68,8 +69,9 @@ class UpdateController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.GET)
-    String update(@ModelAttribute User user) {
+    String update(@ModelAttribute User user, RedirectAttributes attributes) {
         userService.update(user);
+        attributes.addFlashAttribute("user", user);
         return "redirect:/user/update/complete";
     }
 
