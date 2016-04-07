@@ -8,11 +8,11 @@ import java.net.URLEncoder;
 /**
  * Created by masuda on 2016/04/07.
  */
-public class URLCoding {
+public class URLcoding {
 
     String source ;
 
-    public URLCoding(@NotNull String source) {
+    public URLcoding(@NotNull String source) {
         this.source = source;
     }
 

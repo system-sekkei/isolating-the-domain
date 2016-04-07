@@ -1,6 +1,6 @@
 package example.web.user;
 
-import example.datasource.infrastructure.url.URLCoding;
+import example.datasource.infrastructure.url.URLcoding;
 import example.model.user.GenderType;
 import example.model.user.User;
 import example.model.user.UserId;
@@ -48,7 +48,7 @@ class UpdateController {
     @RequestMapping(method = RequestMethod.GET)
     String clearSessionAttribute(SessionStatus sessionStatus,@RequestParam(value="userId") String userId) {
         sessionStatus.setComplete();
-        return "forward:/user/update/" + new URLCoding(userId).encode()+"/input";
+        return "forward:/user/update/" + new URLcoding(userId).encode()+"/input";
     }
 
     @RequestMapping(value="/{userId}/input", method = RequestMethod.GET)
@@ -58,7 +58,7 @@ class UpdateController {
     }
 
     private User getUser(String userId) {
-        String decoded = new URLCoding(userId).decode();
+        String decoded = new URLcoding(userId).decode();
         return userService.findById(new UserId(decoded));
     }
 
