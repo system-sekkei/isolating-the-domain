@@ -57,7 +57,12 @@ class UpdateController {
         return "user/update/input";
     }
 
-    @RequestMapping(value = "/confirm", method = RequestMethod.POST)
+    @RequestMapping(value="/input/again",method= RequestMethod.GET)
+    String again() {
+        return "user/update/input";
+    }
+
+    @RequestMapping(value = "/confirm", method = {RequestMethod.POST })
     String bindAndValidate(@Validated(OnUpdate.class) @ModelAttribute User user, BindingResult binding) {
         if (binding.hasErrors()) return "user/update/input";
         return "user/update/confirm";
