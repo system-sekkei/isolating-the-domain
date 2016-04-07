@@ -14,7 +14,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("user/update")
@@ -24,7 +23,6 @@ class UpdateController {
     private static final String[] allowFields ;
     static {
         allowFields = new String[] {
-                "UserId",
                 "name",
                 "dateOfBirth",
                 "gender",
@@ -46,34 +44,30 @@ class UpdateController {
     UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    String entryPoint(SessionStatus sessionStatus,@RequestParam(value="userId") UserId userId) {
+    String newSession(SessionStatus sessionStatus,@RequestParam(value="userId") UserId userId) {
         sessionStatus.setComplete();
-        return "forward:/user/update/" + new URLCoding(userId.getValue()).encode()+"/start";
+        return "forward:/user/update/" + new URLCoding(userId.getValue()).encode()+"/input";
     }
 
-    @RequestMapping(value="/{userId}/start", method = RequestMethod.GET)
-    String init(@PathVariable(value="userId") String userId,Model model) {
+    @RequestMapping(value="/{userId}/input", method = RequestMethod.GET)
+    String input(@PathVariable(value="userId") String userId,Model model) {
         String decoded = new URLCoding(userId).decode();
         User user = userService.findById(new UserId(decoded));
         model.addAttribute("user", user);
-        return "user/update/register";
-    }
-
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    String register(@Validated(OnUpdate.class) @ModelAttribute User user, BindingResult result, RedirectAttributes attributes) {
-        if (result.hasErrors()) return "user/update/register";
-        userService.update(user);
-        attributes.addFlashAttribute("userId", user.getId().getValue());
-        return "redirect:/user/update/complete";
+        return "user/update/input";
     }
 
     @RequestMapping(value = "/confirm", method = RequestMethod.POST)
     String confirm(@Validated(OnUpdate.class) @ModelAttribute User user, BindingResult result) {
-        if (result.hasErrors()) return "user/update/register";
+        if (result.hasErrors()) return "user/update/input";
         return "user/update/confirm";
     }
 
-
+    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    String update(@ModelAttribute User user) {
+        userService.update(user);
+        return "redirect:/user/update/complete";
+    }
 
     @RequestMapping(value = "/complete", method = RequestMethod.GET)
     String complete(SessionStatus status) {
