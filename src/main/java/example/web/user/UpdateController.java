@@ -43,23 +43,27 @@ class UpdateController {
     @Autowired
     UserService userService;
 
+    //入り口
     @RequestMapping(method = RequestMethod.GET)
-    String newSession(SessionStatus sessionStatus,@RequestParam(value="userId") UserId userId) {
+    String clearSessionAttribute(SessionStatus sessionStatus,@RequestParam(value="userId") String userId) {
         sessionStatus.setComplete();
-        return "forward:/user/update/" + new URLCoding(userId.getValue()).encode()+"/input";
+        return "forward:/user/update/" + new URLCoding(userId).encode()+"/input";
     }
 
     @RequestMapping(value="/{userId}/input", method = RequestMethod.GET)
     String input(@PathVariable(value="userId") String userId,Model model) {
-        String decoded = new URLCoding(userId).decode();
-        User user = userService.findById(new UserId(decoded));
-        model.addAttribute("user", user);
+        model.addAttribute("user", getUser(userId)); //sessionAttributeに格納
         return "user/update/input";
     }
 
+    private User getUser(String userId) {
+        String decoded = new URLCoding(userId).decode();
+        return userService.findById(new UserId(decoded));
+    }
+
     @RequestMapping(value = "/confirm", method = RequestMethod.POST)
-    String confirm(@Validated(OnUpdate.class) @ModelAttribute User user, BindingResult result) {
-        if (result.hasErrors()) return "user/update/input";
+    String bindAndValidate(@Validated(OnUpdate.class) @ModelAttribute User user, BindingResult binding) {
+        if (binding.hasErrors()) return "user/update/input";
         return "user/update/confirm";
     }
 
