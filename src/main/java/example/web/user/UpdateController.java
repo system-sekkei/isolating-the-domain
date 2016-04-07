@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.ReportAsSingleViolation;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 @Controller
 @RequestMapping("user/update")
@@ -49,12 +51,35 @@ class UpdateController {
     @RequestMapping(method = RequestMethod.GET)
     String entryPoint(SessionStatus sessionStatus,@RequestParam(value="userId") UserId userId) {
         sessionStatus.setComplete();
-        return "redirect:/user/update/start?userId=" + userId.getValue();
+        return "forward:/user/update/" + encode(userId.getValue())+"/start";
     }
 
-    @RequestMapping(value="/start", method = RequestMethod.GET)
-    String init(@RequestParam(value="userId") UserId userId,Model model) {
-        User user = userService.findById(userId);
+    private String encode(String source) {
+        try {
+            String result;
+            result = URLEncoder.encode(source, "UTF-8");
+            System.out.println(result);
+            return result;
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private String decode(String source) {
+        try {
+            String result;
+            result = URLDecoder.decode(source, "UTF-8");
+            System.out.println(result);
+            return result;
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @RequestMapping(value="/{userId}/start", method = RequestMethod.GET)
+    String init(@PathVariable(value="userId") String userId,Model model) {
+        System.out.println(userId);
+        User user = userService.findById(new UserId(decode(userId)));
         model.addAttribute("user", user);
         return "user/update/register";
     }
