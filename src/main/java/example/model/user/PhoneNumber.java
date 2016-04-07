@@ -4,6 +4,7 @@ import example.model.user.validation.OnRegister;
 import example.model.user.validation.OnUpdate;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class PhoneNumber {
@@ -12,8 +13,12 @@ public class PhoneNumber {
     @Pattern(regexp = "([0-9]{2,4}-[0-9]{2,4}-[0-9]{2,4})?", message = "xx-xxxx-xxxxの形式で入力してください", groups = {OnRegister.class, OnUpdate.class})
     String text;
 
-    public PhoneNumber(String text) {
+    public PhoneNumber(@NotNull String text) {
         this.text = text;
+    }
+
+    public PhoneNumber() {
+        text = "";
     }
 
 

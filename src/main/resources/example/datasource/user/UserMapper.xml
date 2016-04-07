@@ -6,8 +6,8 @@
         <id property="id.value" column="user_id"/>
         <result property="name.text" column="name"/>
         <result property="password.value" column="password"/>
-        <result property="birthDate.value" column="birth_date"/>
-        <result property="phoneNumber.value" column="phone_number"/>
+        <result property="dateOfBirth.date" column="birth_date"/>
+        <result property="phoneNumber.text" column="phone_number"/>
         <result property="gender" column="gender" />
     </resultMap>
 
@@ -16,24 +16,33 @@
         <result property="name.text" column="name"/>
         <result property="password.value" column="password"/>
     </resultMap>
+
     <select id="findBy" resultMap="user">
         SELECT user_id, name, password, birth_date, phone_number, gender
         FROM users.users
         WHERE user_id = #{id.value}
     </select>
+
     <select id="list" resultMap="userSummary">
         SELECT user_id, name, password
         FROM users.users
         ORDER BY user_id;
     </select>
+
     <insert id="register">
         INSERT INTO users.users (user_id, name, password, birth_date, phone_number, gender)
         VALUES (#{user.id.value}, #{user.name.value}, 'hogehoge', #{user.birthDate.value}, #{user.phoneNumber.value}, #{user.gender});
     </insert>
+
     <update id="update">
-        UPDATE users.users SET name = #{user.name.value}, birth_date = #{user.birthDate.value}, phone_number = #{user.phoneNumber.value}, gender = #{user.gender}
+        UPDATE users.users SET
+          name = #{user.name.text},
+          birth_date = #{user.dateOfBirth.date},
+          phone_number = #{user.phoneNumber.text},
+          gender = #{user.gender}
         WHERE user_id = #{user.id.value};
     </update>
+
     <delete id="delete">
         DELETE FROM users.users
         WHERE user_id = #{user.id.value}
