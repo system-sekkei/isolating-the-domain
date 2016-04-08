@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -16,6 +17,22 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("user/registration")
 @SessionAttributes("user")
 class RegistrationController {
+
+    private static final String[] allowFields ;
+    static {
+        allowFields = new String[] {
+                "userId",
+                "name",
+                "dateOfBirth",
+                "gender",
+                "phoneNumber",
+        };
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.setAllowedFields(allowFields);
+    }
 
     @Autowired
     UserService userService;
