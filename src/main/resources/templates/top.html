@@ -3,29 +3,38 @@
 <head th:include="fragments/layout :: htmlhead"
       th:with="title='トップ'"/>
 <body>
-<div class="container col-xs-7 col-xs-offset-1">
+<div class="container">
     <h1>利用者一覧</h1>
-    <div class="col-xs-2 col-xs-push-7">
-        <a class="btn btn-success btn-large" th:href="@{/user/registration}">利用者の新規登録へ</a>
+
+    <div class="row">
+        <div>
+            <a class="col-xs-2 col-xs-push-5 btn btn-success"
+               th:href="@{/user/registration}">利用者の新規登録</a>
+        </div>
     </div>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th>利用者ID</th>
-            <th>利用者名</th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user : ${users.list()}">
-            <td th:text="${user.id.value}"/>
-            <td th:text="${user.name}"/>
-            <td><a class="btn btn-warning btn-sm" th:href="@{/user/update(userId=${user.id.value})}">更新</a></td>
-            <td><a class="btn btn-danger btn-sm" th:href="@{/user/deletion/confirm(userId=${user.id.value})}">削除</a></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-xs-7">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th class="col-xs-2">利用者ID</th>
+                    <th class="col-xs-2">利用者名</th>
+                    <th class="col-xs-1"></th>
+                    <th class="col-xs-1"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${users.list()}">
+                    <td th:text="${user.id.value}"/>
+                    <td th:text="${user.name}"/>
+                    <td><a class="btn btn-warning btn-sm" th:href="@{/user/update(userId=${user.id.value})}">更新</a></td>
+                    <td><a class="btn btn-danger btn-sm"
+                           th:href="@{/user/deletion/confirm(userId=${user.id.value})}">削除</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 <footer th:include="fragments/layout :: footer"/>
 </body>
