@@ -10,6 +10,8 @@ public interface UserRepository {
 
     UserSummaries list();
 
+    User prototype();
+
     void register(User user);
 
     void update(User user);

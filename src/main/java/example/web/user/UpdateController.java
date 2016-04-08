@@ -43,7 +43,7 @@ class UpdateController {
     @Autowired
     UserService userService;
 
-    //入り口
+    //入り口 session attribute をクリアする
     @RequestMapping(method = RequestMethod.GET)
     String clearSessionAttribute(SessionStatus sessionStatus,@RequestParam(value="userId") String userId) {
         sessionStatus.setComplete();
