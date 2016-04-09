@@ -7,7 +7,7 @@
     <h1>ユーザー登録画面</h1>
 
     <form class="form-horizontal" name="body" method="post" th:object="${user}" action="#"
-          th:action="@{/user/registration/confirm}">
+          th:action="@{/user/register/confirm}">
         <ul class="bg-danger">
             <li th:each="e : ${#fields.globalErrors()}" th:class="text-danger" th:text="${e}"/>
         </ul>
@@ -19,8 +19,8 @@
                 <div class="col-xs-3">
                     <input class="form-control" th:field="*{id.value}" type="email" id="userId"/>
                 </div>
-                <div class="control-label" for="userId" th:if="${#fields.hasErrors('id.value')}">
-                    <label th:errors="*{id.value}">ユーザーID 入力エラー</label>
+                <div class="col-xs-4 control-label" for="userId" th:if="${#fields.hasErrors('id.value')}">
+                    <p class="text-left" th:errors="*{id.value}">ユーザーID 入力エラー</p>
                 </div>
             </div>
         </div>
