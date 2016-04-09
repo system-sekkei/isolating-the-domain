@@ -29,7 +29,7 @@
                     <td th:text="${user.name}"/>
                     <td><a class="btn btn-warning btn-sm" th:href="@{/user/update(userId=${user.id.value})}">更新</a></td>
                     <td><a class="btn btn-danger btn-sm"
-                           th:href="@{/user/delete/confirm(userId=${user.id.value})}">削除</a></td>
+                           th:href="@{/user/delete(userId=${user.id.value})}">削除</a></td>
                 </tr>
                 </tbody>
             </table>
