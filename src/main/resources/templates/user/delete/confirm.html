@@ -15,8 +15,8 @@
         <div class="control-label" th:text="${user.id.value}"></div>
         <label class="control-label">名前</label>
 
-        <div class="control-label" th:text="${user.name.value}"></div>
-        <a th:href="@{/user/deletion/execute}" class="btn btn-primary">削除</a>
+        <div class="control-label" th:text="${user.name()}"></div>
+        <a th:href="@{/user/delete/execute}" class="btn btn-primary">削除</a>
     </div>
 </div>
 

@@ -19,7 +19,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/user/deletion")
 @SessionAttributes("user")
-public class DeletionController {
+public class DeleteController {
 
     @Autowired
     UserService userService;
@@ -32,19 +32,19 @@ public class DeletionController {
 
     @RequestMapping(value = "confirm", method = RequestMethod.GET)
     String confirm() {
-        return "user/deletion/confirm";
+        return "user/delete/confirm";
     }
 
     @RequestMapping(value = "execute", method = RequestMethod.GET)
     String execute(@ModelAttribute User user, RedirectAttributes attributes) {
         userService.delete(user);
         attributes.addFlashAttribute("userId", user.getId().getValue());
-        return "redirect:/user/deletion/complete";
+        return "redirect:/user/delete/complete";
     }
 
     @RequestMapping(value = "/complete", method = RequestMethod.GET)
     String complete(SessionStatus status) {
         status.setComplete();
-        return "user/deletion/complete";
+        return "user/delete/complete";
     }
 }

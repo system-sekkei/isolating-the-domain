@@ -39,11 +39,6 @@ class RegisterController {
     @Autowired
     UserService userService;
 
-    @ModelAttribute
-    User user() {
-        return new User();
-    }
-
     @ModelAttribute("genderTypes")
     GenderType[] genderTypes() {
         return GenderType.values();
