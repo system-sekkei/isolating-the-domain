@@ -43,41 +43,41 @@ class UpdateController {
     @Autowired
     UserService userService;
 
-    //入り口 session attribute をクリアする
     @RequestMapping(method = RequestMethod.GET)
-    String clearSessionAttribute(SessionStatus sessionStatus,@RequestParam(value="userId") String userId) {
-        sessionStatus.setComplete();
-        return "forward:/user/update/" +userId + "/input";
+    String start(SessionStatus sessionStatus,@RequestParam(value="userId") String userId) {
+        sessionStatus.setComplete(); // session Attribute をクリアするためにマークする
+        return "forward:/user/update/" +userId + "/input"; // クリアの実行
     }
 
     @RequestMapping(value="/{userId}/input", method = RequestMethod.GET)
-    String input(@PathVariable(value="userId") String userId,Model model) {
+    String formWithCurrentData(@PathVariable(value="userId") String userId,Model model) {
         User user = userService.findById(new UserId(userId));
-        model.addAttribute("user", user); //sessionAttributeに格納
-        return "user/update/input";
+        model.addAttribute("user", user); //session attribute("user")に格納する
+        return "user/update/form";
     }
 
     @RequestMapping(value="/input/again",method= RequestMethod.GET)
-    String again() {
-        return "user/update/input";
+    String formAgain() {
+        return "user/update/form";
     }
 
     @RequestMapping(value = "/confirm", method = {RequestMethod.POST })
-    String bindAndValidate(@Validated(OnUpdate.class) @ModelAttribute User user, BindingResult binding) {
-        if (binding.hasErrors()) return "user/update/input";
-        return "user/update/confirm";
+    String validate(@Validated(OnUpdate.class) @ModelAttribute User user,
+                           BindingResult binding, RedirectAttributes attributes) {
+        if (binding.hasErrors()) return "user/update/form";
+        attributes.addFlashAttribute("user", user);
+        return "redirect:confirmation";
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.GET)
-    String update(@ModelAttribute User user, RedirectAttributes attributes) {
-        userService.update(user);
-        attributes.addFlashAttribute("user", user);
-        return "redirect:/user/update/complete";
+    @RequestMapping(value = "/confirmation", method = RequestMethod.GET)
+    String show() {
+        return "user/update/confirmation";
     }
 
     @RequestMapping(value = "/complete", method = RequestMethod.GET)
-    String complete(SessionStatus status) {
+    String updateNow(@ModelAttribute User user, SessionStatus status) {
+        userService.update(user);
         status.setComplete();
-        return "user/update/complete";
+        return "user/update/result";
     }
 }
