@@ -17,6 +17,7 @@
                 <p class="text-left" th:text="*{identifier()}">someone@example.com</p>
             </div>
         </div>
+
 <div th:fragment="input-fields">
 
         <div class="form-group" th:classappend="${#fields.hasErrors('name.*')}? 'has-error'">
