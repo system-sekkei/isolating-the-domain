@@ -3,17 +3,17 @@ package example.web.user;
 import example.model.user.GenderType;
 import example.model.user.User;
 import example.model.user.UserIdentifier;
-import example.model.user.validation.OnUpdate;
 import example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("user/update")
@@ -62,7 +62,7 @@ class UpdateController {
     }
 
     @RequestMapping(value = "/confirm", method = {RequestMethod.POST })
-    String validate(@Validated(OnUpdate.class) @ModelAttribute User user,
+    String validate(@Valid @ModelAttribute User user,
                            BindingResult binding, RedirectAttributes attributes) {
         if (binding.hasErrors()) return "user/update/form";
         attributes.addFlashAttribute("user", user);

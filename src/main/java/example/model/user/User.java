@@ -1,8 +1,5 @@
 package example.model.user;
 
-import example.model.user.validation.OnRegister;
-import example.model.user.validation.OnUpdate;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -12,17 +9,18 @@ import javax.validation.constraints.NotNull;
 public class User {
     @Valid
     UserIdentifier identifier;
+
     @Valid
     Name name;
 
     @Valid
     DateOfBirth dateOfBirth;
-    @Valid
-    PhoneNumber phoneNumber;
-    @NotNull(message = "性別を選択してください。", groups = {OnRegister.class, OnUpdate.class})
+
+    @NotNull(message = "性別を選択してください。")
     GenderType gender;
 
-    Password password;
+    @Valid
+    PhoneNumber phoneNumber;
 
     public UserIdentifier identifier() {return identifier;}
     public Name name() {
@@ -41,10 +39,6 @@ public class User {
         return phoneNumber;
     }
 
-    public boolean hasSamePassword(Password password) {
-        return password.hasSameValue(password);
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -53,7 +47,6 @@ public class User {
                 ", dateOfBirth=" + dateOfBirth +
                 ", phoneNumber=" + phoneNumber +
                 ", gender=" + gender +
-                ", password=" + password +
                 '}';
     }
 }

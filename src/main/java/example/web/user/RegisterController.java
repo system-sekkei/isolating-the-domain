@@ -2,17 +2,17 @@ package example.web.user;
 
 import example.model.user.GenderType;
 import example.model.user.User;
-import example.model.user.validation.OnRegister;
 import example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("user/register")
@@ -22,7 +22,7 @@ class RegisterController {
     private static final String[] allowFields ;
     static {
         allowFields = new String[] {
-                "userId",
+                "identifier",
                 "name",
                 "dateOfBirth",
                 "gender",
@@ -50,14 +50,14 @@ class RegisterController {
     }
 
     @RequestMapping(value="/input", method = RequestMethod.GET)
-    String input(Model model) {
+    String form(Model model) {
         User user = userService.prototype();
         model.addAttribute("user", user); //sessionAttributeに格納
         return "user/register/form";
     }
 
     @RequestMapping(value = "/confirm", method = RequestMethod.POST)
-    String confirm(@Validated(OnRegister.class) @ModelAttribute User user, BindingResult result) {
+    String confirm(@Valid @ModelAttribute User user, BindingResult result) {
         if (result.hasErrors()) return "user/register/form";
         if (userService.isExist(user.identifier())) {
             result.rejectValue("identifier","", "ユーザー{0}は登録済みです");

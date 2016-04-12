@@ -1,10 +1,9 @@
 package example.model.user;
 
 import example.fundamentals.DateText;
-import example.model.user.validation.OnRegister;
-import example.model.user.validation.OnUpdate;
 
 import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.NotNull;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
@@ -13,6 +12,7 @@ import java.time.LocalDate;
  */
 public class DateOfBirth {
 
+    @NotNull(message = "誕生日を入力してください。")
     LocalDate date ;
     String source;
 
@@ -29,7 +29,7 @@ public class DateOfBirth {
         }
     }
 
-    @AssertTrue(message = "日付が正しくありません。", groups = {OnRegister.class, OnUpdate.class})
+    @AssertTrue(message = "日付が正しくありません。")
     public boolean isValid() {
         if(source.equals("")) return true;
         return valid;

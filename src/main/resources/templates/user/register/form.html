@@ -8,18 +8,16 @@
 
     <form class="form-horizontal" name="body" method="post" th:object="${user}" action="#"
           th:action="@{/user/register/confirm}">
-        <ul class="bg-danger">
-            <li th:each="e : ${#fields.globalErrors()}" th:class="text-danger" th:text="${e}"/>
-        </ul>
 
         <div class="form-group">
-            <div th:classappend="${#fields.hasErrors('identifer.*')}? 'has-error'">
-                <label class="col-xs-2 control-label" for="userId">ユーザーID</label>
+            <div th:classappend="${#fields.hasErrors('identifier.*')}? 'has-error'">
+                <label class="col-xs-2 control-label" for="identifier">ユーザーID</label>
 
                 <div class="col-xs-3">
-                    <input class="form-control" th:field="*{identifier.*}" type="email" id="userId"/>
+                    <input class="form-control" id="identifier"
+                          placeholder="someone@example.com" th:field="*{identifier}" />
                 </div>
-                <div class="col-xs-4 control-label" for="userId" th:if="${#fields.hasErrors('identifier.*')}">
+                <div class="col-xs-4 control-label"  th:if="${#fields.hasErrors('identifier.*')}">
                     <p class="text-left" th:errors="*{identifier.*}">ユーザーID 入力エラー</p>
                 </div>
             </div>
