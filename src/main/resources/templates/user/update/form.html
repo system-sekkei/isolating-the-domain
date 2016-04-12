@@ -14,10 +14,10 @@
         <div class="form-group">
             <label class="col-xs-2 control-label">対象ID</label>
             <div class="col-xs-3 control-label">
-                <p class="text-left" th:text="*{id.value}">someone@example.com</p>
+                <p class="text-left" th:text="*{identifier()}">someone@example.com</p>
             </div>
         </div>
-<div th:fragment="input">
+<div th:fragment="input-fields">
 
         <div class="form-group" th:classappend="${#fields.hasErrors('name.*')}? 'has-error'">
             <label class="col-xs-2 control-label" for="name">名前</label>

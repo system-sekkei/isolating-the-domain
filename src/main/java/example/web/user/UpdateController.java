@@ -2,7 +2,7 @@ package example.web.user;
 
 import example.model.user.GenderType;
 import example.model.user.User;
-import example.model.user.UserId;
+import example.model.user.UserIdentifier;
 import example.model.user.validation.OnUpdate;
 import example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +51,7 @@ class UpdateController {
 
     @RequestMapping(value="/{userId}/input", method = RequestMethod.GET)
     String formWithCurrentData(@PathVariable(value="userId") String userId,Model model) {
-        User user = userService.findById(new UserId(userId));
+        User user = userService.findById(new UserIdentifier(userId));
         model.addAttribute("user", user); //session attribute("user")に格納する
         return "user/update/form";
     }

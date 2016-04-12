@@ -22,7 +22,6 @@ public class BaseControllerAdvice {
 
         disallowFields = new String[] {
                 "id",
-                "identifier",
         };
     }
 

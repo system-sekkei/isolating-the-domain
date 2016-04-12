@@ -7,7 +7,7 @@ import example.model.user.Name
 import example.model.user.Password
 import example.model.user.PhoneNumber
 import example.model.user.User
-import example.model.user.UserId
+import example.model.user.UserIdentifier
 import example.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.SpringApplicationContextLoader
@@ -43,7 +43,7 @@ class UserServiceSpec extends Specification {
 
     def "ユーザがIDで取得できること"() {
         given:
-        def id = new UserId('seiji.kawakami@sora-works.com')
+        def id = new UserIdentifier('seiji.kawakami@sora-works.com')
         when:
         def user = service.findById(id)
         then:
@@ -64,7 +64,7 @@ class UserServiceSpec extends Specification {
     def "ユーザーを登録できること"() {
         given:
         def user = new User()
-        def id = new UserId("hogefuga@example.com")
+        def id = new UserIdentifier("hogefuga@example.com")
         def name = new Name()
         def birthDate = new BirthDate()
         def phoneNumber = new PhoneNumber()
@@ -92,7 +92,7 @@ class UserServiceSpec extends Specification {
     def "ユーザーを更新できること"() {
         given:
         def user = new User()
-        def id = new UserId("someone@ddd-alliance.org")
+        def id = new UserIdentifier("someone@ddd-alliance.org")
         def name = new Name()
         def birthDate = new BirthDate()
         def phoneNumber = new PhoneNumber()
@@ -120,7 +120,7 @@ class UserServiceSpec extends Specification {
     def "ユーザが削除できること" () {
         given:
         def user = new User()
-        user.id = new UserId("seiji.kawakami@sora-works.com")
+        user.id = new UserIdentifier("seiji.kawakami@sora-works.com")
         when:
         service.delete(user)
         def deleteUser = service.findById(user.id)

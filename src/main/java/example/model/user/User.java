@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
  */
 public class User {
     @Valid
-    UserId id;
+    UserIdentifier identifier;
     @Valid
     Name name;
 
@@ -24,13 +24,7 @@ public class User {
 
     Password password;
 
-    public UserId getId() {
-        return this.id;
-    }
-    public void setId(UserId id) {
-        this.id = id;
-    }
-
+    public UserIdentifier identifier() {return identifier;}
     public Name name() {
         return name;
     }
@@ -54,7 +48,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "identifier=" + identifier +
                 ", name=" + name +
                 ", dateOfBirth=" + dateOfBirth +
                 ", phoneNumber=" + phoneNumber +

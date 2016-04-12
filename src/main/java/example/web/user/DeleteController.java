@@ -1,7 +1,7 @@
 package example.web.user;
 
 import example.model.user.User;
-import example.model.user.UserId;
+import example.model.user.UserIdentifier;
 import example.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class DeleteController {
 
     @RequestMapping(value="/{userId}/confirm", method = RequestMethod.GET)
     String input(@PathVariable(value="userId") String userId,Model model) {
-        User user = userService.findById(new UserId(userId));
+        User user = userService.findById(new UserIdentifier(userId));
         model.addAttribute("user", user); //sessionAttributeに格納
         return "user/delete/confirm";
     }

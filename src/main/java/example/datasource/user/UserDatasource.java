@@ -4,8 +4,6 @@ import example.model.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 /**
  * Created by haljik on 15/06/04.
  */
@@ -15,8 +13,14 @@ public class UserDatasource implements UserRepository {
     UserMapper mapper;
 
     @Override
-    public User findBy(UserId id) {
+    public User findBy(UserIdentifier id) {
         return mapper.findBy(id);
+    }
+
+    @Override
+    public Boolean isExist(UserIdentifier id) {
+        if( findBy(id) == null ) return false;
+        return true;
     }
 
     @Override
