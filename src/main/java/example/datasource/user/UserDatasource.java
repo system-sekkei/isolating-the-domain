@@ -25,6 +25,11 @@ public class UserDatasource implements UserRepository {
     }
 
     @Override
+    public User prototype() {
+        return new User();
+    }
+
+    @Override
     public void register(User user) {
         mapper.register(user);
     }

@@ -23,6 +23,8 @@ public class UserService {
         return userRepository.list();
     }
 
+    public User prototype() { return userRepository.prototype();}
+
     public void register(User user) {
         userRepository.register(user);
     }

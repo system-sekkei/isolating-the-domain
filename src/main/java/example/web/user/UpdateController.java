@@ -1,6 +1,5 @@
 package example.web.user;
 
-import example.datasource.infrastructure.url.URLCoding;
 import example.model.user.GenderType;
 import example.model.user.User;
 import example.model.user.UserId;
@@ -44,25 +43,26 @@ class UpdateController {
     @Autowired
     UserService userService;
 
-    //入り口
+    //入り口 session attribute をクリアする
     @RequestMapping(method = RequestMethod.GET)
     String clearSessionAttribute(SessionStatus sessionStatus,@RequestParam(value="userId") String userId) {
         sessionStatus.setComplete();
-        return "forward:/user/update/" + new URLCoding(userId).encode()+"/input";
+        return "forward:/user/update/" +userId + "/input";
     }
 
     @RequestMapping(value="/{userId}/input", method = RequestMethod.GET)
     String input(@PathVariable(value="userId") String userId,Model model) {
-        model.addAttribute("user", getUser(userId)); //sessionAttributeに格納
+        User user = userService.findById(new UserId(userId));
+        model.addAttribute("user", user); //sessionAttributeに格納
         return "user/update/input";
     }
 
-    private User getUser(String userId) {
-        String decoded = new URLCoding(userId).decode();
-        return userService.findById(new UserId(decoded));
+    @RequestMapping(value="/input/again",method= RequestMethod.GET)
+    String again() {
+        return "user/update/input";
     }
 
-    @RequestMapping(value = "/confirm", method = RequestMethod.POST)
+    @RequestMapping(value = "/confirm", method = {RequestMethod.POST })
     String bindAndValidate(@Validated(OnUpdate.class) @ModelAttribute User user, BindingResult binding) {
         if (binding.hasErrors()) return "user/update/input";
         return "user/update/confirm";

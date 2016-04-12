@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/layout :: htmlhead"
+      th:with="title='ユーザー登録'"/>
+<body>
+<div class="container">
+    <h1>ユーザー登録画面</h1>
+
+    <form class="form-horizontal" name="body" method="post" th:object="${user}" action="#"
+          th:action="@{/user/register/confirm}">
+        <ul class="bg-danger">
+            <li th:each="e : ${#fields.globalErrors()}" th:class="text-danger" th:text="${e}"/>
+        </ul>
+
+        <div class="form-group">
+            <div th:classappend="${#fields.hasErrors('id.value')}? 'has-error'">
+                <label class="col-xs-2 control-label" for="userId">ユーザーID</label>
+
+                <div class="col-xs-3">
+                    <input class="form-control" th:field="*{id.value}" type="email" id="userId"/>
+                </div>
+                <div class="col-xs-4 control-label" for="userId" th:if="${#fields.hasErrors('id.value')}">
+                    <p class="text-left" th:errors="*{id.value}">ユーザーID 入力エラー</p>
+                </div>
+            </div>
+        </div>
+
+        <div th:include="user/update/input ::input"></div>
+
+        <div class="form-group">
+            <div class="col-xs-3 col-xs-push-2">
+                <button class="btn btn-success">確認する</button>
+                <a class="btn btn-default" th:href="@{/}" >一覧に戻る</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<footer th:include="fragments/layout :: footer"/>
+</body>
+</html>
