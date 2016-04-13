@@ -1,5 +1,6 @@
 package example.web;
 
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -30,7 +31,6 @@ public class BaseControllerAdvice {
         binder.setAllowedFields(allowFields);
         binder.setDisallowedFields(disallowFields);
 
-        //binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
-        //direct field access と相性が悪いか？ NotBlank がうまく動作しない
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
     }
 }
