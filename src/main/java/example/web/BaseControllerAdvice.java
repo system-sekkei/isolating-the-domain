@@ -31,6 +31,6 @@ public class BaseControllerAdvice {
         binder.setAllowedFields(allowFields);
         binder.setDisallowedFields(disallowFields);
 
-        binder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
+        binder.registerCustomEditor(Object.class, new StringTrimmerEditor(false));
     }
 }
