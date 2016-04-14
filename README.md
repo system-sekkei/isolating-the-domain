@@ -9,6 +9,10 @@ gradle based Spring Boot &amp; MVC &amp; Thymeleaf &amp; Security &amp; MyBatis 
 * テーブルの　NOT NULL の徹底
 * 画面レイアウトを 水平フォームへ
 
+## 設計ガイド
+
+https://github.com/system-sekkei/isolating-the-domain/wiki/%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E5%B1%A4%E3%81%AE%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89
+
 ## 起動方法
 
 ```sh
