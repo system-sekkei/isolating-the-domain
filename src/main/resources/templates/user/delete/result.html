@@ -6,7 +6,7 @@
 <div class="container">
     <h1>利用者削除完了画面</h1>
 
-    <p th:text="${userId} + さんを削除しました">登録完了しました。</p><br/>
+    <p th:text="${user.name()} + さんを削除しました。">削除しました。</p><br/>
     <a th:href="@{/}">利用者一覧へ</a>
 </div>
 

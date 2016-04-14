@@ -5,7 +5,7 @@
 <body>
 <div class="container">
     <h1>ユーザー更新完了画面</h1>
-    <p th:text="${userId} + さんを更新しました">更新完了しました。</p><br/>
+    <h4 th:text="${user.name()} + '(' + ${user.identifier()} + ')' + さんの情報を更新しました。">情報を更新しました。</h4><br/>
     <a th:href="@{/}">利用者一覧へ</a>
 </div>
 

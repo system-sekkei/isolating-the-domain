@@ -2,21 +2,38 @@ package example.web.user;
 
 import example.model.user.GenderType;
 import example.model.user.User;
-import example.model.user.UserId;
-import example.model.user.validation.OnUpdate;
+import example.model.user.UserIdentifier;
 import example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("user/update")
 @SessionAttributes("user")
 class UpdateController {
+
+    private static final String[] allowFields ;
+    static {
+        allowFields = new String[] {
+                "name",
+                "dateOfBirth",
+                "gender",
+                "phoneNumber",
+        };
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.setAllowedFields(allowFields);
+    }
 
     @ModelAttribute("genderTypes")
     GenderType[] genderTypes() {
@@ -26,34 +43,41 @@ class UpdateController {
     @Autowired
     UserService userService;
 
-    @ModelAttribute
-    User user(@RequestParam(required = false, value = "userId") UserId userId) {
-        if (userId == null) return new User();
-        return userService.findById(userId).orElseThrow(RuntimeException::new);
-    }
-
     @RequestMapping(method = RequestMethod.GET)
-    String start() {
-        return "user/update/register";
+    String start(SessionStatus sessionStatus,@RequestParam(value="userId") String userId) {
+        sessionStatus.setComplete(); // session Attribute をクリアするためにマークする
+        return "forward:/user/update/" +userId + "/input"; // クリアの実行
     }
 
-    @RequestMapping(value = "/confirm", method = RequestMethod.POST)
-    String confirm(@Validated(OnUpdate.class) @ModelAttribute User user, BindingResult result) {
-        if (result.hasErrors()) return "user/update/register";
+    @RequestMapping(value="/{userId}/input", method = RequestMethod.GET)
+    String formWithCurrentData(@PathVariable(value="userId") String userId,Model model) {
+        User user = userService.findById(new UserIdentifier(userId));
+        model.addAttribute("user", user); //session attribute("user")に格納する
+        return "user/update/form";
+    }
+
+    @RequestMapping(value="/input/again",method= RequestMethod.GET)
+    String formAgain() {
+        return "user/update/form";
+    }
+
+    @RequestMapping(value = "/confirm", method = {RequestMethod.POST })
+    String validate(@Valid @ModelAttribute User user,
+                           BindingResult binding, RedirectAttributes attributes) {
+        if (binding.hasErrors()) return "user/update/form";
+        attributes.addFlashAttribute("user", user);
+        return "redirect:confirm";
+    }
+
+    @RequestMapping(value = "/confirm", method = RequestMethod.GET)
+    String show() {
         return "user/update/confirm";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    String register(@Validated(OnUpdate.class) @ModelAttribute User user, BindingResult result, RedirectAttributes attributes) {
-        if (result.hasErrors()) return "user/update/register";
-        userService.update(user);
-        attributes.addFlashAttribute("userId", user.getId().getValue());
-        return "redirect:/user/update/complete";
-    }
-
     @RequestMapping(value = "/complete", method = RequestMethod.GET)
-    String complete(SessionStatus status) {
+    String updateNow(@ModelAttribute User user, SessionStatus status) {
+        userService.update(user);
         status.setComplete();
-        return "user/update/complete";
+        return "user/update/result";
     }
 }

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/layout :: htmlhead"
+      th:with="title='ユーザー更新'"/>
+<body>
+<div class="container">
+    <h1>ユーザー更新画面</h1>
+    <form name="body" method="post" class="form-horizontal" th:object="${user}" action="#"
+          th:action="@{/user/update/confirm}">
+        <ul class="bg-danger">
+            <li th:each="e : ${#fields.globalErrors()}" th:class="text-danger" th:text="${e}"/>
+        </ul>
+
+        <div class="form-group">
+            <label class="col-xs-2 control-label">対象ID</label>
+            <div class="col-xs-3 control-label">
+                <p class="text-left" th:text="*{identifier()}">someone@example.com</p>
+            </div>
+        </div>
+
+<div th:fragment="input-fields">
+
+        <div class="form-group" th:classappend="${#fields.hasErrors('name.*')}? 'has-error'">
+            <label class="col-xs-2 control-label" for="name">名前</label>
+            <div class="col-xs-3">
+                <input class="form-control" th:field="*{name}" type="text" id="name"/>
+            </div>
+            <div class="col-xs-4 control-label" th:if="${#fields.hasErrors('name.*')}">
+                <p class="text-left" th:errors="*{name.*}">名前　入力エラー</p>
+            </div>
+        </div>
+
+        <div class="form-group" th:classappend="${#fields.hasErrors('dateOfBirth.*')}? 'has-error'">
+            <label class="col-xs-2 control-label" for="dateOfBirth">生年月日</label>
+            <div class="col-xs-3">
+                <input class="form-control" th:field="*{dateOfBirth}" type="text" id="dateOfBirth"/>
+            </div>
+            <div class="col-xs-4 control-label" th:if="${#fields.hasErrors('dateOfBirth.*')}">
+                <p class="text-left" th:errors="*{dateOfBirth.*}">生年月日　入力エラー</p>
+            </div>
+        </div>
+
+        <div class="form-group" th:classappend="${#fields.hasErrors('gender')}? 'has-error'">
+            <label class="col-xs-2 control-label" for="gender">性別</label>
+            <div class="col-xs-3" id="gender">
+                <label class="radio-inline control-label" th:each="gender:${genderTypes}">
+                    <input type="radio" th:text="${gender.name()}" th:value="${gender.name()}" th:field="*{gender}"
+                           name="genderType"/>
+                </label>
+
+            </div>
+            <div class="col-xs-4 control-label" for="gender" th:if="${#fields.hasErrors('gender')}">
+                <p class="text-left" th:errors="*{gender}">性別　入力エラー</p>
+            </div>
+        </div>
+
+        <div class="form-group" th:classappend="${#fields.hasErrors('phoneNumber.*')}? 'has-error'">
+            <label class="col-xs-2 control-label" for="phoneNumber">電話番号</label>
+            <div class="col-xs-3">
+                <input class="form-control" th:field="*{phoneNumber}" type="text" id="phoneNumber"/>
+            </div>
+            <div class="col-xs-4 control-label" th:if="${#fields.hasErrors('phoneNumber.*')}">
+                <p class="text-left" th:errors="*{phoneNumber.*}">電話番号　入力エラー</p>
+            </div>
+        </div>
+</div>
+
+        <div class="form-group">
+            <div class="col-xs-3 col-xs-push-2">
+                <button class="btn btn-warning">確認する</button>
+                <a class="btn btn-default" th:href="@{/}" >一覧に戻る</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<footer th:include="fragments/layout :: footer"/>
+</body>
+</html>
