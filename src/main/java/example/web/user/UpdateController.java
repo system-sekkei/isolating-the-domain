@@ -66,12 +66,12 @@ class UpdateController {
                            BindingResult binding, RedirectAttributes attributes) {
         if (binding.hasErrors()) return "user/update/form";
         attributes.addFlashAttribute("user", user);
-        return "redirect:confirmation";
+        return "redirect:confirm";
     }
 
-    @RequestMapping(value = "/confirmation", method = RequestMethod.GET)
+    @RequestMapping(value = "/confirm", method = RequestMethod.GET)
     String show() {
-        return "user/update/confirmation";
+        return "user/update/confirm";
     }
 
     @RequestMapping(value = "/complete", method = RequestMethod.GET)
