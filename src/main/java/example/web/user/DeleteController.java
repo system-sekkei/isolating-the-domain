@@ -38,15 +38,10 @@ public class DeleteController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    String execute(@ModelAttribute User user, RedirectAttributes attributes) {
+    String execute(@ModelAttribute User user,SessionStatus status) {
         userService.delete(user);
-        attributes.addFlashAttribute("user", user);
-        return "redirect:/user/delete/complete";
+        status.setComplete();
+        return "user/delete/result";
     }
 
-    @RequestMapping(value = "/complete", method = RequestMethod.GET)
-    String complete(SessionStatus status) {
-        status.setComplete();
-        return "user/delete/complete";
-    }
 }
