@@ -18,7 +18,7 @@ public class DateOfBirth {
 
     boolean valid = true;
 
-    public DateOfBirth(String source) {
+    public DateOfBirth(@NotNull String source) {
         this.source = source;
 
         DateText dateText = new DateText(source);
@@ -27,6 +27,11 @@ public class DateOfBirth {
         } catch ( DateTimeException exception) {
             valid = false;
         }
+    }
+
+    public DateOfBirth() {
+        date = null; // XXX 未指定の表現方法を検討する
+        source = "";
     }
 
     @AssertTrue(message = "日付が正しくありません。")

@@ -5,7 +5,7 @@
     <resultMap id="user" type="example.model.user.User">
         <id property="identifier.mail" column="user_id"/>
         <result property="name.text" column="name"/>
-        <result property="dateOfBirth.date" column="birth_date"/>
+        <result property="dateOfBirth.date" column="date_of_birth"/>
         <result property="phoneNumber.text" column="phone_number"/>
         <result property="gender" column="gender" />
     </resultMap>
