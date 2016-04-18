@@ -12,7 +12,7 @@ import java.time.LocalDate;
  */
 public class DateOfBirth {
 
-    @NotNull(message = "誕生日を入力してください。")
+    //@NotNull(message = "誕生日を入力してください。")
     LocalDate date ;
     String source;
 
