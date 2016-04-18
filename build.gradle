@@ -2,7 +2,7 @@ description 'ドメイン駆動設計によるアプリケーション開発の�
 
 buildscript {
     ext {
-        springBootVersion = '1.2.4.RELEASE'
+        springBootVersion = '1.3.3.RELEASE'
         encoding = 'UTF-8'
         compatibility = 1.8
     }
@@ -48,7 +48,7 @@ dependencies {
 
     compile("org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
-    compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity3:2.1.1.RELEASE')
+    compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity3:2.1.2.RELEASE')
 
     //<![if lt IE9]--><![endif]-->などのHTML条件付きコメント内部でthymeleafのexpressionを有効にする。
     compile('org.thymeleaf.extras:thymeleaf-extras-conditionalcomments:2.1.1.RELEASE')
