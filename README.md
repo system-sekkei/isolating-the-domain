@@ -3,6 +3,8 @@ gradle based Spring Boot &amp; MVC &amp; Thymeleaf &amp; Security &amp; MyBatis 
 
 ## 2016-4-18 リリースノート
 
+* Spring Bootを1.3.3.RELEASERへ
+* MyBatisを3.3.1.RELEASEへ
 * MyBatisのJSR310 Date & Time API向けTypeHandlerを導入
 * 自作TypeHandlerを削除
 
