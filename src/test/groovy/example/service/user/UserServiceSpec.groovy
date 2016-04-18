@@ -28,96 +28,53 @@ class UserServiceSpec extends Specification {
     def setup() {
         jdbcTemplate.execute("DELETE FROM USERS.USERS")
         jdbcTemplate.execute("""
-                INSERT INTO USERS.USERS(USER_ID, NAME) VALUES
-                ('seiji.kawakami@sora-works.com', '河上 晴司'),
-                ('someone@ddd-alliance.org', 'DDD ALLIANCE')
+INSERT INTO users.users
+(user_id, name, phone_number, date_of_birth, gender)
+VALUES
+ ('fukawa_teruyoshi@example.com', '布川 光良', '03-1234-5678','1988-04-08','男性'),
+ ('kuriyama_yuino@example.com', '栗山 友以乃', '03-1234-5678','1988-04-08','女性'),
+ ('fujimura_kaoru@example.com', '藤村 薫', '03-1234-5678','1988-04-08','男性'),
+ ('ijuuin_ken@example.com', '伊集院 建', '03-1234-5678','1988-04-08','男性'),
+ ('yamato_michiko@example.com', '大和 路子', '03-1234-5678','1988-04-08','女性'),
+ ('miyake_yukiya@example.com', '三宅 有起子', '03-1234-5678','1988-04-08','女性');
                 """)
     }
 
 
     def "ユーザがIDで取得できること"() {
         given:
-        def id = new UserIdentifier('seiji.kawakami@sora-works.com')
+        def id = new UserIdentifier('ijuuin_ken@example.com')
         when:
         def user = service.findById(id)
         then:
-        user.isPresent()
-        def actual = user.get()
-        actual.id.value == id.value
-        actual.name.value == '河上 晴司'
+        user.identifier().toString() == id.toString()
+        user.name().toString() == '伊集院 建'
     }
 
     def "全ユーザが取得できること"() {
         when:
         def users = service.list();
         then:
-        users.list().size() == 2;
+        users.list().size() == 6;
     }
 
     def "ユーザーを登録できること"() {
         given:
         def user = new User()
-        def id = new UserIdentifier("hogefuga@example.com")
-        def name = new Name()
-        def birthDate = new DateOfBirth()
-        def phoneNumber = new PhoneNumber()
-        user.id = id
-        name.value = "Hoge Fuga"
-        user.name = name
-        birthDate.year = 1989
-        birthDate.month = 11
-        birthDate.day = 21
-        user.birthDate = birthDate
-        phoneNumber.value = "0120-888-888"
-        user.phoneNumber = phoneNumber
+        user.identifier = new UserIdentifier("new_user@example.com")
+        user.name = new Name("new_user")
+        user.dateOfBirth = new DateOfBirth("1989/11/21")
+        user.phoneNumber = new PhoneNumber("0120-888-888")
         user.gender = GenderType.男性
         when:
         service.register(user)
         then:
-        def actual = service.findById(id).get()
-        actual.id.value == "hogefuga@example.com"
-        actual.name.value == "Hoge Fuga"
-        actual.birthDate.value.isEqual(LocalDate.of(1989, 11, 21)) == true
-        actual.phoneNumber.value == "0120-888-888"
+        User actual = service.findById(user.identifier())
+        actual.identifier.toString() == "new_user@example.com"
+        actual.name.toString() == "new_user"
+        actual.dateOfBirth.date.isEqual(LocalDate.of(1989,11,21))
+        actual.phoneNumber.toString() == "0120-888-888"
         actual.gender == GenderType.男性
     }
 
-    def "ユーザーを更新できること"() {
-        given:
-        def user = new User()
-        def id = new UserIdentifier("someone@ddd-alliance.org")
-        def name = new Name()
-        def birthDate = new BirthDate()
-        def phoneNumber = new PhoneNumber()
-        user.id = id
-        name.value = "Foo Bar"
-        user.name = name
-        birthDate.year = 2011
-        birthDate.month = 8
-        birthDate.day = 19
-        user.birthDate = birthDate
-        phoneNumber.value = "03-1234-5678"
-        user.phoneNumber = phoneNumber
-        user.gender = GenderType.女性
-        when:
-        service.update(user)
-        then:
-        def actual = service.findById(id).get()
-        actual.id.value == "someone@ddd-alliance.org"
-        actual.name.value == "Foo Bar"
-        actual.birthDate.value.isEqual(LocalDate.of(2011, 8, 19)) == true
-        actual.phoneNumber.value == "03-1234-5678"
-        actual.gender == GenderType.女性
-    }
-
-    def "ユーザが削除できること" () {
-        given:
-        def user = new User()
-        user.id = new UserIdentifier("seiji.kawakami@sora-works.com")
-        when:
-        service.delete(user)
-        def deleteUser = service.findById(user.id)
-        then:
-        !deleteUser.isPresent()
-    }
 }
