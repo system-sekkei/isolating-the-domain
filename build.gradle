@@ -61,8 +61,9 @@ dependencies {
     runtime("org.webjars:respond:1.4.2")
 
     compile("org.springframework.boot:spring-boot-starter-jdbc:${springBootVersion}")
-    compile("org.mybatis:mybatis:3.2.8")
-    compile("org.mybatis:mybatis-spring:1.2.2")
+    compile("org.mybatis:mybatis:3.3.1")
+    compile("org.mybatis:mybatis-spring:1.2.4")
+    compile("org.mybatis:mybatis-typehandlers-jsr310:1.0.0")
     runtime('org.postgresql:postgresql:9.4-1201-jdbc41')
     runtime("com.h2database:h2:1.4.187")
 
