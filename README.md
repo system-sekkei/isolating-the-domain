@@ -1,6 +1,11 @@
 # ドメインを隔離する Isolating the Domain
 gradle based Spring Boot &amp; MVC &amp; Thymeleaf &amp; Security &amp; MyBatis template project
 
+## 2016-4-18 リリースノート
+
+* MyBatisのJSR310 Date & Time API向けTypeHandlerを導入
+* 自作TypeHandlerを削除
+
 ## 2016-4-14 リリースノート
 
 * ダイレクトフィールドアクセスに切り替え
