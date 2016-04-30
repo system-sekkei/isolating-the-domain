@@ -1,6 +1,15 @@
 # ドメインを隔離する Isolating the Domain
 gradle based Spring Boot &amp; MVC &amp; Thymeleaf &amp; Security &amp; MyBatis template project
 
+## 2016-4-30 リリースノート
+
+* MyBatis-spring-boot-starter 導入(mybatis config の自動化)
+* mybatis JSR310 ハンドラー導入（自動configされる）
+* boot deevtool 導入 ( h2-console を有効にする)
+
+localhost:8080/h2-console で h2 コンソールに接続
+( jdbc:h2:mem:testdb)
+
 ## 2016-4-18 リリースノート
 
 * Spring Bootを1.3.3.RELEASERへ
