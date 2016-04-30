@@ -15,6 +15,7 @@ build/**
 
 # For local
 temp
+*.log
 
 # For mac
 .DS_Store
