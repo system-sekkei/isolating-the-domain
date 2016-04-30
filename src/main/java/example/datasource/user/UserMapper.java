@@ -3,13 +3,12 @@ package example.datasource.user;
 import example.model.user.User;
 import example.model.user.UserIdentifier;
 import example.model.user.UserSummary;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-/**
- * Created by haljik on 15/06/04.
- */
+@Mapper
 public interface UserMapper {
 
     User findBy(@Param("identifier") UserIdentifier id);
