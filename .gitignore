@@ -22,3 +22,7 @@ temp
 # backup files
 *.un~
 
+
+# log files
+*.log
+
