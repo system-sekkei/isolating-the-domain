@@ -47,8 +47,6 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
 
     compile("org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}")
-    compile("org.springframework.boot:spring-boot-starter-security:${springBootVersion}")
-    compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity3:2.1.2.RELEASE')
 
     //<![if lt IE9]--><![endif]-->などのHTML条件付きコメント内部でthymeleafのexpressionを有効にする。
     compile('org.thymeleaf.extras:thymeleaf-extras-conditionalcomments:2.1.1.RELEASE')
@@ -63,8 +61,6 @@ dependencies {
     compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1")
     compile("org.mybatis:mybatis-typehandlers-jsr310:1.0.0")
     runtime("com.h2database:h2:1.4.187")
-
-    compile("org.springframework.boot:spring-boot-starter-mail:${springBootVersion}")
 
     compile("commons-lang:commons-lang:2.6")
 
