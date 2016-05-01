@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="example.infrastructure.datasource.user.UserMapper">
+
+    <resultMap id="user" type="example.domain.model.user.User">
+        <id property="identifier.mail" column="user_id"/>
+        <result property="name.text" column="name"/>
+        <result property="dateOfBirth.date" column="date_of_birth"/>
+        <result property="phoneNumber.text" column="phone_number"/>
+        <result property="gender" column="gender" />
+    </resultMap>
+
+    <resultMap id="userSummary" type="example.domain.model.user.UserSummary">
+        <id property="identifier.mail" column="user_id"/>
+        <result property="name.text" column="name"/>
+    </resultMap>
+
+    <select id="findBy" resultMap="user">
+        SELECT user_id, name, date_of_birth, phone_number, gender
+        FROM users.users
+        WHERE user_id = #{identifier.mail}
+    </select>
+
+    <select id="list" resultMap="userSummary">
+        SELECT user_id, name
+        FROM users.users
+        ORDER BY user_id;
+    </select>
+
+    <insert id="register">
+        INSERT INTO users.users (
+        user_id, name, date_of_birth, phone_number, gender)
+        VALUES (
+        #{user.identifier.mail}, #{user.name.text}, #{user.dateOfBirth.date}, #{user.phoneNumber.text}, #{user.gender});
+    </insert>
+
+    <update id="update">
+        UPDATE users.users SET
+          name = #{user.name.text},
+          date_of_birth = #{user.dateOfBirth.date},
+          phone_number = #{user.phoneNumber.text},
+          gender = #{user.gender}
+        WHERE user_id = #{user.identifier.mail};
+    </update>
+
+    <delete id="delete">
+        DELETE FROM users.users
+        WHERE user_id = #{user.identifier.mail}
+    </delete>
+</mapper>
