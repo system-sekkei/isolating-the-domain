@@ -1,6 +1,27 @@
 # ドメインを隔離する Isolating the Domain
 gradle based Spring Boot &amp; MVC &amp; Thymeleaf &amp; Security &amp; MyBatis template project
 
+## 2016-5-1 リリースノート
+
+* パッケージの意図を明確に
+* パッケージ構造の整理と package-info.java の加筆修正
+* 未使用でも、標準的なパッケージを追加
+
+### パッケージ構成
+
+* application
+  * service //サービス部品
+  * usecase //サービスを組み合わせたユースケース定義
+* domain
+  * fundamentals //モデル記述の基礎部品
+  * model //中核の関心事の記述
+* infrastructure
+  * datasource //データベースアクセスの実装
+  * transfer //通信の実装
+* presetation
+  * controller //コントローラ
+  * view //ビュー定義
+
 ## 2016-4-30 リリースノート
 
 * MyBatis-spring-boot-starter 導入(mybatis config の自動化)
