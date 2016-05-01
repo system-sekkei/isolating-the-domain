@@ -1,5 +1,5 @@
 # ドメインを隔離する Isolating the Domain
-gradle based Spring Boot &amp; MVC &amp; Thymeleaf &amp; Security &amp; MyBatis template project
+gradle based Spring Boot &amp; MVC &amp; Thymeleaf &amp;  MyBatis template project
 
 ## 2016-5-1 リリースノート
 
