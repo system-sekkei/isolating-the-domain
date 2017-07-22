@@ -22,11 +22,11 @@ class RegisterController {
     private static final String[] allowFields ;
     static {
         allowFields = new String[] {
-                "identifier",
-                "name",
-                "dateOfBirth",
+                "identifier.value",
+                "name.value",
+                "dateOfBirth.value",
                 "gender",
-                "phoneNumber",
+                "phoneNumber.value",
         };
     }
 

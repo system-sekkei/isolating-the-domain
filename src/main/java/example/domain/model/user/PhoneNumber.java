@@ -9,19 +9,10 @@ public class PhoneNumber {
 
     @NotBlank(message = "電話番号を入力してください")
     @Pattern(regexp = "([0-9]{2,4}-[0-9]{2,4}-[0-9]{2,4})?", message = "xx-xxxx-xxxxの形式で入力してください")
-    String text;
-
-    public PhoneNumber(@NotNull String text) {
-        this.text = text;
-    }
-
-    public PhoneNumber() {
-        text = "";
-    }
-
+    String value = "";
 
     @Override
     public String toString() {
-        return text;
+        return value;
     }
 }

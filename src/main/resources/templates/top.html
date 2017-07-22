@@ -1,40 +1,43 @@
-﻿<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/layout :: htmlhead"
-      th:with="title='トップ'"/>
+<head th:include="fragments/layout :: htmlhead(~{::title})">
+    <title>トップ</title>
+</head>
 <body>
-<div class="container">
-    <h1>利用者一覧</h1>
+<div class="ui container">
+  <h1 class="ui header">利用者一覧</h1>
 
-    <div class="row">
-        <div>
-            <a class="col-xs-2 col-xs-push-5 btn btn-success"
-               th:href="@{/user/register}">利用者の新規登録</a>
-        </div>
+    <div>
+      <a class="ui positive basic button"
+         th:href="@{/user/register}">利用者の新規登録</a>
     </div>
-    <div class="row">
-        <div class="col-xs-7">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th class="col-xs-2">利用者ID</th>
-                    <th class="col-xs-2">利用者名</th>
-                    <th class="col-xs-1"></th>
-                    <th class="col-xs-1"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="user : ${users.list()}">
-                    <td th:text="${user.identifier()}"/>
-                    <td th:text="${user.name()}"/>
-                    <td><a class="btn btn-warning btn-sm" th:href="@{/user/update(userId=${user.identifier()})}">更新</a></td>
-                    <td><a class="btn btn-danger btn-sm"
-                           th:href="@{/user/delete(userId=${user.identifier()})}">削除</a></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+
+  <div class="ui vertical segment">
+    <table class="ui celled table">
+      <thead>
+        <tr>
+        <th>利用者ID</th>
+        <th>利用者名</th>
+        <th></th>
+        <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr th:each="user : ${users.list()}">
+        <td th:text="${user.identifier()}"/>
+        <td th:text="${user.name()}"/>
+        <td>
+        <a class="ui secondary basic button"
+           th:href="@{/user/update(userId=${user.identifier()})}">変更</a>
+        </td>
+        <td>
+        <a class="ui negative basic button"
+           th:href="@{/user/delete(userId=${user.identifier()})}">削除</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 </div>
 <footer th:include="fragments/layout :: footer"/>
 </body>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="htmlhead">
+<head th:fragment="htmlhead(title)">
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -8,24 +8,39 @@
     <meta name="author" content=""/>
     <link rel="shortcut icon" type="image/png" th:href="@{/images/favicon.png}"/>
 
-    <title th:text="${title}">(title)</title>
+    <title th:replace="${title}">(title)</title>
 
-    <link th:href="@{/webjars/bootstrap/3.3.4/css/bootstrap.min.css}" rel="stylesheet"/>
-    <link th:href="@{/webjars/font-awesome/4.3.0/css/font-awesome.css}" rel="stylesheet"/>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css"/>
+    <link rel="stylesheet"
+          th:href="@{/css/site.css}"/>
+
 </head>
 
 <body>
+
+<!--入力フィールドの部品-->
+<div th:fragment="input(field_id,label,placeholder)"
+     class="field"
+     th:classappend=
+       "${#fields.hasErrors('__${field_id}__')}? 'error'">
+    <label th:text="${label}">ラベル</label>
+    <input class="short-input" type="text"
+           th:field="*{__${field_id}__}"
+           th:placeholder="${placeholder}">
+    <div class="ui left pointing red basic label"
+         th:if="${#fields.hasErrors('__${field_id}__')}">
+        <span th:errors="*{__${field_id}__}">エラー</span>
+    </div>
+</div>
+
 <footer th:fragment="footer" id="footer">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script th:src="@{/webjars/html5shiv/3.7.2/html5shiv.min.js}"></script>
-    <script th:src="@{/webjars/respond/1.4.2/dest/respond.min.js}"></script>
-    <![endif]-->
-
-    <script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/3.3.4/js/bootstrap.min.js}"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js">
+    </script>
 </footer>
 </body>
 </html>

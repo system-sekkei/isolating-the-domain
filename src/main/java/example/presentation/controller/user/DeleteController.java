@@ -30,8 +30,8 @@ public class DeleteController {
     }
 
     @RequestMapping(value="/{userId}/confirm", method = RequestMethod.GET)
-    String input(@PathVariable(value="userId") String userId,Model model) {
-        User user = userService.findById(new UserIdentifier(userId));
+    String input(@PathVariable(value="userId") UserIdentifier identifier,Model model) {
+        User user = userService.findById(identifier);
         model.addAttribute("user", user); //sessionAttributeに格納
         return "user/delete/confirm";
     }
