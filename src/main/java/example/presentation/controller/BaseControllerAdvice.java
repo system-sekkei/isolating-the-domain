@@ -5,10 +5,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.InitBinder;
 
-/**
- * Created by Masuda on 2016/04/01.
- */
-
 @ControllerAdvice
 public class BaseControllerAdvice {
 
@@ -31,6 +27,6 @@ public class BaseControllerAdvice {
         binder.setAllowedFields(allowFields);
         binder.setDisallowedFields(disallowFields);
 
-        binder.registerCustomEditor(Object.class, new StringTrimmerEditor(false));
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
     }
 }

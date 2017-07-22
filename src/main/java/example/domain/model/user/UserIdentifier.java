@@ -5,27 +5,19 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 
-/**
- * Created by haljik on 15/06/04.
- */
 public class UserIdentifier {
 
     @NotBlank(message = "メールアドレスを入力してください")
     @Email(message = "メールアドレスが正しくありません。")
-    String mail;
+    String value = "";
 
-    public UserIdentifier(@NotNull String mail) {
-        this.mail = mail;
+    public UserIdentifier() {}
+    public UserIdentifier(String value) {
+        this.value = value;
     }
-
-    public UserIdentifier() {
-        this.mail = "";
-    }
-
-    public String mail() { return mail;}
 
     @Override
     public String toString() {
-        return mail;
+        return value;
     }
 }

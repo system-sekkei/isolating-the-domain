@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/layout :: htmlhead"
-      th:with="title='ユーザー更新完了'"/>
+<head th:include="fragments/layout :: htmlhead(~{::title})">
+    <title>ユーザー情報の変更完了</title>
+</head>
 <body>
-<div class="container">
-    <h1>ユーザー更新完了画面</h1>
+<div class="ui container">
+    <h1 class="ui header">ユーザー更新完了画面</h1>
     <h4 th:text="${user.name()} + '(' + ${user.identifier()} + ')' + さんの情報を更新しました。">情報を更新しました。</h4><br/>
     <a th:href="@{/}">利用者一覧へ</a>
 </div>

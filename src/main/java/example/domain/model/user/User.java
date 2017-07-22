@@ -22,6 +22,13 @@ public class User {
     @Valid
     PhoneNumber phoneNumber;
 
+    public User() {
+        identifier = new UserIdentifier();
+        name = new Name();
+        dateOfBirth = new DateOfBirth();
+        phoneNumber = new PhoneNumber();
+    }
+
     public UserIdentifier identifier() {return identifier;}
     public Name name() {
         return name;

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/layout :: htmlhead"
-      th:with="title='ユーザー登録 確認画面'"/>
+<head th:include="fragments/layout :: htmlhead(~{::title})">
+    <title>ユーザー登録 確認画面</title>
+</head>
 <body>
-<div class="container">
-    <h1>ユーザー確認画面</h1>
+<div class="ui container">
+    <h1 class="ui header">ユーザー確認画面</h1>
     <div class="form-horizontal">
 
         <div th:include="user/update/confirm ::fields"></div>

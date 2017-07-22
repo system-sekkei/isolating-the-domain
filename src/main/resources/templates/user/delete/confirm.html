@@ -1,10 +1,11 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/layout :: htmlhead"
-      th:with="title='利用者削除 確認画面'"/>
+<head th:include="fragments/layout :: htmlhead(~{::title})">
+    <title>利用者削除 確認画面</title>
+</head>
 <body>
-<div class="container">
-    <h1>利用者削除の確認画面</h1>
+<div class="ui container">
+    <h1 class="ui header">利用者削除の確認画面</h1>
 
     <div class="form-horizontal">
 

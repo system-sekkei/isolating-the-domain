@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/layout :: htmlhead"
-      th:with="title='ユーザー更新 確認画面'"/>
-<body>
-<div class="container">
-    <h1>ユーザー更新確認画面</h1>
+<head th:include="fragments/layout :: htmlhead(~{::title})">
+    <title>ユーザー更新 確認画面</title>
+</head>
+<div class="ui container">
+    <h1 class="ui header">ユーザー更新確認画面</h1>
     <div class="form-horizontal">
 
         <div th:fragment="fields">
@@ -15,6 +15,7 @@
                 <p class="text-left" th:text="${user.identifier()}">someone@example.com</p>
             </div>
         </div>
+
         <div class="form-group">
             <label class="col-xs-2 control-label">名前</label>
             <div class="col-xs-4 control-label" >

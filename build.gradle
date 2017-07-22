@@ -32,6 +32,9 @@ repositories {
     jcenter()
 }
 
+ext['thymeleaf.version'] = '3.0.6.RELEASE'
+ext['thymeleaf-layout-dialect.version'] = '2.2.2'
+
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
