@@ -25,7 +25,7 @@ class RegisterController {
                 "identifier.value",
                 "name.value",
                 "dateOfBirth.value",
-                "gender",
+                "gender.value",
                 "phoneNumber.value",
         };
     }
@@ -43,20 +43,20 @@ class RegisterController {
         return GenderType.values();
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     String start(SessionStatus sessionStatus) {
         sessionStatus.setComplete(); // session attribute をクリアするためにマーク
         return "forward:/user/register/input"; // session attribute のクリア実行
     }
 
-    @RequestMapping(value="/input", method = RequestMethod.GET)
+    @GetMapping(value="/input")
     String form(Model model) {
         User user = userService.prototype();
         model.addAttribute("user", user); //sessionAttributeに格納
         return "user/register/form";
     }
 
-    @RequestMapping(value = "/confirm", method = RequestMethod.POST)
+    @PostMapping(value = "/confirm")
     String confirm(@Valid @ModelAttribute User user, BindingResult result) {
         if (result.hasErrors()) return "user/register/form";
         if (userService.isExist(user.identifier())) {
@@ -66,14 +66,14 @@ class RegisterController {
         return "user/register/confirm";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @GetMapping(value = "/register")
     String register(@ModelAttribute User user, RedirectAttributes attributes) {
         userService.register(user);
         attributes.addFlashAttribute("user", user);
         return "redirect:/user/register/complete";
     }
 
-    @RequestMapping(value = "/complete", method = RequestMethod.GET)
+    @GetMapping(value = "/complete")
     String complete(SessionStatus status) {
         status.setComplete();
         return "user/register/result";

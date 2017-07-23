@@ -39,23 +39,23 @@
       </div>
 
         <div class="inline fields"
-             th:classappend="${#fields.hasErrors('gender')}? 'error'">
+             th:classappend="${#fields.hasErrors('gender.value')}? 'error'">
 
           <label>性別</label>
-          <div class="field" th:each="gender,state:${genderTypes}">
+          <div class="field" th:each="each,state:${genderTypes}">
             <div class="ui radio checkbox">
-              <input type="radio" name="genderType"
-                     th:value="${gender.name()}"
-                     th:field="*{gender}">
-              <label th:for="${#ids.prev('gender')}"
-                     th:text="${gender.name()}">
+              <input type="radio" name="gender"
+                     th:value="${each.name()}"
+                     th:field="*{gender.value}">
+              <label th:for="${#ids.prev('gender.value')}"
+                     th:text="${each.name()}">
               </label>
             </div>
           </div>
 
           <div class="ui left pointing red basic label"
-               th:if="${#fields.hasErrors('gender')}">
-            <span th:errors="*{gender}">性別　入力エラー</span>
+               th:if="${#fields.hasErrors('gender.value')}">
+            <span th:errors="*{gender.value}">性別　入力エラー</span>
           </div>
 
         </div>

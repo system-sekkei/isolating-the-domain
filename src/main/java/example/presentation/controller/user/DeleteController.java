@@ -11,9 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
-/**
- * Created by numamino on 2015/08/12.
- */
 @Controller
 @RequestMapping("/user/delete")
 @SessionAttributes("user")
@@ -23,20 +20,20 @@ public class DeleteController {
     UserService userService;
 
     //入り口 session attribute をクリアする
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     String clearSessionAttribute(SessionStatus sessionStatus,@RequestParam(value="userId") String userId) {
         sessionStatus.setComplete();
         return "forward:/user/delete/" +userId + "/confirm";
     }
 
-    @RequestMapping(value="/{userId}/confirm", method = RequestMethod.GET)
+    @GetMapping(value="/{userId}/confirm")
     String input(@PathVariable(value="userId") UserIdentifier identifier,Model model) {
         User user = userService.findById(identifier);
         model.addAttribute("user", user); //sessionAttributeに格納
         return "user/delete/confirm";
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @GetMapping(value = "/delete")
     String execute(@ModelAttribute User user,SessionStatus status) {
         userService.delete(user);
         status.setComplete();

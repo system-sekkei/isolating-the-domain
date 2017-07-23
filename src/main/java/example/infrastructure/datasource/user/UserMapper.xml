@@ -9,7 +9,7 @@
         <result property="name.value" column="name"/>
         <result property="dateOfBirth.value" column="date_of_birth"/>
         <result property="phoneNumber.value" column="phone_number"/>
-        <result property="gender" column="gender"/>
+        <result property="gender.value" column="gender"/>
     </resultMap>
 
     <resultMap id="userSummary" type="example.domain.model.user.UserSummary">
@@ -35,17 +35,8 @@
         date_of_birth, phone_number, gender)
         VALUES (
         #{user.identifier.value}, #{user.name.value},
-        #{user.dateOfBirth.value}, #{user.phoneNumber.value}, #{user.gender});
+        #{user.dateOfBirth.value}, #{user.phoneNumber.value}, #{user.gender.value});
     </insert>
-
-    <update id="update">
-        UPDATE users.users SET
-          name = #{user.name.value},
-          date_of_birth = #{user.dateOfBirth.value},
-          phone_number = #{user.phoneNumber.value},
-          gender = #{user.gender}
-        WHERE user_id = #{user.identifier.value};
-    </update>
 
     <delete id="delete">
         DELETE FROM users.users

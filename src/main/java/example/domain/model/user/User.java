@@ -16,8 +16,8 @@ public class User {
     @Valid
     DateOfBirth dateOfBirth;
 
-    @NotNull(message = "性別を選択してください。")
-    GenderType gender;
+    @Valid
+    Gender gender;
 
     @Valid
     PhoneNumber phoneNumber;
@@ -26,6 +26,7 @@ public class User {
         identifier = new UserIdentifier();
         name = new Name();
         dateOfBirth = new DateOfBirth();
+        gender = new Gender();
         phoneNumber = new PhoneNumber();
     }
 
@@ -38,7 +39,7 @@ public class User {
         return dateOfBirth;
     }
 
-    public GenderType gender() {
+    public Gender gender() {
         return gender;
     }
 
