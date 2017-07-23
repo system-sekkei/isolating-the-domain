@@ -24,7 +24,7 @@ class UpdateController {
     static {
         allowFields = new String[] {
                 "name",
-                "dateOfBirth",
+                "dateOfBirth.value",
                 "gender.value",
                 "phoneNumber",
         };
