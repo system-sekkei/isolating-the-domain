@@ -25,7 +25,7 @@ class UpdateController {
         allowFields = new String[] {
                 "name",
                 "dateOfBirth",
-                "gender",
+                "gender.value",
                 "phoneNumber",
         };
     }
@@ -43,25 +43,25 @@ class UpdateController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     String start(SessionStatus sessionStatus,@RequestParam(value="userId") String userId) {
         sessionStatus.setComplete(); // session Attribute をクリアするためにマークする
         return "forward:/user/update/" +userId + "/input"; // クリアの実行
     }
 
-    @RequestMapping(value="/{userId}/input", method = RequestMethod.GET)
+    @GetMapping(value="/{userId}/input")
     String formWithCurrentData(@PathVariable(value="userId") String userId,Model model) {
         User user = userService.findById(new UserIdentifier(userId));
         model.addAttribute("user", user); //session attribute("user")に格納する
         return "user/update/form";
     }
 
-    @RequestMapping(value="/input/again",method= RequestMethod.GET)
+    @GetMapping(value="/input/again")
     String formAgain() {
         return "user/update/form";
     }
 
-    @RequestMapping(value = "/confirm", method = {RequestMethod.POST })
+    @PostMapping(value = "/confirm")
     String validate(@Valid @ModelAttribute User user,
                            BindingResult binding, RedirectAttributes attributes) {
         if (binding.hasErrors()) return "user/update/form";
@@ -69,12 +69,12 @@ class UpdateController {
         return "redirect:confirm";
     }
 
-    @RequestMapping(value = "/confirm", method = RequestMethod.GET)
+    @GetMapping(value = "/confirm")
     String show() {
         return "user/update/confirm";
     }
 
-    @RequestMapping(value = "/complete", method = RequestMethod.GET)
+    @GetMapping(value = "/complete")
     String updateNow(@ModelAttribute User user, SessionStatus status) {
         userService.update(user);
         status.setComplete();
