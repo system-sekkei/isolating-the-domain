@@ -61,8 +61,10 @@ class RegisterController {
         if (result.hasErrors()) return "user/register/form";
         if (userService.isExist(user.identifier())) {
             result.rejectValue("identifier","", "ユーザー{0}は登録済みです");
+            System.out.printf(result.toString());
             return "user/register/form";
         }
+
         return "user/register/confirm";
     }
 

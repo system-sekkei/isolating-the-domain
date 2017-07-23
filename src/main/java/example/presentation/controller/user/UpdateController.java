@@ -23,10 +23,10 @@ class UpdateController {
     private static final String[] allowFields ;
     static {
         allowFields = new String[] {
-                "name",
+                "name.value",
                 "dateOfBirth.value",
                 "gender.value",
-                "phoneNumber",
+                "phoneNumber.value",
         };
     }
 
