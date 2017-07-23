@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/layout :: htmlhead(~{::title})">
-    <title>ユーザ情報の編集</title>
+    <title>利用者情報の変更</title>
 </head>
 <body>
 <div class="ui container">
-  <h1 class="ui header">ユーザー更新画面</h1>
+  <div class="ui vertical segment">
+  <h1 class="ui header">利用者情報の変更</h1>
+  </div>
+
+  <div class="ui vertical segment">
+
   <form id="custom-form" class="ui form"
         name="body" method="post" action="#"
         th:object="${user}" th:action="@{/user/update/confirm}">
 
-  <div class="field">
+    <div class="ui vertical segment">
+  <div class="inline field">
     <label>対象ID</label>
-    <div>
-      <p th:text="${user.identifier()}">山田太郎</p>
-    </div>
+    <p th:text="${user.identifier()}">山田太郎</p>
   </div>
 
     <div th:fragment="input-fields">
@@ -34,29 +38,35 @@
         <input type="text">
       </div>
 
-        <div class="form-group" th:classappend="${#fields.hasErrors('gender')}? 'has-error'">
-            <label class="col-xs-2 control-label" for="gender">性別</label>
-            <div class="col-xs-3" id="gender">
-                <label class="radio-inline control-label" th:each="gender:${genderTypes}">
-                    <input type="radio" th:text="${gender.name()}" th:value="${gender.name()}" th:field="*{gender}"
-                           name="genderType"/>
-                </label>
+        <div class="inline fields"
+             th:classappend="${#fields.hasErrors('gender')}? 'error'">
 
+          <label>性別</label>
+          <div class="field" th:each="gender,state:${genderTypes}">
+            <div class="ui radio checkbox">
+              <input type="radio" name="genderType"
+                     th:value="${gender.name()}"
+                     th:field="*{gender}">
+              <label th:for="${#ids.prev('gender')}"
+                     th:text="${gender.name()}">
+              </label>
             </div>
-            <div class="col-xs-4 control-label" for="gender" th:if="${#fields.hasErrors('gender')}">
-                <p class="text-left" th:errors="*{gender}">性別　入力エラー</p>
-            </div>
+          </div>
+
+          <div class="ui left pointing red basic label"
+               th:if="${#fields.hasErrors('gender')}">
+            <span th:errors="*{gender}">性別　入力エラー</span>
+          </div>
+
         </div>
-
 </div>
-
-        <div class="form-group">
-            <div class="col-xs-3 col-xs-push-2">
-                <button class="btn btn-warning">確認する</button>
-                <a class="btn btn-default" th:href="@{/}" >一覧に戻る</a>
-            </div>
-        </div>
+    </div>
+      <div class="ui basic segment">
+        <button class="ui secondary basic button">確認する</button>
+        <a th:href="@{/}">一覧に戻る</a>
+      </div>
     </form>
+  </div>
 </div>
 
 <footer th:include="fragments/layout :: footer"/>

@@ -1,14 +1,20 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/layout :: htmlhead(~{::title})">
-    <title>利用者削除完了</title>
+    <title>利用者削除の完了</title>
 </head>
 <body>
 <div class="ui container">
-    <h1 class="ui header">利用者削除完了画面</h1>
+  <div class="ui basic segment">
+  <h1 class="ui header">利用者削除の完了</h1>
+  </div>
 
-    <p th:text="${user.name()} + さんを削除しました。">削除しました。</p><br/>
+  <div class="ui basic inverted compact segment">
+    <p th:text="${user.name()} + さんを削除しました。">削除しました。</p>
+  </div>
+  <div class="ui basic segment">
     <a th:href="@{/}">利用者一覧へ</a>
+  </div>
 </div>
 
 <footer th:include="fragments/layout :: footer"/>
