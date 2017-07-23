@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/layout :: htmlhead(~{::title})">
-    <title>ユーザー登録完了</title>
+    <title>利用者登録の完了</title>
 </head>
 <body>
 <div class="ui container">
-    <h1 class="ui header">ユーザー登録完了画面</h1>
-    <p th:text="${user.name()} + ' (' + ${user.identifier()} + ') ' + さんを登録しました。">登録完了しました。</p><br/>
-    <a th:href="@{/}">利用者一覧へ</a>
+  <div class="ui basic segment">
+  <h1 class="ui header">利用者登録の完了</h1>
+  </div>
+
+  <div class="ui inverted segment">
+    <p th:text="${user.name()} + ' (' + ${user.identifier()} + ') ' + さんを登録しました。">登録完了しました。</p>
+  </div>
+  <div class="ui basic segment">
+  <a th:href="@{/}">利用者一覧へ</a>
+  </div>
+
 </div>
 
 <footer th:include="fragments/layout :: footer"/>

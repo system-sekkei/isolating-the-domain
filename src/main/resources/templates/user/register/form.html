@@ -1,29 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/layout :: htmlhead(~{::title})">
-    <title>ユーザの新規登録</title>
+    <title>利用者の新規登録</title>
 </head>
 <div class="ui container">
-<h1 class="ui header">ユーザー登録画面</h1>
 
+  <div class="ui vertical segment">
+  <h1 class="ui header">利用者の新規登録</h1>
+  </div>
+
+  <div class="ui vertical segment">
   <form id="custom-form" class="ui form" name="body"
         method="post" action="#"
         th:object="${user}" th:action="@{/user/register/confirm}">
 
-    <div th:replace="fragments/layout::input('identifier.value','ユーザID','someone@example.com')">
+    <div class="ui vertical segment">
+    <div th:replace="fragments/layout::input('identifier.value','利用者ID','someone@example.com')">
       <label>ID</label>
       <input type="text">
     </div>
 
     <div th:include="user/update/form ::input-fields"></div>
 
-    <div class="form-group">
-            <div class="col-xs-3 col-xs-push-2">
-                <button class="btn btn-success">確認する</button>
-                <a class="btn btn-default" th:href="@{/}" >一覧に戻る</a>
-            </div>
-        </div>
-    </form>
+    </div>
+    <div class="ui basic segment">
+      <button class="ui positive basic button">確認する</button>
+      <a th:href="@{/}">一覧に戻る</a>
+    </div>
+  </form>
+  </div>
 </div>
 
 <footer th:include="fragments/layout :: footer"/>

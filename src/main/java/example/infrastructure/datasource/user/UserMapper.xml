@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="example.infrastructure.datasource.user.UserMapper">
 
     <resultMap id="user" type="example.domain.model.user.User">
@@ -8,7 +9,7 @@
         <result property="name.value" column="name"/>
         <result property="dateOfBirth.value" column="date_of_birth"/>
         <result property="phoneNumber.value" column="phone_number"/>
-        <result property="gender" column="gender" />
+        <result property="gender" column="gender"/>
     </resultMap>
 
     <resultMap id="userSummary" type="example.domain.model.user.UserSummary">

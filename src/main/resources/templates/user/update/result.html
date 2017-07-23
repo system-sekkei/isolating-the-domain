@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/layout :: htmlhead(~{::title})">
-    <title>ユーザー情報の変更完了</title>
+    <title>利用者情報の変更完了</title>
 </head>
 <body>
 <div class="ui container">
-    <h1 class="ui header">ユーザー更新完了画面</h1>
-    <h4 th:text="${user.name()} + '(' + ${user.identifier()} + ')' + さんの情報を更新しました。">情報を更新しました。</h4><br/>
-    <a th:href="@{/}">利用者一覧へ</a>
+  <div class="ui basic segment">
+  <h1 class="ui header">利用者情報の変更完了</h1>
+  </div>
+
+  <div class="ui inverted compact segment">
+  <h4 th:text="${user.name()} + '(' + ${user.identifier()} + ')' + さんの情報を更新しました。">更新しました。</h4>
+  </div>
+
+  <div class="ui basic segment">
+  <a th:href="@{/}">利用者一覧へ</a>
+  </div>
+
 </div>
 
 <footer th:include="fragments/layout :: footer"/>

@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/layout :: htmlhead(~{::title})">
-    <title>ユーザー登録 確認画面</title>
+    <title>利用者登録の確認</title>
 </head>
 <body>
 <div class="ui container">
-    <h1 class="ui header">ユーザー確認画面</h1>
-    <div class="form-horizontal">
+  <div class="ui vertical segment">
+  <h1 class="ui header">利用者登録の確認</h1>
+  </div>
 
-        <div th:include="user/update/confirm ::fields"></div>
-
-    <div class="col-xs-3 col-xs-push-2 form-group">
-        <a th:href="@{/user/register/register}" class="btn btn-primary">登録する</a>
-        <a th:href="@{/user/register}" class="btn btn-default">戻る</a>
+    <div class="ui form basic segment">
+      <div th:include="user/update/confirm ::fields"></div>
     </div>
 
+    <div class="ui basic segment">
+      <a class="ui positive basic button"
+         th:href="@{/user/register/register}">登録する</a>
+      <a th:href="@{/user/register}">戻る</a>
     </div>
 </div>
 

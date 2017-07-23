@@ -5,14 +5,16 @@
 </head>
 <body>
 <div class="ui container">
+
+  <div class="ui basic segment">
   <h1 class="ui header">利用者一覧</h1>
+  </div>
 
-    <div>
-      <a class="ui positive basic button"
-         th:href="@{/user/register}">利用者の新規登録</a>
-    </div>
+    <a class="ui positive basic button"
+       th:href="@{/user/register}">利用者の新規登録</a>
 
-  <div class="ui vertical segment">
+  <div class="ui basic segment">
+
     <table class="ui celled table">
       <thead>
         <tr>
