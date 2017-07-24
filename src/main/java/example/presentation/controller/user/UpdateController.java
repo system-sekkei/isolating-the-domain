@@ -17,18 +17,16 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("user/update")
-@SessionAttributes("user")
+@SessionAttributes({"user"})
 class UpdateController {
 
-    private static final String[] allowFields ;
-    static {
-        allowFields = new String[] {
-                "name.value",
-                "dateOfBirth.value",
-                "gender.value",
-                "phoneNumber.value",
+    private static final String[] allowFields =
+        {
+            "name.value",
+            "dateOfBirth.value",
+            "gender.value",
+            "phoneNumber.value",
         };
-    }
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -36,23 +34,26 @@ class UpdateController {
     }
 
     @ModelAttribute("genderTypes")
-    GenderType[] genderTypes() {
+    GenderType[] addGendersToModel() {
         return GenderType.values();
     }
 
     @Autowired
     UserService userService;
 
-    @GetMapping
-    String start(SessionStatus sessionStatus,@RequestParam(value="userId") String userId) {
-        sessionStatus.setComplete(); // session Attribute をクリアするためにマークする
-        return "forward:/user/update/" +userId + "/input"; // クリアの実行
+    @GetMapping("")
+    String start(@RequestParam(value="userId") String userId,
+                SessionStatus status) {
+        status.setComplete();
+        return "forward:/user/update/" +userId + "/input";
     }
 
     @GetMapping(value="/{userId}/input")
-    String formWithCurrentData(@PathVariable(value="userId") String userId,Model model) {
-        User user = userService.findById(new UserIdentifier(userId));
-        model.addAttribute("user", user); //session attribute("user")に格納する
+    String formToEdit(@PathVariable(value="userId") UserIdentifier userId,
+                      Model model) {
+        User user = userService.findById(userId);
+        model.addAttribute("user", user);
+        System.out.println(user);
         return "user/update/form";
     }
 
@@ -63,21 +64,31 @@ class UpdateController {
 
     @PostMapping(value = "/confirm")
     String validate(@Valid @ModelAttribute User user,
-                           BindingResult binding, RedirectAttributes attributes) {
+                   BindingResult binding) {
         if (binding.hasErrors()) return "user/update/form";
-        attributes.addFlashAttribute("user", user);
-        return "redirect:confirm";
-    }
 
-    @GetMapping(value = "/confirm")
-    String show() {
         return "user/update/confirm";
     }
 
-    @GetMapping(value = "/complete")
-    String updateNow(@ModelAttribute User user, SessionStatus status) {
+    @GetMapping(value = "/register")
+    String registerThenRedirect(@ModelAttribute User user,
+                                SessionStatus status,
+                                RedirectAttributes attributes) {
         userService.update(user);
         status.setComplete();
+
+        attributes.addAttribute("name", user.name().toString());
+        attributes.addAttribute("id", user.identifier().toString());
+
+        return "redirect:/user/update/completed";
+    }
+
+    @GetMapping(value = "/completed")
+    String showResult(Model model,
+                     @RequestParam("name") String name,
+                     @RequestParam("id") String id) {
+        model.addAttribute("name", name);
+        model.addAttribute("id", id);
         return "user/update/result";
     }
 }

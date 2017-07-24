@@ -15,8 +15,8 @@ public class UserDatasource implements UserRepository {
     }
 
     @Override
-    public Boolean isExist(UserIdentifier id) {
-        if( findBy(id) == null ) return false;
+    public Boolean isExist(User user) {
+        if( findBy(user.identifier()) == null ) return false;
         return true;
     }
 

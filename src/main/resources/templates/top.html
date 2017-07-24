@@ -34,7 +34,7 @@
         </td>
         <td>
         <a class="ui negative basic button"
-           th:href="@{/user/delete(userId=${user.identifier()})}">削除</a>
+           th:href="@{/user/{userId}/delete/view(userId=${user.identifier()})}">削除</a>
         </td>
       </tr>
     </tbody>

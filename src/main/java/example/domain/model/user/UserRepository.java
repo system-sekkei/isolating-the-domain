@@ -1,11 +1,9 @@
 package example.domain.model.user;
 
-/**
- * Created by haljik on 15/06/04.
- */
 public interface UserRepository {
     User findBy(UserIdentifier id);
-    Boolean isExist(UserIdentifier id);
+
+    Boolean isExist(User user);
 
     UserSummaries list();
 

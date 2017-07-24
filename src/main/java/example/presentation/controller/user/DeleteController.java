@@ -10,33 +10,44 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/user/delete")
-@SessionAttributes("user")
+@RequestMapping("user/{userId}/delete")
 public class DeleteController {
 
     @Autowired
     UserService userService;
 
-    //入り口 session attribute をクリアする
-    @GetMapping
-    String clearSessionAttribute(SessionStatus sessionStatus,@RequestParam(value="userId") String userId) {
-        sessionStatus.setComplete();
-        return "forward:/user/delete/" +userId + "/confirm";
-    }
-
-    @GetMapping(value="/{userId}/confirm")
+    @GetMapping(value="/view")
     String input(@PathVariable(value="userId") UserIdentifier identifier,Model model) {
         User user = userService.findById(identifier);
-        model.addAttribute("user", user); //sessionAttributeに格納
+        model.addAttribute("user", user);
+
         return "user/delete/confirm";
     }
 
-    @GetMapping(value = "/delete")
-    String execute(@ModelAttribute User user,SessionStatus status) {
+    @GetMapping(value = "")
+    String deleteThenRedirect(
+            @PathVariable(value="userId") UserIdentifier identifier,
+            Model model,
+            RedirectAttributes attributes) {
+        User user = userService.findById(identifier);
         userService.delete(user);
-        status.setComplete();
+
+        attributes.addAttribute("name", user.name().toString());
+
+        String redirectTo = String.format(
+                "redirect:/user/%s/delete/completed",
+                user.identifier().toString()
+        );
+        return redirectTo;
+    }
+
+    @GetMapping(value = "/completed")
+    String showResult(Model model,
+                      @RequestParam("name") String name) {
+        model.addAttribute("name", name);
         return "user/delete/result";
     }
 
