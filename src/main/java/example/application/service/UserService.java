@@ -4,9 +4,6 @@ import example.domain.model.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by haljik on 15/06/04.
- */
 @Service
 public class UserService {
 
@@ -16,7 +13,7 @@ public class UserService {
     public User findById(UserIdentifier id) {
         return userRepository.findBy(id);
     }
-    public Boolean isExist(UserIdentifier id) {return userRepository.isExist(id);}
+    public Boolean isExist(User user) {return userRepository.isExist(user);}
 
     public UserSummaries list() {
         return userRepository.list();

@@ -19,7 +19,7 @@
 
     <div class="ui vertical segment">
       <a class="ui negative basic button"
-         th:href="@{/user/delete/delete}">削除</a>
+         th:href="@{/user/{userId}/delete(userId=${user.identifier()})}">削除</a>
       <a th:href="@{/}">一覧に戻る</a>
     </div>
 </div>
