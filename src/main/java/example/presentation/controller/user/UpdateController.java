@@ -3,9 +3,9 @@ package example.presentation.controller.user;
 import example.domain.model.user.GenderType;
 import example.domain.model.user.User;
 import example.domain.model.user.UserIdentifier;
+
 import example.application.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("user/update")
+@RequestMapping("user/{userId}/update")
 @SessionAttributes({"user"})
 class UpdateController {
 
@@ -42,13 +45,13 @@ class UpdateController {
     UserService userService;
 
     @GetMapping("")
-    String start(@RequestParam(value="userId") String userId,
+    String clearSessionAtStart(@PathVariable(value="userId") String userId,
                 SessionStatus status) {
         status.setComplete();
-        return "forward:/user/update/" +userId + "/input";
+        return "forward:/user/" +userId + "/update/input";
     }
 
-    @GetMapping(value="/{userId}/input")
+    @GetMapping(value="input")
     String formToEdit(@PathVariable(value="userId") UserIdentifier userId,
                       Model model) {
         User user = userService.findById(userId);
@@ -57,12 +60,12 @@ class UpdateController {
         return "user/update/form";
     }
 
-    @GetMapping(value="/input/again")
+    @GetMapping(value="input/again")
     String formAgain() {
         return "user/update/form";
     }
 
-    @PostMapping(value = "/confirm")
+    @PostMapping(value = "confirm")
     String validate(@Valid @ModelAttribute User user,
                    BindingResult binding) {
         if (binding.hasErrors()) return "user/update/form";
@@ -70,7 +73,7 @@ class UpdateController {
         return "user/update/confirm";
     }
 
-    @GetMapping(value = "/register")
+    @GetMapping(value = "register")
     String registerThenRedirect(@ModelAttribute User user,
                                 SessionStatus status,
                                 RedirectAttributes attributes) {
@@ -80,10 +83,10 @@ class UpdateController {
         attributes.addAttribute("name", user.name().toString());
         attributes.addAttribute("id", user.identifier().toString());
 
-        return "redirect:/user/update/completed";
+        return "redirect:/user/someone/update/completed";
     }
 
-    @GetMapping(value = "/completed")
+    @GetMapping(value = "completed")
     String showResult(Model model,
                      @RequestParam("name") String name,
                      @RequestParam("id") String id) {

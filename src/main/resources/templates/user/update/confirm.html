@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
   <title>利用者情報の変更の確認</title>
 </head>
 <div class="ui container">
@@ -44,9 +45,9 @@
 
     <div class="ui basic segment">
       <a class="ui secondary basic button"
-         th:href="@{/user/update/register}">保存する</a>
+         th:href="@{/user/{userId}/update/register(userId=${user.identifier()})}">保存する</a>
       <a class=""
-         th:href="@{/user/update/input/again}">入力に戻る</a>
+         th:href="@{/user/{userId}/update/input/again(userId=${user.identifier()})}">入力に戻る</a>
     </div>
 </div>
 
