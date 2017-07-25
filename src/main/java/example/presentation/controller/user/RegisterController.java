@@ -2,15 +2,20 @@ package example.presentation.controller.user;
 
 import example.domain.model.user.GenderType;
 import example.domain.model.user.User;
+
 import example.application.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
 import javax.validation.Valid;
 
@@ -19,7 +24,7 @@ import javax.validation.Valid;
 @SessionAttributes({"user"})
 class RegisterController {
 
-    private static final String[] allowFields =
+    private static final String[] accept =
             {
                     "identifier.value",
                     "name.value",
@@ -31,7 +36,7 @@ class RegisterController {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        binder.setAllowedFields(allowFields);
+        binder.setAllowedFields(accept);
     }
 
     @Autowired
@@ -48,42 +53,42 @@ class RegisterController {
         return "forward:/user/register/input";
     }
 
-    @GetMapping(value = "/input")
+    @GetMapping(value = "input")
     String showForm(Model model) {
         User user = userService.prototype();
         model.addAttribute("user", user);
         return "user/register/form";
     }
 
-    @GetMapping(value = "/input/again")
+    @GetMapping(value = "input/again")
     String showFormToModify() {
         return "user/register/form";
     }
 
-    @PostMapping(value = "/confirm")
-    String validate(@Valid @ModelAttribute User user,
+    @PostMapping(value = "confirm")
+    String validate(@Valid @ModelAttribute("user") User user,
                     BindingResult result) {
         if (result.hasErrors()) return "user/register/form";
-        if (userService.isExist(user)) return formWithError(user, result);
+        if (userService.isExist(user)) return alreadyExists(user, result);
 
         return "user/register/confirm";
     }
 
-    private String formWithError(User user, BindingResult result) {
-        String alreadyExists = "{0}は登録済みです";
+    private String alreadyExists(User user, BindingResult result) {
+        String rejectedPath = "identifier.value";
+        String messageKey = "error.id.already.exists";
         Object[] arguments = {user.identifier()};
-        result.rejectValue("identifier.value",
-                "error.id.already.exists", arguments,
-                alreadyExists);
+        String defaultMessage = "{0}は登録済みです";
+        result.rejectValue(rejectedPath,messageKey,arguments,defaultMessage);
         return "user/register/form";
     }
 
-    @GetMapping(value = "/register")
-    String registerThenRedirect(@ModelAttribute User user,
-                               SessionStatus status,
-                               RedirectAttributes attributes) {
+    @GetMapping(value = "register")
+    String registerThenRedirectAndClearSession(
+            @ModelAttribute User user,
+            SessionStatus status,RedirectAttributes attributes) {
         userService.register(user);
-        status.setComplete(); // セッション上のモデルに終了マーク
+        status.setComplete();
 
         attributes.addAttribute("name", user.name().toString());
         attributes.addAttribute("id", user.identifier().toString());
@@ -91,7 +96,7 @@ class RegisterController {
         return "redirect:/user/register/completed";
     }
 
-    @GetMapping(value = "/completed")
+    @GetMapping(value = "completed")
     String showResult(Model model,
                       @RequestParam("name") String name,
                       @RequestParam("id") String id) {

@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
     <title>トップ</title>
 </head>
 <body>
@@ -30,7 +31,7 @@
         <td th:text="${user.name()}"/>
         <td>
         <a class="ui secondary basic button"
-           th:href="@{/user/update(userId=${user.identifier()})}">変更</a>
+           th:href="@{/user/{userId}/update(userId=${user.identifier()})}">変更</a>
         </td>
         <td>
         <a class="ui negative basic button"

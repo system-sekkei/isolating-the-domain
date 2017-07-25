@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
     <title>利用者の新規登録</title>
 </head>
 <div class="ui container">
@@ -15,7 +16,7 @@
         th:object="${user}" th:action="@{/user/register/confirm}">
 
     <div class="ui vertical segment">
-    <div th:replace="fragments/layout::input('identifier.value','利用者ID','someone@example.com')">
+    <div th:replace="fragments/input::macro('identifier.value','利用者ID','someone@example.com')">
       <label>ID</label>
       <input type="text">
     </div>
