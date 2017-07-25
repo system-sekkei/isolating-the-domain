@@ -14,10 +14,10 @@
     <div class="field" th:each="each:${__${members}__}">
         <div class="ui radio checkbox">
             <input type="radio" name="dummy"
-                   th:value="${each}"
+                   th:value="${each.name()}"
                    th:field="*{__${field_id}__}"/>
             <label th:for="${#ids.prev('__${field_id}__')}"
-                   th:text="${each}">
+                   th:text="${each.name()}">
             </label>
         </div>
     </div>
