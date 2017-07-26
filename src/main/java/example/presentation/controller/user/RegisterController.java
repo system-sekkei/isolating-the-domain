@@ -7,17 +7,15 @@ import example.application.service.UserService;
 
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("user/register")
@@ -66,7 +64,7 @@ class RegisterController {
     }
 
     @PostMapping(value = "confirm")
-    String validate(@Valid @ModelAttribute("user") User user,
+    String validate(@Validated @ModelAttribute("user") User user,
                     BindingResult result) {
         if (result.hasErrors()) return "user/register/form";
         if (userService.isExist(user)) return alreadyExists(user, result);

@@ -4,6 +4,7 @@ import example.domain.model.user.UserSummaries;
 
 import example.application.service.UserService;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,7 +23,7 @@ class TopController {
         return userService.list();
     }
 
-    @RequestMapping
+    @GetMapping
     String show() {
         return "top";
     }
