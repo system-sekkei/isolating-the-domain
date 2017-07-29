@@ -4,11 +4,20 @@ Spring MVC (direct field access)
 Thymeleaf
 MyBatis SQL Mapper
 
+## 起動方法
+
+```sh
+./gradlew clean bootRun
+```
+
+## 設計ガイド
+https://github.com/system-sekkei/isolating-the-domain/wiki
+
 ## 2017-7-30 リリースノート
 
 * Spring MVC direct field accessの使い方をより明確に
 * フレームワークのバージョンアップ
-* [[wiki|https://github.com/system-sekkei/isolating-the-domain/wiki]]の加筆・修正
+* 設計ガイドの加筆・修正
 
 ## 2016-5-1 リリースノート
 
@@ -55,10 +64,6 @@ localhost:8080/h2-console で h2 コンソールに接続
 * テーブルの　NOT NULL の徹底
 * 画面レイアウトを 水平フォームへ
 
-## 設計ガイド
-
-https://github.com/system-sekkei/isolating-the-domain/wiki/%E3%83%89%E3%83%A1%E3%82%A4%E3%83%B3%E5%B1%A4%E3%81%AE%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89
-
 ## 起動方法
 
 ```sh
@@ -70,7 +75,6 @@ https://github.com/system-sekkei/isolating-the-domain/wiki/%E3%83%89%E3%83%A1%E3
 ```sh
 ./gradlew clean build
 ```
-
 ## アーキテクチャ
 
 ![アーキテクチャ](architecture.png)
