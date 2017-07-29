@@ -2,7 +2,7 @@ description 'ドメイン駆動設計によるアプリケーションテンプ�
 
 buildscript {
     ext {
-        springBootVersion = '1.5.4.RELEASE'
+        springBootVersion = '1.5.6.RELEASE'
         encoding = 'UTF-8'
         compatibility = 1.8
     }
@@ -32,7 +32,7 @@ repositories {
     jcenter()
 }
 
-ext['thymeleaf.version'] = '3.0.6.RELEASE'
+ext['thymeleaf.version'] = '3.0.7.RELEASE'
 ext['thymeleaf-layout-dialect.version'] = '2.2.2'
 
 dependencies {
@@ -43,7 +43,6 @@ dependencies {
     compile("org.mybatis:mybatis-typehandlers-jsr310:1.0.2")
 
     runtime("com.h2database:h2:1.4.196")
-    compile("org.springframework.boot:spring-boot-devtools") // for h2-console
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
     testCompile("junit:junit:4.12")
