@@ -1,5 +1,14 @@
 # ドメインを隔離する Isolating the Domain
-gradle based Spring Boot &amp; MVC &amp; Thymeleaf &amp;  MyBatis template project
+Spring Boot
+Spring MVC (direct field access)
+Thymeleaf
+MyBatis SQL Mapper
+
+## 2017-7-30 リリースノート
+
+* Spring MVC direct field accessの使い方をより明確に
+* フレームワークのバージョンアップ
+* [[wiki|https://github.com/system-sekkei/isolating-the-domain/wiki]]の加筆・修正
 
 ## 2016-5-1 リリースノート
 
