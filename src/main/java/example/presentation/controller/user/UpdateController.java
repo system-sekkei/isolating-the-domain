@@ -1,11 +1,11 @@
 package example.presentation.controller.user;
 
+import example.application.service.UserService;
 import example.domain.model.user.GenderType;
 import example.domain.model.user.User;
 import example.domain.model.user.UserIdentifier;
-
-import example.application.service.UserService;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -14,21 +14,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-
 @Controller
 @RequestMapping("user/{userId}/update")
 @SessionAttributes({"user"})
 class UpdateController {
 
     private static final String[] allowFields =
-        {
-            "name.value",
-            "dateOfBirth.value",
-            "gender.value",
-            "phoneNumber.value",
-        };
+            {
+                    "name.value",
+                    "dateOfBirth.value",
+                    "gender.value",
+                    "phoneNumber.value",
+            };
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -44,14 +41,14 @@ class UpdateController {
     UserService userService;
 
     @GetMapping("")
-    String clearSessionAtStart(@PathVariable(value="userId") String userId,
-                SessionStatus status) {
+    String clearSessionAtStart(@PathVariable(value = "userId") String userId,
+                               SessionStatus status) {
         status.setComplete();
-        return "forward:/user/" +userId + "/update/input";
+        return "forward:/user/" + userId + "/update/input";
     }
 
-    @GetMapping(value="input")
-    String formToEdit(@PathVariable(value="userId") UserIdentifier userId,
+    @GetMapping(value = "input")
+    String formToEdit(@PathVariable(value = "userId") UserIdentifier userId,
                       Model model) {
         User user = userService.findById(userId);
         model.addAttribute("user", user);
@@ -59,14 +56,14 @@ class UpdateController {
         return "user/update/form";
     }
 
-    @GetMapping(value="input/again")
+    @GetMapping(value = "input/again")
     String formAgain() {
         return "user/update/form";
     }
 
     @PostMapping(value = "confirm")
     String validate(@Validated @ModelAttribute User user,
-                   BindingResult binding) {
+                    BindingResult binding) {
         if (binding.hasErrors()) return "user/update/form";
 
         return "user/update/confirm";
@@ -87,8 +84,8 @@ class UpdateController {
 
     @GetMapping(value = "completed")
     String showResult(Model model,
-                     @RequestParam("name") String name,
-                     @RequestParam("id") String id) {
+                      @RequestParam("name") String name,
+                      @RequestParam("id") String id) {
         model.addAttribute("name", name);
         model.addAttribute("id", id);
         return "user/update/result";

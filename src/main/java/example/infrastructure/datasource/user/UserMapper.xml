@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="example.infrastructure.datasource.user.UserMapper">
 
     <resultMap id="user" type="example.domain.model.user.User">
@@ -18,24 +18,28 @@
     </resultMap>
 
     <select id="findBy" resultMap="user">
-        SELECT user_id, name, date_of_birth, phone_number, gender
+        SELECT
+            user_id,
+            name,
+            date_of_birth,
+            phone_number,
+            gender
         FROM users.users
         WHERE user_id = #{identifier.value}
     </select>
 
     <select id="list" resultMap="userSummary">
-        SELECT user_id, name
+        SELECT
+            user_id,
+            name
         FROM users.users
         ORDER BY user_id;
     </select>
 
     <insert id="register">
-        INSERT INTO users.users (
-        user_id, name,
-        date_of_birth, phone_number, gender)
-        VALUES (
-        #{user.identifier.value}, #{user.name.value},
-        #{user.dateOfBirth.value}, #{user.phoneNumber.value}, #{user.gender.value});
+        INSERT INTO users.users (user_id, name, date_of_birth, phone_number, gender)
+        VALUES (#{user.identifier.value}, #{user.name.value}, #{user.dateOfBirth.value}, #{user.phoneNumber.value},
+                #{user.gender.value});
     </insert>
 
     <delete id="delete">

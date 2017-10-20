@@ -2,7 +2,6 @@ package example.domain.model.user;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class PhoneNumber {

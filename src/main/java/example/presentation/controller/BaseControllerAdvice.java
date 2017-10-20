@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.InitBinder;
 @ControllerAdvice
 public class BaseControllerAdvice {
 
-    private static final String[] allowFields ;
+    private static final String[] allowFields;
     private static final String[] disallowFields;
 
     static {
-        allowFields = new String[] {
+        allowFields = new String[]{
                 "to be specified",
         };
 
-        disallowFields = new String[] {
+        disallowFields = new String[]{
                 "protected*",
         };
     }

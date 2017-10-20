@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Name {
 
     @NotBlank(message = "名前を入力してください。")
-    String value ="";
+    String value = "";
 
     @Override
     public String toString() {
