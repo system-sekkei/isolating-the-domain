@@ -1,6 +1,9 @@
 package example.infrastructure.datasource.user;
 
-import example.domain.model.user.*;
+import example.domain.model.user.User;
+import example.domain.model.user.UserIdentifier;
+import example.domain.model.user.UserRepository;
+import example.domain.model.user.UserSummaries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +19,7 @@ public class UserDatasource implements UserRepository {
 
     @Override
     public Boolean isExist(User user) {
-        if( findBy(user.identifier()) == null ) return false;
+        if (findBy(user.identifier()) == null) return false;
         return true;
     }
 

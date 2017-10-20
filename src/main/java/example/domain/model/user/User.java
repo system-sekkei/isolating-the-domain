@@ -1,7 +1,6 @@
 package example.domain.model.user;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 /**
  * Created by haljik on 15/06/04.
@@ -30,7 +29,10 @@ public class User {
         phoneNumber = new PhoneNumber();
     }
 
-    public UserIdentifier identifier() {return identifier;}
+    public UserIdentifier identifier() {
+        return identifier;
+    }
+
     public Name name() {
         return name;
     }

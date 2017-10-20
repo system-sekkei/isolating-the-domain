@@ -9,11 +9,11 @@ public class DateOfBirth {
 
     @NotNull(message = "誕生日を入力してください。")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    LocalDate value ;
+    LocalDate value;
 
     @Override
     public String toString() {
-        if(value == null) return "";
+        if (value == null) return "";
         return value.toString();
     }
 }

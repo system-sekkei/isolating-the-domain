@@ -1,10 +1,10 @@
 package example.presentation.controller.user;
 
+import example.application.service.UserService;
 import example.domain.model.user.GenderType;
 import example.domain.model.user.User;
-
-import example.application.service.UserService;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -12,9 +12,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 
 @Controller
@@ -77,14 +74,14 @@ class RegisterController {
         String messageKey = "error.id.already.exists";
         Object[] arguments = {user.identifier()};
         String defaultMessage = "{0}は登録済みです";
-        result.rejectValue(rejectedPath,messageKey,arguments,defaultMessage);
+        result.rejectValue(rejectedPath, messageKey, arguments, defaultMessage);
         return "user/register/form";
     }
 
     @GetMapping(value = "register")
     String registerThenRedirectAndClearSession(
             @ModelAttribute User user,
-            SessionStatus status,RedirectAttributes attributes) {
+            SessionStatus status, RedirectAttributes attributes) {
         userService.register(user);
         status.setComplete();
 
