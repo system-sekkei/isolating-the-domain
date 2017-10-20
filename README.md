@@ -13,6 +13,13 @@ MyBatis SQL Mapper
 ## 設計ガイド
 https://github.com/system-sekkei/isolating-the-domain/wiki
 
+## 2017-10-20 リリースノート
+
+* 依存ライブラリを最新化
+    * Spring Boot
+    * MyBatis
+    * Thymeleaf
+
 ## 2017-7-30 リリースノート
 
 * Spring MVC direct field accessの使い方をより明確に
@@ -44,7 +51,7 @@ https://github.com/system-sekkei/isolating-the-domain/wiki
 
 * MyBatis-spring-boot-starter 導入(mybatis config の自動化)
 * mybatis JSR310 ハンドラー導入（自動configされる）
-* boot deevtool 導入 ( h2-console を有効にする)
+* boot devtools 導入 ( h2-console を有効にする)
 
 localhost:8080/h2-console で h2 コンソールに接続
 ( jdbc:h2:mem:testdb)
