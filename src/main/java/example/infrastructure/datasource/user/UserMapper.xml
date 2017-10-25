@@ -6,6 +6,7 @@
 
     <resultMap id="user" type="example.domain.model.user.User">
         <id property="identifier.value" column="user_id"/>
+        <result property="email.value" column="email"/>
         <result property="name.value" column="name"/>
         <result property="dateOfBirth.value" column="date_of_birth"/>
         <result property="phoneNumber.value" column="phone_number"/>
@@ -14,12 +15,14 @@
 
     <resultMap id="userSummary" type="example.domain.model.user.UserSummary">
         <id property="identifier.value" column="user_id"/>
+        <result property="email.value" column="email"/>
         <result property="name.value" column="name"/>
     </resultMap>
 
     <select id="findBy" resultMap="user">
         SELECT
             user_id,
+            email,
             name,
             date_of_birth,
             phone_number,
@@ -31,14 +34,15 @@
     <select id="list" resultMap="userSummary">
         SELECT
             user_id,
+            email,
             name
         FROM users.users
         ORDER BY user_id;
     </select>
 
     <insert id="register">
-        INSERT INTO users.users (user_id, name, date_of_birth, phone_number, gender)
-        VALUES (#{user.identifier.value}, #{user.name.value}, #{user.dateOfBirth.value}, #{user.phoneNumber.value},
+        INSERT INTO users.users (user_id, email, name, date_of_birth, phone_number, gender)
+        VALUES (#{user.identifier.value}, #{user.email.value}, #{user.name.value}, #{user.dateOfBirth.value}, #{user.phoneNumber.value},
                 #{user.gender.value});
     </insert>
 

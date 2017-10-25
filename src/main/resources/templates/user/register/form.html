@@ -16,12 +16,15 @@
         th:object="${user}" th:action="@{/user/register/confirm}">
 
     <div class="ui vertical segment">
-    <div th:replace="fragments/input::macro('identifier.value','利用者ID','someone@example.com')">
-      <label>ID</label>
-      <input type="text">
-    </div>
 
-    <div th:include="user/update/form ::input-fields"></div>
+      <div class="field">
+        <label>ID</label>
+        <input class="short-input" type="text" disabled
+               th:field="*{__${'identifier.value'}__}"
+        />
+      </div>
+
+      <div th:include="user/update/form ::input-fields"></div>
 
     </div>
     <div class="ui basic segment">

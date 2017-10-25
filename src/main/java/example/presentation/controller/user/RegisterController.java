@@ -23,7 +23,7 @@ class RegisterController {
             {
                     "identifier.value",
                     "name.value",
-
+                    "email.value",
                     "dateOfBirth.value",
                     "gender.value",
                     "phoneNumber.value",
@@ -86,6 +86,7 @@ class RegisterController {
         status.setComplete();
 
         attributes.addAttribute("name", user.name().toString());
+        attributes.addAttribute("email", user.email().toString());
         attributes.addAttribute("id", user.identifier().toString());
 
         return "redirect:/user/register/completed";
@@ -94,8 +95,10 @@ class RegisterController {
     @GetMapping(value = "completed")
     String showResult(Model model,
                       @RequestParam("name") String name,
+                      @RequestParam("email") String email,
                       @RequestParam("id") String id) {
         model.addAttribute("name", name);
+        model.addAttribute("email", email);
         model.addAttribute("id", id);
         return "user/register/result";
     }

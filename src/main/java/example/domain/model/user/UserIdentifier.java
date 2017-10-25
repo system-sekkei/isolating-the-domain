@@ -1,15 +1,13 @@
 package example.domain.model.user;
 
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
+import java.util.UUID;
 
 public class UserIdentifier {
 
-    @NotBlank(message = "メールアドレスを入力してください")
-    @Email(message = "メールアドレスが正しくありません。")
     String value = "";
 
     public UserIdentifier() {
+        this.value = UUID.randomUUID().toString();
     }
 
     public UserIdentifier(String value) {

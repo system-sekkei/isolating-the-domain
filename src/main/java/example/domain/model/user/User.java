@@ -6,8 +6,12 @@ import javax.validation.Valid;
  * Created by haljik on 15/06/04.
  */
 public class User {
+
     @Valid
     UserIdentifier identifier;
+
+    @Valid
+    UserEmail email;
 
     @Valid
     Name name;
@@ -23,6 +27,7 @@ public class User {
 
     public User() {
         identifier = new UserIdentifier();
+        email = new UserEmail();
         name = new Name();
         dateOfBirth = new DateOfBirth();
         gender = new Gender();
@@ -31,6 +36,10 @@ public class User {
 
     public UserIdentifier identifier() {
         return identifier;
+    }
+
+    public UserEmail email() {
+        return email;
     }
 
     public Name name() {
@@ -52,7 +61,8 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "identifier=" + identifier +
+                ", identifier=" + identifier +
+                ", email=" + email +
                 ", name=" + name +
                 ", dateOfBirth=" + dateOfBirth +
                 ", phoneNumber=" + phoneNumber +

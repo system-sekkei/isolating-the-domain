@@ -16,7 +16,12 @@
 
       <div class="field">
         <label>利用者ID</label>
-        <p th:text="${user.identifier()}">someone@example.com</p>
+        <p th:text="${user.identifier()}">UUID</p>
+      </div>
+
+      <div class="field">
+        <label>EMAIL</label>
+        <p th:text="${user.email()}">someone@example.com</p>
       </div>
 
       <div class="field">

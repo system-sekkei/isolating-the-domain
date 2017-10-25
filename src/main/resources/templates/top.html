@@ -19,15 +19,17 @@
     <table class="ui celled table">
       <thead>
         <tr>
-        <th>利用者ID</th>
-        <th>利用者名</th>
-        <th></th>
-        <th></th>
+          <th>利用者ID</th>
+          <th>email</th>
+          <th>利用者名</th>
+          <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
       <tr th:each="user : ${users.list()}">
         <td th:text="${user.identifier()}"/>
+        <td th:text="${user.email()}"/>
         <td th:text="${user.name()}"/>
         <td>
         <a class="ui secondary basic button"

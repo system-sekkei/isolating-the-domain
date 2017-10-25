@@ -25,6 +25,11 @@
 
                 <div th:fragment="input-fields">
 
+                    <div th:replace="fragments/input::macro('email.value','EMAIL','someone@example.com')">
+                        <label>メールアドレス</label>
+                        <input type="text">
+                    </div>
+
                     <div th:replace="fragments/input::macro('name.value','名前','名前')">
                         <label>名前</label>
                         <input type="text">
