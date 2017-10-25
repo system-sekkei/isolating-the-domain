@@ -21,6 +21,7 @@ class UpdateController {
 
     private static final String[] allowFields =
             {
+                    "email.value",
                     "name.value",
                     "dateOfBirth.value",
                     "gender.value",
@@ -77,6 +78,7 @@ class UpdateController {
         status.setComplete();
 
         attributes.addAttribute("name", user.name().toString());
+        attributes.addAttribute("email", user.email().toString());
         attributes.addAttribute("id", user.identifier().toString());
 
         return "redirect:/user/someone/update/completed";
@@ -85,8 +87,10 @@ class UpdateController {
     @GetMapping(value = "completed")
     String showResult(Model model,
                       @RequestParam("name") String name,
+                      @RequestParam("email") String email,
                       @RequestParam("id") String id) {
         model.addAttribute("name", name);
+        model.addAttribute("email", email);
         model.addAttribute("id", id);
         return "user/update/result";
     }
