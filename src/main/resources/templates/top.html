@@ -21,6 +21,7 @@
         <tr>
         <th>利用者ID</th>
         <th>利用者名</th>
+        <th>年齢</th>
         <th></th>
         <th></th>
         </tr>
@@ -29,6 +30,7 @@
       <tr th:each="user : ${users.list()}">
         <td th:text="${user.identifier()}"/>
         <td th:text="${user.name()}"/>
+        <td th:text="${user.age()}"/>
         <td>
         <a class="ui secondary basic button"
            th:href="@{/user/{userId}/update(userId=${user.identifier()})}">変更</a>
