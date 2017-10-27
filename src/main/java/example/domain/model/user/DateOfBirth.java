@@ -11,6 +11,10 @@ public class DateOfBirth {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     LocalDate value;
 
+    Age age() {
+        return new Age(LocalDate.now().getYear() - value.getYear());
+    }
+
     @Override
     public String toString() {
         if (value == null) return "";

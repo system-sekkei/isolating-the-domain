@@ -15,6 +15,7 @@
     <resultMap id="userSummary" type="example.domain.model.user.UserSummary">
         <id property="identifier.value" column="user_id"/>
         <result property="name.value" column="name"/>
+        <result property="dateOfBirth.value" column="date_of_birth"/>
     </resultMap>
 
     <select id="findBy" resultMap="user">
@@ -31,7 +32,8 @@
     <select id="list" resultMap="userSummary">
         SELECT
             user_id,
-            name
+            name,
+            date_of_birth
         FROM users.users
         ORDER BY user_id;
     </select>

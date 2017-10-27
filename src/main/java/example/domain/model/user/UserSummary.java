@@ -3,6 +3,7 @@ package example.domain.model.user;
 public class UserSummary {
     UserIdentifier identifier;
     Name name;
+    DateOfBirth dateOfBirth;
 
     public UserIdentifier identifier() {
         return identifier;
@@ -11,4 +12,6 @@ public class UserSummary {
     public Name name() {
         return name;
     }
+
+    public Age age() { return dateOfBirth.age(); }
 }
