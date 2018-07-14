@@ -19,12 +19,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 class UpdateController {
 
     private static final String[] allowFields =
-        {
-            "name.value",
-            "dateOfBirth.value",
-            "gender.value",
-            "phoneNumber.value",
-        };
+            {
+                    "name.value",
+                    "dateOfBirth.value",
+                    "gender.value",
+                    "phoneNumber.value",
+            };
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
