@@ -3,7 +3,6 @@ package example.presentation.controller.user;
 import example.application.service.UserService;
 import example.domain.model.user.GenderType;
 import example.domain.model.user.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,8 +33,7 @@ class RegisterController {
         binder.setAllowedFields(accept);
     }
 
-    @Autowired
-    UserService userService;
+    final UserService userService;
 
     @ModelAttribute("genderTypes")
     GenderType[] addGendersToModel() {
@@ -98,5 +96,9 @@ class RegisterController {
         model.addAttribute("name", name);
         model.addAttribute("id", id);
         return "user/register/result";
+    }
+
+    RegisterController(UserService userService) {
+        this.userService = userService;
     }
 }

@@ -4,7 +4,6 @@ import example.application.service.UserService;
 import example.domain.model.user.GenderType;
 import example.domain.model.user.User;
 import example.domain.model.user.UserIdentifier;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,12 +19,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 class UpdateController {
 
     private static final String[] allowFields =
-            {
-                    "name.value",
-                    "dateOfBirth.value",
-                    "gender.value",
-                    "phoneNumber.value",
-            };
+        {
+            "name.value",
+            "dateOfBirth.value",
+            "gender.value",
+            "phoneNumber.value",
+        };
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -37,8 +36,7 @@ class UpdateController {
         return GenderType.values();
     }
 
-    @Autowired
-    UserService userService;
+    final UserService userService;
 
     @GetMapping("")
     String clearSessionAtStart(@PathVariable(value = "userId") String userId,
@@ -89,5 +87,9 @@ class UpdateController {
         model.addAttribute("name", name);
         model.addAttribute("id", id);
         return "user/update/result";
+    }
+
+    UpdateController(UserService userService) {
+        this.userService = userService;
     }
 }

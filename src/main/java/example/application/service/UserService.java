@@ -4,14 +4,12 @@ import example.domain.model.user.User;
 import example.domain.model.user.UserIdentifier;
 import example.domain.model.user.UserRepository;
 import example.domain.model.user.UserSummaries;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
 
-    @Autowired
-    UserRepository userRepository;
+    final UserRepository userRepository;
 
     public User findById(UserIdentifier id) {
         return userRepository.findBy(id);
@@ -40,4 +38,9 @@ public class UserService {
     public void delete(User user) {
         userRepository.delete(user);
     }
+
+    UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
 }
