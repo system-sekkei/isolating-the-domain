@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-    final UserRepository userRepository;
+    UserRepository userRepository;
 
     public User findById(UserIdentifier id) {
         return userRepository.findBy(id);

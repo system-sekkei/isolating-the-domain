@@ -33,7 +33,7 @@ class RegisterController {
         binder.setAllowedFields(accept);
     }
 
-    final UserService userService;
+    UserService userService;
 
     @ModelAttribute("genderTypes")
     GenderType[] addGendersToModel() {

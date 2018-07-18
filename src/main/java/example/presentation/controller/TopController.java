@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 class TopController {
-    final UserService userService;
+    UserService userService;
 
     @ModelAttribute("users")
     UserSummaries users() {

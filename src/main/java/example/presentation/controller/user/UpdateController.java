@@ -36,7 +36,7 @@ class UpdateController {
         return GenderType.values();
     }
 
-    final UserService userService;
+    UserService userService;
 
     @GetMapping("")
     String clearSessionAtStart(@PathVariable(value = "userId") String userId,

@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("user/{userId}/delete")
 public class DeleteController {
 
-    final UserService userService;
+    UserService userService;
 
     @GetMapping(value = "view")
     String show(@PathVariable(value = "userId") UserIdentifier identifier, Model model) {

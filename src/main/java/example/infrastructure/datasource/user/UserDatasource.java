@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserDatasource implements UserRepository {
-    final UserMapper mapper;
+    UserMapper mapper;
 
     @Override
     public User findBy(UserIdentifier id) {
