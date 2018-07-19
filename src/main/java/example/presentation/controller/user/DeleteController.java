@@ -3,7 +3,6 @@ package example.presentation.controller.user;
 import example.application.service.UserService;
 import example.domain.model.user.User;
 import example.domain.model.user.UserIdentifier;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("user/{userId}/delete")
 public class DeleteController {
 
-    @Autowired
     UserService userService;
 
     @GetMapping(value = "view")
@@ -46,4 +44,7 @@ public class DeleteController {
         return "user/delete/result";
     }
 
+    DeleteController(UserService userService) {
+        this.userService = userService;
+    }
 }

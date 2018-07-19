@@ -4,7 +4,6 @@ import example.application.service.UserService;
 import example.domain.model.user.GenderType;
 import example.domain.model.user.User;
 import example.domain.model.user.UserIdentifier;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,7 +36,6 @@ class UpdateController {
         return GenderType.values();
     }
 
-    @Autowired
     UserService userService;
 
     @GetMapping("")
@@ -89,5 +87,9 @@ class UpdateController {
         model.addAttribute("name", name);
         model.addAttribute("id", id);
         return "user/update/result";
+    }
+
+    UpdateController(UserService userService) {
+        this.userService = userService;
     }
 }

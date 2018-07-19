@@ -4,12 +4,10 @@ import example.domain.model.user.User;
 import example.domain.model.user.UserIdentifier;
 import example.domain.model.user.UserRepository;
 import example.domain.model.user.UserSummaries;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserDatasource implements UserRepository {
-    @Autowired
     UserMapper mapper;
 
     @Override
@@ -47,5 +45,9 @@ public class UserDatasource implements UserRepository {
     @Override
     public void delete(User user) {
         mapper.delete(user);
+    }
+
+    public UserDatasource(UserMapper mapper) {
+        this.mapper = mapper;
     }
 }
