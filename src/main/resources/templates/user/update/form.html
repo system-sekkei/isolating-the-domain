@@ -1,60 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/layout :: htmlhead(~{::title})">
-    <meta charset="utf-8"/>
-    <title>利用者情報の変更</title>
+  <meta charset="utf-8"/>
+  <title>利用者情報の変更</title>
 </head>
 <body>
 <div class="ui container">
-    <div class="ui vertical segment">
-        <h1 class="ui header">利用者情報の変更</h1>
-    </div>
+  <div class="ui basic segment">
+    <h1 class="ui center aligned header">利用者情報の変更</h1>
+  </div>
 
-    <div class="ui vertical segment">
+  <div class="ui middle aligned center aligned grid">
+    <form id="custom-form" class="ui large form" name="body" 
+      method="post" action="#"
+      th:object="${user}"
+      th:action="@{/user/{userId}/update/confirm(userId=${user.identifier()})}">
 
-        <form id="custom-form" class="ui form"
-              name="body" method="post" action="#"
-              th:object="${user}"
-              th:action="@{/user/{userId}/update/confirm(userId=${user.identifier()})}">
+      <div class="column">
+        <div class="inline field">
+          <label>対象ID</label>
+          <p th:text="${user.identifier()}">山田太郎</p>
+        </div>
 
-            <div class="ui vertical segment">
-                <div class="inline field">
-                    <label>対象ID</label>
-                    <p th:text="${user.identifier()}">山田太郎</p>
-                </div>
+        <div class="ui stacked segment" th:fragment="input-fields">
+          <div class="field"
+           th:replace="fragments/input::macro('name.value','名前','名前')">
+            <label>名前</label>
+            <input type="text">
+          </div>
 
-                <div th:fragment="input-fields">
+          <div class="field"
+           th:replace="fragments/input::macro('dateOfBirth.value','生年月日','2000-01-01')">
+            <label>生年月日</label>
+            <input type="text">
+          </div>
 
-                    <div th:replace="fragments/input::macro('name.value','名前','名前')">
-                        <label>名前</label>
-                        <input type="text">
-                    </div>
+          <div class="field"
+           th:replace="fragments/input::macro('phoneNumber.value','電話番号','03-1234-5678')">
+            <label>電話番号</label>
+            <input type="text">
+          </div>
 
-                    <div th:replace="fragments/input::macro('dateOfBirth.value','生年月日','2000-01-01')">
-                        <label>生年月日</label>
-                        <input type="text">
-                    </div>
-
-                    <div th:replace="fragments/input::macro('phoneNumber.value','電話番号','03-1234-5678')">
-                        <label>電話番号</label>
-                        <input type="text">
-                    </div>
-
-                    <div th:replace="fragments/radio::macro('gender.value','性別','genderTypes')">
-                        <div class="ui radio checkbox">
-                            <label>性別</label>
-                            <input type="radio" name="gender">
-                            <label>不明</label>
-                        </div>
-                    </div>
-                </div>
+          <div class="field"
+           th:replace="fragments/radio::macro('gender.value','性別','genderTypes')">
+            <div class="ui radio checkbox">
+              <label>性別</label>
+              <input type="radio" name="gender">
+              <label>不明</label>
             </div>
-            <div class="ui basic segment">
-                <button class="ui secondary basic button">確認する</button>
-                <a th:href="@{/}">一覧に戻る</a>
-            </div>
-        </form>
-    </div>
+          </div>
+        </div>
+      </div>
+            
+      <div class="ui basic segment">
+        <a class="ui grey button" 
+          th:href="@{/}">一覧に戻る</a>
+        <button class="ui positive button">確認する</button>
+      </div>
+    </form>
+    
+  </div>
 </div>
 
 <footer th:include="fragments/layout :: footer"/>
