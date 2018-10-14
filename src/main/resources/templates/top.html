@@ -2,20 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/layout :: htmlhead(~{::title})">
   <meta charset="utf-8"/>
-    <title>トップ</title>
+  <title>トップ</title>
 </head>
 <body>
 <div class="ui container">
-
   <div class="ui basic segment">
-  <h1 class="ui header centered">利用者一覧</h1>
+    <h1 class="ui center aligned header">利用者一覧</h1>
   </div>
   
   <div class="ui right aligned basic segment">
     <a class="ui labeled icon positive button"
-         th:href="@{/user/register}">
-         <i class="user plus icon"></i>利用者の新規登録
-    </a>      
+      th:href="@{/user/register}">
+      <i class="user plus icon"></i>利用者の新規登録</a>      
   </div>
   
   <div class="ui basic segment">
@@ -34,12 +32,12 @@
       <tr th:each="user : ${users.list()}">
         <td th:text="${user.identifier()}"/>
         <td th:text="${user.name()}"/>
-        <td class="center aligned" th:text="${user.age()}"/>
-        <td class="center aligned">
+        <td class="ui center aligned" th:text="${user.age()}"/>
+        <td class="ui center aligned">
         <a class="ui mini primary button"
            th:href="@{/user/{userId}/update(userId=${user.identifier()})}"><i class="edit icon"></i>変更</a>
         </td>
-        <td class="center aligned">
+        <td class="ui center aligned">
         <a class="ui mini negative button"
            th:href="@{/user/{userId}/delete/view(userId=${user.identifier()})}"><i class="trash icon"></i>削除</a>
         </td>
