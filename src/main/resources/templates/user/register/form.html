@@ -2,33 +2,37 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:include="fragments/layout :: htmlhead(~{::title})">
   <meta charset="utf-8"/>
-    <title>利用者の新規登録</title>
+  <title>利用者の新規登録</title>
 </head>
+<body>
 <div class="ui container">
-
-  <div class="ui vertical segment">
-  <h1 class="ui header">利用者の新規登録</h1>
+  <div class="ui basic segment">
+    <h1 class="ui center aligned header">利用者の新規登録</h1>
   </div>
 
-  <div class="ui vertical segment">
-  <form id="custom-form" class="ui form" name="body"
-        method="post" action="#"
-        th:object="${user}" th:action="@{/user/register/confirm}">
+  <div class="ui middle aligned center aligned grid">
+    <form id="custom-form" class="ui large form" name="body"
+      method="post" action="#"
+      th:object="${user}" 
+      th:action="@{/user/register/confirm}">
 
-    <div class="ui vertical segment">
-    <div th:replace="fragments/input::macro('identifier.value','利用者ID','someone@example.com')">
-      <label>ID</label>
-      <input type="text">
-    </div>
+      <div class="column">
+        <div th:replace="fragments/input::macro('identifier.value','利用者ID','someone@example.com')">
+          <label>ID</label>
+          <input type="text">
+        </div>
+      
+        <div th:include="user/update/form ::input-fields"></div>
 
-    <div th:include="user/update/form ::input-fields"></div>
+      </div>
 
-    </div>
-    <div class="ui basic segment">
-      <button class="ui positive basic button">確認する</button>
-      <a th:href="@{/}">一覧に戻る</a>
-    </div>
-  </form>
+      <div class="ui basic segment">
+        <a class="ui grey button" 
+          th:href="@{/}">一覧に戻る</a>
+        <button class="ui positive button">確認する</button>
+      </div>
+    </form>
+    
   </div>
 </div>
 
