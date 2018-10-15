@@ -13,6 +13,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'org.springframework.boot' version '1.5.8.RELEASE'
+    id 'com.google.cloud.tools.jib' version '0.9.9'
 }
 
 description 'ドメイン駆動設計によるアプリケーションテンプレート'
@@ -47,3 +48,12 @@ dependencies {
     testCompile("junit:junit:4.12")
 }
 
+jib {
+  from {
+    image = 'openjdk:alpine'
+  }
+  container {
+    ports = ['8080']
+    useCurrentTimestamp = true
+  }
+}
