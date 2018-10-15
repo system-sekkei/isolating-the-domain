@@ -26,3 +26,7 @@ temp
 # log files
 *.log
 
+# For Eclipse
+.classpath
+.project
+.settings
