@@ -5,9 +5,7 @@ context('isolating-the-domain', () => {
   it('Smoke test', () => {
 	//利用者一覧が表示されている
 	cy.get('.header').should('text', '利用者一覧')
-	//件数退避して追加後の件数と比較したかったけど退避方法不明
-//	var lineCount = cy.get('tbody > tr')
-//	assert.equal(lineCount, 6, '行数が合ってません')
+	const id = 'hoge-' +  new Date().getTime() + '@example.com'
 	//利用者登録に遷移
 	cy.get('a[href="/user/register"]').click()
 	cy.get('.header').should('text', '利用者の新規登録')
@@ -16,7 +14,7 @@ context('isolating-the-domain', () => {
 	cy.get('div.error').should((errorDivs) =>{
 		expect(errorDivs.length).to.not.equal(0)
 	})
-	cy.get('#identifier\\.value').type('hoge@example.com')
+	cy.get('#identifier\\.value').type(id)
 	cy.get('#name\\.value').type('テスト太郎')
 	cy.get('#dateOfBirth\\.value').type('1974-12-31')
 	cy.get('#phoneNumber\\.value').type('090-1234-5678')
@@ -27,7 +25,26 @@ context('isolating-the-domain', () => {
 	cy.get('.header').should('text', '利用者登録の完了')
 	cy.get('a[href="/"]').click()
 	cy.get('.header').should('text', '利用者一覧')
-  })
+	//更新処理
+	cy.get('tbody > tr > td').contains(id).parent().within(() => {
+		cy.get('a[href="/user/' + id + '/update"]').click()
+	})
+	cy.get('.header').should('text', '利用者情報の変更')
+	cy.get('#name\\.value').clear().type('テスト次郎')
+	cy.get('button').should('text', '確認する').click()
+	cy.get('.header').should('text', '利用者情報の変更の確認')
+	cy.get('a[href="/user/' + id + '/update/register"]').click()
+	cy.get('a[href="/"]').click()
+	cy.get('.header').should('text', '利用者一覧')
+	//削除
+	cy.get('tbody > tr > td').contains(id).parent().within(() => {
+		cy.get('a[href="/user/' + id + '/delete/view"]').click()
+	})
+	cy.get('.header').should('text', '削除の確認')
+	cy.get('a[href="/user/' + id + '/delete"]').click()
+	cy.get('a[href="/"]').click()
+	cy.get('.header').should('text', '利用者一覧')
+	})
 })
 
 
