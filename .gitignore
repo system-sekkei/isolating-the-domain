@@ -30,3 +30,7 @@ temp
 .classpath
 .project
 .settings
+
+# For Cypress
+cypress/videos
+cypress/screenshots

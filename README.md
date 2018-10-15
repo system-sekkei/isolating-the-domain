@@ -82,6 +82,16 @@ localhost:8080/h2-console で h2 コンソールに接続
 ```sh
 ./gradlew clean build
 ```
+
+## 動作検証
+
+```
+npm install
+npm test
+```
+
+Cypressのヘッドレスブラウザでテストします。
+
 ## アーキテクチャ
 
 ![アーキテクチャ](architecture.png)
