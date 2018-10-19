@@ -33,13 +33,14 @@ public class UserDatasource implements UserRepository {
 
     @Override
     public void register(User user) {
-        mapper.register(user);
+        mapper.registerUser(user);
+        mapper.registerMailAddress(user);
     }
 
     @Override
     public void update(User user) {
         mapper.delete(user);
-        mapper.register(user);
+        mapper.registerUser(user);
     }
 
     @Override

@@ -70,12 +70,17 @@
         ORDER BY user.user_id;
     </select>
 
-    <insert id="register">
+    <insert id="registerUser">
         INSERT INTO users.users (user_id, name, date_of_birth, phone_number, gender)
         VALUES (#{user.identifier.value}, #{user.name.value}, #{user.dateOfBirth.value}, #{user.phoneNumber.value},
                 #{user.gender.value});
     </insert>
 
+    <insert id="registerMailAddress">
+        INSERT INTO users.users_mail_address (user_id, register_date, mail_address)
+        VALUES (#{user.identifier.value}, now(), #{user.mailAddress.value});
+	</insert>
+	
     <delete id="delete">
         DELETE FROM users.users
         WHERE user_id = #{user.identifier.value}

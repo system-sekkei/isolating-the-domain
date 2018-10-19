@@ -15,7 +15,8 @@ public interface UserMapper {
 
     List<UserSummary> list();
 
-    void register(@Param("user") User user);
+    void registerUser(@Param("user") User user);
+    void registerMailAddress(@Param("user") User user);
 
     void delete(@Param("user") User user);
 }
