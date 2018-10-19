@@ -15,6 +15,7 @@
     <resultMap id="userSummary" type="example.domain.model.user.UserSummary">
         <id property="identifier.value" column="user_id"/>
         <result property="name.value" column="name"/>
+        <result property="mailAddress.value" column="mail_address"/>
         <result property="dateOfBirth.value" column="date_of_birth"/>
     </resultMap>
 
@@ -31,11 +32,26 @@
 
     <select id="list" resultMap="userSummary">
         SELECT
-            user_id,
-            name,
-            date_of_birth
-        FROM users.users
-        ORDER BY user_id;
+            user.user_id,
+            user.name,
+            users_mail_address.mail_address,
+            user.date_of_birth
+        FROM users.users as user
+          INNER JOIN (
+            SELECT 
+              user_id,
+              max(register_date) as register_date
+            FROM
+              users.users_mail_address
+            GROUP BY
+              user_id
+          ) AS leatest on (
+            user.user_id = leatest.user_id
+          ) INNER JOIN users.users_mail_address as users_mail_address on (
+            user.user_id = users_mail_address.user_id
+            and leatest.register_date = users_mail_address.register_date
+          )          
+        ORDER BY user.user_id;
     </select>
 
     <insert id="register">

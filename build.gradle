@@ -36,6 +36,7 @@ dependencies {
     testImplementation("org.junit:junit-bom:5.3.1")
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testImplementation("org.junit.jupiter:junit-jupiter-params")
+    testRuntimeClasspath("org.junit.platform:junit-platform-launcher")
     testRuntimeClasspath("org.junit.jupiter:junit-jupiter-engine")
 }
 

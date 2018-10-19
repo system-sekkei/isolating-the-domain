@@ -7,3 +7,18 @@ VALUES
  ('ijuuin_ken@example.com', '伊集院 建', '03-1234-5678','1988-07-07','男性'),
  ('yamato_michiko@example.com', '大和 路子', '03-1234-5678','1988-09-09','女性'),
  ('miyake_yukiya@example.com', '三宅 有起子', '03-1234-5678','1988-12-31','女性');
+
+ INSERT INTO users.users_mail_address
+ (user_id, register_date, mail_address)
+ values
+ ('fukawa_teruyoshi@example.com', now(), 'fukawa_teruyoshi@example.com'),
+ ('kuriyama_yuino@example.com', now(), 'kuriyama_yuino@example.com'),
+ ('fujimura_kaoru@example.com', now(), 'fujimura_kaoru@example.com'),
+ ('ijuuin_ken@example.com', now(), 'ijuuin_ken@example.com'),
+ ('yamato_michiko@example.com', now(), 'yamato_michiko@example.com'),
+ ('miyake_yukiya@example.com', now(), 'miyake_yukiya@example.com')
+ ;
+  INSERT INTO users.users_mail_address
+ (user_id, register_date, mail_address)
+ values('fukawa_teruyoshi@example.com', now(), 'fukawa_teruyoshi_new@example.com')
+ ;
