@@ -22,7 +22,7 @@ class RegisterController {
             {
                     "identifier.value",
                     "name.value",
-
+                    	"mailAddress.value",
                     "dateOfBirth.value",
                     "gender.value",
                     "phoneNumber.value",

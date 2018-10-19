@@ -30,6 +30,12 @@
           </div>
 
           <div class="field"
+           th:replace="fragments/input::macro('mailAddress.value','メールアドレス','someone@example.com')">
+            <label>メールアドレス</label>
+            <input type="text">
+          </div>
+
+          <div class="field"
            th:replace="fragments/input::macro('dateOfBirth.value','生年月日','2000-01-01')">
             <label>生年月日</label>
             <input type="text">
