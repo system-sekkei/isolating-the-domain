@@ -17,12 +17,7 @@
       th:action="@{/user/register/confirm}">
 
       <div class="column">
-        <div th:replace="fragments/input::macro('identifier.value','利用者ID','someone@example.com')">
-          <label>ID</label>
-          <input type="text">
-        </div>
-      
-        <div th:include="user/update/form ::input-fields"></div>
+         <div th:include="user/update/form ::input-fields"></div>
 
       </div>
 
