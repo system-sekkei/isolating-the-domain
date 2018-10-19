@@ -22,4 +22,10 @@ class UserRepositoryTest {
 				us -> "fukawa_teruyoshi@example.com".equals(us.identifier().toString())).findFirst().get();
 		assertEquals(summary.mailAddress().toString(), "fukawa_teruyoshi_new@example.com");
 	}
+	
+	@Test
+	void test_findBy() {
+		User user = sut.findBy(new UserIdentifier("fukawa_teruyoshi@example.com"));
+		assertEquals(user.mailAddress().toString(), "fukawa_teruyoshi_new@example.com");
+	}
 }

@@ -7,6 +7,7 @@
     <resultMap id="user" type="example.domain.model.user.User">
         <id property="identifier.value" column="user_id"/>
         <result property="name.value" column="name"/>
+        <result property="mailAddress.value" column="mail_address"/>
         <result property="dateOfBirth.value" column="date_of_birth"/>
         <result property="phoneNumber.value" column="phone_number"/>
         <result property="gender.value" column="gender"/>
@@ -21,13 +22,28 @@
 
     <select id="findBy" resultMap="user">
         SELECT
-            user_id,
-            name,
-            date_of_birth,
-            phone_number,
-            gender
-        FROM users.users
-        WHERE user_id = #{identifier.value}
+            user.user_id,
+            user.name,
+            users_mail_address.mail_address,
+            user.date_of_birth,
+            user.phone_number,
+            user.gender
+        FROM users.users  as user
+          INNER JOIN (
+            SELECT 
+              user_id,
+              max(register_date) as register_date
+            FROM
+              users.users_mail_address
+            GROUP BY
+              user_id
+          ) AS leatest on (
+            user.user_id = leatest.user_id
+          ) INNER JOIN users.users_mail_address as users_mail_address on (
+            user.user_id = users_mail_address.user_id
+            and leatest.register_date = users_mail_address.register_date
+          )
+        WHERE user.user_id = #{identifier.value}
     </select>
 
     <select id="list" resultMap="userSummary">
