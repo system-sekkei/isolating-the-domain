@@ -23,6 +23,7 @@
         <tr>
         <th class="seven wide">利用者ID</th>
         <th class="four wide">利用者名</th>
+        <th class="seven wide">メールアドレス</th>
         <th class="one wide">年齢</th>
         <th class="two wide"></th>
         <th class="two wide"></th>
@@ -32,6 +33,7 @@
       <tr th:each="user : ${users.list()}">
         <td th:text="${user.identifier()}"/>
         <td th:text="${user.name()}"/>
+        <td th:text="${user.mailAddress()}"/>
         <td class="ui center aligned" th:text="${user.age()}"/>
         <td class="ui center aligned">
         <a class="ui mini primary button"

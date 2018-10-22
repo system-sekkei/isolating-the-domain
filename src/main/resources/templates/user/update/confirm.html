@@ -15,13 +15,13 @@
     <div th:fragment="fields">
 
       <div class="field">
-        <label>利用者ID</label>
-        <p th:text="${user.identifier()}">someone@example.com</p>
+        <label>名前</label>
+        <p th:text="${user.name()}">山田 太郎</p>
       </div>
 
       <div class="field">
-        <label>名前</label>
-        <p th:text="${user.name()}">山田 太郎</p>
+        <label>メールアドレス</label>
+        <p th:text="${user.mailAddress()}">someone@example.com</p>
       </div>
 
       <div class="field">
