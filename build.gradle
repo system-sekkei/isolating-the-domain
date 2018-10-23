@@ -2,7 +2,10 @@ plugins {
     id 'java'
     id 'idea'
     id 'org.springframework.boot' version '2.0.6.RELEASE'
+    id "org.dddjava.jig-gradle-plugin" version "2018.10.3"
 }
+
+jigReports.dependsOn(compileJava)
 
 description 'ドメイン駆動設計によるアプリケーションテンプレート'
 
