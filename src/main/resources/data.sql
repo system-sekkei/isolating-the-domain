@@ -16,7 +16,7 @@ VALUES
  (2, 'kuriyama_yuino@example.com', now(), '栗山 友以乃'),
  (3, 'fujimura_kaoru@example.com', now(), '藤村 薫'),
  (4, 'ijuuin_ken@example.com', now(), '伊集院 建'),
- (5, 'yamato_michiko@example.com', now(), '伊集院 建'),
+ (5, 'yamato_michiko@example.com', now(), '大和　路子'),
  (6, 'miyake_yukiya@example.com', now(), '三宅 有起子')
  ;
  INSERT INTO 給与.ユーザー名
