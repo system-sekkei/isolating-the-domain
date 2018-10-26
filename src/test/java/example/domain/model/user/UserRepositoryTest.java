@@ -20,21 +20,16 @@ class UserRepositoryTest {
 	
 	@Test
 	void list() {
-		try {
 		UserSummary summary = sut.list().list().stream().filter(
 				us -> us.identifier().value.equals(1L)).findFirst().get();
 		assertAll(
 				() -> assertEquals(summary.mailAddress().toString(), "fukawa_teruyoshi_new@example.com"),
 				() -> assertEquals(summary.dateOfBirth.value, LocalDate.of(1988, 2, 29)),
 				() -> assertEquals(summary.name().toString(), "布川 光義"));
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
 	}
 	
 	@Test
 	void findBy() {
-		try {
 		User user = sut.findBy(new UserIdentifier(1L));
 		assertAll(
 				() -> assertEquals(user.mailAddress().toString(), "fukawa_teruyoshi_new@example.com"),
@@ -42,14 +37,10 @@ class UserRepositoryTest {
 				() -> assertEquals(user.dateOfBirth().value, LocalDate.of(1988, 2, 29)),
 				() -> assertEquals(user.gender().value, GenderType.不明),
 				() -> assertEquals(user.name().toString(), "布川 光義"));
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
 	}
 	
 	@Test
 	void registerAndDelete() {
-		try {
 		UserCandidate user = sut.prototype();
 		user.name.value = "Eiji Yamane";
 		user.dateOfBirth.value = LocalDate.now();
@@ -67,8 +58,5 @@ class UserRepositoryTest {
 		);
 		sut.delete(foundUser);
 		assertNull(sut.findBy(foundUser.identifier));
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
 	}
 }
