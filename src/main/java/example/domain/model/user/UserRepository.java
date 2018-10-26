@@ -11,7 +11,15 @@ public interface UserRepository {
 
     User register(UserCandidate user);
 
-    void update(User user);
+	void updateName(UserIdentifier identifier, Name name);
 
-    void delete(User user);
+	void updateMailAddress(UserIdentifier identifier, MailAddress mailAddress);
+
+	void updateDateOfBirth(UserIdentifier identifier, DateOfBirth dateOfBirth);
+
+	void updateGender(UserIdentifier identifier, Gender gender);
+
+	void updatePhoneNumber(UserIdentifier identifier, PhoneNumber phoneNumber);
+
+	void delete(User user);
 }

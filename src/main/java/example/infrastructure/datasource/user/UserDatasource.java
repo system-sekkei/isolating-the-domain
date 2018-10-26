@@ -2,6 +2,11 @@ package example.infrastructure.datasource.user;
 
 import org.springframework.stereotype.Repository;
 
+import example.domain.model.user.DateOfBirth;
+import example.domain.model.user.Gender;
+import example.domain.model.user.MailAddress;
+import example.domain.model.user.Name;
+import example.domain.model.user.PhoneNumber;
 import example.domain.model.user.User;
 import example.domain.model.user.UserCandidate;
 import example.domain.model.user.UserIdentifier;
@@ -38,55 +43,54 @@ public class UserDatasource implements UserRepository {
     @Override
     public User register(UserCandidate userCandidate) {
     	UserIdentifier userId = new UserIdentifier(sequencer.nextVal());
-    	User user = userCandidate.toUser(userId);
-        mapper.registerUser(user);
-        update(user);
-        return user;
+        mapper.registerUser(userId);
+        updateName(userId, userCandidate.name());
+        updateMailAddress(userId, userCandidate.mailAddress());
+        updateDateOfBirth(userId, userCandidate.dateOfBirth());
+        updateGender(userId, userCandidate.gender());
+        updatePhoneNumber(userId, userCandidate.phoneNumber());
+        return findBy(userId);
     }
 
-	void updateGender(User user) {
-		Long genderId = sequencer.nextVal();
-        mapper.registerGender(genderId, user);
-        mapper.deleteGenderMapper(user.identifier());
-        mapper.registerGenderMapper(user.identifier(), genderId);
-	}
-
-	void updateDateOfBirth(User user) {
-		Long dateOfBirthId = sequencer.nextVal();
-        mapper.registerDateOfBirth(dateOfBirthId, user);
-        mapper.deleteDateOfBirthMapper(user.identifier());
-        mapper.registerDateOfBirthMapper(user.identifier(), dateOfBirthId);
-	}
-
-	void updatePhoneNumber(User user) {
-		Long phoneNumberId = sequencer.nextVal();
-        mapper.registerPhoneNumber(phoneNumberId, user);
-        mapper.deletePhoneNumberMapper(user.identifier());
-        mapper.registerPhoneNumberMapper(user.identifier(), phoneNumberId);
-	}
-
-	void updateName(User user) {
+	@Override
+	public void updateName(UserIdentifier identifier, Name name) {
 		Long nameId = sequencer.nextVal();
-        mapper.registerName(nameId, user);
-        mapper.deleteNameMapper(user.identifier());
-        mapper.registerNameMapper(user.identifier(), nameId);
+        mapper.registerName(nameId, identifier, name);
+        mapper.deleteNameMapper(identifier);
+        mapper.registerNameMapper(identifier, nameId);
 	}
 
-	void updateMailAddress(User user) {
+	@Override
+	public void updateMailAddress(UserIdentifier identifier, MailAddress mailAddress) {
 		Long mailAddressId = sequencer.nextVal();
-        mapper.registerMailAddress(mailAddressId, user);
-        mapper.deleteMailAddressMapper(user.identifier());
-        mapper.registerMailAddressMapper(user.identifier(), mailAddressId);
+        mapper.registerMailAddress(mailAddressId, identifier, mailAddress);
+        mapper.deleteMailAddressMapper(identifier);
+        mapper.registerMailAddressMapper(identifier, mailAddressId);
 	}
 
-    @Override
-    public void update(User user) {
-        updateMailAddress(user);
-        updateName(user);
-        updatePhoneNumber(user);
-        updateDateOfBirth(user);
-        updateGender(user);
-    }
+	@Override
+	public void updateDateOfBirth(UserIdentifier identifier, DateOfBirth dateOfBirth) {
+		Long dateOfBirthId = sequencer.nextVal();
+        mapper.registerDateOfBirth(dateOfBirthId, identifier, dateOfBirth);
+        mapper.deleteDateOfBirthMapper(identifier);
+        mapper.registerDateOfBirthMapper(identifier, dateOfBirthId);
+	}
+
+	@Override
+	public void updateGender(UserIdentifier identifier, Gender gender) {
+		Long genderId = sequencer.nextVal();
+        mapper.registerGender(genderId, identifier, gender);
+        mapper.deleteGenderMapper(identifier);
+        mapper.registerGenderMapper(identifier, genderId);
+	}
+
+	@Override
+	public void updatePhoneNumber(UserIdentifier identifier, PhoneNumber phoneNumber) {
+		Long phoneNumberId = sequencer.nextVal();
+        mapper.registerPhoneNumber(phoneNumberId, identifier, phoneNumber);
+        mapper.deletePhoneNumberMapper(identifier);
+        mapper.registerPhoneNumberMapper(identifier, phoneNumberId);
+	}
 
     @Override
     public void delete(User user) {

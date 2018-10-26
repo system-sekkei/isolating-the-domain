@@ -72,7 +72,11 @@ class UpdateController {
     String registerThenRedirect(@ModelAttribute User user,
                                 SessionStatus status,
                                 RedirectAttributes attributes) {
-        userService.update(user);
+        userService.updateName(user.identifier(), user.name());
+        userService.updateMailAddress(user.identifier(), user.mailAddress());
+        userService.updatePhoneNumber(user.identifier(), user.phoneNumber());
+        userService.updateDateOfBirth(user.identifier(), user.dateOfBirth());
+        userService.updateGender(user.identifier(), user.gender());
         status.setComplete();
 
         attributes.addAttribute("name", user.name().toString());

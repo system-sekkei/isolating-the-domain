@@ -1,5 +1,10 @@
 package example.application.service;
 
+import example.domain.model.user.DateOfBirth;
+import example.domain.model.user.Gender;
+import example.domain.model.user.MailAddress;
+import example.domain.model.user.Name;
+import example.domain.model.user.PhoneNumber;
 import example.domain.model.user.User;
 import example.domain.model.user.UserCandidate;
 import example.domain.model.user.UserIdentifier;
@@ -32,8 +37,24 @@ public class UserService {
         return userRepository.register(user);
     }
 
-    public void update(User user) {
-        userRepository.update(user);
+    public void updateName(UserIdentifier identifier, Name name) {
+    	userRepository.updateName(identifier, name);
+    }
+
+    public void updateMailAddress(UserIdentifier identifier, MailAddress mailAddress) {
+    	userRepository.updateMailAddress(identifier, mailAddress);
+    }
+    
+    public void updateDateOfBirth(UserIdentifier identifier, DateOfBirth dateOfBirth) {
+    	userRepository.updateDateOfBirth(identifier, dateOfBirth);
+    }
+
+    public void updateGender(UserIdentifier identifier, Gender gender) {
+    	userRepository.updateGender(identifier, gender);
+    }
+
+    public void updatePhoneNumber(UserIdentifier identifier, PhoneNumber phoneNumber) {
+    	userRepository.updatePhoneNumber(identifier, phoneNumber);
     }
 
     public void delete(User user) {

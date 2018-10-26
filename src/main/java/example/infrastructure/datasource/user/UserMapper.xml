@@ -82,12 +82,12 @@
     </select>
 
     <insert id="registerUser">
-        INSERT INTO 給与.ユーザー (ユーザーID, 登録日時) VALUES (#{user.identifier.value}, now());
+        INSERT INTO 給与.ユーザー (ユーザーID, 登録日時) VALUES (#{userId.value}, now());
     </insert>
 
     <insert id="registerName">
         INSERT INTO 給与.ユーザー名 (ユーザー名ID, ユーザーID, ユーザー名, 登録日時)
-        VALUES (#{id}, #{user.identifier.value}, #{user.name.value}, now());
+        VALUES (#{id}, #{userId.value}, #{name.value}, now());
 	</insert>
 	
     <insert id="registerNameMapper">
@@ -97,7 +97,7 @@
 
     <insert id="registerPhoneNumber">
         INSERT INTO 給与.ユーザー電話番号 (ユーザー電話番号ID, ユーザーID, 電話番号, 登録日時)
-        VALUES (#{id}, #{user.identifier.value}, #{user.phoneNumber.value}, now());
+        VALUES (#{id}, #{userId.value}, #{phoneNumber.value}, now());
 	</insert>
 	
     <insert id="registerPhoneNumberMapper">
@@ -107,7 +107,7 @@
 
     <insert id="registerMailAddress">
         INSERT INTO 給与.ユーザーメールアドレス (ユーザーメールアドレスID, ユーザーID, メールアドレス, 登録日時)
-        VALUES (#{id}, #{user.identifier.value}, #{user.mailAddress.value}, now());
+        VALUES (#{id}, #{userId.value}, #{mailAddress.value}, now());
 	</insert>
 	
     <insert id="registerMailAddressMapper">
@@ -117,7 +117,7 @@
 	
     <insert id="registerDateOfBirth">
         INSERT INTO 給与.ユーザー誕生日 (ユーザー誕生日ID, ユーザーID, 誕生日, 登録日時)
-        VALUES (#{id}, #{user.identifier.value}, #{user.dateOfBirth.value}, now());
+        VALUES (#{id}, #{userId.value}, #{dateOfBirth.value}, now());
 	</insert>
 	
     <insert id="registerDateOfBirthMapper">
@@ -127,7 +127,7 @@
 
     <insert id="registerGender">
         INSERT INTO 給与.ユーザー性別 (ユーザー性別ID, ユーザーID, 性別, 登録日時)
-        VALUES (#{id}, #{user.identifier.value}, #{user.gender.value}, now());
+        VALUES (#{id}, #{userId.value}, #{gender.value}, now());
 	</insert>
 	
     <insert id="registerGenderMapper">

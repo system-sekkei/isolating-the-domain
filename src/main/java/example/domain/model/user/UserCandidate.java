@@ -49,21 +49,10 @@ public class UserCandidate {
     	return mailAddress;
     }
     
-    public User toUser(UserIdentifier identifier) {
-    	User user = new User();
-    	user.identifier = identifier;
-    	user.dateOfBirth = dateOfBirth;
-    	user.gender = gender;
-    	user.mailAddress = mailAddress;
-    	user.name = name;
-    	user.phoneNumber = phoneNumber;
-    	return user;
-    }
-    
     @Override
     public String toString() {
         return "UserCandidate{" +
-                ", name=" + name +
+                "name=" + name +
                 ", dateOfBirth=" + dateOfBirth +
                 ", phoneNumber=" + phoneNumber +
                 ", gender=" + gender +

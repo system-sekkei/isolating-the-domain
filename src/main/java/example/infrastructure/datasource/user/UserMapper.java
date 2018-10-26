@@ -1,5 +1,10 @@
 package example.infrastructure.datasource.user;
 
+import example.domain.model.user.DateOfBirth;
+import example.domain.model.user.Gender;
+import example.domain.model.user.MailAddress;
+import example.domain.model.user.Name;
+import example.domain.model.user.PhoneNumber;
 import example.domain.model.user.User;
 import example.domain.model.user.UserIdentifier;
 import example.domain.model.user.UserSummary;
@@ -15,32 +20,27 @@ public interface UserMapper {
 
     List<UserSummary> list();
 
-    void registerUser(@Param("user") User user);
+    void registerUser(@Param("userId") UserIdentifier userId);
 
     void deleteNameMapper(@Param("userId") UserIdentifier userId);
-    void registerName(@Param("id") Long id, @Param("user") User user);
-    void registerNameMapper(@Param("userId") UserIdentifier userId, 
-    		@Param("nameId") Long nameId);
+    void registerName(@Param("id") Long id, @Param("userId") UserIdentifier userId, @Param("name") Name name);
+    void registerNameMapper(@Param("userId") UserIdentifier userId, @Param("nameId") Long nameId);
 
     void deletePhoneNumberMapper(@Param("userId") UserIdentifier userId);
-    void registerPhoneNumber(@Param("id") Long id, @Param("user") User user);
-    void registerPhoneNumberMapper(@Param("userId") UserIdentifier userId, 
-    		@Param("phoneNumberId") Long phoneNumberId);
+    void registerPhoneNumber(@Param("id") Long id, @Param("userId") UserIdentifier userId, @Param("phoneNumber") PhoneNumber phoneNumber);
+    void registerPhoneNumberMapper(@Param("userId") UserIdentifier userId, @Param("phoneNumberId") Long phoneNumberId);
 
     void deleteMailAddressMapper(@Param("userId") UserIdentifier userId);
-    void registerMailAddress(@Param("id") Long id, @Param("user") User user);
-    void registerMailAddressMapper(@Param("userId") UserIdentifier userId, 
-    		@Param("mailAddressId") Long mailAddressId);
+    void registerMailAddress(@Param("id") Long id, @Param("userId") UserIdentifier userId, @Param("mailAddress") MailAddress mailAddress);
+    void registerMailAddressMapper(@Param("userId") UserIdentifier userId, @Param("mailAddressId") Long mailAddressId);
     	
     void deleteDateOfBirthMapper(@Param("userId") UserIdentifier userId);
-    void registerDateOfBirth(@Param("id") Long id, @Param("user") User user);
-    void registerDateOfBirthMapper(@Param("userId") UserIdentifier userId, 
-    		@Param("dateOfBirthId") Long dateOfBirthId);
+    void registerDateOfBirth(@Param("id") Long id, @Param("userId") UserIdentifier userId, @Param("dateOfBirth") DateOfBirth dateOfBirth);
+    void registerDateOfBirthMapper(@Param("userId") UserIdentifier userId, @Param("dateOfBirthId") Long dateOfBirthId);
 
     void deleteGenderMapper(@Param("userId") UserIdentifier userId);
-    void registerGender(@Param("id") Long id, @Param("user") User user);
-    void registerGenderMapper(@Param("userId") UserIdentifier userId, 
-    		@Param("genderId") Long genderId);
+    void registerGender(@Param("id") Long id, @Param("userId") UserIdentifier userId, @Param("gender") Gender gender);
+    void registerGenderMapper(@Param("userId") UserIdentifier userId, @Param("genderId") Long genderId);
 
     void delete(@Param("user") User user);
 }
