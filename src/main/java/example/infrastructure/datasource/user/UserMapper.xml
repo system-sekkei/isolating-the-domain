@@ -49,8 +49,10 @@
             ユーザー.user_id = ユーザー性別対応表.ユーザーID
           ) INNER JOIN 給与.ユーザー性別 as ユーザー性別 on (
             ユーザー性別対応表.ユーザー性別ID = ユーザー性別.ユーザー性別ID
+          ) LEFT OUTER JOIN 給与.削除済みユーザー as 削除済みユーザー on (
+            ユーザー.user_id = 削除済みユーザー.ユーザーID
           )
-        WHERE ユーザー.user_id = #{identifier.value}
+        WHERE ユーザー.user_id = #{identifier.value} AND 削除済みユーザー.ユーザーID IS NULL
     </select>
 
     <select id="list" resultMap="userSummary">
@@ -72,7 +74,10 @@
             ユーザー.user_id = ユーザー誕生日対応表.ユーザーID
           ) INNER JOIN 給与.ユーザー誕生日 as ユーザー誕生日 on (
             ユーザー誕生日対応表.ユーザー誕生日ID = ユーザー誕生日.ユーザー誕生日ID
+          ) LEFT OUTER JOIN 給与.削除済みユーザー as 削除済みユーザー on (
+            ユーザー.user_id = 削除済みユーザー.ユーザーID
           )
+        WHERE 削除済みユーザー.ユーザーID IS NULL
         ORDER BY ユーザー.user_id;
     </select>
 
@@ -151,8 +156,8 @@
     	DELETE FROM 給与.ユーザー性別対応表 WHERE ユーザーID = #{userId.value} 
 	</delete>
 
-    <delete id="delete">
-        DELETE FROM 給与.ユーザー
-        WHERE user_id = #{user.identifier.value}
-    </delete>
+    <insert id="delete">
+        INSERT INTO 給与.削除済みユーザー (ユーザーID, 登録日時)
+        VALUES (#{user.identifier.value}, now());
+    </insert>
 </mapper>
