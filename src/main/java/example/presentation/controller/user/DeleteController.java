@@ -18,8 +18,8 @@ public class DeleteController {
     UserService userService;
 
     @GetMapping(value = "view")
-    String show(@PathVariable(value = "userId") UserIdentifier identifier, Model model) {
-        User user = userService.findById(identifier);
+    String show(@PathVariable(value = "userId") Long userId, Model model) {
+        User user = userService.findById(new UserIdentifier(userId));
         model.addAttribute("user", user);
 
         return "user/delete/confirm";
@@ -27,9 +27,9 @@ public class DeleteController {
 
     @GetMapping(value = "")
     String deleteThenRedirect(
-            @PathVariable(value = "userId") UserIdentifier identifier,
+            @PathVariable(value = "userId") Long userId,
             Model model, RedirectAttributes attributes) {
-        User user = userService.findById(identifier);
+        User user = userService.findById(new UserIdentifier(userId));
         userService.delete(user);
 
         attributes.addAttribute("name", user.name().toString());

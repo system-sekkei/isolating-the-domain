@@ -5,7 +5,7 @@
 <mapper namespace="example.infrastructure.datasource.user.UserMapper">
 
     <resultMap id="user" type="example.domain.model.user.User">
-        <id property="identifier.value" column="user_id"/>
+        <id property="identifier.value" column="ユーザーID"/>
         <result property="name.value" column="ユーザー名"/>
         <result property="mailAddress.value" column="メールアドレス"/>
         <result property="dateOfBirth.value" column="誕生日"/>
@@ -14,7 +14,7 @@
     </resultMap>
 
     <resultMap id="userSummary" type="example.domain.model.user.UserSummary">
-        <id property="identifier.value" column="user_id"/>
+        <id property="identifier.value" column="ユーザーID"/>
         <result property="name.value" column="ユーザー名"/>
         <result property="mailAddress.value" column="メールアドレス"/>
         <result property="dateOfBirth.value" column="誕生日"/>
@@ -22,7 +22,7 @@
 
     <select id="findBy" resultMap="user">
         SELECT
-            ユーザー.user_id,
+            ユーザー.ユーザーID,
             ユーザー名.ユーザー名,
             ユーザーメールアドレス.メールアドレス,
             ユーザー誕生日.誕生日,
@@ -30,59 +30,59 @@
             ユーザー性別.性別
         FROM 給与.ユーザー as ユーザー
           INNER JOIN 給与.ユーザー名対応表 as ユーザー名対応表 on (
-            ユーザー.user_id = ユーザー名対応表.ユーザーID
+            ユーザー.ユーザーID = ユーザー名対応表.ユーザーID
           ) INNER JOIN 給与.ユーザー名 as ユーザー名 on (
             ユーザー名対応表.ユーザー名ID = ユーザー名.ユーザー名ID
           ) INNER JOIN 給与.ユーザー電話番号対応表 as ユーザー電話番号対応表 on ( 
-            ユーザー.user_id = ユーザー電話番号対応表.ユーザーID
+            ユーザー.ユーザーID = ユーザー電話番号対応表.ユーザーID
           ) INNER JOIN 給与.ユーザー電話番号 as ユーザー電話番号 on (
             ユーザー電話番号対応表.ユーザー電話番号ID = ユーザー電話番号.ユーザー電話番号ID
           ) INNER JOIN 給与.ユーザーメールアドレス対応表 as ユーザーメールアドレス対応表 on ( 
-            ユーザー.user_id = ユーザーメールアドレス対応表.ユーザーID
+            ユーザー.ユーザーID = ユーザーメールアドレス対応表.ユーザーID
           ) INNER JOIN 給与.ユーザーメールアドレス as ユーザーメールアドレス on (
             ユーザーメールアドレス対応表.ユーザーメールアドレスID = ユーザーメールアドレス.ユーザーメールアドレスID
           ) INNER JOIN 給与.ユーザー誕生日対応表 as ユーザー誕生日対応表 on ( 
-            ユーザー.user_id = ユーザー誕生日対応表.ユーザーID
+            ユーザー.ユーザーID = ユーザー誕生日対応表.ユーザーID
           ) INNER JOIN 給与.ユーザー誕生日 as ユーザー誕生日 on (
             ユーザー誕生日対応表.ユーザー誕生日ID = ユーザー誕生日.ユーザー誕生日ID
           ) INNER JOIN 給与.ユーザー性別対応表 as ユーザー性別対応表 on ( 
-            ユーザー.user_id = ユーザー性別対応表.ユーザーID
+            ユーザー.ユーザーID = ユーザー性別対応表.ユーザーID
           ) INNER JOIN 給与.ユーザー性別 as ユーザー性別 on (
             ユーザー性別対応表.ユーザー性別ID = ユーザー性別.ユーザー性別ID
           ) LEFT OUTER JOIN 給与.削除済みユーザー as 削除済みユーザー on (
-            ユーザー.user_id = 削除済みユーザー.ユーザーID
+            ユーザー.ユーザーID = 削除済みユーザー.ユーザーID
           )
-        WHERE ユーザー.user_id = #{identifier.value} AND 削除済みユーザー.ユーザーID IS NULL
+        WHERE ユーザー.ユーザーID = #{identifier.value} AND 削除済みユーザー.ユーザーID IS NULL
     </select>
 
     <select id="list" resultMap="userSummary">
         SELECT
-            ユーザー.user_id,
+            ユーザー.ユーザーID,
             ユーザー名.ユーザー名,
             ユーザーメールアドレス.メールアドレス,
             ユーザー誕生日.誕生日
         FROM 給与.ユーザー as ユーザー
           INNER JOIN 給与.ユーザー名対応表 as ユーザー名対応表 on (
-            ユーザー.user_id = ユーザー名対応表.ユーザーID
+            ユーザー.ユーザーID = ユーザー名対応表.ユーザーID
           ) INNER JOIN 給与.ユーザー名 as ユーザー名 on (
             ユーザー名対応表.ユーザー名ID = ユーザー名.ユーザー名ID
           ) INNER JOIN 給与.ユーザーメールアドレス対応表 as ユーザーメールアドレス対応表 on ( 
-            ユーザー.user_id = ユーザーメールアドレス対応表.ユーザーID
+            ユーザー.ユーザーID = ユーザーメールアドレス対応表.ユーザーID
           ) INNER JOIN 給与.ユーザーメールアドレス as ユーザーメールアドレス on (
             ユーザーメールアドレス対応表.ユーザーメールアドレスID = ユーザーメールアドレス.ユーザーメールアドレスID
           ) INNER JOIN 給与.ユーザー誕生日対応表 as ユーザー誕生日対応表 on ( 
-            ユーザー.user_id = ユーザー誕生日対応表.ユーザーID
+            ユーザー.ユーザーID = ユーザー誕生日対応表.ユーザーID
           ) INNER JOIN 給与.ユーザー誕生日 as ユーザー誕生日 on (
             ユーザー誕生日対応表.ユーザー誕生日ID = ユーザー誕生日.ユーザー誕生日ID
           ) LEFT OUTER JOIN 給与.削除済みユーザー as 削除済みユーザー on (
-            ユーザー.user_id = 削除済みユーザー.ユーザーID
+            ユーザー.ユーザーID = 削除済みユーザー.ユーザーID
           )
         WHERE 削除済みユーザー.ユーザーID IS NULL
-        ORDER BY ユーザー.user_id;
+        ORDER BY ユーザー.ユーザーID;
     </select>
 
     <insert id="registerUser">
-        INSERT INTO 給与.ユーザー (user_id) VALUES (#{user.identifier.value});
+        INSERT INTO 給与.ユーザー (ユーザーID, 登録日時) VALUES (#{user.identifier.value}, now());
     </insert>
 
     <insert id="registerName">

@@ -40,16 +40,16 @@ class UpdateController {
     UserService userService;
 
     @GetMapping("")
-    String clearSessionAtStart(@PathVariable(value = "userId") String userId,
+    String clearSessionAtStart(@PathVariable(value = "userId") Long userId,
                                SessionStatus status) {
         status.setComplete();
         return "forward:/user/" + userId + "/update/input";
     }
 
     @GetMapping(value = "input")
-    String formToEdit(@PathVariable(value = "userId") UserIdentifier userId,
+    String formToEdit(@PathVariable(value = "userId") Long userId,
                       Model model) {
-        User user = userService.findById(userId);
+        User user = userService.findById(new UserIdentifier(userId));
         model.addAttribute("user", user);
         System.out.println(user);
         return "user/update/form";

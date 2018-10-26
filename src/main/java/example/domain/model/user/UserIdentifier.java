@@ -1,24 +1,21 @@
 package example.domain.model.user;
 
-import java.util.UUID;
-
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 public class UserIdentifier {
 
-    @NotBlank(message = "IDを入力してください")
-    String value = "";
+	@NotNull
+    Long value = Long.valueOf(0L);
 
     public UserIdentifier() {
-    		this(UUID.randomUUID().toString());
     }
 
-    public UserIdentifier(String value) {
+    public UserIdentifier(Long value) {
         this.value = value;
     }
 
     @Override
     public String toString() {
-        return value;
+        return value.toString();
     }
 }

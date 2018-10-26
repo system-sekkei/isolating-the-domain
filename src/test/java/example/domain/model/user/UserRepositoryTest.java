@@ -22,7 +22,7 @@ class UserRepositoryTest {
 	void list() {
 		try {
 		UserSummary summary = sut.list().list().stream().filter(
-				us -> "fukawa_teruyoshi@example.com".equals(us.identifier().toString())).findFirst().get();
+				us -> us.identifier().value.equals(1L)).findFirst().get();
 		assertAll(
 				() -> assertEquals(summary.mailAddress().toString(), "fukawa_teruyoshi_new@example.com"),
 				() -> assertEquals(summary.dateOfBirth.value, LocalDate.of(1988, 2, 29)),
@@ -35,7 +35,7 @@ class UserRepositoryTest {
 	@Test
 	void findBy() {
 		try {
-		User user = sut.findBy(new UserIdentifier("fukawa_teruyoshi@example.com"));
+		User user = sut.findBy(new UserIdentifier(1L));
 		assertAll(
 				() -> assertEquals(user.mailAddress().toString(), "fukawa_teruyoshi_new@example.com"),
 				() -> assertEquals(user.phoneNumber().toString(), "03-1234-9999"),
