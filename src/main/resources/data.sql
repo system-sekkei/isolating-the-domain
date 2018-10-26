@@ -1,4 +1,4 @@
-INSERT INTO users.users
+INSERT INTO 給与.users
 (user_id, name, phone_number, date_of_birth, gender)
 VALUES
  ('fukawa_teruyoshi@example.com', '布川 光良', '03-1234-5678','1988-01-01','男性'),
@@ -8,7 +8,7 @@ VALUES
  ('yamato_michiko@example.com', '大和 路子', '03-1234-5678','1988-09-09','女性'),
  ('miyake_yukiya@example.com', '三宅 有起子', '03-1234-5678','1988-12-31','女性');
 
- INSERT INTO users.users_mail_address
+ INSERT INTO 給与.users_mail_address
  (user_id, register_date, mail_address)
  values
  ('fukawa_teruyoshi@example.com', now(), 'fukawa_teruyoshi@example.com'),
@@ -18,7 +18,7 @@ VALUES
  ('yamato_michiko@example.com', now(), 'yamato_michiko@example.com'),
  ('miyake_yukiya@example.com', now(), 'miyake_yukiya@example.com')
  ;
-  INSERT INTO users.users_mail_address
+  INSERT INTO 給与.users_mail_address
  (user_id, register_date, mail_address)
  values('fukawa_teruyoshi@example.com', now(), 'fukawa_teruyoshi_new@example.com')
  ;

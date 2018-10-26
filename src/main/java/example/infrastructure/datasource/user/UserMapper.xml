@@ -28,18 +28,18 @@
             user.date_of_birth,
             user.phone_number,
             user.gender
-        FROM users.users  as user
+        FROM 給与.users  as user
           INNER JOIN (
             SELECT 
               user_id,
               max(register_date) as register_date
             FROM
-              users.users_mail_address
+              給与.users_mail_address
             GROUP BY
               user_id
           ) AS leatest on (
             user.user_id = leatest.user_id
-          ) INNER JOIN users.users_mail_address as users_mail_address on (
+          ) INNER JOIN 給与.users_mail_address as users_mail_address on (
             user.user_id = users_mail_address.user_id
             and leatest.register_date = users_mail_address.register_date
           )
@@ -52,18 +52,18 @@
             user.name,
             users_mail_address.mail_address,
             user.date_of_birth
-        FROM users.users as user
+        FROM 給与.users as user
           INNER JOIN (
             SELECT 
               user_id,
               max(register_date) as register_date
             FROM
-              users.users_mail_address
+              給与.users_mail_address
             GROUP BY
               user_id
           ) AS leatest on (
             user.user_id = leatest.user_id
-          ) INNER JOIN users.users_mail_address as users_mail_address on (
+          ) INNER JOIN 給与.users_mail_address as users_mail_address on (
             user.user_id = users_mail_address.user_id
             and leatest.register_date = users_mail_address.register_date
           )          
@@ -71,18 +71,18 @@
     </select>
 
     <insert id="registerUser">
-        INSERT INTO users.users (user_id, name, date_of_birth, phone_number, gender)
+        INSERT INTO 給与.users (user_id, name, date_of_birth, phone_number, gender)
         VALUES (#{user.identifier.value}, #{user.name.value}, #{user.dateOfBirth.value}, #{user.phoneNumber.value},
                 #{user.gender.value});
     </insert>
 
     <insert id="registerMailAddress">
-        INSERT INTO users.users_mail_address (user_id, register_date, mail_address)
+        INSERT INTO 給与.users_mail_address (user_id, register_date, mail_address)
         VALUES (#{user.identifier.value}, now(), #{user.mailAddress.value});
 	</insert>
 	
     <delete id="delete">
-        DELETE FROM users.users
+        DELETE FROM 給与.users
         WHERE user_id = #{user.identifier.value}
     </delete>
 </mapper>
