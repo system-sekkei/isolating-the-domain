@@ -1,4 +1,4 @@
-INSERT INTO 給与.users
+INSERT INTO 給与.ユーザー
 (user_id, name, phone_number, date_of_birth, gender)
 VALUES
  ('fukawa_teruyoshi@example.com', '布川 光良', '03-1234-5678','1988-01-01','男性'),
