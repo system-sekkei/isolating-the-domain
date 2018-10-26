@@ -40,6 +40,9 @@ public class UserDatasource implements UserRepository {
         Long mailAddressId = sequencer.nextVal();
         mapper.registerMailAddress(mailAddressId, user);
         mapper.registerMailAddressMapper(user.identifier(), mailAddressId);
+        Long nameId = sequencer.nextVal();
+        mapper.registerName(nameId, user);
+        mapper.registerNameMapper(user.identifier(), nameId);
     }
 
     @Override
