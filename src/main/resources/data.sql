@@ -1,12 +1,11 @@
-INSERT INTO 給与.ユーザー
-(user_id, gender)
+INSERT INTO 給与.ユーザー(user_id)
 VALUES
- ('fukawa_teruyoshi@example.com', '男性'),
- ('kuriyama_yuino@example.com', '女性'),
- ('fujimura_kaoru@example.com', '男性'),
- ('ijuuin_ken@example.com', '男性'),
- ('yamato_michiko@example.com', '女性'),
- ('miyake_yukiya@example.com', '女性');
+ ('fukawa_teruyoshi@example.com'),
+ ('kuriyama_yuino@example.com'),
+ ('fujimura_kaoru@example.com'),
+ ('ijuuin_ken@example.com'),
+ ('yamato_michiko@example.com'),
+ ('miyake_yukiya@example.com');
 
  -- ユーザ名
  INSERT INTO 給与.ユーザー名
@@ -107,6 +106,33 @@ values
  
  INSERT INTO 給与.ユーザーメールアドレス対応表
  (ユーザーID, ユーザーメールアドレスID)
+values
+ ('fukawa_teruyoshi@example.com', 7),
+ ('kuriyama_yuino@example.com', 2),
+ ('fujimura_kaoru@example.com', 3),
+ ('ijuuin_ken@example.com', 4),
+ ('yamato_michiko@example.com', 5),
+ ('miyake_yukiya@example.com', 6)
+ ;
+
+ -- 性別
+  INSERT INTO 給与.ユーザー性別
+ (ユーザー性別ID, ユーザーID, 登録日時,性別)
+ values
+ (1, 'fukawa_teruyoshi@example.com', now(), '男性'),
+ (2, 'kuriyama_yuino@example.com', now(), '女性'),
+ (3, 'fujimura_kaoru@example.com', now(), '男性'),
+ (4, 'ijuuin_ken@example.com', now(), '男性'),
+ (5, 'yamato_michiko@example.com', now(), '女性'),
+ (6, 'miyake_yukiya@example.com', now(), '女性')
+ ;
+ INSERT INTO 給与.ユーザー性別
+ (ユーザー性別ID, ユーザーID, 登録日時, 性別)
+ values(7, 'fukawa_teruyoshi@example.com', now(), '不明')
+ ;
+ 
+ INSERT INTO 給与.ユーザー性別対応表
+ (ユーザーID, ユーザー性別ID)
 values
  ('fukawa_teruyoshi@example.com', 7),
  ('kuriyama_yuino@example.com', 2),

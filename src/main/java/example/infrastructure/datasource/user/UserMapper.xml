@@ -10,7 +10,7 @@
         <result property="mailAddress.value" column="メールアドレス"/>
         <result property="dateOfBirth.value" column="誕生日"/>
         <result property="phoneNumber.value" column="電話番号"/>
-        <result property="gender.value" column="gender"/>
+        <result property="gender.value" column="性別"/>
     </resultMap>
 
     <resultMap id="userSummary" type="example.domain.model.user.UserSummary">
@@ -27,7 +27,7 @@
             ユーザーメールアドレス.メールアドレス,
             ユーザー誕生日.誕生日,
             ユーザー電話番号.電話番号,
-            ユーザー.gender
+            ユーザー性別.性別
         FROM 給与.ユーザー as ユーザー
           INNER JOIN 給与.ユーザー名対応表 as ユーザー名対応表 on (
             ユーザー.user_id = ユーザー名対応表.ユーザーID
@@ -45,6 +45,10 @@
             ユーザー.user_id = ユーザー誕生日対応表.ユーザーID
           ) INNER JOIN 給与.ユーザー誕生日 as ユーザー誕生日 on (
             ユーザー誕生日対応表.ユーザー誕生日ID = ユーザー誕生日.ユーザー誕生日ID
+          ) INNER JOIN 給与.ユーザー性別対応表 as ユーザー性別対応表 on ( 
+            ユーザー.user_id = ユーザー性別対応表.ユーザーID
+          ) INNER JOIN 給与.ユーザー性別 as ユーザー性別 on (
+            ユーザー性別対応表.ユーザー性別ID = ユーザー性別.ユーザー性別ID
           )
         WHERE ユーザー.user_id = #{identifier.value}
     </select>
@@ -73,8 +77,8 @@
     </select>
 
     <insert id="registerUser">
-        INSERT INTO 給与.ユーザー (user_id, gender)
-        VALUES (#{user.identifier.value}, #{user.gender.value});
+        INSERT INTO 給与.ユーザー (user_id)
+        VALUES (#{user.identifier.value});
     </insert>
 
     <insert id="registerName">
@@ -117,6 +121,16 @@
         VALUES (#{userId.value}, #{dateOfBirthId});
 	</insert>
 
+    <insert id="registerGender">
+        INSERT INTO 給与.ユーザー性別 (ユーザー性別ID, ユーザーID, 性別, 登録日時)
+        VALUES (#{id}, #{user.identifier.value}, #{user.gender.value}, now());
+	</insert>
+	
+    <insert id="registerGenderMapper">
+        INSERT INTO 給与.ユーザー性別対応表 (ユーザーID, ユーザー性別ID)
+        VALUES (#{userId.value}, #{genderId});
+	</insert>
+	
     <delete id="delete">
         DELETE FROM 給与.ユーザー
         WHERE user_id = #{user.identifier.value}

@@ -36,6 +36,7 @@ class UserRepositoryTest {
 				() -> assertEquals(user.mailAddress().toString(), "fukawa_teruyoshi_new@example.com"),
 				() -> assertEquals(user.phoneNumber().toString(), "03-1234-9999"),
 				() -> assertEquals(user.dateOfBirth().value, LocalDate.of(1988, 2, 29)),
+				() -> assertEquals(user.gender().value, GenderType.不明),
 				() -> assertEquals(user.name().toString(), "布川 光義"));
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -57,6 +58,7 @@ class UserRepositoryTest {
 				() -> assertEquals(registeredUser.name().toString(), user.name.value),
 				() -> assertEquals(registeredUser.phoneNumber().toString(), user.phoneNumber.value),
 				() -> assertEquals(registeredUser.dateOfBirth().value, user.dateOfBirth.value),
+				() -> assertEquals(registeredUser.gender().value, user.gender.value),
 				() -> assertEquals(registeredUser.mailAddress().toString(), user.mailAddress.value)
 		);
 		} catch(Exception e) {

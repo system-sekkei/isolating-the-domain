@@ -33,5 +33,9 @@ public interface UserMapper {
     void registerDateOfBirthMapper(@Param("userId") UserIdentifier userId, 
     		@Param("dateOfBirthId") Long dateOfBirthId);
 
+    void registerGender(@Param("id") Long id, @Param("user") User user);
+    void registerGenderMapper(@Param("userId") UserIdentifier userId, 
+    		@Param("genderId") Long genderId);
+
     void delete(@Param("user") User user);
 }
