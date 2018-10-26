@@ -7,9 +7,9 @@ public interface UserRepository {
 
     UserSummaries list();
 
-    User prototype();
+    UserCandidate prototype();
 
-    void register(User user);
+    User register(UserCandidate user);
 
     void update(User user);
 

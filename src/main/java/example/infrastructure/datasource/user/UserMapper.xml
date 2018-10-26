@@ -82,8 +82,7 @@
     </select>
 
     <insert id="registerUser">
-        INSERT INTO 給与.ユーザー (user_id)
-        VALUES (#{user.identifier.value});
+        INSERT INTO 給与.ユーザー (user_id) VALUES (#{user.identifier.value});
     </insert>
 
     <insert id="registerName">

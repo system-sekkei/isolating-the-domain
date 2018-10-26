@@ -5,10 +5,7 @@ import javax.validation.Valid;
 /**
  * Created by haljik on 15/06/04.
  */
-public class User {
-    @Valid
-    UserIdentifier identifier;
-
+public class UserCandidate {
     @Valid
     Name name;
 
@@ -24,17 +21,12 @@ public class User {
     @Valid
     PhoneNumber phoneNumber;
 
-    public User() {
-        identifier = new UserIdentifier();
+    public UserCandidate() {
         name = new Name();
         mailAddress = new MailAddress();
         dateOfBirth = new DateOfBirth();
         gender = new Gender();
         phoneNumber = new PhoneNumber();
-    }
-    
-    public UserIdentifier identifier() {
-        return identifier;
     }
 
     public Name name() {
@@ -54,13 +46,23 @@ public class User {
     }
 
     public MailAddress mailAddress() {
-    		return mailAddress;
+    	return mailAddress;
+    }
+    
+    public User toUser(UserIdentifier identifier) {
+    	User user = new User();
+    	user.identifier = identifier;
+    	user.dateOfBirth = dateOfBirth;
+    	user.gender = gender;
+    	user.mailAddress = mailAddress;
+    	user.name = name;
+    	user.phoneNumber = phoneNumber;
+    	return user;
     }
     
     @Override
     public String toString() {
-        return "User{" +
-                "identifier=" + identifier +
+        return "UserCandidate{" +
                 ", name=" + name +
                 ", dateOfBirth=" + dateOfBirth +
                 ", phoneNumber=" + phoneNumber +

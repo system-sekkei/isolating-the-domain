@@ -1,8 +1,11 @@
 package example.infrastructure.datasource.user;
 
+import java.util.UUID;
+
 import org.springframework.stereotype.Repository;
 
 import example.domain.model.user.User;
+import example.domain.model.user.UserCandidate;
 import example.domain.model.user.UserIdentifier;
 import example.domain.model.user.UserRepository;
 import example.domain.model.user.UserSummaries;
@@ -30,14 +33,17 @@ public class UserDatasource implements UserRepository {
     }
 
     @Override
-    public User prototype() {
-        return new User();
+    public UserCandidate prototype() {
+        return new UserCandidate();
     }
 
     @Override
-    public void register(User user) {
+    public User register(UserCandidate userCandidate) {
+    	UserIdentifier userId = new UserIdentifier(UUID.randomUUID().toString());
+    	User user = userCandidate.toUser(userId);
         mapper.registerUser(user);
         update(user);
+        return user;
     }
 
 	void updateGender(User user) {

@@ -50,23 +50,23 @@ class UserRepositoryTest {
 	@Test
 	void registerAndDelete() {
 		try {
-		User user = sut.prototype();
+		UserCandidate user = sut.prototype();
 		user.name.value = "Eiji Yamane";
 		user.dateOfBirth.value = LocalDate.now();
 		user.gender.value = GenderType.男性;
 		user.phoneNumber.value = "090-6559-1234";
 		user.mailAddress.value = "hogehoge_hogeo@example.com";
-		sut.register(user);
-		User registeredUser = sut.findBy(user.identifier);
+		User registeredUser = sut.register(user);
+		User foundUser = sut.findBy(registeredUser.identifier);
 		assertAll(
-				() -> assertEquals(registeredUser.name().toString(), user.name.value),
-				() -> assertEquals(registeredUser.phoneNumber().toString(), user.phoneNumber.value),
-				() -> assertEquals(registeredUser.dateOfBirth().value, user.dateOfBirth.value),
-				() -> assertEquals(registeredUser.gender().value, user.gender.value),
-				() -> assertEquals(registeredUser.mailAddress().toString(), user.mailAddress.value)
+				() -> assertEquals(foundUser.name().toString(), user.name.value),
+				() -> assertEquals(foundUser.phoneNumber().toString(), user.phoneNumber.value),
+				() -> assertEquals(foundUser.dateOfBirth().value, user.dateOfBirth.value),
+				() -> assertEquals(foundUser.gender().value, user.gender.value),
+				() -> assertEquals(foundUser.mailAddress().toString(), user.mailAddress.value)
 		);
-		sut.delete(registeredUser);
-		assertNull(sut.findBy(registeredUser.identifier));
+		sut.delete(foundUser);
+		assertNull(sut.findBy(foundUser.identifier));
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

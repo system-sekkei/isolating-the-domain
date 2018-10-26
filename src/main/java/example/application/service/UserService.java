@@ -1,6 +1,7 @@
 package example.application.service;
 
 import example.domain.model.user.User;
+import example.domain.model.user.UserCandidate;
 import example.domain.model.user.UserIdentifier;
 import example.domain.model.user.UserRepository;
 import example.domain.model.user.UserSummaries;
@@ -23,12 +24,12 @@ public class UserService {
         return userRepository.list();
     }
 
-    public User prototype() {
+    public UserCandidate prototype() {
         return userRepository.prototype();
     }
 
-    public void register(User user) {
-        userRepository.register(user);
+    public User register(UserCandidate user) {
+        return userRepository.register(user);
     }
 
     public void update(User user) {
