@@ -37,27 +37,51 @@ public class UserDatasource implements UserRepository {
     @Override
     public void register(User user) {
         mapper.registerUser(user);
-        Long mailAddressId = sequencer.nextVal();
-        mapper.registerMailAddress(mailAddressId, user);
-        mapper.registerMailAddressMapper(user.identifier(), mailAddressId);
-        Long nameId = sequencer.nextVal();
-        mapper.registerName(nameId, user);
-        mapper.registerNameMapper(user.identifier(), nameId);
-        Long phoneNumberId = sequencer.nextVal();
-        mapper.registerPhoneNumber(phoneNumberId, user);
-        mapper.registerPhoneNumberMapper(user.identifier(), phoneNumberId);
-        Long dateOfBirthId = sequencer.nextVal();
-        mapper.registerDateOfBirth(dateOfBirthId, user);
-        mapper.registerDateOfBirthMapper(user.identifier(), dateOfBirthId);
-        Long genderId = sequencer.nextVal();
-        mapper.registerGender(genderId, user);
-        mapper.registerGenderMapper(user.identifier(), genderId);
+        update(user);
     }
+
+	void updateGender(User user) {
+		Long genderId = sequencer.nextVal();
+        mapper.registerGender(genderId, user);
+        mapper.deleteGenderMapper(user.identifier());
+        mapper.registerGenderMapper(user.identifier(), genderId);
+	}
+
+	void updateDateOfBirth(User user) {
+		Long dateOfBirthId = sequencer.nextVal();
+        mapper.registerDateOfBirth(dateOfBirthId, user);
+        mapper.deleteDateOfBirthMapper(user.identifier());
+        mapper.registerDateOfBirthMapper(user.identifier(), dateOfBirthId);
+	}
+
+	void updatePhoneNumber(User user) {
+		Long phoneNumberId = sequencer.nextVal();
+        mapper.registerPhoneNumber(phoneNumberId, user);
+        mapper.deletePhoneNumberMapper(user.identifier());
+        mapper.registerPhoneNumberMapper(user.identifier(), phoneNumberId);
+	}
+
+	void updateName(User user) {
+		Long nameId = sequencer.nextVal();
+        mapper.registerName(nameId, user);
+        mapper.deleteNameMapper(user.identifier());
+        mapper.registerNameMapper(user.identifier(), nameId);
+	}
+
+	void updateMailAddress(User user) {
+		Long mailAddressId = sequencer.nextVal();
+        mapper.registerMailAddress(mailAddressId, user);
+        mapper.deleteMailAddressMapper(user.identifier());
+        mapper.registerMailAddressMapper(user.identifier(), mailAddressId);
+	}
 
     @Override
     public void update(User user) {
-        mapper.delete(user);
-        mapper.registerUser(user);
+        updateMailAddress(user);
+        updateName(user);
+        updatePhoneNumber(user);
+        updateDateOfBirth(user);
+        updateGender(user);
     }
 
     @Override

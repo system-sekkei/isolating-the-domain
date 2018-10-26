@@ -131,6 +131,26 @@
         VALUES (#{userId.value}, #{genderId});
 	</insert>
 	
+    <delete id="deleteNameMapper">
+    	DELETE FROM 給与.ユーザー名対応表 WHERE ユーザーID = #{userId.value} 
+	</delete>
+
+    <delete id="deletePhoneNumberMapper">
+    	DELETE FROM 給与.ユーザー電話番号対応表 WHERE ユーザーID = #{userId.value} 
+	</delete>
+
+    <delete id="deleteDateOfBirthMapper">
+    	DELETE FROM 給与.ユーザー誕生日対応表 WHERE ユーザーID = #{userId.value} 
+	</delete>
+
+    <delete id="deleteMailAddressMapper">
+    	DELETE FROM 給与.ユーザーメールアドレス対応表 WHERE ユーザーID = #{userId.value} 
+	</delete>
+
+    <delete id="deleteGenderMapper">
+    	DELETE FROM 給与.ユーザー性別対応表 WHERE ユーザーID = #{userId.value} 
+	</delete>
+
     <delete id="delete">
         DELETE FROM 給与.ユーザー
         WHERE user_id = #{user.identifier.value}
