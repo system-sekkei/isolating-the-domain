@@ -25,12 +25,6 @@ public class UserDatasource implements UserRepository {
     }
 
     @Override
-    public Boolean isExist(User user) {
-        if (findBy(user.identifier()) == null) return false;
-        return true;
-    }
-
-    @Override
     public UserSummaries list() {
         return new UserSummaries(mapper.list());
     }

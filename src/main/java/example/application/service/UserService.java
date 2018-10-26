@@ -21,10 +21,6 @@ public class UserService {
         return userRepository.findBy(id);
     }
 
-    public Boolean isExist(User user) {
-        return userRepository.isExist(user);
-    }
-
     public UserSummaries list() {
         return userRepository.list();
     }
