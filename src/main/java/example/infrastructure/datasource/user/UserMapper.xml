@@ -9,7 +9,7 @@
         <result property="name.value" column="ユーザー名"/>
         <result property="mailAddress.value" column="メールアドレス"/>
         <result property="dateOfBirth.value" column="date_of_birth"/>
-        <result property="phoneNumber.value" column="phone_number"/>
+        <result property="phoneNumber.value" column="電話番号"/>
         <result property="gender.value" column="gender"/>
     </resultMap>
 
@@ -26,13 +26,17 @@
             ユーザー名.ユーザー名,
             ユーザーメールアドレス.メールアドレス,
             ユーザー.date_of_birth,
-            ユーザー.phone_number,
+            ユーザー電話番号.電話番号,
             ユーザー.gender
         FROM 給与.ユーザー as ユーザー
           INNER JOIN 給与.ユーザー名対応表 as ユーザー名対応表 on (
             ユーザー.user_id = ユーザー名対応表.ユーザーID
           ) INNER JOIN 給与.ユーザー名 as ユーザー名 on (
             ユーザー名対応表.ユーザー名ID = ユーザー名.ユーザー名ID
+          ) INNER JOIN 給与.ユーザー電話番号対応表 as ユーザー電話番号対応表 on ( 
+            ユーザー.user_id = ユーザー電話番号対応表.ユーザーID
+          ) INNER JOIN 給与.ユーザー電話番号 as ユーザー電話番号 on (
+            ユーザー電話番号対応表.ユーザー電話番号ID = ユーザー電話番号.ユーザー電話番号ID
           ) INNER JOIN 給与.ユーザーメールアドレス対応表 as ユーザーメールアドレス対応表 on ( 
             ユーザー.user_id = ユーザーメールアドレス対応表.ユーザーID
           ) INNER JOIN 給与.ユーザーメールアドレス as ユーザーメールアドレス on (
@@ -61,9 +65,8 @@
     </select>
 
     <insert id="registerUser">
-        INSERT INTO 給与.ユーザー (user_id, date_of_birth, phone_number, gender)
-        VALUES (#{user.identifier.value}, #{user.dateOfBirth.value}, #{user.phoneNumber.value},
-                #{user.gender.value});
+        INSERT INTO 給与.ユーザー (user_id, date_of_birth, gender)
+        VALUES (#{user.identifier.value}, #{user.dateOfBirth.value}, #{user.gender.value});
     </insert>
 
     <insert id="registerName">
@@ -74,6 +77,16 @@
     <insert id="registerNameMapper">
         INSERT INTO 給与.ユーザー名対応表 (ユーザーID, ユーザー名ID)
         VALUES (#{userId.value}, #{nameId});
+	</insert>
+
+    <insert id="registerPhoneNumber">
+        INSERT INTO 給与.ユーザー電話番号 (ユーザー電話番号ID, ユーザーID, 電話番号, 登録日時)
+        VALUES (#{id}, #{user.identifier.value}, #{user.phoneNumber.value}, now());
+	</insert>
+	
+    <insert id="registerPhoneNumberMapper">
+        INSERT INTO 給与.ユーザー電話番号対応表 (ユーザーID, ユーザー電話番号ID)
+        VALUES (#{userId.value}, #{phoneNumberId});
 	</insert>
 
     <insert id="registerMailAddress">

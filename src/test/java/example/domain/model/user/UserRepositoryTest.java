@@ -32,21 +32,28 @@ class UserRepositoryTest {
 		User user = sut.findBy(new UserIdentifier("fukawa_teruyoshi@example.com"));
 		assertAll(
 				() -> assertEquals(user.mailAddress().toString(), "fukawa_teruyoshi_new@example.com"),
+				() -> assertEquals(user.phoneNumber().toString(), "03-1234-9999"),
 				() -> assertEquals(user.name().toString(), "布川 光義"));
 	}
 	
 	@Test
 	void register() {
+		try {
 		User user = sut.prototype();
 		user.name.value = "Eiji Yamane";
 		user.dateOfBirth.value = LocalDate.now();
 		user.gender.value = GenderType.男性;
+		user.phoneNumber.value = "090-6559-1234";
 		user.mailAddress.value = "hogehoge_hogeo@example.com";
 		sut.register(user);
 		User registeredUser = sut.findBy(user.identifier);
 		assertAll(
 				() -> assertEquals(registeredUser.name().toString(), user.name.value),
+				() -> assertEquals(registeredUser.phoneNumber().toString(), user.phoneNumber.value),
 				() -> assertEquals(registeredUser.mailAddress().toString(), user.mailAddress.value)
 		);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

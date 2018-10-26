@@ -21,6 +21,10 @@ public interface UserMapper {
     void registerNameMapper(@Param("userId") UserIdentifier userId, 
     		@Param("nameId") Long nameId);
 
+    void registerPhoneNumber(@Param("id") Long id, @Param("user") User user);
+    void registerPhoneNumberMapper(@Param("userId") UserIdentifier userId, 
+    		@Param("phoneNumberId") Long phoneNumberId);
+
     void registerMailAddress(@Param("id") Long id, @Param("user") User user);
     void registerMailAddressMapper(@Param("userId") UserIdentifier userId, 
     		@Param("mailAddressId") Long mailAddressId);
