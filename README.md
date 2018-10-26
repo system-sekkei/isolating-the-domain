@@ -13,6 +13,11 @@ MyBatis SQL Mapper
 ## 設計ガイド
 https://github.com/system-sekkei/isolating-the-domain/wiki
 
+## 2018-XX-XX リリースノート
+
+* 依存ライブラリを最新化
+* パッケージ構造の整理
+
 ## 2017-10-20 リリースノート
 
 * 依存ライブラリを最新化
