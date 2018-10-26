@@ -46,6 +46,9 @@ public class UserDatasource implements UserRepository {
         Long phoneNumberId = sequencer.nextVal();
         mapper.registerPhoneNumber(phoneNumberId, user);
         mapper.registerPhoneNumberMapper(user.identifier(), phoneNumberId);
+        Long dateOfBirthNumber = sequencer.nextVal();
+        mapper.registerDateOfBirth(dateOfBirthNumber, user);
+        mapper.registerDateOfBirthMapper(user.identifier(), dateOfBirthNumber);
     }
 
     @Override

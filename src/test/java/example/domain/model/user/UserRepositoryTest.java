@@ -24,16 +24,22 @@ class UserRepositoryTest {
 				us -> "fukawa_teruyoshi@example.com".equals(us.identifier().toString())).findFirst().get();
 		assertAll(
 				() -> assertEquals(summary.mailAddress().toString(), "fukawa_teruyoshi_new@example.com"),
+				() -> assertEquals(summary.dateOfBirth.value, LocalDate.of(1988, 2, 29)),
 				() -> assertEquals(summary.name().toString(), "布川 光義"));
 	}
 	
 	@Test
 	void findBy() {
+		try {
 		User user = sut.findBy(new UserIdentifier("fukawa_teruyoshi@example.com"));
 		assertAll(
 				() -> assertEquals(user.mailAddress().toString(), "fukawa_teruyoshi_new@example.com"),
 				() -> assertEquals(user.phoneNumber().toString(), "03-1234-9999"),
+				() -> assertEquals(user.dateOfBirth().value, LocalDate.of(1988, 2, 29)),
 				() -> assertEquals(user.name().toString(), "布川 光義"));
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
@@ -50,6 +56,7 @@ class UserRepositoryTest {
 		assertAll(
 				() -> assertEquals(registeredUser.name().toString(), user.name.value),
 				() -> assertEquals(registeredUser.phoneNumber().toString(), user.phoneNumber.value),
+				() -> assertEquals(registeredUser.dateOfBirth().value, user.dateOfBirth.value),
 				() -> assertEquals(registeredUser.mailAddress().toString(), user.mailAddress.value)
 		);
 		} catch(Exception e) {

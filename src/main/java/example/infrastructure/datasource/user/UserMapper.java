@@ -29,5 +29,9 @@ public interface UserMapper {
     void registerMailAddressMapper(@Param("userId") UserIdentifier userId, 
     		@Param("mailAddressId") Long mailAddressId);
     
+    void registerDateOfBirth(@Param("id") Long id, @Param("user") User user);
+    void registerDateOfBirthMapper(@Param("userId") UserIdentifier userId, 
+    		@Param("dateOfBirthId") Long dateOfBirthId);
+
     void delete(@Param("user") User user);
 }

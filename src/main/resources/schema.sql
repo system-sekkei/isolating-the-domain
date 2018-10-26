@@ -4,12 +4,10 @@ CREATE SCHEMA 給与;
 DROP TABLE IF EXISTS 給与.ユーザー;
 CREATE TABLE 給与.ユーザー (
   USER_ID  VARCHAR(255) PRIMARY KEY,
-  DATE_OF_BIRTH DATE NOT NULL,
   GENDER CHAR(2) NOT NULL
 );
 
 COMMENT ON COLUMN 給与.ユーザー.USER_ID IS '利用者ID';
-COMMENT ON COLUMN 給与.ユーザー.DATE_OF_BIRTH IS '生年月日';
 COMMENT ON COLUMN 給与.ユーザー.GENDER IS '性別';
 
 DROP TABLE IF EXISTS 給与.ユーザー名;
@@ -26,6 +24,25 @@ CREATE TABLE 給与.ユーザー名対応表 (
   ユーザーID  VARCHAR(255) NOT NULL,
   ユーザー名ID BIGINT NOT NULL,
     PRIMARY KEY (ユーザーID, ユーザー名ID)
+--    ,FOREIGN KEY (ユーザーID) REFERENCES  給与.ユーザー(USER_ID)
+--    ,FOREIGN KEY (ユーザーメールアドレスID) 
+--      REFERENCES  給与.ユーザーメールアドレス対応表(ユーザーメールアドレスID)
+);
+
+DROP TABLE IF EXISTS 給与.ユーザー誕生日;
+CREATE TABLE 給与.ユーザー誕生日 (
+  ユーザー誕生日ID BIGINT PRIMARY KEY,
+  ユーザーID  VARCHAR(255) NOT NULL,
+  誕生日 DATE NOT NULL,
+  登録日時 TIMESTAMP NOT NULL
+--    ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(USER_ID)
+);
+
+DROP TABLE IF EXISTS 給与.ユーザー誕生日対応表;
+CREATE TABLE 給与.ユーザー誕生日対応表 (
+  ユーザーID  VARCHAR(255) NOT NULL,
+  ユーザー誕生日ID BIGINT NOT NULL,
+    PRIMARY KEY (ユーザーID, ユーザー誕生日ID)
 --    ,FOREIGN KEY (ユーザーID) REFERENCES  給与.ユーザー(USER_ID)
 --    ,FOREIGN KEY (ユーザーメールアドレスID) 
 --      REFERENCES  給与.ユーザーメールアドレス対応表(ユーザーメールアドレスID)

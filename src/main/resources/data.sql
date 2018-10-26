@@ -1,12 +1,12 @@
 INSERT INTO 給与.ユーザー
-(user_id, date_of_birth, gender)
+(user_id, gender)
 VALUES
- ('fukawa_teruyoshi@example.com', '1988-01-01','男性'),
- ('kuriyama_yuino@example.com', '1988-03-03','女性'),
- ('fujimura_kaoru@example.com', '1988-05-05','男性'),
- ('ijuuin_ken@example.com', '1988-07-07','男性'),
- ('yamato_michiko@example.com', '1988-09-09','女性'),
- ('miyake_yukiya@example.com', '1988-12-31','女性');
+ ('fukawa_teruyoshi@example.com', '男性'),
+ ('kuriyama_yuino@example.com', '女性'),
+ ('fujimura_kaoru@example.com', '男性'),
+ ('ijuuin_ken@example.com', '男性'),
+ ('yamato_michiko@example.com', '女性'),
+ ('miyake_yukiya@example.com', '女性');
 
  -- ユーザ名
  INSERT INTO 給与.ユーザー名
@@ -53,6 +53,33 @@ values
  
  INSERT INTO 給与.ユーザー電話番号対応表
  (ユーザーID, ユーザー電話番号ID)
+values
+ ('fukawa_teruyoshi@example.com', 7),
+ ('kuriyama_yuino@example.com', 2),
+ ('fujimura_kaoru@example.com', 3),
+ ('ijuuin_ken@example.com', 4),
+ ('yamato_michiko@example.com', 5),
+ ('miyake_yukiya@example.com', 6)
+ ;
+ 
+ -- 誕生日
+ INSERT INTO 給与.ユーザー誕生日
+ (ユーザー誕生日ID, ユーザーID, 登録日時, 誕生日)
+ values
+ (1, 'fukawa_teruyoshi@example.com', now(), '1988-01-01'),
+ (2, 'kuriyama_yuino@example.com', now(), '1988-03-03'),
+ (3, 'fujimura_kaoru@example.com', now(), '1988-05-05'),
+ (4, 'ijuuin_ken@example.com', now(), '1988-07-07'),
+ (5, 'yamato_michiko@example.com', now(), '1988-09-09'),
+ (6, 'miyake_yukiya@example.com', now(), '1988-12-31')
+ ;
+ INSERT INTO 給与.ユーザー誕生日
+ (ユーザー誕生日ID, ユーザーID, 登録日時, 誕生日)
+ values(7, 'fukawa_teruyoshi@example.com', now(), '1988-02-29')
+ ;
+ 
+ INSERT INTO 給与.ユーザー誕生日対応表
+ (ユーザーID, ユーザー誕生日ID)
 values
  ('fukawa_teruyoshi@example.com', 7),
  ('kuriyama_yuino@example.com', 2),

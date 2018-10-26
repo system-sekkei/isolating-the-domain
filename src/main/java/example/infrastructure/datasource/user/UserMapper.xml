@@ -8,7 +8,7 @@
         <id property="identifier.value" column="user_id"/>
         <result property="name.value" column="ユーザー名"/>
         <result property="mailAddress.value" column="メールアドレス"/>
-        <result property="dateOfBirth.value" column="date_of_birth"/>
+        <result property="dateOfBirth.value" column="誕生日"/>
         <result property="phoneNumber.value" column="電話番号"/>
         <result property="gender.value" column="gender"/>
     </resultMap>
@@ -17,7 +17,7 @@
         <id property="identifier.value" column="user_id"/>
         <result property="name.value" column="ユーザー名"/>
         <result property="mailAddress.value" column="メールアドレス"/>
-        <result property="dateOfBirth.value" column="date_of_birth"/>
+        <result property="dateOfBirth.value" column="誕生日"/>
     </resultMap>
 
     <select id="findBy" resultMap="user">
@@ -25,7 +25,7 @@
             ユーザー.user_id,
             ユーザー名.ユーザー名,
             ユーザーメールアドレス.メールアドレス,
-            ユーザー.date_of_birth,
+            ユーザー誕生日.誕生日,
             ユーザー電話番号.電話番号,
             ユーザー.gender
         FROM 給与.ユーザー as ユーザー
@@ -41,6 +41,10 @@
             ユーザー.user_id = ユーザーメールアドレス対応表.ユーザーID
           ) INNER JOIN 給与.ユーザーメールアドレス as ユーザーメールアドレス on (
             ユーザーメールアドレス対応表.ユーザーメールアドレスID = ユーザーメールアドレス.ユーザーメールアドレスID
+          ) INNER JOIN 給与.ユーザー誕生日対応表 as ユーザー誕生日対応表 on ( 
+            ユーザー.user_id = ユーザー誕生日対応表.ユーザーID
+          ) INNER JOIN 給与.ユーザー誕生日 as ユーザー誕生日 on (
+            ユーザー誕生日対応表.ユーザー誕生日ID = ユーザー誕生日.ユーザー誕生日ID
           )
         WHERE ユーザー.user_id = #{identifier.value}
     </select>
@@ -50,7 +54,7 @@
             ユーザー.user_id,
             ユーザー名.ユーザー名,
             ユーザーメールアドレス.メールアドレス,
-            ユーザー.date_of_birth
+            ユーザー誕生日.誕生日
         FROM 給与.ユーザー as ユーザー
           INNER JOIN 給与.ユーザー名対応表 as ユーザー名対応表 on (
             ユーザー.user_id = ユーザー名対応表.ユーザーID
@@ -60,13 +64,17 @@
             ユーザー.user_id = ユーザーメールアドレス対応表.ユーザーID
           ) INNER JOIN 給与.ユーザーメールアドレス as ユーザーメールアドレス on (
             ユーザーメールアドレス対応表.ユーザーメールアドレスID = ユーザーメールアドレス.ユーザーメールアドレスID
+          ) INNER JOIN 給与.ユーザー誕生日対応表 as ユーザー誕生日対応表 on ( 
+            ユーザー.user_id = ユーザー誕生日対応表.ユーザーID
+          ) INNER JOIN 給与.ユーザー誕生日 as ユーザー誕生日 on (
+            ユーザー誕生日対応表.ユーザー誕生日ID = ユーザー誕生日.ユーザー誕生日ID
           )
         ORDER BY ユーザー.user_id;
     </select>
 
     <insert id="registerUser">
-        INSERT INTO 給与.ユーザー (user_id, date_of_birth, gender)
-        VALUES (#{user.identifier.value}, #{user.dateOfBirth.value}, #{user.gender.value});
+        INSERT INTO 給与.ユーザー (user_id, gender)
+        VALUES (#{user.identifier.value}, #{user.gender.value});
     </insert>
 
     <insert id="registerName">
@@ -99,6 +107,16 @@
         VALUES (#{userId.value}, #{mailAddressId});
 	</insert>
 	
+    <insert id="registerDateOfBirth">
+        INSERT INTO 給与.ユーザー誕生日 (ユーザー誕生日ID, ユーザーID, 誕生日, 登録日時)
+        VALUES (#{id}, #{user.identifier.value}, #{user.dateOfBirth.value}, now());
+	</insert>
+	
+    <insert id="registerDateOfBirthMapper">
+        INSERT INTO 給与.ユーザー誕生日対応表 (ユーザーID, ユーザー誕生日ID)
+        VALUES (#{userId.value}, #{dateOfBirthId});
+	</insert>
+
     <delete id="delete">
         DELETE FROM 給与.ユーザー
         WHERE user_id = #{user.identifier.value}
