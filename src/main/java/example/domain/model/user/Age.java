@@ -1,5 +1,8 @@
 package example.domain.model.user;
 
+/**
+ * 年齢
+ */
 public class Age {
     int value;
 

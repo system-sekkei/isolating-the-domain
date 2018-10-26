@@ -1,5 +1,8 @@
 package example.domain.model.user;
 
+/**
+ * 利用者リポジトリ
+ */
 public interface UserRepository {
     User findBy(UserIdentifier id);
 

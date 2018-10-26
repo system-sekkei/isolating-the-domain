@@ -3,6 +3,9 @@ package example.domain.model.user;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * 利用者サマリ一覧
+ */
 public class UserSummaries {
     final List<UserSummary> values;
 

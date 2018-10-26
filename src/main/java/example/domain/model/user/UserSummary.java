@@ -1,5 +1,8 @@
 package example.domain.model.user;
 
+/**
+ * 利用者サマリ
+ */
 public class UserSummary {
     UserIdentifier identifier;
     Name name;

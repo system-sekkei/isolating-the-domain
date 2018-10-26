@@ -5,6 +5,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+/**
+ * 誕生日
+ */
 public class DateOfBirth {
 
     @NotNull(message = "誕生日を入力してください。")

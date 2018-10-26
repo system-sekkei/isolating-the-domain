@@ -3,7 +3,7 @@ package example.domain.model.user;
 import javax.validation.Valid;
 
 /**
- * Created by haljik on 15/06/04.
+ * 利用者
  */
 public class User {
     @Valid

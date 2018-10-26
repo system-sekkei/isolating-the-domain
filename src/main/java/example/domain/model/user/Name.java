@@ -3,6 +3,9 @@ package example.domain.model.user;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ * 氏名
+ */
 public class Name {
 
     @NotBlank(message = "名前を入力してください。")

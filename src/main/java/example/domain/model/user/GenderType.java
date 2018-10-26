@@ -1,5 +1,8 @@
 package example.domain.model.user;
 
+/**
+ * 性別
+ */
 public enum GenderType {
 
     男性,

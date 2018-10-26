@@ -2,6 +2,9 @@ package example.domain.model.user;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * 利用者識別子
+ */
 public class UserIdentifier {
 
     @NotNull

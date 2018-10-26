@@ -5,6 +5,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+/**
+ * 電話番号
+ */
 public class PhoneNumber {
 
     @NotBlank(message = "電話番号を入力してください")
