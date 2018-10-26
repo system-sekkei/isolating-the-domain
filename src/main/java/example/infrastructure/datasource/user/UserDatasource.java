@@ -1,15 +1,18 @@
 package example.infrastructure.datasource.user;
 
+import org.springframework.stereotype.Repository;
+
 import example.domain.model.user.User;
 import example.domain.model.user.UserIdentifier;
 import example.domain.model.user.UserRepository;
 import example.domain.model.user.UserSummaries;
-import org.springframework.stereotype.Repository;
+import example.infrastructure.datasource.sequencer.SequencerMapper;
 
 @Repository
 public class UserDatasource implements UserRepository {
     UserMapper mapper;
-
+    SequencerMapper sequencer;
+    
     @Override
     public User findBy(UserIdentifier id) {
         return mapper.findBy(id);
@@ -34,7 +37,9 @@ public class UserDatasource implements UserRepository {
     @Override
     public void register(User user) {
         mapper.registerUser(user);
-        mapper.registerMailAddress(user);
+        Long mailAddressId = sequencer.nextVal();
+        mapper.registerMailAddress(mailAddressId, user);
+        mapper.registerMailAddressMapper(user.identifier(), mailAddressId);
     }
 
     @Override
@@ -48,7 +53,8 @@ public class UserDatasource implements UserRepository {
         mapper.delete(user);
     }
 
-    public UserDatasource(UserMapper mapper) {
+    public UserDatasource(UserMapper mapper, SequencerMapper sequencer) {
         this.mapper = mapper;
+        this.sequencer = sequencer;
     }
 }

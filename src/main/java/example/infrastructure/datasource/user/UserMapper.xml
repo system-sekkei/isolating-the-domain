@@ -7,7 +7,7 @@
     <resultMap id="user" type="example.domain.model.user.User">
         <id property="identifier.value" column="user_id"/>
         <result property="name.value" column="name"/>
-        <result property="mailAddress.value" column="mail_address"/>
+        <result property="mailAddress.value" column="メールアドレス"/>
         <result property="dateOfBirth.value" column="date_of_birth"/>
         <result property="phoneNumber.value" column="phone_number"/>
         <result property="gender.value" column="gender"/>
@@ -16,7 +16,7 @@
     <resultMap id="userSummary" type="example.domain.model.user.UserSummary">
         <id property="identifier.value" column="user_id"/>
         <result property="name.value" column="name"/>
-        <result property="mailAddress.value" column="mail_address"/>
+        <result property="mailAddress.value" column="メールアドレス"/>
         <result property="dateOfBirth.value" column="date_of_birth"/>
     </resultMap>
 
@@ -24,24 +24,15 @@
         SELECT
             ユーザー.user_id,
             ユーザー.name,
-            users_mail_address.mail_address,
+            ユーザーメールアドレス.メールアドレス,
             ユーザー.date_of_birth,
             ユーザー.phone_number,
             ユーザー.gender
-        FROM 給与.ユーザー  as ユーザー
-          INNER JOIN (
-            SELECT 
-              user_id,
-              max(register_date) as register_date
-            FROM
-              給与.users_mail_address
-            GROUP BY
-              user_id
-          ) AS leatest on (
-            ユーザー.user_id = leatest.user_id
-          ) INNER JOIN 給与.users_mail_address as users_mail_address on (
-            ユーザー.user_id = users_mail_address.user_id
-            and leatest.register_date = users_mail_address.register_date
+        FROM 給与.ユーザー as ユーザー
+          INNER JOIN 給与.ユーザーメールアドレス対応表 as ユーザーメールアドレス対応表 on ( 
+            ユーザー.user_id = ユーザーメールアドレス対応表.ユーザーID
+          ) INNER JOIN 給与.ユーザーメールアドレス as ユーザーメールアドレス on (
+            ユーザーメールアドレス対応表.ユーザーメールアドレスID = ユーザーメールアドレス.ユーザーメールアドレスID
           )
         WHERE ユーザー.user_id = #{identifier.value}
     </select>
@@ -50,23 +41,14 @@
         SELECT
             ユーザー.user_id,
             ユーザー.name,
-            users_mail_address.mail_address,
+            ユーザーメールアドレス.メールアドレス,
             ユーザー.date_of_birth
         FROM 給与.ユーザー as ユーザー
-          INNER JOIN (
-            SELECT 
-              user_id,
-              max(register_date) as register_date
-            FROM
-              給与.users_mail_address
-            GROUP BY
-              user_id
-          ) AS leatest on (
-            ユーザー.user_id = leatest.user_id
-          ) INNER JOIN 給与.users_mail_address as users_mail_address on (
-            ユーザー.user_id = users_mail_address.user_id
-            and leatest.register_date = users_mail_address.register_date
-          )          
+          INNER JOIN 給与.ユーザーメールアドレス対応表 as ユーザーメールアドレス対応表 on ( 
+            ユーザー.user_id = ユーザーメールアドレス対応表.ユーザーID
+          ) INNER JOIN 給与.ユーザーメールアドレス as ユーザーメールアドレス on (
+            ユーザーメールアドレス対応表.ユーザーメールアドレスID = ユーザーメールアドレス.ユーザーメールアドレスID
+          )
         ORDER BY ユーザー.user_id;
     </select>
 
@@ -77,8 +59,13 @@
     </insert>
 
     <insert id="registerMailAddress">
-        INSERT INTO 給与.users_mail_address (user_id, register_date, mail_address)
-        VALUES (#{user.identifier.value}, now(), #{user.mailAddress.value});
+        INSERT INTO 給与.ユーザーメールアドレス (ユーザーメールアドレスID, ユーザーID, メールアドレス, 登録日時)
+        VALUES (#{id}, #{user.identifier.value}, #{user.mailAddress.value}, now());
+	</insert>
+	
+    <insert id="registerMailAddressMapper">
+        INSERT INTO 給与.ユーザーメールアドレス対応表 (ユーザーID, ユーザーメールアドレスID)
+        VALUES (#{userId.value}, #{mailAddressId});
 	</insert>
 	
     <delete id="delete">

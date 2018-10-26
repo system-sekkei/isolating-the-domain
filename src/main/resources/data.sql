@@ -8,17 +8,28 @@ VALUES
  ('yamato_michiko@example.com', '大和 路子', '03-1234-5678','1988-09-09','女性'),
  ('miyake_yukiya@example.com', '三宅 有起子', '03-1234-5678','1988-12-31','女性');
 
- INSERT INTO 給与.users_mail_address
- (user_id, register_date, mail_address)
+ INSERT INTO 給与.ユーザーメールアドレス
+ (ユーザーメールアドレスID, ユーザーID, 登録日時, メールアドレス)
  values
- ('fukawa_teruyoshi@example.com', now(), 'fukawa_teruyoshi@example.com'),
- ('kuriyama_yuino@example.com', now(), 'kuriyama_yuino@example.com'),
- ('fujimura_kaoru@example.com', now(), 'fujimura_kaoru@example.com'),
- ('ijuuin_ken@example.com', now(), 'ijuuin_ken@example.com'),
- ('yamato_michiko@example.com', now(), 'yamato_michiko@example.com'),
- ('miyake_yukiya@example.com', now(), 'miyake_yukiya@example.com')
+ (1, 'fukawa_teruyoshi@example.com', now(), 'fukawa_teruyoshi@example.com'),
+ (2, 'kuriyama_yuino@example.com', now(), 'kuriyama_yuino@example.com'),
+ (3, 'fujimura_kaoru@example.com', now(), 'fujimura_kaoru@example.com'),
+ (4, 'ijuuin_ken@example.com', now(), 'ijuuin_ken@example.com'),
+ (5, 'yamato_michiko@example.com', now(), 'yamato_michiko@example.com'),
+ (6, 'miyake_yukiya@example.com', now(), 'miyake_yukiya@example.com')
  ;
-  INSERT INTO 給与.users_mail_address
- (user_id, register_date, mail_address)
- values('fukawa_teruyoshi@example.com', now(), 'fukawa_teruyoshi_new@example.com')
+ INSERT INTO 給与.ユーザーメールアドレス
+ (ユーザーメールアドレスID, ユーザーID, 登録日時, メールアドレス)
+ values(7, 'fukawa_teruyoshi@example.com', now(), 'fukawa_teruyoshi_new@example.com')
+ ;
+ 
+ INSERT INTO 給与.ユーザーメールアドレス対応表
+ (ユーザーID, ユーザーメールアドレスID)
+values
+ ('fukawa_teruyoshi@example.com', 7),
+ ('kuriyama_yuino@example.com', 2),
+ ('fujimura_kaoru@example.com', 3),
+ ('ijuuin_ken@example.com', 4),
+ ('yamato_michiko@example.com', 5),
+ ('miyake_yukiya@example.com', 6)
  ;

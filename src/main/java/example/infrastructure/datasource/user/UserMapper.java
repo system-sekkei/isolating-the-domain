@@ -16,7 +16,10 @@ public interface UserMapper {
     List<UserSummary> list();
 
     void registerUser(@Param("user") User user);
-    void registerMailAddress(@Param("user") User user);
 
+    void registerMailAddress(@Param("id") Long id, @Param("user") User user);
+    void registerMailAddressMapper(@Param("userId") UserIdentifier userId, 
+    		@Param("mailAddressId") Long mailAddressId);
+    
     void delete(@Param("user") User user);
 }
