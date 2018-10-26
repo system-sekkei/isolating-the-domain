@@ -15,8 +15,10 @@ public class UserSummary {
     }
 
     public MailAddress mailAddress() {
-    		return mailAddress;
+        return mailAddress;
     }
-    
-    public Age age() { return dateOfBirth.age(); }
+
+    public Age age() {
+        return dateOfBirth.age();
+    }
 }

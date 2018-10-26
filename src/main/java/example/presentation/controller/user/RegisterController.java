@@ -4,7 +4,6 @@ import example.application.service.UserService;
 import example.domain.model.user.GenderType;
 import example.domain.model.user.User;
 import example.domain.model.user.UserCandidate;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

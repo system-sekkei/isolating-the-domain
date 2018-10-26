@@ -11,7 +11,7 @@ public class UserCandidate {
 
     @Valid
     MailAddress mailAddress;
-    
+
     @Valid
     DateOfBirth dateOfBirth;
 
@@ -46,9 +46,9 @@ public class UserCandidate {
     }
 
     public MailAddress mailAddress() {
-    	return mailAddress;
+        return mailAddress;
     }
-    
+
     @Override
     public String toString() {
         return "UserCandidate{" +

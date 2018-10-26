@@ -14,7 +14,7 @@ public class User {
 
     @Valid
     MailAddress mailAddress;
-    
+
     @Valid
     DateOfBirth dateOfBirth;
 
@@ -32,7 +32,7 @@ public class User {
         gender = new Gender();
         phoneNumber = new PhoneNumber();
     }
-    
+
     public UserIdentifier identifier() {
         return identifier;
     }
@@ -54,9 +54,9 @@ public class User {
     }
 
     public MailAddress mailAddress() {
-    		return mailAddress;
+        return mailAddress;
     }
-    
+
     @Override
     public String toString() {
         return "User{" +

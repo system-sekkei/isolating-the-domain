@@ -4,7 +4,7 @@ import javax.validation.constraints.NotNull;
 
 public class UserIdentifier {
 
-	@NotNull
+    @NotNull
     Long value = Long.valueOf(0L);
 
     public UserIdentifier() {

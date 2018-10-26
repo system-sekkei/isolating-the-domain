@@ -1,15 +1,6 @@
 package example.application.service;
 
-import example.domain.model.user.DateOfBirth;
-import example.domain.model.user.Gender;
-import example.domain.model.user.MailAddress;
-import example.domain.model.user.Name;
-import example.domain.model.user.PhoneNumber;
-import example.domain.model.user.User;
-import example.domain.model.user.UserCandidate;
-import example.domain.model.user.UserIdentifier;
-import example.domain.model.user.UserRepository;
-import example.domain.model.user.UserSummaries;
+import example.domain.model.user.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,23 +25,23 @@ public class UserService {
     }
 
     public void updateName(UserIdentifier identifier, Name name) {
-    	userRepository.updateName(identifier, name);
+        userRepository.updateName(identifier, name);
     }
 
     public void updateMailAddress(UserIdentifier identifier, MailAddress mailAddress) {
-    	userRepository.updateMailAddress(identifier, mailAddress);
+        userRepository.updateMailAddress(identifier, mailAddress);
     }
-    
+
     public void updateDateOfBirth(UserIdentifier identifier, DateOfBirth dateOfBirth) {
-    	userRepository.updateDateOfBirth(identifier, dateOfBirth);
+        userRepository.updateDateOfBirth(identifier, dateOfBirth);
     }
 
     public void updateGender(UserIdentifier identifier, Gender gender) {
-    	userRepository.updateGender(identifier, gender);
+        userRepository.updateGender(identifier, gender);
     }
 
     public void updatePhoneNumber(UserIdentifier identifier, PhoneNumber phoneNumber) {
-    	userRepository.updatePhoneNumber(identifier, phoneNumber);
+        userRepository.updatePhoneNumber(identifier, phoneNumber);
     }
 
     public void delete(User user) {
