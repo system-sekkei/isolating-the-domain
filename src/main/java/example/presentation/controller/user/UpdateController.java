@@ -1,7 +1,7 @@
 package example.presentation.controller.user;
 
 import example.application.service.UserService;
-import example.domain.model.user.GenderType;
+import example.domain.type.gender.GenderType;
 import example.domain.model.user.User;
 import example.domain.model.user.UserIdentifier;
 import org.springframework.stereotype.Controller;

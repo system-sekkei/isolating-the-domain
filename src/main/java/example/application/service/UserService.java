@@ -1,6 +1,8 @@
 package example.application.service;
 
 import example.domain.model.user.*;
+import example.domain.type.age.DateOfBirth;
+import example.domain.type.gender.Gender;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,6 +1,8 @@
 package example.infrastructure.datasource.user;
 
 import example.domain.model.user.*;
+import example.domain.type.age.DateOfBirth;
+import example.domain.type.gender.Gender;
 import example.infrastructure.datasource.sequencer.SequencerMapper;
 import org.springframework.stereotype.Repository;
 

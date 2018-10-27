@@ -1,4 +1,4 @@
-package example.domain.model.user;
+package example.domain.type.gender;
 
 import javax.validation.constraints.NotNull;
 
@@ -8,6 +8,13 @@ import javax.validation.constraints.NotNull;
 public class Gender {
     @NotNull(message = "性別を選択してください。")
     GenderType value;
+
+    public Gender() {
+    }
+
+    public Gender(GenderType value) {
+        this.value = value;
+    }
 
     @Override
     public String toString() {

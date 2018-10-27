@@ -1,5 +1,8 @@
 package example.domain.model.user;
 
+import example.domain.type.age.DateOfBirth;
+import example.domain.type.gender.Gender;
+
 import javax.validation.Valid;
 
 /**

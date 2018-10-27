@@ -1,4 +1,4 @@
-package example.domain.model.user;
+package example.domain.type.gender;
 
 /**
  * 性別

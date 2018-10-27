@@ -1,4 +1,4 @@
-package example.domain.model.user;
+package example.domain.type.age;
 
 /**
  * 年齢

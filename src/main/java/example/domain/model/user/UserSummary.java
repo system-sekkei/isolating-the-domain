@@ -1,5 +1,8 @@
 package example.domain.model.user;
 
+import example.domain.type.age.Age;
+import example.domain.type.age.DateOfBirth;
+
 /**
  * 利用者サマリ
  */
