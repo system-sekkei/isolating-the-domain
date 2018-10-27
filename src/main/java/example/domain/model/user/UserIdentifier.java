@@ -1,16 +1,17 @@
 package example.domain.model.user;
 
-import javax.validation.constraints.NotNull;
-
 /**
  * 利用者識別子
  */
 public class UserIdentifier {
 
-    @NotNull
     Long value;
 
     public UserIdentifier() {
+    }
+
+    public UserIdentifier(String value) {
+        this.value = Long.parseLong(value);
     }
 
     public UserIdentifier(Long value) {

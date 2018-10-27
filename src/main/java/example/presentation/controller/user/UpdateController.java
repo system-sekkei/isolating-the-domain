@@ -1,9 +1,9 @@
 package example.presentation.controller.user;
 
 import example.application.service.UserService;
-import example.domain.type.gender.GenderType;
 import example.domain.model.user.User;
 import example.domain.model.user.UserIdentifier;
+import example.domain.type.gender.GenderType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,16 +40,16 @@ class UpdateController {
     UserService userService;
 
     @GetMapping("")
-    String clearSessionAtStart(@PathVariable(value = "userId") Long userId,
+    String clearSessionAtStart(@PathVariable(value = "userId") UserIdentifier userId,
                                SessionStatus status) {
         status.setComplete();
         return "forward:/user/" + userId + "/update/input";
     }
 
     @GetMapping(value = "input")
-    String formToEdit(@PathVariable(value = "userId") Long userId,
+    String formToEdit(@PathVariable(value = "userId") UserIdentifier userId,
                       Model model) {
-        User user = userService.findById(new UserIdentifier(userId));
+        User user = userService.findById(userId);
         model.addAttribute("user", user);
         return "user/update/form";
     }
