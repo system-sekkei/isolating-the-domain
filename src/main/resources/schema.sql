@@ -1,13 +1,11 @@
 DROP SCHEMA IF EXISTS 給与;
 CREATE SCHEMA 給与;
 
-DROP TABLE IF EXISTS 給与.ユーザー;
 CREATE TABLE 給与.ユーザー (
   ユーザーID  BIGINT PRIMARY KEY,
   登録日時 TIMESTAMP NOT NULL
 );
 
-DROP TABLE IF EXISTS 給与.ユーザー名;
 CREATE TABLE 給与.ユーザー名 (
   ユーザー名ID BIGINT PRIMARY KEY,
   ユーザーID  BIGINT NOT NULL,
@@ -16,7 +14,6 @@ CREATE TABLE 給与.ユーザー名 (
     ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
 );
 
-DROP TABLE IF EXISTS 給与.ユーザー名対応表;
 CREATE TABLE 給与.ユーザー名対応表 (
   ユーザーID  BIGINT NOT NULL,
   ユーザー名ID BIGINT NOT NULL,
@@ -26,7 +23,6 @@ CREATE TABLE 給与.ユーザー名対応表 (
       REFERENCES  給与.ユーザー名(ユーザー名ID)
 );
 
-DROP TABLE IF EXISTS 給与.ユーザー誕生日;
 CREATE TABLE 給与.ユーザー誕生日 (
   ユーザー誕生日ID BIGINT PRIMARY KEY,
   ユーザーID  BIGINT NOT NULL,
@@ -35,7 +31,6 @@ CREATE TABLE 給与.ユーザー誕生日 (
     ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
 );
 
-DROP TABLE IF EXISTS 給与.ユーザー誕生日対応表;
 CREATE TABLE 給与.ユーザー誕生日対応表 (
   ユーザーID  BIGINT NOT NULL,
   ユーザー誕生日ID BIGINT NOT NULL,
@@ -45,7 +40,6 @@ CREATE TABLE 給与.ユーザー誕生日対応表 (
       REFERENCES  給与.ユーザー誕生日対応表(ユーザー誕生日ID)
 );
 
-DROP TABLE IF EXISTS 給与.ユーザー電話番号;
 CREATE TABLE 給与.ユーザー電話番号 (
   ユーザー電話番号ID BIGINT PRIMARY KEY,
   ユーザーID  BIGINT NOT NULL,
@@ -54,7 +48,6 @@ CREATE TABLE 給与.ユーザー電話番号 (
     ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
 );
 
-DROP TABLE IF EXISTS 給与.ユーザー電話番号対応表;
 CREATE TABLE 給与.ユーザー電話番号対応表 (
   ユーザーID  BIGINT NOT NULL,
   ユーザー電話番号ID BIGINT NOT NULL,
@@ -65,7 +58,6 @@ CREATE TABLE 給与.ユーザー電話番号対応表 (
 );
 
 
-DROP TABLE IF EXISTS 給与.ユーザーメールアドレス;
 CREATE TABLE 給与.ユーザーメールアドレス (
   ユーザーメールアドレスID BIGINT PRIMARY KEY,
   ユーザーID  BIGINT NOT NULL,
@@ -74,7 +66,6 @@ CREATE TABLE 給与.ユーザーメールアドレス (
     ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
 );
 
-DROP TABLE IF EXISTS 給与.ユーザーメールアドレス対応表;
 CREATE TABLE 給与.ユーザーメールアドレス対応表 (
   ユーザーID  BIGINT NOT NULL,
   ユーザーメールアドレスID BIGINT NOT NULL,
@@ -84,7 +75,6 @@ CREATE TABLE 給与.ユーザーメールアドレス対応表 (
       REFERENCES  給与.ユーザーメールアドレス対応表(ユーザーメールアドレスID)
 );
 
-DROP TABLE IF EXISTS 給与.ユーザー性別;
 CREATE TABLE 給与.ユーザー性別 (
   ユーザー性別ID BIGINT PRIMARY KEY,
   ユーザーID  BIGINT NOT NULL,
@@ -93,7 +83,6 @@ CREATE TABLE 給与.ユーザー性別 (
     ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
 );
 
-DROP TABLE IF EXISTS 給与.ユーザー性別対応表;
 CREATE TABLE 給与.ユーザー性別対応表 (
   ユーザーID BIGINT NOT NULL,
   ユーザー性別ID BIGINT NOT NULL,
@@ -103,12 +92,10 @@ CREATE TABLE 給与.ユーザー性別対応表 (
       REFERENCES  給与.ユーザー性別対応表(ユーザー性別ID)
 );
 
-DROP TABLE IF EXISTS 給与.削除済みユーザー;
 CREATE TABLE 給与.削除済みユーザー (
   ユーザーID  BIGINT PRIMARY KEY,
   登録日時 TIMESTAMP NOT NULL
     ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
 );
 
-DROP SEQUENCE IF EXISTS 給与.シーケンサー;
 CREATE SEQUENCE 給与.シーケンサー START WITH 100000;
