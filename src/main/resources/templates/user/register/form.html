@@ -10,20 +10,19 @@
     <h1 class="ui center aligned header">利用者の新規登録</h1>
   </div>
 
-  <div class="ui middle aligned center aligned grid">
+  <div class="userInput">
     <form id="custom-form" class="ui large form" name="body"
-      method="post" action="#"
-      th:object="${user}" 
-      th:action="@{/user/register/confirm}">
-
-      <div class="column">
-         <div th:include="user/update/form ::input-fields"></div>
-
-      </div>
+          method="post" action="#"
+          th:object="${user}" 
+          th:action="@{/user/register/confirm}">
 
       <div class="ui basic segment">
+         <div th:include="user/update/form ::input-fields"></div>
+      </div>
+
+      <div class="ui center aligned basic segment">
         <a class="ui grey button" 
-          th:href="@{/}">一覧に戻る</a>
+           th:href="@{/}">一覧に戻る</a>
         <button class="ui positive button">確認する</button>
       </div>
     </form>
