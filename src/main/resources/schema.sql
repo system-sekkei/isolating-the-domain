@@ -5,6 +5,7 @@ CREATE TABLE 給与.ユーザー (
   ユーザーID  BIGINT PRIMARY KEY,
   登録日時 TIMESTAMP NOT NULL
 );
+CREATE SEQUENCE 給与.ユーザーIDシーケンサー;
 
 CREATE TABLE 給与.ユーザー名 (
   ユーザー名ID BIGINT PRIMARY KEY,
@@ -13,6 +14,7 @@ CREATE TABLE 給与.ユーザー名 (
   登録日時 TIMESTAMP NOT NULL
     ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
 );
+CREATE SEQUENCE 給与.ユーザー名IDシーケンサー;
 
 CREATE TABLE 給与.ユーザー名対応表 (
   ユーザーID  BIGINT NOT NULL,
@@ -30,6 +32,7 @@ CREATE TABLE 給与.ユーザー誕生日 (
   登録日時 TIMESTAMP NOT NULL
     ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
 );
+CREATE SEQUENCE 給与.ユーザー誕生日IDシーケンサー;
 
 CREATE TABLE 給与.ユーザー誕生日対応表 (
   ユーザーID  BIGINT NOT NULL,
@@ -47,6 +50,7 @@ CREATE TABLE 給与.ユーザー電話番号 (
   登録日時 TIMESTAMP NOT NULL
     ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
 );
+CREATE SEQUENCE 給与.ユーザー電話番号IDシーケンサー;
 
 CREATE TABLE 給与.ユーザー電話番号対応表 (
   ユーザーID  BIGINT NOT NULL,
@@ -65,6 +69,7 @@ CREATE TABLE 給与.ユーザーメールアドレス (
   登録日時 TIMESTAMP NOT NULL
     ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
 );
+CREATE SEQUENCE 給与.ユーザーメールアドレスIDシーケンサー;
 
 CREATE TABLE 給与.ユーザーメールアドレス対応表 (
   ユーザーID  BIGINT NOT NULL,
@@ -82,6 +87,7 @@ CREATE TABLE 給与.ユーザー性別 (
   登録日時 TIMESTAMP NOT NULL
     ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
 );
+CREATE SEQUENCE 給与.ユーザー性別IDシーケンサー;
 
 CREATE TABLE 給与.ユーザー性別対応表 (
   ユーザーID BIGINT NOT NULL,
@@ -97,5 +103,5 @@ CREATE TABLE 給与.削除済みユーザー (
   登録日時 TIMESTAMP NOT NULL
     ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
 );
+CREATE SEQUENCE 給与.削除済みユーザーIDシーケンサー;
 
-CREATE SEQUENCE 給与.シーケンサー START WITH 100000;

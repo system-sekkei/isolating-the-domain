@@ -3,13 +3,11 @@ package example.infrastructure.datasource.user;
 import example.domain.model.user.*;
 import example.domain.type.age.DateOfBirth;
 import example.domain.type.gender.Gender;
-import example.infrastructure.datasource.sequencer.SequencerMapper;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserDatasource implements UserRepository {
     UserMapper mapper;
-    SequencerMapper sequencer;
 
     @Override
     public User findBy(UserIdentifier id) {
@@ -28,7 +26,7 @@ public class UserDatasource implements UserRepository {
 
     @Override
     public User register(UserCandidate userCandidate) {
-        UserIdentifier userId = new UserIdentifier(sequencer.nextVal());
+        UserIdentifier userId = new UserIdentifier(mapper.newUserIdentifier());
         mapper.registerUser(userId);
         updateName(userId, userCandidate.name());
         updateMailAddress(userId, userCandidate.mailAddress());
@@ -40,7 +38,7 @@ public class UserDatasource implements UserRepository {
 
     @Override
     public void updateName(UserIdentifier identifier, Name name) {
-        Long nameId = sequencer.nextVal();
+        Long nameId = mapper.newUserNameIdentifier();
         mapper.registerName(nameId, identifier, name);
         mapper.deleteNameMapper(identifier);
         mapper.registerNameMapper(identifier, nameId);
@@ -48,7 +46,7 @@ public class UserDatasource implements UserRepository {
 
     @Override
     public void updateMailAddress(UserIdentifier identifier, MailAddress mailAddress) {
-        Long mailAddressId = sequencer.nextVal();
+        Long mailAddressId = mapper.newUserMailAddressIdentifier();
         mapper.registerMailAddress(mailAddressId, identifier, mailAddress);
         mapper.deleteMailAddressMapper(identifier);
         mapper.registerMailAddressMapper(identifier, mailAddressId);
@@ -56,7 +54,7 @@ public class UserDatasource implements UserRepository {
 
     @Override
     public void updateDateOfBirth(UserIdentifier identifier, DateOfBirth dateOfBirth) {
-        Long dateOfBirthId = sequencer.nextVal();
+        Long dateOfBirthId = mapper.newUserDateOfBirthIdentifier();
         mapper.registerDateOfBirth(dateOfBirthId, identifier, dateOfBirth);
         mapper.deleteDateOfBirthMapper(identifier);
         mapper.registerDateOfBirthMapper(identifier, dateOfBirthId);
@@ -64,7 +62,7 @@ public class UserDatasource implements UserRepository {
 
     @Override
     public void updateGender(UserIdentifier identifier, Gender gender) {
-        Long genderId = sequencer.nextVal();
+        Long genderId = mapper.newUserGenderIdentifier();
         mapper.registerGender(genderId, identifier, gender);
         mapper.deleteGenderMapper(identifier);
         mapper.registerGenderMapper(identifier, genderId);
@@ -72,7 +70,7 @@ public class UserDatasource implements UserRepository {
 
     @Override
     public void updatePhoneNumber(UserIdentifier identifier, PhoneNumber phoneNumber) {
-        Long phoneNumberId = sequencer.nextVal();
+        Long phoneNumberId = mapper.newUserPhoneNumberIdentifier();
         mapper.registerPhoneNumber(phoneNumberId, identifier, phoneNumber);
         mapper.deletePhoneNumberMapper(identifier);
         mapper.registerPhoneNumberMapper(identifier, phoneNumberId);
@@ -83,8 +81,7 @@ public class UserDatasource implements UserRepository {
         mapper.delete(user);
     }
 
-    public UserDatasource(UserMapper mapper, SequencerMapper sequencer) {
+    public UserDatasource(UserMapper mapper) {
         this.mapper = mapper;
-        this.sequencer = sequencer;
     }
 }

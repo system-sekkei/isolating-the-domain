@@ -48,4 +48,18 @@ public interface UserMapper {
     void registerGenderMapper(@Param("userId") UserIdentifier userId, @Param("genderId") Long genderId);
 
     void delete(@Param("user") User user);
+
+    long newUserIdentifier();
+
+    long newUserNameIdentifier();
+
+    long newUserPhoneNumberIdentifier();
+
+    long newUserMailAddressIdentifier();
+
+    long newUserDateOfBirthIdentifier();
+
+    long newUserGenderIdentifier();
+
+    long newDeletedUserIdentifier();
 }

@@ -81,30 +81,42 @@
         ORDER BY ユーザー.ユーザーID;
     </select>
 
+    <select id="newUserIdentifier" resultType="Long">
+        select nextval('給与.ユーザーIDシーケンサー')
+    </select>
     <insert id="registerUser">
         INSERT INTO 給与.ユーザー (ユーザーID, 登録日時) VALUES (#{userId.value}, now());
     </insert>
 
+    <select id="newUserNameIdentifier" resultType="Long">
+        select nextval('給与.ユーザー名IDシーケンサー')
+    </select>
     <insert id="registerName">
         INSERT INTO 給与.ユーザー名 (ユーザー名ID, ユーザーID, ユーザー名, 登録日時)
         VALUES (#{id}, #{userId.value}, #{name.value}, now());
 	</insert>
-	
+
     <insert id="registerNameMapper">
         INSERT INTO 給与.ユーザー名対応表 (ユーザーID, ユーザー名ID)
         VALUES (#{userId.value}, #{nameId});
 	</insert>
 
+    <select id="newUserPhoneNumberIdentifier" resultType="Long">
+        select nextval('給与.ユーザー電話番号IDシーケンサー')
+    </select>
     <insert id="registerPhoneNumber">
         INSERT INTO 給与.ユーザー電話番号 (ユーザー電話番号ID, ユーザーID, 電話番号, 登録日時)
         VALUES (#{id}, #{userId.value}, #{phoneNumber.value}, now());
 	</insert>
-	
+
     <insert id="registerPhoneNumberMapper">
         INSERT INTO 給与.ユーザー電話番号対応表 (ユーザーID, ユーザー電話番号ID)
         VALUES (#{userId.value}, #{phoneNumberId});
 	</insert>
 
+    <select id="newUserMailAddressIdentifier" resultType="Long">
+        select nextval('給与.ユーザーメールアドレスIDシーケンサー')
+    </select>
     <insert id="registerMailAddress">
         INSERT INTO 給与.ユーザーメールアドレス (ユーザーメールアドレスID, ユーザーID, メールアドレス, 登録日時)
         VALUES (#{id}, #{userId.value}, #{mailAddress.value}, now());
@@ -114,7 +126,10 @@
         INSERT INTO 給与.ユーザーメールアドレス対応表 (ユーザーID, ユーザーメールアドレスID)
         VALUES (#{userId.value}, #{mailAddressId});
 	</insert>
-	
+
+    <select id="newUserDateOfBirthIdentifier" resultType="Long">
+        select nextval('給与.ユーザー誕生日IDシーケンサー')
+    </select>
     <insert id="registerDateOfBirth">
         INSERT INTO 給与.ユーザー誕生日 (ユーザー誕生日ID, ユーザーID, 誕生日, 登録日時)
         VALUES (#{id}, #{userId.value}, #{dateOfBirth.value}, now());
@@ -125,6 +140,9 @@
         VALUES (#{userId.value}, #{dateOfBirthId});
 	</insert>
 
+    <select id="newUserGenderIdentifier" resultType="Long">
+        select nextval('給与.ユーザー性別IDシーケンサー')
+    </select>
     <insert id="registerGender">
         INSERT INTO 給与.ユーザー性別 (ユーザー性別ID, ユーザーID, 性別, 登録日時)
         VALUES (#{id}, #{userId.value}, #{gender.value}, now());
@@ -155,6 +173,9 @@
     	DELETE FROM 給与.ユーザー性別対応表 WHERE ユーザーID = #{userId.value} 
 	</delete>
 
+    <select id="newDeletedUserIdentifier" resultType="Long">
+        select nextval('給与.削除済みユーザーIDシーケンサー')
+    </select>
     <insert id="delete">
         INSERT INTO 給与.削除済みユーザー (ユーザーID, 登録日時)
         VALUES (#{user.identifier.value}, now());
