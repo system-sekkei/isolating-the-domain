@@ -5,7 +5,7 @@ plugins {
     id "org.dddjava.jig-gradle-plugin" version "2018.10.3"
 }
 
-jigReports.dependsOn(compileJava, processResources)
+jigReports.dependsOn(clean, compileJava, processResources)
 
 description 'ドメイン駆動設計によるアプリケーションテンプレート'
 
