@@ -51,7 +51,6 @@ class UpdateController {
                       Model model) {
         User user = userService.findById(new UserIdentifier(userId));
         model.addAttribute("user", user);
-        System.out.println(user);
         return "user/update/form";
     }
 
