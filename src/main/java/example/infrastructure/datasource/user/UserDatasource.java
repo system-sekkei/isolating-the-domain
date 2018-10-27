@@ -11,7 +11,11 @@ public class UserDatasource implements UserRepository {
 
     @Override
     public User findBy(UserIdentifier id) {
-        return mapper.findBy(id);
+        User user = mapper.findBy(id);
+        if (user == null) {
+            throw new UserNotFoundException();
+        }
+        return user;
     }
 
     @Override

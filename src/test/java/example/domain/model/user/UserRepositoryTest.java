@@ -59,6 +59,8 @@ class UserRepositoryTest {
                 () -> assertEquals(foundUser.mailAddress().toString(), user.mailAddress.toString())
         );
         sut.delete(foundUser);
-        assertNull(sut.findBy(foundUser.identifier));
+
+        assertThrows(UserNotFoundException.class,
+                () -> sut.findBy((foundUser.identifier)));
     }
 }
