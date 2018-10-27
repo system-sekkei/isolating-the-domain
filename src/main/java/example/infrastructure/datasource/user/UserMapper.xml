@@ -173,9 +173,6 @@
     	DELETE FROM 給与.ユーザー性別対応表 WHERE ユーザーID = #{userId.value} 
 	</delete>
 
-    <select id="newDeletedUserIdentifier" resultType="Long">
-        select nextval('給与.削除済みユーザーIDシーケンサー')
-    </select>
     <insert id="delete">
         INSERT INTO 給与.削除済みユーザー (ユーザーID, 登録日時)
         VALUES (#{user.identifier.value}, now());

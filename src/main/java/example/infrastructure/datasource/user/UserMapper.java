@@ -60,6 +60,4 @@ public interface UserMapper {
     long newUserDateOfBirthIdentifier();
 
     long newUserGenderIdentifier();
-
-    long newDeletedUserIdentifier();
 }

@@ -103,5 +103,4 @@ CREATE TABLE 給与.削除済みユーザー (
   登録日時 TIMESTAMP NOT NULL
     ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
 );
-CREATE SEQUENCE 給与.削除済みユーザーIDシーケンサー;
 
