@@ -48,7 +48,7 @@ class RegisterController {
 
     @GetMapping(value = "input")
     String showForm(Model model) {
-        UserCandidate user = userService.prototype();
+        UserCandidate user = new UserCandidate();
         model.addAttribute("user", user);
         return "user/register/form";
     }

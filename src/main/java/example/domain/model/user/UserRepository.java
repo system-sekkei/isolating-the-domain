@@ -11,8 +11,6 @@ public interface UserRepository {
 
     UserSummaries list();
 
-    UserCandidate prototype();
-
     User register(UserCandidate user);
 
     void updateName(UserIdentifier identifier, Name name);

@@ -43,7 +43,7 @@ class UserRepositoryTest {
 
     @Test
     void registerAndDelete() {
-        UserCandidate user = sut.prototype();
+        UserCandidate user = new UserCandidate();
         user.name.value = "Eiji Yamane";
         user.dateOfBirth = new DateOfBirth(LocalDate.now());
         user.gender = new Gender(GenderType.男性);

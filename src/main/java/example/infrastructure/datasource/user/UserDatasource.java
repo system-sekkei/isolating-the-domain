@@ -24,11 +24,6 @@ public class UserDatasource implements UserRepository {
     }
 
     @Override
-    public UserCandidate prototype() {
-        return new UserCandidate();
-    }
-
-    @Override
     public User register(UserCandidate userCandidate) {
         UserIdentifier userId = new UserIdentifier(mapper.newUserIdentifier());
         mapper.registerUser(userId);

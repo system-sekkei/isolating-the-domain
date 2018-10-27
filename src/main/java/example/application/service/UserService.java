@@ -18,10 +18,6 @@ public class UserService {
         return userRepository.list();
     }
 
-    public UserCandidate prototype() {
-        return userRepository.prototype();
-    }
-
     public User register(UserCandidate user) {
         return userRepository.register(user);
     }
