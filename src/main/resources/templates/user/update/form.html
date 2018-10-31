@@ -9,14 +9,14 @@
   <div class="ui basic segment">
     <h1 class="ui center aligned header">利用者情報の変更</h1>
   </div>
-
+  
   <div class="userInput">
     <form id="custom-form" class="ui large form" name="body" 
           method="post" action="#"
           th:object="${user}"
           th:action="@{/user/{userId}/update/confirm(userId=${user.identifier()})}">
       
-      <div class="field">
+      <div class="ui message inline field">
         <label>対象ID</label>
         <p th:text="${user.identifier()}">山田太郎</p>
       </div>
