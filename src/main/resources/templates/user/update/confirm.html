@@ -5,50 +5,51 @@
   <title>利用者情報の変更の確認</title>
 </head>
 <div class="ui container">
-  <div class="ui vertical segment">
-    <h1 class="ui header">利用者情報の変更の確認</h1>
+  <div class="ui basic segment">
+    <h1 class="ui center aligned header">利用者情報の変更の確認</h1>
   </div>
 
-  <div class="ui vertical segment">
-  <div class="ui form">
+  <div class="userInput">
+    <div class="ui large form">
+      <div class="ui segment">
 
-    <div th:fragment="fields">
+        <div th:fragment="fields">
+          <div class="field">
+            <label>名前</label>
+            <p th:text="${user.name()}">山田 太郎</p>
+          </div>
 
-      <div class="field">
-        <label>名前</label>
-        <p th:text="${user.name()}">山田 太郎</p>
+          <div class="field">
+            <label>メールアドレス</label>
+            <p th:text="${user.mailAddress()}">someone@example.com</p>
+          </div>
+
+          <div class="field">
+            <label>生年月日</label>
+            <p th:text="${user.dateOfBirth()}">1900/10/21</p>
+          </div>
+
+          <div class="field">
+            <label>性別</label>
+            <p th:text="${user.gender()}">男性</p>
+          </div>
+
+          <div class="field">
+            <label>電話番号</label>
+            <p th:text="${user.phoneNumber()}">0120-888-888</p>
+          </div>
+        </div>
+
       </div>
-
-      <div class="field">
-        <label>メールアドレス</label>
-        <p th:text="${user.mailAddress()}">someone@example.com</p>
-      </div>
-
-      <div class="field">
-        <label>生年月日</label>
-        <p th:text="${user.dateOfBirth()}">1900/10/21</p>
-      </div>
-
-      <div class="field">
-        <label>性別</label>
-        <p th:text="${user.gender()}">男性</p>
-      </div>
-
-      <div class="field">
-        <label>電話番号</label>
-        <p th:text="${user.phoneNumber()}">0120-888-888</p>
-      </div>
-
     </div>
   </div>
-  </div>
 
-    <div class="ui basic segment">
-      <a class="ui secondary basic button"
-         th:href="@{/user/{userId}/update/register(userId=${user.identifier()})}">保存する</a>
-      <a class=""
-         th:href="@{/user/{userId}/update/input/again(userId=${user.identifier()})}">入力に戻る</a>
-    </div>
+  <div class="ui center aligned basic segment">
+    <a class="ui grey button"
+       th:href="@{/user/{userId}/update/input/again(userId=${user.identifier()})}">入力に戻る</a>
+    <a class="ui positive button"
+       th:href="@{/user/{userId}/update/register(userId=${user.identifier()})}">保存する</a>
+  </div>
 </div>
 
 <footer th:include="fragments/layout :: footer"/>

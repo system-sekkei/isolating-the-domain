@@ -1,6 +1,6 @@
 /* #custom-form .short-input { width: 25em;} */
 
-
 .userInput {
   max-width: 500px;
+  margin: 0 auto;
 }

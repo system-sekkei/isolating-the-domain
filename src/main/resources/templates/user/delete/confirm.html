@@ -5,23 +5,24 @@
 </head>
 <body>
 <div class="ui container">
-
-  <div class="ui vertical segment">
-    <h1 class="ui header">削除の確認</h1>
+  <div class="ui basic segment">
+    <h1 class="ui center aligned header">削除の確認</h1>
   </div>
 
-  <div class="ui vertical segment">
-
-    <div class="ui form">
-      <div th:include="user/update/confirm ::fields"></div>
+   <div class="userInput">
+    <div class="ui large form">
+      <div class="ui segment">
+        <div th:include="user/update/confirm ::fields"></div>
+      </div>
     </div>
   </div>
 
-    <div class="ui vertical segment">
-      <a class="ui negative basic button"
-         th:href="@{/user/{userId}/delete(userId=${user.identifier()})}">削除</a>
-      <a th:href="@{/}">一覧に戻る</a>
-    </div>
+  <div class="ui center aligned basic segment">
+    <a class="ui grey button" 
+       th:href="@{/}">一覧に戻る</a>
+    <a class="ui negative button"
+     th:href="@{/user/{userId}/delete(userId=${user.identifier()})}">削除</a>
+  </div>
 </div>
 
 <footer th:include="fragments/layout :: footer"/>
