@@ -36,6 +36,20 @@ context('isolating-the-domain', () => {
 	cy.get('.button').contains('保存する').click()
 	cy.get('a').contains('利用者一覧へ').click()
 	cy.get('.header').should('text', '利用者一覧')
+
+	// 勤務時間入力
+	cy.get('tbody > tr > td').contains(id).parent().within(() => {
+		cy.get('.button').contains('勤務時間入力').click()
+	})
+	cy.get('.header').should('text', '勤務時間の入力')
+	cy.get('#startHour\\.value').type('9')
+	cy.get('#startMinute\\.value').type('30')
+	cy.get('#endHour\\.value').type('18')
+	cy.get('#endMinute\\.value').type('00')
+	cy.get('#breaks\\.value').type('90')
+	cy.get('.button').contains('登録する').click()
+	cy.get('.header').should('text', '利用者一覧')
+
 	//削除
 	cy.get('tbody > tr > td').contains(id).parent().within(() => {
 		cy.get('.button').contains('削除').click()

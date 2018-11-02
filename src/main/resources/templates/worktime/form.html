@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
+  <title>勤務時間の入力</title>
+</head>
+<body>
+<div class="ui container">
+  <div class="ui basic segment">
+    <h1 class="ui center aligned header">勤務時間の入力</h1>
+  </div>
+  
+  <div class="userInput">
+    <form id="custom-form" class="ui large form" name="body" 
+          method="post" action="#"
+          th:action="@{/worktime/{userId}(userId=${user.identifier()})}">
+
+      <input class="short-input" type="text" id="startHour.value" />
+      <input class="short-input" type="text" id="startMinute.value" />
+      <input class="short-input" type="text" id="endHour.value" />
+      <input class="short-input" type="text" id="endMinute.value" />
+      <input class="short-input" type="text" id="breaks.value" />
+
+      <div class="ui center aligned basic segment">
+        <a class="ui grey button" 
+           th:href="@{/}">一覧に戻る</a>
+        <button class="ui positive button">登録する</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer th:include="fragments/layout :: footer"/>
+</body>
+</html>
