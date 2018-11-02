@@ -14,7 +14,7 @@ public class UserService {
         return userRepository.findBy(id);
     }
 
-    public UserSummaries list() {
+    public Users list() {
         return userRepository.list();
     }
 

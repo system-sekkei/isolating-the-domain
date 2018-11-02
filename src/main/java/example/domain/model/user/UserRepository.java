@@ -9,7 +9,7 @@ import example.domain.type.gender.Gender;
 public interface UserRepository {
     User findBy(UserIdentifier id);
 
-    UserSummaries list();
+    Users list();
 
     User register(UserCandidate user);
 

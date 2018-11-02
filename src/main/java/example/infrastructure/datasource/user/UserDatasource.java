@@ -19,8 +19,8 @@ public class UserDatasource implements UserRepository {
     }
 
     @Override
-    public UserSummaries list() {
-        return new UserSummaries(mapper.list());
+    public Users list() {
+        return new Users(mapper.list());
     }
 
     @Override

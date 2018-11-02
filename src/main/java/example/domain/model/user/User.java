@@ -1,5 +1,6 @@
 package example.domain.model.user;
 
+import example.domain.type.age.Age;
 import example.domain.type.age.DateOfBirth;
 import example.domain.type.gender.Gender;
 
@@ -46,6 +47,10 @@ public class User {
 
     public DateOfBirth dateOfBirth() {
         return dateOfBirth;
+    }
+
+    public Age age() {
+        return dateOfBirth.age();
     }
 
     public Gender gender() {

@@ -13,7 +13,7 @@ public interface UserMapper {
 
     User findBy(@Param("identifier") UserIdentifier id);
 
-    List<UserSummary> list();
+    List<User> list();
 
     void registerUser(@Param("userId") UserIdentifier userId);
 

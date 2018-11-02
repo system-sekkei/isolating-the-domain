@@ -13,13 +13,6 @@
         <result property="gender.value" column="性別"/>
     </resultMap>
 
-    <resultMap id="userSummary" type="example.domain.model.user.UserSummary">
-        <id property="identifier.value" column="ユーザーID"/>
-        <result property="name.value" column="ユーザー名"/>
-        <result property="mailAddress.value" column="メールアドレス"/>
-        <result property="dateOfBirth.value" column="誕生日"/>
-    </resultMap>
-
     <select id="findBy" resultMap="user">
         SELECT
             ユーザー.ユーザーID,
@@ -55,7 +48,7 @@
         WHERE ユーザー.ユーザーID = #{identifier.value} AND 削除済みユーザー.ユーザーID IS NULL
     </select>
 
-    <select id="list" resultMap="userSummary">
+    <select id="list" resultMap="user">
         SELECT
             ユーザー.ユーザーID,
             ユーザー名.ユーザー名,
