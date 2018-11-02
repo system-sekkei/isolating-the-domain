@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TimeRecordTest {
+class TimeRecordTest {
     @DisplayName("HourTimeを15分刻みに変換出来ること(切り捨て)")
     @ParameterizedTest
     @CsvSource({"10:14, 10:00", "10:15, 10:15", "10:16, 10:15"})
