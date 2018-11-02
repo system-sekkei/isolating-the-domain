@@ -1,6 +1,6 @@
 package example.infrastructure.datasource.payroll;
 
-import example.domain.model.payroll.TimeRecord;
+import example.domain.model.attendance.TimeRecord;
 import example.domain.model.user.UserIdentifier;
 import example.domain.type.date.DayOfMonth;
 import org.apache.ibatis.annotations.Mapper;

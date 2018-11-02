@@ -1,4 +1,4 @@
-package example.domain.model.payroll;
+package example.domain.model.attendance;
 
 import example.domain.type.time.HourTime;
 import example.domain.type.time.Minute;

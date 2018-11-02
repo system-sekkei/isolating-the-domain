@@ -1,4 +1,4 @@
-package example.domain.model.payroll;
+package example.domain.model.attendance;
 
 import example.Application;
 import example.domain.model.user.UserIdentifier;

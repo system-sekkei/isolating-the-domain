@@ -1,4 +1,4 @@
-package example.presentation.controller.worktime;
+package example.presentation.controller.attendance;
 
 import example.application.service.UserService;
 import example.domain.model.user.UserIdentifier;
