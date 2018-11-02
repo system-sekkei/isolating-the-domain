@@ -22,6 +22,9 @@ public class TimeRecord {
         this.breaks = breaks;
     }
 
+    public HourTime start() { return start; }
+    public HourTime end() { return end; }
+    public Minute breaks() { return breaks; }
     public HourAndMinute workTime() {
         HourAndMinute hourAndMinute = new HourTimeRange(normalize(start), normalize(end)).between();
         System.out.println(hourAndMinute.toString());

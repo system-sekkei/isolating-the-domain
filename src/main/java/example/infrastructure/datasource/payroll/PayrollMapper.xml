@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="example.infrastructure.datasource.payroll.PayrollMapper">
+    <select id="newWorkTimeIdentifier" resultType="Long">
+        select nextval('給与.就業時間IDシーケンサー')
+    </select>
+    <insert id="registerWorkTime">
+        INSERT INTO 給与.就業時間 (就業時間ID, ユーザーID, 就業日, 開始時間, 終了時間, 休憩時間, 登録日時)
+        VALUES (#{id},  #{userId.value}, #{workDay.value}, #{workTime.start.value}, #{workTime.end.value}, #{workTime.breaks.value}, now());
+    </insert>
+    <insert id="registerWorkTimeMapper">
+        INSERT INTO 給与.就業時間対応表 (ユーザーID, 就業日, 就業時間ID)
+        VALUES (#{userId.value}, #{workDay.value}, #{workTimeId});
+    </insert>
+    <delete id="deleteWorkTimeMapper">
+        DELETE FROM 給与.就業時間対応表 WHERE ユーザーID = #{userId.value} and 就業日 = #{workDay.value}
+    </delete>
+</mapper>
