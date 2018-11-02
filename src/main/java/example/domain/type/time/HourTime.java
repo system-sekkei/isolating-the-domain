@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 public class HourTime {
     LocalTime value;
 
-    HourTime (LocalTime hourPoint) {
+    public HourTime (LocalTime hourPoint) {
         this.value = hourPoint;
     }
 
@@ -19,6 +19,10 @@ public class HourTime {
 
     public HourTime (int hour, int minute) {
         value = LocalTime.of(hour, minute);
+    }
+
+    public LocalTime value() {
+        return value;
     }
 
     @Override
