@@ -14,7 +14,7 @@ public class HourTime {
     }
 
     public HourTime(String hourTimeText) {
-        this(LocalTime.parse(hourTimeText));
+        this(LocalTime.parse(hourTimeText, DateTimeFormatter.ofPattern("H:mm")));
     }
 
     public HourTime (int hour, int minute) {

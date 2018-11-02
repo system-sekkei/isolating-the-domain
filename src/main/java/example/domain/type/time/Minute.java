@@ -14,18 +14,20 @@ public class Minute {
         value = time;
     }
 
-    Minute add(Minute minute) {
-        value += minute.value;
-        return new Minute(value);
-    }
-
     public Minute subtract(Minute minute) {
-        if (value - minute.value < 0) {
+        if (value < minute.value) {
             // FIXME エラーメッセージをわかりやすく
             throw new DateTimeException("Error of minus time.");
         }
-        value -= minute.value;
-        return new Minute(value);
+        return add(0 - minute.value);
+    }
+
+    Minute add(Minute minute) {
+        return add(minute.value);
+    }
+
+    private Minute add(int value) {
+        return new Minute(this.value + value);
     }
 
     @Override
