@@ -104,3 +104,25 @@ CREATE TABLE 給与.削除済みユーザー (
     ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
 );
 
+CREATE TABLE 給与.就業時間 (
+  就業時間ID BIGINT PRIMARY KEY,
+  ユーザーID BIGINT NOT NULL,
+  就業日 DATE NOT NULL,
+  開始時間 TIME NOT NULL,
+  終了時間 TIME NOT NULL,
+  休憩時間 INTEGER NOT NULL,
+  登録日時 TIMESTAMP NOT NULL
+    ,FOREIGN KEY (ユーザーID) REFERENCES  給与.ユーザー(ユーザーID)
+);
+
+CREATE TABLE 給与.就業時間対応表 (
+  ユーザーID BIGINT NOT NULL,
+  就業日 DATE NOT NULL,
+  就業時間ID BIGINT NOT NULL,
+    PRIMARY KEY (ユーザーID, 就業日, 就業時間ID)
+    ,FOREIGN KEY (ユーザーID) REFERENCES  給与.ユーザー(ユーザーID)
+    ,FOREIGN KEY (就業時間ID)
+      REFERENCES  給与.就業時間(就業時間ID)
+);
+
+CREATE SEQUENCE 給与.就業時間IDシーケンサー;
