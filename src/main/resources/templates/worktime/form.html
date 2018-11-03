@@ -10,16 +10,61 @@
     <h1 class="ui center aligned header">勤務時間の入力</h1>
   </div>
   
-  <div class="userInput">
+  <div class="attendanceInput">
     <form id="custom-form" class="ui large form" name="body" 
           method="post" action="#"
           th:action="@{/worktime/{userId}(userId=${user.identifier()})}">
+      
+<!--       <div class="field">
+        <label>勤務日</label>
+        <div class="eight wide field">
+          <input class="short-input" type="text" placeholder="2018-01-01" 
+                 id="" />
+        </div>
+      </div> -->
 
-      <input class="short-input" type="text" id="startHour.value" />
-      <input class="short-input" type="text" id="startMinute.value" />
-      <input class="short-input" type="text" id="endHour.value" />
-      <input class="short-input" type="text" id="endMinute.value" />
-      <input class="short-input" type="text" id="breaks.value" />
+      <div class="field">
+        <label>開始時刻</label>
+        <div class="two fields">
+          <div class="ui right labeled small input field">
+            <input class="short-input" type="text" placeholder="9"
+                   id="startHour.value" />
+            <div class="ui basic label">時間</div>
+          </div>
+          <div class="ui right labeled small input field">
+            <input class="short-input" type="text" placeholder="30" 
+                   id="startMinute.value" />
+            <div class="ui basic label">分</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>終了時刻</label>
+        <div class="two fields">        
+          <div class="ui right labeled small input field">
+            <input class="short-input" type="text" placeholder="12" 
+                   id="endHour.value" />
+            <div class="ui basic label">時間</div>
+          </div>
+          <div class="ui right labeled small input field">
+            <input class="short-input" type="text" placeholder="30" 
+                   id="endMinute.value" />
+            <div class="ui basic label">分</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="field">
+        <label>休憩時間</label>
+        <div class="two fields"> 
+          <div class="ui right labeled small input field">
+            <input class="short-input" type="text" placeholder="15" 
+                   id="breaks.value" />
+            <div class="ui basic label">分</div>
+          </div>
+        </div>
+      </div>
 
       <div class="ui center aligned basic segment">
         <a class="ui grey button" 

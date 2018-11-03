@@ -11,8 +11,8 @@
   </div>
   
   <div class="ui right aligned basic segment">
-    <a class="ui labeled icon positive button"
-      th:href="@{/user/register}">
+    <a class="ui labeled icon primary button"
+       th:href="@{/user/register}">
       <i class="user plus icon"></i>利用者の新規登録</a>      
   </div>
   
@@ -20,12 +20,10 @@
     <table class="ui striped celled table">
      <thead>
         <tr>
-          <th class="two wide">利用者ID</th>
+          <th class="one wide">ID</th>
           <th class="three wide">利用者名</th>
           <th class="six wide">メールアドレス</th>
-          <th class="one wide">年齢</th>
-          <th class="two wide"></th>
-          <th class="two wide"></th>
+          <th class="six wide"></th>
         </tr>
       </thead>
       <tbody>
@@ -33,16 +31,16 @@
           <td th:text="${user.identifier()}"/>
           <td th:text="${user.name()}"/>
           <td th:text="${user.mailAddress()}"/>
-          <td class="ui center aligned" th:text="${user.age()}"/>
           <td class="ui center aligned">
-            <a class="ui mini button"
-               th:href="@{/worktime/{userId}(userId=${user.identifier()})}">勤務時間入力</a>
             <a class="ui mini primary button"
-             th:href="@{/user/{userId}/update(userId=${user.identifier()})}"><i class="edit icon"></i>変更</a>
-          </td>
-          <td class="ui center aligned">
+               th:href="@{/worktime/{userId}(userId=${user.identifier()})}">
+              <i class="clock outline icon"></i>勤務時間入力</a>
+            <a class="ui mini positive button"
+               th:href="@{/user/{userId}/update(userId=${user.identifier()})}">
+              <i class="edit icon"></i>変更</a>
             <a class="ui mini negative button"
-             th:href="@{/user/{userId}/delete/view(userId=${user.identifier()})}"><i class="trash icon"></i>削除</a>
+               th:href="@{/user/{userId}/delete/view(userId=${user.identifier()})}">
+              <i class="trash icon"></i>削除</a>
           </td>
         </tr>
       </tbody>

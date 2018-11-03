@@ -1,6 +1,9 @@
-/* #custom-form .short-input { width: 25em;} */
-
 .userInput {
   max-width: 500px;
   margin: 0 auto;
+}
+
+.attendanceInput {
+  max-width: 400px;
+  margin: 0 auto; 
 }
