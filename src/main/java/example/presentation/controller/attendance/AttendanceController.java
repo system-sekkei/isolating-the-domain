@@ -25,7 +25,8 @@ public class AttendanceController {
 
     @GetMapping
     String init(Model model, @PathVariable("userId") UserIdentifier userIdentifier) {
-        model.addAttribute("attendanceOfDay", new AttendanceOfDay(userService.findById(userIdentifier)));
+        model.addAttribute("user", userService.findById(userIdentifier));
+        model.addAttribute("attendanceOfDay", new AttendanceOfDay());
         return "attendance/form";
     }
 

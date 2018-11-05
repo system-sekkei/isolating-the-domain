@@ -11,14 +11,10 @@ import java.time.LocalDate;
  * 日次勤怠
  */
 public class AttendanceOfDay {
-    User user;
     Date date;
     TimeRecord timeRecord;
 
-    public AttendanceOfDay(User user) {
-        this.user = user;
-
-        // TODO DUMMY
+    public AttendanceOfDay() {
         this.date = new Date(LocalDate.now());
         this.timeRecord = new TimeRecord(
                 new HourTime("09:00"),
@@ -28,13 +24,8 @@ public class AttendanceOfDay {
     }
 
     public AttendanceOfDay(User user, Date day, TimeRecord timeRecord) {
-        this.user = user;
         this.date = day;
         this.timeRecord = timeRecord;
-    }
-
-    public User user() {
-        return user;
     }
 
     public Date dayOfMonth() {
