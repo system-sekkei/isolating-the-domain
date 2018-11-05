@@ -11,4 +11,8 @@ public class AttendanceOfMonth {
     public AttendanceOfMonth(List<AttendanceOfDay> workTimes) {
         list = workTimes;
     }
+
+    public List<AttendanceOfDay> list() {
+        return list;
+    }
 }

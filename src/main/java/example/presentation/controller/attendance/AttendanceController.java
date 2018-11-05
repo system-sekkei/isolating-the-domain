@@ -3,6 +3,8 @@ package example.presentation.controller.attendance;
 import example.application.service.AttendanceService;
 import example.application.service.UserService;
 import example.domain.model.attendance.AttendanceOfDay;
+import example.domain.model.attendance.AttendanceOfMonth;
+import example.domain.model.user.User;
 import example.domain.model.user.UserIdentifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("attendance/{userId}")
@@ -37,5 +45,19 @@ public class AttendanceController {
         // TODO register
         // attendanceService.registerWorkTime();
         return "redirect:/";
+    }
+
+    @GetMapping("list")
+    String list(Model model, @PathVariable("userId") UserIdentifier userIdentifier) {
+        User user = userService.findById(userIdentifier);
+        model.addAttribute("user", user);
+
+        // TODO DUMMY
+        LocalDate lastDayOfMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
+        List<AttendanceOfDay> list = IntStream.rangeClosed(1, lastDayOfMonth.getDayOfMonth())
+                .mapToObj(i -> new AttendanceOfDay())
+                .collect(Collectors.toList());
+        model.addAttribute("attendanceOfMonth", new AttendanceOfMonth(list));
+        return "attendance/list";
     }
 }
