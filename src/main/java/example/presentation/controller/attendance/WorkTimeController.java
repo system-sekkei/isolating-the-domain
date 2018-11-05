@@ -1,6 +1,7 @@
 package example.presentation.controller.attendance;
 
 import example.application.service.UserService;
+import example.domain.model.attendance.AttendanceOfDay;
 import example.domain.model.user.UserIdentifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +22,7 @@ public class WorkTimeController {
 
     @GetMapping
     String init(Model model, @PathVariable("userId") UserIdentifier userIdentifier) {
-        model.addAttribute("user", userService.findById(userIdentifier));
+        model.addAttribute("attendanceOfDay", new AttendanceOfDay(userService.findById(userIdentifier)));
         return "worktime/form";
     }
 
