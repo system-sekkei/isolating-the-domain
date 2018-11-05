@@ -14,8 +14,8 @@ public class AttendanceDataSource implements AttendanceRepository {
     public void registerWorkTime(UserIdentifier userId, AttendanceOfDay work) {
         Long identifier = mapper.newWorkTimeIdentifier();
         mapper.registerWorkTime(identifier, userId, work);
-        mapper.deleteWorkTimeMapper(userId, work.dayOfMonth());
-        mapper.registerWorkTimeMapper(identifier, userId, work.dayOfMonth());
+        mapper.deleteWorkTimeMapper(userId, work.date());
+        mapper.registerWorkTimeMapper(identifier, userId, work.date());
     }
 
     @Override

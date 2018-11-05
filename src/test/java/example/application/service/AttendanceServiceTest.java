@@ -31,7 +31,7 @@ class AttendanceServiceTest {
         AttendanceOfDay work = new AttendanceOfDay(workDay, new HourTime("9:00"), new HourTime("17:00"), new Minute(60));
         sut.registerWorkTime(userId, work);
         AttendanceOfDay registeredAttendance = sut.findBy(userId, workDay);
-        assertAll(() -> assertEquals(work.dayOfMonth().value(), registeredAttendance.dayOfMonth().value()),
+        assertAll(() -> assertEquals(work.date().value(), registeredAttendance.date().value()),
                 () -> assertEquals(work.start().value(), registeredAttendance.start().value()),
                 () -> assertEquals(work.end().value(), registeredAttendance.end().value()),
                 () -> assertEquals(work.breaks().value(), registeredAttendance.breaks().value()));
