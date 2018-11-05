@@ -23,7 +23,7 @@ public class AttendanceService {
     }
 
     public AttendanceOfMonth findMonthlyWorkTimes(UserIdentifier userId, YearMonth month) {
-        return new AttendanceOfMonth(month.days().map(day -> new AttendanceOfDay(null, day, findBy(userId, day))));
+        return new AttendanceOfMonth(month.days().map(day -> new AttendanceOfDay(day, findBy(userId, day))));
     }
 
     AttendanceService(AttendanceRepository attendanceRepository) {

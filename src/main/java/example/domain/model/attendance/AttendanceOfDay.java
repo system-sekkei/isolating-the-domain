@@ -23,7 +23,7 @@ public class AttendanceOfDay {
         );
     }
 
-    public AttendanceOfDay(User user, Date day, TimeRecord timeRecord) {
+    public AttendanceOfDay(Date day, TimeRecord timeRecord) {
         this.date = day;
         this.timeRecord = timeRecord;
     }
