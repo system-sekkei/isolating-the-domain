@@ -17,4 +17,22 @@
     <delete id="deleteWorkTimeMapper">
         DELETE FROM 給与.就業時間対応表 WHERE ユーザーID = #{userId.value} and 就業日 = #{workDay.value}
     </delete>
+
+    <resultMap id="timeRecord" type="example.domain.model.attendance.TimeRecord">
+        <result property="start.value" column="開始時間"/>
+        <result property="end.value" column="終了時間"/>
+        <result property="breaks.value" column="休憩時間"/>
+    </resultMap>
+
+    <select id="findBy" resultMap="timeRecord">
+        SELECT
+        就業時間.開始時間,
+        就業時間.終了時間,
+        就業時間.休憩時間
+        FROM 給与.就業時間対応表 as 就業時間対応表
+        INNER JOIN 給与.就業時間 as 就業時間 on (
+            就業時間対応表.就業時間ID = 就業時間.就業時間ID
+        )
+        WHERE 就業時間対応表.ユーザーID = #{userId.value} AND 就業時間対応表.就業日 = #{workDay.value}
+    </select>
 </mapper>

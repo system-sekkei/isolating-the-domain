@@ -16,6 +16,12 @@ public class TimeRecord {
     HourTime end;
     Minute breaks;
 
+    public TimeRecord() {
+        start = new HourTime(0,0);
+        end = new HourTime(0,0);
+        breaks = new Minute(0);
+    }
+
     public TimeRecord(HourTime start, HourTime end, Minute breaks) {
         this.start = start;
         this.end = end;

@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class)
 class AttendanceServiceTest {
@@ -26,5 +29,9 @@ class AttendanceServiceTest {
         DayOfMonth workDay = new DayOfMonth("2099-10-20");
         TimeRecord workTime = new TimeRecord(new HourTime("9:00"), new HourTime("17:00"), new Minute(60));
         sut.registerWorkTime(userId, workDay, workTime);
+        TimeRecord registeredWorkTime = sut.findBy(userId, workDay);
+        assertAll(() -> assertEquals(workTime.start.value(), registeredWorkTime.start.value()),
+                () -> assertEquals(workTime.end.value(), registeredWorkTime.end.value()),
+                () -> assertEquals(workTime.breaks.value(), registeredWorkTime.breaks.value()));
     }
 }

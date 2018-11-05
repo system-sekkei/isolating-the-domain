@@ -14,4 +14,6 @@ public interface AttendanceMapper {
     void registerWorkTimeMapper(@Param("workTimeId") Long workTimeId,
                                 @Param("userId") UserIdentifier userId, @Param("workDay") DayOfMonth workDay);
     void deleteWorkTimeMapper(@Param("userId") UserIdentifier userId, @Param("workDay") DayOfMonth workDay);
+
+    TimeRecord findBy(@Param("userId") UserIdentifier userId, @Param("workDay") DayOfMonth workDay);
 }

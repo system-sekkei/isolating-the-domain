@@ -17,5 +17,10 @@ public class AttendanceDataSource implements AttendanceRepository {
         mapper.registerWorkTimeMapper(identifier, userId, workDay);
     }
 
+    @Override
+    public TimeRecord findBy(UserIdentifier userId, DayOfMonth workDay) {
+        return mapper.findBy(userId, workDay);
+    }
+
     AttendanceDataSource(AttendanceMapper mapper){this.mapper = mapper;}
 }

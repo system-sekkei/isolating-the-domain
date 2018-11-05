@@ -8,4 +8,5 @@ import example.domain.type.date.DayOfMonth;
  */
 public interface AttendanceRepository {
     void registerWorkTime(UserIdentifier userId, DayOfMonth workDay, TimeRecord workTime);
+    TimeRecord findBy(UserIdentifier userId, DayOfMonth workDay);
 }
