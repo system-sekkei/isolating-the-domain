@@ -12,6 +12,10 @@ public class Name {
     @Size(max = 40, message = "40文字以内で入力してください。")
     String value = "";
 
+    public Name() {}
+    public Name(String name) {
+        value = name;
+    }
     @Override
     public String toString() {
         return value;

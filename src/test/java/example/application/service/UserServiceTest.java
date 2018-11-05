@@ -1,6 +1,8 @@
-package example.domain.model.user;
+package example.application.service;
 
 import example.Application;
+import example.application.service.UserService;
+import example.domain.model.user.*;
 import example.domain.type.age.DateOfBirth;
 import example.domain.type.gender.Gender;
 import example.domain.type.gender.GenderType;
@@ -16,14 +18,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class)
-class UserRepositoryTest {
+class UserServiceTest {
     @Autowired
-    UserRepository sut;
+    UserService sut;
 
     @Test
     void list() {
         User user = sut.list().list().stream().filter(
-                us -> us.identifier().value.equals(1L)).findFirst().get();
+                us -> us.identifier().value().equals(1L)).findFirst().get();
         assertAll(
                 () -> assertEquals(user.mailAddress().toString(), "fukawa_teruyoshi_new@example.com"),
                 () -> assertEquals(user.phoneNumber().toString(), "03-1234-9999"),
@@ -33,8 +35,8 @@ class UserRepositoryTest {
     }
 
     @Test
-    void findBy() {
-        User user = sut.findBy(new UserIdentifier(1L));
+    void findById() {
+        User user = sut.findById(new UserIdentifier(1L));
         assertAll(
                 () -> assertEquals(user.mailAddress().toString(), "fukawa_teruyoshi_new@example.com"),
                 () -> assertEquals(user.phoneNumber().toString(), "03-1234-9999"),
@@ -45,24 +47,24 @@ class UserRepositoryTest {
 
     @Test
     void registerAndDelete() {
-        UserCandidate user = new UserCandidate();
-        user.name.value = "Eiji Yamane";
-        user.dateOfBirth = new DateOfBirth(LocalDate.now());
-        user.gender = new Gender(GenderType.男性);
-        user.phoneNumber.value = "090-6559-1234";
-        user.mailAddress.value = "hogehoge_hogeo@example.com";
+        Name name = new Name("Eiji Yamane");
+        DateOfBirth dateOfBirth = new DateOfBirth(LocalDate.now());
+        Gender gender = new Gender(GenderType.男性);
+        PhoneNumber phoneNumber = new PhoneNumber("090-6559-1234");
+        MailAddress mailAddress = new MailAddress("hogehoge_hogeo@example.com");
+        UserCandidate user = new UserCandidate(name, mailAddress, dateOfBirth, gender, phoneNumber);
         User registeredUser = sut.register(user);
-        User foundUser = sut.findBy(registeredUser.identifier);
+        User foundUser = sut.findById(registeredUser.identifier());
         assertAll(
-                () -> assertEquals(foundUser.name().toString(), user.name.toString()),
-                () -> assertEquals(foundUser.phoneNumber().toString(), user.phoneNumber.toString()),
-                () -> assertEquals(foundUser.dateOfBirth().toString(), user.dateOfBirth.toString()),
-                () -> assertEquals(foundUser.gender().toString(), user.gender.toString()),
-                () -> assertEquals(foundUser.mailAddress().toString(), user.mailAddress.toString())
+                () -> assertEquals(foundUser.name().toString(), user.name().toString()),
+                () -> assertEquals(foundUser.phoneNumber().toString(), user.phoneNumber().toString()),
+                () -> assertEquals(foundUser.dateOfBirth().toString(), user.dateOfBirth().toString()),
+                () -> assertEquals(foundUser.gender().toString(), user.gender().toString()),
+                () -> assertEquals(foundUser.mailAddress().toString(), user.mailAddress().toString())
         );
         sut.delete(foundUser);
 
         assertThrows(UserNotFoundException.class,
-                () -> sut.findBy((foundUser.identifier)));
+                () -> sut.findById((foundUser.identifier())));
     }
 }

@@ -1,6 +1,8 @@
-package example.domain.model.attendance;
+package example.application.service;
 
 import example.Application;
+import example.domain.model.attendance.AttendanceRepository;
+import example.domain.model.attendance.TimeRecord;
 import example.domain.model.user.UserIdentifier;
 import example.domain.model.user.UserRepository;
 import example.domain.type.date.DayOfMonth;
@@ -30,8 +32,8 @@ class AttendanceServiceTest {
         TimeRecord workTime = new TimeRecord(new HourTime("9:00"), new HourTime("17:00"), new Minute(60));
         sut.registerWorkTime(userId, workDay, workTime);
         TimeRecord registeredWorkTime = sut.findBy(userId, workDay);
-        assertAll(() -> assertEquals(workTime.start.value(), registeredWorkTime.start.value()),
-                () -> assertEquals(workTime.end.value(), registeredWorkTime.end.value()),
-                () -> assertEquals(workTime.breaks.value(), registeredWorkTime.breaks.value()));
+        assertAll(() -> assertEquals(workTime.start().value(), registeredWorkTime.start().value()),
+                () -> assertEquals(workTime.end().value(), registeredWorkTime.end().value()),
+                () -> assertEquals(workTime.breaks().value(), registeredWorkTime.breaks().value()));
     }
 }

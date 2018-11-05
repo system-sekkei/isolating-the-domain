@@ -18,6 +18,7 @@ public class UserIdentifier {
         this.value = value;
     }
 
+    public Long value() { return value; }
     @Override
     public String toString() {
         return value.toString();

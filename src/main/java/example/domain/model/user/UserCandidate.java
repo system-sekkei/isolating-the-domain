@@ -32,6 +32,14 @@ public class UserCandidate {
         phoneNumber = new PhoneNumber();
     }
 
+    public UserCandidate(Name name, MailAddress mailAddress, DateOfBirth dateOfBirth, Gender gender, PhoneNumber phoneNumber) {
+        this.name = name;
+        this.mailAddress = mailAddress;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+    }
+
     public Name name() {
         return name;
     }

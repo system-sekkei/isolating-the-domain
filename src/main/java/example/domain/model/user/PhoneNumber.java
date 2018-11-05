@@ -15,6 +15,11 @@ public class PhoneNumber {
     @Size(min = 8, max = 13, message = "桁数は8桁以上13桁以下で入力してください")
     String value = "";
 
+    public PhoneNumber() {}
+    public PhoneNumber(String phoneNumber) {
+        value = phoneNumber;
+    }
+
     @Override
     public String toString() {
         return value;
