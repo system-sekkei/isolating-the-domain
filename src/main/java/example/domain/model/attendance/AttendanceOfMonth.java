@@ -6,15 +6,15 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * 勤怠一覧
+ * 月次勤怠
  */
-public class WorkTimes {
-    List<WorkTime> list;
-    public WorkTimes(){}
-    public WorkTimes(Stream<WorkTime> workTimes) {
+public class AttendanceOfMonth {
+    List<AttendanceOfDay> list;
+    public AttendanceOfMonth(){}
+    public AttendanceOfMonth(Stream<AttendanceOfDay> workTimes) {
         list = workTimes.collect(Collectors.toList());
     }
-    public WorkTimes(List<WorkTime> workTimes) {
+    public AttendanceOfMonth(List<AttendanceOfDay> workTimes) {
         list = new ArrayList<>(workTimes);
     }
 }

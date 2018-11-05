@@ -1,10 +1,9 @@
 package example.application.service;
 
 import example.Application;
-import example.domain.model.attendance.AttendanceRepository;
 import example.domain.model.attendance.TimeRecord;
 import example.domain.model.user.UserIdentifier;
-import example.domain.type.date.DayOfMonth;
+import example.domain.type.date.Date;
 import example.domain.type.time.HourTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.Test;
@@ -27,7 +26,7 @@ class AttendanceServiceTest {
     @Test
     void register() {
         UserIdentifier userId = userService.list().list().get(0).identifier();
-        DayOfMonth workDay = new DayOfMonth("2099-10-20");
+        Date workDay = new Date("2099-10-20");
         TimeRecord workTime = new TimeRecord(new HourTime("9:00"), new HourTime("17:00"), new Minute(60));
         sut.registerWorkTime(userId, workDay, workTime);
         TimeRecord registeredWorkTime = sut.findBy(userId, workDay);

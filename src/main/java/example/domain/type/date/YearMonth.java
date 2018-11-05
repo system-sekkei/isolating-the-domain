@@ -33,17 +33,17 @@ public class YearMonth {
     public Year year() { return year; }
     public Month month() { return month;}
 
-    public DayOfMonth start() {
-        return new DayOfMonth(LocalDate.of(year().value(), month().value(), 1));
+    public Date start() {
+        return new Date(LocalDate.of(year().value(), month().value(), 1));
     }
 
-    public DayOfMonth end() {
+    public Date end() {
         LocalDate tmp = LocalDate.of(year().value(), month().value() + 1, 1);
-        return new DayOfMonth(tmp.minusDays(1L));
+        return new Date(tmp.minusDays(1L));
     }
 
-    public Stream<DayOfMonth> days() {
-        Spliterator<DayOfMonth> spliterator = Spliterators.spliteratorUnknownSize(
+    public Stream<Date> days() {
+        Spliterator<Date> spliterator = Spliterators.spliteratorUnknownSize(
                 new DaysIterator(), 0);
         return StreamSupport.stream(spliterator, false);
     }
@@ -52,18 +52,18 @@ public class YearMonth {
         return String.format("%s-%s", year, month);
     }
 
-    class DaysIterator implements Iterator<DayOfMonth> {
-        private DayOfMonth current = start();
+    class DaysIterator implements Iterator<Date> {
+        private Date current = start();
         @Override
         public boolean hasNext() {
             return current.value().compareTo(end().value()) <= 0;
         }
 
         @Override
-        public DayOfMonth next() {
+        public Date next() {
             if(!hasNext()) throw new NoSuchElementException();
-            DayOfMonth ret = current;
-            current = new DayOfMonth(current.value().plusDays(1L));
+            Date ret = current;
+            current = new Date(current.value().plusDays(1L));
             return ret;
         }
     }
