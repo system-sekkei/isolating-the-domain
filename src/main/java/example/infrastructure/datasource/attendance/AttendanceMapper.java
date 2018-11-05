@@ -1,7 +1,6 @@
 package example.infrastructure.datasource.attendance;
 
 import example.domain.model.attendance.AttendanceOfDay;
-import example.domain.model.attendance.TimeRecord;
 import example.domain.model.user.UserIdentifier;
 import example.domain.type.date.Date;
 import org.apache.ibatis.annotations.Mapper;

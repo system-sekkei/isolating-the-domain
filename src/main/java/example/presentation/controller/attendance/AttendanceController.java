@@ -6,6 +6,7 @@ import example.domain.model.attendance.AttendanceOfDay;
 import example.domain.model.attendance.AttendanceOfMonth;
 import example.domain.model.user.User;
 import example.domain.model.user.UserIdentifier;
+import example.domain.type.date.Date;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,12 +53,8 @@ public class AttendanceController {
         User user = userService.findById(userIdentifier);
         model.addAttribute("user", user);
 
-        // TODO DUMMY
-        LocalDate lastDayOfMonth = LocalDate.now().with(TemporalAdjusters.lastDayOfMonth());
-        List<AttendanceOfDay> list = IntStream.rangeClosed(1, lastDayOfMonth.getDayOfMonth())
-                .mapToObj(i -> new AttendanceOfDay())
-                .collect(Collectors.toList());
-        model.addAttribute("attendanceOfMonth", new AttendanceOfMonth(list));
+        AttendanceOfMonth attendanceOfMonth = attendanceService.findMonthlyWorkTimes(user.identifier(), Date.now().yearMonth());
+        model.addAttribute("attendanceOfMonth", attendanceOfMonth);
         return "attendance/list";
     }
 }

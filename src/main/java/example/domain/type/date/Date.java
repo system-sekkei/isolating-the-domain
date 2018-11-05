@@ -22,7 +22,7 @@ public class Date {
     }
 
     public YearMonth yearMonth() {
-        return new YearMonth(value.getYear(), value.getYear());
+        return new YearMonth(value.getYear(), value.getMonthValue());
     }
 
     public Year year() {

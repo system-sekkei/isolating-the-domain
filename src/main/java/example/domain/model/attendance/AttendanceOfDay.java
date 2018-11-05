@@ -28,19 +28,11 @@ public class AttendanceOfDay {
         this.breaks = new Minute(30);
     }
 
-    public AttendanceOfDay(Date day, TimeRecord timeRecord) {
-        this(day, timeRecord.start, timeRecord.end, timeRecord.breaks);
-    }
-
     public AttendanceOfDay(Date day, HourTime start, HourTime end, Minute breaks) {
         this.date = day;
         this.start = start;
         this.end = end;
         this.breaks = breaks;
-    }
-
-    public TimeRecord timeRecord() {
-        return new TimeRecord(start, end, breaks);
     }
 
     public Date date() {
@@ -61,7 +53,6 @@ public class AttendanceOfDay {
 
     public HourAndMinute workTime() {
         HourAndMinute hourAndMinute = new HourTimeRange(normalize(start), normalize(end)).between();
-        System.out.println(hourAndMinute.toString());
         Minute workingMinute = hourAndMinute.toMinute().subtract(normalize(breaks));
         return HourAndMinute.from(workingMinute);
     }

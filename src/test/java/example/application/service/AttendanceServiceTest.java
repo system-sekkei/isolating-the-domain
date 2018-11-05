@@ -2,7 +2,6 @@ package example.application.service;
 
 import example.Application;
 import example.domain.model.attendance.AttendanceOfDay;
-import example.domain.model.attendance.TimeRecord;
 import example.domain.model.user.UserIdentifier;
 import example.domain.type.date.Date;
 import example.domain.type.time.HourTime;
