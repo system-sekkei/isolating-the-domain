@@ -8,4 +8,9 @@ import example.domain.type.date.DayOfMonth;
 public class WorkTime {
     DayOfMonth dayOfMonth;
     TimeRecord timeRecord;
+    public WorkTime() {}
+    public WorkTime(DayOfMonth day, TimeRecord timeRecord) {
+        this.dayOfMonth = day;
+        this.timeRecord = timeRecord;
+    }
 }

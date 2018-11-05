@@ -1,8 +1,11 @@
 package example.domain.type.date;
 
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 public class YearMonth {
     Year year;
@@ -30,7 +33,38 @@ public class YearMonth {
     public Year year() { return year; }
     public Month month() { return month;}
 
+    public DayOfMonth start() {
+        return new DayOfMonth(LocalDate.of(year().value(), month().value(), 1));
+    }
+
+    public DayOfMonth end() {
+        LocalDate tmp = LocalDate.of(year().value(), month().value() + 1, 1);
+        return new DayOfMonth(tmp.minusDays(1L));
+    }
+
+    public Stream<DayOfMonth> days() {
+        Spliterator<DayOfMonth> spliterator = Spliterators.spliteratorUnknownSize(
+                new DaysIterator(), 0);
+        return StreamSupport.stream(spliterator, false);
+    }
+
     public String toString() {
         return String.format("%s-%s", year, month);
+    }
+
+    class DaysIterator implements Iterator<DayOfMonth> {
+        private DayOfMonth current = start();
+        @Override
+        public boolean hasNext() {
+            return current.value().compareTo(end().value()) <= 0;
+        }
+
+        @Override
+        public DayOfMonth next() {
+            if(!hasNext()) throw new NoSuchElementException();
+            DayOfMonth ret = current;
+            current = new DayOfMonth(current.value().plusDays(1L));
+            return ret;
+        }
     }
 }
