@@ -14,11 +14,11 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class)
-class PayrollServiceTest {
+class AttendanceServiceTest {
     @Autowired
     UserRepository userRepo;
     @Autowired
-    PayrollRepository sut;
+    AttendanceRepository sut;
 
     @Test
     void register() {

@@ -1,14 +1,14 @@
-package example.infrastructure.datasource.payroll;
+package example.infrastructure.datasource.attendance;
 
-import example.domain.model.attendance.PayrollRepository;
+import example.domain.model.attendance.AttendanceRepository;
 import example.domain.model.attendance.TimeRecord;
 import example.domain.model.user.UserIdentifier;
 import example.domain.type.date.DayOfMonth;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class PayrollDataSource implements PayrollRepository {
-    PayrollMapper mapper;
+public class AttendanceDataSource implements AttendanceRepository {
+    AttendanceMapper mapper;
     @Override
     public void registerWorkTime(UserIdentifier userId, DayOfMonth workDay, TimeRecord workTime) {
         Long identifier = mapper.newWorkTimeIdentifier();
@@ -17,5 +17,5 @@ public class PayrollDataSource implements PayrollRepository {
         mapper.registerWorkTimeMapper(identifier, userId, workDay);
     }
 
-    PayrollDataSource(PayrollMapper mapper){this.mapper = mapper;}
+    AttendanceDataSource(AttendanceMapper mapper){this.mapper = mapper;}
 }

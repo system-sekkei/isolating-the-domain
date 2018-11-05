@@ -1,4 +1,4 @@
-package example.infrastructure.datasource.payroll;
+package example.infrastructure.datasource.attendance;
 
 import example.domain.model.attendance.TimeRecord;
 import example.domain.model.user.UserIdentifier;
@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 @Mapper
-public interface PayrollMapper {
+public interface AttendanceMapper {
     long newWorkTimeIdentifier();
     void registerWorkTime(@Param("id") Long id, @Param("userId") UserIdentifier userId,
                           @Param("workDay") DayOfMonth workDay, @Param("workTime")TimeRecord workTime);
