@@ -57,8 +57,10 @@ context('isolating-the-domain', () => {
 
 	//削除
 	cy.get('tbody > tr > td').contains(id).parent().within(() => {
-		cy.get('.button').contains('削除').click()
+		cy.get('.button').contains('変更').click()
 	})
+	cy.get('.header').should('text', '利用者情報の変更')
+	cy.get('.button').contains('削除').click()
 	cy.get('.header').should('text', '削除の確認')
 	cy.get('.button').contains('削除').click()
 	cy.contains('利用者一覧へ').click()

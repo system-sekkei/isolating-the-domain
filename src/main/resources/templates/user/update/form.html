@@ -60,6 +60,9 @@
         <a class="ui grey button" 
            th:href="@{/}">一覧に戻る</a>
         <button class="ui positive button">確認する</button>
+        <a class="ui mini negative button"
+           th:href="@{/user/{userId}/delete/view(userId=${user.identifier()})}">
+          <i class="trash icon"></i>削除</a>
       </div>
     </form>
   </div>
