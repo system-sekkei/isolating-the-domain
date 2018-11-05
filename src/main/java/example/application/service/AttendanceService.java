@@ -8,8 +8,6 @@ import example.domain.type.date.Date;
 import example.domain.type.date.YearMonth;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Collectors;
-
 @Service
 public class AttendanceService {
     AttendanceRepository attendanceRepository;
@@ -23,7 +21,7 @@ public class AttendanceService {
     }
 
     public AttendanceOfMonth findMonthlyWorkTimes(UserIdentifier userId, YearMonth month) {
-        return new AttendanceOfMonth(month.days().map(day -> findBy(userId, day)).collect(Collectors.toList()));
+        return attendanceRepository.findMonthly(userId, month);
     }
 
     AttendanceService(AttendanceRepository attendanceRepository) {
