@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/layout :: htmlhead(~{::title})">
+<head th:replace="fragments/layout :: htmlhead(~{::title})">
   <meta charset="utf-8"/>
   <title>勤務時間の入力</title>
 </head>
@@ -14,7 +14,7 @@
     <form id="custom-form" class="ui large form" name="body" 
           method="post" action="#"
           th:object="${attendanceOfDay}"
-          th:action="@{/worktime/{userId}(userId=*{user().identifier()})}">
+          th:action="@{/attendance/{userId}(userId=*{user().identifier()})}">
 
       <div class="field">
         <label>利用者名</label>
@@ -83,6 +83,5 @@
   </div>
 </div>
 
-<footer th:include="fragments/layout :: footer"/>
 </body>
 </html>

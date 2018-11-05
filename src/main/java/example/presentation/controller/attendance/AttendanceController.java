@@ -1,5 +1,6 @@
 package example.presentation.controller.attendance;
 
+import example.application.service.AttendanceService;
 import example.application.service.UserService;
 import example.domain.model.attendance.AttendanceOfDay;
 import example.domain.model.user.UserIdentifier;
@@ -11,23 +12,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("worktime/{userId}")
-public class WorkTimeController {
+@RequestMapping("attendance/{userId}")
+public class AttendanceController {
 
     UserService userService;
+    AttendanceService attendanceService;
 
-    public WorkTimeController(UserService userService) {
+    public AttendanceController(UserService userService, AttendanceService attendanceService) {
         this.userService = userService;
+        this.attendanceService = attendanceService;
     }
 
     @GetMapping
     String init(Model model, @PathVariable("userId") UserIdentifier userIdentifier) {
         model.addAttribute("attendanceOfDay", new AttendanceOfDay(userService.findById(userIdentifier)));
-        return "worktime/form";
+        return "attendance/form";
     }
 
     @PostMapping
     String register() {
+        // TODO validation
+
+        // TODO register
+        // attendanceService.registerWorkTime();
         return "redirect:/";
     }
 }

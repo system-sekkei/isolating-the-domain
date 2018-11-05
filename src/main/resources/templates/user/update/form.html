@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/layout :: htmlhead(~{::title})">
+<head th:replace="fragments/layout :: htmlhead(~{::title})">
   <meta charset="utf-8"/>
   <title>利用者情報の変更</title>
 </head>
@@ -21,7 +21,7 @@
         <p th:text="${user.identifier()}">山田太郎</p>
       </div>
 
-      <div class="ui basic segment" th:fragment="input-fields">
+      <div class="ui basic segment">
         <div class="field"
              th:replace="fragments/input::macro('name.value','名前','名前')">
           <label>名前</label>
@@ -65,6 +65,5 @@
   </div>
 </div>
 
-<footer th:include="fragments/layout :: footer"/>
 </body>
 </html>
