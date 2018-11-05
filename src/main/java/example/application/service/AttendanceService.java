@@ -14,6 +14,10 @@ public class AttendanceService {
         attendanceRepository.registerWorkTime(userId, workDay, workTime);
     }
 
+    public TimeRecord findBy(UserIdentifier userId, DayOfMonth workDay) {
+        return attendanceRepository.findBy(userId, workDay);
+    }
+
     AttendanceService(AttendanceRepository attendanceRepository) {
         this.attendanceRepository = attendanceRepository;
     }

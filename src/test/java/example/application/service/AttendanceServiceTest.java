@@ -4,7 +4,6 @@ import example.Application;
 import example.domain.model.attendance.AttendanceRepository;
 import example.domain.model.attendance.TimeRecord;
 import example.domain.model.user.UserIdentifier;
-import example.domain.model.user.UserRepository;
 import example.domain.type.date.DayOfMonth;
 import example.domain.type.time.HourTime;
 import example.domain.type.time.Minute;
@@ -21,13 +20,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(classes = Application.class)
 class AttendanceServiceTest {
     @Autowired
-    UserRepository userRepo;
+    UserService userService;
     @Autowired
-    AttendanceRepository sut;
+    AttendanceService sut;
 
     @Test
     void register() {
-        UserIdentifier userId = userRepo.list().list().get(0).identifier();
+        UserIdentifier userId = userService.list().list().get(0).identifier();
         DayOfMonth workDay = new DayOfMonth("2099-10-20");
         TimeRecord workTime = new TimeRecord(new HourTime("9:00"), new HourTime("17:00"), new Minute(60));
         sut.registerWorkTime(userId, workDay, workTime);
