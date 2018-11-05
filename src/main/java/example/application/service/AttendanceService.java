@@ -19,8 +19,7 @@ public class AttendanceService {
     }
 
     public AttendanceOfDay findBy(UserIdentifier userId, Date workDay) {
-        AttendanceOfDay ret = attendanceRepository.findBy(userId, workDay);
-        return (ret == null) ? new AttendanceOfDay(workDay) : ret;
+        return attendanceRepository.findBy(userId, workDay);
     }
 
     public AttendanceOfMonth findMonthlyWorkTimes(UserIdentifier userId, YearMonth month) {

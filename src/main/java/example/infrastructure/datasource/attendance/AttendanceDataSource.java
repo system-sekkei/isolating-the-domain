@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class AttendanceDataSource implements AttendanceRepository {
     AttendanceMapper mapper;
+
     @Override
     public void registerWorkTime(UserIdentifier userId, AttendanceOfDay work) {
         Long identifier = mapper.newWorkTimeIdentifier();
@@ -19,8 +20,11 @@ public class AttendanceDataSource implements AttendanceRepository {
 
     @Override
     public AttendanceOfDay findBy(UserIdentifier userId, Date workDay) {
-        return mapper.findBy(userId, workDay);
+        AttendanceOfDay ret = mapper.findBy(userId, workDay);
+        return (ret == null) ? new AttendanceOfDay(workDay) : ret;
     }
 
-    AttendanceDataSource(AttendanceMapper mapper){this.mapper = mapper;}
+    AttendanceDataSource(AttendanceMapper mapper) {
+        this.mapper = mapper;
+    }
 }
