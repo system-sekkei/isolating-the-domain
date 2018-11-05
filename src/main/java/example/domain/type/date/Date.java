@@ -41,4 +41,8 @@ public class Date {
     public String toString() {
         return value.format(DateTimeFormatter.ISO_DATE);
     }
+
+    public static Date now() {
+        return new Date(LocalDate.now());
+    }
 }

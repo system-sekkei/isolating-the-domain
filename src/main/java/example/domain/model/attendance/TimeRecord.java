@@ -12,8 +12,8 @@ import java.time.LocalTime;
  * 1日の就業時間と休憩時間
  */
 public class TimeRecord {
-    HourTime start;
     HourTime end;
+    HourTime start;
     Minute breaks;
 
     public TimeRecord() {
