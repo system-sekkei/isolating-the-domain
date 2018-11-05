@@ -32,6 +32,10 @@
           <td th:text="${user.name()}"/>
           <td th:text="${user.mailAddress()}"/>
           <td class="ui center aligned">
+            <a class="ui mini button"
+               th:href="@{/attendance/{userId}/list(userId=${user.identifier()})}">
+              <i class="calendar alternate outline icon"></i>
+            </a>
             <a class="ui mini primary button"
                th:href="@{/attendance/{userId}(userId=${user.identifier()})}">
               <i class="clock outline icon"></i>勤務時間入力</a>

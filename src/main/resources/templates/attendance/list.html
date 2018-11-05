@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
+  <title>勤務時間の入力</title>
+</head>
+<body>
+<div class="ui container">
+  <div class="ui basic segment">
+    <h1 class="ui center aligned header">勤務時間の一覧</h1>
+  </div>
+
+  <div class="field">
+    <label>利用者名</label>
+    <div class="eight wide field" th:text="${user.name()}">
+    </div>
+  </div>
+
+  <table class="ui striped celled table">
+    <thead>
+    <tr>
+      <th class="">日付</th>
+      <th class="">開始時刻</th>
+      <th class="">終了時刻</th>
+      <th class="">休憩時刻</th>
+      <th class="">勤務時間</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="attendance : ${attendanceOfMonth.list()}">
+      <td th:text="${attendance.date()}"></td>
+      <td th:text="${attendance.timeRecord().start()}"></td>
+      <td th:text="${attendance.timeRecord().end()}"></td>
+      <td th:text="${attendance.timeRecord().breaks()}"></td>
+      <td th:text="${attendance.timeRecord().workTime()}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="ui center aligned basic segment">
+    <a class="ui grey button" th:href="@{/}">一覧に戻る</a>
+  </div>
+</div>
+
+</body>
+</html>

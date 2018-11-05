@@ -1,13 +1,11 @@
 package example.domain.model.attendance;
 
-import example.domain.model.user.User;
 import example.domain.type.date.Date;
 import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.HourTime;
 import example.domain.type.time.HourTimeRange;
 import example.domain.type.time.Minute;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
@@ -41,12 +39,22 @@ public class AttendanceOfDay {
         return new TimeRecord(start, end, breaks);
     }
 
-    public Date dayOfMonth() {
+    public Date date() {
         return date;
     }
-    public HourTime start() { return start; }
-    public HourTime end() { return end; }
-    public Minute breaks() { return breaks; }
+
+    public HourTime start() {
+        return start;
+    }
+
+    public HourTime end() {
+        return end;
+    }
+
+    public Minute breaks() {
+        return breaks;
+    }
+
     public HourAndMinute workTime() {
         HourAndMinute hourAndMinute = new HourTimeRange(normalize(start), normalize(end)).between();
         System.out.println(hourAndMinute.toString());
@@ -61,6 +69,6 @@ public class AttendanceOfDay {
     }
 
     static Minute normalize(Minute org) {
-        return (org.value() % 15 == 0) ? org : new Minute((org.value() / 15 + 1) * 15 );
+        return (org.value() % 15 == 0) ? org : new Minute((org.value() / 15 + 1) * 15);
     }
 }

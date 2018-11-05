@@ -50,6 +50,13 @@ context('isolating-the-domain', () => {
 	cy.get('.button').contains('登録する').click()
 	cy.get('.header').should('text', '利用者一覧')
 
+	// 勤務時間一覧
+	cy.get('tbody > tr > td').contains(id).parent().within(() => {
+		cy.get('.button').get('.calendar').click()
+	})
+	cy.get('a').contains('一覧に戻る').click()
+	cy.get('.header').should('text', '利用者一覧')
+
 	//削除
 	cy.get('tbody > tr > td').contains(id).parent().within(() => {
 		cy.get('.button').contains('削除').click()
