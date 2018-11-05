@@ -26,7 +26,9 @@ class UserRepositoryTest {
                 us -> us.identifier().value.equals(1L)).findFirst().get();
         assertAll(
                 () -> assertEquals(user.mailAddress().toString(), "fukawa_teruyoshi_new@example.com"),
-                () -> assertEquals(user.dateOfBirth.toString(), "1988-02-29"),
+                () -> assertEquals(user.phoneNumber().toString(), "03-1234-9999"),
+                () -> assertEquals(user.dateOfBirth().toString(), "1988-02-29"),
+                () -> assertEquals(user.gender().toString(), "不明"),
                 () -> assertEquals(user.name().toString(), "布川 光義"));
     }
 
