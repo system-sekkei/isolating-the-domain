@@ -61,7 +61,6 @@ public class AttendanceOfDay {
 
     public HourAndMinute workTime() {
         HourAndMinute hourAndMinute = new HourTimeRange(normalize(start), normalize(end)).between();
-        System.out.println(hourAndMinute.toString());
         Minute workingMinute = hourAndMinute.toMinute().subtract(normalize(breaks));
         return HourAndMinute.from(workingMinute);
     }
