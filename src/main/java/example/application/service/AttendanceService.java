@@ -15,17 +15,17 @@ import java.util.stream.Collectors;
 public class AttendanceService {
     AttendanceRepository attendanceRepository;
 
-    public void registerWorkTime(UserIdentifier userId, Date workDay, TimeRecord workTime) {
-        attendanceRepository.registerWorkTime(userId, workDay, workTime);
+    public void registerWorkTime(UserIdentifier userId, AttendanceOfDay work) {
+        attendanceRepository.registerWorkTime(userId, work);
     }
 
-    public TimeRecord findBy(UserIdentifier userId, Date workDay) {
-        TimeRecord ret = attendanceRepository.findBy(userId, workDay);
-        return (ret == null) ? new TimeRecord() : ret;
+    public AttendanceOfDay findBy(UserIdentifier userId, Date workDay) {
+        AttendanceOfDay ret = attendanceRepository.findBy(userId, workDay);
+        return (ret == null) ? new AttendanceOfDay(workDay) : ret;
     }
 
     public AttendanceOfMonth findMonthlyWorkTimes(UserIdentifier userId, YearMonth month) {
-        return new AttendanceOfMonth(month.days().map(day -> new AttendanceOfDay(day, findBy(userId, day))).collect(Collectors.toList()));
+        return new AttendanceOfMonth(month.days().map(day -> findBy(userId, day)).collect(Collectors.toList()));
     }
 
     AttendanceService(AttendanceRepository attendanceRepository) {

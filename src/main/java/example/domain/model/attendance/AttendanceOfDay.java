@@ -20,7 +20,11 @@ public class AttendanceOfDay {
     Minute breaks;
 
     public AttendanceOfDay() {
-        this.date = Date.now();
+        this(Date.now());
+    }
+
+    public AttendanceOfDay(Date date) {
+        this.date = date;
         this.start = new HourTime("09:00");
         this.end = new HourTime("15:00");
         this.breaks = new Minute(30);

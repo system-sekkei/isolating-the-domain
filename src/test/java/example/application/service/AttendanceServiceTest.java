@@ -1,6 +1,7 @@
 package example.application.service;
 
 import example.Application;
+import example.domain.model.attendance.AttendanceOfDay;
 import example.domain.model.attendance.TimeRecord;
 import example.domain.model.user.UserIdentifier;
 import example.domain.type.date.Date;
@@ -27,11 +28,12 @@ class AttendanceServiceTest {
     void register() {
         UserIdentifier userId = userService.list().list().get(0).identifier();
         Date workDay = new Date("2099-10-20");
-        TimeRecord workTime = new TimeRecord(new HourTime("9:00"), new HourTime("17:00"), new Minute(60));
-        sut.registerWorkTime(userId, workDay, workTime);
-        TimeRecord registeredWorkTime = sut.findBy(userId, workDay);
-        assertAll(() -> assertEquals(workTime.start().value(), registeredWorkTime.start().value()),
-                () -> assertEquals(workTime.end().value(), registeredWorkTime.end().value()),
-                () -> assertEquals(workTime.breaks().value(), registeredWorkTime.breaks().value()));
+        AttendanceOfDay work = new AttendanceOfDay(workDay, new HourTime("9:00"), new HourTime("17:00"), new Minute(60));
+        sut.registerWorkTime(userId, work);
+        AttendanceOfDay registeredAttendance = sut.findBy(userId, workDay);
+        assertAll(() -> assertEquals(work.dayOfMonth().value(), registeredAttendance.dayOfMonth().value()),
+                () -> assertEquals(work.start().value(), registeredAttendance.start().value()),
+                () -> assertEquals(work.end().value(), registeredAttendance.end().value()),
+                () -> assertEquals(work.breaks().value(), registeredAttendance.breaks().value()));
     }
 }
