@@ -27,13 +27,22 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="attendance : ${attendanceOfMonth.list()}">
-      <td th:text="${attendance.date()}"></td>
-      <td th:text="${attendance.workTimeRange().start()}"></td>
-      <td th:text="${attendance.workTimeRange().end()}"></td>
-      <td th:text="${attendance.breaks()}"></td>
-      <td th:text="${attendance.workTime()}"></td>
-    </tr>
+    <th:block th:each="attendance : ${attendanceOfMonth.list()}">
+      <tr th:if="${attendance.attendance().work()}">
+        <td th:text="${attendance.date()}"></td>
+        <td th:text="${attendance.workTimeRange().start()}"></td>
+        <td th:text="${attendance.workTimeRange().end()}"></td>
+        <td th:text="${attendance.breaks()}"></td>
+        <td th:text="${attendance.workTime()}"></td>
+      </tr>
+      <tr th:unless="${attendance.attendance().work()}">
+        <td th:text="${attendance.date()}"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td th:text="${attendance.workTime()}"></td>
+      </tr>
+    </th:block>
     </tbody>
   </table>
 

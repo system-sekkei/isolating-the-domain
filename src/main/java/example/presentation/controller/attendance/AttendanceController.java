@@ -7,12 +7,16 @@ import example.domain.model.attendance.AttendanceOfMonth;
 import example.domain.model.user.User;
 import example.domain.model.user.UserIdentifier;
 import example.domain.type.date.Date;
+import example.domain.type.time.HourTime;
+import example.domain.type.time.Minute;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.time.LocalDate;
 
 /**
  * 勤怠コントローラー
@@ -39,8 +43,16 @@ public class AttendanceController {
     String register() {
         // TODO validation
 
-        // TODO register
-        // attendanceService.registerWorkTime();
+        attendanceService.registerWorkTime(
+                // TODO 入力から
+                new UserIdentifier("1"),
+                new AttendanceOfDay(
+                        new Date(LocalDate.now()),
+                        new HourTime("09:00"),
+                        new HourTime("18:00"),
+                        new Minute(90)
+                )
+        );
         return "redirect:/";
     }
 

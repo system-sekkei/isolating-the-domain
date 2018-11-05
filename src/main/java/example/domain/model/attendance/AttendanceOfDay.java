@@ -18,7 +18,7 @@ public class AttendanceOfDay {
     }
 
     public AttendanceOfDay(Date date) {
-        this(date, new HourTime("09:00"), new HourTime("15:00"), new Minute(30));
+        this(date, new HourTime("00:00"), new HourTime("00:00"), new Minute(0));
     }
 
     public AttendanceOfDay(Date day, HourTime start, HourTime end, Minute breaks) {
@@ -43,5 +43,12 @@ public class AttendanceOfDay {
         Minute workMinute = workTimeRange.workMinute();
         Minute workingMinute = breaks.subtractFrom(workMinute);
         return HourAndMinute.from(workingMinute);
+    }
+
+    public Attendance attendance() {
+        if (workTimeRange.notWork()) {
+            return Attendance.休み;
+        }
+        return Attendance.出勤;
     }
 }

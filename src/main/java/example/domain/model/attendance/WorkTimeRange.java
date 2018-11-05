@@ -31,4 +31,8 @@ public class WorkTimeRange {
     public WorkTime end() {
         return endTime;
     }
+
+    public boolean notWork() {
+        return startTime.value.value().equals(endTime.value.value());
+    }
 }

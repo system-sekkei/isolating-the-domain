@@ -30,7 +30,7 @@ public class AttendanceDataSource implements AttendanceRepository {
 
     @Override
     public AttendanceOfMonth findMonthly(UserIdentifier userId, YearMonth month) {
-        return new AttendanceOfMonth(month.days().map(day -> findBy(userId, day)).collect(Collectors.toList()));
+        return new AttendanceOfMonth(month, month.days().map(day -> findBy(userId, day)).collect(Collectors.toList()));
     }
 
     AttendanceDataSource(AttendanceMapper mapper) {
