@@ -108,8 +108,8 @@ CREATE TABLE 給与.就業時間 (
   就業時間ID BIGINT PRIMARY KEY,
   ユーザーID BIGINT NOT NULL,
   就業日 DATE NOT NULL,
-  開始時間 TIME NOT NULL,
-  終了時間 TIME NOT NULL,
+  開始時刻 TIME NOT NULL,
+  終了時刻 TIME NOT NULL,
   休憩時間 INTEGER NOT NULL,
   登録日時 TIMESTAMP NOT NULL
     ,FOREIGN KEY (ユーザーID) REFERENCES  給与.ユーザー(ユーザーID)
