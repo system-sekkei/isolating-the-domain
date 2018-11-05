@@ -2,6 +2,9 @@ package example.domain.model.attendance;
 
 import example.domain.type.time.Minute;
 
+/**
+ * 休憩時間
+ */
 public class Break {
     Minute value;
 

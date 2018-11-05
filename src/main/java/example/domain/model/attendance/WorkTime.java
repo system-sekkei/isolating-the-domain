@@ -3,6 +3,9 @@ package example.domain.model.attendance;
 import example.domain.type.time.HourTime;
 import example.domain.type.time.Minute;
 
+/**
+ * 業務時刻
+ */
 public class WorkTime {
 
     HourTime value;

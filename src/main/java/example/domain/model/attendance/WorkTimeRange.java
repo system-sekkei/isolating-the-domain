@@ -3,6 +3,9 @@ package example.domain.model.attendance;
 import example.domain.type.time.HourTime;
 import example.domain.type.time.Minute;
 
+/**
+ * 業務時刻の範囲
+ */
 public class WorkTimeRange {
 
     private final WorkTime startTime;

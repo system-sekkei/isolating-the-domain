@@ -5,7 +5,7 @@ import example.domain.type.date.Date;
 import example.domain.type.date.YearMonth;
 
 /**
- * 給与計算リポジトリ
+ * 勤怠リポジトリ
  */
 public interface AttendanceRepository {
     void registerWorkTime(UserIdentifier userId, AttendanceOfDay work);
