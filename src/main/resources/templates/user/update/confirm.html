@@ -4,6 +4,7 @@
   <meta charset="utf-8"/>
   <title>利用者情報の変更の確認</title>
 </head>
+<body>
 <div class="ui container">
   <div class="ui basic segment">
     <h1 class="ui center aligned header">利用者情報の変更の確認</h1>
@@ -13,7 +14,7 @@
     <div class="ui large form">
       <div class="ui segment">
 
-        <div th:fragment="fields">
+        <div>
           <div class="field">
             <label>名前</label>
             <p th:text="${user.name()}">山田 太郎</p>
