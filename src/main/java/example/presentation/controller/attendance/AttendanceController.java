@@ -14,14 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.time.LocalDate;
-import java.time.temporal.TemporalAdjusters;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 @Controller
-@RequestMapping("attendance/{userId}")
+@RequestMapping("attendance")
 public class AttendanceController {
 
     UserService userService;
@@ -33,8 +27,7 @@ public class AttendanceController {
     }
 
     @GetMapping
-    String init(Model model, @PathVariable("userId") UserIdentifier userIdentifier) {
-        model.addAttribute("user", userService.findById(userIdentifier));
+    String init(Model model) {
         model.addAttribute("attendanceOfDay", new AttendanceOfDay());
         return "attendance/form";
     }
@@ -48,7 +41,7 @@ public class AttendanceController {
         return "redirect:/";
     }
 
-    @GetMapping("list")
+    @GetMapping("{userId}/list")
     String list(Model model, @PathVariable("userId") UserIdentifier userIdentifier) {
         User user = userService.findById(userIdentifier);
         model.addAttribute("user", user);

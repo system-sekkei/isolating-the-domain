@@ -38,9 +38,7 @@ context('isolating-the-domain', () => {
 	cy.get('.header').should('text', '利用者一覧')
 
 	// 勤務時間入力
-	cy.get('tbody > tr > td').contains(id).parent().within(() => {
-		cy.get('.button').contains('勤務時間入力').click()
-	})
+	cy.get('.button').contains('勤務時間入力').click()
 	cy.get('.header').should('text', '勤務時間の入力')
 	cy.get('#startHour\\.value').type('9')
 	cy.get('#startMinute\\.value').type('30')

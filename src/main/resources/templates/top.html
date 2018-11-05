@@ -13,7 +13,10 @@
   <div class="ui right aligned basic segment">
     <a class="ui labeled icon primary button"
        th:href="@{/user/register}">
-      <i class="user plus icon"></i>利用者の新規登録</a>      
+      <i class="user plus icon"></i>利用者の新規登録</a>
+    <a class="ui mini primary button"
+       th:href="@{/attendance}">
+      <i class="clock outline icon"></i>勤務時間入力</a>
   </div>
   
   <div class="ui basic segment">
@@ -36,9 +39,6 @@
                th:href="@{/attendance/{userId}/list(userId=${user.identifier()})}">
               <i class="calendar alternate outline icon"></i>
             </a>
-            <a class="ui mini primary button"
-               th:href="@{/attendance/{userId}(userId=${user.identifier()})}">
-              <i class="clock outline icon"></i>勤務時間入力</a>
             <a class="ui mini positive button"
                th:href="@{/user/{userId}/update(userId=${user.identifier()})}">
               <i class="edit icon"></i>変更</a>
