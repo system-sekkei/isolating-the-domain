@@ -14,14 +14,20 @@
     <form id="custom-form" class="ui large form" name="body" 
           method="post" action="#"
           th:action="@{/worktime/{userId}(userId=${user.identifier()})}">
-      
-<!--       <div class="field">
+
+      <div class="field">
+        <label>利用者名</label>
+        <div class="eight wide field" th:text="${user.name()}">
+        </div>
+      </div>
+
+      <div class="field">
         <label>勤務日</label>
         <div class="eight wide field">
           <input class="short-input" type="text" placeholder="2018-01-01" 
                  id="" />
         </div>
-      </div> -->
+      </div>
 
       <div class="field">
         <label>開始時刻</label>
