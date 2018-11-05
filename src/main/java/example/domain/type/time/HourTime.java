@@ -29,4 +29,8 @@ public class HourTime {
     public String toString() {
         return value.format(DateTimeFormatter.ofPattern("HH:mm"));
     }
+
+    public Minute until(HourTime other) {
+        return new HourTimeRange(this, other).between().toMinute();
+    }
 }

@@ -29,8 +29,8 @@
     <tbody>
     <tr th:each="attendance : ${attendanceOfMonth.list()}">
       <td th:text="${attendance.date()}"></td>
-      <td th:text="${attendance.start()}"></td>
-      <td th:text="${attendance.end()}"></td>
+      <td th:text="${attendance.workTimeRange().start()}"></td>
+      <td th:text="${attendance.workTimeRange().end()}"></td>
       <td th:text="${attendance.breaks()}"></td>
       <td th:text="${attendance.workTime()}"></td>
     </tr>

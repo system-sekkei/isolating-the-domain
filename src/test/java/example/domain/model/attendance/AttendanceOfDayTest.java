@@ -10,20 +10,20 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AttendanceOfDayTest {
-    @DisplayName("HourTimeを15分刻みに変換出来ること(切り捨て)")
+    @DisplayName("勤務時刻は15分刻みで切り捨てられる")
     @ParameterizedTest
     @CsvSource({"10:14, 10:00", "10:15, 10:15", "10:16, 10:15"})
     void normalizeHourTime(String org, String normalize) {
-        HourTime ht = new HourTime(org);
-        assertEquals(normalize, AttendanceOfDay.normalize(ht).toString());
+        WorkTime ht = new WorkTime(new HourTime(org));
+        assertEquals(normalize, ht.normalizedHourTime().toString());
     }
 
-    @DisplayName("Minuteを15分刻みに変換出来ること(切り上げ")
+    @DisplayName("休憩時間を15分刻みで切り上げられる")
     @ParameterizedTest
     @CsvSource({"0, 0", "1, 15", "14, 15", "15, 15", "16, 30"})
-    void normalizeMinute(int org, int normalize) {
-        Minute m = new Minute(org);
-        assertEquals(normalize, AttendanceOfDay.normalize(m).value());
+    void normalizeMinute(int org, String normalize) {
+        Break m = new Break(new Minute(org));
+        assertEquals(normalize, m.normalizeValue().toString());
     }
 
     @DisplayName("就業時間の計算を正しく行えること")
