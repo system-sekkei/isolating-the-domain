@@ -33,7 +33,7 @@
           <td th:text="${user.mailAddress()}"/>
           <td class="ui center aligned">
             <a class="ui mini primary button"
-               th:href="@{/worktime/{userId}(userId=${user.identifier()})}">
+               th:href="@{/attendance/{userId}(userId=${user.identifier()})}">
               <i class="clock outline icon"></i>勤務時間入力</a>
             <a class="ui mini positive button"
                th:href="@{/user/{userId}/update(userId=${user.identifier()})}">
