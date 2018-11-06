@@ -10,43 +10,45 @@
     <h1 class="ui center aligned header">利用者一覧</h1>
   </div>
   
-  <div class="ui right aligned basic segment">
+  <div class="ui center aligned basic segment">
     <a class="ui labeled icon primary button"
-       th:href="@{/user/register}">
-      <i class="user plus icon"></i>利用者の新規登録</a>
-    <a class="ui mini primary button"
        th:href="@{/attendance}">
       <i class="clock outline icon"></i>勤務時間入力</a>
+    <a class="ui labeled icon positive button"
+       th:href="@{/user/register}">
+      <i class="user plus icon"></i>利用者の新規登録</a>
   </div>
   
-  <div class="ui basic segment">
-    <table class="ui striped celled table">
-     <thead>
-        <tr>
-          <th class="one wide">ID</th>
-          <th class="three wide">利用者名</th>
-          <th class="six wide">メールアドレス</th>
-          <th class="six wide"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="user : ${users.list()}">
-          <td th:text="${user.identifier()}"/>
-          <td th:text="${user.name()}"/>
-          <td th:text="${user.mailAddress()}"/>
-          <td class="ui center aligned">
-            <a class="ui mini button"
-               th:href="@{/attendance/{userId}/list(userId=${user.identifier()})}">
-              <i class="calendar alternate outline icon"></i>
-            </a>
-            <a class="ui mini positive button"
-               th:href="@{/user/{userId}/update(userId=${user.identifier()})}">
-              <i class="edit icon"></i>変更</a>
-
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="userList">
+    <div class="ui basic segment">
+      <table class="ui striped celled table">
+       <thead>
+          <tr>
+            <th class="one wide">ID</th>
+            <th class="four wide">利用者名</th>
+            <th class="five wide">メールアドレス</th>
+            <th class="six wide"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="user : ${users.list()}">
+            <td th:text="${user.identifier()}"/>
+            <td th:text="${user.name()}"/>
+            <td th:text="${user.mailAddress()}"/>
+            <td class="ui center aligned">
+              <a class="ui tiny primary basic button"
+                 th:href="@{/attendance/{userId}/list(userId=${user.identifier()})}">
+                <i class="calendar alternate outline icon"></i>勤務時間の一覧
+              </a>
+              <a class="ui tiny positive basic button"
+                 th:href="@{/user/{userId}/update(userId=${user.identifier()})}">
+                <i class="edit icon"></i>利用者情報の変更
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 
