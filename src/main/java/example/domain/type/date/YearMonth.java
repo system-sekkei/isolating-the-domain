@@ -4,8 +4,8 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class YearMonth {
     Year year;
@@ -42,29 +42,12 @@ public class YearMonth {
         return new Date(tmp.minusDays(1L));
     }
 
-    public Stream<Date> days() {
-        Spliterator<Date> spliterator = Spliterators.spliteratorUnknownSize(
-                new DaysIterator(), 0);
-        return StreamSupport.stream(spliterator, false);
+    public List<Date> days() {
+        IntStream intStream = IntStream.rangeClosed(start().dayOfMonth(), end().dayOfMonth());
+        return intStream.mapToObj(i -> new Date(start().value().plusDays((long)i -1 ))).collect(Collectors.toList());
     }
 
     public String toString() {
         return String.format("%s-%s", year, month);
-    }
-
-    class DaysIterator implements Iterator<Date> {
-        private Date current = start();
-        @Override
-        public boolean hasNext() {
-            return current.value().compareTo(end().value()) <= 0;
-        }
-
-        @Override
-        public Date next() {
-            if(!hasNext()) throw new NoSuchElementException();
-            Date ret = current;
-            current = new Date(current.value().plusDays(1L));
-            return ret;
-        }
     }
 }

@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -31,6 +33,9 @@ class YearMonthTest {
     @CsvSource({"2018, 1, 31", "2018, 2, 28", "2018, 4, 30"})
     void days(int year, int month, int times) {
         YearMonth ym = new YearMonth(year, month);
-        assertEquals(times, (int)ym.days().count());
+        List<Date> days = ym.days();
+        assertAll(() -> assertEquals(times, days.size()),
+                () -> assertEquals(ym.start().value(), days.get(0).value()),
+                () -> assertEquals(ym.end().value(), days.get(times -1 ).value()));
     }
 }
