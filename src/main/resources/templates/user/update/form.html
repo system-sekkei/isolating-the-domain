@@ -59,10 +59,9 @@
       <div class="ui center aligned basic segment">
         <a class="ui grey button" 
            th:href="@{/}">一覧に戻る</a>
-        <button class="ui positive button">確認する</button>
-        <a class="ui mini negative button"
-           th:href="@{/user/{userId}/delete/view(userId=${user.identifier()})}">
-          <i class="trash icon"></i>削除</a>
+        <button class="ui positive button">編集の確認</button>
+        <a class="ui negative button"
+           th:href="@{/user/{userId}/delete/view(userId=${user.identifier()})}">削除の確認</a>
       </div>
     </form>
   </div>
