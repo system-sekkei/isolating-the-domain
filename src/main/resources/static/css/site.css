@@ -1,9 +1,35 @@
+/*従業員 user*/
+
+.userList {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
 .userInput {
   max-width: 500px;
   margin: 0 auto;
 }
 
+/*勤怠 attendance*/
+
+.attendanceList {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.attendanceInfo {
+  max-width: 480px;
+  margin: 1em auto;
+  padding: 1em 1.5em;
+  text-align: center;
+}
+
 .attendanceInput {
   max-width: 400px;
-  margin: 0 auto; 
+  margin: 0 auto;
+}
+
+/*文字*/
+.emphasis {
+  font-size: 2rem;
 }

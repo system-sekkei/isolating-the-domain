@@ -9,42 +9,65 @@
   <div class="ui basic segment">
     <h1 class="ui center aligned header">勤務時間の一覧</h1>
   </div>
-
-  <div class="field">
-    <label>利用者名</label>
-    <div class="eight wide field" th:text="${user.name()}">
+  
+  <div class="attendanceInfo">
+    <div class="ui centered card">
+      <div class="content">
+        <div class="left aligned description">
+          <p>利用者名</p>
+        </div>
+        <div class="center aligned header"
+             th:text="${user.name()}"></div>
+      </div>
     </div>
-  </div>
 
-  <table class="ui striped celled table">
-    <thead>
-    <tr>
-      <th class="">日付</th>
-      <th class="">開始時刻</th>
-      <th class="">終了時刻</th>
-      <th class="">休憩時刻</th>
-      <th class="">勤務時間</th>
-    </tr>
-    </thead>
-    <tbody>
-    <th:block th:each="attendance : ${attendanceOfMonth.list()}">
-      <tr th:if="${attendance.attendance().work()}">
-        <td th:text="${attendance.date()}"></td>
-        <td th:text="${attendance.workTimeRange().start()}"></td>
-        <td th:text="${attendance.workTimeRange().end()}"></td>
-        <td th:text="${attendance.breaks()}"></td>
-        <td th:text="${attendance.workTime()}"></td>
+    <table class="ui celled table">
+      <thead>
+        <tr>
+          <th class="center aligned">総勤務時間(時間)</th>
+          <th class="center aligned">総休憩時間(分)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+            <td class="center aligned six wide emphasis">50</td>
+            <td class="center aligned six wide emphasis">100</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <div class="attendanceList">
+    <table class="ui striped celled table">
+      <thead>
+      <tr>
+        <th class="">日付</th>
+        <th class="">開始時刻</th>
+        <th class="">終了時刻</th>
+        <th class="">休憩時刻</th>
+        <th class="">勤務時間</th>
       </tr>
-      <tr th:unless="${attendance.attendance().work()}">
-        <td th:text="${attendance.date()}"></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td th:text="${attendance.workTime()}"></td>
-      </tr>
-    </th:block>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <th:block th:each="attendance : ${attendanceOfMonth.list()}">
+          <tr th:if="${attendance.attendance().work()}">
+            <td th:text="${attendance.date()}"></td>
+            <td th:text="${attendance.workTimeRange().start()}"></td>
+            <td th:text="${attendance.workTimeRange().end()}"></td>
+            <td th:text="${attendance.breaks()}"></td>
+            <td th:text="${attendance.workTime()}"></td>
+          </tr>
+          <tr th:unless="${attendance.attendance().work()}">
+            <td th:text="${attendance.date()}"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td th:text="${attendance.workTime()}"></td>
+          </tr>
+        </th:block>
+      </tbody>
+    </table>
+  </div>
 
   <div class="ui center aligned basic segment">
     <a class="ui grey button" th:href="@{/}">一覧に戻る</a>
