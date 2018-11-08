@@ -14,15 +14,18 @@ public enum Month {
     SEPTEMBER(9),
     OCTOBER(10),
     NOVEMBER(11),
-    DECEMBER(12)
-    ;
+    DECEMBER(12);
 
     Integer month;
+
     private Month(int month) {
         this.month = month;
     }
 
-    public Integer value() { return month; }
+    public Integer value() {
+        return month;
+    }
+
     public String toString() {
         return String.format("%2d", value());
     }

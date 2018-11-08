@@ -6,7 +6,7 @@ package example.domain.type.time;
 public class Hour {
     int value;
 
-    Hour (int time) {
+    Hour(int time) {
         value = time;
     }
 
@@ -17,5 +17,5 @@ public class Hour {
     @Override
     public String toString() {
         return String.format("%d", value);
-    } 
+    }
 }

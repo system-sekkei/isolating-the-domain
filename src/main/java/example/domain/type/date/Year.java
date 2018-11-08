@@ -2,6 +2,7 @@ package example.domain.type.date;
 
 public class Year {
     Integer year;
+
     public Year(Integer year) {
         this.year = year;
     }
@@ -10,7 +11,9 @@ public class Year {
         this(Integer.parseInt(year));
     }
 
-    public Integer value() {return year;}
+    public Integer value() {
+        return year;
+    }
 
     public String toString() {
         return year.toString();

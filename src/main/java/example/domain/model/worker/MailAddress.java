@@ -12,7 +12,9 @@ public class MailAddress {
     @Email(message = "メールアドレスが正しくありません。")
     String value = "";
 
-    public MailAddress(){}
+    public MailAddress() {
+    }
+
     public MailAddress(String mailAddress) {
         value = mailAddress;
     }

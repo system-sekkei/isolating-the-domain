@@ -8,9 +8,11 @@ import java.time.DateTimeException;
 public class Minute {
     int value;
 
-    public Minute (String time) { value = Integer.parseInt(time); }
+    public Minute(String time) {
+        value = Integer.parseInt(time);
+    }
 
-    public Minute (int time) {
+    public Minute(int time) {
         value = time;
     }
 

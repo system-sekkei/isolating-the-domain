@@ -7,7 +7,7 @@ public class HourAndMinute {
     Hour hour;
     Minute minute;
 
-    HourAndMinute (Hour hour, Minute minute) {
+    HourAndMinute(Hour hour, Minute minute) {
         this.hour = hour;
         this.minute = minute;
     }
@@ -28,6 +28,6 @@ public class HourAndMinute {
 
     @Override
     public String toString() {
-        return String.format( "%02d:%02d", hour.value, minute.value);
-    } 
+        return String.format("%02d:%02d", hour.value, minute.value);
+    }
 }

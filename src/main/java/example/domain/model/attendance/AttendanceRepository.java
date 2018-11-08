@@ -9,6 +9,7 @@ import example.domain.type.date.YearMonth;
  */
 public interface AttendanceRepository {
     void registerWorkTime(WorkerIdentifier userId, AttendanceOfDay work);
+
     AttendanceOfDay findBy(WorkerIdentifier userId, Date workDay);
 
     AttendanceOfMonth findMonthly(WorkerIdentifier userId, YearMonth month);

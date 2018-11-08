@@ -1,7 +1,7 @@
 package example.domain.type.date;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -10,6 +10,7 @@ import java.util.stream.IntStream;
 public class YearMonth {
     Year year;
     Month month;
+
     public YearMonth(Year year, Month month) {
         this.year = year;
         this.month = month;
@@ -20,9 +21,10 @@ public class YearMonth {
     }
 
     static Pattern yearMonthPattern = Pattern.compile("(\\d{4})-(\\d{1,2})");
+
     public YearMonth(String yearMonth) {
         Matcher m = yearMonthPattern.matcher(yearMonth);
-        if(m.matches()) {
+        if (m.matches()) {
             this.year = new Year(m.group(1));
             this.month = Month.of(m.group(2));
         } else {
@@ -30,8 +32,13 @@ public class YearMonth {
         }
     }
 
-    public Year year() { return year; }
-    public Month month() { return month;}
+    public Year year() {
+        return year;
+    }
+
+    public Month month() {
+        return month;
+    }
 
     public Date start() {
         return new Date(LocalDate.of(year().value(), month().value(), 1));
@@ -44,7 +51,7 @@ public class YearMonth {
 
     public List<Date> days() {
         IntStream intStream = IntStream.rangeClosed(start().dayOfMonth(), end().dayOfMonth());
-        return intStream.mapToObj(i -> new Date(start().value().plusDays((long)i -1 ))).collect(Collectors.toList());
+        return intStream.mapToObj(i -> new Date(start().value().plusDays((long) i - 1))).collect(Collectors.toList());
     }
 
     public String toString() {

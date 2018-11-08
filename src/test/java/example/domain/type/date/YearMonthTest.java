@@ -36,6 +36,6 @@ class YearMonthTest {
         List<Date> days = ym.days();
         assertAll(() -> assertEquals(times, days.size()),
                 () -> assertEquals(ym.start().value(), days.get(0).value()),
-                () -> assertEquals(ym.end().value(), days.get(times -1 ).value()));
+                () -> assertEquals(ym.end().value(), days.get(times - 1).value()));
     }
 }

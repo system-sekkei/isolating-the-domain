@@ -1,8 +1,8 @@
 package example.presentation.controller.worker;
 
 import example.application.service.WorkerService;
-import example.domain.model.worker.Worker;
 import example.domain.model.worker.UserCandidate;
+import example.domain.model.worker.Worker;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;

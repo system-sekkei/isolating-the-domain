@@ -20,5 +20,5 @@ public class HourTimeRange {
         int minutes = Math.toIntExact(difference);
         minutes = (minutes < 0) ? minutes + 24 * 60 : minutes;
         return HourAndMinute.from(new Minute(minutes));
-	}
+    }
 }

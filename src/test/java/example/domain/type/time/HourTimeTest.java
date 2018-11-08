@@ -3,9 +3,7 @@ package example.domain.type.time;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.time.format.DateTimeFormatter;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HourTimeTest {
     @Test
