@@ -17,19 +17,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class)
-class AttendanceServiceTest {
+class AttendanceRecordServiceTest {
     @Autowired
     UserService userService;
+    AttendanceRecordService sut;
     @Autowired
-    AttendanceService sut;
+    AttendanceQueryService attendanceQueryService;
 
     @Test
     void register() {
         UserIdentifier userId = userService.list().list().get(0).identifier();
         Date workDay = new Date("2099-10-20");
         AttendanceOfDay work = new AttendanceOfDay(workDay, new HourTime("9:00"), new HourTime("17:00"), new Minute(60));
+
         sut.registerWorkTime(userId, work);
-        AttendanceOfDay registeredAttendance = sut.findBy(userId, workDay);
+
+        AttendanceOfDay registeredAttendance = attendanceQueryService.findBy(userId, workDay);
         assertAll(() -> assertEquals(work.date().value(), registeredAttendance.date().value()),
                 () -> assertEquals(work.workTimeRange().start().toString(), registeredAttendance.workTimeRange().start().toString()),
                 () -> assertEquals(work.workTimeRange().end().toString(), registeredAttendance.workTimeRange().end().toString()),

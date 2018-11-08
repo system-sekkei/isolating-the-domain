@@ -9,18 +9,12 @@ import example.domain.type.date.YearMonth;
 import org.springframework.stereotype.Service;
 
 /**
- * 勤怠サービス
+ * 勤務時間参照サービス
  */
 @Service
-public class AttendanceService {
-    AttendanceRepository attendanceRepository;
+public class AttendanceQueryService {
 
-    /**
-     * 勤務時間登録
-     */
-    public void registerWorkTime(UserIdentifier userId, AttendanceOfDay work) {
-        attendanceRepository.registerWorkTime(userId, work);
-    }
+    AttendanceRepository attendanceRepository;
 
     /**
      * 日次勤務時間取得
@@ -36,7 +30,7 @@ public class AttendanceService {
         return attendanceRepository.findMonthly(userId, month);
     }
 
-    AttendanceService(AttendanceRepository attendanceRepository) {
+    AttendanceQueryService(AttendanceRepository attendanceRepository) {
         this.attendanceRepository = attendanceRepository;
     }
 }

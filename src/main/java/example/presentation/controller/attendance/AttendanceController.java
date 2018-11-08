@@ -1,6 +1,7 @@
 package example.presentation.controller.attendance;
 
-import example.application.service.AttendanceService;
+import example.application.service.AttendanceRecordService;
+import example.application.service.AttendanceQueryService;
 import example.application.service.UserService;
 import example.domain.model.attendance.AttendanceOfDay;
 import example.domain.model.attendance.AttendanceOfMonth;
@@ -26,11 +27,13 @@ import java.time.LocalDate;
 public class AttendanceController {
 
     UserService userService;
-    AttendanceService attendanceService;
+    AttendanceRecordService attendanceRecordService;
+    AttendanceQueryService attendanceQueryService;
 
-    public AttendanceController(UserService userService, AttendanceService attendanceService) {
+    public AttendanceController(UserService userService, AttendanceRecordService attendanceRecordService, AttendanceQueryService attendanceQueryService) {
         this.userService = userService;
-        this.attendanceService = attendanceService;
+        this.attendanceRecordService = attendanceRecordService;
+        this.attendanceQueryService = attendanceQueryService;
     }
 
     @GetMapping
@@ -43,7 +46,7 @@ public class AttendanceController {
     String register() {
         // TODO validation
 
-        attendanceService.registerWorkTime(
+        attendanceRecordService.registerWorkTime(
                 // TODO 入力から
                 new UserIdentifier("1"),
                 new AttendanceOfDay(
@@ -61,7 +64,7 @@ public class AttendanceController {
         User user = userService.findById(userIdentifier);
         model.addAttribute("user", user);
 
-        AttendanceOfMonth attendanceOfMonth = attendanceService.findMonthlyWorkTimes(user.identifier(), Date.now().yearMonth());
+        AttendanceOfMonth attendanceOfMonth = attendanceQueryService.findMonthlyWorkTimes(user.identifier(), Date.now().yearMonth());
         model.addAttribute("attendanceOfMonth", attendanceOfMonth);
         return "attendance/list";
     }
