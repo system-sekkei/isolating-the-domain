@@ -3,7 +3,7 @@ package example.application.service;
 import example.Application;
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.attendance.AttendanceRecordService;
-import example.application.service.worker.WorkerService;
+import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.AttendanceOfDay;
 import example.domain.model.worker.WorkerIdentifier;
 import example.domain.type.date.Date;
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(classes = Application.class)
 class AttendanceRecordServiceTest {
     @Autowired
-    WorkerService workerService;
+    WorkerQueryService workerQueryService;
     @Autowired
     AttendanceRecordService sut;
     @Autowired
@@ -30,7 +30,7 @@ class AttendanceRecordServiceTest {
 
     @Test
     void register() {
-        WorkerIdentifier userId = workerService.list().list().get(0).identifier();
+        WorkerIdentifier userId = workerQueryService.list().list().get(0).identifier();
         Date workDay = new Date("2099-10-20");
         AttendanceOfDay work = new AttendanceOfDay(workDay, new HourTime("9:00"), new HourTime("17:00"), new Minute(60));
 

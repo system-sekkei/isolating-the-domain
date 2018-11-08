@@ -2,7 +2,7 @@ package example.presentation.controller.attendance;
 
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.attendance.AttendanceRecordService;
-import example.application.service.worker.WorkerService;
+import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.AttendanceOfDay;
 import example.domain.model.attendance.AttendanceOfMonth;
 import example.domain.model.worker.Worker;
@@ -26,12 +26,12 @@ import java.time.LocalDate;
 @RequestMapping("attendance")
 public class AttendanceController {
 
-    WorkerService workerService;
+    WorkerQueryService workerQueryService;
     AttendanceRecordService attendanceRecordService;
     AttendanceQueryService attendanceQueryService;
 
-    public AttendanceController(WorkerService workerService, AttendanceRecordService attendanceRecordService, AttendanceQueryService attendanceQueryService) {
-        this.workerService = workerService;
+    public AttendanceController(WorkerQueryService workerQueryService, AttendanceRecordService attendanceRecordService, AttendanceQueryService attendanceQueryService) {
+        this.workerQueryService = workerQueryService;
         this.attendanceRecordService = attendanceRecordService;
         this.attendanceQueryService = attendanceQueryService;
     }
@@ -59,9 +59,9 @@ public class AttendanceController {
         return "redirect:/";
     }
 
-    @GetMapping("{userId}/list")
-    String list(Model model, @PathVariable("userId") WorkerIdentifier workerIdentifier) {
-        Worker worker = workerService.findById(workerIdentifier);
+    @GetMapping("{workerIdentifier}/list")
+    String list(Model model, @PathVariable("workerIdentifier") WorkerIdentifier workerIdentifier) {
+        Worker worker = workerQueryService.findById(workerIdentifier);
         model.addAttribute("worker", worker);
 
         AttendanceOfMonth attendanceOfMonth = attendanceQueryService.findMonthlyWorkTimes(worker.identifier(), Date.now().yearMonth());

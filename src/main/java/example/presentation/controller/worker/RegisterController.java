@@ -1,6 +1,6 @@
 package example.presentation.controller.worker;
 
-import example.application.service.worker.WorkerService;
+import example.application.service.worker.WorkerRecordService;
 import example.domain.model.worker.UserCandidate;
 import example.domain.model.worker.Worker;
 import org.springframework.stereotype.Controller;
@@ -30,7 +30,7 @@ class RegisterController {
         binder.setAllowedFields(accept);
     }
 
-    WorkerService workerService;
+    WorkerRecordService workerRecordService;
 
     @GetMapping(value = "")
     String clearSessionAtStart(SessionStatus sessionStatus) {
@@ -62,7 +62,7 @@ class RegisterController {
     String registerThenRedirectAndClearSession(
             @ModelAttribute("worker") UserCandidate worker,
             SessionStatus status, RedirectAttributes attributes) {
-        Worker registerdWorker = workerService.register(worker);
+        Worker registerdWorker = workerRecordService.register(worker);
         status.setComplete();
 
         attributes.addAttribute("name", registerdWorker.name().toString());
@@ -80,7 +80,7 @@ class RegisterController {
         return "worker/register/result";
     }
 
-    RegisterController(WorkerService workerService) {
-        this.workerService = workerService;
+    RegisterController(WorkerRecordService workerRecordService) {
+        this.workerRecordService = workerRecordService;
     }
 }

@@ -1,6 +1,7 @@
 package example.presentation.controller.worker;
 
-import example.application.service.worker.WorkerService;
+import example.application.service.worker.WorkerQueryService;
+import example.application.service.worker.WorkerRecordService;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerIdentifier;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,8 @@ class UpdateController {
         binder.setAllowedFields(allowFields);
     }
 
-    WorkerService workerService;
+    WorkerQueryService workerQueryService;
+    WorkerRecordService workerRecordService;
 
     @GetMapping("")
     String clearSessionAtStart(@PathVariable(value = "workerIdentifier") WorkerIdentifier workerIdentifier,
@@ -41,7 +43,7 @@ class UpdateController {
     @GetMapping(value = "input")
     String formToEdit(@PathVariable(value = "workerIdentifier") WorkerIdentifier workerIdentifier,
                       Model model) {
-        Worker worker = workerService.findById(workerIdentifier);
+        Worker worker = workerQueryService.findById(workerIdentifier);
         model.addAttribute("worker", worker);
         return "worker/update/form";
     }
@@ -63,9 +65,9 @@ class UpdateController {
     String registerThenRedirect(@ModelAttribute Worker worker,
                                 SessionStatus status,
                                 RedirectAttributes attributes) {
-        workerService.updateName(worker.identifier(), worker.name());
-        workerService.updateMailAddress(worker.identifier(), worker.mailAddress());
-        workerService.updatePhoneNumber(worker.identifier(), worker.phoneNumber());
+        workerRecordService.updateName(worker.identifier(), worker.name());
+        workerRecordService.updateMailAddress(worker.identifier(), worker.mailAddress());
+        workerRecordService.updatePhoneNumber(worker.identifier(), worker.phoneNumber());
         status.setComplete();
 
         attributes.addAttribute("name", worker.name().toString());
@@ -83,7 +85,8 @@ class UpdateController {
         return "worker/update/result";
     }
 
-    UpdateController(WorkerService workerService) {
-        this.workerService = workerService;
+    UpdateController(WorkerRecordService workerRecordService, WorkerQueryService workerQueryService) {
+        this.workerRecordService = workerRecordService;
+        this.workerQueryService = workerQueryService;
     }
 }
