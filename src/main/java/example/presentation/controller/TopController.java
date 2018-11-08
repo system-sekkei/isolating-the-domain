@@ -1,7 +1,7 @@
 package example.presentation.controller;
 
-import example.application.service.UserService;
-import example.domain.model.user.Users;
+import example.application.service.WorkerService;
+import example.domain.model.worker.Workers;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 class TopController {
-    UserService userService;
+    WorkerService workerService;
 
     @ModelAttribute("users")
-    Users users() {
-        return userService.list();
+    Workers users() {
+        return workerService.list();
     }
 
     @GetMapping
@@ -22,7 +22,7 @@ class TopController {
         return "top";
     }
 
-    TopController(UserService userService) {
-        this.userService = userService;
+    TopController(WorkerService workerService) {
+        this.workerService = workerService;
     }
 }

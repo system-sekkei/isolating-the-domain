@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
+  <title>従業員削除の完了</title>
+</head>
+<body>
+<div class="ui container">
+  <div class="ui basic segment">
+    <h1 class="ui center aligned header">従業員削除の完了</h1>
+  </div>
+  
+  <div class="userInput">
+    <div class="ui info message segment">
+      <p th:text="${name} + さんを削除しました。">削除しました。</p>
+    </div>
+  </div>
+
+  <div class="ui center aligned basic segment">
+    <a class="ui positive button"
+       th:href="@{/}">従業員一覧へ</a>
+  </div>
+</div>
+
+</body>
+</html>

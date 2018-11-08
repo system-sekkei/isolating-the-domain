@@ -1,6 +1,6 @@
 package example.domain.model.attendance;
 
-import example.domain.model.user.UserIdentifier;
+import example.domain.model.worker.WorkerIdentifier;
 import example.domain.type.date.Date;
 import example.domain.type.date.YearMonth;
 
@@ -8,8 +8,8 @@ import example.domain.type.date.YearMonth;
  * 勤怠リポジトリ
  */
 public interface AttendanceRepository {
-    void registerWorkTime(UserIdentifier userId, AttendanceOfDay work);
-    AttendanceOfDay findBy(UserIdentifier userId, Date workDay);
+    void registerWorkTime(WorkerIdentifier userId, AttendanceOfDay work);
+    AttendanceOfDay findBy(WorkerIdentifier userId, Date workDay);
 
-    AttendanceOfMonth findMonthly(UserIdentifier userId, YearMonth month);
+    AttendanceOfMonth findMonthly(WorkerIdentifier userId, YearMonth month);
 }

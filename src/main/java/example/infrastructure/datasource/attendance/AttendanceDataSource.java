@@ -3,7 +3,7 @@ package example.infrastructure.datasource.attendance;
 import example.domain.model.attendance.AttendanceOfDay;
 import example.domain.model.attendance.AttendanceOfMonth;
 import example.domain.model.attendance.AttendanceRepository;
-import example.domain.model.user.UserIdentifier;
+import example.domain.model.worker.WorkerIdentifier;
 import example.domain.type.date.Date;
 import example.domain.type.date.YearMonth;
 import org.springframework.stereotype.Repository;
@@ -15,7 +15,7 @@ public class AttendanceDataSource implements AttendanceRepository {
     AttendanceMapper mapper;
 
     @Override
-    public void registerWorkTime(UserIdentifier userId, AttendanceOfDay work) {
+    public void registerWorkTime(WorkerIdentifier userId, AttendanceOfDay work) {
         Long identifier = mapper.newWorkTimeIdentifier();
         mapper.registerWorkTime(identifier, userId, work);
         mapper.deleteWorkTimeMapper(userId, work.date());
@@ -23,13 +23,13 @@ public class AttendanceDataSource implements AttendanceRepository {
     }
 
     @Override
-    public AttendanceOfDay findBy(UserIdentifier userId, Date workDay) {
+    public AttendanceOfDay findBy(WorkerIdentifier userId, Date workDay) {
         AttendanceOfDay ret = mapper.findBy(userId, workDay);
         return (ret == null) ? new AttendanceOfDay(workDay) : ret;
     }
 
     @Override
-    public AttendanceOfMonth findMonthly(UserIdentifier userId, YearMonth month) {
+    public AttendanceOfMonth findMonthly(WorkerIdentifier userId, YearMonth month) {
         return new AttendanceOfMonth(month, month.days().stream()
                 .map(day -> findBy(userId, day)).collect(Collectors.toList()));
     }

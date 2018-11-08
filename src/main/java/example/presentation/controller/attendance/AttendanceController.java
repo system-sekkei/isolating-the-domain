@@ -2,11 +2,11 @@ package example.presentation.controller.attendance;
 
 import example.application.service.AttendanceRecordService;
 import example.application.service.AttendanceQueryService;
-import example.application.service.UserService;
+import example.application.service.WorkerService;
 import example.domain.model.attendance.AttendanceOfDay;
 import example.domain.model.attendance.AttendanceOfMonth;
-import example.domain.model.user.User;
-import example.domain.model.user.UserIdentifier;
+import example.domain.model.worker.Worker;
+import example.domain.model.worker.WorkerIdentifier;
 import example.domain.type.date.Date;
 import example.domain.type.time.HourTime;
 import example.domain.type.time.Minute;
@@ -26,12 +26,12 @@ import java.time.LocalDate;
 @RequestMapping("attendance")
 public class AttendanceController {
 
-    UserService userService;
+    WorkerService workerService;
     AttendanceRecordService attendanceRecordService;
     AttendanceQueryService attendanceQueryService;
 
-    public AttendanceController(UserService userService, AttendanceRecordService attendanceRecordService, AttendanceQueryService attendanceQueryService) {
-        this.userService = userService;
+    public AttendanceController(WorkerService workerService, AttendanceRecordService attendanceRecordService, AttendanceQueryService attendanceQueryService) {
+        this.workerService = workerService;
         this.attendanceRecordService = attendanceRecordService;
         this.attendanceQueryService = attendanceQueryService;
     }
@@ -48,7 +48,7 @@ public class AttendanceController {
 
         attendanceRecordService.registerWorkTime(
                 // TODO 入力から
-                new UserIdentifier("1"),
+                new WorkerIdentifier("1"),
                 new AttendanceOfDay(
                         new Date(LocalDate.now()),
                         new HourTime("09:00"),
@@ -60,11 +60,11 @@ public class AttendanceController {
     }
 
     @GetMapping("{userId}/list")
-    String list(Model model, @PathVariable("userId") UserIdentifier userIdentifier) {
-        User user = userService.findById(userIdentifier);
-        model.addAttribute("user", user);
+    String list(Model model, @PathVariable("userId") WorkerIdentifier workerIdentifier) {
+        Worker worker = workerService.findById(workerIdentifier);
+        model.addAttribute("worker", worker);
 
-        AttendanceOfMonth attendanceOfMonth = attendanceQueryService.findMonthlyWorkTimes(user.identifier(), Date.now().yearMonth());
+        AttendanceOfMonth attendanceOfMonth = attendanceQueryService.findMonthlyWorkTimes(worker.identifier(), Date.now().yearMonth());
         model.addAttribute("attendanceOfMonth", attendanceOfMonth);
         return "attendance/list";
     }

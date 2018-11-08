@@ -2,7 +2,7 @@ package example.application.service;
 
 import example.Application;
 import example.domain.model.attendance.AttendanceOfDay;
-import example.domain.model.user.UserIdentifier;
+import example.domain.model.worker.WorkerIdentifier;
 import example.domain.type.date.Date;
 import example.domain.type.time.HourTime;
 import example.domain.type.time.Minute;
@@ -19,14 +19,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(classes = Application.class)
 class AttendanceRecordServiceTest {
     @Autowired
-    UserService userService;
+    WorkerService workerService;
     AttendanceRecordService sut;
     @Autowired
     AttendanceQueryService attendanceQueryService;
 
     @Test
     void register() {
-        UserIdentifier userId = userService.list().list().get(0).identifier();
+        WorkerIdentifier userId = workerService.list().list().get(0).identifier();
         Date workDay = new Date("2099-10-20");
         AttendanceOfDay work = new AttendanceOfDay(workDay, new HourTime("9:00"), new HourTime("17:00"), new Minute(60));
 
