@@ -1,6 +1,6 @@
 package example.presentation.controller;
 
-import example.application.service.WorkerService;
+import example.application.service.worker.WorkerService;
 import example.domain.model.worker.Workers;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

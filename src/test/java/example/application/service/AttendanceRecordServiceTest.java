@@ -1,6 +1,9 @@
 package example.application.service;
 
 import example.Application;
+import example.application.service.attendance.AttendanceQueryService;
+import example.application.service.attendance.AttendanceRecordService;
+import example.application.service.worker.WorkerService;
 import example.domain.model.attendance.AttendanceOfDay;
 import example.domain.model.worker.WorkerIdentifier;
 import example.domain.type.date.Date;

@@ -1,6 +1,7 @@
 package example.application.service;
 
 import example.Application;
+import example.application.service.worker.WorkerService;
 import example.domain.model.worker.*;
 import example.infrastructure.datasource.worker.WorkerNotFoundException;
 import org.junit.jupiter.api.Test;

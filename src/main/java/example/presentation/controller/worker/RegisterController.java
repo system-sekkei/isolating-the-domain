@@ -1,6 +1,6 @@
 package example.presentation.controller.worker;
 
-import example.application.service.WorkerService;
+import example.application.service.worker.WorkerService;
 import example.domain.model.worker.UserCandidate;
 import example.domain.model.worker.Worker;
 import org.springframework.stereotype.Controller;

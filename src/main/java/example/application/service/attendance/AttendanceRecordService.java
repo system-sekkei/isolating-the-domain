@@ -1,4 +1,4 @@
-package example.application.service;
+package example.application.service.attendance;
 
 import example.domain.model.attendance.AttendanceOfDay;
 import example.domain.model.attendance.AttendanceRepository;

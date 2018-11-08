@@ -1,4 +1,4 @@
-package example.application.service;
+package example.application.service.worker;
 
 import example.domain.model.worker.*;
 import org.springframework.stereotype.Service;
