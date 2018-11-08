@@ -1,8 +1,9 @@
 package example.presentation.controller.worker;
 
 import example.application.service.worker.WorkerRecordService;
-import example.domain.model.worker.UserCandidate;
-import example.domain.model.worker.Worker;
+import example.domain.model.worker.Name;
+import example.domain.model.worker.WorkerIdentifier;
+import example.presentation.view.NewWorker;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("worker/register")
-@SessionAttributes({"worker"})
+@SessionAttributes({"newWorker"})
 class RegisterController {
 
     private static final String[] accept =
@@ -40,8 +41,8 @@ class RegisterController {
 
     @GetMapping(value = "input")
     String showForm(Model model) {
-        UserCandidate worker = new UserCandidate();
-        model.addAttribute("worker", worker);
+        NewWorker newWorker = new NewWorker();
+        model.addAttribute("newWorker", newWorker);
         return "worker/register/form";
     }
 
@@ -51,7 +52,7 @@ class RegisterController {
     }
 
     @PostMapping(value = "confirm")
-    String validate(@Validated @ModelAttribute("worker") UserCandidate worker,
+    String validate(@Validated @ModelAttribute("newWorker") NewWorker newWorker,
                     BindingResult result) {
         if (result.hasErrors()) return "worker/register/form";
 
@@ -60,13 +61,14 @@ class RegisterController {
 
     @GetMapping(value = "register")
     String registerThenRedirectAndClearSession(
-            @ModelAttribute("worker") UserCandidate worker,
+            @ModelAttribute("newWorker") NewWorker newWorker,
             SessionStatus status, RedirectAttributes attributes) {
-        Worker registerdWorker = workerRecordService.register(worker);
+        Name name = newWorker.name();
+        WorkerIdentifier workerIdentifier = workerRecordService.register(name, newWorker.mailAddress(), newWorker.phoneNumber());
         status.setComplete();
 
-        attributes.addAttribute("name", registerdWorker.name().toString());
-        attributes.addAttribute("id", registerdWorker.identifier().toString());
+        attributes.addAttribute("name", name);
+        attributes.addAttribute("id", workerIdentifier);
 
         return "redirect:/worker/register/completed";
     }

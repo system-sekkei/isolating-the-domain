@@ -8,8 +8,6 @@ public interface WorkerRepository {
 
     Workers list();
 
-    Worker register(UserCandidate user);
-
     void updateName(WorkerIdentifier identifier, Name name);
 
     void updateMailAddress(WorkerIdentifier identifier, MailAddress mailAddress);
@@ -17,4 +15,6 @@ public interface WorkerRepository {
     void updatePhoneNumber(WorkerIdentifier identifier, PhoneNumber phoneNumber);
 
     void delete(Worker worker);
+
+    WorkerIdentifier registerNew();
 }

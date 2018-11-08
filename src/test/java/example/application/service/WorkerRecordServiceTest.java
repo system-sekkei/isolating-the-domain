@@ -45,13 +45,12 @@ class WorkerRecordServiceTest {
         Name name = new Name("Eiji Yamane");
         PhoneNumber phoneNumber = new PhoneNumber("090-6559-1234");
         MailAddress mailAddress = new MailAddress("hogehoge_hogeo@example.com");
-        UserCandidate user = new UserCandidate(name, mailAddress, phoneNumber);
-        Worker registeredWorker = sut.register(user);
-        Worker foundWorker = query.findById(registeredWorker.identifier());
+        WorkerIdentifier workerIdentifier = sut.register(name, mailAddress, phoneNumber);
+        Worker foundWorker = query.findById(workerIdentifier);
         assertAll(
-                () -> assertEquals(foundWorker.name().toString(), user.name().toString()),
-                () -> assertEquals(foundWorker.phoneNumber().toString(), user.phoneNumber().toString()),
-                () -> assertEquals(foundWorker.mailAddress().toString(), user.mailAddress().toString())
+                () -> assertEquals(foundWorker.name().toString(), name.toString()),
+                () -> assertEquals(foundWorker.phoneNumber().toString(), phoneNumber.toString()),
+                () -> assertEquals(foundWorker.mailAddress().toString(), mailAddress.toString())
         );
         sut.delete(foundWorker);
 

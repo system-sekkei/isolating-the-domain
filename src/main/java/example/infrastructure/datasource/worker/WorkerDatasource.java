@@ -22,13 +22,10 @@ public class WorkerDatasource implements WorkerRepository {
     }
 
     @Override
-    public Worker register(UserCandidate userCandidate) {
+    public WorkerIdentifier registerNew() {
         WorkerIdentifier workerIdentifier = new WorkerIdentifier(mapper.newWorkerIdentifier());
         mapper.registerWorker(workerIdentifier);
-        updateName(workerIdentifier, userCandidate.name());
-        updateMailAddress(workerIdentifier, userCandidate.mailAddress());
-        updatePhoneNumber(workerIdentifier, userCandidate.phoneNumber());
-        return findBy(workerIdentifier);
+        return workerIdentifier;
     }
 
     @Override
