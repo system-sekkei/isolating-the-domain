@@ -2,6 +2,7 @@ package example.application.service;
 
 import example.Application;
 import example.domain.model.worker.*;
+import example.infrastructure.datasource.worker.WorkerNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ class WorkerServiceTest {
         );
         sut.delete(foundWorker);
 
-        assertThrows(UserNotFoundException.class,
+        assertThrows(WorkerNotFoundException.class,
                 () -> sut.findById((foundWorker.identifier())));
     }
 }

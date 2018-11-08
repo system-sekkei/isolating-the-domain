@@ -11,7 +11,7 @@ public class WorkerDatasource implements WorkerRepository {
     public Worker findBy(WorkerIdentifier id) {
         Worker worker = mapper.findBy(id);
         if (worker == null) {
-            throw new UserNotFoundException();
+            throw new WorkerNotFoundException();
         }
         return worker;
     }
