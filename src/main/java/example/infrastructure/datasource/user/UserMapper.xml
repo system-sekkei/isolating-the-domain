@@ -8,9 +8,7 @@
         <id property="identifier.value" column="ユーザーID"/>
         <result property="name.value" column="ユーザー名"/>
         <result property="mailAddress.value" column="メールアドレス"/>
-        <result property="dateOfBirth.value" column="誕生日"/>
         <result property="phoneNumber.value" column="電話番号"/>
-        <result property="gender.value" column="性別"/>
     </resultMap>
 
     <select id="findBy" resultMap="user">
@@ -18,9 +16,7 @@
             ユーザー.ユーザーID,
             ユーザー名.ユーザー名,
             ユーザーメールアドレス.メールアドレス,
-            ユーザー誕生日.誕生日,
-            ユーザー電話番号.電話番号,
-            ユーザー性別.性別
+            ユーザー電話番号.電話番号
         FROM 給与.ユーザー as ユーザー
           INNER JOIN 給与.ユーザー名対応表 as ユーザー名対応表 on (
             ユーザー.ユーザーID = ユーザー名対応表.ユーザーID
@@ -34,14 +30,6 @@
             ユーザー.ユーザーID = ユーザーメールアドレス対応表.ユーザーID
           ) INNER JOIN 給与.ユーザーメールアドレス as ユーザーメールアドレス on (
             ユーザーメールアドレス対応表.ユーザーメールアドレスID = ユーザーメールアドレス.ユーザーメールアドレスID
-          ) INNER JOIN 給与.ユーザー誕生日対応表 as ユーザー誕生日対応表 on ( 
-            ユーザー.ユーザーID = ユーザー誕生日対応表.ユーザーID
-          ) INNER JOIN 給与.ユーザー誕生日 as ユーザー誕生日 on (
-            ユーザー誕生日対応表.ユーザー誕生日ID = ユーザー誕生日.ユーザー誕生日ID
-          ) INNER JOIN 給与.ユーザー性別対応表 as ユーザー性別対応表 on ( 
-            ユーザー.ユーザーID = ユーザー性別対応表.ユーザーID
-          ) INNER JOIN 給与.ユーザー性別 as ユーザー性別 on (
-            ユーザー性別対応表.ユーザー性別ID = ユーザー性別.ユーザー性別ID
           ) LEFT OUTER JOIN 給与.削除済みユーザー as 削除済みユーザー on (
             ユーザー.ユーザーID = 削除済みユーザー.ユーザーID
           )
@@ -53,9 +41,7 @@
             ユーザー.ユーザーID,
             ユーザー名.ユーザー名,
             ユーザーメールアドレス.メールアドレス,
-            ユーザー誕生日.誕生日,
-            ユーザー電話番号.電話番号,
-            ユーザー性別.性別
+            ユーザー電話番号.電話番号
         FROM 給与.ユーザー as ユーザー
           INNER JOIN 給与.ユーザー名対応表 as ユーザー名対応表 on (
             ユーザー.ユーザーID = ユーザー名対応表.ユーザーID
@@ -69,14 +55,6 @@
             ユーザー.ユーザーID = ユーザーメールアドレス対応表.ユーザーID
           ) INNER JOIN 給与.ユーザーメールアドレス as ユーザーメールアドレス on (
             ユーザーメールアドレス対応表.ユーザーメールアドレスID = ユーザーメールアドレス.ユーザーメールアドレスID
-          ) INNER JOIN 給与.ユーザー誕生日対応表 as ユーザー誕生日対応表 on (
-            ユーザー.ユーザーID = ユーザー誕生日対応表.ユーザーID
-          ) INNER JOIN 給与.ユーザー誕生日 as ユーザー誕生日 on (
-            ユーザー誕生日対応表.ユーザー誕生日ID = ユーザー誕生日.ユーザー誕生日ID
-          ) INNER JOIN 給与.ユーザー性別対応表 as ユーザー性別対応表 on (
-            ユーザー.ユーザーID = ユーザー性別対応表.ユーザーID
-          ) INNER JOIN 給与.ユーザー性別 as ユーザー性別 on (
-            ユーザー性別対応表.ユーザー性別ID = ユーザー性別.ユーザー性別ID
           ) LEFT OUTER JOIN 給与.削除済みユーザー as 削除済みユーザー on (
             ユーザー.ユーザーID = 削除済みユーザー.ユーザーID
           )
@@ -130,32 +108,6 @@
         VALUES (#{userId.value}, #{mailAddressId});
 	</insert>
 
-    <select id="newUserDateOfBirthIdentifier" resultType="Long">
-        select nextval('給与.ユーザー誕生日IDシーケンサー')
-    </select>
-    <insert id="registerDateOfBirth">
-        INSERT INTO 給与.ユーザー誕生日 (ユーザー誕生日ID, ユーザーID, 誕生日, 登録日時)
-        VALUES (#{id}, #{userId.value}, #{dateOfBirth.value}, now());
-	</insert>
-	
-    <insert id="registerDateOfBirthMapper">
-        INSERT INTO 給与.ユーザー誕生日対応表 (ユーザーID, ユーザー誕生日ID)
-        VALUES (#{userId.value}, #{dateOfBirthId});
-	</insert>
-
-    <select id="newUserGenderIdentifier" resultType="Long">
-        select nextval('給与.ユーザー性別IDシーケンサー')
-    </select>
-    <insert id="registerGender">
-        INSERT INTO 給与.ユーザー性別 (ユーザー性別ID, ユーザーID, 性別, 登録日時)
-        VALUES (#{id}, #{userId.value}, #{gender.value}, now());
-	</insert>
-	
-    <insert id="registerGenderMapper">
-        INSERT INTO 給与.ユーザー性別対応表 (ユーザーID, ユーザー性別ID)
-        VALUES (#{userId.value}, #{genderId});
-	</insert>
-	
     <delete id="deleteNameMapper">
     	DELETE FROM 給与.ユーザー名対応表 WHERE ユーザーID = #{userId.value} 
 	</delete>
@@ -164,16 +116,8 @@
     	DELETE FROM 給与.ユーザー電話番号対応表 WHERE ユーザーID = #{userId.value} 
 	</delete>
 
-    <delete id="deleteDateOfBirthMapper">
-    	DELETE FROM 給与.ユーザー誕生日対応表 WHERE ユーザーID = #{userId.value} 
-	</delete>
-
     <delete id="deleteMailAddressMapper">
     	DELETE FROM 給与.ユーザーメールアドレス対応表 WHERE ユーザーID = #{userId.value} 
-	</delete>
-
-    <delete id="deleteGenderMapper">
-    	DELETE FROM 給与.ユーザー性別対応表 WHERE ユーザーID = #{userId.value} 
 	</delete>
 
     <insert id="delete">

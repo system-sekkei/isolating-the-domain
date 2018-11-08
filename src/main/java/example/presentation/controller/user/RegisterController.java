@@ -1,7 +1,6 @@
 package example.presentation.controller.user;
 
 import example.application.service.UserService;
-import example.domain.type.gender.GenderType;
 import example.domain.model.user.User;
 import example.domain.model.user.UserCandidate;
 import org.springframework.stereotype.Controller;
@@ -23,8 +22,6 @@ class RegisterController {
             {
                     "name.value",
                     "mailAddress.value",
-                    "dateOfBirth.value",
-                    "gender.value",
                     "phoneNumber.value",
             };
 
@@ -34,11 +31,6 @@ class RegisterController {
     }
 
     UserService userService;
-
-    @ModelAttribute("genderTypes")
-    GenderType[] addGendersToModel() {
-        return GenderType.values();
-    }
 
     @GetMapping(value = "")
     String clearSessionAtStart(SessionStatus sessionStatus) {

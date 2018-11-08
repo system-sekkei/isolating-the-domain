@@ -25,24 +25,6 @@ CREATE TABLE 給与.ユーザー名対応表 (
       REFERENCES  給与.ユーザー名(ユーザー名ID)
 );
 
-CREATE TABLE 給与.ユーザー誕生日 (
-  ユーザー誕生日ID BIGINT PRIMARY KEY,
-  ユーザーID  BIGINT NOT NULL,
-  誕生日 DATE NOT NULL,
-  登録日時 TIMESTAMP NOT NULL
-    ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
-);
-CREATE SEQUENCE 給与.ユーザー誕生日IDシーケンサー;
-
-CREATE TABLE 給与.ユーザー誕生日対応表 (
-  ユーザーID  BIGINT NOT NULL,
-  ユーザー誕生日ID BIGINT NOT NULL,
-    PRIMARY KEY (ユーザーID, ユーザー誕生日ID)
-    ,FOREIGN KEY (ユーザーID) REFERENCES  給与.ユーザー(ユーザーID)
-    ,FOREIGN KEY (ユーザー誕生日ID) 
-      REFERENCES  給与.ユーザー誕生日対応表(ユーザー誕生日ID)
-);
-
 CREATE TABLE 給与.ユーザー電話番号 (
   ユーザー電話番号ID BIGINT PRIMARY KEY,
   ユーザーID  BIGINT NOT NULL,
@@ -78,24 +60,6 @@ CREATE TABLE 給与.ユーザーメールアドレス対応表 (
     ,FOREIGN KEY (ユーザーID) REFERENCES  給与.ユーザー(ユーザーID)
     ,FOREIGN KEY (ユーザーメールアドレスID) 
       REFERENCES  給与.ユーザーメールアドレス対応表(ユーザーメールアドレスID)
-);
-
-CREATE TABLE 給与.ユーザー性別 (
-  ユーザー性別ID BIGINT PRIMARY KEY,
-  ユーザーID  BIGINT NOT NULL,
-  性別 CHAR(2) NOT NULL,
-  登録日時 TIMESTAMP NOT NULL
-    ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
-);
-CREATE SEQUENCE 給与.ユーザー性別IDシーケンサー;
-
-CREATE TABLE 給与.ユーザー性別対応表 (
-  ユーザーID BIGINT NOT NULL,
-  ユーザー性別ID BIGINT NOT NULL,
-    PRIMARY KEY (ユーザーID, ユーザー性別ID)
-    ,FOREIGN KEY (ユーザーID) REFERENCES  給与.ユーザー(ユーザーID)
-    ,FOREIGN KEY (ユーザー性別ID) 
-      REFERENCES  給与.ユーザー性別対応表(ユーザー性別ID)
 );
 
 CREATE TABLE 給与.削除済みユーザー (

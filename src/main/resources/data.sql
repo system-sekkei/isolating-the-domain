@@ -62,33 +62,6 @@ values
  (6, 6)
  ;
  
- -- 誕生日
- INSERT INTO 給与.ユーザー誕生日
- (ユーザー誕生日ID, ユーザーID, 登録日時, 誕生日)
- values
- (1, 1, now(), '1988-01-01'),
- (2, 2, now(), '1988-03-03'),
- (3, 3, now(), '1988-05-05'),
- (4, 4, now(), '1988-07-07'),
- (5, 5, now(), '1988-09-09'),
- (6, 6, now(), '1988-12-31')
- ;
- INSERT INTO 給与.ユーザー誕生日
- (ユーザー誕生日ID, ユーザーID, 登録日時, 誕生日)
- values(7, 1, now(), '1988-02-29')
- ;
- 
- INSERT INTO 給与.ユーザー誕生日対応表
- (ユーザーID, ユーザー誕生日ID)
-values
- (1, 7),
- (2, 2),
- (3, 3),
- (4, 4),
- (5, 5),
- (6, 6)
- ;
- 
  -- メールアドレス
  INSERT INTO 給与.ユーザーメールアドレス
  (ユーザーメールアドレスID, ユーザーID, 登録日時, メールアドレス)
@@ -116,36 +89,7 @@ values
  (6, 6)
  ;
 
- -- 性別
-  INSERT INTO 給与.ユーザー性別
- (ユーザー性別ID, ユーザーID, 登録日時,性別)
- values
- (1, 1, now(), '男性'),
- (2, 2, now(), '女性'),
- (3, 3, now(), '男性'),
- (4, 4, now(), '男性'),
- (5, 5, now(), '女性'),
- (6, 6, now(), '女性')
- ;
- INSERT INTO 給与.ユーザー性別
- (ユーザー性別ID, ユーザーID, 登録日時, 性別)
- values(7, 1, now(), '不明')
- ;
- 
- INSERT INTO 給与.ユーザー性別対応表
- (ユーザーID, ユーザー性別ID)
-values
- (1, 7),
- (2, 2),
- (3, 3),
- (4, 4),
- (5, 5),
- (6, 6)
- ;
-
 ALTER SEQUENCE 給与.ユーザーIDシーケンサー RESTART WITH 100;
 ALTER SEQUENCE 給与.ユーザー名IDシーケンサー RESTART WITH 100;
-ALTER SEQUENCE 給与.ユーザー誕生日IDシーケンサー RESTART WITH 100;
 ALTER SEQUENCE 給与.ユーザー電話番号IDシーケンサー RESTART WITH 100;
 ALTER SEQUENCE 給与.ユーザーメールアドレスIDシーケンサー RESTART WITH 100;
-ALTER SEQUENCE 給与.ユーザー性別IDシーケンサー RESTART WITH 100;

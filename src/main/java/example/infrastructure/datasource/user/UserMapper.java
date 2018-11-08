@@ -1,8 +1,6 @@
 package example.infrastructure.datasource.user;
 
 import example.domain.model.user.*;
-import example.domain.type.age.DateOfBirth;
-import example.domain.type.gender.Gender;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -35,18 +33,6 @@ public interface UserMapper {
 
     void registerMailAddressMapper(@Param("userId") UserIdentifier userId, @Param("mailAddressId") Long mailAddressId);
 
-    void deleteDateOfBirthMapper(@Param("userId") UserIdentifier userId);
-
-    void registerDateOfBirth(@Param("id") Long id, @Param("userId") UserIdentifier userId, @Param("dateOfBirth") DateOfBirth dateOfBirth);
-
-    void registerDateOfBirthMapper(@Param("userId") UserIdentifier userId, @Param("dateOfBirthId") Long dateOfBirthId);
-
-    void deleteGenderMapper(@Param("userId") UserIdentifier userId);
-
-    void registerGender(@Param("id") Long id, @Param("userId") UserIdentifier userId, @Param("gender") Gender gender);
-
-    void registerGenderMapper(@Param("userId") UserIdentifier userId, @Param("genderId") Long genderId);
-
     void delete(@Param("user") User user);
 
     long newUserIdentifier();
@@ -56,8 +42,4 @@ public interface UserMapper {
     long newUserPhoneNumberIdentifier();
 
     long newUserMailAddressIdentifier();
-
-    long newUserDateOfBirthIdentifier();
-
-    long newUserGenderIdentifier();
 }

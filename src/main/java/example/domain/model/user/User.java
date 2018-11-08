@@ -1,9 +1,5 @@
 package example.domain.model.user;
 
-import example.domain.type.age.Age;
-import example.domain.type.age.DateOfBirth;
-import example.domain.type.gender.Gender;
-
 import javax.validation.Valid;
 
 /**
@@ -20,20 +16,12 @@ public class User {
     MailAddress mailAddress;
 
     @Valid
-    DateOfBirth dateOfBirth;
-
-    @Valid
-    Gender gender;
-
-    @Valid
     PhoneNumber phoneNumber;
 
     public User() {
         identifier = new UserIdentifier();
         name = new Name();
         mailAddress = new MailAddress();
-        dateOfBirth = new DateOfBirth();
-        gender = new Gender();
         phoneNumber = new PhoneNumber();
     }
 
@@ -43,18 +31,6 @@ public class User {
 
     public Name name() {
         return name;
-    }
-
-    public DateOfBirth dateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public Age age() {
-        return dateOfBirth.age();
-    }
-
-    public Gender gender() {
-        return gender;
     }
 
     public PhoneNumber phoneNumber() {
@@ -70,9 +46,7 @@ public class User {
         return "User{" +
                 "identifier=" + identifier +
                 ", name=" + name +
-                ", dateOfBirth=" + dateOfBirth +
                 ", phoneNumber=" + phoneNumber +
-                ", gender=" + gender +
                 ", mailAddress=" + mailAddress +
                 '}';
     }

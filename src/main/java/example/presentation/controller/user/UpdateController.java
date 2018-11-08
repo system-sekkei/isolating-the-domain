@@ -3,7 +3,6 @@ package example.presentation.controller.user;
 import example.application.service.UserService;
 import example.domain.model.user.User;
 import example.domain.model.user.UserIdentifier;
-import example.domain.type.gender.GenderType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,19 +21,12 @@ class UpdateController {
             {
                     "name.value",
                     "mailAddress.value",
-                    "dateOfBirth.value",
-                    "gender.value",
                     "phoneNumber.value",
             };
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.setAllowedFields(allowFields);
-    }
-
-    @ModelAttribute("genderTypes")
-    GenderType[] addGendersToModel() {
-        return GenderType.values();
     }
 
     UserService userService;
@@ -74,8 +66,6 @@ class UpdateController {
         userService.updateName(user.identifier(), user.name());
         userService.updateMailAddress(user.identifier(), user.mailAddress());
         userService.updatePhoneNumber(user.identifier(), user.phoneNumber());
-        userService.updateDateOfBirth(user.identifier(), user.dateOfBirth());
-        userService.updateGender(user.identifier(), user.gender());
         status.setComplete();
 
         attributes.addAttribute("name", user.name().toString());

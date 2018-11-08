@@ -1,8 +1,6 @@
 package example.infrastructure.datasource.user;
 
 import example.domain.model.user.*;
-import example.domain.type.age.DateOfBirth;
-import example.domain.type.gender.Gender;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -29,8 +27,6 @@ public class UserDatasource implements UserRepository {
         mapper.registerUser(userId);
         updateName(userId, userCandidate.name());
         updateMailAddress(userId, userCandidate.mailAddress());
-        updateDateOfBirth(userId, userCandidate.dateOfBirth());
-        updateGender(userId, userCandidate.gender());
         updatePhoneNumber(userId, userCandidate.phoneNumber());
         return findBy(userId);
     }
@@ -49,22 +45,6 @@ public class UserDatasource implements UserRepository {
         mapper.registerMailAddress(mailAddressId, identifier, mailAddress);
         mapper.deleteMailAddressMapper(identifier);
         mapper.registerMailAddressMapper(identifier, mailAddressId);
-    }
-
-    @Override
-    public void updateDateOfBirth(UserIdentifier identifier, DateOfBirth dateOfBirth) {
-        Long dateOfBirthId = mapper.newUserDateOfBirthIdentifier();
-        mapper.registerDateOfBirth(dateOfBirthId, identifier, dateOfBirth);
-        mapper.deleteDateOfBirthMapper(identifier);
-        mapper.registerDateOfBirthMapper(identifier, dateOfBirthId);
-    }
-
-    @Override
-    public void updateGender(UserIdentifier identifier, Gender gender) {
-        Long genderId = mapper.newUserGenderIdentifier();
-        mapper.registerGender(genderId, identifier, gender);
-        mapper.deleteGenderMapper(identifier);
-        mapper.registerGenderMapper(identifier, genderId);
     }
 
     @Override

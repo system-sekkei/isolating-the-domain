@@ -1,7 +1,6 @@
 package example.application.service;
 
 import example.Application;
-import example.application.service.UserService;
 import example.domain.model.user.*;
 import example.domain.type.age.DateOfBirth;
 import example.domain.type.gender.Gender;
@@ -52,7 +51,7 @@ class UserServiceTest {
         Gender gender = new Gender(GenderType.男性);
         PhoneNumber phoneNumber = new PhoneNumber("090-6559-1234");
         MailAddress mailAddress = new MailAddress("hogehoge_hogeo@example.com");
-        UserCandidate user = new UserCandidate(name, mailAddress, dateOfBirth, gender, phoneNumber);
+        UserCandidate user = new UserCandidate(name, mailAddress, phoneNumber);
         User registeredUser = sut.register(user);
         User foundUser = sut.findById(registeredUser.identifier());
         assertAll(

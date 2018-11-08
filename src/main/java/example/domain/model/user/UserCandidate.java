@@ -1,8 +1,5 @@
 package example.domain.model.user;
 
-import example.domain.type.age.DateOfBirth;
-import example.domain.type.gender.Gender;
-
 import javax.validation.Valid;
 
 /**
@@ -16,40 +13,20 @@ public class UserCandidate {
     MailAddress mailAddress;
 
     @Valid
-    DateOfBirth dateOfBirth;
-
-    @Valid
-    Gender gender;
-
-    @Valid
     PhoneNumber phoneNumber;
 
     public UserCandidate() {
-        name = new Name();
-        mailAddress = new MailAddress();
-        dateOfBirth = new DateOfBirth();
-        gender = new Gender();
-        phoneNumber = new PhoneNumber();
+        this(new Name(), new MailAddress(), new PhoneNumber());
     }
 
-    public UserCandidate(Name name, MailAddress mailAddress, DateOfBirth dateOfBirth, Gender gender, PhoneNumber phoneNumber) {
+    public UserCandidate(Name name, MailAddress mailAddress, PhoneNumber phoneNumber) {
         this.name = name;
         this.mailAddress = mailAddress;
-        this.dateOfBirth = dateOfBirth;
-        this.gender = gender;
         this.phoneNumber = phoneNumber;
     }
 
     public Name name() {
         return name;
-    }
-
-    public DateOfBirth dateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public Gender gender() {
-        return gender;
     }
 
     public PhoneNumber phoneNumber() {
@@ -64,9 +41,7 @@ public class UserCandidate {
     public String toString() {
         return "UserCandidate{" +
                 "name=" + name +
-                ", dateOfBirth=" + dateOfBirth +
                 ", phoneNumber=" + phoneNumber +
-                ", gender=" + gender +
                 ", mailAddress=" + mailAddress +
                 '}';
     }
