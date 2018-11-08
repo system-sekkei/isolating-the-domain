@@ -45,7 +45,12 @@ class WorkerRecordServiceTest {
         Name name = new Name("Eiji Yamane");
         PhoneNumber phoneNumber = new PhoneNumber("090-6559-1234");
         MailAddress mailAddress = new MailAddress("hogehoge_hogeo@example.com");
-        WorkerIdentifier workerIdentifier = sut.register(name, mailAddress, phoneNumber);
+
+        WorkerIdentifier workerIdentifier = sut.prepareNewContract();
+        sut.updateName(workerIdentifier, name);
+        sut.updatePhoneNumber(workerIdentifier, phoneNumber);
+        sut.updateMailAddress(workerIdentifier, mailAddress);
+
         Worker foundWorker = query.findById(workerIdentifier);
         assertAll(
                 () -> assertEquals(foundWorker.name().toString(), name.toString()),

@@ -12,14 +12,10 @@ public class WorkerRecordService {
     WorkerRepository workerRepository;
 
     /**
-     * 従業員契約
+     * 従業員契約準備
      */
-    public WorkerIdentifier register(Name name, MailAddress mailAddress, PhoneNumber phoneNumber) {
-        WorkerIdentifier workerIdentifier = workerRepository.registerNew();
-        updateName(workerIdentifier, name);
-        updateMailAddress(workerIdentifier, mailAddress);
-        updatePhoneNumber(workerIdentifier, phoneNumber);
-        return workerIdentifier;
+    public WorkerIdentifier prepareNewContract() {
+        return workerRepository.registerNew();
     }
 
     /**
