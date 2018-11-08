@@ -65,9 +65,9 @@ class RegisterController {
             SessionStatus status, RedirectAttributes attributes) {
         Name name = newWorker.name();
         WorkerIdentifier workerIdentifier = workerRecordService.prepareNewContract();
-        workerRecordService.updateName(workerIdentifier, name);
-        workerRecordService.updateMailAddress(workerIdentifier, newWorker.mailAddress());
-        workerRecordService.updatePhoneNumber(workerIdentifier, newWorker.phoneNumber());
+        workerRecordService.registerName(workerIdentifier, name);
+        workerRecordService.registerMailAddress(workerIdentifier, newWorker.mailAddress());
+        workerRecordService.registerPhoneNumber(workerIdentifier, newWorker.phoneNumber());
         status.setComplete();
 
         attributes.addAttribute("name", name);

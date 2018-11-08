@@ -4,17 +4,17 @@ package example.domain.model.worker;
  * 従業員リポジトリ
  */
 public interface WorkerRepository {
-    Worker findBy(WorkerIdentifier id);
+    Worker choose(WorkerIdentifier workerIdentifier);
 
-    Workers list();
+    ContractingWorkers findUnderContracts();
 
-    void updateName(WorkerIdentifier identifier, Name name);
+    void registerName(WorkerIdentifier workerIdentifier, Name name);
 
-    void updateMailAddress(WorkerIdentifier identifier, MailAddress mailAddress);
+    void registerMailAddress(WorkerIdentifier workerIdentifier, MailAddress mailAddress);
 
-    void updatePhoneNumber(WorkerIdentifier identifier, PhoneNumber phoneNumber);
+    void registerPhoneNumber(WorkerIdentifier workerIdentifier, PhoneNumber phoneNumber);
 
-    void registerExpirationContract(Worker worker);
+    void registerExpireContract(Worker worker);
 
     WorkerIdentifier registerNew();
 }

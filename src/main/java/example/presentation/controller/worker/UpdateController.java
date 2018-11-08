@@ -43,7 +43,7 @@ class UpdateController {
     @GetMapping(value = "input")
     String formToEdit(@PathVariable(value = "workerIdentifier") WorkerIdentifier workerIdentifier,
                       Model model) {
-        Worker worker = workerQueryService.findById(workerIdentifier);
+        Worker worker = workerQueryService.choose(workerIdentifier);
         model.addAttribute("worker", worker);
         return "worker/update/form";
     }
@@ -65,9 +65,9 @@ class UpdateController {
     String registerThenRedirect(@ModelAttribute Worker worker,
                                 SessionStatus status,
                                 RedirectAttributes attributes) {
-        workerRecordService.updateName(worker.identifier(), worker.name());
-        workerRecordService.updateMailAddress(worker.identifier(), worker.mailAddress());
-        workerRecordService.updatePhoneNumber(worker.identifier(), worker.phoneNumber());
+        workerRecordService.registerName(worker.identifier(), worker.name());
+        workerRecordService.registerMailAddress(worker.identifier(), worker.mailAddress());
+        workerRecordService.registerPhoneNumber(worker.identifier(), worker.phoneNumber());
         status.setComplete();
 
         attributes.addAttribute("name", worker.name().toString());

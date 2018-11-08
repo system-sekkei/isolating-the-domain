@@ -21,29 +21,29 @@ public class WorkerRecordService {
     /**
      * 従業員名登録
      */
-    public void updateName(WorkerIdentifier identifier, Name name) {
-        workerRepository.updateName(identifier, name);
+    public void registerName(WorkerIdentifier workerIdentifier, Name name) {
+        workerRepository.registerName(workerIdentifier, name);
     }
 
     /**
      * 従業員メールアドレス登録
      */
-    public void updateMailAddress(WorkerIdentifier identifier, MailAddress mailAddress) {
-        workerRepository.updateMailAddress(identifier, mailAddress);
+    public void registerMailAddress(WorkerIdentifier workerIdentifier, MailAddress mailAddress) {
+        workerRepository.registerMailAddress(workerIdentifier, mailAddress);
     }
 
     /**
      * 従業員電話番号登録
      */
-    public void updatePhoneNumber(WorkerIdentifier identifier, PhoneNumber phoneNumber) {
-        workerRepository.updatePhoneNumber(identifier, phoneNumber);
+    public void registerPhoneNumber(WorkerIdentifier workerIdentifier, PhoneNumber phoneNumber) {
+        workerRepository.registerPhoneNumber(workerIdentifier, phoneNumber);
     }
 
     /**
      * 従業員契約終了
      */
-    public void expirationContract(Worker worker) {
-        workerRepository.registerExpirationContract(worker);
+    public void expireContract(Worker worker) {
+        workerRepository.registerExpireContract(worker);
     }
 
     WorkerRecordService(WorkerRepository workerRepository) {

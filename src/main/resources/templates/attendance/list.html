@@ -49,7 +49,7 @@
       </tr>
       </thead>
       <tbody>
-        <th:block th:each="attendance : ${attendanceOfMonth.list()}">
+        <th:block th:each="attendance : ${monthlyAttendances.list()}">
           <tr th:if="${attendance.attendance().work()}">
             <td th:text="${attendance.date()}"></td>
             <td th:text="${attendance.workTimeRange().start()}"></td>

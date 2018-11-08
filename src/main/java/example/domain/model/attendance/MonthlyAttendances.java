@@ -7,11 +7,11 @@ import java.util.List;
 /**
  * 月次勤怠
  */
-public class AttendanceOfMonth {
+public class MonthlyAttendances {
     YearMonth yearMonth;
     List<AttendanceOfDay> list;
 
-    public AttendanceOfMonth(YearMonth yearMonth, List<AttendanceOfDay> list) {
+    public MonthlyAttendances(YearMonth yearMonth, List<AttendanceOfDay> list) {
         this.yearMonth = yearMonth;
         this.list = list;
     }

@@ -8,8 +8,8 @@ public class WorkerDatasource implements WorkerRepository {
     WorkerMapper mapper;
 
     @Override
-    public Worker findBy(WorkerIdentifier id) {
-        Worker worker = mapper.findBy(id);
+    public Worker choose(WorkerIdentifier workerIdentifier) {
+        Worker worker = mapper.selectByIdentifier(workerIdentifier);
         if (worker == null) {
             throw new WorkerNotFoundException();
         }
@@ -17,44 +17,44 @@ public class WorkerDatasource implements WorkerRepository {
     }
 
     @Override
-    public Workers list() {
-        return new Workers(mapper.list());
+    public ContractingWorkers findUnderContracts() {
+        return new ContractingWorkers(mapper.selectContracts());
     }
 
     @Override
     public WorkerIdentifier registerNew() {
         WorkerIdentifier workerIdentifier = new WorkerIdentifier(mapper.newWorkerIdentifier());
-        mapper.registerWorker(workerIdentifier);
+        mapper.insertWorker(workerIdentifier);
         return workerIdentifier;
     }
 
     @Override
-    public void updateName(WorkerIdentifier identifier, Name name) {
+    public void registerName(WorkerIdentifier workerIdentifier, Name name) {
         Long nameId = mapper.newWorkerNameIdentifier();
-        mapper.registerName(nameId, identifier, name);
-        mapper.deleteNameMapper(identifier);
-        mapper.registerNameMapper(identifier, nameId);
+        mapper.insertName(nameId, workerIdentifier, name);
+        mapper.deleteNameMapper(workerIdentifier);
+        mapper.insertNameMapper(workerIdentifier, nameId);
     }
 
     @Override
-    public void updateMailAddress(WorkerIdentifier identifier, MailAddress mailAddress) {
+    public void registerMailAddress(WorkerIdentifier workerIdentifier, MailAddress mailAddress) {
         Long mailAddressId = mapper.newWorkerMailAddressIdentifier();
-        mapper.registerMailAddress(mailAddressId, identifier, mailAddress);
-        mapper.deleteMailAddressMapper(identifier);
-        mapper.registerMailAddressMapper(identifier, mailAddressId);
+        mapper.insertMailAddress(mailAddressId, workerIdentifier, mailAddress);
+        mapper.deleteMailAddressMapper(workerIdentifier);
+        mapper.insertMailAddressMapper(workerIdentifier, mailAddressId);
     }
 
     @Override
-    public void updatePhoneNumber(WorkerIdentifier identifier, PhoneNumber phoneNumber) {
+    public void registerPhoneNumber(WorkerIdentifier workerIdentifier, PhoneNumber phoneNumber) {
         Long phoneNumberId = mapper.newWorkerPhoneNumberIdentifier();
-        mapper.registerPhoneNumber(phoneNumberId, identifier, phoneNumber);
-        mapper.deletePhoneNumberMapper(identifier);
-        mapper.registerPhoneNumberMapper(identifier, phoneNumberId);
+        mapper.insertPhoneNumber(phoneNumberId, workerIdentifier, phoneNumber);
+        mapper.deletePhoneNumberMapper(workerIdentifier);
+        mapper.insertPhoneNumberMapper(workerIdentifier, phoneNumberId);
     }
 
     @Override
-    public void registerExpirationContract(Worker worker) {
-        mapper.delete(worker);
+    public void registerExpireContract(Worker worker) {
+        mapper.insertExpireContract(worker);
     }
 
     public WorkerDatasource(WorkerMapper mapper) {

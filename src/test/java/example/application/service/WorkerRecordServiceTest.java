@@ -23,7 +23,7 @@ class WorkerRecordServiceTest {
 
     @Test
     void list() {
-        Worker worker = query.list().list().stream().filter(
+        Worker worker = query.contractingWorkers().list().stream().filter(
                 us -> us.identifier().value().equals(1L)).findFirst().get();
         assertAll(
                 () -> assertEquals(worker.mailAddress().toString(), "fukawa_teruyoshi_new@example.com"),
@@ -33,7 +33,7 @@ class WorkerRecordServiceTest {
 
     @Test
     void findById() {
-        Worker worker = query.findById(new WorkerIdentifier(1L));
+        Worker worker = query.choose(new WorkerIdentifier(1L));
         assertAll(
                 () -> assertEquals(worker.mailAddress().toString(), "fukawa_teruyoshi_new@example.com"),
                 () -> assertEquals(worker.phoneNumber().toString(), "03-1234-9999"),
@@ -47,19 +47,19 @@ class WorkerRecordServiceTest {
         MailAddress mailAddress = new MailAddress("hogehoge_hogeo@example.com");
 
         WorkerIdentifier workerIdentifier = sut.prepareNewContract();
-        sut.updateName(workerIdentifier, name);
-        sut.updatePhoneNumber(workerIdentifier, phoneNumber);
-        sut.updateMailAddress(workerIdentifier, mailAddress);
+        sut.registerName(workerIdentifier, name);
+        sut.registerPhoneNumber(workerIdentifier, phoneNumber);
+        sut.registerMailAddress(workerIdentifier, mailAddress);
 
-        Worker foundWorker = query.findById(workerIdentifier);
+        Worker foundWorker = query.choose(workerIdentifier);
         assertAll(
                 () -> assertEquals(foundWorker.name().toString(), name.toString()),
                 () -> assertEquals(foundWorker.phoneNumber().toString(), phoneNumber.toString()),
                 () -> assertEquals(foundWorker.mailAddress().toString(), mailAddress.toString())
         );
-        sut.expirationContract(foundWorker);
+        sut.expireContract(foundWorker);
 
         assertThrows(WorkerNotFoundException.class,
-                () -> query.findById((foundWorker.identifier())));
+                () -> query.choose((foundWorker.identifier())));
     }
 }

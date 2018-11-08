@@ -1,6 +1,6 @@
 package example.domain.model.payroll;
 
-import example.domain.model.attendance.AttendanceOfMonth;
+import example.domain.model.attendance.MonthlyAttendances;
 import example.domain.model.worker.Worker;
 
 /**
@@ -8,7 +8,7 @@ import example.domain.model.worker.Worker;
  */
 public class Payroll {
     Worker worker;
-    AttendanceOfMonth attendanceOfMonth;
+    MonthlyAttendances monthlyAttendances;
 
     Amount amount() {
         return new Amount();

@@ -1,9 +1,9 @@
 package example.application.service.worker;
 
+import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerIdentifier;
 import example.domain.model.worker.WorkerRepository;
-import example.domain.model.worker.Workers;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,15 +17,15 @@ public class WorkerQueryService {
     /**
      * 従業員選択
      */
-    public Worker findById(WorkerIdentifier id) {
-        return workerRepository.findBy(id);
+    public Worker choose(WorkerIdentifier workerIdentifier) {
+        return workerRepository.choose(workerIdentifier);
     }
 
     /**
-     * 従業員一覧
+     * 契約中従業員一覧
      */
-    public Workers list() {
-        return workerRepository.list();
+    public ContractingWorkers contractingWorkers() {
+        return workerRepository.findUnderContracts();
     }
 
     WorkerQueryService(WorkerRepository workerRepository) {

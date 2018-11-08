@@ -1,7 +1,7 @@
 package example.presentation.controller;
 
 import example.application.service.worker.WorkerQueryService;
-import example.domain.model.worker.Workers;
+import example.domain.model.worker.ContractingWorkers;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,8 +13,8 @@ class TopController {
     WorkerQueryService workerQueryService;
 
     @ModelAttribute("workers")
-    Workers workers() {
-        return workerQueryService.list();
+    ContractingWorkers workers() {
+        return workerQueryService.contractingWorkers();
     }
 
     @GetMapping

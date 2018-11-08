@@ -21,7 +21,7 @@ public class DeleteController {
 
     @GetMapping(value = "view")
     String show(@PathVariable(value = "workerIdentifier") WorkerIdentifier workerIdentifier, Model model) {
-        Worker worker = workerQueryService.findById(workerIdentifier);
+        Worker worker = workerQueryService.choose(workerIdentifier);
         model.addAttribute("worker", worker);
 
         return "worker/delete/confirm";
@@ -30,8 +30,8 @@ public class DeleteController {
     @GetMapping(value = "")
     String deleteThenRedirect(@PathVariable(value = "workerIdentifier") WorkerIdentifier workerIdentifier,
                               Model model, RedirectAttributes attributes) {
-        Worker worker = workerQueryService.findById(workerIdentifier);
-        workerRecordService.expirationContract(worker);
+        Worker worker = workerQueryService.choose(workerIdentifier);
+        workerRecordService.expireContract(worker);
 
         attributes.addAttribute("name", worker.name().toString());
 

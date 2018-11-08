@@ -10,13 +10,14 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AttendanceRecordService {
+
     AttendanceRepository attendanceRepository;
 
     /**
      * 勤務時間登録
      */
-    public void registerWorkTime(WorkerIdentifier userId, AttendanceOfDay work) {
-        attendanceRepository.registerWorkTime(userId, work);
+    public void registerAttendance(WorkerIdentifier workerIdentifier, AttendanceOfDay attendanceOfDay) {
+        attendanceRepository.registerAttendance(workerIdentifier, attendanceOfDay);
     }
 
     AttendanceRecordService(AttendanceRepository attendanceRepository) {

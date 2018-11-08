@@ -4,7 +4,7 @@ import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.AttendanceOfDay;
-import example.domain.model.attendance.AttendanceOfMonth;
+import example.domain.model.attendance.MonthlyAttendances;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerIdentifier;
 import example.domain.type.date.Date;
@@ -46,7 +46,7 @@ public class AttendanceController {
     String register() {
         // TODO validation
 
-        attendanceRecordService.registerWorkTime(
+        attendanceRecordService.registerAttendance(
                 // TODO 入力から
                 new WorkerIdentifier("1"),
                 new AttendanceOfDay(
@@ -61,11 +61,11 @@ public class AttendanceController {
 
     @GetMapping("{workerIdentifier}/list")
     String list(Model model, @PathVariable("workerIdentifier") WorkerIdentifier workerIdentifier) {
-        Worker worker = workerQueryService.findById(workerIdentifier);
+        Worker worker = workerQueryService.choose(workerIdentifier);
         model.addAttribute("worker", worker);
 
-        AttendanceOfMonth attendanceOfMonth = attendanceQueryService.findMonthlyWorkTimes(worker.identifier(), Date.now().yearMonth());
-        model.addAttribute("attendanceOfMonth", attendanceOfMonth);
+        MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(worker.identifier(), Date.now().yearMonth());
+        model.addAttribute("monthlyAttendances", monthlyAttendances);
         return "attendance/list";
     }
 }
