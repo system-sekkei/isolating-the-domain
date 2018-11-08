@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class AttendanceRecordServiceTest {
     @Autowired
     WorkerService workerService;
+    @Autowired
     AttendanceRecordService sut;
     @Autowired
     AttendanceQueryService attendanceQueryService;
