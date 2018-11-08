@@ -57,7 +57,7 @@ class WorkerRecordServiceTest {
                 () -> assertEquals(foundWorker.phoneNumber().toString(), phoneNumber.toString()),
                 () -> assertEquals(foundWorker.mailAddress().toString(), mailAddress.toString())
         );
-        sut.delete(foundWorker);
+        sut.expirationContract(foundWorker);
 
         assertThrows(WorkerNotFoundException.class,
                 () -> query.findById((foundWorker.identifier())));

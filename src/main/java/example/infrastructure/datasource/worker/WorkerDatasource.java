@@ -53,7 +53,7 @@ public class WorkerDatasource implements WorkerRepository {
     }
 
     @Override
-    public void delete(Worker worker) {
+    public void registerExpirationContract(Worker worker) {
         mapper.delete(worker);
     }
 

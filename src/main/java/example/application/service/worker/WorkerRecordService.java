@@ -42,8 +42,8 @@ public class WorkerRecordService {
     /**
      * 従業員契約終了
      */
-    public void delete(Worker worker) {
-        workerRepository.delete(worker);
+    public void expirationContract(Worker worker) {
+        workerRepository.registerExpirationContract(worker);
     }
 
     WorkerRecordService(WorkerRepository workerRepository) {

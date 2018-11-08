@@ -14,7 +14,7 @@ public interface WorkerRepository {
 
     void updatePhoneNumber(WorkerIdentifier identifier, PhoneNumber phoneNumber);
 
-    void delete(Worker worker);
+    void registerExpirationContract(Worker worker);
 
     WorkerIdentifier registerNew();
 }

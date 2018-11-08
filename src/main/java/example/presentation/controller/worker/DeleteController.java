@@ -31,7 +31,7 @@ public class DeleteController {
     String deleteThenRedirect(@PathVariable(value = "workerIdentifier") WorkerIdentifier workerIdentifier,
                               Model model, RedirectAttributes attributes) {
         Worker worker = workerQueryService.findById(workerIdentifier);
-        workerRecordService.delete(worker);
+        workerRecordService.expirationContract(worker);
 
         attributes.addAttribute("name", worker.name().toString());
 
