@@ -3,10 +3,12 @@ context('isolating-the-domain', () => {
     cy.visit('http://localhost:8080/')
   })
   it('Smoke test', () => {
-	//従業員一覧が表示されている
-	cy.get('.header').should('text', '従業員一覧')
-	const id = 'hoge-' +  new Date().getTime() + '@example.com'
-	//従業員登録に遷移
+	cy.title().should('eq', 'ダッシュボード')
+
+    cy.get('.button').contains('従業員').click()
+    cy.title().should('eq', '従業員一覧')
+
+    // 従業員登録
 	cy.contains('従業員の新規登録').click()
 	cy.get('.header').should('text', '従業員の新規登録')
 	//何も入力せずにバリデーションが走っていることを確認
@@ -14,7 +16,7 @@ context('isolating-the-domain', () => {
 	cy.get('div.error').should((errorDivs) =>{
 		expect(errorDivs.length).to.not.equal(0)
 	})
-	cy.get('#mailAddress\\.value').type(id)
+	cy.get('#mailAddress\\.value').type('test-taro@example.com')
 	cy.get('#name\\.value').type('テスト太郎')
 	cy.get('#phoneNumber\\.value').type('090-1234-5678')
 	cy.get('.button').contains('確認する').click()
@@ -22,9 +24,10 @@ context('isolating-the-domain', () => {
 	cy.get('.button').contains('登録する').click()
 	cy.get('.header').should('text', '従業員登録の完了')
 	cy.get('a').contains('従業員一覧へ').click()
-	cy.get('.header').should('text', '従業員一覧')
-	//更新処理
-	cy.get('tbody > tr > td').contains(id).parent().within(() => {
+    cy.title().should('eq', '従業員一覧')
+
+    // 従業員更新
+	cy.get('tbody > tr > td').contains('テスト太郎').parent().within(() => {
 		cy.get('.button').contains('変更').click()
 	})
 	cy.get('.header').should('text', '従業員情報の変更')
@@ -33,7 +36,10 @@ context('isolating-the-domain', () => {
 	cy.get('.header').should('text', '従業員情報の変更の確認')
 	cy.get('.button').contains('保存する').click()
 	cy.get('a').contains('従業員一覧へ').click()
-	cy.get('.header').should('text', '従業員一覧')
+    cy.title().should('eq', '従業員一覧')
+
+    cy.get('.button').contains('ダッシュボード').click()
+    cy.title().should('eq', 'ダッシュボード')
 
 	// 勤務時間入力
 	cy.get('.button').contains('勤務時間入力').click()
@@ -44,17 +50,29 @@ context('isolating-the-domain', () => {
 	cy.get('#endMinute\\.value').type('00')
 	cy.get('#breaks\\.value').type('90')
 	cy.get('.button').contains('登録する').click()
-	cy.get('.header').should('text', '従業員一覧')
 
-	// 勤務時間一覧
-	cy.get('tbody > tr > td').contains(id).parent().within(() => {
-		cy.get('.button').get('.calendar').click()
+	// TODO 登録後の画面遷移
+
+    //cy.get('.button').contains('ダッシュボード').click()
+    //cy.title().should('eq', 'ダッシュボード')
+
+    // 給与計算
+    cy.get('.button').contains('給与計算').click()
+    cy.title().should('eq', '従業員一覧')
+	cy.get('tbody > tr > td').contains('テスト次郎').parent().within(() => {
+		cy.get('.button').contains('勤務時間').click()
 	})
 	cy.get('a').contains('一覧に戻る').click()
-	cy.get('.header').should('text', '従業員一覧')
+    cy.title().should('eq', '従業員一覧')
 
-	//削除
-	cy.get('tbody > tr > td').contains(id).parent().within(() => {
+    // 契約終了
+    cy.get('.button').contains('ダッシュボード').click()
+    cy.title().should('eq', 'ダッシュボード')
+
+    cy.get('.button').contains('従業員').click()
+    cy.title().should('eq', '従業員一覧')
+
+	cy.get('tbody > tr > td').contains('テスト次郎').parent().within(() => {
 		cy.get('.button').contains('変更').click()
 	})
 	cy.get('.header').should('text', '従業員情報の変更')

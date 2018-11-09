@@ -11,7 +11,7 @@
   </div>
 
   <div class="userInput">
-    
+
     <div class="ui attached negative message">
       <p>以下の従業員情報を削除します。</p>
       <p>確認の上、削除ボタンを押してください。</p>
@@ -40,7 +40,7 @@
 
   <div class="ui center aligned basic segment">
     <a class="ui grey button"
-       th:href="@{/}">一覧に戻る</a>
+       th:href="@{/worker/{workerIdentifier}/update(workerIdentifier=${worker.identifier()})}">変更画面に戻る</a>
     <a class="ui negative button"
        th:href="@{/worker/{workerIdentifier}/delete(workerIdentifier=${worker.identifier()})}">削除</a>
   </div>
