@@ -19,8 +19,10 @@
       <div class="field">
         <label>従業員名</label>
         <div class="eight wide field">
-          <select>
-            <option>DUMMY</option>
+          <select class="ui search dropdown" name="workerIdentifier">
+            <option th:each="worker : ${workers.list()}" th:value="${worker.identifier()}" th:text="${worker.name()}">
+              DUMMY
+            </option>
           </select>
         </div>
       </div>
@@ -28,8 +30,8 @@
       <div class="field">
         <label>勤務日</label>
         <div class="eight wide field">
-          <input class="short-input" type="text" placeholder="2018-01-01"
-                 id="date"
+          <input class="short-input" type="date" placeholder="2018-01-01"
+                 name="date"
                  th:value="*{date()}" />
         </div>
       </div>
