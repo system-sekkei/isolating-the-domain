@@ -1,6 +1,8 @@
 package example.domain.model.attendance;
 
 import example.domain.type.date.YearMonth;
+import example.domain.type.time.HourAndMinute;
+import example.domain.type.time.Minute;
 
 import java.util.List;
 
@@ -18,5 +20,13 @@ public class MonthlyAttendances {
 
     public List<AttendanceOfDay> list() {
         return list;
+    }
+
+    public String totalTime() {
+        int minute = 0;
+        for (AttendanceOfDay attendanceOfDay : list) {
+            minute += attendanceOfDay.workTime().toMinute().value();
+        }
+        return HourAndMinute.from(new Minute(minute)).toString();
     }
 }
