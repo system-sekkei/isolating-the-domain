@@ -5,7 +5,7 @@ context('isolating-the-domain', () => {
   it('Smoke test', () => {
     cy.title().should('eq', 'ダッシュボード')
 
-    cy.get('.button').contains('従業員').click()
+    cy.get('a').contains('従業員').click()
     cy.title().should('contains', '従業員一覧')
 
     // 従業員登録
@@ -42,7 +42,7 @@ context('isolating-the-domain', () => {
     cy.title().should('eq', 'ダッシュボード')
 
     // 勤務時間入力
-    cy.get('.button').contains('勤務時間入力').click()
+    cy.get('a').contains('勤務時間入力').click()
     cy.title().should('contains', '入力')
     cy.get('#startHour\\.value').type('9')
     cy.get('#startMinute\\.value').type('30')
@@ -57,7 +57,7 @@ context('isolating-the-domain', () => {
     cy.title().should('eq', 'ダッシュボード')
 
     // 給与計算
-    cy.get('.button').contains('給与計算').click()
+    cy.get('a').contains('給与計算').click()
     cy.title().should('contains', '従業員一覧')
     cy.get('tbody > tr > td').contains('テスト次郎').parent().within(() => {
         cy.get('.button').contains('勤務時間').click()
@@ -70,7 +70,7 @@ context('isolating-the-domain', () => {
     cy.get('.button').contains('ダッシュボード').click()
     cy.title().should('eq', 'ダッシュボード')
 
-    cy.get('.button').contains('従業員').click()
+    cy.get('a').contains('従業員').click()
     cy.title().should('contains', '従業員一覧')
 
     cy.get('tbody > tr > td').contains('テスト次郎').parent().within(() => {
