@@ -14,11 +14,11 @@
     <form id="custom-form" class="ui large form" name="body" 
           method="post" action="#"
           th:object="${worker}"
-          th:action="@{/worker/{workerIdentifier}/update/confirm(workerIdentifier=${worker.identifier()})}">
+          th:action="@{/worker/{workerNumber}/update/confirm(workerNumber=${worker.workerNumber()})}">
       
       <div class="ui message inline field">
-        <label>対象ID</label>
-        <p th:text="${worker.identifier()}">山田太郎</p>
+        <label>従業員番号</label>
+        <p th:text="${worker.workerNumber()}">9999</p>
       </div>
 
       <div class="ui basic segment">
@@ -47,7 +47,7 @@
            th:href="@{/worker/workers}">一覧に戻る</a>
         <button class="ui positive button">編集の確認</button>
         <a class="ui negative button"
-           th:href="@{/worker/{workerIdentifier}/delete/view(workerIdentifier=${worker.identifier()})}">削除の確認</a>
+           th:href="@{/worker/{workerNumber}/delete/view(workerNumber=${worker.workerNumber()})}">削除の確認</a>
       </div>
     </form>
   </div>

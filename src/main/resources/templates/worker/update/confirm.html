@@ -40,9 +40,9 @@
 
   <div class="ui center aligned basic segment">
     <a class="ui grey button"
-       th:href="@{/worker/{workerIdentifier}/update/input/again(workerIdentifier=${worker.identifier()})}">入力に戻る</a>
+       th:href="@{/worker/{workerNumber}/update/input/again(workerNumber=${worker.workerNumber()})}">入力に戻る</a>
     <a class="ui positive button"
-       th:href="@{/worker/{workerIdentifier}/update/register(workerIdentifier=${worker.identifier()})}">保存する</a>
+       th:href="@{/worker/{workerNumber}/update/register(workerNumber=${worker.workerNumber()})}">保存する</a>
   </div>
 </div>
 

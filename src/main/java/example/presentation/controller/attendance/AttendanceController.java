@@ -6,7 +6,7 @@ import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.MonthlyAttendances;
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.Worker;
-import example.domain.model.worker.WorkerIdentifier;
+import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import example.domain.type.date.YearMonth;
 import org.springframework.stereotype.Controller;
@@ -45,20 +45,20 @@ public class AttendanceController {
         // TODO 入力から
         YearMonth month = new YearMonth(2018, 11);
         for (Worker worker : contractingWorkers.list()) {
-            MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(worker.identifier(), month);
-            map.put(worker.identifier().toString(), monthlyAttendances);
+            MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(worker.workerNumber(), month);
+            map.put(worker.workerNumber().toString(), monthlyAttendances);
         }
         model.addAttribute("map", map);
 
         return "attendance/workers";
     }
 
-    @GetMapping("{workerIdentifier}/list")
-    String list(Model model, @PathVariable("workerIdentifier") WorkerIdentifier workerIdentifier) {
-        Worker worker = workerQueryService.choose(workerIdentifier);
+    @GetMapping("{workerNumber}/list")
+    String list(Model model, @PathVariable("workerNumber") WorkerNumber workerNumber) {
+        Worker worker = workerQueryService.choose(workerNumber);
         model.addAttribute("worker", worker);
 
-        MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(worker.identifier(), Date.now().yearMonth());
+        MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(worker.workerNumber(), Date.now().yearMonth());
         model.addAttribute("monthlyAttendances", monthlyAttendances);
         return "attendance/list";
     }

@@ -9,33 +9,33 @@ import java.util.List;
 @Mapper
 public interface WorkerMapper {
 
-    Worker selectByIdentifier(@Param("identifier") WorkerIdentifier id);
+    Worker selectByWorkerNumber(@Param("workerNumber") WorkerNumber workerNumber);
 
     List<Worker> selectContracts();
 
-    void insertWorker(@Param("workerIdentifier") WorkerIdentifier workerIdentifier);
+    void insertWorker(@Param("workerNumber") WorkerNumber workerNumber);
 
-    void deleteNameMapper(@Param("workerIdentifier") WorkerIdentifier workerIdentifier);
+    void deleteNameMapper(@Param("workerNumber") WorkerNumber workerNumber);
 
-    void insertName(@Param("id") Long id, @Param("workerIdentifier") WorkerIdentifier workerIdentifier, @Param("name") Name name);
+    void insertName(@Param("id") Long id, @Param("workerNumber") WorkerNumber workerNumber, @Param("name") Name name);
 
-    void insertNameMapper(@Param("workerIdentifier") WorkerIdentifier workerIdentifier, @Param("nameId") Long nameId);
+    void insertNameMapper(@Param("workerNumber") WorkerNumber workerNumber, @Param("nameId") Long nameId);
 
-    void deletePhoneNumberMapper(@Param("workerIdentifier") WorkerIdentifier workerIdentifier);
+    void deletePhoneNumberMapper(@Param("workerNumber") WorkerNumber workerNumber);
 
-    void insertPhoneNumber(@Param("id") Long id, @Param("workerIdentifier") WorkerIdentifier workerIdentifier, @Param("phoneNumber") PhoneNumber phoneNumber);
+    void insertPhoneNumber(@Param("id") Long id, @Param("workerNumber") WorkerNumber workerNumber, @Param("phoneNumber") PhoneNumber phoneNumber);
 
-    void insertPhoneNumberMapper(@Param("workerIdentifier") WorkerIdentifier workerIdentifier, @Param("phoneNumberId") Long phoneNumberId);
+    void insertPhoneNumberMapper(@Param("workerNumber") WorkerNumber workerNumber, @Param("phoneNumberId") Long phoneNumberId);
 
-    void deleteMailAddressMapper(@Param("workerIdentifier") WorkerIdentifier workerIdentifier);
+    void deleteMailAddressMapper(@Param("workerNumber") WorkerNumber workerNumber);
 
-    void insertMailAddress(@Param("id") Long id, @Param("workerIdentifier") WorkerIdentifier workerIdentifier, @Param("mailAddress") MailAddress mailAddress);
+    void insertMailAddress(@Param("id") Long id, @Param("workerNumber") WorkerNumber workerNumber, @Param("mailAddress") MailAddress mailAddress);
 
-    void insertMailAddressMapper(@Param("workerIdentifier") WorkerIdentifier workerIdentifier, @Param("mailAddressId") Long mailAddressId);
+    void insertMailAddressMapper(@Param("workerNumber") WorkerNumber workerNumber, @Param("mailAddressId") Long mailAddressId);
 
     void insertExpireContract(@Param("worker") Worker worker);
 
-    long newWorkerIdentifier();
+    long newWorkerNumber();
 
     long newWorkerNameIdentifier();
 

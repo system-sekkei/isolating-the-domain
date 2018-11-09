@@ -14,29 +14,29 @@ public class WorkerRecordService {
     /**
      * 従業員契約準備
      */
-    public WorkerIdentifier prepareNewContract() {
+    public WorkerNumber prepareNewContract() {
         return workerRepository.registerNew();
     }
 
     /**
      * 従業員名登録
      */
-    public void registerName(WorkerIdentifier workerIdentifier, Name name) {
-        workerRepository.registerName(workerIdentifier, name);
+    public void registerName(WorkerNumber workerNumber, Name name) {
+        workerRepository.registerName(workerNumber, name);
     }
 
     /**
      * 従業員メールアドレス登録
      */
-    public void registerMailAddress(WorkerIdentifier workerIdentifier, MailAddress mailAddress) {
-        workerRepository.registerMailAddress(workerIdentifier, mailAddress);
+    public void registerMailAddress(WorkerNumber workerNumber, MailAddress mailAddress) {
+        workerRepository.registerMailAddress(workerNumber, mailAddress);
     }
 
     /**
      * 従業員電話番号登録
      */
-    public void registerPhoneNumber(WorkerIdentifier workerIdentifier, PhoneNumber phoneNumber) {
-        workerRepository.registerPhoneNumber(workerIdentifier, phoneNumber);
+    public void registerPhoneNumber(WorkerNumber workerNumber, PhoneNumber phoneNumber) {
+        workerRepository.registerPhoneNumber(workerNumber, phoneNumber);
     }
 
     /**

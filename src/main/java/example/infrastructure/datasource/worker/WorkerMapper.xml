@@ -5,13 +5,13 @@
 <mapper namespace="example.infrastructure.datasource.worker.WorkerMapper">
 
     <resultMap id="worker" type="example.domain.model.worker.Worker">
-        <id property="identifier.value" column="ユーザーID"/>
+        <id property="workerNumber.value" column="ユーザーID"/>
         <result property="name.value" column="ユーザー名"/>
         <result property="mailAddress.value" column="メールアドレス"/>
         <result property="phoneNumber.value" column="電話番号"/>
     </resultMap>
 
-    <select id="selectByIdentifier" resultMap="worker">
+    <select id="selectByWorkerNumber" resultMap="worker">
         SELECT
         ユーザー.ユーザーID,
         ユーザー名.ユーザー名,
@@ -33,7 +33,7 @@
         ) LEFT OUTER JOIN 給与.削除済みユーザー as 削除済みユーザー on (
         ユーザー.ユーザーID = 削除済みユーザー.ユーザーID
         )
-        WHERE ユーザー.ユーザーID = #{identifier.value} AND 削除済みユーザー.ユーザーID IS NULL
+        WHERE ユーザー.ユーザーID = #{workerNumber.value} AND 削除済みユーザー.ユーザーID IS NULL
     </select>
 
     <select id="selectContracts" resultMap="worker">
@@ -62,11 +62,11 @@
         ORDER BY ユーザー.ユーザーID;
     </select>
 
-    <select id="newWorkerIdentifier" resultType="Long">
+    <select id="newWorkerNumber" resultType="Long">
         select nextval('給与.ユーザーIDシーケンサー')
     </select>
     <insert id="insertWorker">
-        INSERT INTO 給与.ユーザー (ユーザーID, 登録日時) VALUES (#{workerIdentifier.value}, now());
+        INSERT INTO 給与.ユーザー (ユーザーID, 登録日時) VALUES (#{workerNumber.value}, now());
     </insert>
 
     <select id="newWorkerNameIdentifier" resultType="Long">
@@ -74,12 +74,12 @@
     </select>
     <insert id="insertName">
         INSERT INTO 給与.ユーザー名 (ユーザー名ID, ユーザーID, ユーザー名, 登録日時)
-        VALUES (#{id}, #{workerIdentifier.value}, #{name.value}, now());
+        VALUES (#{id}, #{workerNumber.value}, #{name.value}, now());
     </insert>
 
     <insert id="insertNameMapper">
         INSERT INTO 給与.ユーザー名対応表 (ユーザーID, ユーザー名ID)
-        VALUES (#{workerIdentifier.value}, #{nameId});
+        VALUES (#{workerNumber.value}, #{nameId});
     </insert>
 
     <select id="newWorkerPhoneNumberIdentifier" resultType="Long">
@@ -87,12 +87,12 @@
     </select>
     <insert id="insertPhoneNumber">
         INSERT INTO 給与.ユーザー電話番号 (ユーザー電話番号ID, ユーザーID, 電話番号, 登録日時)
-        VALUES (#{id}, #{workerIdentifier.value}, #{phoneNumber.value}, now());
+        VALUES (#{id}, #{workerNumber.value}, #{phoneNumber.value}, now());
     </insert>
 
     <insert id="insertPhoneNumberMapper">
         INSERT INTO 給与.ユーザー電話番号対応表 (ユーザーID, ユーザー電話番号ID)
-        VALUES (#{workerIdentifier.value}, #{phoneNumberId});
+        VALUES (#{workerNumber.value}, #{phoneNumberId});
     </insert>
 
     <select id="newWorkerMailAddressIdentifier" resultType="Long">
@@ -100,28 +100,28 @@
     </select>
     <insert id="insertMailAddress">
         INSERT INTO 給与.ユーザーメールアドレス (ユーザーメールアドレスID, ユーザーID, メールアドレス, 登録日時)
-        VALUES (#{id}, #{workerIdentifier.value}, #{mailAddress.value}, now());
+        VALUES (#{id}, #{workerNumber.value}, #{mailAddress.value}, now());
     </insert>
 
     <insert id="insertMailAddressMapper">
         INSERT INTO 給与.ユーザーメールアドレス対応表 (ユーザーID, ユーザーメールアドレスID)
-        VALUES (#{workerIdentifier.value}, #{mailAddressId});
+        VALUES (#{workerNumber.value}, #{mailAddressId});
     </insert>
 
     <delete id="deleteNameMapper">
-        DELETE FROM 給与.ユーザー名対応表 WHERE ユーザーID = #{workerIdentifier.value}
+        DELETE FROM 給与.ユーザー名対応表 WHERE ユーザーID = #{workerNumber.value}
     </delete>
 
     <delete id="deletePhoneNumberMapper">
-        DELETE FROM 給与.ユーザー電話番号対応表 WHERE ユーザーID = #{workerIdentifier.value}
+        DELETE FROM 給与.ユーザー電話番号対応表 WHERE ユーザーID = #{workerNumber.value}
     </delete>
 
     <delete id="deleteMailAddressMapper">
-        DELETE FROM 給与.ユーザーメールアドレス対応表 WHERE ユーザーID = #{workerIdentifier.value}
+        DELETE FROM 給与.ユーザーメールアドレス対応表 WHERE ユーザーID = #{workerNumber.value}
     </delete>
 
     <insert id="insertExpireContract">
         INSERT INTO 給与.削除済みユーザー (ユーザーID, 登録日時)
-        VALUES (#{worker.identifier.value}, now());
+        VALUES (#{worker.workerNumber.value}, now());
     </insert>
 </mapper>

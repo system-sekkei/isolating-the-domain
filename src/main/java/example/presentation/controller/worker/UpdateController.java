@@ -3,7 +3,7 @@ package example.presentation.controller.worker;
 import example.application.service.worker.WorkerQueryService;
 import example.application.service.worker.WorkerRecordService;
 import example.domain.model.worker.Worker;
-import example.domain.model.worker.WorkerIdentifier;
+import example.domain.model.worker.WorkerNumber;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("worker/{workerIdentifier}/update")
+@RequestMapping("worker/{workerNumber}/update")
 @SessionAttributes({"worker"})
 class UpdateController {
 
@@ -34,16 +34,16 @@ class UpdateController {
     WorkerRecordService workerRecordService;
 
     @GetMapping("")
-    String clearSessionAtStart(@PathVariable(value = "workerIdentifier") WorkerIdentifier workerIdentifier,
+    String clearSessionAtStart(@PathVariable(value = "workerNumber") WorkerNumber workerNumber,
                                SessionStatus status) {
         status.setComplete();
-        return "forward:/worker/" + workerIdentifier + "/update/input";
+        return "forward:/worker/" + workerNumber + "/update/input";
     }
 
     @GetMapping(value = "input")
-    String formToEdit(@PathVariable(value = "workerIdentifier") WorkerIdentifier workerIdentifier,
+    String formToEdit(@PathVariable(value = "workerNumber") WorkerNumber workerNumber,
                       Model model) {
-        Worker worker = workerQueryService.choose(workerIdentifier);
+        Worker worker = workerQueryService.choose(workerNumber);
         model.addAttribute("worker", worker);
         return "worker/update/form";
     }
@@ -65,13 +65,13 @@ class UpdateController {
     String registerThenRedirect(@ModelAttribute Worker worker,
                                 SessionStatus status,
                                 RedirectAttributes attributes) {
-        workerRecordService.registerName(worker.identifier(), worker.name());
-        workerRecordService.registerMailAddress(worker.identifier(), worker.mailAddress());
-        workerRecordService.registerPhoneNumber(worker.identifier(), worker.phoneNumber());
+        workerRecordService.registerName(worker.workerNumber(), worker.name());
+        workerRecordService.registerMailAddress(worker.workerNumber(), worker.mailAddress());
+        workerRecordService.registerPhoneNumber(worker.workerNumber(), worker.phoneNumber());
         status.setComplete();
 
         attributes.addAttribute("name", worker.name().toString());
-        attributes.addAttribute("id", worker.identifier().toString());
+        attributes.addAttribute("workerNumber", worker.workerNumber().toString());
 
         return "redirect:/worker/someone/update/completed";
     }
@@ -79,9 +79,9 @@ class UpdateController {
     @GetMapping(value = "completed")
     String showResult(Model model,
                       @RequestParam("name") String name,
-                      @RequestParam("id") String id) {
+                      @RequestParam("workerNumber") String workerNumber) {
         model.addAttribute("name", name);
-        model.addAttribute("id", id);
+        model.addAttribute("workerNumber", workerNumber);
         return "worker/update/result";
     }
 

@@ -2,7 +2,7 @@ package example.application.service.worker;
 
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.Worker;
-import example.domain.model.worker.WorkerIdentifier;
+import example.domain.model.worker.WorkerNumber;
 import example.domain.model.worker.WorkerRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +17,8 @@ public class WorkerQueryService {
     /**
      * 従業員選択
      */
-    public Worker choose(WorkerIdentifier workerIdentifier) {
-        return workerRepository.choose(workerIdentifier);
+    public Worker choose(WorkerNumber workerNumber) {
+        return workerRepository.choose(workerNumber);
     }
 
     /**

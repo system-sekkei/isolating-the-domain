@@ -2,7 +2,7 @@ package example.application.service.attendance;
 
 import example.domain.model.attendance.AttendanceRepository;
 import example.domain.model.attendance.MonthlyAttendances;
-import example.domain.model.worker.WorkerIdentifier;
+import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.YearMonth;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +17,8 @@ public class AttendanceQueryService {
     /**
      * 月次勤務時間取得
      */
-    public MonthlyAttendances findMonthlyAttendances(WorkerIdentifier workerIdentifier, YearMonth month) {
-        return attendanceRepository.findMonthly(workerIdentifier, month);
+    public MonthlyAttendances findMonthlyAttendances(WorkerNumber workerNumber, YearMonth month) {
+        return attendanceRepository.findMonthly(workerNumber, month);
     }
 
     AttendanceQueryService(AttendanceRepository attendanceRepository) {

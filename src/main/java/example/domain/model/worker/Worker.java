@@ -7,7 +7,7 @@ import javax.validation.Valid;
  */
 public class Worker {
     @Valid
-    WorkerIdentifier identifier;
+    WorkerNumber workerNumber;
 
     @Valid
     Name name;
@@ -19,14 +19,14 @@ public class Worker {
     PhoneNumber phoneNumber;
 
     public Worker() {
-        identifier = new WorkerIdentifier();
+        workerNumber = new WorkerNumber();
         name = new Name();
         mailAddress = new MailAddress();
         phoneNumber = new PhoneNumber();
     }
 
-    public WorkerIdentifier identifier() {
-        return identifier;
+    public WorkerNumber workerNumber() {
+        return workerNumber;
     }
 
     public Name name() {
@@ -44,7 +44,7 @@ public class Worker {
     @Override
     public String toString() {
         return "Worker{" +
-                "identifier=" + identifier +
+                "workerNumber=" + workerNumber +
                 ", name=" + name +
                 ", phoneNumber=" + phoneNumber +
                 ", mailAddress=" + mailAddress +

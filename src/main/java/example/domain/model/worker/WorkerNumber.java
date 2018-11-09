@@ -1,20 +1,20 @@
 package example.domain.model.worker;
 
 /**
- * 従業員識別子
+ * 従業員番号
  */
-public class WorkerIdentifier {
+public class WorkerNumber {
 
     Long value;
 
-    public WorkerIdentifier() {
+    public WorkerNumber() {
     }
 
-    public WorkerIdentifier(String value) {
+    public WorkerNumber(String value) {
         this.value = Long.parseLong(value);
     }
 
-    public WorkerIdentifier(Long value) {
+    public WorkerNumber(Long value) {
         this.value = value;
     }
 

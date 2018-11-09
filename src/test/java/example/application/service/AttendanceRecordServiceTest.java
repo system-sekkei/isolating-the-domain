@@ -6,7 +6,7 @@ import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.AttendanceOfDay;
 import example.domain.model.attendance.MonthlyAttendances;
-import example.domain.model.worker.WorkerIdentifier;
+import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import example.domain.type.time.HourTime;
 import example.domain.type.time.Minute;
@@ -31,13 +31,13 @@ class AttendanceRecordServiceTest {
 
     @Test
     void register() {
-        WorkerIdentifier workerIdentifier = workerQueryService.contractingWorkers().list().get(0).identifier();
+        WorkerNumber workerNumber = workerQueryService.contractingWorkers().list().get(0).workerNumber();
         Date workDay = new Date("2099-10-20");
         AttendanceOfDay work = new AttendanceOfDay(workDay, new HourTime("9:00"), new HourTime("17:00"), new Minute(60));
 
-        sut.registerAttendance(workerIdentifier, work);
+        sut.registerAttendance(workerNumber, work);
 
-        MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(workerIdentifier, workDay.yearMonth());
+        MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(workerNumber, workDay.yearMonth());
         AttendanceOfDay registeredAttendance = monthlyAttendances.list().get(19);
         assertAll(() -> assertEquals(work.date().value(), registeredAttendance.date().value()),
                 () -> assertEquals(work.workTimeRange().start().toString(), registeredAttendance.workTimeRange().start().toString()),

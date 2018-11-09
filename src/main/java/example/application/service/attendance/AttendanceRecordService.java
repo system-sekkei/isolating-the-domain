@@ -2,7 +2,7 @@ package example.application.service.attendance;
 
 import example.domain.model.attendance.AttendanceOfDay;
 import example.domain.model.attendance.AttendanceRepository;
-import example.domain.model.worker.WorkerIdentifier;
+import example.domain.model.worker.WorkerNumber;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,8 +16,8 @@ public class AttendanceRecordService {
     /**
      * 勤務時間登録
      */
-    public void registerAttendance(WorkerIdentifier workerIdentifier, AttendanceOfDay attendanceOfDay) {
-        attendanceRepository.registerAttendance(workerIdentifier, attendanceOfDay);
+    public void registerAttendance(WorkerNumber workerNumber, AttendanceOfDay attendanceOfDay) {
+        attendanceRepository.registerAttendance(workerNumber, attendanceOfDay);
     }
 
     AttendanceRecordService(AttendanceRepository attendanceRepository) {

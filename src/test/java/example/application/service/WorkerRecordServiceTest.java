@@ -24,7 +24,7 @@ class WorkerRecordServiceTest {
     @Test
     void list() {
         Worker worker = query.contractingWorkers().list().stream().filter(
-                us -> us.identifier().value().equals(1L)).findFirst().get();
+                us -> us.workerNumber().value().equals(1L)).findFirst().get();
         assertAll(
                 () -> assertEquals(worker.mailAddress().toString(), "fukawa_teruyoshi_new@example.com"),
                 () -> assertEquals(worker.phoneNumber().toString(), "03-1234-9999"),
@@ -33,7 +33,7 @@ class WorkerRecordServiceTest {
 
     @Test
     void findById() {
-        Worker worker = query.choose(new WorkerIdentifier(1L));
+        Worker worker = query.choose(new WorkerNumber(1L));
         assertAll(
                 () -> assertEquals(worker.mailAddress().toString(), "fukawa_teruyoshi_new@example.com"),
                 () -> assertEquals(worker.phoneNumber().toString(), "03-1234-9999"),
@@ -46,12 +46,12 @@ class WorkerRecordServiceTest {
         PhoneNumber phoneNumber = new PhoneNumber("090-6559-1234");
         MailAddress mailAddress = new MailAddress("hogehoge_hogeo@example.com");
 
-        WorkerIdentifier workerIdentifier = sut.prepareNewContract();
-        sut.registerName(workerIdentifier, name);
-        sut.registerPhoneNumber(workerIdentifier, phoneNumber);
-        sut.registerMailAddress(workerIdentifier, mailAddress);
+        WorkerNumber workerNumber = sut.prepareNewContract();
+        sut.registerName(workerNumber, name);
+        sut.registerPhoneNumber(workerNumber, phoneNumber);
+        sut.registerMailAddress(workerNumber, mailAddress);
 
-        Worker foundWorker = query.choose(workerIdentifier);
+        Worker foundWorker = query.choose(workerNumber);
         assertAll(
                 () -> assertEquals(foundWorker.name().toString(), name.toString()),
                 () -> assertEquals(foundWorker.phoneNumber().toString(), phoneNumber.toString()),
@@ -60,6 +60,6 @@ class WorkerRecordServiceTest {
         sut.expireContract(foundWorker);
 
         assertThrows(WorkerNotFoundException.class,
-                () -> query.choose((foundWorker.identifier())));
+                () -> query.choose((foundWorker.workerNumber())));
     }
 }

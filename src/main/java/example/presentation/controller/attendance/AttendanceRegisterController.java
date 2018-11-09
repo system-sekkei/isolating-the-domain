@@ -5,7 +5,7 @@ import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.AttendanceOfDay;
 import example.domain.model.worker.ContractingWorkers;
-import example.domain.model.worker.WorkerIdentifier;
+import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import example.domain.type.time.HourTime;
 import example.domain.type.time.Minute;
@@ -42,12 +42,12 @@ public class AttendanceRegisterController {
     }
 
     @PostMapping
-    String register(@RequestParam("workerIdentifier") WorkerIdentifier workerIdentifier,
+    String register(@RequestParam("workerNumber") WorkerNumber workerNumber,
                     @RequestParam("date") Date date) {
         // TODO validation
 
         attendanceRecordService.registerAttendance(
-                workerIdentifier,
+                workerNumber,
                 new AttendanceOfDay(
                         date,
                         // TODO 入力から
@@ -57,6 +57,6 @@ public class AttendanceRegisterController {
                 )
         );
 
-        return "redirect:/attendance/" + workerIdentifier.value() + "/list";
+        return "redirect:/attendance/" + workerNumber.value() + "/list";
     }
 }

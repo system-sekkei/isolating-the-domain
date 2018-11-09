@@ -2,7 +2,7 @@ package example.presentation.controller.worker;
 
 import example.application.service.worker.WorkerRecordService;
 import example.domain.model.worker.Name;
-import example.domain.model.worker.WorkerIdentifier;
+import example.domain.model.worker.WorkerNumber;
 import example.presentation.view.NewWorker;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -64,14 +64,14 @@ class RegisterController {
             @ModelAttribute("newWorker") NewWorker newWorker,
             SessionStatus status, RedirectAttributes attributes) {
         Name name = newWorker.name();
-        WorkerIdentifier workerIdentifier = workerRecordService.prepareNewContract();
-        workerRecordService.registerName(workerIdentifier, name);
-        workerRecordService.registerMailAddress(workerIdentifier, newWorker.mailAddress());
-        workerRecordService.registerPhoneNumber(workerIdentifier, newWorker.phoneNumber());
+        WorkerNumber workerNumber = workerRecordService.prepareNewContract();
+        workerRecordService.registerName(workerNumber, name);
+        workerRecordService.registerMailAddress(workerNumber, newWorker.mailAddress());
+        workerRecordService.registerPhoneNumber(workerNumber, newWorker.phoneNumber());
         status.setComplete();
 
         attributes.addAttribute("name", name);
-        attributes.addAttribute("id", workerIdentifier);
+        attributes.addAttribute("workerNumber", workerNumber);
 
         return "redirect:/worker/register/completed";
     }
@@ -79,9 +79,9 @@ class RegisterController {
     @GetMapping(value = "completed")
     String showResult(Model model,
                       @RequestParam("name") String name,
-                      @RequestParam("id") String id) {
+                      @RequestParam("workerNumber") String workerNumber) {
         model.addAttribute("name", name);
-        model.addAttribute("id", id);
+        model.addAttribute("workerNumber", workerNumber);
         return "worker/register/result";
     }
 
