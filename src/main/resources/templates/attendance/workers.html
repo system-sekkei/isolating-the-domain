@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
+  <title>従業員一覧</title>
+</head>
+<body>
+<div class="ui container">
+  <div class="ui basic segment">
+    <h1 class="ui center aligned header">従業員一覧</h1>
+  </div>
+  
+  <div class="workerList">
+    <div class="ui basic segment">
+      <table class="ui striped celled table">
+       <thead>
+          <tr>
+            <th class="one wide">ID</th>
+            <th class="four wide">従業員名</th>
+            <th class="five wide">月間勤務時間</th>
+            <th class="six wide"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="worker : ${workers.list()}">
+            <td th:text="${worker.identifier()}"/>
+            <td th:text="${worker.name()}"/>
+            <td/>
+            <td class="ui center aligned">
+              <a class="ui tiny primary basic button"
+                 th:href="@{/attendance/{workerIdentifier}/list(workerIdentifier=${worker.identifier()})}">
+                <i class="calendar alternate outline icon"></i>勤務時間の一覧
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="ui center aligned basic segment">
+    <a class="ui grey button" th:href="@{/}">ダッシュボードに戻る</a>
+  </div>
+</div>
+
+</body>
+</html>

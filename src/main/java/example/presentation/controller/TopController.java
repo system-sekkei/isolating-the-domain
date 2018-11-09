@@ -19,7 +19,7 @@ class TopController {
 
     @GetMapping
     String show() {
-        return "top";
+        return "dashboard";
     }
 
     TopController(WorkerQueryService workerQueryService) {

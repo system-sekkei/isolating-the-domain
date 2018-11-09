@@ -5,6 +5,7 @@ import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.AttendanceOfDay;
 import example.domain.model.attendance.MonthlyAttendances;
+import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerIdentifier;
 import example.domain.type.date.Date;
@@ -34,6 +35,13 @@ public class AttendanceController {
         this.workerQueryService = workerQueryService;
         this.attendanceRecordService = attendanceRecordService;
         this.attendanceQueryService = attendanceQueryService;
+    }
+
+    @GetMapping("workers")
+    String workers(Model model) {
+        ContractingWorkers contractingWorkers = workerQueryService.contractingWorkers();
+        model.addAttribute("workers", contractingWorkers);
+        return "attendance/workers";
     }
 
     @GetMapping
