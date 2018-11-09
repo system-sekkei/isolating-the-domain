@@ -33,24 +33,26 @@
     </table>
   </div>
 
-  <div class="ui divider"></div> 
+  <div class="ui section divider"></div> 
   
   <h2 class="ui center aligned header"><<   11月   >></h2>
   <div class="attendanceList">
     <table class="ui striped celled table">
       <thead>
       <tr>
-        <th class="">日付</th>
-        <th class="">開始時刻</th>
-        <th class="">終了時刻</th>
-        <th class="">休憩時間</th>
-        <th class="">勤務時間</th>
+        <th class="two wide">日</th>
+        <th class="two wide">曜日</th>
+        <th class="three wide">開始時刻</th>
+        <th class="three wide">終了時刻</th>
+        <th class="three wide">休憩時間</th>
+        <th class="five wide">勤務時間</th>
       </tr>
       </thead>
       <tbody>
         <th:block th:each="attendance : ${monthlyAttendances.list()}">
           <tr th:if="${attendance.attendance().work()}">
             <td th:text="${attendance.date()}"></td>
+            <td></td>
             <td th:text="${attendance.workTimeRange().start()}"></td>
             <td th:text="${attendance.workTimeRange().end()}"></td>
             <td th:text="${attendance.breaks()}"></td>
@@ -58,6 +60,7 @@
           </tr>
           <tr th:unless="${attendance.attendance().work()}">
             <td th:text="${attendance.date()}"></td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
