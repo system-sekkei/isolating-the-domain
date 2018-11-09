@@ -20,5 +20,5 @@ jobs:
           key: v1-dependencies-{{ checksum "build.gradle" }}
       - run: ./gradlew test
       - store_test_results:
-        path: build/test-results
+          path: build/test-results
 
