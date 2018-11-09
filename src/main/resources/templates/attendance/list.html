@@ -11,32 +11,31 @@
   </div>
   
   <div class="attendanceInfo">
-    <div class="ui centered card">
-      <div class="content">
-        <div class="left aligned description">
-          <p>従業員名</p>
-        </div>
-        <div class="center aligned header"
-             th:text="${worker.name()}"></div>
-      </div>
-    </div>
-
-    <table class="ui celled table">
+    <table class="ui celled center aligned definition table">
+      <tr>
+        <th class="four wide tableHeader">従業員名</th>
+        <td class="twelve wide">佐々木 太郎</td>
+      </tr>
+    </table>
+    <table class="ui celled center aligned small table">
       <thead>
         <tr>
-          <th class="center aligned">総勤務時間(時間)</th>
-          <th class="center aligned">総休憩時間(分)</th>
+          <th class="eight wide">総勤務時間(時間)</th>
+          <th class="eight wide">総休憩時間(分)</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-            <td class="center aligned six wide emphasis">50</td>
-            <td class="center aligned six wide emphasis">100</td>
+          <td>50</td>
+          <td>100</td>
         </tr>
       </tbody>
     </table>
   </div>
+
+  <div class="ui divider"></div> 
   
+  <h2 class="ui center aligned header"><<   11月   >></h2>
   <div class="attendanceList">
     <table class="ui striped celled table">
       <thead>
