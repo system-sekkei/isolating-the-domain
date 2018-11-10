@@ -17,7 +17,8 @@
           <tr>
             <th class="two wide">従業員番号</th>
             <th class="four wide">従業員名</th>
-            <th class="six wide">月間勤務時間</th>
+            <th class="three wide">給与</th>
+            <th class="three wide">月間勤務時間</th>
             <th class="four wide"></th>
           </tr>
         </thead>
@@ -25,6 +26,7 @@
           <tr th:each="worker : ${workers.list()}">
             <td th:text="${worker.workerNumber()}"/>
             <td th:text="${worker.name()}"/>
+            <td></td>
             <td th:text="${map.get(worker.workerNumber().toString()).totalTime()}"/>
             <td class="ui center aligned">
               <a class="ui tiny primary basic button"
