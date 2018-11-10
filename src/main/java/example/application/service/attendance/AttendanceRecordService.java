@@ -1,7 +1,6 @@
 package example.application.service.attendance;
 
 import example.domain.model.attendance.AttendanceOfDay;
-import example.domain.model.attendance.AttendanceRepository;
 import example.domain.model.worker.WorkerNumber;
 import org.springframework.stereotype.Service;
 

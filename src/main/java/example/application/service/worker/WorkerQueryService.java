@@ -3,7 +3,6 @@ package example.application.service.worker;
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
-import example.domain.model.worker.WorkerRepository;
 import org.springframework.stereotype.Service;
 
 /**

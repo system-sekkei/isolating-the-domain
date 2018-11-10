@@ -1,4 +1,6 @@
-package example.domain.model.worker;
+package example.application.service.worker;
+
+import example.domain.model.worker.*;
 
 /**
  * 従業員リポジトリ

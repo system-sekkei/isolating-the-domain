@@ -1,5 +1,7 @@
-package example.domain.model.attendance;
+package example.application.service.attendance;
 
+import example.domain.model.attendance.AttendanceOfDay;
+import example.domain.model.attendance.MonthlyAttendances;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.YearMonth;
 
