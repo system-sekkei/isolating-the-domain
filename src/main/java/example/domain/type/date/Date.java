@@ -37,6 +37,10 @@ public class Date {
         return value.getDayOfMonth();
     }
 
+    public DayOfWeek dayOfWeek() {
+        return DayOfWeek.of(value.getDayOfWeek());
+    }
+
     @Override
     public String toString() {
         return value.format(DateTimeFormatter.ISO_DATE);
