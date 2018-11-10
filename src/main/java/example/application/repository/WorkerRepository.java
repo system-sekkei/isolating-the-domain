@@ -1,4 +1,4 @@
-package example.application.service.worker;
+package example.application.repository;
 
 import example.domain.model.worker.*;
 

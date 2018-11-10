@@ -1,6 +1,6 @@
 package example.infrastructure.datasource.worker;
 
-import example.application.service.worker.WorkerRepository;
+import example.application.repository.WorkerRepository;
 import example.domain.model.worker.*;
 import org.springframework.stereotype.Repository;
 

@@ -1,5 +1,6 @@
 package example.application.service.worker;
 
+import example.application.repository.WorkerRepository;
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
