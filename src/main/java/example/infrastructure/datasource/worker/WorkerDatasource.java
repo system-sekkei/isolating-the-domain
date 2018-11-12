@@ -34,7 +34,7 @@ public class WorkerDatasource implements WorkerRepository {
         Long nameId = mapper.newWorkerNameIdentifier();
         mapper.insertName(nameId, workerNumber, name);
         mapper.deleteNameMapper(workerNumber);
-        mapper.insertNameMapper(workerNumber, nameId);
+        mapper.insertNameMapper(workerNumber, name);
     }
 
     @Override

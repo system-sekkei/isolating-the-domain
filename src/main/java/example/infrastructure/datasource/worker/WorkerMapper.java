@@ -19,7 +19,7 @@ public interface WorkerMapper {
 
     void insertName(@Param("id") Long id, @Param("workerNumber") WorkerNumber workerNumber, @Param("name") Name name);
 
-    void insertNameMapper(@Param("workerNumber") WorkerNumber workerNumber, @Param("nameId") Long nameId);
+    void insertNameMapper(@Param("workerNumber") WorkerNumber workerNumber, @Param("name") Name workerName);
 
     void deletePhoneNumberMapper(@Param("workerNumber") WorkerNumber workerNumber);
 

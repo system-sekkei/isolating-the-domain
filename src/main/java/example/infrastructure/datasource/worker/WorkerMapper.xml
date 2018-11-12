@@ -14,14 +14,12 @@
     <select id="selectByWorkerNumber" resultMap="worker">
         SELECT
         従業員.従業員ID,
-        従業員名.従業員名,
+        従業員の名前.従業員名,
         従業員メールアドレス.メールアドレス,
         従業員電話番号.電話番号
         FROM 給与.従業員 as 従業員
-        INNER JOIN 給与.従業員名対応表 as 従業員名対応表 on (
-        従業員.従業員ID = 従業員名対応表.従業員ID
-        ) INNER JOIN 給与.従業員名 as 従業員名 on (
-        従業員名対応表.従業員名ID = 従業員名.従業員名ID
+        INNER JOIN 給与.従業員の名前 as 従業員の名前 on (
+        従業員.従業員ID = 従業員の名前.従業員ID
         ) INNER JOIN 給与.従業員電話番号対応表 as 従業員電話番号対応表 on (
         従業員.従業員ID = 従業員電話番号対応表.従業員ID
         ) INNER JOIN 給与.従業員電話番号 as 従業員電話番号 on (
@@ -39,14 +37,12 @@
     <select id="selectContracts" resultMap="worker">
         SELECT
         従業員.従業員ID,
-        従業員名.従業員名,
+        従業員の名前.従業員名,
         従業員メールアドレス.メールアドレス,
         従業員電話番号.電話番号
         FROM 給与.従業員 as 従業員
-        INNER JOIN 給与.従業員名対応表 as 従業員名対応表 on (
-        従業員.従業員ID = 従業員名対応表.従業員ID
-        ) INNER JOIN 給与.従業員名 as 従業員名 on (
-        従業員名対応表.従業員名ID = 従業員名.従業員名ID
+        INNER JOIN 給与.従業員の名前 as 従業員の名前 on (
+        従業員.従業員ID = 従業員の名前.従業員ID
         ) INNER JOIN 給与.従業員電話番号対応表 as 従業員電話番号対応表 on (
         従業員.従業員ID = 従業員電話番号対応表.従業員ID
         ) INNER JOIN 給与.従業員電話番号 as 従業員電話番号 on (
@@ -73,13 +69,13 @@
         select nextval('給与.従業員名ID')
     </select>
     <insert id="insertName">
-        INSERT INTO 給与.従業員名 (従業員名ID, 従業員ID, 従業員名)
+        INSERT INTO 給与.従業員の名前履歴 (従業員名ID, 従業員ID, 従業員名)
         VALUES (#{id}, #{workerNumber.value}, #{name.value});
     </insert>
 
     <insert id="insertNameMapper">
-        INSERT INTO 給与.従業員名対応表 (従業員ID, 従業員名ID)
-        VALUES (#{workerNumber.value}, #{nameId});
+        INSERT INTO 給与.従業員の名前 (従業員ID, 従業員名)
+        VALUES (#{workerNumber.value}, #{name.value});
     </insert>
 
     <select id="newWorkerPhoneNumberIdentifier" resultType="Long">
@@ -109,7 +105,7 @@
     </insert>
 
     <delete id="deleteNameMapper">
-        DELETE FROM 給与.従業員名対応表 WHERE 従業員ID = #{workerNumber.value}
+        DELETE FROM 給与.従業員の名前 WHERE 従業員ID = #{workerNumber.value}
     </delete>
 
     <delete id="deletePhoneNumberMapper">

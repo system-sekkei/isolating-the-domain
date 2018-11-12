@@ -7,7 +7,7 @@ CREATE TABLE 給与.従業員 (
 );
 CREATE SEQUENCE 給与.従業員ID;
 
-CREATE TABLE 給与.従業員名 (
+CREATE TABLE 給与.従業員の名前履歴 (
   従業員名ID INTEGER PRIMARY KEY,
   従業員ID  INTEGER NOT NULL,
   従業員名 VARCHAR(40) NOT NULL,
@@ -16,13 +16,12 @@ CREATE TABLE 給与.従業員名 (
 );
 CREATE SEQUENCE 給与.従業員名ID;
 
-CREATE TABLE 給与.従業員名対応表 (
+CREATE TABLE 給与.従業員の名前 (
   従業員ID  INTEGER NOT NULL,
-  従業員名ID INTEGER NOT NULL,
-    PRIMARY KEY (従業員ID, 従業員名ID)
+  従業員名 VARCHAR(40) NOT NULL,
+  登録日時 TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (従業員ID)
     ,FOREIGN KEY (従業員ID) REFERENCES  給与.従業員(従業員ID)
-    ,FOREIGN KEY (従業員名ID)
-      REFERENCES  給与.従業員名(従業員名ID)
 );
 
 CREATE TABLE 給与.従業員電話番号 (
