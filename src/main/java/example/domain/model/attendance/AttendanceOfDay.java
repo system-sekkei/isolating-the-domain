@@ -18,13 +18,7 @@ public class AttendanceOfDay {
     }
 
     public AttendanceOfDay(Date date) {
-        this(date, new HourTime("00:00"), new HourTime("00:00"), new Minute(0));
-    }
-
-    public AttendanceOfDay(Date day, HourTime start, HourTime end, Minute breaks) {
-        this.date = day;
-        this.workTimeRange = new WorkTimeRange(start, end);
-        this.breaks = new Break(breaks);
+        this(date, new WorkStartTime(new HourTime("00:00")), new WorkEndTime(new HourTime("00:00")), new Break(new Minute(0)));
     }
 
     public AttendanceOfDay(Date date, WorkStartTime workStartTime, WorkEndTime workEndTime, Break breaks) {
