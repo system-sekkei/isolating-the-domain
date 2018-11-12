@@ -3,8 +3,8 @@ package example.domain.model.payroll;
 import java.math.BigDecimal;
 
 /**
- * 金額
+ * 賃金
  */
-public class Amount {
+public class Wage {
     BigDecimal value;
 }

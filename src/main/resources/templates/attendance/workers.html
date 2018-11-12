@@ -27,7 +27,7 @@
             <td th:text="${worker.workerNumber()}"/>
             <td th:text="${worker.name()}"/>
             <td></td>
-            <td th:text="${map.get(worker.workerNumber().toString()).totalTime()}"/>
+            <td th:text="${map.get(worker.workerNumber().toString()).totalWorks()}"/>
             <td class="ui center aligned">
               <a class="ui tiny primary basic button"
                  th:href="@{/attendance/{workerNumber}/list(workerNumber=${worker.workerNumber()})}">
