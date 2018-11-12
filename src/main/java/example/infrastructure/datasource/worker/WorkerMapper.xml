@@ -15,17 +15,15 @@
         SELECT
         従業員.従業員ID,
         従業員の名前.従業員名,
-        従業員メールアドレス.メールアドレス,
+        従業員のメールアドレス.メールアドレス,
         従業員の電話番号.電話番号
         FROM 給与.従業員 as 従業員
         INNER JOIN 給与.従業員の名前 as 従業員の名前 on (
         従業員.従業員ID = 従業員の名前.従業員ID
         ) INNER JOIN 給与.従業員の電話番号 as 従業員の電話番号 on (
         従業員.従業員ID = 従業員の電話番号.従業員ID
-        ) INNER JOIN 給与.従業員メールアドレス対応表 as 従業員メールアドレス対応表 on (
-        従業員.従業員ID = 従業員メールアドレス対応表.従業員ID
-        ) INNER JOIN 給与.従業員メールアドレス as 従業員メールアドレス on (
-        従業員メールアドレス対応表.従業員メールアドレスID = 従業員メールアドレス.従業員メールアドレスID
+        ) INNER JOIN 給与.従業員のメールアドレス as 従業員のメールアドレス on (
+        従業員.従業員ID = 従業員のメールアドレス.従業員ID
         ) LEFT OUTER JOIN 給与.削除済み従業員 as 削除済み従業員 on (
         従業員.従業員ID = 削除済み従業員.従業員ID
         )
@@ -36,17 +34,15 @@
         SELECT
         従業員.従業員ID,
         従業員の名前.従業員名,
-        従業員メールアドレス.メールアドレス,
+        従業員のメールアドレス.メールアドレス,
         従業員の電話番号.電話番号
         FROM 給与.従業員 as 従業員
         INNER JOIN 給与.従業員の名前 as 従業員の名前 on (
         従業員.従業員ID = 従業員の名前.従業員ID
         ) INNER JOIN 給与.従業員の電話番号 as 従業員の電話番号 on (
         従業員.従業員ID = 従業員の電話番号.従業員ID
-        ) INNER JOIN 給与.従業員メールアドレス対応表 as 従業員メールアドレス対応表 on (
-        従業員.従業員ID = 従業員メールアドレス対応表.従業員ID
-        ) INNER JOIN 給与.従業員メールアドレス as 従業員メールアドレス on (
-        従業員メールアドレス対応表.従業員メールアドレスID = 従業員メールアドレス.従業員メールアドレスID
+        ) INNER JOIN 給与.従業員のメールアドレス as 従業員のメールアドレス on (
+        従業員.従業員ID = 従業員のメールアドレス.従業員ID
         ) LEFT OUTER JOIN 給与.削除済み従業員 as 削除済み従業員 on (
         従業員.従業員ID = 削除済み従業員.従業員ID
         )
@@ -91,13 +87,13 @@
         select nextval('給与.従業員メールアドレスID')
     </select>
     <insert id="insertMailAddress">
-        INSERT INTO 給与.従業員メールアドレス (従業員メールアドレスID, 従業員ID, メールアドレス)
+        INSERT INTO 給与.従業員のメールアドレス履歴 (従業員メールアドレスID, 従業員ID, メールアドレス)
         VALUES (#{id}, #{workerNumber.value}, #{mailAddress.value});
     </insert>
 
     <insert id="insertMailAddressMapper">
-        INSERT INTO 給与.従業員メールアドレス対応表 (従業員ID, 従業員メールアドレスID)
-        VALUES (#{workerNumber.value}, #{mailAddressId});
+        INSERT INTO 給与.従業員のメールアドレス (従業員ID, メールアドレス)
+        VALUES (#{workerNumber.value}, #{mailAddress.value});
     </insert>
 
     <delete id="deleteNameMapper">
@@ -109,7 +105,7 @@
     </delete>
 
     <delete id="deleteMailAddressMapper">
-        DELETE FROM 給与.従業員メールアドレス対応表 WHERE 従業員ID = #{workerNumber.value}
+        DELETE FROM 給与.従業員のメールアドレス WHERE 従業員ID = #{workerNumber.value}
     </delete>
 
     <insert id="insertExpireContract">

@@ -42,7 +42,7 @@ CREATE TABLE 給与.従業員の電話番号 (
 );
 
 
-CREATE TABLE 給与.従業員メールアドレス (
+CREATE TABLE 給与.従業員のメールアドレス履歴 (
   従業員メールアドレスID INTEGER PRIMARY KEY,
   従業員ID  INTEGER NOT NULL,
   メールアドレス VARCHAR(255) NOT NULL,
@@ -51,13 +51,12 @@ CREATE TABLE 給与.従業員メールアドレス (
 );
 CREATE SEQUENCE 給与.従業員メールアドレスID;
 
-CREATE TABLE 給与.従業員メールアドレス対応表 (
+CREATE TABLE 給与.従業員のメールアドレス (
   従業員ID  INTEGER NOT NULL,
-  従業員メールアドレスID INTEGER NOT NULL,
-    PRIMARY KEY (従業員ID, 従業員メールアドレスID)
+  メールアドレス VARCHAR(255) NOT NULL,
+  登録日時 TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (従業員ID)
     ,FOREIGN KEY (従業員ID) REFERENCES  給与.従業員(従業員ID)
-    ,FOREIGN KEY (従業員メールアドレスID)
-      REFERENCES  給与.従業員メールアドレス対応表(従業員メールアドレスID)
 );
 
 CREATE TABLE 給与.削除済み従業員 (

@@ -31,7 +31,7 @@ public interface WorkerMapper {
 
     void insertMailAddress(@Param("id") Long id, @Param("workerNumber") WorkerNumber workerNumber, @Param("mailAddress") MailAddress mailAddress);
 
-    void insertMailAddressMapper(@Param("workerNumber") WorkerNumber workerNumber, @Param("mailAddressId") Long mailAddressId);
+    void insertMailAddressMapper(@Param("workerNumber") WorkerNumber workerNumber, @Param("mailAddress") MailAddress mailAddress);
 
     void insertExpireContract(@Param("worker") Worker worker);
 

@@ -63,7 +63,7 @@ values
  ;
  
  -- メールアドレス
- INSERT INTO 給与.従業員メールアドレス
+ INSERT INTO 給与.従業員のメールアドレス履歴
  (従業員メールアドレスID, 従業員ID, メールアドレス)
  values
  (1, 1, 'fukawa_teruyoshi@example.com'),
@@ -73,20 +73,20 @@ values
  (5, 5, 'yamato_michiko@example.com'),
  (6, 6, 'miyake_yukiya@example.com')
  ;
- INSERT INTO 給与.従業員メールアドレス
+ INSERT INTO 給与.従業員のメールアドレス履歴
  (従業員メールアドレスID, 従業員ID, メールアドレス)
  values(7, 1, 'fukawa_teruyoshi_new@example.com')
  ;
  
- INSERT INTO 給与.従業員メールアドレス対応表
- (従業員ID, 従業員メールアドレスID)
+ INSERT INTO 給与.従業員のメールアドレス
+ (従業員ID, メールアドレス)
 values
- (1, 7),
- (2, 2),
- (3, 3),
- (4, 4),
- (5, 5),
- (6, 6)
+ (1, 'fukawa_teruyoshi_new@example.com'),
+ (2, 'kuriyama_yuino@example.com'),
+ (3, 'fujimura_kaoru@example.com'),
+ (4, 'ijuuin_ken@example.com'),
+ (5, 'yamato_michiko@example.com'),
+ (6, 'miyake_yukiya@example.com')
  ;
 
 ALTER SEQUENCE 給与.従業員ID RESTART WITH 100;
