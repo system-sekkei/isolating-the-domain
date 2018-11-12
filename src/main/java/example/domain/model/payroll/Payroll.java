@@ -4,6 +4,7 @@ import example.domain.model.attendance.MonthlyAttendances;
 import example.domain.model.attendance.WorkHours;
 import example.domain.model.labour_standards_law.ExtraPayRate;
 import example.domain.model.worker.Worker;
+import example.domain.type.date.YearMonth;
 
 /**
  * 給与
@@ -11,6 +12,17 @@ import example.domain.model.worker.Worker;
 public class Payroll {
     Worker worker;
     MonthlyAttendances monthlyAttendances;
+    MonthlyHourlyWages monthlyHourlyWages;
+
+    public Payroll() {
+        //FIXME ...
+    }
+
+    public Payroll(Worker worker, MonthlyAttendances monthlyAttendance, MonthlyHourlyWages monthlyHourlyWage) {
+        this.worker = worker;
+        this.monthlyAttendances = monthlyAttendance;
+        this.monthlyHourlyWages = monthlyHourlyWage;
+    }
 
     Wage wage() {
         // TODO ここでインスタンス生成してるものをよそから受け取る。コンストラクタ？引数？

@@ -1,7 +1,6 @@
 package example.application.service.payroll;
 
 import example.application.repository.PayrollRepository;
-import example.application.repository.WorkerRepository;
 import example.domain.model.payroll.HourlyWage;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;

@@ -1,12 +1,16 @@
 package example.infrastructure.datasource.payroll;
 
 import example.application.repository.PayrollRepository;
+import example.domain.model.payroll.DailyHourlyWage;
 import example.domain.model.payroll.HourlyWage;
+import example.domain.model.payroll.MonthlyHourlyWages;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
+import example.domain.type.date.YearMonth;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class PayrollDataSource implements PayrollRepository {
@@ -22,6 +26,13 @@ public class PayrollDataSource implements PayrollRepository {
     public HourlyWage getHourlyWage(WorkerNumber workerNumber, Date workDay) {
         List<HourlyWage> hourlyWages = mapper.getHourlyWage(workerNumber, workDay);
         return hourlyWages.stream().findFirst().orElseThrow(() -> new HourlyWageNotFoundException());
+    }
+
+    @Override
+    public MonthlyHourlyWages getMonthlyHourlyWage(WorkerNumber workerNumber, YearMonth yearMonth) {
+        List<Date> days = yearMonth.days();
+        List<DailyHourlyWage> wages = days.stream().map(day -> new DailyHourlyWage(day, getHourlyWage(workerNumber, day))).collect(Collectors.toList());
+        return new MonthlyHourlyWages(wages);
     }
 
     PayrollDataSource(PayrollMapper payrollMapper) {
