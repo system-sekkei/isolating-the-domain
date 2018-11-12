@@ -6,15 +6,15 @@
     <select id="newWorkTimeIdentifier" resultType="Long">
         select nextval('給与.就業時間ID')
     </select>
-    <insert id="insertWorkTime">
+    <insert id="insertWorkTimeHistory">
         INSERT INTO 給与.就業時間履歴 (就業時間ID, 従業員ID, 就業日, 開始時刻, 終了時刻, 休憩時間)
         VALUES (#{id}, #{workerNumber.value}, #{work.date.value}, #{work.workTimeRange.startTime.value.value}, #{work.workTimeRange.endTime.value.value}, #{work.breaks.value.value});
     </insert>
-    <insert id="insertWorkTimeMapper">
+    <insert id="insertWorkTime">
         INSERT INTO 給与.就業時間 (従業員ID, 就業日, 開始時刻, 終了時刻, 休憩時間)
         VALUES (#{workerNumber.value}, #{work.date.value}, #{work.workTimeRange.startTime.value.value}, #{work.workTimeRange.endTime.value.value}, #{work.breaks.value.value});
     </insert>
-    <delete id="deleteWorkTimeMapper">
+    <delete id="deleteWorkTime">
         DELETE FROM 給与.就業時間 WHERE 従業員ID = #{workerNumber.value} and 就業日 = #{workDay.value}
     </delete>
 

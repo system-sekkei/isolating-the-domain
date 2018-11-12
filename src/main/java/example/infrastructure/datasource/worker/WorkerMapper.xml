@@ -59,12 +59,12 @@
     <select id="newWorkerNameIdentifier" resultType="Long">
         select nextval('給与.従業員名ID')
     </select>
-    <insert id="insertName">
+    <insert id="insertWorkerNameHistory">
         INSERT INTO 給与.従業員の名前履歴 (従業員名ID, 従業員ID, 従業員名)
         VALUES (#{id}, #{workerNumber.value}, #{name.value});
     </insert>
 
-    <insert id="insertNameMapper">
+    <insert id="insertWorkerName">
         INSERT INTO 給与.従業員の名前 (従業員ID, 従業員名)
         VALUES (#{workerNumber.value}, #{name.value});
     </insert>
@@ -72,12 +72,12 @@
     <select id="newWorkerPhoneNumberIdentifier" resultType="Long">
         select nextval('給与.従業員電話番号ID')
     </select>
-    <insert id="insertPhoneNumber">
+    <insert id="insertWorkerPhoneNumberHistory">
         INSERT INTO 給与.従業員の電話番号履歴 (従業員電話番号ID, 従業員ID, 電話番号)
         VALUES (#{id}, #{workerNumber.value}, #{phoneNumber.value});
     </insert>
 
-    <insert id="insertPhoneNumberMapper">
+    <insert id="insertWorkerPhoneNumber">
         INSERT INTO 給与.従業員の電話番号 (従業員ID, 電話番号)
         VALUES (#{workerNumber.value}, #{phoneNumber.value});
     </insert>
@@ -85,25 +85,25 @@
     <select id="newWorkerMailAddressIdentifier" resultType="Long">
         select nextval('給与.従業員メールアドレスID')
     </select>
-    <insert id="insertMailAddress">
+    <insert id="insertWorkerMailAddressHistory">
         INSERT INTO 給与.従業員のメールアドレス履歴 (従業員メールアドレスID, 従業員ID, メールアドレス)
         VALUES (#{id}, #{workerNumber.value}, #{mailAddress.value});
     </insert>
 
-    <insert id="insertMailAddressMapper">
+    <insert id="insertWorkerMailAddress">
         INSERT INTO 給与.従業員のメールアドレス (従業員ID, メールアドレス)
         VALUES (#{workerNumber.value}, #{mailAddress.value});
     </insert>
 
-    <delete id="deleteNameMapper">
+    <delete id="deleteWorkerName">
         DELETE FROM 給与.従業員の名前 WHERE 従業員ID = #{workerNumber.value}
     </delete>
 
-    <delete id="deletePhoneNumberMapper">
+    <delete id="deleteWorkerPhoneNumber">
         DELETE FROM 給与.従業員の電話番号 WHERE 従業員ID = #{workerNumber.value}
     </delete>
 
-    <delete id="deleteMailAddressMapper">
+    <delete id="deleteWorkerMailAddress">
         DELETE FROM 給与.従業員のメールアドレス WHERE 従業員ID = #{workerNumber.value}
     </delete>
 
@@ -112,11 +112,11 @@
     </insert>
 
     <delete id="deleteInspireContract">
-        DELETE FROM 給与.契約中 WHERE 従業員ID = #{worker.workerNumber.value}
+        DELETE FROM 給与.契約中 WHERE 従業員ID = #{workerNumber.value}
     </delete>
 
 
     <insert id="insertExpireContract">
-        INSERT INTO 給与.契約終了 (従業員ID) VALUES (#{worker.workerNumber.value});
+        INSERT INTO 給与.契約終了 (従業員ID) VALUES (#{workerNumber.value});
     </insert>
 </mapper>
