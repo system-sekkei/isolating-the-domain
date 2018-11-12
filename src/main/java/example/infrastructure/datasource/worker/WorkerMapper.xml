@@ -66,15 +66,15 @@
         select nextval('給与.ユーザーIDシーケンサー')
     </select>
     <insert id="insertWorker">
-        INSERT INTO 給与.ユーザー (ユーザーID, 登録日時) VALUES (#{workerNumber.value}, now());
+        INSERT INTO 給与.ユーザー (ユーザーID) VALUES (#{workerNumber.value});
     </insert>
 
     <select id="newWorkerNameIdentifier" resultType="Long">
         select nextval('給与.ユーザー名IDシーケンサー')
     </select>
     <insert id="insertName">
-        INSERT INTO 給与.ユーザー名 (ユーザー名ID, ユーザーID, ユーザー名, 登録日時)
-        VALUES (#{id}, #{workerNumber.value}, #{name.value}, now());
+        INSERT INTO 給与.ユーザー名 (ユーザー名ID, ユーザーID, ユーザー名)
+        VALUES (#{id}, #{workerNumber.value}, #{name.value});
     </insert>
 
     <insert id="insertNameMapper">
@@ -86,8 +86,8 @@
         select nextval('給与.ユーザー電話番号IDシーケンサー')
     </select>
     <insert id="insertPhoneNumber">
-        INSERT INTO 給与.ユーザー電話番号 (ユーザー電話番号ID, ユーザーID, 電話番号, 登録日時)
-        VALUES (#{id}, #{workerNumber.value}, #{phoneNumber.value}, now());
+        INSERT INTO 給与.ユーザー電話番号 (ユーザー電話番号ID, ユーザーID, 電話番号)
+        VALUES (#{id}, #{workerNumber.value}, #{phoneNumber.value});
     </insert>
 
     <insert id="insertPhoneNumberMapper">
@@ -99,8 +99,8 @@
         select nextval('給与.ユーザーメールアドレスIDシーケンサー')
     </select>
     <insert id="insertMailAddress">
-        INSERT INTO 給与.ユーザーメールアドレス (ユーザーメールアドレスID, ユーザーID, メールアドレス, 登録日時)
-        VALUES (#{id}, #{workerNumber.value}, #{mailAddress.value}, now());
+        INSERT INTO 給与.ユーザーメールアドレス (ユーザーメールアドレスID, ユーザーID, メールアドレス)
+        VALUES (#{id}, #{workerNumber.value}, #{mailAddress.value});
     </insert>
 
     <insert id="insertMailAddressMapper">
@@ -121,7 +121,6 @@
     </delete>
 
     <insert id="insertExpireContract">
-        INSERT INTO 給与.削除済みユーザー (ユーザーID, 登録日時)
-        VALUES (#{worker.workerNumber.value}, now());
+        INSERT INTO 給与.削除済みユーザー (ユーザーID) VALUES (#{worker.workerNumber.value});
     </insert>
 </mapper>
