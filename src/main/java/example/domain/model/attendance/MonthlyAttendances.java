@@ -22,11 +22,20 @@ public class MonthlyAttendances {
         return list;
     }
 
-    public String totalTime() {
+    public HourAndMinute totalWorks() {
         int minute = 0;
         for (AttendanceOfDay attendanceOfDay : list) {
             minute += attendanceOfDay.workTime().toMinute().value();
         }
-        return HourAndMinute.from(new Minute(minute)).toString();
+        return HourAndMinute.from(new Minute(minute));
+    }
+
+    public Break totalBreaks() {
+        int breakMinute = 0;
+        for (AttendanceOfDay attendanceOfDay : list) {
+            Minute minute = attendanceOfDay.breaks().normalizeValue();
+            breakMinute += minute.value();
+        }
+        return new Break(new Minute(breakMinute));
     }
 }
