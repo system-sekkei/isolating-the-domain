@@ -9,11 +9,11 @@
   <div class="ui basic segment">
     <h1 class="ui center aligned header">勤務時間の入力</h1>
   </div>
-  
+
   <div class="attendanceInput">
-    <form id="custom-form" class="ui large form" name="body" 
+    <form id="custom-form" class="ui large form" name="body"
           method="post" action="#"
-          th:object="${attendanceOfDay}"
+          th:object="${attendanceForm}"
           th:action="@{/attendance}">
 
       <div class="field">
@@ -31,8 +31,7 @@
         <label>勤務日</label>
         <div class="eight wide field">
           <input class="short-input" type="date" placeholder="2018-01-01"
-                 name="date"
-                 th:value="*{date()}" />
+                 th:field="*{date}"/>
         </div>
       </div>
 
@@ -41,12 +40,14 @@
         <div class="two fields">
           <div class="ui right labeled small input field">
             <input class="short-input" type="text" placeholder="9"
-                   id="startHour.value" />
+                   th:field="*{startHour}"
+            />
             <div class="ui basic label">時</div>
           </div>
           <div class="ui right labeled small input field">
-            <input class="short-input" type="text" placeholder="30" 
-                   id="startMinute.value" />
+            <input class="short-input" type="text" placeholder="30"
+                   th:field="*{startMinute}"
+            />
             <div class="ui basic label">分</div>
           </div>
         </div>
@@ -54,33 +55,36 @@
 
       <div class="field">
         <label>終了時刻</label>
-        <div class="two fields">        
+        <div class="two fields">
           <div class="ui right labeled small input field">
-            <input class="short-input" type="text" placeholder="12" 
-                   id="endHour.value" />
+            <input class="short-input" type="text" placeholder="12"
+                   th:field="*{endHour}"
+            />
             <div class="ui basic label">時</div>
           </div>
           <div class="ui right labeled small input field">
-            <input class="short-input" type="text" placeholder="30" 
-                   id="endMinute.value" />
+            <input class="short-input" type="text" placeholder="30"
+                   th:field="*{endMinute}"
+            />
             <div class="ui basic label">分</div>
           </div>
         </div>
       </div>
-      
+
       <div class="field">
         <label>休憩時間</label>
-        <div class="two fields"> 
+        <div class="two fields">
           <div class="ui right labeled small input field">
-            <input class="short-input" type="text" placeholder="15" 
-                   id="breaks.value" />
+            <input class="short-input" type="text" placeholder="15"
+                   th:field="*{breaks}"
+            />
             <div class="ui basic label">分</div>
           </div>
         </div>
       </div>
 
       <div class="ui center aligned basic segment">
-        <a class="ui grey button" 
+        <a class="ui grey button"
            th:href="@{/}">ダッシュボードに戻る</a>
         <button class="ui positive button">登録する</button>
       </div>

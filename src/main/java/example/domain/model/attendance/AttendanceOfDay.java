@@ -27,6 +27,12 @@ public class AttendanceOfDay {
         this.breaks = new Break(breaks);
     }
 
+    public AttendanceOfDay(Date date, WorkStartTime workStartTime, WorkEndTime workEndTime, Break breaks) {
+        this.date = date;
+        this.workTimeRange = new WorkTimeRange(workStartTime, workEndTime);
+        this.breaks = breaks;
+    }
+
     public Date date() {
         return date;
     }

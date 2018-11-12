@@ -8,6 +8,9 @@ import example.domain.type.time.Minute;
 public class Break {
     Minute value;
 
+    public Break(String value) {
+        this(new Minute(value));
+    }
     public Break(Minute value) {
         this.value = value;
     }
