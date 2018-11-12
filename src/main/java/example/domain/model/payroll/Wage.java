@@ -7,4 +7,12 @@ import java.math.BigDecimal;
  */
 public class Wage {
     BigDecimal value;
+
+    public Wage(BigDecimal value) {
+        this.value = value;
+    }
+
+    public Wage add(Wage other) {
+        return new Wage(value.add(other.value));
+    }
 }

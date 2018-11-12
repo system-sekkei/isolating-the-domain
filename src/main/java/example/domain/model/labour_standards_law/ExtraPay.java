@@ -13,5 +13,9 @@ public enum ExtraPay {
     ExtraPay(ExtraPayRate leastExtraPayRate) {
         this.leastExtraPayRate = leastExtraPayRate;
     }
+
+    public ExtraPayRate leastExtraPayRate() {
+        return leastExtraPayRate;
+    }
 }
 
