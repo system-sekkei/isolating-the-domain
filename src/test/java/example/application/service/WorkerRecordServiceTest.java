@@ -24,7 +24,7 @@ class WorkerRecordServiceTest {
     @Test
     void list() {
         Worker worker = query.contractingWorkers().list().stream().filter(
-                us -> us.workerNumber().value().equals(1L)).findFirst().get();
+                us -> us.workerNumber().value().equals(1)).findFirst().get();
         assertAll(
                 () -> assertEquals(worker.mailAddress().toString(), "fukawa_teruyoshi_new@example.com"),
                 () -> assertEquals(worker.phoneNumber().toString(), "03-1234-9999"),
@@ -33,7 +33,7 @@ class WorkerRecordServiceTest {
 
     @Test
     void findById() {
-        Worker worker = query.choose(new WorkerNumber(1L));
+        Worker worker = query.choose(new WorkerNumber(1));
         assertAll(
                 () -> assertEquals(worker.mailAddress().toString(), "fukawa_teruyoshi_new@example.com"),
                 () -> assertEquals(worker.phoneNumber().toString(), "03-1234-9999"),

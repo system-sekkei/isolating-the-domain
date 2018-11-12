@@ -8,9 +8,9 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface AttendanceMapper {
-    long newWorkTimeIdentifier();
+    Integer newWorkTimeIdentifier();
 
-    void insertWorkTimeHistory(@Param("id") Long id, @Param("workerNumber") WorkerNumber workerNumber, @Param("work") AttendanceOfDay work);
+    void insertWorkTimeHistory(@Param("id") Integer id, @Param("workerNumber") WorkerNumber workerNumber, @Param("work") AttendanceOfDay work);
 
     void insertWorkTime(@Param("workerNumber") WorkerNumber workerNumber, @Param("work") AttendanceOfDay work);
 

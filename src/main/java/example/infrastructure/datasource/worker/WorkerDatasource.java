@@ -31,7 +31,7 @@ public class WorkerDatasource implements WorkerRepository {
 
     @Override
     public void registerName(WorkerNumber workerNumber, Name name) {
-        Long nameId = mapper.newWorkerNameIdentifier();
+        Integer nameId = mapper.newWorkerNameIdentifier();
         mapper.insertWorkerNameHistory(nameId, workerNumber, name);
         mapper.deleteWorkerName(workerNumber);
         mapper.insertWorkerName(workerNumber, name);
@@ -39,7 +39,7 @@ public class WorkerDatasource implements WorkerRepository {
 
     @Override
     public void registerMailAddress(WorkerNumber workerNumber, MailAddress mailAddress) {
-        Long mailAddressId = mapper.newWorkerMailAddressIdentifier();
+        Integer mailAddressId = mapper.newWorkerMailAddressIdentifier();
         mapper.insertWorkerMailAddressHistory(mailAddressId, workerNumber, mailAddress);
         mapper.deleteWorkerMailAddress(workerNumber);
         mapper.insertWorkerMailAddress(workerNumber, mailAddress);
@@ -47,7 +47,7 @@ public class WorkerDatasource implements WorkerRepository {
 
     @Override
     public void registerPhoneNumber(WorkerNumber workerNumber, PhoneNumber phoneNumber) {
-        Long phoneNumberId = mapper.newWorkerPhoneNumberIdentifier();
+        Integer phoneNumberId = mapper.newWorkerPhoneNumberIdentifier();
         mapper.insertWorkerPhoneNumberHistory(phoneNumberId, workerNumber, phoneNumber);
         mapper.deleteWorkerPhoneNumber(workerNumber);
         mapper.insertWorkerPhoneNumber(workerNumber, phoneNumber);

@@ -49,14 +49,14 @@
         ORDER BY 従業員.従業員ID;
     </select>
 
-    <select id="newWorkerNumber" resultType="Long">
+    <select id="newWorkerNumber" resultType="Integer">
         select nextval('給与.従業員ID')
     </select>
     <insert id="insertWorker">
         INSERT INTO 給与.従業員 (従業員ID) VALUES (#{workerNumber.value});
     </insert>
 
-    <select id="newWorkerNameIdentifier" resultType="Long">
+    <select id="newWorkerNameIdentifier" resultType="Integer">
         select nextval('給与.従業員名ID')
     </select>
     <insert id="insertWorkerNameHistory">
@@ -69,7 +69,7 @@
         VALUES (#{workerNumber.value}, #{name.value});
     </insert>
 
-    <select id="newWorkerPhoneNumberIdentifier" resultType="Long">
+    <select id="newWorkerPhoneNumberIdentifier" resultType="Integer">
         select nextval('給与.従業員電話番号ID')
     </select>
     <insert id="insertWorkerPhoneNumberHistory">
@@ -82,7 +82,7 @@
         VALUES (#{workerNumber.value}, #{phoneNumber.value});
     </insert>
 
-    <select id="newWorkerMailAddressIdentifier" resultType="Long">
+    <select id="newWorkerMailAddressIdentifier" resultType="Integer">
         select nextval('給与.従業員メールアドレスID')
     </select>
     <insert id="insertWorkerMailAddressHistory">
