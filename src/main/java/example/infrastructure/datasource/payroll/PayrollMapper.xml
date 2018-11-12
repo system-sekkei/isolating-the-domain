@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="example.infrastructure.datasource.payroll.PayrollMapper">
+    <select id="newHourlyWageIdentifier" resultType="Integer">
+        select nextval('給与.時給ID')
+    </select>
+    <insert id="registerHourlyWage">
+        INSERT INTO 給与.時給 (時給ID, 従業員ID, 時給, 適用開始日)
+        VALUES (#{id}, #{workerNumber.value}, #{hourlyWage.value}, #{applyDate.value});
+    </insert>
+
+    <resultMap id="hourlyWage" type="example.domain.model.payroll.HourlyWage">
+        <result property="value" column="時給"/>
+    </resultMap>
+
+    <select id="getHourlyWage" resultMap="hourlyWage">
+        SELECT 時給.時給
+        FROM 給与.時給 as 時給
+        WHERE 時給.従業員ID = #{workerNumber.value} AND 時給.適用開始日 &lt;= #{workDay.value}
+        ORDER BY 時給.登録日時 desc
+    </select>
+</mapper>
