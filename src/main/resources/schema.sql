@@ -24,7 +24,7 @@ CREATE TABLE 給与.従業員の名前 (
     ,FOREIGN KEY (従業員ID) REFERENCES  給与.従業員(従業員ID)
 );
 
-CREATE TABLE 給与.従業員電話番号 (
+CREATE TABLE 給与.従業員の電話番号履歴 (
   従業員電話番号ID INTEGER PRIMARY KEY,
   従業員ID  INTEGER NOT NULL,
   電話番号 VARCHAR(13) NOT NULL,
@@ -33,13 +33,12 @@ CREATE TABLE 給与.従業員電話番号 (
 );
 CREATE SEQUENCE 給与.従業員電話番号ID;
 
-CREATE TABLE 給与.従業員電話番号対応表 (
-  従業員ID  INTEGER NOT NULL,
-  従業員電話番号ID INTEGER NOT NULL,
-    PRIMARY KEY (従業員ID, 従業員電話番号ID)
+CREATE TABLE 給与.従業員の電話番号 (
+  従業員ID INTEGER NOT NULL,
+  電話番号 VARCHAR(13) NOT NULL,
+  登録日時 TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (従業員ID)
     ,FOREIGN KEY (従業員ID) REFERENCES  給与.従業員(従業員ID)
-    ,FOREIGN KEY (従業員電話番号ID)
-      REFERENCES  給与.従業員電話番号対応表(従業員電話番号ID)
 );
 
 

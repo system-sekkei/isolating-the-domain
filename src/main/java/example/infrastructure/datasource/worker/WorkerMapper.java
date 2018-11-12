@@ -25,7 +25,7 @@ public interface WorkerMapper {
 
     void insertPhoneNumber(@Param("id") Long id, @Param("workerNumber") WorkerNumber workerNumber, @Param("phoneNumber") PhoneNumber phoneNumber);
 
-    void insertPhoneNumberMapper(@Param("workerNumber") WorkerNumber workerNumber, @Param("phoneNumberId") Long phoneNumberId);
+    void insertPhoneNumberMapper(@Param("workerNumber") WorkerNumber workerNumber, @Param("phoneNumber") PhoneNumber phoneNumber);
 
     void deleteMailAddressMapper(@Param("workerNumber") WorkerNumber workerNumber);
 

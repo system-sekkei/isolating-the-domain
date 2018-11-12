@@ -50,7 +50,7 @@ public class WorkerDatasource implements WorkerRepository {
         Long phoneNumberId = mapper.newWorkerPhoneNumberIdentifier();
         mapper.insertPhoneNumber(phoneNumberId, workerNumber, phoneNumber);
         mapper.deletePhoneNumberMapper(workerNumber);
-        mapper.insertPhoneNumberMapper(workerNumber, phoneNumberId);
+        mapper.insertPhoneNumberMapper(workerNumber, phoneNumber);
     }
 
     @Override

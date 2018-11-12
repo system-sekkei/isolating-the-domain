@@ -16,14 +16,12 @@
         従業員.従業員ID,
         従業員の名前.従業員名,
         従業員メールアドレス.メールアドレス,
-        従業員電話番号.電話番号
+        従業員の電話番号.電話番号
         FROM 給与.従業員 as 従業員
         INNER JOIN 給与.従業員の名前 as 従業員の名前 on (
         従業員.従業員ID = 従業員の名前.従業員ID
-        ) INNER JOIN 給与.従業員電話番号対応表 as 従業員電話番号対応表 on (
-        従業員.従業員ID = 従業員電話番号対応表.従業員ID
-        ) INNER JOIN 給与.従業員電話番号 as 従業員電話番号 on (
-        従業員電話番号対応表.従業員電話番号ID = 従業員電話番号.従業員電話番号ID
+        ) INNER JOIN 給与.従業員の電話番号 as 従業員の電話番号 on (
+        従業員.従業員ID = 従業員の電話番号.従業員ID
         ) INNER JOIN 給与.従業員メールアドレス対応表 as 従業員メールアドレス対応表 on (
         従業員.従業員ID = 従業員メールアドレス対応表.従業員ID
         ) INNER JOIN 給与.従業員メールアドレス as 従業員メールアドレス on (
@@ -39,14 +37,12 @@
         従業員.従業員ID,
         従業員の名前.従業員名,
         従業員メールアドレス.メールアドレス,
-        従業員電話番号.電話番号
+        従業員の電話番号.電話番号
         FROM 給与.従業員 as 従業員
         INNER JOIN 給与.従業員の名前 as 従業員の名前 on (
         従業員.従業員ID = 従業員の名前.従業員ID
-        ) INNER JOIN 給与.従業員電話番号対応表 as 従業員電話番号対応表 on (
-        従業員.従業員ID = 従業員電話番号対応表.従業員ID
-        ) INNER JOIN 給与.従業員電話番号 as 従業員電話番号 on (
-        従業員電話番号対応表.従業員電話番号ID = 従業員電話番号.従業員電話番号ID
+        ) INNER JOIN 給与.従業員の電話番号 as 従業員の電話番号 on (
+        従業員.従業員ID = 従業員の電話番号.従業員ID
         ) INNER JOIN 給与.従業員メールアドレス対応表 as 従業員メールアドレス対応表 on (
         従業員.従業員ID = 従業員メールアドレス対応表.従業員ID
         ) INNER JOIN 給与.従業員メールアドレス as 従業員メールアドレス on (
@@ -82,13 +78,13 @@
         select nextval('給与.従業員電話番号ID')
     </select>
     <insert id="insertPhoneNumber">
-        INSERT INTO 給与.従業員電話番号 (従業員電話番号ID, 従業員ID, 電話番号)
+        INSERT INTO 給与.従業員の電話番号履歴 (従業員電話番号ID, 従業員ID, 電話番号)
         VALUES (#{id}, #{workerNumber.value}, #{phoneNumber.value});
     </insert>
 
     <insert id="insertPhoneNumberMapper">
-        INSERT INTO 給与.従業員電話番号対応表 (従業員ID, 従業員電話番号ID)
-        VALUES (#{workerNumber.value}, #{phoneNumberId});
+        INSERT INTO 給与.従業員の電話番号 (従業員ID, 電話番号)
+        VALUES (#{workerNumber.value}, #{phoneNumber.value});
     </insert>
 
     <select id="newWorkerMailAddressIdentifier" resultType="Long">
@@ -109,7 +105,7 @@
     </delete>
 
     <delete id="deletePhoneNumberMapper">
-        DELETE FROM 給与.従業員電話番号対応表 WHERE 従業員ID = #{workerNumber.value}
+        DELETE FROM 給与.従業員の電話番号 WHERE 従業員ID = #{workerNumber.value}
     </delete>
 
     <delete id="deleteMailAddressMapper">
