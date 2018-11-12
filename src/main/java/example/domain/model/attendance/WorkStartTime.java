@@ -14,8 +14,7 @@ public class WorkStartTime {
     }
 
     HourTime normalizedHourTime() {
-        int normalMinute = value.value().getMinute() / 15 * 15;
-        return new HourTime(value.value().withMinute(normalMinute));
+        return value.normalizedQuarterRoundDown();
     }
 
     @Override

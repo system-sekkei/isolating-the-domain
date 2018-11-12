@@ -33,4 +33,9 @@ public class HourTime {
     public Minute until(HourTime other) {
         return new HourTimeRange(this, other).between().toMinute();
     }
+
+    public HourTime normalizedQuarterRoundDown() {
+        int normalMinute = value.getMinute() / 15 * 15;
+        return new HourTime(value().withMinute(normalMinute));
+    }
 }
