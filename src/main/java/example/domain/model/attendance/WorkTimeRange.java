@@ -1,6 +1,5 @@
 package example.domain.model.attendance;
 
-import example.domain.type.time.HourTime;
 import example.domain.type.time.Minute;
 
 /**
@@ -14,10 +13,6 @@ public class WorkTimeRange {
     public WorkTimeRange(WorkStartTime startTime, WorkEndTime endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
-    }
-
-    public WorkTimeRange(HourTime start, HourTime end) {
-        this(new WorkStartTime(start), new WorkEndTime(end));
     }
 
     public Minute workMinute() {
