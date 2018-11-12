@@ -5,7 +5,7 @@ CREATE TABLE 給与.ユーザー (
   ユーザーID  INTEGER PRIMARY KEY,
   登録日時 TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-CREATE SEQUENCE 給与.ユーザーIDシーケンサー;
+CREATE SEQUENCE 給与.ユーザーID;
 
 CREATE TABLE 給与.ユーザー名 (
   ユーザー名ID INTEGER PRIMARY KEY,
@@ -14,7 +14,7 @@ CREATE TABLE 給与.ユーザー名 (
   登録日時 TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
 );
-CREATE SEQUENCE 給与.ユーザー名IDシーケンサー;
+CREATE SEQUENCE 給与.ユーザー名ID;
 
 CREATE TABLE 給与.ユーザー名対応表 (
   ユーザーID  INTEGER NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE 給与.ユーザー電話番号 (
   登録日時 TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
 );
-CREATE SEQUENCE 給与.ユーザー電話番号IDシーケンサー;
+CREATE SEQUENCE 給与.ユーザー電話番号ID;
 
 CREATE TABLE 給与.ユーザー電話番号対応表 (
   ユーザーID  INTEGER NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE 給与.ユーザーメールアドレス (
   登録日時 TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
 );
-CREATE SEQUENCE 給与.ユーザーメールアドレスIDシーケンサー;
+CREATE SEQUENCE 給与.ユーザーメールアドレスID;
 
 CREATE TABLE 給与.ユーザーメールアドレス対応表 (
   ユーザーID  INTEGER NOT NULL,
@@ -89,4 +89,4 @@ CREATE TABLE 給与.就業時間対応表 (
       REFERENCES  給与.就業時間(就業時間ID)
 );
 
-CREATE SEQUENCE 給与.就業時間IDシーケンサー;
+CREATE SEQUENCE 給与.就業時間ID;
