@@ -51,20 +51,12 @@
       </thead>
       <tbody>
         <th:block th:each="attendance : ${monthlyAttendances.list()}">
-          <tr th:if="${attendance.attendance().work()}">
+          <tr>
             <td th:text="${attendance.date().dayOfMonth()}"></td>
-            <td th:text="${attendance.date().dayOfWeek()}"></td>
+            <td th:text="${attendance.date().dayOfWeek()}" th:class="${attendance.date().dayOfWeek()}"></td>
             <td th:text="${attendance.workTimeRange().start()}"></td>
             <td th:text="${attendance.workTimeRange().end()}"></td>
             <td th:text="${attendance.breaks()}"></td>
-            <td th:text="${attendance.workTime()}"></td>
-          </tr>
-          <tr th:unless="${attendance.attendance().work()}">
-            <td th:text="${attendance.date().dayOfMonth()}"></td>
-            <td th:text="${attendance.date().dayOfWeek()}"></td>
-            <td></td>
-            <td></td>
-            <td></td>
             <td th:text="${attendance.workTime()}"></td>
           </tr>
         </th:block>
