@@ -24,10 +24,10 @@
         従業員.従業員ID = 従業員の電話番号.従業員ID
         ) INNER JOIN 給与.従業員のメールアドレス as 従業員のメールアドレス on (
         従業員.従業員ID = 従業員のメールアドレス.従業員ID
-        ) LEFT OUTER JOIN 給与.削除済み従業員 as 削除済み従業員 on (
-        従業員.従業員ID = 削除済み従業員.従業員ID
+        ) INNER JOIN 給与.契約中 as 契約中 on (
+        従業員.従業員ID = 契約中.従業員ID
         )
-        WHERE 従業員.従業員ID = #{workerNumber.value} AND 削除済み従業員.従業員ID IS NULL
+        WHERE 従業員.従業員ID = #{workerNumber.value}
     </select>
 
     <select id="selectContracts" resultMap="worker">
@@ -43,10 +43,9 @@
         従業員.従業員ID = 従業員の電話番号.従業員ID
         ) INNER JOIN 給与.従業員のメールアドレス as 従業員のメールアドレス on (
         従業員.従業員ID = 従業員のメールアドレス.従業員ID
-        ) LEFT OUTER JOIN 給与.削除済み従業員 as 削除済み従業員 on (
-        従業員.従業員ID = 削除済み従業員.従業員ID
+        ) INNER JOIN 給与.契約中 as 契約中 on (
+        従業員.従業員ID = 契約中.従業員ID
         )
-        WHERE 削除済み従業員.従業員ID IS NULL
         ORDER BY 従業員.従業員ID;
     </select>
 
@@ -108,7 +107,16 @@
         DELETE FROM 給与.従業員のメールアドレス WHERE 従業員ID = #{workerNumber.value}
     </delete>
 
+    <insert id="insertInspireContract">
+        INSERT INTO 給与.契約中 (従業員ID) VALUES (#{workerNumber.value});
+    </insert>
+
+    <delete id="deleteInspireContract">
+        DELETE FROM 給与.契約中 WHERE 従業員ID = #{worker.workerNumber.value}
+    </delete>
+
+
     <insert id="insertExpireContract">
-        INSERT INTO 給与.削除済み従業員 (従業員ID) VALUES (#{worker.workerNumber.value});
+        INSERT INTO 給与.契約終了 (従業員ID) VALUES (#{worker.workerNumber.value});
     </insert>
 </mapper>

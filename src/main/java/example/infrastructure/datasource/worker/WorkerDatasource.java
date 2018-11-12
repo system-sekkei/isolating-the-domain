@@ -54,7 +54,11 @@ public class WorkerDatasource implements WorkerRepository {
     }
 
     @Override
+    public void registerInspireContract(WorkerNumber workerNumber) { mapper.insertInspireContract(workerNumber);}
+
+    @Override
     public void registerExpireContract(Worker worker) {
+        mapper.deleteInspireContract(worker);
         mapper.insertExpireContract(worker);
     }
 

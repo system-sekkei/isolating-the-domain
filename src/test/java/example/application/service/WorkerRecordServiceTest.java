@@ -50,6 +50,7 @@ class WorkerRecordServiceTest {
         sut.registerName(workerNumber, name);
         sut.registerPhoneNumber(workerNumber, phoneNumber);
         sut.registerMailAddress(workerNumber, mailAddress);
+        sut.inspireContract(workerNumber);
 
         Worker foundWorker = query.choose(workerNumber);
         assertAll(

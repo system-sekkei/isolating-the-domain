@@ -33,6 +33,10 @@ public interface WorkerMapper {
 
     void insertMailAddressMapper(@Param("workerNumber") WorkerNumber workerNumber, @Param("mailAddress") MailAddress mailAddress);
 
+    void insertInspireContract(@Param("workerNumber") WorkerNumber workerNumber);
+
+    void deleteInspireContract(@Param("worker") Worker worker);
+
     void insertExpireContract(@Param("worker") Worker worker);
 
     long newWorkerNumber();

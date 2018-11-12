@@ -16,6 +16,8 @@ public interface WorkerRepository {
 
     void registerPhoneNumber(WorkerNumber workerNumber, PhoneNumber phoneNumber);
 
+    void registerInspireContract(WorkerNumber worker);
+
     void registerExpireContract(Worker worker);
 
     WorkerNumber registerNew();

@@ -89,6 +89,8 @@ values
  (6, 'miyake_yukiya@example.com')
  ;
 
+INSERT INTO 給与.契約中(従業員ID) values(1),(2),(3),(4),(5),(6);
+
 ALTER SEQUENCE 給与.従業員ID RESTART WITH 100;
 ALTER SEQUENCE 給与.従業員名ID RESTART WITH 100;
 ALTER SEQUENCE 給与.従業員電話番号ID RESTART WITH 100;
