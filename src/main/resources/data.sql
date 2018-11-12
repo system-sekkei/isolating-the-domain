@@ -1,4 +1,4 @@
-INSERT INTO 給与.ユーザー(ユーザーID)
+INSERT INTO 給与.従業員(従業員ID)
 VALUES
  (1),
  (2),
@@ -9,8 +9,8 @@ VALUES
  ;
 
  -- ユーザ名
- INSERT INTO 給与.ユーザー名
- (ユーザー名ID, ユーザーID, ユーザー名)
+ INSERT INTO 給与.従業員名
+ (従業員名ID, 従業員ID, 従業員名)
  values
  (1, 1, '布川 光良'),
  (2, 2, '栗山 友以乃'),
@@ -19,13 +19,13 @@ VALUES
  (5, 5, '大和　路子'),
  (6, 6, '三宅 有起子')
  ;
- INSERT INTO 給与.ユーザー名
- (ユーザー名ID, ユーザーID, ユーザー名)
+ INSERT INTO 給与.従業員名
+ (従業員名ID, 従業員ID, 従業員名)
  values(7, 1, '布川 光義')
  ;
  
- INSERT INTO 給与.ユーザー名対応表
- (ユーザーID, ユーザー名ID)
+ INSERT INTO 給与.従業員名対応表
+ (従業員ID, 従業員名ID)
 values
  (1, 7),
  (2, 2),
@@ -36,8 +36,8 @@ values
  ;
 
  -- 電話番号
- INSERT INTO 給与.ユーザー電話番号
- (ユーザー電話番号ID, ユーザーID, 電話番号)
+ INSERT INTO 給与.従業員電話番号
+ (従業員電話番号ID, 従業員ID, 電話番号)
  values
  (1, 1, '03-1234-5678'),
  (2, 2, '03-1234-5678'),
@@ -46,13 +46,13 @@ values
  (5, 5, '03-1234-5678'),
  (6, 6, '03-1234-5678')
  ;
- INSERT INTO 給与.ユーザー電話番号
- (ユーザー電話番号ID, ユーザーID, 電話番号)
+ INSERT INTO 給与.従業員電話番号
+ (従業員電話番号ID, 従業員ID, 電話番号)
  values(7, 1, '03-1234-9999')
  ;
  
- INSERT INTO 給与.ユーザー電話番号対応表
- (ユーザーID, ユーザー電話番号ID)
+ INSERT INTO 給与.従業員電話番号対応表
+ (従業員ID, 従業員電話番号ID)
 values
  (1, 7),
  (2, 2),
@@ -63,8 +63,8 @@ values
  ;
  
  -- メールアドレス
- INSERT INTO 給与.ユーザーメールアドレス
- (ユーザーメールアドレスID, ユーザーID, メールアドレス)
+ INSERT INTO 給与.従業員メールアドレス
+ (従業員メールアドレスID, 従業員ID, メールアドレス)
  values
  (1, 1, 'fukawa_teruyoshi@example.com'),
  (2, 2, 'kuriyama_yuino@example.com'),
@@ -73,13 +73,13 @@ values
  (5, 5, 'yamato_michiko@example.com'),
  (6, 6, 'miyake_yukiya@example.com')
  ;
- INSERT INTO 給与.ユーザーメールアドレス
- (ユーザーメールアドレスID, ユーザーID, メールアドレス)
+ INSERT INTO 給与.従業員メールアドレス
+ (従業員メールアドレスID, 従業員ID, メールアドレス)
  values(7, 1, 'fukawa_teruyoshi_new@example.com')
  ;
  
- INSERT INTO 給与.ユーザーメールアドレス対応表
- (ユーザーID, ユーザーメールアドレスID)
+ INSERT INTO 給与.従業員メールアドレス対応表
+ (従業員ID, 従業員メールアドレスID)
 values
  (1, 7),
  (2, 2),
@@ -89,7 +89,7 @@ values
  (6, 6)
  ;
 
-ALTER SEQUENCE 給与.ユーザーID RESTART WITH 100;
-ALTER SEQUENCE 給与.ユーザー名ID RESTART WITH 100;
-ALTER SEQUENCE 給与.ユーザー電話番号ID RESTART WITH 100;
-ALTER SEQUENCE 給与.ユーザーメールアドレスID RESTART WITH 100;
+ALTER SEQUENCE 給与.従業員ID RESTART WITH 100;
+ALTER SEQUENCE 給与.従業員名ID RESTART WITH 100;
+ALTER SEQUENCE 給与.従業員電話番号ID RESTART WITH 100;
+ALTER SEQUENCE 給与.従業員メールアドレスID RESTART WITH 100;

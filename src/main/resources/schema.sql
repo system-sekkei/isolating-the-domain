@@ -1,90 +1,90 @@
 DROP SCHEMA IF EXISTS 給与;
 CREATE SCHEMA 給与;
 
-CREATE TABLE 給与.ユーザー (
-  ユーザーID  INTEGER PRIMARY KEY,
+CREATE TABLE 給与.従業員 (
+  従業員ID  INTEGER PRIMARY KEY,
   登録日時 TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-CREATE SEQUENCE 給与.ユーザーID;
+CREATE SEQUENCE 給与.従業員ID;
 
-CREATE TABLE 給与.ユーザー名 (
-  ユーザー名ID INTEGER PRIMARY KEY,
-  ユーザーID  INTEGER NOT NULL,
-  ユーザー名 VARCHAR(40) NOT NULL,
+CREATE TABLE 給与.従業員名 (
+  従業員名ID INTEGER PRIMARY KEY,
+  従業員ID  INTEGER NOT NULL,
+  従業員名 VARCHAR(40) NOT NULL,
   登録日時 TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-    ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
+    ,FOREIGN KEY (従業員ID) REFERENCES 給与.従業員(従業員ID)
 );
-CREATE SEQUENCE 給与.ユーザー名ID;
+CREATE SEQUENCE 給与.従業員名ID;
 
-CREATE TABLE 給与.ユーザー名対応表 (
-  ユーザーID  INTEGER NOT NULL,
-  ユーザー名ID INTEGER NOT NULL,
-    PRIMARY KEY (ユーザーID, ユーザー名ID)
-    ,FOREIGN KEY (ユーザーID) REFERENCES  給与.ユーザー(ユーザーID)
-    ,FOREIGN KEY (ユーザー名ID) 
-      REFERENCES  給与.ユーザー名(ユーザー名ID)
+CREATE TABLE 給与.従業員名対応表 (
+  従業員ID  INTEGER NOT NULL,
+  従業員名ID INTEGER NOT NULL,
+    PRIMARY KEY (従業員ID, 従業員名ID)
+    ,FOREIGN KEY (従業員ID) REFERENCES  給与.従業員(従業員ID)
+    ,FOREIGN KEY (従業員名ID)
+      REFERENCES  給与.従業員名(従業員名ID)
 );
 
-CREATE TABLE 給与.ユーザー電話番号 (
-  ユーザー電話番号ID INTEGER PRIMARY KEY,
-  ユーザーID  INTEGER NOT NULL,
+CREATE TABLE 給与.従業員電話番号 (
+  従業員電話番号ID INTEGER PRIMARY KEY,
+  従業員ID  INTEGER NOT NULL,
   電話番号 VARCHAR(13) NOT NULL,
   登録日時 TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-    ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
+    ,FOREIGN KEY (従業員ID) REFERENCES 給与.従業員(従業員ID)
 );
-CREATE SEQUENCE 給与.ユーザー電話番号ID;
+CREATE SEQUENCE 給与.従業員電話番号ID;
 
-CREATE TABLE 給与.ユーザー電話番号対応表 (
-  ユーザーID  INTEGER NOT NULL,
-  ユーザー電話番号ID INTEGER NOT NULL,
-    PRIMARY KEY (ユーザーID, ユーザー電話番号ID)
-    ,FOREIGN KEY (ユーザーID) REFERENCES  給与.ユーザー(ユーザーID)
-    ,FOREIGN KEY (ユーザー電話番号ID) 
-      REFERENCES  給与.ユーザー電話番号対応表(ユーザー電話番号ID)
+CREATE TABLE 給与.従業員電話番号対応表 (
+  従業員ID  INTEGER NOT NULL,
+  従業員電話番号ID INTEGER NOT NULL,
+    PRIMARY KEY (従業員ID, 従業員電話番号ID)
+    ,FOREIGN KEY (従業員ID) REFERENCES  給与.従業員(従業員ID)
+    ,FOREIGN KEY (従業員電話番号ID)
+      REFERENCES  給与.従業員電話番号対応表(従業員電話番号ID)
 );
 
 
-CREATE TABLE 給与.ユーザーメールアドレス (
-  ユーザーメールアドレスID INTEGER PRIMARY KEY,
-  ユーザーID  INTEGER NOT NULL,
+CREATE TABLE 給与.従業員メールアドレス (
+  従業員メールアドレスID INTEGER PRIMARY KEY,
+  従業員ID  INTEGER NOT NULL,
   メールアドレス VARCHAR(255) NOT NULL,
   登録日時 TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-    ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
+    ,FOREIGN KEY (従業員ID) REFERENCES 給与.従業員(従業員ID)
 );
-CREATE SEQUENCE 給与.ユーザーメールアドレスID;
+CREATE SEQUENCE 給与.従業員メールアドレスID;
 
-CREATE TABLE 給与.ユーザーメールアドレス対応表 (
-  ユーザーID  INTEGER NOT NULL,
-  ユーザーメールアドレスID INTEGER NOT NULL,
-    PRIMARY KEY (ユーザーID, ユーザーメールアドレスID)
-    ,FOREIGN KEY (ユーザーID) REFERENCES  給与.ユーザー(ユーザーID)
-    ,FOREIGN KEY (ユーザーメールアドレスID) 
-      REFERENCES  給与.ユーザーメールアドレス対応表(ユーザーメールアドレスID)
+CREATE TABLE 給与.従業員メールアドレス対応表 (
+  従業員ID  INTEGER NOT NULL,
+  従業員メールアドレスID INTEGER NOT NULL,
+    PRIMARY KEY (従業員ID, 従業員メールアドレスID)
+    ,FOREIGN KEY (従業員ID) REFERENCES  給与.従業員(従業員ID)
+    ,FOREIGN KEY (従業員メールアドレスID)
+      REFERENCES  給与.従業員メールアドレス対応表(従業員メールアドレスID)
 );
 
-CREATE TABLE 給与.削除済みユーザー (
-  ユーザーID  INTEGER PRIMARY KEY,
+CREATE TABLE 給与.削除済み従業員 (
+  従業員ID  INTEGER PRIMARY KEY,
   登録日時 TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-    ,FOREIGN KEY (ユーザーID) REFERENCES 給与.ユーザー(ユーザーID)
+    ,FOREIGN KEY (従業員ID) REFERENCES 給与.従業員(従業員ID)
 );
 
 CREATE TABLE 給与.就業時間 (
   就業時間ID INTEGER PRIMARY KEY,
-  ユーザーID INTEGER NOT NULL,
+  従業員ID INTEGER NOT NULL,
   就業日 DATE NOT NULL,
   開始時刻 TIME NOT NULL,
   終了時刻 TIME NOT NULL,
   休憩時間 INTEGER NOT NULL,
   登録日時 TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-    ,FOREIGN KEY (ユーザーID) REFERENCES  給与.ユーザー(ユーザーID)
+    ,FOREIGN KEY (従業員ID) REFERENCES  給与.従業員(従業員ID)
 );
 
 CREATE TABLE 給与.就業時間対応表 (
-  ユーザーID INTEGER NOT NULL,
+  従業員ID INTEGER NOT NULL,
   就業日 DATE NOT NULL,
   就業時間ID INTEGER NOT NULL,
-    PRIMARY KEY (ユーザーID, 就業日, 就業時間ID)
-    ,FOREIGN KEY (ユーザーID) REFERENCES  給与.ユーザー(ユーザーID)
+    PRIMARY KEY (従業員ID, 就業日, 就業時間ID)
+    ,FOREIGN KEY (従業員ID) REFERENCES  給与.従業員(従業員ID)
     ,FOREIGN KEY (就業時間ID)
       REFERENCES  給与.就業時間(就業時間ID)
 );
