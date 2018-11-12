@@ -1,4 +1,4 @@
-package example.domain.model.payroll;
+package example.domain.model.contruct;
 
 import example.domain.type.date.Date;
 

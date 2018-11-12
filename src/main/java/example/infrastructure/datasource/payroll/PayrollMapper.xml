@@ -11,7 +11,7 @@
         VALUES (#{id}, #{workerNumber.value}, #{hourlyWage.value}, #{applyDate.value});
     </insert>
 
-    <resultMap id="hourlyWage" type="example.domain.model.payroll.HourlyWage">
+    <resultMap id="hourlyWage" type="example.domain.model.contruct.HourlyWage">
         <result property="value" column="時給"/>
     </resultMap>
 

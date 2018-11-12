@@ -1,5 +1,6 @@
-package example.domain.model.payroll;
+package example.domain.model.contruct;
 
+import example.domain.model.contruct.HourlyWage;
 import example.domain.type.date.Date;
 
 /**
