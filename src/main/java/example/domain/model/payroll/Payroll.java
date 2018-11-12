@@ -10,7 +10,7 @@ public class Payroll {
     Worker worker;
     MonthlyAttendances monthlyAttendances;
 
-    Wage amount() {
+    Wage wage() {
         return new Wage();
     }
 }
