@@ -12,8 +12,7 @@ public interface AttendanceMapper {
 
     void insertWorkTime(@Param("id") Long id, @Param("workerNumber") WorkerNumber workerNumber, @Param("work") AttendanceOfDay work);
 
-    void insertWorkTimeMapper(@Param("workTimeId") Long workTimeId,
-                              @Param("workerNumber") WorkerNumber workerNumber, @Param("workDay") Date workDay);
+    void insertWorkTimeMapper(@Param("workerNumber") WorkerNumber workerNumber, @Param("work") AttendanceOfDay work);
 
     void deleteWorkTimeMapper(@Param("workerNumber") WorkerNumber workerNumber, @Param("workDay") Date workDay);
 

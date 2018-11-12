@@ -65,7 +65,7 @@ CREATE TABLE 給与.削除済み従業員 (
     ,FOREIGN KEY (従業員ID) REFERENCES 給与.従業員(従業員ID)
 );
 
-CREATE TABLE 給与.就業時間 (
+CREATE TABLE 給与.就業時間履歴 (
   就業時間ID INTEGER PRIMARY KEY,
   従業員ID INTEGER NOT NULL,
   就業日 DATE NOT NULL,
@@ -76,14 +76,15 @@ CREATE TABLE 給与.就業時間 (
     ,FOREIGN KEY (従業員ID) REFERENCES  給与.従業員(従業員ID)
 );
 
-CREATE TABLE 給与.就業時間対応表 (
+CREATE TABLE 給与.就業時間 (
   従業員ID INTEGER NOT NULL,
   就業日 DATE NOT NULL,
-  就業時間ID INTEGER NOT NULL,
-    PRIMARY KEY (従業員ID, 就業日, 就業時間ID)
+  開始時刻 TIME NOT NULL,
+  終了時刻 TIME NOT NULL,
+  休憩時間 INTEGER NOT NULL,
+  登録日時 TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (従業員ID, 就業日)
     ,FOREIGN KEY (従業員ID) REFERENCES  給与.従業員(従業員ID)
-    ,FOREIGN KEY (就業時間ID)
-      REFERENCES  給与.就業時間(就業時間ID)
 );
 
 CREATE SEQUENCE 給与.就業時間ID;
