@@ -44,11 +44,6 @@ context('isolating-the-domain', () => {
     // 勤務時間入力
     cy.get('a').contains('勤務時間入力').click()
     cy.title().should('contains', '入力')
-    cy.get('#startHour\\.value').type('9')
-    cy.get('#startMinute\\.value').type('30')
-    cy.get('#endHour\\.value').type('18')
-    cy.get('#endMinute\\.value').type('00')
-    cy.get('#breaks\\.value').type('90')
     cy.get('.button').contains('登録する').click()
     cy.title().should('contains', '勤務時間の一覧')
 

@@ -31,31 +31,35 @@ public class WorkerDatasource implements WorkerRepository {
 
     @Override
     public void registerName(WorkerNumber workerNumber, Name name) {
-        Long nameId = mapper.newWorkerNameIdentifier();
-        mapper.insertName(nameId, workerNumber, name);
-        mapper.deleteNameMapper(workerNumber);
-        mapper.insertNameMapper(workerNumber, nameId);
+        Integer nameId = mapper.newWorkerNameIdentifier();
+        mapper.insertWorkerNameHistory(nameId, workerNumber, name);
+        mapper.deleteWorkerName(workerNumber);
+        mapper.insertWorkerName(workerNumber, name);
     }
 
     @Override
     public void registerMailAddress(WorkerNumber workerNumber, MailAddress mailAddress) {
-        Long mailAddressId = mapper.newWorkerMailAddressIdentifier();
-        mapper.insertMailAddress(mailAddressId, workerNumber, mailAddress);
-        mapper.deleteMailAddressMapper(workerNumber);
-        mapper.insertMailAddressMapper(workerNumber, mailAddressId);
+        Integer mailAddressId = mapper.newWorkerMailAddressIdentifier();
+        mapper.insertWorkerMailAddressHistory(mailAddressId, workerNumber, mailAddress);
+        mapper.deleteWorkerMailAddress(workerNumber);
+        mapper.insertWorkerMailAddress(workerNumber, mailAddress);
     }
 
     @Override
     public void registerPhoneNumber(WorkerNumber workerNumber, PhoneNumber phoneNumber) {
-        Long phoneNumberId = mapper.newWorkerPhoneNumberIdentifier();
-        mapper.insertPhoneNumber(phoneNumberId, workerNumber, phoneNumber);
-        mapper.deletePhoneNumberMapper(workerNumber);
-        mapper.insertPhoneNumberMapper(workerNumber, phoneNumberId);
+        Integer phoneNumberId = mapper.newWorkerPhoneNumberIdentifier();
+        mapper.insertWorkerPhoneNumberHistory(phoneNumberId, workerNumber, phoneNumber);
+        mapper.deleteWorkerPhoneNumber(workerNumber);
+        mapper.insertWorkerPhoneNumber(workerNumber, phoneNumber);
     }
 
     @Override
+    public void registerInspireContract(WorkerNumber workerNumber) { mapper.insertInspireContract(workerNumber);}
+
+    @Override
     public void registerExpireContract(Worker worker) {
-        mapper.insertExpireContract(worker);
+        mapper.deleteInspireContract(worker.workerNumber());
+        mapper.insertExpireContract(worker.workerNumber());
     }
 
     public WorkerDatasource(WorkerMapper mapper) {

@@ -14,7 +14,7 @@ class AttendanceOfDayTest {
     @ParameterizedTest
     @CsvSource({"10:14, 10:00", "10:15, 10:15", "10:16, 10:15"})
     void normalizeHourTime(String org, String normalize) {
-        WorkTime ht = new WorkTime(new HourTime(org));
+        WorkStartTime ht = new WorkStartTime(new HourTime(org));
         assertEquals(normalize, ht.normalizedHourTime().toString());
     }
 
@@ -30,7 +30,7 @@ class AttendanceOfDayTest {
     @ParameterizedTest
     @CsvSource({"9:00, 18:00, 60, 08:00", "9:01, 18:14, 46, 08:00"})
     void workTime(String begin, String end, int breaks, String expected) {
-        AttendanceOfDay sut = new AttendanceOfDay(Date.now(), new HourTime(begin), new HourTime(end), new Minute(breaks));
+        AttendanceOfDay sut = new AttendanceOfDay(Date.now(), new WorkStartTime(new HourTime(begin)), new WorkEndTime(new HourTime(end)), new Break(new Minute(breaks)));
         assertEquals(expected, sut.workTime().toString());
     }
 }

@@ -41,11 +41,19 @@ public class WorkerRecordService {
     }
 
     /**
+     * 従業員契約開始
+     */
+    public void inspireContract(WorkerNumber workerNumber) {
+        workerRepository.registerInspireContract(workerNumber);
+    }
+
+    /**
      * 従業員契約終了
      */
     public void expireContract(Worker worker) {
         workerRepository.registerExpireContract(worker);
     }
+
 
     WorkerRecordService(WorkerRepository workerRepository) {
         this.workerRepository = workerRepository;

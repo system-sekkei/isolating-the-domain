@@ -15,31 +15,35 @@ public interface WorkerMapper {
 
     void insertWorker(@Param("workerNumber") WorkerNumber workerNumber);
 
-    void deleteNameMapper(@Param("workerNumber") WorkerNumber workerNumber);
+    void deleteWorkerName(@Param("workerNumber") WorkerNumber workerNumber);
 
-    void insertName(@Param("id") Long id, @Param("workerNumber") WorkerNumber workerNumber, @Param("name") Name name);
+    void insertWorkerNameHistory(@Param("id") Integer id, @Param("workerNumber") WorkerNumber workerNumber, @Param("name") Name name);
 
-    void insertNameMapper(@Param("workerNumber") WorkerNumber workerNumber, @Param("nameId") Long nameId);
+    void insertWorkerName(@Param("workerNumber") WorkerNumber workerNumber, @Param("name") Name workerName);
 
-    void deletePhoneNumberMapper(@Param("workerNumber") WorkerNumber workerNumber);
+    void deleteWorkerPhoneNumber(@Param("workerNumber") WorkerNumber workerNumber);
 
-    void insertPhoneNumber(@Param("id") Long id, @Param("workerNumber") WorkerNumber workerNumber, @Param("phoneNumber") PhoneNumber phoneNumber);
+    void insertWorkerPhoneNumberHistory(@Param("id") Integer id, @Param("workerNumber") WorkerNumber workerNumber, @Param("phoneNumber") PhoneNumber phoneNumber);
 
-    void insertPhoneNumberMapper(@Param("workerNumber") WorkerNumber workerNumber, @Param("phoneNumberId") Long phoneNumberId);
+    void insertWorkerPhoneNumber(@Param("workerNumber") WorkerNumber workerNumber, @Param("phoneNumber") PhoneNumber phoneNumber);
 
-    void deleteMailAddressMapper(@Param("workerNumber") WorkerNumber workerNumber);
+    void deleteWorkerMailAddress(@Param("workerNumber") WorkerNumber workerNumber);
 
-    void insertMailAddress(@Param("id") Long id, @Param("workerNumber") WorkerNumber workerNumber, @Param("mailAddress") MailAddress mailAddress);
+    void insertWorkerMailAddressHistory(@Param("id") Integer id, @Param("workerNumber") WorkerNumber workerNumber, @Param("mailAddress") MailAddress mailAddress);
 
-    void insertMailAddressMapper(@Param("workerNumber") WorkerNumber workerNumber, @Param("mailAddressId") Long mailAddressId);
+    void insertWorkerMailAddress(@Param("workerNumber") WorkerNumber workerNumber, @Param("mailAddress") MailAddress mailAddress);
 
-    void insertExpireContract(@Param("worker") Worker worker);
+    void insertInspireContract(@Param("workerNumber") WorkerNumber workerNumber);
 
-    long newWorkerNumber();
+    void deleteInspireContract(@Param("workerNumber") WorkerNumber workerNumber);
 
-    long newWorkerNameIdentifier();
+    void insertExpireContract(@Param("workerNumber") WorkerNumber workerNumber);
 
-    long newWorkerPhoneNumberIdentifier();
+    Integer newWorkerNumber();
 
-    long newWorkerMailAddressIdentifier();
+    Integer newWorkerNameIdentifier();
+
+    Integer newWorkerPhoneNumberIdentifier();
+
+    Integer newWorkerMailAddressIdentifier();
 }

@@ -22,11 +22,45 @@ public class MonthlyAttendances {
         return list;
     }
 
-    public String totalTime() {
+    public HourAndMinute totalWorks() {
         int minute = 0;
         for (AttendanceOfDay attendanceOfDay : list) {
             minute += attendanceOfDay.workTime().toMinute().value();
         }
-        return HourAndMinute.from(new Minute(minute)).toString();
+        return HourAndMinute.from(new Minute(minute));
+    }
+
+    public Break totalBreaks() {
+        int breakMinute = 0;
+        for (AttendanceOfDay attendanceOfDay : list) {
+            Minute minute = attendanceOfDay.breaks().normalizeValue();
+            breakMinute += minute.value();
+        }
+        return new Break(new Minute(breakMinute));
+    }
+
+    public WorkHours standardWorkHours() {
+        // TODO 下の時間を除く
+        return new WorkHours(totalWorks().toMinute());
+    }
+
+    public WorkHours overtimeWorkHours() {
+        // TODO 時間外の計算
+        return new WorkHours(new Minute(0));
+    }
+
+    public WorkHours midnightWorkHours() {
+        // TODO 深夜の計算
+        return new WorkHours(new Minute(0));
+    }
+
+    public WorkHours standardHolidayWorkHours() {
+        // TODO 休日の計算
+        return new WorkHours(new Minute(0));
+    }
+
+    public WorkHours standardHolidayMidnightWorkHours() {
+        // TODO 休日深夜の計算
+        return new WorkHours(new Minute(0));
     }
 }

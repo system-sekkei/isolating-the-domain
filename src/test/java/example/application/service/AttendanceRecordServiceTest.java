@@ -4,8 +4,7 @@ import example.Application;
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
-import example.domain.model.attendance.AttendanceOfDay;
-import example.domain.model.attendance.MonthlyAttendances;
+import example.domain.model.attendance.*;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import example.domain.type.time.HourTime;
@@ -33,7 +32,7 @@ class AttendanceRecordServiceTest {
     void register() {
         WorkerNumber workerNumber = workerQueryService.contractingWorkers().list().get(0).workerNumber();
         Date workDay = new Date("2099-10-20");
-        AttendanceOfDay work = new AttendanceOfDay(workDay, new HourTime("9:00"), new HourTime("17:00"), new Minute(60));
+        AttendanceOfDay work = new AttendanceOfDay(workDay, new WorkStartTime(new HourTime("9:00")), new WorkEndTime(new HourTime("17:00")), new Break(new Minute(60)));
 
         sut.registerAttendance(workerNumber, work);
 

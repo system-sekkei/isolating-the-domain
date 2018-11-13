@@ -3,19 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="example.infrastructure.datasource.attendance.AttendanceMapper">
-    <select id="newWorkTimeIdentifier" resultType="Long">
-        select nextval('給与.就業時間IDシーケンサー')
+    <select id="newWorkTimeIdentifier" resultType="Integer">
+        select nextval('給与.就業時間ID')
     </select>
+    <insert id="insertWorkTimeHistory">
+        INSERT INTO 給与.就業時間履歴 (就業時間ID, 従業員ID, 就業日, 開始時刻, 終了時刻, 休憩時間)
+        VALUES (#{id}, #{workerNumber.value}, #{work.date.value}, #{work.workTimeRange.startTime.value.value}, #{work.workTimeRange.endTime.value.value}, #{work.breaks.value.value});
+    </insert>
     <insert id="insertWorkTime">
-        INSERT INTO 給与.就業時間 (就業時間ID, ユーザーID, 就業日, 開始時刻, 終了時刻, 休憩時間, 登録日時)
-        VALUES (#{id}, #{workerNumber.value}, #{work.date.value}, #{work.workTimeRange.startTime.value.value}, #{work.workTimeRange.endTime.value.value}, #{work.breaks.value.value}, now());
+        INSERT INTO 給与.就業時間 (従業員ID, 就業日, 開始時刻, 終了時刻, 休憩時間)
+        VALUES (#{workerNumber.value}, #{work.date.value}, #{work.workTimeRange.startTime.value.value}, #{work.workTimeRange.endTime.value.value}, #{work.breaks.value.value});
     </insert>
-    <insert id="insertWorkTimeMapper">
-        INSERT INTO 給与.就業時間対応表 (ユーザーID, 就業日, 就業時間ID)
-        VALUES (#{workerNumber.value}, #{workDay.value}, #{workTimeId});
-    </insert>
-    <delete id="deleteWorkTimeMapper">
-        DELETE FROM 給与.就業時間対応表 WHERE ユーザーID = #{workerNumber.value} and 就業日 = #{workDay.value}
+    <delete id="deleteWorkTime">
+        DELETE FROM 給与.就業時間 WHERE 従業員ID = #{workerNumber.value} and 就業日 = #{workDay.value}
     </delete>
 
     <resultMap id="timeRecord" type="example.domain.model.attendance.AttendanceOfDay">
@@ -31,10 +31,7 @@
         就業時間.開始時刻,
         就業時間.終了時刻,
         就業時間.休憩時間
-        FROM 給与.就業時間対応表 as 就業時間対応表
-        INNER JOIN 給与.就業時間 as 就業時間 on (
-        就業時間対応表.就業時間ID = 就業時間.就業時間ID
-        )
-        WHERE 就業時間対応表.ユーザーID = #{workerNumber.value} AND 就業時間対応表.就業日 = #{workDay.value}
+        FROM 給与.就業時間 as 就業時間
+        WHERE 就業時間.従業員ID = #{workerNumber.value} AND 就業時間.就業日 = #{workDay.value}
     </select>
 </mapper>

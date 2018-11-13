@@ -5,20 +5,20 @@ package example.domain.model.worker;
  */
 public class WorkerNumber {
 
-    Long value;
+    Integer value;
 
     public WorkerNumber() {
     }
 
     public WorkerNumber(String value) {
-        this.value = Long.parseLong(value);
+        this.value = Integer.parseInt(value);
     }
 
-    public WorkerNumber(Long value) {
+    public WorkerNumber(Integer value) {
         this.value = value;
     }
 
-    public Long value() {
+    public Integer value() {
         return value;
     }
 

@@ -4,13 +4,13 @@ import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.AttendanceOfDay;
+import example.domain.model.attendance.WorkEndTime;
+import example.domain.model.attendance.WorkStartTime;
 import example.domain.model.worker.ContractingWorkers;
-import example.domain.model.worker.WorkerNumber;
-import example.domain.type.date.Date;
 import example.domain.type.time.HourTime;
-import example.domain.type.time.Minute;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -35,28 +35,44 @@ public class AttendanceRegisterController {
         return workerQueryService.contractingWorkers();
     }
 
+    @ModelAttribute("attendanceForm")
+    AttendanceForm attendanceForm() {
+        AttendanceForm attendanceForm = new AttendanceForm();
+        return attendanceForm;
+    }
+
     @GetMapping
     String init(Model model) {
-        model.addAttribute("attendanceOfDay", new AttendanceOfDay());
         return "attendance/form";
     }
 
     @PostMapping
-    String register(@RequestParam("workerNumber") WorkerNumber workerNumber,
-                    @RequestParam("date") Date date) {
+    String register(@ModelAttribute("attendanceForm") AttendanceForm attendanceForm) {
         // TODO validation
 
         attendanceRecordService.registerAttendance(
-                workerNumber,
+                attendanceForm.workerNumber,
                 new AttendanceOfDay(
-                        date,
-                        // TODO 入力から
-                        new HourTime("09:00"),
-                        new HourTime("18:00"),
-                        new Minute(90)
+                        attendanceForm.date,
+                        new WorkStartTime(new HourTime(attendanceForm.startHour, attendanceForm.startMinute)),
+                        new WorkEndTime(new HourTime(attendanceForm.endHour, attendanceForm.endMinute)),
+                        attendanceForm.breaks
                 )
         );
 
-        return "redirect:/attendance/" + workerNumber.value() + "/list";
+        return "redirect:/attendance/" + attendanceForm.workerNumber.value() + "/list";
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.setAllowedFields(
+                "workerNumber",
+                "date",
+                "startHour",
+                "startMinute",
+                "endHour",
+                "endMinute",
+                "breaks"
+        );
     }
 }

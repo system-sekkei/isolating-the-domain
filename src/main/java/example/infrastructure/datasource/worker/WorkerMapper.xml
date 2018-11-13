@@ -5,123 +5,118 @@
 <mapper namespace="example.infrastructure.datasource.worker.WorkerMapper">
 
     <resultMap id="worker" type="example.domain.model.worker.Worker">
-        <id property="workerNumber.value" column="ユーザーID"/>
-        <result property="name.value" column="ユーザー名"/>
+        <id property="workerNumber.value" column="従業員ID"/>
+        <result property="name.value" column="従業員名"/>
         <result property="mailAddress.value" column="メールアドレス"/>
         <result property="phoneNumber.value" column="電話番号"/>
     </resultMap>
 
     <select id="selectByWorkerNumber" resultMap="worker">
         SELECT
-        ユーザー.ユーザーID,
-        ユーザー名.ユーザー名,
-        ユーザーメールアドレス.メールアドレス,
-        ユーザー電話番号.電話番号
-        FROM 給与.ユーザー as ユーザー
-        INNER JOIN 給与.ユーザー名対応表 as ユーザー名対応表 on (
-        ユーザー.ユーザーID = ユーザー名対応表.ユーザーID
-        ) INNER JOIN 給与.ユーザー名 as ユーザー名 on (
-        ユーザー名対応表.ユーザー名ID = ユーザー名.ユーザー名ID
-        ) INNER JOIN 給与.ユーザー電話番号対応表 as ユーザー電話番号対応表 on (
-        ユーザー.ユーザーID = ユーザー電話番号対応表.ユーザーID
-        ) INNER JOIN 給与.ユーザー電話番号 as ユーザー電話番号 on (
-        ユーザー電話番号対応表.ユーザー電話番号ID = ユーザー電話番号.ユーザー電話番号ID
-        ) INNER JOIN 給与.ユーザーメールアドレス対応表 as ユーザーメールアドレス対応表 on (
-        ユーザー.ユーザーID = ユーザーメールアドレス対応表.ユーザーID
-        ) INNER JOIN 給与.ユーザーメールアドレス as ユーザーメールアドレス on (
-        ユーザーメールアドレス対応表.ユーザーメールアドレスID = ユーザーメールアドレス.ユーザーメールアドレスID
-        ) LEFT OUTER JOIN 給与.削除済みユーザー as 削除済みユーザー on (
-        ユーザー.ユーザーID = 削除済みユーザー.ユーザーID
+        従業員.従業員ID,
+        従業員の名前.従業員名,
+        従業員のメールアドレス.メールアドレス,
+        従業員の電話番号.電話番号
+        FROM 給与.従業員 as 従業員
+        INNER JOIN 給与.従業員の名前 as 従業員の名前 on (
+        従業員.従業員ID = 従業員の名前.従業員ID
+        ) INNER JOIN 給与.従業員の電話番号 as 従業員の電話番号 on (
+        従業員.従業員ID = 従業員の電話番号.従業員ID
+        ) INNER JOIN 給与.従業員のメールアドレス as 従業員のメールアドレス on (
+        従業員.従業員ID = 従業員のメールアドレス.従業員ID
+        ) INNER JOIN 給与.契約中 as 契約中 on (
+        従業員.従業員ID = 契約中.従業員ID
         )
-        WHERE ユーザー.ユーザーID = #{workerNumber.value} AND 削除済みユーザー.ユーザーID IS NULL
+        WHERE 従業員.従業員ID = #{workerNumber.value}
     </select>
 
     <select id="selectContracts" resultMap="worker">
         SELECT
-        ユーザー.ユーザーID,
-        ユーザー名.ユーザー名,
-        ユーザーメールアドレス.メールアドレス,
-        ユーザー電話番号.電話番号
-        FROM 給与.ユーザー as ユーザー
-        INNER JOIN 給与.ユーザー名対応表 as ユーザー名対応表 on (
-        ユーザー.ユーザーID = ユーザー名対応表.ユーザーID
-        ) INNER JOIN 給与.ユーザー名 as ユーザー名 on (
-        ユーザー名対応表.ユーザー名ID = ユーザー名.ユーザー名ID
-        ) INNER JOIN 給与.ユーザー電話番号対応表 as ユーザー電話番号対応表 on (
-        ユーザー.ユーザーID = ユーザー電話番号対応表.ユーザーID
-        ) INNER JOIN 給与.ユーザー電話番号 as ユーザー電話番号 on (
-        ユーザー電話番号対応表.ユーザー電話番号ID = ユーザー電話番号.ユーザー電話番号ID
-        ) INNER JOIN 給与.ユーザーメールアドレス対応表 as ユーザーメールアドレス対応表 on (
-        ユーザー.ユーザーID = ユーザーメールアドレス対応表.ユーザーID
-        ) INNER JOIN 給与.ユーザーメールアドレス as ユーザーメールアドレス on (
-        ユーザーメールアドレス対応表.ユーザーメールアドレスID = ユーザーメールアドレス.ユーザーメールアドレスID
-        ) LEFT OUTER JOIN 給与.削除済みユーザー as 削除済みユーザー on (
-        ユーザー.ユーザーID = 削除済みユーザー.ユーザーID
+        従業員.従業員ID,
+        従業員の名前.従業員名,
+        従業員のメールアドレス.メールアドレス,
+        従業員の電話番号.電話番号
+        FROM 給与.従業員 as 従業員
+        INNER JOIN 給与.従業員の名前 as 従業員の名前 on (
+        従業員.従業員ID = 従業員の名前.従業員ID
+        ) INNER JOIN 給与.従業員の電話番号 as 従業員の電話番号 on (
+        従業員.従業員ID = 従業員の電話番号.従業員ID
+        ) INNER JOIN 給与.従業員のメールアドレス as 従業員のメールアドレス on (
+        従業員.従業員ID = 従業員のメールアドレス.従業員ID
+        ) INNER JOIN 給与.契約中 as 契約中 on (
+        従業員.従業員ID = 契約中.従業員ID
         )
-        WHERE 削除済みユーザー.ユーザーID IS NULL
-        ORDER BY ユーザー.ユーザーID;
+        ORDER BY 従業員.従業員ID;
     </select>
 
-    <select id="newWorkerNumber" resultType="Long">
-        select nextval('給与.ユーザーIDシーケンサー')
+    <select id="newWorkerNumber" resultType="Integer">
+        select nextval('給与.従業員ID')
     </select>
     <insert id="insertWorker">
-        INSERT INTO 給与.ユーザー (ユーザーID, 登録日時) VALUES (#{workerNumber.value}, now());
+        INSERT INTO 給与.従業員 (従業員ID) VALUES (#{workerNumber.value});
     </insert>
 
-    <select id="newWorkerNameIdentifier" resultType="Long">
-        select nextval('給与.ユーザー名IDシーケンサー')
+    <select id="newWorkerNameIdentifier" resultType="Integer">
+        select nextval('給与.従業員名ID')
     </select>
-    <insert id="insertName">
-        INSERT INTO 給与.ユーザー名 (ユーザー名ID, ユーザーID, ユーザー名, 登録日時)
-        VALUES (#{id}, #{workerNumber.value}, #{name.value}, now());
+    <insert id="insertWorkerNameHistory">
+        INSERT INTO 給与.従業員の名前履歴 (従業員名ID, 従業員ID, 従業員名)
+        VALUES (#{id}, #{workerNumber.value}, #{name.value});
     </insert>
 
-    <insert id="insertNameMapper">
-        INSERT INTO 給与.ユーザー名対応表 (ユーザーID, ユーザー名ID)
-        VALUES (#{workerNumber.value}, #{nameId});
+    <insert id="insertWorkerName">
+        INSERT INTO 給与.従業員の名前 (従業員ID, 従業員名)
+        VALUES (#{workerNumber.value}, #{name.value});
     </insert>
 
-    <select id="newWorkerPhoneNumberIdentifier" resultType="Long">
-        select nextval('給与.ユーザー電話番号IDシーケンサー')
+    <select id="newWorkerPhoneNumberIdentifier" resultType="Integer">
+        select nextval('給与.従業員電話番号ID')
     </select>
-    <insert id="insertPhoneNumber">
-        INSERT INTO 給与.ユーザー電話番号 (ユーザー電話番号ID, ユーザーID, 電話番号, 登録日時)
-        VALUES (#{id}, #{workerNumber.value}, #{phoneNumber.value}, now());
+    <insert id="insertWorkerPhoneNumberHistory">
+        INSERT INTO 給与.従業員の電話番号履歴 (従業員電話番号ID, 従業員ID, 電話番号)
+        VALUES (#{id}, #{workerNumber.value}, #{phoneNumber.value});
     </insert>
 
-    <insert id="insertPhoneNumberMapper">
-        INSERT INTO 給与.ユーザー電話番号対応表 (ユーザーID, ユーザー電話番号ID)
-        VALUES (#{workerNumber.value}, #{phoneNumberId});
+    <insert id="insertWorkerPhoneNumber">
+        INSERT INTO 給与.従業員の電話番号 (従業員ID, 電話番号)
+        VALUES (#{workerNumber.value}, #{phoneNumber.value});
     </insert>
 
-    <select id="newWorkerMailAddressIdentifier" resultType="Long">
-        select nextval('給与.ユーザーメールアドレスIDシーケンサー')
+    <select id="newWorkerMailAddressIdentifier" resultType="Integer">
+        select nextval('給与.従業員メールアドレスID')
     </select>
-    <insert id="insertMailAddress">
-        INSERT INTO 給与.ユーザーメールアドレス (ユーザーメールアドレスID, ユーザーID, メールアドレス, 登録日時)
-        VALUES (#{id}, #{workerNumber.value}, #{mailAddress.value}, now());
+    <insert id="insertWorkerMailAddressHistory">
+        INSERT INTO 給与.従業員のメールアドレス履歴 (従業員メールアドレスID, 従業員ID, メールアドレス)
+        VALUES (#{id}, #{workerNumber.value}, #{mailAddress.value});
     </insert>
 
-    <insert id="insertMailAddressMapper">
-        INSERT INTO 給与.ユーザーメールアドレス対応表 (ユーザーID, ユーザーメールアドレスID)
-        VALUES (#{workerNumber.value}, #{mailAddressId});
+    <insert id="insertWorkerMailAddress">
+        INSERT INTO 給与.従業員のメールアドレス (従業員ID, メールアドレス)
+        VALUES (#{workerNumber.value}, #{mailAddress.value});
     </insert>
 
-    <delete id="deleteNameMapper">
-        DELETE FROM 給与.ユーザー名対応表 WHERE ユーザーID = #{workerNumber.value}
+    <delete id="deleteWorkerName">
+        DELETE FROM 給与.従業員の名前 WHERE 従業員ID = #{workerNumber.value}
     </delete>
 
-    <delete id="deletePhoneNumberMapper">
-        DELETE FROM 給与.ユーザー電話番号対応表 WHERE ユーザーID = #{workerNumber.value}
+    <delete id="deleteWorkerPhoneNumber">
+        DELETE FROM 給与.従業員の電話番号 WHERE 従業員ID = #{workerNumber.value}
     </delete>
 
-    <delete id="deleteMailAddressMapper">
-        DELETE FROM 給与.ユーザーメールアドレス対応表 WHERE ユーザーID = #{workerNumber.value}
+    <delete id="deleteWorkerMailAddress">
+        DELETE FROM 給与.従業員のメールアドレス WHERE 従業員ID = #{workerNumber.value}
     </delete>
+
+    <insert id="insertInspireContract">
+        INSERT INTO 給与.契約中 (従業員ID) VALUES (#{workerNumber.value});
+    </insert>
+
+    <delete id="deleteInspireContract">
+        DELETE FROM 給与.契約中 WHERE 従業員ID = #{workerNumber.value}
+    </delete>
+
 
     <insert id="insertExpireContract">
-        INSERT INTO 給与.削除済みユーザー (ユーザーID, 登録日時)
-        VALUES (#{worker.workerNumber.value}, now());
+        INSERT INTO 給与.契約終了 (従業員ID) VALUES (#{workerNumber.value});
     </insert>
 </mapper>

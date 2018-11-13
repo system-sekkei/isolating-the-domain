@@ -68,6 +68,7 @@ class RegisterController {
         workerRecordService.registerName(workerNumber, name);
         workerRecordService.registerMailAddress(workerNumber, newWorker.mailAddress());
         workerRecordService.registerPhoneNumber(workerNumber, newWorker.phoneNumber());
+        workerRecordService.inspireContract(workerNumber);
         status.setComplete();
 
         attributes.addAttribute("name", name);
