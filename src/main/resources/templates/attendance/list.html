@@ -40,28 +40,32 @@
   <div class="attendanceList">
     <table class="ui striped celled table">
       <thead>
-      <tr>
-        <th class="two wide">日</th>
-        <th class="two wide">曜日</th>
-        <th class="three wide">開始時刻</th>
-        <th class="three wide">終了時刻</th>
-        <th class="three wide">休憩時間</th>
-        <th class="five wide">勤務時間</th>
-      </tr>
+        <tr class="center aligned">
+          <th class="one wide">日</th>
+          <th class="one wide">曜日</th>
+          <th>開始時刻</th>
+          <th>終了時刻</th>
+          <th>休憩時間</th>
+          <th>勤務時間</th>
+        </tr>
       </thead>
       <tbody>
         <th:block th:each="attendance : ${monthlyAttendances.list()}">
           <tr th:if="${attendance.attendance().work()}">
-            <td th:text="${attendance.date().dayOfMonth()}"></td>
-            <td th:text="${attendance.date().dayOfWeek()}"></td>
+            <td class="center aligned"
+                th:text="${attendance.date().dayOfMonth()}"></td>
+            <td class="center aligned"
+                th:text="${attendance.date().dayOfWeek()}"></td>
             <td th:text="${attendance.workTimeRange().start()}"></td>
             <td th:text="${attendance.workTimeRange().end()}"></td>
             <td th:text="${attendance.breaks()}"></td>
             <td th:text="${attendance.workTime()}"></td>
           </tr>
           <tr th:unless="${attendance.attendance().work()}">
-            <td th:text="${attendance.date().dayOfMonth()}"></td>
-            <td th:text="${attendance.date().dayOfWeek()}"></td>
+            <td class="center aligned"
+                th:text="${attendance.date().dayOfMonth()}"></td>
+            <td class="center aligned"
+                th:text="${attendance.date().dayOfWeek()}"></td>
             <td></td>
             <td></td>
             <td></td>
