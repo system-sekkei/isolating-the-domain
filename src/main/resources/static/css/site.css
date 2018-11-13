@@ -1,5 +1,4 @@
 /*従業員 worker*/
-
 .workerList {
   max-width: 960px;
   margin: 0 auto;
@@ -11,7 +10,6 @@
 }
 
 /*勤怠 attendance*/
-
 .attendanceList {
   max-width: 900px;
   margin: 0 auto;
@@ -27,6 +25,11 @@
 .attendanceInput {
   max-width: 400px;
   margin: 0 auto;
+}
+
+/*ダッシュボード*/
+.dashboardIcon {
+  margin-top: 1rem;
 }
 
 /*文字*/
