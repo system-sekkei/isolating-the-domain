@@ -78,8 +78,8 @@
     </insert>
 
     <insert id="insertWorkerPhoneNumber">
-        INSERT INTO 給与.従業員の電話番号 (従業員ID, 電話番号)
-        VALUES (#{workerNumber.value}, #{phoneNumber.value});
+        INSERT INTO 給与.従業員の電話番号 (従業員ID, 従業員電話番号ID, 電話番号)
+        VALUES (#{workerNumber.value}, #{phoneNumberId}, #{phoneNumber.value});
     </insert>
 
     <select id="newWorkerMailAddressIdentifier" resultType="Integer">
