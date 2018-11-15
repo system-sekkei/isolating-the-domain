@@ -97,7 +97,7 @@
                 th:text="${attendance.date().dayOfMonth()}"></td>
             <td class="center aligned"
                 th:text="${attendance.date().dayOfWeek()}"
-                th:class="${attendance.date().dayOfWeek()}"></td>
+                th:classappend="${attendance.date().dayOfWeek()}"></td>
             <td th:text="${attendance.workTimeRange().start()}"></td>
             <td th:text="${attendance.workTimeRange().end()}"></td>
             <td th:text="${attendance.breaks()}"></td>

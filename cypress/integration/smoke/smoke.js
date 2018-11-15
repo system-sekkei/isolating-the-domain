@@ -38,7 +38,7 @@ context('isolating-the-domain', () => {
     cy.get('a').contains('従業員一覧へ').click()
     cy.title().should('eq', '従業員一覧')
 
-    cy.get('.button').contains('ダッシュボード').click()
+    cy.get('a').contains('ダッシュボード').click()
     cy.title().should('eq', 'ダッシュボード')
 
     // 勤務時間入力
@@ -47,22 +47,21 @@ context('isolating-the-domain', () => {
     cy.get('.button').contains('登録する').click()
     cy.title().should('contains', '勤務時間の一覧')
 
-    cy.get('a').contains('一覧に戻る').click()
-    cy.get('.button').contains('ダッシュボード').click()
+    cy.get('a').contains('ダッシュボード').click()
     cy.title().should('eq', 'ダッシュボード')
 
     // 給与計算
     cy.get('a').contains('給与計算').click()
-    cy.title().should('contains', '従業員一覧')
+    cy.title().should('contains', '給与計算一覧')
     cy.get('tbody > tr > td').contains('テスト次郎').parent().within(() => {
         cy.get('.button').contains('勤務時間').click()
     })
     cy.title().should('contains', '一覧')
-    cy.get('a').contains('一覧に戻る').click()
-    cy.title().should('contains', '従業員一覧')
+    cy.get('a').contains('給与計算一覧へ').click()
+    cy.title().should('contains', '給与計算一覧')
 
     // 契約終了
-    cy.get('.button').contains('ダッシュボード').click()
+    cy.get('a').contains('ダッシュボード').click()
     cy.title().should('eq', 'ダッシュボード')
 
     cy.get('a').contains('従業員').click()

@@ -27,6 +27,10 @@
   margin: 0 auto;
 }
 
+.日 {
+  color: red;
+}
+
 /*ダッシュボード*/
 .dashboardIcon {
   margin-top: 1rem;
