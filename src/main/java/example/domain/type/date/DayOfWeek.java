@@ -18,8 +18,6 @@ public enum DayOfWeek {
         this.dayOfWeek = dayOfWeek;
     }
 
-    public
-
     static DayOfWeek of(java.time.DayOfWeek dayOfWeek) {
         for (DayOfWeek value : values()) {
             if (value.dayOfWeek == dayOfWeek) {

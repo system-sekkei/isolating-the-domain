@@ -34,7 +34,7 @@ public class WorkerDatasource implements WorkerRepository {
         Integer nameId = mapper.newWorkerNameIdentifier();
         mapper.insertWorkerNameHistory(nameId, workerNumber, name);
         mapper.deleteWorkerName(workerNumber);
-        mapper.insertWorkerName(workerNumber, name);
+        mapper.insertWorkerName(workerNumber, nameId, name);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class WorkerDatasource implements WorkerRepository {
         Integer phoneNumberId = mapper.newWorkerPhoneNumberIdentifier();
         mapper.insertWorkerPhoneNumberHistory(phoneNumberId, workerNumber, phoneNumber);
         mapper.deleteWorkerPhoneNumber(workerNumber);
-        mapper.insertWorkerPhoneNumber(workerNumber, phoneNumber);
+        mapper.insertWorkerPhoneNumber(workerNumber, phoneNumberId, phoneNumber);
     }
 
     @Override
