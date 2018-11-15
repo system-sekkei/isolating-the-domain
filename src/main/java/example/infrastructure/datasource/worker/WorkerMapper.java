@@ -19,7 +19,7 @@ public interface WorkerMapper {
 
     void insertWorkerNameHistory(@Param("id") Integer id, @Param("workerNumber") WorkerNumber workerNumber, @Param("name") Name name);
 
-    void insertWorkerName(@Param("workerNumber") WorkerNumber workerNumber, @Param("name") Name workerName);
+    void insertWorkerName(@Param("workerNumber") WorkerNumber workerNumber, @Param("nameId") Integer workerNameId, @Param("name") Name workerName);
 
     void deleteWorkerPhoneNumber(@Param("workerNumber") WorkerNumber workerNumber);
 

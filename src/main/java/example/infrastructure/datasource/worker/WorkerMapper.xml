@@ -65,8 +65,8 @@
     </insert>
 
     <insert id="insertWorkerName">
-        INSERT INTO 給与.従業員の名前 (従業員ID, 従業員名)
-        VALUES (#{workerNumber.value}, #{name.value});
+        INSERT INTO 給与.従業員の名前 (従業員ID, 従業員名ID, 従業員名)
+        VALUES (#{workerNumber.value}, #{nameId}, #{name.value});
     </insert>
 
     <select id="newWorkerPhoneNumberIdentifier" resultType="Integer">

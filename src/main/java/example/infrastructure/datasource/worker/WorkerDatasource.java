@@ -34,7 +34,7 @@ public class WorkerDatasource implements WorkerRepository {
         Integer nameId = mapper.newWorkerNameIdentifier();
         mapper.insertWorkerNameHistory(nameId, workerNumber, name);
         mapper.deleteWorkerName(workerNumber);
-        mapper.insertWorkerName(workerNumber, name);
+        mapper.insertWorkerName(workerNumber, nameId, name);
     }
 
     @Override
