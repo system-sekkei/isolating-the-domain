@@ -5,8 +5,29 @@
   <title>勤務時間の一覧</title>
 </head>
 <body>
+<div id="menuHead">
+  <div class="ui top fixed inverted stackable teal menu">
+    <a class="item"
+       th:href="@{/}">
+      <i class="tachometer alternate icon"></i>ダッシュボード
+    </a>
+    <a class="item"
+       th:href="@{/attendance}">
+      <i class="clock outline icon"></i>勤務時間入力
+    </a>
+    <a class="item"
+       th:href="@{/attendance/workers}">
+      <i class="yen sign icon"></i>給与計算
+    </a>
+    <a class="item"
+       th:href="@{/worker/workers}">
+      <i class="user icon"></i>従業員
+    </a>
+  </div>
+</div>
+
 <div class="ui container">
-  <div class="ui basic segment">
+  <div class="pageHeader">
     <h1 class="ui center aligned header">勤務時間の一覧</h1>
   </div>
   
@@ -22,7 +43,7 @@
       <thead>
         <tr>
           <th class="eight wide">総勤務時間(時間)</th>
-          <th class="eight wide">総休憩時間(分)</th>
+          <th class="eight wide">時給</th>
         </tr>
       </thead>
       <tbody>
@@ -35,9 +56,29 @@
   </div>
 
   <div class="ui section divider"></div> 
-  
-  <h2 class="ui center aligned header"><<   11月   >></h2>
-  <div class="attendanceList">
+
+  <div class="attendanceList">  
+
+    <div class="ui centerd three column grid">
+      <div class="left aligned column">
+        <!-- 前月のカレンダーとつなげたい -->
+        <a href=""
+           th:href="@{/attendance/{workerNumber}/list(workerNumber=${worker.workerNumber()})}">
+           <i class="angle double left link large icon"></i>
+        </a>
+      </div>
+      <div class="column">
+        <h2 class="ui center aligned header">11月</h2>
+      </div>
+      <div class="right aligned column">
+        <!-- 来月のカレンダーとつなげたい -->
+        <a href=""
+           th:href="@{/attendance/{workerNumber}/list(workerNumber=${worker.workerNumber()})}">
+           <i class="angle double right link large icon"></i>
+        </a>
+      </div>
+    </div>
+
     <table class="ui striped celled table">
       <thead>
         <tr class="center aligned">
@@ -74,10 +115,7 @@
         </th:block>
       </tbody>
     </table>
-  </div>
 
-  <div class="ui center aligned basic segment">
-    <a class="ui grey button" th:href="@{/attendance/workers}">一覧に戻る</a>
   </div>
 </div>
 

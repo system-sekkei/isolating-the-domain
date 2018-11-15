@@ -1,7 +1,7 @@
 /*従業員 worker*/
 .workerList {
   max-width: 960px;
-  margin: 0 auto;
+  margin: 0 auto 5rem;
 }
 
 .userInput {
@@ -12,7 +12,7 @@
 /*勤怠 attendance*/
 .attendanceList {
   max-width: 860px;
-  margin: 0 auto;
+  margin: 0 auto 5rem;
 }
 
 .attendanceInfo {
@@ -35,6 +35,12 @@
 /*文字*/
 .emphasis {
   font-size: 2rem;
+}
+
+/*ページヘッダー*/
+.pageHeader {
+  margin-top: 4em;
+  padding: 2em 0;
 }
 
 /*テーブルヘッダー*/
