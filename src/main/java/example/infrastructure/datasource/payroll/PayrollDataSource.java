@@ -1,9 +1,9 @@
 package example.infrastructure.datasource.payroll;
 
 import example.application.repository.PayrollRepository;
-import example.domain.model.contruct.DailyHourlyWage;
-import example.domain.model.contruct.HourlyWage;
-import example.domain.model.contruct.MonthlyHourlyWages;
+import example.domain.model.contract.DailyHourlyWage;
+import example.domain.model.contract.HourlyWage;
+import example.domain.model.contract.MonthlyHourlyWages;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import example.domain.type.date.YearMonth;

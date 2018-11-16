@@ -1,4 +1,4 @@
-package example.domain.model.contruct;
+package example.domain.model.contract;
 
 import example.domain.type.date.Date;
 

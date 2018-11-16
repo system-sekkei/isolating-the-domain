@@ -4,7 +4,7 @@ import example.Application;
 import example.application.service.payroll.PayrollQueryService;
 import example.application.service.payroll.PayrollRecordService;
 import example.application.service.worker.WorkerQueryService;
-import example.domain.model.contruct.HourlyWage;
+import example.domain.model.contract.HourlyWage;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import example.infrastructure.datasource.payroll.HourlyWageNotFoundException;

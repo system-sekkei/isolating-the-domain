@@ -1,7 +1,7 @@
 package example.application.service.payroll;
 
 import example.application.repository.PayrollRepository;
-import example.domain.model.contruct.HourlyWage;
+import example.domain.model.contract.HourlyWage;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import org.springframework.stereotype.Service;

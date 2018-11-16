@@ -1,7 +1,7 @@
 package example.application.repository;
 
-import example.domain.model.contruct.HourlyWage;
-import example.domain.model.contruct.MonthlyHourlyWages;
+import example.domain.model.contract.HourlyWage;
+import example.domain.model.contract.MonthlyHourlyWages;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import example.domain.type.date.YearMonth;

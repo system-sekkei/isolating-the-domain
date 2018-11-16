@@ -1,7 +1,7 @@
 package example.domain.model.payroll;
 
 import example.domain.model.attendance.WorkHours;
-import example.domain.model.contruct.HourlyWage;
+import example.domain.model.contract.HourlyWage;
 
 import java.math.BigDecimal;
 

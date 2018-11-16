@@ -2,8 +2,8 @@ package example.domain.model.payroll;
 
 import example.domain.model.attendance.MonthlyAttendances;
 import example.domain.model.attendance.WorkHours;
-import example.domain.model.contruct.HourlyWage;
-import example.domain.model.contruct.MonthlyHourlyWages;
+import example.domain.model.contract.HourlyWage;
+import example.domain.model.contract.MonthlyHourlyWages;
 import example.domain.model.labour_standards_law.ExtraPayRate;
 import example.domain.model.worker.Worker;
 

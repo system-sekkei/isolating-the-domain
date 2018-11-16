@@ -1,6 +1,6 @@
 package example.infrastructure.datasource.payroll;
 
-import example.domain.model.contruct.HourlyWage;
+import example.domain.model.contract.HourlyWage;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import org.apache.ibatis.annotations.Mapper;
