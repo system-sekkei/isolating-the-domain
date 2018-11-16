@@ -1,7 +1,8 @@
 package example.application.service.payroll;
 
-import example.application.repository.PayrollRepository;
+import example.application.repository.ContractRepository;
 import example.application.service.attendance.AttendanceQueryService;
+import example.application.service.contract.ContractQueryService;
 import example.domain.model.attendance.MonthlyAttendances;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.MonthlyHourlyWages;
@@ -17,34 +18,20 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PayrollQueryService {
-    PayrollRepository payrollRepository;
+    ContractQueryService contractQueryService;
     AttendanceQueryService attendanceQueryService;
-
-    /**
-     * 時給取得
-     */
-    public HourlyWage getHourlyWage(WorkerNumber workerNumber, Date workDay) {
-        return payrollRepository.getHourlyWage(workerNumber, workDay);
-    }
-
-    /**
-     * 月内時給変遷
-     */
-    public MonthlyHourlyWages getMonthlyHourlyWage(WorkerNumber workerNumber, YearMonth yearMonth) {
-        return payrollRepository.getMonthlyHourlyWage(workerNumber, yearMonth);
-    }
 
     /**
      *
      */
     public Payroll getPayroll(Worker worker, YearMonth yearMonth) {
         MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(worker.workerNumber(), yearMonth);
-        MonthlyHourlyWages monthlyHourlyWage = getMonthlyHourlyWage(worker.workerNumber(), yearMonth);
+        MonthlyHourlyWages monthlyHourlyWage = contractQueryService.getMonthlyHourlyWage(worker.workerNumber(), yearMonth);
         return new Payroll(worker, monthlyAttendances, monthlyHourlyWage);
     }
 
-    PayrollQueryService(PayrollRepository payrollRepository, AttendanceQueryService attendanceQueryService) {
-        this.payrollRepository = payrollRepository;
+    PayrollQueryService(ContractQueryService contractQueryService, AttendanceQueryService attendanceQueryService) {
+        this.contractQueryService = contractQueryService;
         this.attendanceQueryService = attendanceQueryService;
     }
 }

@@ -1,4 +1,4 @@
-package example.infrastructure.datasource.payroll;
+package example.infrastructure.datasource.contract;
 
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.worker.WorkerNumber;
@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 @Mapper
-public interface PayrollMapper {
+public interface ContractMapper {
     Integer newHourlyWageIdentifier();
     void registerHourlyWage(@Param("workerNumber") WorkerNumber workerNumber, @Param("id") Integer hourlyWageId,
                             @Param("applyDate") Date applyDate, @Param("hourlyWage") HourlyWage hourlyWage);

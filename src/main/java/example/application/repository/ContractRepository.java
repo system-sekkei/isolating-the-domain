@@ -6,7 +6,7 @@ import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import example.domain.type.date.YearMonth;
 
-public interface PayrollRepository {
+public interface ContractRepository {
     void registerHourlyWage(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage);
 
     HourlyWage getHourlyWage(WorkerNumber workerNumber, Date workDay);

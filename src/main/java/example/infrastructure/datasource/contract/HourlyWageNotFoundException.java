@@ -1,4 +1,4 @@
-package example.infrastructure.datasource.payroll;
+package example.infrastructure.datasource.contract;
 
 /**
  * 時給が設定されていない

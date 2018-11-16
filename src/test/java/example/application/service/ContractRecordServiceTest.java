@@ -1,13 +1,14 @@
 package example.application.service;
 
 import example.Application;
+import example.application.service.contract.ContractQueryService;
+import example.application.service.contract.ContractRecordService;
 import example.application.service.payroll.PayrollQueryService;
-import example.application.service.payroll.PayrollRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
-import example.infrastructure.datasource.payroll.HourlyWageNotFoundException;
+import example.infrastructure.datasource.contract.HourlyWageNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,13 +21,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class)
-public class PayrollRecordServiceTest {
+public class ContractRecordServiceTest {
     @Autowired
     WorkerQueryService workerQueryService;
     @Autowired
-    PayrollRecordService sutRecord;
+    ContractRecordService sutRecord;
     @Autowired
-    PayrollQueryService sutQuery;
+    ContractQueryService sutQuery;
 
     @DisplayName("時給の登録参照が正しく行われていること")
     @Test

@@ -1,6 +1,6 @@
-package example.infrastructure.datasource.payroll;
+package example.infrastructure.datasource.contract;
 
-import example.application.repository.PayrollRepository;
+import example.application.repository.ContractRepository;
 import example.domain.model.contract.DailyHourlyWage;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.MonthlyHourlyWages;
@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
-public class PayrollDataSource implements PayrollRepository {
-    PayrollMapper mapper;
+public class ContractDataSource implements ContractRepository {
+    ContractMapper mapper;
 
     @Override
     public void registerHourlyWage(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage) {
@@ -35,7 +35,7 @@ public class PayrollDataSource implements PayrollRepository {
         return new MonthlyHourlyWages(wages);
     }
 
-    PayrollDataSource(PayrollMapper payrollMapper) {
+    ContractDataSource(ContractMapper payrollMapper) {
         this.mapper = payrollMapper;
     }
 }
