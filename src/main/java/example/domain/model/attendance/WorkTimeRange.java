@@ -1,5 +1,6 @@
 package example.domain.model.attendance;
 
+import example.domain.type.time.HourTimeRange;
 import example.domain.type.time.Minute;
 
 /**
@@ -29,5 +30,13 @@ public class WorkTimeRange {
 
     public boolean notWork() {
         return startTime.value.value().equals(endTime.value.value());
+    }
+
+    public HourTimeRange toTimeRange() {
+        return new HourTimeRange(startTime.value, endTime.value);
+    }
+
+    public static WorkTimeRange of(HourTimeRange timeRange) {
+        return new WorkTimeRange(new WorkStartTime(timeRange.begin()), new WorkEndTime(timeRange.end()));
     }
 }

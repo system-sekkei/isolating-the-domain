@@ -15,4 +15,5 @@ public class Midnight {
                 new HourTime("05:00")
         );
     }
+    public HourTimeRange range() {return value;}
 }
