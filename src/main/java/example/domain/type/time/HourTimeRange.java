@@ -1,5 +1,7 @@
 package example.domain.type.time;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -16,9 +18,24 @@ public class HourTimeRange {
     }
 
     public HourAndMinute between() {
-        long difference = ChronoUnit.MINUTES.between(begin.value, end.value);
-        int minutes = Math.toIntExact(difference);
-        minutes = (minutes < 0) ? minutes + 24 * 60 : minutes;
-        return HourAndMinute.from(new Minute(minutes));
+        LocalDate now = LocalDate.now();
+        long difference = ChronoUnit.MINUTES.between(beginDateTime(now), endDateTime(now));
+        return HourAndMinute.from(new Minute(Math.toIntExact(difference)));
+    }
+
+    public HourTimeRange intersect(HourTimeRange other) {
+        LocalDate now = LocalDate.now();
+        HourTime newBegin = beginDateTime(now).compareTo(other.beginDateTime(now)) > 0 ? begin : other.begin;
+        HourTime newEnd = endDateTime(now).compareTo(other.endDateTime(now)) < 0 ? end : other.end;
+        return new HourTimeRange(newBegin, newEnd);
+    }
+
+    //日またぎの計算やねこいので内部系算用にLocalDateTimeを使う
+    private LocalDateTime beginDateTime(LocalDate baseDate) {
+        return LocalDateTime.of(baseDate, begin.value);
+    }
+
+    private LocalDateTime endDateTime(LocalDate baseDate) {
+        return LocalDateTime.of(begin.value.compareTo(end.value) > 0 ? baseDate.plusDays(1L) : baseDate, end.value);
     }
 }
