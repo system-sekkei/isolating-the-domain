@@ -19,7 +19,7 @@ public class AttendanceDataSource implements AttendanceRepository {
         Integer identifier = mapper.newWorkTimeIdentifier();
         mapper.insertWorkTimeHistory(identifier, workerNumber, attendanceOfDay);
         mapper.deleteWorkTime(workerNumber, attendanceOfDay.date());
-        mapper.insertWorkTime(workerNumber, attendanceOfDay);
+        mapper.insertWorkTime(workerNumber, identifier, attendanceOfDay);
     }
 
     AttendanceOfDay findBy(WorkerNumber workerNumber, Date workDay) {

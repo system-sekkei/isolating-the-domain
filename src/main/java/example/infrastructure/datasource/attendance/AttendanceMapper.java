@@ -12,7 +12,7 @@ public interface AttendanceMapper {
 
     void insertWorkTimeHistory(@Param("id") Integer id, @Param("workerNumber") WorkerNumber workerNumber, @Param("work") AttendanceOfDay work);
 
-    void insertWorkTime(@Param("workerNumber") WorkerNumber workerNumber, @Param("work") AttendanceOfDay work);
+    void insertWorkTime(@Param("workerNumber") WorkerNumber workerNumber, @Param("workTimeId") Integer workTimeId, @Param("work") AttendanceOfDay work);
 
     void deleteWorkTime(@Param("workerNumber") WorkerNumber workerNumber, @Param("workDay") Date workDay);
 

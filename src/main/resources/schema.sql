@@ -90,6 +90,7 @@ CREATE TABLE 給与.就業時間履歴 (
 
 CREATE TABLE 給与.就業時間 (
   従業員ID INTEGER NOT NULL,
+  就業時間ID INTEGER NOT NULL,
   就業日 DATE NOT NULL,
   開始時刻 TIME NOT NULL,
   終了時刻 TIME NOT NULL,
@@ -97,6 +98,7 @@ CREATE TABLE 給与.就業時間 (
   登録日時 TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (従業員ID, 就業日)
     ,FOREIGN KEY (従業員ID) REFERENCES  給与.従業員(従業員ID)
+    ,FOREIGN KEY (就業時間ID) REFERENCES  給与.就業時間履歴(就業時間ID)
 );
 
 CREATE SEQUENCE 給与.就業時間ID;
