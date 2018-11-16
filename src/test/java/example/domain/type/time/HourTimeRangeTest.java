@@ -24,9 +24,19 @@ class HourTimeRangeTest {
 
     @DisplayName("積集合のテスト")
     @ParameterizedTest
-    @CsvSource({"9:00, 17:00, 8:00, 16:00, 09:00, 16:00",
+    @CsvSource({
+            //業務的な範囲
+            "9:00, 17:00, 8:00, 16:00, 09:00, 16:00",
             "19:00, 3:00, 22:00, 5:00, 22:00, 03:00",
-            "19:00, 23:00, 22:00, 5:00, 22:00, 23:00"})
+            "19:00, 23:00, 22:00, 5:00, 22:00, 23:00",
+            //数学的な範囲
+            "8:00, 11:00, 7:00, 8:00, 00:00, 00:00",
+            "8:00, 11:00, 7:00, 9:00, 08:00, 09:00",
+            "8:00, 11:00, 9:00, 10:00, 09:00, 10:00",
+            "8:00, 11:00, 10:00, 12:00, 10:00, 11:00",
+            "8:00, 11:00, 11:00, 12:00, 00:00, 00:00",
+            "8:00, 11:00, 7:00, 12:00, 08:00, 11:00"
+    })
     void intercect(String start1, String end1, String start2, String end2, String expectedStart, String expectedEnd) {
         HourTimeRange r1 = new HourTimeRange(new HourTime(start1), new HourTime(end1));
         HourTimeRange r2 = new HourTimeRange(new HourTime(start2), new HourTime(end2));

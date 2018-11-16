@@ -23,12 +23,23 @@ public class HourTimeRange {
         return HourAndMinute.from(new Minute(Math.toIntExact(difference)));
     }
 
+    public HourTime begin() { return begin; }
+    public HourTime end() { return end; }
     public HourTimeRange intersect(HourTimeRange other) {
         LocalDate now = LocalDate.now();
-        HourTime newBegin = beginDateTime(now).compareTo(other.beginDateTime(now)) > 0 ? begin : other.begin;
-        HourTime newEnd = endDateTime(now).compareTo(other.endDateTime(now)) < 0 ? end : other.end;
+        LocalDateTime thisBegin = beginDateTime(now);
+        LocalDateTime otherBegin = other.beginDateTime(now);
+        LocalDateTime thisEnd = endDateTime(now);
+        LocalDateTime otherEnd = other.endDateTime(now);
+        if(thisBegin.compareTo(otherEnd) >= 0) return EMPTY_RANGE;
+        if(thisEnd.compareTo(otherBegin) <= 0) return EMPTY_RANGE;
+
+        HourTime newBegin = thisBegin.compareTo(otherBegin) > 0 ? begin : other.begin;
+        HourTime newEnd = thisEnd.compareTo(otherEnd) < 0 ? end : other.end;
         return new HourTimeRange(newBegin, newEnd);
     }
+
+    public static HourTimeRange EMPTY_RANGE = new HourTimeRange(new HourTime("0:00"), new HourTime("0:00"));
 
     //日またぎの計算やねこいので内部系算用にLocalDateTimeを使う
     private LocalDateTime beginDateTime(LocalDate baseDate) {
