@@ -46,15 +46,30 @@ public class AttendanceOfDay {
         return HourAndMinute.from(workingMinute);
     }
 
+    public HourAndMinute normalWorkTime() {
+        Minute workMinute = workTimeRange.workMinute();
+        Minute midnight = midnightWorkTimeWithoutBreaks();
+        //FIXME 休憩時間の扱い
+        if(midnight.value() >= breaks.value.value()) {
+            return HourAndMinute.from(workMinute.subtract(midnight));
+        } else {
+            return HourAndMinute.from(workMinute.subtract(breaks.value));
+        }
+    }
+
     public HourAndMinute midnightWorkTime() {
-        WorkTimeRange midnightRange = WorkTimeRange.of(workTimeRange.toTimeRange().intersect(new Midnight().range()));
-        Minute midnightWorkTime = midnightRange.workMinute();
-        //FIXME 休憩時間を深夜時間帯から引いてるのはいずれ直さなきゃ
+        Minute midnightWorkTime = midnightWorkTimeWithoutBreaks();
+        //FIXME 休憩時間の扱い
         if(midnightWorkTime.value() > breaks.value.value()) {
             return HourAndMinute.from(breaks.subtractFrom(midnightWorkTime));
         } else {
             return HourAndMinute.from(new Minute(0));
         }
+    }
+
+    private Minute midnightWorkTimeWithoutBreaks() {
+        WorkTimeRange midnightRange = WorkTimeRange.of(workTimeRange.toTimeRange().intersect(new Midnight().range()));
+        return midnightRange.workMinute();
     }
 
     public Attendance attendance() {

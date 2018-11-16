@@ -41,4 +41,12 @@ class AttendanceOfDayTest {
         AttendanceOfDay sut = new AttendanceOfDay(Date.now(), new WorkStartTime(new HourTime(begin)), new WorkEndTime(new HourTime(end)), new Break(new Minute(breaks)));
         assertEquals(expected, sut.midnightWorkTime().toMinute().value());
     }
+
+    @DisplayName("通常作業時間を正しく返却できること")
+    @ParameterizedTest
+    @CsvSource({"9:00, 17:00, 60, 420", "19:00, 1:00, 60, 180", "20:00, 23:00, 120, 60"})
+    void normalWorkTime(String begin, String end, int breaks, int expected) {
+        AttendanceOfDay sut = new AttendanceOfDay(Date.now(), new WorkStartTime(new HourTime(begin)), new WorkEndTime(new HourTime(end)), new Break(new Minute(breaks)));
+        assertEquals(expected, sut.normalWorkTime().toMinute().value());
+    }
 }
