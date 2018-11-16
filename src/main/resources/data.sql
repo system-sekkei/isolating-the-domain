@@ -79,14 +79,14 @@ values
  ;
  
  INSERT INTO 給与.従業員のメールアドレス
- (従業員ID, メールアドレス)
+ (従業員ID, 従業員メールアドレスID, メールアドレス)
 values
- (1, 'fukawa_teruyoshi_new@example.com'),
- (2, 'kuriyama_yuino@example.com'),
- (3, 'fujimura_kaoru@example.com'),
- (4, 'ijuuin_ken@example.com'),
- (5, 'yamato_michiko@example.com'),
- (6, 'miyake_yukiya@example.com')
+ (1, 7, 'fukawa_teruyoshi_new@example.com'),
+ (2, 2, 'kuriyama_yuino@example.com'),
+ (3, 3, 'fujimura_kaoru@example.com'),
+ (4, 4, 'ijuuin_ken@example.com'),
+ (5, 5, 'yamato_michiko@example.com'),
+ (6, 6, 'miyake_yukiya@example.com')
  ;
 
 INSERT INTO 給与.契約中(従業員ID) values(1),(2),(3),(4),(5),(6);

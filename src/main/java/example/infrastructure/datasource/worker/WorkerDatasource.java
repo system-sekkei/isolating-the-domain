@@ -42,7 +42,7 @@ public class WorkerDatasource implements WorkerRepository {
         Integer mailAddressId = mapper.newWorkerMailAddressIdentifier();
         mapper.insertWorkerMailAddressHistory(mailAddressId, workerNumber, mailAddress);
         mapper.deleteWorkerMailAddress(workerNumber);
-        mapper.insertWorkerMailAddress(workerNumber, mailAddress);
+        mapper.insertWorkerMailAddress(workerNumber, mailAddressId, mailAddress);
     }
 
     @Override

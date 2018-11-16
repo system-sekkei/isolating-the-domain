@@ -31,7 +31,7 @@ public interface WorkerMapper {
 
     void insertWorkerMailAddressHistory(@Param("id") Integer id, @Param("workerNumber") WorkerNumber workerNumber, @Param("mailAddress") MailAddress mailAddress);
 
-    void insertWorkerMailAddress(@Param("workerNumber") WorkerNumber workerNumber, @Param("mailAddress") MailAddress mailAddress);
+    void insertWorkerMailAddress(@Param("workerNumber") WorkerNumber workerNumber, @Param("mailAddressId") Integer mailAddressId, @Param("mailAddress") MailAddress mailAddress);
 
     void insertInspireContract(@Param("workerNumber") WorkerNumber workerNumber);
 
