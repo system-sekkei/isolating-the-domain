@@ -20,7 +20,7 @@ public class WorkTimeRangeTest {
 
     @DisplayName("作業時間を正しく返却できること")
     @ParameterizedTest
-    @CsvSource({"9:00, 17:00, 08:00", "19:00, 1:00, 06:00", "20:00, 23:00, 03:00"})
+    @CsvSource({"9:00, 17:00, 08:00", "19:00, 1:00, 06:00", "20:00, 23:00, 03:00", "9:01, 18:14, 09:00"})
     void normalWorkTime(String begin, String end, String expected) {
         WorkTimeRange sut = new WorkTimeRange(new WorkStartTime(new HourTime(begin)), new WorkEndTime(new HourTime(end)));
         assertEquals(expected, sut.workTime().toString());
