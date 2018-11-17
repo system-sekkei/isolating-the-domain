@@ -20,14 +20,6 @@ class AttendanceOfDayTest {
         assertEquals(normalize, ht.normalizedHourTime().toString());
     }
 
-    @DisplayName("休憩時間を15分刻みで切り上げられる")
-    @ParameterizedTest
-    @CsvSource({"0, 0", "1, 15", "14, 15", "15, 15", "16, 30"})
-    void normalizeMinute(int org, String normalize) {
-        Break m = new Break(new Minute(org));
-        assertEquals(normalize, m.normalizeValue().toString());
-    }
-
     @DisplayName("就業時間の計算を正しく行えること")
     @ParameterizedTest
     @CsvSource({"9:00, 18:00, 60, 08:00", "9:01, 18:14, 46, 08:00"})
