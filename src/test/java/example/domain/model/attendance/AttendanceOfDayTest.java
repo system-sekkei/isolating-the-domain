@@ -12,14 +12,6 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AttendanceOfDayTest {
-    @DisplayName("勤務時刻は15分刻みで切り捨てられる")
-    @ParameterizedTest
-    @CsvSource({"10:14, 10:00", "10:15, 10:15", "10:16, 10:15"})
-    void normalizeHourTime(String org, String normalize) {
-        WorkStartTime ht = new WorkStartTime(new HourTime(org));
-        assertEquals(normalize, ht.normalizedHourTime().toString());
-    }
-
     @DisplayName("就業時間の計算を正しく行えること")
     @ParameterizedTest
     @CsvSource({"9:00, 18:00, 60, 08:00", "9:01, 18:14, 46, 08:00"})
