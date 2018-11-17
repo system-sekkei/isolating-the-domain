@@ -1,6 +1,5 @@
 package example.domain.model.attendance;
 
-import example.domain.model.labour_standards_law.Midnight;
 import example.domain.type.date.Date;
 import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.HourTime;
@@ -41,35 +40,24 @@ public class AttendanceOfDay {
     }
 
     public HourAndMinute workTime() {
-        Minute workMinute = workTimeRange.workMinute();
-        Minute workingMinute = breaks.subtractFrom(workMinute);
-        return HourAndMinute.from(workingMinute);
+        return subtractBreaks(workTimeRange.workTime().toMinute());
     }
 
-    public HourAndMinute normalWorkTime() {
-        Minute workMinute = workTimeRange.workMinute();
-        Minute midnight = midnightWorkTimeWithoutBreaks();
-        //FIXME 休憩時間の扱い
-        if(midnight.value() >= breaks.value.value()) {
-            return HourAndMinute.from(workMinute.subtract(midnight));
-        } else {
-            return HourAndMinute.from(workMinute.subtract(breaks.value));
-        }
+    public HourAndMinute overTime() {
+        return subtractBreaks(workTimeRange.overWorkTime().toMinute());
     }
 
     public HourAndMinute midnightWorkTime() {
-        Minute midnightWorkTime = midnightWorkTimeWithoutBreaks();
-        //FIXME 休憩時間の扱い
-        if(midnightWorkTime.value() > breaks.value.value()) {
-            return HourAndMinute.from(breaks.subtractFrom(midnightWorkTime));
+        return subtractBreaks(workTimeRange.midnightWorkTime().toMinute());
+    }
+
+    private HourAndMinute subtractBreaks(Minute minute) {
+        ////FIXME 休憩時間の扱い
+        if(minute.value() > breaks.normalizeValue().value()) {
+            return HourAndMinute.from(breaks.subtractFrom(minute));
         } else {
             return HourAndMinute.from(new Minute(0));
         }
-    }
-
-    private Minute midnightWorkTimeWithoutBreaks() {
-        WorkTimeRange midnightRange = WorkTimeRange.of(workTimeRange.toTimeRange().intersect(new Midnight().range()));
-        return midnightRange.workMinute();
     }
 
     public Attendance attendance() {

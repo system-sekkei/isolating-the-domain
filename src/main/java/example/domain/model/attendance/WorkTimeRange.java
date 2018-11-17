@@ -18,10 +18,6 @@ public class WorkTimeRange {
         this.endTime = endTime;
     }
 
-    public Minute workMinute() {
-        return startTime.normalizedHourTime().until(endTime.normalizedHourTime());
-    }
-
     public WorkStartTime start() {
         return startTime;
     }
@@ -42,12 +38,23 @@ public class WorkTimeRange {
         return new WorkTimeRange(new WorkStartTime(timeRange.begin()), new WorkEndTime(timeRange.end()));
     }
 
-    public HourAndMinute midnightWorkTime() {
-        WorkTimeRange midnightRange = WorkTimeRange.of(toTimeRange().intersect(new Midnight().range()));
-        return HourAndMinute.from(midnightRange.workMinute());
+    public HourAndMinute workTime() {
+        return HourAndMinute.from(startTime.normalizedHourTime().until(endTime.normalizedHourTime()));
     }
 
-    public HourAndMinute normalWorkTime() {
-        return HourAndMinute.from(workMinute().subtract(midnightWorkTime().toMinute()));
+    public HourAndMinute midnightWorkTime() {
+        WorkTimeRange midnightRange = WorkTimeRange.of(toTimeRange().intersect(new Midnight().range()));
+        return midnightRange.workTime();
+    }
+
+    public HourAndMinute overWorkTime() {
+        //TODO 法定時間外作業時間の時間帯の考慮はしてない
+        //TODO パートタイマーさんなのでシフト制だと思うので...
+        Minute workMinute = workTime().toMinute();
+        if(workMinute.value() >= 480) {
+            return HourAndMinute.from(workMinute.subtract(new Minute(480)));
+        } else {
+            return HourAndMinute.from(new Minute(0));
+        }
     }
 }

@@ -18,11 +18,11 @@ public class WorkTimeRangeTest {
         assertEquals(expected, sut.midnightWorkTime().toMinute().value());
     }
 
-    @DisplayName("通常作業時間を正しく返却できること")
+    @DisplayName("作業時間を正しく返却できること")
     @ParameterizedTest
-    @CsvSource({"9:00, 17:00, 480", "19:00, 1:00, 180", "20:00, 23:00, 120"})
-    void normalWorkTime(String begin, String end, int expected) {
+    @CsvSource({"9:00, 17:00, 08:00", "19:00, 1:00, 06:00", "20:00, 23:00, 03:00"})
+    void normalWorkTime(String begin, String end, String expected) {
         WorkTimeRange sut = new WorkTimeRange(new WorkStartTime(new HourTime(begin)), new WorkEndTime(new HourTime(end)));
-        assertEquals(expected, sut.normalWorkTime().toMinute().value());
+        assertEquals(expected, sut.workTime().toString());
     }
 }
