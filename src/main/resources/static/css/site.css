@@ -9,6 +9,11 @@
   margin: 0 auto;
 }
 
+.wageInput {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
 /*勤怠 attendance*/
 .attendanceList {
   max-width: 860px;
@@ -29,6 +34,7 @@
 
 .日 {
   color: red;
+  /*background: #fff6f6!important;*/
 }
 
 /*ダッシュボード*/

@@ -43,8 +43,9 @@
        <thead>
           <tr class="center aligned">
             <th class="two wide">従業員番号</th>
-            <th class="four wide">従業員名</th>
-            <th class="six wide">メールアドレス</th>
+            <th class="three wide">従業員名</th>
+            <th class="four wide">メールアドレス</th>
+            <th class="three wide">契約期間</th>
             <th class="four wide"></th>
           </tr>
         </thead>
@@ -53,6 +54,7 @@
             <td th:text="${worker.workerNumber()}"/>
             <td th:text="${worker.name()}"/>
             <td th:text="${worker.mailAddress()}"/>
+            <td></td>
             <td class="ui center aligned">
               <a class="ui tiny positive basic button"
                  th:href="@{/worker/{workerNumber}/update(workerNumber=${worker.workerNumber()})}">
