@@ -18,9 +18,9 @@ public class DairyPayroll {
 
     Wage wage() {
         //FIXME 法定休日判定
-        Wage wage = Wage.of(attendanceOfDay.workTime(), hourlyWage);
-        wage = wage.add(Wage.of(attendanceOfDay.overTime(), hourlyWage.withExtraRate(ExtraPay.時間外.leastExtraPayRate())));
-        wage = wage.add(Wage.of(attendanceOfDay.midnightWorkTime(), hourlyWage.withExtraRate(ExtraPay.深夜.leastExtraPayRate())));
+        Wage wage = Wage.of(WorkHours.of(attendanceOfDay.workTime()), hourlyWage);
+        wage = wage.add(Wage.of(WorkHours.of(attendanceOfDay.overTime()), hourlyWage.withExtraRate(ExtraPay.時間外.leastExtraPayRate())));
+        wage = wage.add(Wage.of(WorkHours.of(attendanceOfDay.midnightWorkTime()), hourlyWage.withExtraRate(ExtraPay.深夜.leastExtraPayRate())));
         return wage;
     }
 }

@@ -45,30 +45,4 @@ public class MonthlyAttendances {
         }
         return new Break(new Minute(breakMinute));
     }
-
-    public WorkHours standardWorkHours() {
-        // TODO 下の時間を除く
-        return new WorkHours(totalWorks().toMinute());
-    }
-
-    public WorkHours overtimeWorkHours() {
-        // TODO 時間外の計算
-        return new WorkHours(new Minute(0));
-    }
-
-    public WorkHours midnightWorkHours() {
-        // TODO 深夜の計算
-        return new WorkHours(new Minute(0));
-    }
-
-    public WorkHours standardHolidayWorkHours() {
-        // TODO 休日の計算
-        return new WorkHours(new Minute(0));
-    }
-
-    public WorkHours standardHolidayMidnightWorkHours() {
-        // TODO 休日深夜の計算
-        return new WorkHours(new Minute(0));
-    }
-
 }
