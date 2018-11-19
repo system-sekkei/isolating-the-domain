@@ -2,6 +2,7 @@ package example.domain.model.contract;
 
 import example.domain.model.labour_standards_law.ExtraPay;
 import example.domain.type.date.Date;
+import example.domain.type.date.DateRange;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -32,18 +33,22 @@ public class Contract {
     public Date startDate() { return startDate; }
     public Optional<Date> endDate() { return endDate; }
 
-    public BigDecimal overTimeExtraPyRate() {
-        //TODO
-        return ExtraPay.時間外.leastExtraPayRate().value();
+    public DateRange period() {
+        return new DateRange(startDate(), endDate().get()); //TODO 今のところend無しは無し
     }
 
-    public BigDecimal midnightExtraPayRate() {
+    public HourlyWage overTimeHourlyWage() {
         //TODO
-        return ExtraPay.深夜.leastExtraPayRate().value();
+        return hourlyWage().withExtraRate(ExtraPay.時間外.leastExtraPayRate());
     }
 
-    public BigDecimal holidayExtraPayRate() {
+    public HourlyWage midnightExtraPayRate() {
         //TODO
-        return ExtraPay.休日.leastExtraPayRate().value();
+        return hourlyWage().withExtraRate(ExtraPay.深夜.leastExtraPayRate());
+    }
+
+    public HourlyWage holidayExtraPayRate() {
+        //TODO
+        return hourlyWage().withExtraRate(ExtraPay.休日.leastExtraPayRate());
     }
 }

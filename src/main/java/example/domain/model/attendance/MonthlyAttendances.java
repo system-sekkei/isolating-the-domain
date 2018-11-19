@@ -10,17 +10,12 @@ import java.util.List;
 /**
  * 月次勤怠
  */
-public class MonthlyAttendances {
+public class MonthlyAttendances extends Attendances {
     YearMonth yearMonth;
     List<AttendanceOfDay> list;
 
     public MonthlyAttendances(YearMonth yearMonth, List<AttendanceOfDay> list) {
-        this.yearMonth = yearMonth;
-        this.list = list;
-    }
-
-    public List<AttendanceOfDay> list() {
-        return list;
+        super(list);
     }
 
     public HourAndMinute totalWorks() {
@@ -29,11 +24,6 @@ public class MonthlyAttendances {
             minute += attendanceOfDay.workTime().toMinute().value();
         }
         return HourAndMinute.from(new Minute(minute));
-    }
-
-    public AttendanceOfDay get(Date date) {
-        return list.stream().filter(
-                w -> w.date().value().equals(date.value())).findFirst().orElseThrow(() -> new RuntimeException());
     }
 
     @Deprecated

@@ -13,6 +13,13 @@ public class DateRange {
         this.endDate = endDate;
     }
 
+    public Date startDate() {
+        return startDate;
+    }
+    public Date endDate() {
+        return endDate;
+    }
+
     public List<Date> days() {
         List<Date> ret = new ArrayList<>();
         LocalDate d = startDate.value();
