@@ -6,12 +6,17 @@ import example.application.service.contract.ContractQueryService;
 import example.domain.model.attendance.MonthlyAttendances;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.MonthlyHourlyWages;
+import example.domain.model.payroll.DairyPayroll;
 import example.domain.model.payroll.Payroll;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import example.domain.type.date.YearMonth;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 給与参照サービス
@@ -27,7 +32,9 @@ public class PayrollQueryService {
     public Payroll getPayroll(Worker worker, YearMonth yearMonth) {
         MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(worker.workerNumber(), yearMonth);
         MonthlyHourlyWages monthlyHourlyWage = contractQueryService.getMonthlyHourlyWage(worker.workerNumber(), yearMonth);
-        return new Payroll(worker, monthlyAttendances, monthlyHourlyWage);
+        List<DairyPayroll> payrolls = yearMonth.days().stream().map(
+                day -> new DairyPayroll(day, monthlyAttendances.get(day), monthlyHourlyWage.get(day))).collect(Collectors.toList());
+        return new Payroll(worker, yearMonth, payrolls);
     }
 
     PayrollQueryService(ContractQueryService contractQueryService, AttendanceQueryService attendanceQueryService) {

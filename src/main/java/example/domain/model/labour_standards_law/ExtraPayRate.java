@@ -11,4 +11,5 @@ public class ExtraPayRate {
     public ExtraPayRate(String value) {
         this.value = new BigDecimal(value);
     }
+    public BigDecimal value() { return value;}
 }

@@ -1,5 +1,6 @@
 package example.domain.model.attendance;
 
+import example.domain.type.date.Date;
 import example.domain.type.date.YearMonth;
 import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;
@@ -30,6 +31,12 @@ public class MonthlyAttendances {
         return HourAndMinute.from(new Minute(minute));
     }
 
+    public AttendanceOfDay get(Date date) {
+        return list.stream().filter(
+                w -> w.date().value().equals(date.value())).findFirst().orElseThrow(() -> new RuntimeException());
+    }
+
+    @Deprecated
     public Break totalBreaks() {
         int breakMinute = 0;
         for (AttendanceOfDay attendanceOfDay : list) {
@@ -63,4 +70,5 @@ public class MonthlyAttendances {
         // TODO 休日深夜の計算
         return new WorkHours(new Minute(0));
     }
+
 }

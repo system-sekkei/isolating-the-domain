@@ -6,7 +6,7 @@ package example.domain.type.time;
 public class Hour {
     int value;
 
-    Hour(int time) {
+    public Hour(int time) {
         value = time;
     }
 
