@@ -1,5 +1,6 @@
 package example.domain.model.attendance;
 
+import example.domain.type.date.Date;
 import example.domain.type.date.YearMonth;
 import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;
@@ -9,12 +10,16 @@ import java.util.List;
 /**
  * 月次勤怠
  */
-public class MonthlyAttendances extends Attendances {
+public class MonthlyAttendances {
     YearMonth yearMonth;
     List<AttendanceOfDay> list;
 
     public MonthlyAttendances(YearMonth yearMonth, List<AttendanceOfDay> list) {
-        super(list);
+        this.list = list;
+    }
+
+    public List<AttendanceOfDay> list() {
+        return list;
     }
 
     public HourAndMinute totalWorks() {
@@ -33,5 +38,10 @@ public class MonthlyAttendances extends Attendances {
             breakMinute += minute.value();
         }
         return new Break(new Minute(breakMinute));
+    }
+
+    public AttendanceOfDay get(Date date) {
+        return list.stream().filter(
+                w -> w.date().value().equals(date.value())).findFirst().orElseThrow(() -> new RuntimeException());
     }
 }
