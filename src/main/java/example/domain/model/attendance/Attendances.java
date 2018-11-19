@@ -35,16 +35,6 @@ public class Attendances {
                 w -> w.date().value().equals(date.value())).findFirst().orElseThrow(() -> new RuntimeException());
     }
 
-    @Deprecated
-    public Break totalBreaks() {
-        int breakMinute = 0;
-        for (AttendanceOfDay attendanceOfDay : list) {
-            Minute minute = attendanceOfDay.breaks().normalizeValue();
-            breakMinute += minute.value();
-        }
-        return new Break(new Minute(breakMinute));
-    }
-
     public HourAndMinute workTime() {
         return summing((attendanceOfDay) -> attendanceOfDay.workTime());
     }
