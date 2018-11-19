@@ -1,5 +1,6 @@
 package example.application.repository;
 
+import example.domain.model.contract.Contracts;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.MonthlyHourlyWages;
 import example.domain.model.worker.WorkerNumber;
@@ -12,4 +13,6 @@ public interface ContractRepository {
     HourlyWage getHourlyWage(WorkerNumber workerNumber, Date workDay);
 
     MonthlyHourlyWages getMonthlyHourlyWage(WorkerNumber workerNumber, YearMonth yearMonth);
+
+    Contracts getContracts(WorkerNumber workerNumber, Date startDate, Date endDate);
 }

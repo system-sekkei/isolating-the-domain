@@ -1,8 +1,10 @@
 package example.application.service;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import example.domain.model.contract.Contracts;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +20,8 @@ import example.domain.model.contract.HourlyWage;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import example.infrastructure.datasource.contract.HourlyWageNotFoundException;
+
+import java.time.LocalDate;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class)
@@ -47,6 +51,18 @@ public class ContractRecordServiceTest {
 
         HourlyWage wage5 = sutQuery.getHourlyWage(workerNumber,new Date("2099-11-14"));
         assertEquals(800, wage5.value().intValue());
+
+        Contracts contracts = sutQuery.getContracts(workerNumber, new Date("2099-11-12"), new Date("2099-11-30"));
+        assertAll(
+                () -> assertEquals(2, contracts.value().size()),
+                () -> assertEquals(800, contracts.value().get(0).hourlyWage().value().intValue()),
+                () -> assertEquals( LocalDate.of(2099, 11, 12), contracts.value().get(0).startDate().value()),
+                () -> assertEquals( LocalDate.of(2099, 11, 14), contracts.value().get(0).endDate().get().value()),
+                () -> assertEquals(820, contracts.value().get(1).hourlyWage().value().intValue()),
+                () -> assertEquals( LocalDate.of(2099, 11, 15), contracts.value().get(1).startDate().value()),
+                () -> assertEquals( LocalDate.of(2099, 11, 30), contracts.value().get(1).endDate().get().value())
+        );
+
 
         //not found
         assertThrows(HourlyWageNotFoundException.class, () -> sutQuery.getHourlyWage(new WorkerNumber(9999), applyDate1));

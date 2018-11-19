@@ -11,12 +11,15 @@
         VALUES (#{id}, #{workerNumber.value}, #{hourlyWage.value}, #{applyDate.value});
     </insert>
 
-    <resultMap id="hourlyWage" type="example.domain.model.contract.HourlyWage">
+    <resultMap id="contract" type="example.infrastructure.datasource.contract.ContractData">
+        <result property="id" column="時給ID" />
         <result property="value" column="時給"/>
     </resultMap>
 
-    <select id="getHourlyWage" resultMap="hourlyWage">
-        SELECT 時給.時給
+    <select id="getContractData" resultMap="contract">
+        SELECT
+          時給.時給ID,
+          時給.時給
         FROM 給与.時給 as 時給
         WHERE 時給.従業員ID = #{workerNumber.value} AND 時給.適用開始日 &lt;= #{workDay.value}
         ORDER BY 時給.登録日時 desc

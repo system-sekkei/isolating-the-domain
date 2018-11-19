@@ -14,5 +14,5 @@ public interface ContractMapper {
     void registerHourlyWage(@Param("workerNumber") WorkerNumber workerNumber, @Param("id") Integer hourlyWageId,
                             @Param("applyDate") Date applyDate, @Param("hourlyWage") HourlyWage hourlyWage);
 
-    List<HourlyWage> getHourlyWage(@Param("workerNumber") WorkerNumber workerNumber, @Param("workDay") Date workDay);
+    List<ContractData> getContractData(@Param("workerNumber") WorkerNumber workerNumber, @Param("workDay") Date workDay);
 }

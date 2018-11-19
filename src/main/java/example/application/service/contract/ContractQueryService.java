@@ -1,6 +1,7 @@
 package example.application.service.contract;
 
 import example.application.repository.ContractRepository;
+import example.domain.model.contract.Contracts;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.MonthlyHourlyWages;
 import example.domain.model.worker.WorkerNumber;
@@ -27,6 +28,13 @@ public class ContractQueryService {
      */
     public MonthlyHourlyWages getMonthlyHourlyWage(WorkerNumber workerNumber, YearMonth yearMonth) {
         return contractRepository.getMonthlyHourlyWage(workerNumber, yearMonth);
+    }
+
+    /**
+     *　雇用契約変遷
+     */
+    public Contracts getContracts(WorkerNumber workerNumber, Date startDate, Date endDate) {
+        return contractRepository.getContracts(workerNumber, startDate, endDate);
     }
 
     ContractQueryService(ContractRepository contractRepository) {
