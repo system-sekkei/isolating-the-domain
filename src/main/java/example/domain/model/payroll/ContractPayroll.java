@@ -2,7 +2,6 @@ package example.domain.model.payroll;
 
 import example.domain.model.attendance.Attendances;
 import example.domain.model.contract.Contract;
-import example.domain.model.labour_standards_law.ExtraPay;
 
 public class ContractPayroll {
     Contract contract;

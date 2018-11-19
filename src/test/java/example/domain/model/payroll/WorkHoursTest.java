@@ -1,6 +1,5 @@
 package example.domain.model.payroll;
 
-import example.domain.model.payroll.WorkHours;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

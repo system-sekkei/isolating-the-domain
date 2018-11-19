@@ -1,6 +1,5 @@
 package example.domain.model.attendance;
 
-import example.domain.type.date.Date;
 import example.domain.type.date.YearMonth;
 import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;

@@ -1,12 +1,11 @@
 package example.domain.model.attendance;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import example.domain.type.time.HourTime;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import example.domain.type.time.HourTime;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WorkTimeRangeTest {
     @DisplayName("深夜時間帯の作業時間を正しく返却できること")

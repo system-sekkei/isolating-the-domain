@@ -1,8 +1,8 @@
 package example.domain.model.payroll;
 
-import java.math.BigDecimal;
-
 import example.domain.model.contract.HourlyWage;
+
+import java.math.BigDecimal;
 
 /**
  * 賃金

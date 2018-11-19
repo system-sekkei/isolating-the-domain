@@ -4,7 +4,6 @@ import example.domain.model.labour_standards_law.ExtraPay;
 import example.domain.type.date.Date;
 import example.domain.type.date.DateRange;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
 /**

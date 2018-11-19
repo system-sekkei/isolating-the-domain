@@ -1,6 +1,5 @@
 package example.domain.model.payroll;
 
-import example.domain.model.contract.Contract;
 import example.domain.model.worker.Worker;
 import example.domain.type.date.YearMonth;
 
