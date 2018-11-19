@@ -1,11 +1,10 @@
 package example.domain.model.payroll;
 
-import example.domain.model.attendance.AttendanceOfDay;
+import java.math.BigDecimal;
+
 import example.domain.model.attendance.WorkHours;
 import example.domain.model.contract.HourlyWage;
 import example.domain.type.time.HourAndMinute;
-
-import java.math.BigDecimal;
 
 /**
  * 賃金

@@ -1,10 +1,8 @@
 package example.domain.model.contract;
 
-import example.domain.model.labour_standards_law.ExtraPayRate;
-import example.domain.model.payroll.Wage;
-import example.domain.type.time.HourAndMinute;
-
 import java.math.BigDecimal;
+
+import example.domain.model.labour_standards_law.ExtraPayRate;
 
 /**
  * 時給

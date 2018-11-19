@@ -1,22 +1,18 @@
 package example.application.service.payroll;
 
-import example.application.repository.ContractRepository;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.contract.ContractQueryService;
 import example.domain.model.attendance.MonthlyAttendances;
-import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.MonthlyHourlyWages;
 import example.domain.model.payroll.DairyPayroll;
 import example.domain.model.payroll.Payroll;
 import example.domain.model.worker.Worker;
-import example.domain.model.worker.WorkerNumber;
-import example.domain.type.date.Date;
 import example.domain.type.date.YearMonth;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 給与参照サービス
