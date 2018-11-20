@@ -31,8 +31,8 @@ public class AttendanceDataSource implements AttendanceRepository {
 
     @Override
     public MonthlyAttendances findMonthly(WorkerNumber workerNumber, YearMonth month) {
-        return new MonthlyAttendances(month, month.days().stream()
-                .map(day -> findBy(workerNumber, day)).collect(Collectors.toList()));
+        return new MonthlyAttendances(month, new Attendances(month.days().stream()
+                .map(day -> findBy(workerNumber, day)).collect(Collectors.toList())));
     }
 
     @Override

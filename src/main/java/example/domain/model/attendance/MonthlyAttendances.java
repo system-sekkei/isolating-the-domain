@@ -12,36 +12,27 @@ import java.util.List;
  */
 public class MonthlyAttendances {
     YearMonth yearMonth;
-    List<AttendanceOfDay> list;
+    Attendances list;
 
-    public MonthlyAttendances(YearMonth yearMonth, List<AttendanceOfDay> list) {
+    public MonthlyAttendances(YearMonth yearMonth, Attendances list) {
         this.list = list;
     }
 
-    public List<AttendanceOfDay> list() {
+    public Attendances list() {
         return list;
     }
 
     public HourAndMinute totalWorks() {
-        int minute = 0;
-        for (AttendanceOfDay attendanceOfDay : list) {
-            minute += attendanceOfDay.workTime().toMinute().value();
-        }
-        return HourAndMinute.from(new Minute(minute));
+        return list.workTime();
     }
 
     @Deprecated
     public Break totalBreaks() {
         int breakMinute = 0;
-        for (AttendanceOfDay attendanceOfDay : list) {
+        for (AttendanceOfDay attendanceOfDay : list.list()) {
             Minute minute = attendanceOfDay.breaks().normalizeValue();
             breakMinute += minute.value();
         }
         return new Break(new Minute(breakMinute));
-    }
-
-    public AttendanceOfDay get(Date date) {
-        return list.stream().filter(
-                w -> w.date().value().equals(date.value())).findFirst().orElseThrow(() -> new RuntimeException());
     }
 }

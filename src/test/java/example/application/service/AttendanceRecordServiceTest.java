@@ -37,7 +37,7 @@ class AttendanceRecordServiceTest {
         sut.registerAttendance(workerNumber, work);
 
         MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(workerNumber, workDay.yearMonth());
-        AttendanceOfDay registeredAttendance = monthlyAttendances.list().get(19);
+        AttendanceOfDay registeredAttendance = monthlyAttendances.list().list().get(19);
         assertAll(() -> assertEquals(work.date().value(), registeredAttendance.date().value()),
                 () -> assertEquals(work.workTimeRange().start().toString(), registeredAttendance.workTimeRange().start().toString()),
                 () -> assertEquals(work.workTimeRange().end().toString(), registeredAttendance.workTimeRange().end().toString()),

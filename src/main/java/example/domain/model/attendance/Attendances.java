@@ -22,14 +22,6 @@ public class Attendances {
         return list;
     }
 
-    public HourAndMinute totalWorks() {
-        int minute = 0;
-        for (AttendanceOfDay attendanceOfDay : list) {
-            minute += attendanceOfDay.workTime().toMinute().value();
-        }
-        return HourAndMinute.from(new Minute(minute));
-    }
-
     public AttendanceOfDay get(Date date) {
         return list.stream().filter(
                 w -> w.date().value().equals(date.value())).findFirst().orElseThrow(() -> new RuntimeException());
