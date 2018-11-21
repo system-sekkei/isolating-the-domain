@@ -92,7 +92,7 @@
         </tr>
       </thead>
       <tbody>
-        <th:block th:each="attendance : ${monthlyAttendances.list().list()}">
+        <th:block th:each="attendance : ${monthlyAttendances.list()}">
           <tr th:class="${attendance.date().dayOfWeek()}">
             <td class="center aligned"
                 th:text="${attendance.date().dayOfMonth()}"></td>

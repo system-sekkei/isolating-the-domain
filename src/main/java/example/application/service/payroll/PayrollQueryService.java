@@ -32,7 +32,7 @@ public class PayrollQueryService {
         MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(worker.workerNumber(), yearMonth);
         MonthlyHourlyWages monthlyHourlyWage = contractQueryService.getMonthlyHourlyWage(worker.workerNumber(), yearMonth);
         List<DairyPayroll> payrolls = yearMonth.days().stream().map(
-                day -> new DairyPayroll(day, monthlyAttendances.list().get(day), monthlyHourlyWage.get(day))).collect(Collectors.toList());
+                day -> new DairyPayroll(day, monthlyAttendances.attendanceOf(day), monthlyHourlyWage.get(day))).collect(Collectors.toList());
         return new Payroll(worker, yearMonth, payrolls);
     }
 
