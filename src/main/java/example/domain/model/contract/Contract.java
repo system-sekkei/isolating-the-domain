@@ -37,16 +37,16 @@ public class Contract {
 
     public HourlyWage overTimeHourlyWage() {
         //TODO
-        return hourlyWage().withExtraRate(ExtraPay.時間外.leastExtraPayRate());
+        return hourlyWage().withExtraRate(new ExtraPayRate("0.25"));
     }
 
     public HourlyWage midnightExtraPayRate() {
         //TODO
-        return hourlyWage().withExtraRate(ExtraPay.深夜.leastExtraPayRate());
+        return hourlyWage().withExtraRate(new ExtraPayRate("0.35"));
     }
 
     public HourlyWage holidayExtraPayRate() {
         //TODO
-        return hourlyWage().withExtraRate(ExtraPay.休日.leastExtraPayRate());
+        return hourlyWage().withExtraRate(new ExtraPayRate("0.25"));
     }
 }
