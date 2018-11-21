@@ -2,7 +2,7 @@ package example.domain.model.payroll;
 
 import example.domain.model.attendance.AttendanceOfDay;
 import example.domain.model.contract.HourlyWage;
-import example.domain.model.labour_standards_law.ExtraPay;
+import example.domain.model.contract.ExtraPay;
 import example.domain.type.date.Date;
 
 public class DairyPayroll {

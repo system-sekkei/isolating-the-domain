@@ -1,4 +1,4 @@
-package example.domain.model.labour_standards_law;
+package example.domain.model.contract;
 
 /**
  * 割増賃金

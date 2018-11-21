@@ -1,7 +1,5 @@
 package example.domain.model.contract;
 
-import example.domain.model.labour_standards_law.ExtraPayRate;
-
 import java.math.BigDecimal;
 
 /**

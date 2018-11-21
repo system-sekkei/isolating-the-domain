@@ -1,4 +1,4 @@
-package example.domain.model.labour_standards_law;
+package example.domain.model.contract;
 
 import java.math.BigDecimal;
 
