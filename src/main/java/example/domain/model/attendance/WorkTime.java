@@ -11,49 +11,48 @@ import java.util.List;
 public class WorkTime {
 
     Minute workTime;
-    Minute overWorkTime;
     Minute midnightWorkTime;
+    Minute overWorkTime;
 
     public WorkTime() {
         this(new Minute(0), new Minute(0), new Minute(0));
     }
 
-    public WorkTime(Minute workTime, Minute overWorkTime, Minute midnightWorkTime) {
+    public WorkTime(Minute workTime, Minute midnightWorkTime, Minute overWorkTime) {
         this.workTime = workTime;
-        this.overWorkTime = overWorkTime;
         this.midnightWorkTime = midnightWorkTime;
+        this.overWorkTime = overWorkTime;
     }
 
     public WorkTime(Attendance attendance) {
-        this(
-                attendance.workTime().toMinute(),
-                attendance.overTime().toMinute(),
-                attendance.midnightWorkTime().toMinute()
-        );
+        this(attendance.workTime().toMinute(), attendance.midnightWorkTime().toMinute(), attendance.overTime().toMinute());
     }
 
     public WorkTime addAttendanceOfDay(Attendance attendance) {
         return add(new WorkTime(attendance));
     }
 
-    public WorkTime add(WorkTime workTime) {
+    public WorkTime add(WorkTime other) {
         return new WorkTime(
-                this.workTime.add(workTime.workTime),
-                this.overWorkTime.add(workTime.overWorkTime),
-                this.midnightWorkTime.add(workTime.midnightWorkTime)
-        );
+                this.workTime.add(other.workTime),
+                this.midnightWorkTime.add(other.midnightWorkTime),
+                this.overWorkTime.add(other.overWorkTime));
+    }
+
+    public HourAndMinute totalWorkTime() {
+        return HourAndMinute.from(workTime.add(midnightWorkTime));
     }
 
     public HourAndMinute workTime() {
         return HourAndMinute.from(workTime);
     }
 
-    public HourAndMinute overTime() {
-        return HourAndMinute.from(overWorkTime);
-    }
-
     public HourAndMinute midnightWorkTime() {
         return HourAndMinute.from(midnightWorkTime);
+    }
+
+    public HourAndMinute overTime() {
+        return HourAndMinute.from(overWorkTime);
     }
 
     static WorkTime from(List<Attendance> list) {
@@ -62,9 +61,5 @@ public class WorkTime {
                         (workTime, attendanceOfDay) -> workTime.addAttendanceOfDay(attendanceOfDay),
                         WorkTime::add
                 );
-    }
-
-    public HourAndMinute totalWorkTime() {
-        return HourAndMinute.from(workTime.add(overWorkTime).add(midnightWorkTime));
     }
 }
