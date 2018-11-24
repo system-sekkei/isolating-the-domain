@@ -1,9 +1,7 @@
 package example.domain.model.attendance;
 
-import example.domain.model.labour_standards_law.DailyOvertimeWork;
 import example.domain.model.labour_standards_law.Midnight;
 import example.domain.type.time.ClockTimeRange;
-import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;
 
 /**
@@ -35,19 +33,16 @@ public class WorkTimeRange {
         return new WorkTimeRange(new WorkStartTime(timeRange.begin()), new WorkEndTime(timeRange.end()));
     }
 
-    public HourAndMinute workTime() {
-        return HourAndMinute.from(startTime.normalizedHourTime().until(endTime.normalizedHourTime()));
+    public Minute totalWorkMinute() {
+        return startTime.normalizedHourTime().until(endTime.normalizedHourTime());
     }
 
-    public HourAndMinute midnightWorkTime() {
+    public Minute workMinute() {
+        return totalWorkMinute().subtract(midnightWorkMinute());
+    }
+
+    public Minute midnightWorkMinute() {
         WorkTimeRange midnightRange = WorkTimeRange.of(toTimeRange().intersect(Midnight.legal().range()));
-        return midnightRange.workTime();
-    }
-
-    public HourAndMinute overWorkTime() {
-        Minute workMinute = workTime().toMinute();
-        DailyOvertimeWork dailyOvertimeWork = DailyOvertimeWork.legal();
-        Minute overMinute = dailyOvertimeWork.overMinute(workMinute);
-        return HourAndMinute.from(overMinute);
+        return midnightRange.totalWorkMinute();
     }
 }

@@ -22,9 +22,17 @@ class AttendanceTest {
 
     @DisplayName("深夜時間帯の作業時間を正しく返却できること")
     @ParameterizedTest
-    @CsvSource({"18:00, 3:00, 60, 04:00", "8:00, 17:00, 60, 00:00"})
+    @CsvSource({
+            "18:00, 3:00, 60, 04:00",
+            "8:00, 17:00, 0, 00:00"
+    })
     void midnightWorkTime(String begin, String end, int breaks, String expected) {
-        Attendance sut = new Attendance(Date.now(), new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)), new NormalBreakTime(new Minute(breaks)), new MidnightBreakTime("0"));
+        Attendance sut = new Attendance(
+                Date.now(),
+                new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)),
+                new NormalBreakTime(new Minute(0)),
+                new MidnightBreakTime(new Minute(breaks))
+        );
         assertEquals(expected, sut.midnightWorkTime().toString());
     }
 
@@ -41,11 +49,11 @@ class AttendanceTest {
     void 時間の仕様() {
         Attendance sut = new Attendance(Date.now(),
                 new WorkStartTime(new ClockTime("8:00")), new WorkEndTime(new ClockTime("00:00")),
-                new NormalBreakTime(new Minute(120)), new MidnightBreakTime("0"));
+                new NormalBreakTime(new Minute(120)), new MidnightBreakTime("30"));
         assertAll(
-                () -> assertEquals("14:00", sut.workTime().toString(), "就業時間は全就業時間から休憩時間を引いた値です。0未満の場合は０です")
-                ,() -> assertEquals("06:00", sut.overTime().toString(), "時間外作業時間は就業時間から8時間を減算した値です。0未満の場合は０です")
-                ,() -> assertEquals("00:00", sut.midnightWorkTime().toString(), "深夜作業時間は深夜時間帯の作業時間から休憩時間を引いた値です。0未満の場合は0です")
+                () -> assertEquals("12:00", sut.workTime().toString(), "就業時間は就業時間から休憩時間を引いた値です。")
+                ,() -> assertEquals("05:30", sut.overTime().toString(), "時間外作業時間は就業時間から8時間を減算した値です。")
+                ,() -> assertEquals("01:30", sut.midnightWorkTime().toString(), "深夜作業時間は深夜時間帯の作業時間から深夜休憩時間を引いた値です。")
         );
     }
 }

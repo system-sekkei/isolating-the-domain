@@ -1,8 +1,9 @@
 package example.domain.model.attendance;
 
+import example.domain.model.labour_standards_law.DailyOvertimeWork;
 import example.domain.type.date.Date;
-import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.ClockTime;
+import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;
 
 /**
@@ -42,24 +43,25 @@ public class Attendance {
         return normalBreakTime;
     }
 
-    public HourAndMinute workTime() {
-        return subtractBreaks(workTimeRange.workTime().toMinute());
+    public HourAndMinute totalWorkTime() {
+        return HourAndMinute.from(workTime().toMinute().add(midnightWorkTime().toMinute()));
     }
 
-    public HourAndMinute overTime() {
-        return subtractBreaks(workTimeRange.overWorkTime().toMinute());
+    public HourAndMinute workTime() {
+        // TODO 勤務時間を休憩時間が超える場合のバリデーションをどこかでやる
+        return HourAndMinute.from(normalBreakTime.subtractFrom(workTimeRange.workMinute()));
     }
 
     public HourAndMinute midnightWorkTime() {
-        return subtractBreaks(workTimeRange.midnightWorkTime().toMinute());
+        // TODO 深夜勤務時間を深夜休憩時間が超える場合のバリデーションをどこかでやる
+        return HourAndMinute.from(midnightBreakTime.subtractFrom(workTimeRange.midnightWorkMinute()));
     }
 
-    private HourAndMinute subtractBreaks(Minute minute) {
-        ////FIXME 休憩時間の扱い
-        if(minute.value() > normalBreakTime.value.quarterHourRoundUp().value()) {
-            return HourAndMinute.from(normalBreakTime.subtractFrom(minute));
-        } else {
-            return HourAndMinute.from(new Minute(0));
-        }
+    public HourAndMinute overTime() {
+        Minute totalWorkMinute = totalWorkTime().toMinute();
+
+        DailyOvertimeWork dailyOvertimeWork = DailyOvertimeWork.legal();
+        Minute overMinute = dailyOvertimeWork.overMinute(totalWorkMinute);
+        return HourAndMinute.from(overMinute);
     }
 }

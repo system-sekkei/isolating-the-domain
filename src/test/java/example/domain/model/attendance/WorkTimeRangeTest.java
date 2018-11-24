@@ -10,17 +10,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class WorkTimeRangeTest {
     @DisplayName("深夜時間帯の作業時間を正しく返却できること")
     @ParameterizedTest
-    @CsvSource({"18:00, 3:00, 300", "8:00, 17:00, 0"})
+    @CsvSource({
+            "18:00, 3:00, 300",
+            "8:00, 17:00, 0"
+    })
     void midnightWorkTime(String begin, String end, int expected) {
         WorkTimeRange sut = new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)));
-        assertEquals(expected, sut.midnightWorkTime().toMinute().value());
+        assertEquals(expected, sut.midnightWorkMinute().value());
     }
 
     @DisplayName("作業時間を正しく返却できること")
     @ParameterizedTest
-    @CsvSource({"9:00, 17:00, 08:00", "19:00, 1:00, 06:00", "20:00, 23:00, 03:00", "9:01, 18:14, 09:00"})
+    @CsvSource({
+            "9:00, 17:00, 480",
+            "19:00, 1:00, 360",
+            "20:00, 23:00, 180",
+            "9:01, 18:14, 540"
+    })
     void normalWorkTime(String begin, String end, String expected) {
         WorkTimeRange sut = new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)));
-        assertEquals(expected, sut.workTime().toString());
+        assertEquals(expected, sut.totalWorkMinute().toString());
     }
 }
