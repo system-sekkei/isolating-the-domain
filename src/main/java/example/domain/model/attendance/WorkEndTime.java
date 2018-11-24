@@ -14,7 +14,7 @@ public class WorkEndTime {
     }
 
     HourTime normalizedHourTime() {
-        return value.normalizedQuarterRoundDown();
+        return value.quarterRoundDown();
     }
 
     @Override
