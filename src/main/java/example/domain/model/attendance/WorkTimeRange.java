@@ -40,7 +40,7 @@ public class WorkTimeRange {
     }
 
     public HourAndMinute midnightWorkTime() {
-        WorkTimeRange midnightRange = WorkTimeRange.of(toTimeRange().intersect(new Midnight().range()));
+        WorkTimeRange midnightRange = WorkTimeRange.of(toTimeRange().intersect(Midnight.legal().range()));
         return midnightRange.workTime();
     }
 
