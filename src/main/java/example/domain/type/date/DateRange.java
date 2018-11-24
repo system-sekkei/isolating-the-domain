@@ -13,9 +13,14 @@ public class DateRange {
         this.endDate = endDate;
     }
 
+    public DateRange(Date startDate) {
+        this(startDate, new Date(LocalDate.MAX));
+    }
+
     public Date startDate() {
         return startDate;
     }
+
     public Date endDate() {
         return endDate;
     }
@@ -23,7 +28,7 @@ public class DateRange {
     public List<Date> days() {
         List<Date> ret = new ArrayList<>();
         LocalDate d = startDate.value();
-        while(d.compareTo(endDate.value()) <= 0) {
+        while (d.compareTo(endDate.value()) <= 0) {
             ret.add(new Date(d));
             d = d.plusDays(1L);
         }

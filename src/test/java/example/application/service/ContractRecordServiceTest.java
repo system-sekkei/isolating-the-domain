@@ -54,10 +54,10 @@ public class ContractRecordServiceTest {
                 () -> assertEquals(2, contracts.value().size()),
                 () -> assertEquals(800, contracts.value().get(0).hourlyWage().value().intValue()),
                 () -> assertEquals( LocalDate.of(2099, 11, 12), contracts.value().get(0).startDate().value()),
-                () -> assertEquals( LocalDate.of(2099, 11, 14), contracts.value().get(0).endDate().get().value()),
+                () -> assertEquals( LocalDate.of(2099, 11, 14), contracts.value().get(0).endDate().value()),
                 () -> assertEquals(820, contracts.value().get(1).hourlyWage().value().intValue()),
                 () -> assertEquals( LocalDate.of(2099, 11, 15), contracts.value().get(1).startDate().value()),
-                () -> assertEquals( LocalDate.of(2099, 11, 30), contracts.value().get(1).endDate().get().value())
+                () -> assertEquals( LocalDate.of(2099, 11, 30), contracts.value().get(1).endDate().value())
         );
 
 
