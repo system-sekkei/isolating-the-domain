@@ -1,5 +1,8 @@
 package example.domain.type.date;
 
+/**
+ * 年
+ */
 public class Year {
     Integer year;
 

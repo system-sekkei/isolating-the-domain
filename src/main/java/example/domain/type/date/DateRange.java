@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 日付範囲
+ */
 public class DateRange {
     private Date startDate;
     private Date endDate;

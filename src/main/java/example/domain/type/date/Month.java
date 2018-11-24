@@ -2,6 +2,9 @@ package example.domain.type.date;
 
 import java.util.stream.Stream;
 
+/**
+ * 月
+ */
 public enum Month {
     JANUARY(1),
     FEBRUARY(2),

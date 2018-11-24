@@ -7,6 +7,9 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * 年月
+ */
 public class YearMonth {
     Year year;
     Month month;
