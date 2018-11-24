@@ -18,6 +18,7 @@ public class AttendanceOfDay {
     }
 
     public AttendanceOfDay(Date date) {
+        // TODO 休みの扱い
         this(date, new WorkStartTime(new HourTime("00:00")), new WorkEndTime(new HourTime("00:00")), new Break(new Minute(0)));
     }
 
