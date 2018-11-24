@@ -5,6 +5,9 @@ import example.domain.model.contract.ExtraPayRate;
 import example.domain.model.contract.HourlyWage;
 import example.domain.type.date.Date;
 
+/**
+ * 日毎給与
+ */
 public class DairyPayroll {
     Date date;
     AttendanceOfDay attendanceOfDay;

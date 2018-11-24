@@ -3,6 +3,9 @@ package example.domain.model.payroll;
 import example.domain.model.attendance.Attendances;
 import example.domain.model.contract.Contract;
 
+/**
+ * 契約給与
+ */
 public class ContractPayroll {
     Contract contract;
     Attendances attendances;
