@@ -37,4 +37,8 @@ public class Attendances {
     public HourAndMinute midnightWorkTime() {
         return workTime.midnightWorkTime();
     }
+
+    public HourAndMinute totalWorkTime() {
+        return workTime.totalWorkTime();
+    }
 }

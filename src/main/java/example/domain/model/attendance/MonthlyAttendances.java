@@ -24,7 +24,7 @@ public class MonthlyAttendances {
     }
 
     public HourAndMinute totalWorks() {
-        return attendances.workTime();
+        return attendances.totalWorkTime();
     }
 
     @Deprecated

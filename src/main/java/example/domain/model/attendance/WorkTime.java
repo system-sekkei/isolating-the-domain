@@ -63,4 +63,8 @@ public class WorkTime {
                         WorkTime::add
                 );
     }
+
+    public HourAndMinute totalWorkTime() {
+        return HourAndMinute.from(workTime.add(overWorkTime).add(midnightWorkTime));
+    }
 }
