@@ -40,4 +40,8 @@ public class Minute {
     public int value() {
         return value;
     }
+
+    public Minute quarterHourRoundUp() {
+        return (value % 15 == 0) ? this : new Minute((value / 15 + 1) * 15);
+    }
 }

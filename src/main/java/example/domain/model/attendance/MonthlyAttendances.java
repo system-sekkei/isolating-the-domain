@@ -31,7 +31,7 @@ public class MonthlyAttendances {
     public NormalBreakTime totalBreaks() {
         int breakMinute = 0;
         for (AttendanceOfDay attendanceOfDay : attendances.list()) {
-            Minute minute = attendanceOfDay.normalBreakTime().normalizeValue();
+            Minute minute = attendanceOfDay.normalBreakTime().value.quarterHourRoundUp();
             breakMinute += minute.value();
         }
         return new NormalBreakTime(new Minute(breakMinute));

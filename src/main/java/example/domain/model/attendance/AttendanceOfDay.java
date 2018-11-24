@@ -56,7 +56,7 @@ public class AttendanceOfDay {
 
     private HourAndMinute subtractBreaks(Minute minute) {
         ////FIXME 休憩時間の扱い
-        if(minute.value() > normalBreakTime.normalizeValue().value()) {
+        if(minute.value() > normalBreakTime.value.quarterHourRoundUp().value()) {
             return HourAndMinute.from(normalBreakTime.subtractFrom(minute));
         } else {
             return HourAndMinute.from(new Minute(0));
