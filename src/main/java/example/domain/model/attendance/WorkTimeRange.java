@@ -1,8 +1,9 @@
 package example.domain.model.attendance;
 
+import example.domain.model.labour_standards_law.DailyOvertimeWork;
 import example.domain.model.labour_standards_law.Midnight;
-import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.ClockTimeRange;
+import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;
 
 /**
@@ -44,13 +45,9 @@ public class WorkTimeRange {
     }
 
     public HourAndMinute overWorkTime() {
-        //TODO 法定時間外作業時間の時間帯の考慮はしてない
-        //TODO パートタイマーさんなのでシフト制だと思うので...
         Minute workMinute = workTime().toMinute();
-        if(workMinute.value() >= 480) {
-            return HourAndMinute.from(workMinute.subtract(new Minute(480)));
-        } else {
-            return HourAndMinute.from(new Minute(0));
-        }
+        DailyOvertimeWork dailyOvertimeWork = DailyOvertimeWork.legal();
+        Minute overMinute = dailyOvertimeWork.overMinute(workMinute);
+        return HourAndMinute.from(overMinute);
     }
 }

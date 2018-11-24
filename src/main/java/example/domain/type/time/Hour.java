@@ -10,7 +10,7 @@ public class Hour {
         value = time;
     }
 
-    Minute toMinute() {
+    public Minute toMinute() {
         return new Minute(value * 60);
     }
 

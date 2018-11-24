@@ -17,7 +17,7 @@ public class Minute {
     }
 
     public Minute subtract(Minute minute) {
-        if (value < minute.value) {
+        if (lessThan(minute)) {
             // FIXME エラーメッセージをわかりやすく
             throw new DateTimeException("Error of minus time.");
         }
@@ -43,5 +43,9 @@ public class Minute {
 
     public Minute quarterHourRoundUp() {
         return (value % 15 == 0) ? this : new Minute((value / 15 + 1) * 15);
+    }
+
+    public boolean lessThan(Minute value) {
+        return this.value < value.value;
     }
 }
