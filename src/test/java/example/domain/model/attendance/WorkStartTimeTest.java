@@ -1,6 +1,6 @@
 package example.domain.model.attendance;
 
-import example.domain.type.time.HourTime;
+import example.domain.type.time.ClockTime;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -12,7 +12,7 @@ public class WorkStartTimeTest {
     @ParameterizedTest
     @CsvSource({"10:14, 10:00", "10:15, 10:15", "10:16, 10:15"})
     void normalizeHourTime(String org, String normalize) {
-        WorkStartTime ht = new WorkStartTime(new HourTime(org));
+        WorkStartTime ht = new WorkStartTime(new ClockTime(org));
         assertEquals(normalize, ht.normalizedHourTime().toString());
     }
 }

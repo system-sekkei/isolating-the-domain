@@ -5,12 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class HourTimeTest {
+class ClockTimeTest {
     @Test
     @DisplayName("文字列変換が正しくできること")
     void translate() {
         final String text = "12:32";
-        HourTime ht = new HourTime(text);
+        ClockTime ht = new ClockTime(text);
         assertEquals(text, ht.toString());
     }
 }

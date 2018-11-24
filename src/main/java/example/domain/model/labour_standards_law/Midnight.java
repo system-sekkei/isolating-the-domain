@@ -1,19 +1,19 @@
 package example.domain.model.labour_standards_law;
 
-import example.domain.type.time.HourTime;
-import example.domain.type.time.HourTimeRange;
+import example.domain.type.time.ClockTime;
+import example.domain.type.time.ClockTimeRange;
 
 /**
  * 深夜
  */
 public class Midnight {
-    HourTimeRange value;
+    ClockTimeRange value;
 
     public Midnight() {
-        this.value = new HourTimeRange(
-                new HourTime("22:00"),
-                new HourTime("05:00")
+        this.value = new ClockTimeRange(
+                new ClockTime("22:00"),
+                new ClockTime("05:00")
         );
     }
-    public HourTimeRange range() {return value;}
+    public ClockTimeRange range() {return value;}
 }

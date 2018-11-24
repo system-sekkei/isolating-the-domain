@@ -6,18 +6,18 @@ import java.time.format.DateTimeFormatter;
 /**
  * 時刻を時分単位で表す
  */
-public class HourTime {
+public class ClockTime {
     LocalTime value;
 
-    public HourTime(LocalTime hourPoint) {
-        this.value = hourPoint;
+    public ClockTime(LocalTime value) {
+        this.value = value;
     }
 
-    public HourTime(String hourTimeText) {
-        this(LocalTime.parse(hourTimeText, DateTimeFormatter.ofPattern("H:mm")));
+    public ClockTime(String value) {
+        this(LocalTime.parse(value, DateTimeFormatter.ofPattern("H:mm")));
     }
 
-    public HourTime(int hour, int minute) {
+    public ClockTime(int hour, int minute) {
         value = LocalTime.of(hour, minute);
     }
 
@@ -30,12 +30,12 @@ public class HourTime {
         return value.format(DateTimeFormatter.ofPattern("HH:mm"));
     }
 
-    public Minute until(HourTime other) {
-        return new HourTimeRange(this, other).between().toMinute();
+    public Minute until(ClockTime other) {
+        return new ClockTimeRange(this, other).between().toMinute();
     }
 
-    public HourTime quarterRoundDown() {
+    public ClockTime quarterRoundDown() {
         int normalMinute = value.getMinute() / 15 * 15;
-        return new HourTime(value().withMinute(normalMinute));
+        return new ClockTime(value().withMinute(normalMinute));
     }
 }

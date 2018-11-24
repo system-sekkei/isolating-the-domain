@@ -7,12 +7,12 @@ import java.time.temporal.ChronoUnit;
 /**
  * 開始時刻と終了時刻を表現する(時刻間の時間間隔を返す)
  */
-public class HourTimeRange {
+public class ClockTimeRange {
 
-    HourTime begin;
-    HourTime end;
+    ClockTime begin;
+    ClockTime end;
 
-    public HourTimeRange(HourTime begin, HourTime end) {
+    public ClockTimeRange(ClockTime begin, ClockTime end) {
         this.begin = begin;
         this.end = end;
     }
@@ -23,23 +23,29 @@ public class HourTimeRange {
         return HourAndMinute.from(new Minute(Math.toIntExact(difference)));
     }
 
-    public HourTime begin() { return begin; }
-    public HourTime end() { return end; }
-    public HourTimeRange intersect(HourTimeRange other) {
+    public ClockTime begin() {
+        return begin;
+    }
+
+    public ClockTime end() {
+        return end;
+    }
+
+    public ClockTimeRange intersect(ClockTimeRange other) {
         LocalDate now = LocalDate.now();
         LocalDateTime thisBegin = beginDateTime(now);
         LocalDateTime otherBegin = other.beginDateTime(now);
         LocalDateTime thisEnd = endDateTime(now);
         LocalDateTime otherEnd = other.endDateTime(now);
-        if(thisBegin.compareTo(otherEnd) >= 0) return EMPTY_RANGE;
-        if(thisEnd.compareTo(otherBegin) <= 0) return EMPTY_RANGE;
+        if (thisBegin.compareTo(otherEnd) >= 0) return EMPTY_RANGE;
+        if (thisEnd.compareTo(otherBegin) <= 0) return EMPTY_RANGE;
 
-        HourTime newBegin = thisBegin.compareTo(otherBegin) > 0 ? begin : other.begin;
-        HourTime newEnd = thisEnd.compareTo(otherEnd) < 0 ? end : other.end;
-        return new HourTimeRange(newBegin, newEnd);
+        ClockTime newBegin = thisBegin.compareTo(otherBegin) > 0 ? begin : other.begin;
+        ClockTime newEnd = thisEnd.compareTo(otherEnd) < 0 ? end : other.end;
+        return new ClockTimeRange(newBegin, newEnd);
     }
 
-    public static HourTimeRange EMPTY_RANGE = new HourTimeRange(new HourTime("0:00"), new HourTime("0:00"));
+    public static ClockTimeRange EMPTY_RANGE = new ClockTimeRange(new ClockTime("0:00"), new ClockTime("0:00"));
 
     //日またぎの計算やねこいので内部系算用にLocalDateTimeを使う
     private LocalDateTime beginDateTime(LocalDate baseDate) {

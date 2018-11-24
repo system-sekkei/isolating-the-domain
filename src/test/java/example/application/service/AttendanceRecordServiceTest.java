@@ -7,7 +7,7 @@ import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.*;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
-import example.domain.type.time.HourTime;
+import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,7 +32,7 @@ class AttendanceRecordServiceTest {
     void register() {
         WorkerNumber workerNumber = workerQueryService.contractingWorkers().list().get(0).workerNumber();
         Date workDay = new Date("2099-10-20");
-        AttendanceOfDay work = new AttendanceOfDay(workDay, new WorkStartTime(new HourTime("9:00")), new WorkEndTime(new HourTime("17:00")), new NormalBreakTime(new Minute(60)), new MidnightBreakTime("0"));
+        AttendanceOfDay work = new AttendanceOfDay(workDay, new WorkStartTime(new ClockTime("9:00")), new WorkEndTime(new ClockTime("17:00")), new NormalBreakTime(new Minute(60)), new MidnightBreakTime("0"));
 
         sut.registerAttendance(workerNumber, work);
 

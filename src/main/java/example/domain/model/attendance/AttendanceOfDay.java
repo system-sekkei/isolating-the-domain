@@ -2,7 +2,7 @@ package example.domain.model.attendance;
 
 import example.domain.type.date.Date;
 import example.domain.type.time.HourAndMinute;
-import example.domain.type.time.HourTime;
+import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 
 /**
@@ -20,7 +20,7 @@ public class AttendanceOfDay {
 
     public AttendanceOfDay(Date date) {
         // TODO 休みの扱い
-        this(date, new WorkStartTime(new HourTime("00:00")), new WorkEndTime(new HourTime("00:00")), new NormalBreakTime(new Minute(0)), new MidnightBreakTime("0"));
+        this(date, new WorkStartTime(new ClockTime("00:00")), new WorkEndTime(new ClockTime("00:00")), new NormalBreakTime(new Minute(0)), new MidnightBreakTime("0"));
     }
 
     public AttendanceOfDay(Date date, WorkStartTime workStartTime, WorkEndTime workEndTime, NormalBreakTime normalBreakTime, MidnightBreakTime midnightBreakTime) {

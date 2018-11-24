@@ -7,7 +7,7 @@ import example.domain.model.attendance.AttendanceOfDay;
 import example.domain.model.attendance.WorkEndTime;
 import example.domain.model.attendance.WorkStartTime;
 import example.domain.model.worker.ContractingWorkers;
-import example.domain.type.time.HourTime;
+import example.domain.type.time.ClockTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -54,8 +54,8 @@ public class AttendanceRegisterController {
                 attendanceForm.workerNumber,
                 new AttendanceOfDay(
                         attendanceForm.date,
-                        new WorkStartTime(new HourTime(attendanceForm.startHour, attendanceForm.startMinute)),
-                        new WorkEndTime(new HourTime(attendanceForm.endHour, attendanceForm.endMinute)),
+                        new WorkStartTime(new ClockTime(attendanceForm.startHour, attendanceForm.startMinute)),
+                        new WorkEndTime(new ClockTime(attendanceForm.endHour, attendanceForm.endMinute)),
                         attendanceForm.normalBreakTime,
                         attendanceForm.midnightBreakTime
                 )

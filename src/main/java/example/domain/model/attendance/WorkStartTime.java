@@ -1,19 +1,19 @@
 package example.domain.model.attendance;
 
-import example.domain.type.time.HourTime;
+import example.domain.type.time.ClockTime;
 
 /**
  * 業務開始時刻
  */
 public class WorkStartTime {
 
-    HourTime value;
+    ClockTime value;
 
-    public WorkStartTime(HourTime value) {
+    public WorkStartTime(ClockTime value) {
         this.value = value;
     }
 
-    HourTime normalizedHourTime() {
+    ClockTime normalizedHourTime() {
         return value.quarterRoundDown();
     }
 
