@@ -56,7 +56,8 @@ public class AttendanceRegisterController {
                         attendanceForm.date,
                         new WorkStartTime(new HourTime(attendanceForm.startHour, attendanceForm.startMinute)),
                         new WorkEndTime(new HourTime(attendanceForm.endHour, attendanceForm.endMinute)),
-                        attendanceForm.breaks
+                        attendanceForm.normalBreakTime,
+                        attendanceForm.midnightBreakTime
                 )
         );
 
@@ -72,7 +73,8 @@ public class AttendanceRegisterController {
                 "startMinute",
                 "endHour",
                 "endMinute",
-                "breaks"
+                "normalBreakTime",
+                "midnightBreakTime"
         );
     }
 }

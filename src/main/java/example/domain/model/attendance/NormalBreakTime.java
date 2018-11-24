@@ -5,13 +5,14 @@ import example.domain.type.time.Minute;
 /**
  * 休憩時間
  */
-public class Break {
+public class NormalBreakTime {
     Minute value;
 
-    public Break(String value) {
+    public NormalBreakTime(String value) {
         this(new Minute(value));
     }
-    public Break(Minute value) {
+
+    public NormalBreakTime(Minute value) {
         this.value = value;
     }
 

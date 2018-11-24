@@ -28,13 +28,13 @@ public class MonthlyAttendances {
     }
 
     @Deprecated
-    public Break totalBreaks() {
+    public NormalBreakTime totalBreaks() {
         int breakMinute = 0;
         for (AttendanceOfDay attendanceOfDay : attendances.list()) {
-            Minute minute = attendanceOfDay.breaks().normalizeValue();
+            Minute minute = attendanceOfDay.normalBreakTime().normalizeValue();
             breakMinute += minute.value();
         }
-        return new Break(new Minute(breakMinute));
+        return new NormalBreakTime(new Minute(breakMinute));
     }
 
     public AttendanceOfDay attendanceOf(Date day) {

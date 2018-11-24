@@ -76,7 +76,19 @@
         <div class="two fields">
           <div class="ui right labeled small input field">
             <input class="short-input" type="text" placeholder="15"
-                   th:field="*{breaks}"
+                   th:field="*{normalBreakTime}"
+            />
+            <div class="ui basic label">分</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>休憩時間（深夜）</label>
+        <div class="two fields">
+          <div class="ui right labeled small input field">
+            <input class="short-input" type="text" placeholder="15"
+                   th:field="*{midnightBreakTime}"
             />
             <div class="ui basic label">分</div>
           </div>

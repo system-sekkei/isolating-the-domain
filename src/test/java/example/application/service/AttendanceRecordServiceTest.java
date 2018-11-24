@@ -32,7 +32,7 @@ class AttendanceRecordServiceTest {
     void register() {
         WorkerNumber workerNumber = workerQueryService.contractingWorkers().list().get(0).workerNumber();
         Date workDay = new Date("2099-10-20");
-        AttendanceOfDay work = new AttendanceOfDay(workDay, new WorkStartTime(new HourTime("9:00")), new WorkEndTime(new HourTime("17:00")), new Break(new Minute(60)));
+        AttendanceOfDay work = new AttendanceOfDay(workDay, new WorkStartTime(new HourTime("9:00")), new WorkEndTime(new HourTime("17:00")), new NormalBreakTime(new Minute(60)), new MidnightBreakTime("0"));
 
         sut.registerAttendance(workerNumber, work);
 
@@ -41,6 +41,6 @@ class AttendanceRecordServiceTest {
         assertAll(() -> assertEquals(work.date().value(), registeredAttendance.date().value()),
                 () -> assertEquals(work.workTimeRange().start().toString(), registeredAttendance.workTimeRange().start().toString()),
                 () -> assertEquals(work.workTimeRange().end().toString(), registeredAttendance.workTimeRange().end().toString()),
-                () -> assertEquals(work.breaks().toString(), registeredAttendance.breaks().toString()));
+                () -> assertEquals(work.normalBreakTime().toString(), registeredAttendance.normalBreakTime().toString()));
     }
 }

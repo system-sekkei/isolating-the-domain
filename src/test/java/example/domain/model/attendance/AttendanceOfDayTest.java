@@ -16,7 +16,7 @@ class AttendanceOfDayTest {
     @ParameterizedTest
     @CsvSource({"9:00, 18:00, 60, 08:00", "9:01, 18:14, 46, 08:00"})
     void workTime(String begin, String end, int breaks, String expected) {
-        AttendanceOfDay sut = new AttendanceOfDay(Date.now(), new WorkStartTime(new HourTime(begin)), new WorkEndTime(new HourTime(end)), new Break(new Minute(breaks)));
+        AttendanceOfDay sut = new AttendanceOfDay(Date.now(), new WorkStartTime(new HourTime(begin)), new WorkEndTime(new HourTime(end)), new NormalBreakTime(new Minute(breaks)), new MidnightBreakTime("0"));
         assertEquals(expected, sut.workTime().toString());
     }
 
@@ -24,7 +24,7 @@ class AttendanceOfDayTest {
     @ParameterizedTest
     @CsvSource({"18:00, 3:00, 60, 04:00", "8:00, 17:00, 60, 00:00"})
     void midnightWorkTime(String begin, String end, int breaks, String expected) {
-        AttendanceOfDay sut = new AttendanceOfDay(Date.now(), new WorkStartTime(new HourTime(begin)), new WorkEndTime(new HourTime(end)), new Break(new Minute(breaks)));
+        AttendanceOfDay sut = new AttendanceOfDay(Date.now(), new WorkStartTime(new HourTime(begin)), new WorkEndTime(new HourTime(end)), new NormalBreakTime(new Minute(breaks)), new MidnightBreakTime("0"));
         assertEquals(expected, sut.midnightWorkTime().toString());
     }
 
@@ -32,7 +32,7 @@ class AttendanceOfDayTest {
     @ParameterizedTest
     @CsvSource({"9:00, 17:00, 60, 00:00", "09:00, 22:00, 60, 04:00"})
     void overWorkTime(String begin, String end, int breaks, String expected) {
-        AttendanceOfDay sut = new AttendanceOfDay(Date.now(), new WorkStartTime(new HourTime(begin)), new WorkEndTime(new HourTime(end)), new Break(new Minute(breaks)));
+        AttendanceOfDay sut = new AttendanceOfDay(Date.now(), new WorkStartTime(new HourTime(begin)), new WorkEndTime(new HourTime(end)), new NormalBreakTime(new Minute(breaks)), new MidnightBreakTime("0"));
         assertEquals(expected, sut.overTime().toString());
     }
 
@@ -41,7 +41,7 @@ class AttendanceOfDayTest {
     void 時間の仕様() {
         AttendanceOfDay sut = new AttendanceOfDay(Date.now(),
                 new WorkStartTime(new HourTime("8:00")), new WorkEndTime(new HourTime("00:00")),
-                new Break(new Minute(120)));
+                new NormalBreakTime(new Minute(120)), new MidnightBreakTime("0"));
         assertAll(
                 () -> assertEquals("14:00", sut.workTime().toString(), "就業時間は全就業時間から休憩時間を引いた値です。0未満の場合は０です")
                 ,() -> assertEquals("06:00", sut.overTime().toString(), "時間外作業時間は就業時間から8時間を減算した値です。0未満の場合は０です")

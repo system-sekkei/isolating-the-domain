@@ -100,7 +100,7 @@
                 th:text="${attendance.date().dayOfWeek()}"></td>
             <td th:text="${attendance.workTimeRange().start()}"></td>
             <td th:text="${attendance.workTimeRange().end()}"></td>
-            <td th:text="${attendance.breaks()}"></td>
+            <td th:text="${attendance.normalBreakTime()}"></td>
             <td th:text="${attendance.workTime()}"></td>
           </tr>
         </th:block>

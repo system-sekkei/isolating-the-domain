@@ -1,6 +1,7 @@
 package example.presentation.controller.attendance;
 
-import example.domain.model.attendance.Break;
+import example.domain.model.attendance.MidnightBreakTime;
+import example.domain.model.attendance.NormalBreakTime;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 
@@ -13,7 +14,8 @@ public class AttendanceForm {
     Integer startMinute;
     Integer endHour;
     Integer endMinute;
-    Break breaks;
+    NormalBreakTime normalBreakTime;
+    MidnightBreakTime midnightBreakTime;
 
     public AttendanceForm() {
         this.date = new Date(LocalDate.now());
@@ -21,6 +23,7 @@ public class AttendanceForm {
         this.startMinute = 0;
         this.endHour = 17;
         this.endMinute = 30;
-        this.breaks = new Break("60");
+        this.normalBreakTime = new NormalBreakTime("60");
+        this.midnightBreakTime = new MidnightBreakTime("0");
     }
 }

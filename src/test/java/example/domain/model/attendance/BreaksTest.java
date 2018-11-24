@@ -12,7 +12,7 @@ public class BreaksTest {
     @ParameterizedTest
     @CsvSource({"0, 0", "1, 15", "14, 15", "15, 15", "16, 30"})
     void normalizeMinute(int org, String normalize) {
-        Break m = new Break(new Minute(org));
+        NormalBreakTime m = new NormalBreakTime(new Minute(org));
         assertEquals(normalize, m.normalizeValue().toString());
     }
 }

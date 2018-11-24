@@ -11,7 +11,8 @@ import example.domain.type.time.Minute;
 public class AttendanceOfDay {
     Date date;
     WorkTimeRange workTimeRange;
-    Break breaks;
+    NormalBreakTime normalBreakTime;
+    MidnightBreakTime midnightBreakTime;
 
     public AttendanceOfDay() {
         this(Date.now());
@@ -19,13 +20,14 @@ public class AttendanceOfDay {
 
     public AttendanceOfDay(Date date) {
         // TODO 休みの扱い
-        this(date, new WorkStartTime(new HourTime("00:00")), new WorkEndTime(new HourTime("00:00")), new Break(new Minute(0)));
+        this(date, new WorkStartTime(new HourTime("00:00")), new WorkEndTime(new HourTime("00:00")), new NormalBreakTime(new Minute(0)), new MidnightBreakTime("0"));
     }
 
-    public AttendanceOfDay(Date date, WorkStartTime workStartTime, WorkEndTime workEndTime, Break breaks) {
+    public AttendanceOfDay(Date date, WorkStartTime workStartTime, WorkEndTime workEndTime, NormalBreakTime normalBreakTime, MidnightBreakTime midnightBreakTime) {
         this.date = date;
         this.workTimeRange = new WorkTimeRange(workStartTime, workEndTime);
-        this.breaks = breaks;
+        this.normalBreakTime = normalBreakTime;
+        this.midnightBreakTime = midnightBreakTime;
     }
 
     public Date date() {
@@ -36,8 +38,8 @@ public class AttendanceOfDay {
         return workTimeRange;
     }
 
-    public Break breaks() {
-        return breaks;
+    public NormalBreakTime normalBreakTime() {
+        return normalBreakTime;
     }
 
     public HourAndMinute workTime() {
@@ -54,8 +56,8 @@ public class AttendanceOfDay {
 
     private HourAndMinute subtractBreaks(Minute minute) {
         ////FIXME 休憩時間の扱い
-        if(minute.value() > breaks.normalizeValue().value()) {
-            return HourAndMinute.from(breaks.subtractFrom(minute));
+        if(minute.value() > normalBreakTime.normalizeValue().value()) {
+            return HourAndMinute.from(normalBreakTime.subtractFrom(minute));
         } else {
             return HourAndMinute.from(new Minute(0));
         }
