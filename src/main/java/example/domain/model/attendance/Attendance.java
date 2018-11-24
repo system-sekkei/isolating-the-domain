@@ -39,8 +39,8 @@ public class Attendance {
         return workTimeRange;
     }
 
-    public NormalBreakTime normalBreakTime() {
-        return normalBreakTime;
+    public HourAndMinute totalBreakTime() {
+        return HourAndMinute.from(normalBreakTime.toMinute().add(midnightBreakTime.toMinute()));
     }
 
     public HourAndMinute totalWorkTime() {

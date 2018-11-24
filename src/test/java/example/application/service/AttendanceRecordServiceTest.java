@@ -41,6 +41,6 @@ class AttendanceRecordServiceTest {
         assertAll(() -> assertEquals(work.date().value(), registeredAttendance.date().value()),
                 () -> assertEquals(work.workTimeRange().start().toString(), registeredAttendance.workTimeRange().start().toString()),
                 () -> assertEquals(work.workTimeRange().end().toString(), registeredAttendance.workTimeRange().end().toString()),
-                () -> assertEquals(work.normalBreakTime().toString(), registeredAttendance.normalBreakTime().toString()));
+                () -> assertEquals(work.totalBreakTime().toString(), registeredAttendance.totalBreakTime().toString()));
     }
 }
