@@ -17,7 +17,7 @@ public class ContractPayroll {
 
     public Wage wage() {
         //FIXME 法定休日判定
-        Wage wage = Wage.of(WorkHours.of(attendances.workTime()), contract.hourlyWage());
+        Wage wage = Wage.of(WorkHours.of(attendances.totalWorkTime()), contract.hourlyWage());
         wage = wage.add(Wage.of(WorkHours.of(attendances.overTime()), contract.overTimeHourlyWage()));
         wage = wage.add(Wage.of(WorkHours.of(attendances.midnightWorkTime()), contract.midnightExtraPayRate()));
         return wage;
