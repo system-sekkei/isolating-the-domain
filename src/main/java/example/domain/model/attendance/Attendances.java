@@ -9,19 +9,19 @@ import java.util.List;
  * 月次勤怠
  */
 public class Attendances {
-    List<AttendanceOfDay> list;
+    List<Attendance> list;
     WorkTime workTime;
 
-    public Attendances(List<AttendanceOfDay> list) {
+    public Attendances(List<Attendance> list) {
         this.list = list;
         this.workTime = WorkTime.from(list);
     }
 
-    public List<AttendanceOfDay> list() {
+    public List<Attendance> list() {
         return list;
     }
 
-    public AttendanceOfDay get(Date date) {
+    public Attendance get(Date date) {
         return list.stream().filter(
                 w -> w.date().value().equals(date.value())).findFirst().orElseThrow(() -> new RuntimeException());
     }

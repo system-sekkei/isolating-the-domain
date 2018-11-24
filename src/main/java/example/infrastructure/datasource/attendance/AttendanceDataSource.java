@@ -1,7 +1,7 @@
 package example.infrastructure.datasource.attendance;
 
 import example.application.repository.AttendanceRepository;
-import example.domain.model.attendance.AttendanceOfDay;
+import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.Attendances;
 import example.domain.model.attendance.MonthlyAttendances;
 import example.domain.model.worker.WorkerNumber;
@@ -17,16 +17,16 @@ public class AttendanceDataSource implements AttendanceRepository {
     AttendanceMapper mapper;
 
     @Override
-    public void registerAttendance(WorkerNumber workerNumber, AttendanceOfDay attendanceOfDay) {
+    public void registerAttendance(WorkerNumber workerNumber, Attendance attendance) {
         Integer identifier = mapper.newWorkTimeIdentifier();
-        mapper.insertWorkTimeHistory(identifier, workerNumber, attendanceOfDay);
-        mapper.deleteWorkTime(workerNumber, attendanceOfDay.date());
-        mapper.insertWorkTime(workerNumber, identifier, attendanceOfDay);
+        mapper.insertWorkTimeHistory(identifier, workerNumber, attendance);
+        mapper.deleteWorkTime(workerNumber, attendance.date());
+        mapper.insertWorkTime(workerNumber, identifier, attendance);
     }
 
-    AttendanceOfDay findBy(WorkerNumber workerNumber, Date workDay) {
-        AttendanceOfDay attendanceOfDay = mapper.select(workerNumber, workDay);
-        return (attendanceOfDay == null) ? new AttendanceOfDay(workDay) : attendanceOfDay;
+    Attendance findBy(WorkerNumber workerNumber, Date workDay) {
+        Attendance attendance = mapper.select(workerNumber, workDay);
+        return (attendance == null) ? new Attendance(workDay) : attendance;
     }
 
     @Override

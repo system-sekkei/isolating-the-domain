@@ -18,7 +18,7 @@ public class MonthlyAttendances {
         this.attendances = attendances;
     }
 
-    public List<AttendanceOfDay> list() {
+    public List<Attendance> list() {
         return attendances.list();
     }
 
@@ -26,7 +26,7 @@ public class MonthlyAttendances {
         return attendances.totalWorkTime();
     }
 
-    public AttendanceOfDay attendanceOf(Date day) {
+    public Attendance attendanceOf(Date day) {
         return attendances.get(day);
     }
 }

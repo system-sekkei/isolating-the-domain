@@ -24,16 +24,16 @@ public class WorkTime {
         this.midnightWorkTime = midnightWorkTime;
     }
 
-    public WorkTime(AttendanceOfDay attendanceOfDay) {
+    public WorkTime(Attendance attendance) {
         this(
-                attendanceOfDay.workTime().toMinute(),
-                attendanceOfDay.overTime().toMinute(),
-                attendanceOfDay.midnightWorkTime().toMinute()
+                attendance.workTime().toMinute(),
+                attendance.overTime().toMinute(),
+                attendance.midnightWorkTime().toMinute()
         );
     }
 
-    public WorkTime addAttendanceOfDay(AttendanceOfDay attendanceOfDay) {
-        return add(new WorkTime(attendanceOfDay));
+    public WorkTime addAttendanceOfDay(Attendance attendance) {
+        return add(new WorkTime(attendance));
     }
 
     public WorkTime add(WorkTime workTime) {
@@ -56,7 +56,7 @@ public class WorkTime {
         return HourAndMinute.from(midnightWorkTime);
     }
 
-    static WorkTime from(List<AttendanceOfDay> list) {
+    static WorkTime from(List<Attendance> list) {
         return list.stream()
                 .reduce(new WorkTime(),
                         (workTime, attendanceOfDay) -> workTime.addAttendanceOfDay(attendanceOfDay),

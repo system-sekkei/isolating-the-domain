@@ -26,10 +26,6 @@ public class WorkTimeRange {
         return endTime;
     }
 
-    public boolean notWork() {
-        return startTime.value.value().equals(endTime.value.value());
-    }
-
     public ClockTimeRange toTimeRange() {
         return new ClockTimeRange(startTime.value, endTime.value);
     }

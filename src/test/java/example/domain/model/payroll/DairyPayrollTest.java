@@ -16,10 +16,10 @@ class DairyPayrollTest {
     @ParameterizedTest
     @CsvSource({"9:00, 0:00, 60, 1000, 15750"})
     void wage(String begin, String end, int breakMinute, int hourlyWage, int expected) {
-        AttendanceOfDay attendanceOfDay = new AttendanceOfDay(Date.now(),
+        Attendance attendance = new Attendance(Date.now(),
                 new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)), new NormalBreakTime(new Minute(breakMinute)), new MidnightBreakTime("0"));
         HourlyWage hourlyWageObj = new HourlyWage(hourlyWage);
-        DairyPayroll sut = new DairyPayroll(Date.now(), attendanceOfDay, hourlyWageObj);
+        DairyPayroll sut = new DairyPayroll(Date.now(), attendance, hourlyWageObj);
         assertEquals(expected, sut.wage().value.intValue());
     }
 }

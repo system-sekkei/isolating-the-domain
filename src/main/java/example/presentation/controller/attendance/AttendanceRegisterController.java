@@ -3,7 +3,7 @@ package example.presentation.controller.attendance;
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
-import example.domain.model.attendance.AttendanceOfDay;
+import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.WorkEndTime;
 import example.domain.model.attendance.WorkStartTime;
 import example.domain.model.worker.ContractingWorkers;
@@ -52,7 +52,7 @@ public class AttendanceRegisterController {
 
         attendanceRecordService.registerAttendance(
                 attendanceForm.workerNumber,
-                new AttendanceOfDay(
+                new Attendance(
                         attendanceForm.date,
                         new WorkStartTime(new ClockTime(attendanceForm.startHour, attendanceForm.startMinute)),
                         new WorkEndTime(new ClockTime(attendanceForm.endHour, attendanceForm.endMinute)),

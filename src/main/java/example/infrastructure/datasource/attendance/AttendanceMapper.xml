@@ -18,7 +18,7 @@
         DELETE FROM 給与.就業時間 WHERE 従業員ID = #{workerNumber.value} and 就業日 = #{workDay.value}
     </delete>
 
-    <resultMap id="timeRecord" type="example.domain.model.attendance.AttendanceOfDay">
+    <resultMap id="timeRecord" type="example.domain.model.attendance.Attendance">
         <result property="date.value" column="就業日"/>
         <result property="workTimeRange.startTime.value.value" column="開始時刻"/>
         <result property="workTimeRange.endTime.value.value" column="終了時刻"/>
