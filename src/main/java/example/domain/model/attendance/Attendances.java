@@ -2,20 +2,19 @@ package example.domain.model.attendance;
 
 import example.domain.type.date.Date;
 import example.domain.type.time.HourAndMinute;
-import example.domain.type.time.Minute;
 
 import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * 月次勤怠
  */
 public class Attendances {
     List<AttendanceOfDay> list;
+    WorkTime workTime;
 
     public Attendances(List<AttendanceOfDay> list) {
         this.list = list;
+        this.workTime = WorkTime.from(list);
     }
 
     public List<AttendanceOfDay> list() {
@@ -28,19 +27,14 @@ public class Attendances {
     }
 
     public HourAndMinute workTime() {
-        return summing((attendanceOfDay) -> attendanceOfDay.workTime());
+        return workTime.workTime();
     }
 
     public HourAndMinute overTime() {
-        return summing((attendanceOfDay) -> attendanceOfDay.overTime());
+        return workTime.overTime();
     }
 
     public HourAndMinute midnightWorkTime() {
-        return summing((attendanceOfDay) -> attendanceOfDay.midnightWorkTime());
-    }
-
-    HourAndMinute summing(Function<AttendanceOfDay, HourAndMinute> map) {
-        Integer sumMinute = list.stream().map(map).collect(Collectors.summingInt(hourAndMinute -> hourAndMinute.toMinute().value()));
-        return HourAndMinute.from(new Minute(sumMinute));
+        return workTime.midnightWorkTime();
     }
 }

@@ -24,7 +24,7 @@ public class Minute {
         return add(0 - minute.value);
     }
 
-    Minute add(Minute minute) {
+    public Minute add(Minute minute) {
         return add(minute.value);
     }
 
