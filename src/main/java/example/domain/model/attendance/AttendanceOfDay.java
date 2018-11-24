@@ -62,11 +62,4 @@ public class AttendanceOfDay {
             return HourAndMinute.from(new Minute(0));
         }
     }
-
-    public Attendance attendance() {
-        if (workTimeRange.notWork()) {
-            return Attendance.休み;
-        }
-        return Attendance.出勤;
-    }
 }
