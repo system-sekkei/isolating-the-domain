@@ -3,7 +3,6 @@ package example.domain.model.attendance;
 import example.domain.type.date.Date;
 import example.domain.type.date.YearMonth;
 import example.domain.type.time.HourAndMinute;
-import example.domain.type.time.Minute;
 
 import java.util.List;
 
@@ -25,16 +24,6 @@ public class MonthlyAttendances {
 
     public HourAndMinute totalWorks() {
         return attendances.totalWorkTime();
-    }
-
-    @Deprecated
-    public NormalBreakTime totalBreaks() {
-        int breakMinute = 0;
-        for (AttendanceOfDay attendanceOfDay : attendances.list()) {
-            Minute minute = attendanceOfDay.normalBreakTime().value.quarterHourRoundUp();
-            breakMinute += minute.value();
-        }
-        return new NormalBreakTime(new Minute(breakMinute));
     }
 
     public AttendanceOfDay attendanceOf(Date day) {
