@@ -15,11 +15,6 @@ public class Payroll2 {
     YearMonth yearMonth;
     List<ContractPayroll> payrolls;
 
-    //FIXME ...
-    public Payroll2(Worker worker, YearMonth yearMonth) {
-        this(worker, yearMonth, Collections.emptyList());
-    }
-
     public Payroll2(Worker worker, YearMonth yearMonth, List<ContractPayroll> payrolls) {
         this.worker = worker;
         this.yearMonth = yearMonth;

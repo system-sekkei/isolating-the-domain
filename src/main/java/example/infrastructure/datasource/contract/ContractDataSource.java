@@ -39,8 +39,17 @@ public class ContractDataSource implements ContractRepository {
         DateRange range = new DateRange(startDate, endDate);
         List<Date> days = range.days();
         SortedMap<LocalDate, ContractData> map = new TreeMap<>();
+        //TODO 時給無いときどうしよう
+        ContractData noContract = new ContractData(){{
+          id = -1;
+          value = 0;
+        }};
         for(Date date : days) {
-            map.put(date.value(), getContract(workerNumber, date));
+            try {
+                map.put(date.value(), getContract(workerNumber, date));
+            } catch(HourlyWageNotFoundException e) {
+                map.put(date.value(), noContract);
+            }
         }
         List<Contract> ret = new ArrayList<>();
         LocalDate s = startDate.value();

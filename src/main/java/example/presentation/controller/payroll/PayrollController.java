@@ -46,12 +46,8 @@ public class PayrollController {
         // TODO 入力から
         YearMonth month = new YearMonth(2018, 11);
         for (Worker worker : contractingWorkers.list()) {
-            try {
-                Payroll2 payroll2 = payrollQueryService.getPayroll2(worker, month);
-                map.put(worker.workerNumber().toString(), payroll2);
-            } catch(HourlyWageNotFoundException e) {
-                map.put(worker.workerNumber().toString(), new Payroll2(worker, month));
-            }
+            Payroll2 payroll2 = payrollQueryService.getPayroll2(worker, month);
+            map.put(worker.workerNumber().toString(), payroll2);
         }
         model.addAttribute("map", map);
 
