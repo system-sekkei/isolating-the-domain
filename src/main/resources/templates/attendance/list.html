@@ -5,25 +5,7 @@
   <title>勤務時間の一覧</title>
 </head>
 <body>
-<div id="menuHead">
-  <div class="ui top fixed inverted stackable teal menu">
-    <a class="item"
-       th:href="@{/}">
-      <i class="tachometer alternate icon"></i>ダッシュボード
-    </a>
-    <a class="item"
-       th:href="@{/attendance}">
-      <i class="clock outline icon"></i>勤務時間入力
-    </a>
-    <a class="item"
-       th:href="@{/attendance/workers}">
-      <i class="yen sign icon"></i>給与計算
-    </a>
-    <a class="item"
-       th:href="@{/worker/workers}">
-      <i class="user icon"></i>従業員
-    </a>
-  </div>
+<div th:replace="fragments/menuHead::menuHead('')">
 </div>
 
 <div class="ui container">
@@ -110,7 +92,7 @@
   </div>
 
   <div class="ui center aligned basic segment">
-    <a class="ui grey button" th:href="@{/attendance/workers}">給与計算一覧へ</a>
+    <a class="ui grey button" th:href="@{/payroll/workers}">給与計算一覧へ</a>
   </div>
 </div>
 
