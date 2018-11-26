@@ -3,6 +3,7 @@ package example.domain.model.payroll;
 import example.domain.model.contract.HourlyWage;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 /**
  * 賃金
@@ -27,5 +28,9 @@ public class Wage {
 
     public Wage add(Wage other) {
         return new Wage(value.add(other.value));
+    }
+
+    public String toString() {
+        return new DecimalFormat("#,##0").format(value.intValue());
     }
 }

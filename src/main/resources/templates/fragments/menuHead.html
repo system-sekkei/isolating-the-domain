@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>入力フィールドの部品</title>
+</head>
+<body>
+<div id="menuHead" th:fragment="menuHead(active)">
+    <div class="ui top fixed inverted stackable teal menu">
+        <a class="item" th:classappend="${active.equals('ダッシュボード')} ? 'active' : ''"
+           th:href="@{/}">
+            <i class="tachometer alternate icon"></i>ダッシュボード
+        </a>
+        <a class="item" th:classappend="${active.equals('勤務時間入力')} ? 'active' : ''"
+           th:href="@{/attendance}">
+            <i class="clock outline icon"></i>勤務時間入力
+        </a>
+        <a class="item" th:classappend="${active.equals('給与計算')} ? 'active' : ''"
+           th:href="@{/payroll/workers}">
+            <i class="yen sign icon"></i>給与計算
+        </a>
+        <a class="item" th:classappend="${active.equals('従業員')} ? 'active' : ''"
+           th:href="@{/worker/workers}">
+            <i class="user icon"></i>従業員
+        </a>
+    </div>
+</div>
+</body>
+</html>

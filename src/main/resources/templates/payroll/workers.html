@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
+  <title>給与計算一覧</title>
+</head>
+<body>
+<div th:replace="fragments/menuHead::menuHead('給与計算')">
+</div>
+<div class="ui container">
+  <div class="pageHeader">
+    <h1 class="ui center aligned header">給与計算一覧</h1>
+  </div>
+  
+  <div class="workerList">
+
+    <div class="ui basic segment">
+      <table class="ui striped celled table">
+       <thead>
+          <tr class="center aligned">
+            <th class="two wide">従業員番号</th>
+            <th class="three wide">従業員名</th>
+            <th class="three wide">当月給与</th>
+            <th class="five wide"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="worker : ${workers.list()}">
+            <td th:text="${worker.workerNumber()}"/>
+            <td th:text="${worker.name()}"/>
+            <td th:text="${map.get(worker.workerNumber().toString()).wage()}"/>
+            <td class="ui center aligned">
+              <a class="ui tiny primary basic button"
+                 th:href="@{/attendance/{workerNumber}/list(workerNumber=${worker.workerNumber()})}">
+                <i class="calendar alternate outline icon"></i>勤務時間の一覧
+              </a>
+              <a class="ui tiny positive basic button"
+                 th:href="@{/worker/wage/{workerNumber}(workerNumber=${worker.workerNumber()})}">
+                <i class="calculator icon"></i>時給登録
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

@@ -4,6 +4,7 @@ import example.domain.model.worker.Worker;
 import example.domain.type.date.YearMonth;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -14,13 +15,18 @@ public class Payroll2 {
     YearMonth yearMonth;
     List<ContractPayroll> payrolls;
 
+    //FIXME ...
+    public Payroll2(Worker worker, YearMonth yearMonth) {
+        this(worker, yearMonth, Collections.emptyList());
+    }
+
     public Payroll2(Worker worker, YearMonth yearMonth, List<ContractPayroll> payrolls) {
         this.worker = worker;
         this.yearMonth = yearMonth;
         this.payrolls = payrolls;
     }
 
-    Wage wage() {
+    public Wage wage() {
         Wage wage = new Wage(BigDecimal.ZERO);
         for(ContractPayroll p : payrolls) {
             wage = wage.add(p.wage());
