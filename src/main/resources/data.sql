@@ -92,8 +92,14 @@ values
 INSERT INTO 給与.契約中(従業員ID) values(1),(2),(3),(4),(5),(6);
 
 -- 時給
-INSERT INTO 給与.時給(時給ID, 従業員ID, 時給, 適用開始日)
-values(1, 1, 950, DATEADD('DAY', -60, CURRENT_DATE));
+INSERT INTO 給与.時給(時給ID, 従業員ID, 時給, 適用開始日) VALUES
+(1, 1, 950, DATEADD('DAY', -60, CURRENT_DATE)),
+(2, 2, 950, DATEADD('DAY', -60, CURRENT_DATE)),
+(3, 3, 950, DATEADD('DAY', -60, CURRENT_DATE)),
+(4, 4, 950, DATEADD('DAY', -60, CURRENT_DATE)),
+(5, 5, 950, DATEADD('DAY', -60, CURRENT_DATE)),
+(6, 6, 950, DATEADD('DAY', -60, CURRENT_DATE));
+
 
 -- 作業時間
 INSERT INTO 給与.就業時間履歴(就業時間ID, 従業員ID, 就業日, 開始時刻, 終了時刻, 休憩時間) VALUES
