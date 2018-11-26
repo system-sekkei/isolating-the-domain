@@ -2,16 +2,16 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/layout :: htmlhead(~{::title})">
   <meta charset="utf-8"/>
-  <title>時給の新規登録</title>
+  <title>時給の登録確認</title>
 </head>
 <body>
 <div class="ui container">
   <div class="ui basic segment">
-    <h1 class="ui center aligned header">時給の新規登録</h1>
+    <h1 class="ui center aligned header">時給の登録確認</h1>
   </div>
 
   <div class="wageInput">
-    <form id="custom-form" class="ui large form" th:action="@{/worker/wage/{workerNumber}/confirm(workerNumber=${worker.workerNumber()})}" method="post">
+    <form id="custom-form" class="ui large form" th:action="@{/worker/wage/{workerNumber}/register(workerNumber=${worker.workerNumber()})}" method="post">
 
       <div class="ui basic segment">
         <div class="field">
@@ -21,14 +21,14 @@
 
         <div class="field">
           <label>開始日</label>
-          <input class="short-input" type="date" placeholder="2018-01-01" name="startDate" th:value="${startDate}">
+          <input class="short-input" readonly type="date" placeholder="2018-01-01" name="startDate" th:value="${startDate}">
         </div>
 
         <div class="field">
           <label>時給</label>
           <div class="two fields">
             <div class="ui right labeled small input field">
-              <input type="number" placeholder="936" name="hourlyWage" th:value="${hourlyWage}"/>
+              <input type="number" readonly placeholder="936" name="hourlyWage" th:value="${hourlyWage}"/>
               <div class="ui basic label">円</div>
             </div>
           </div>
@@ -37,8 +37,9 @@
 
       <div class="ui center aligned basic segment">
         <a class="ui grey button"
-           th:href="@{/attendance/workers}">給与計算一覧に戻る</a>
-        <button class="ui positive button">確認する</button>
+           th:href="@{/worker/wage/{workerNumber}/again?startDate={startDate}&hourlyWage={hourlyWage}(
+           workerNumber=${worker.workerNumber()}, startDate=${startDate}, hourlyWage=${hourlyWage})}">入力に戻る</a>
+        <button class="ui positive button">登録する</button>
       </div>
     </form>
 
