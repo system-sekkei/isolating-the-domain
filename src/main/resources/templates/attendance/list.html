@@ -16,25 +16,17 @@
   <div class="attendanceInfo">
     <table class="ui celled center aligned definition table">
       <tr>
-        <th class="four wide tableHeader">従業員名</th>
-        <td class="twelve wide"
+        <th class="six wide tableHeader">従業員名</th>
+        <td class="ten wide"
             th:text="${worker.name()}"></td>
       </tr>
     </table>
-    <table class="ui celled center aligned small table">
-      <thead>
-        <tr>
-          <th class="eight wide">総勤務時間(時間)</th>
-          <th class="eight wide">時給</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td th:text="${monthlyAttendances.totalWorks()}">50</td>
-          <!-- 時給表示したい -->
-          <td></td>
-        </tr>
-      </tbody>
+    <table class="ui celled center aligned definition table">
+      <tr>
+        <th class="six wide tableHeader">総勤務時間(時間)</th>
+        <td class="ten wide"
+            th:text="${monthlyAttendances.totalWorks()}">50</td>
+      </tr>
     </table>
   </div>
 
