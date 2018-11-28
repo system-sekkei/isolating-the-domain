@@ -46,7 +46,7 @@ class WageController {
         return "worker/wage/confirm";
     }
 
-    @GetMapping(value="again")
+    @PostMapping(value="again")
     public String again(Worker worker,
                           @RequestParam("startDate") Date startDate,
                           @RequestParam("hourlyWage") HourlyWage hourlyWage,

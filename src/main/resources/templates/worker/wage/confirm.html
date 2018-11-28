@@ -36,13 +36,14 @@
       </div>
 
       <div class="ui center aligned basic segment">
-        <a class="ui grey button"
-           th:href="@{/worker/wage/{workerNumber}/again?startDate={startDate}&hourlyWage={hourlyWage}(
-           workerNumber=${worker.workerNumber()}, startDate=${startDate}, hourlyWage=${hourlyWage})}">入力に戻る</a>
+        <button form="again-form" class="ui grey button">入力に戻る</button>
         <button class="ui positive button">登録する</button>
       </div>
     </form>
-
+    <form id="again-form" class="ui large form" th:action="@{/worker/wage/{workerNumber}/again(workerNumber=${worker.workerNumber()})}" method="post">
+      <input type="hidden" name="startDate" th:value="${startDate}">
+      <input type="hidden" name="hourlyWage" th:value="${hourlyWage}"/>
+    </form>
   </div>
 </div>
 
