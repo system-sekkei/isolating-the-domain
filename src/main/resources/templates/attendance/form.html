@@ -5,8 +5,11 @@
   <title>勤務時間の入力</title>
 </head>
 <body>
+<div th:replace="fragments/menuHead::menuHead('勤務時間入力')">
+</div>
 <div class="ui container">
-  <div class="ui basic segment">
+
+  <div class="pageHeader">
     <h1 class="ui center aligned header">勤務時間の入力</h1>
   </div>
 
@@ -96,8 +99,6 @@
       </div>
 
       <div class="ui center aligned basic segment">
-        <a class="ui grey button"
-           th:href="@{/}">ダッシュボードに戻る</a>
         <button class="ui positive button">登録する</button>
       </div>
     </form>
