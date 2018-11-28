@@ -12,39 +12,37 @@
 
   <div class="ui centerd three column grid">
     <div class="column">
-      <div class="ui center aligned segment">
-        <div class="dashboardIcon">
-          <a class="ui icon header"
-             th:href="@{/attendance}">
+      <a th:href="@{/attendance}">
+        <div class="ui header aligned segment icon">
+          <div class="dashboardIcon">
             <i class="clock outline icon"></i>
             <div class="content">勤務時間入力</div>
-          </a>
+          </div>
         </div>
-      </div>
+      </a>
+
     </div>
 
     <div class="column">
-      <div class="ui center aligned segment">
-        <div class="dashboardIcon">
-          <a class="ui icon header"
-             th:href="@{/payroll/workers}">
+      <a th:href="@{/payroll/workers}">
+        <div class="ui header aligned segment icon">
+          <div class="dashboardIcon">
             <i class="yen sign icon"></i>
             <span class="content">給与計算</span>
-          </a>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
 
     <div class="column">
-      <div class="ui center aligned segment">
-        <div class="dashboardIcon">
-          <a class="ui icon header"
-             th:href="@{/worker/workers}">
+      <a th:href="@{/worker/workers}">
+        <div class="ui header aligned segment icon">
+          <div class="dashboardIcon">
             <i class="user icon"></i>
             <div class="content">従業員</div>
-          </a>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </div>
