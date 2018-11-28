@@ -38,6 +38,7 @@
             <td th:text="${worker.mailAddress()}"/>
             <td></td>
             <td class="ui center aligned">
+              <!-- TODO:３桁の従業員番号が入るとここ崩れる -->
               <a class="ui tiny positive basic button"
                  th:href="@{/worker/{workerNumber}/update(workerNumber=${worker.workerNumber()})}">
                 <i class="edit icon"></i>従業員情報の変更
