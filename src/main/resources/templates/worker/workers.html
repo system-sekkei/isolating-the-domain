@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/layout :: htmlhead(~{::title})">
   <meta charset="utf-8"/>
-  <title>従業員一覧</title>
+  <title>従業員の一覧</title>
 </head>
 <body>
 <div th:replace="fragments/menuHead::menuHead('従業員')">
@@ -10,7 +10,7 @@
 
 <div class="ui container">
   <div class="pageHeader">
-    <h1 class="ui center aligned header">従業員一覧</h1>
+    <h1 class="ui center aligned header">従業員の一覧</h1>
   </div>
   
   <div class="ui center aligned basic segment">
@@ -24,18 +24,17 @@
       <table class="ui striped celled table">
        <thead>
           <tr class="center aligned">
-            <th class="two wide">従業員番号</th>
+            <th class="three wide">従業員番号</th>
             <th class="three wide">従業員名</th>
-            <th class="four wide">メールアドレス</th>
-            <th class="two wide">契約期間</th>
-            <th class="five wide"></th>
+            <th class="three wide">契約開始日</th>
+            <th class="seven wide"></th>
           </tr>
         </thead>
         <tbody>
           <tr th:each="worker : ${workers.list()}">
-            <td th:text="${worker.workerNumber()}"/>
+            <td class="right aligned"
+                th:text="${worker.workerNumber()}"/>
             <td th:text="${worker.name()}"/>
-            <td th:text="${worker.mailAddress()}"/>
             <td></td>
             <td class="ui center aligned">
             <!-- TODO:登録や変更から戻ると入るとここ崩れる -->
@@ -45,7 +44,7 @@
               </a>
               <a class="ui tiny positive basic button"
                  th:href="@{/worker/wage/{workerNumber}(workerNumber=${worker.workerNumber()})}">
-                <i class="calculator icon"></i>時給登録
+                <i class="calculator icon"></i>時給の登録
               </a>
             </td>
           </tr>

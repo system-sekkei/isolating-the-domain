@@ -23,7 +23,7 @@
     </table>
     <table class="ui celled center aligned definition table">
       <tr>
-        <th class="six wide tableHeader">総勤務時間(時間)</th>
+        <th class="six wide tableHeader">総勤務時間</th>
         <td class="ten wide"
             th:text="${monthlyAttendances.totalWorks()}">50</td>
       </tr>
@@ -81,10 +81,6 @@
       </tbody>
     </table>
 
-  </div>
-
-  <div class="ui center aligned basic segment">
-    <a class="ui grey button" th:href="@{/payroll/workers}">給与計算一覧へ</a>
   </div>
 </div>
 

@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/layout :: htmlhead(~{::title})">
   <meta charset="utf-8"/>
-  <title>時給の登録確認</title>
+  <title>時給の登録の確認</title>
 </head>
 <body>
 <div th:replace="fragments/menuHead::menuHead('')">
 </div>
 <div class="pageHeader">
   <div class="ui basic segment">
-    <h1 class="ui center aligned header">時給の登録確認</h1>
+    <h1 class="ui center aligned header">時給の登録の確認</h1>
   </div>
 
   <div class="wageInput">
@@ -39,7 +39,7 @@
 
       <div class="ui center aligned basic segment">
         <button form="again-form" class="ui grey button">入力に戻る</button>
-        <button class="ui positive button">登録する</button>
+        <button class="ui positive button">登録</button>
       </div>
     </form>
     <form id="again-form" class="ui large form" th:action="@{/worker/wage/{workerNumber}/again(workerNumber=${worker.workerNumber()})}" method="post">

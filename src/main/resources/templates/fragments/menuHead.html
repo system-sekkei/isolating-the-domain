@@ -13,15 +13,15 @@
         </a>
         <a class="item" th:classappend="${active.equals('勤務時間入力')} ? 'active' : ''"
            th:href="@{/attendance}">
-            <i class="clock outline icon"></i>勤務時間入力
+            <i class="clock outline icon"></i>勤務時間の入力
         </a>
         <a class="item" th:classappend="${active.equals('給与計算')} ? 'active' : ''"
            th:href="@{/payroll/workers}">
-            <i class="yen sign icon"></i>給与計算
+            <i class="yen sign icon"></i>給与計算の一覧
         </a>
         <a class="item" th:classappend="${active.equals('従業員')} ? 'active' : ''"
            th:href="@{/worker/workers}">
-            <i class="user icon"></i>従業員
+            <i class="user icon"></i>従業員の一覧
         </a>
     </div>
 </div>
