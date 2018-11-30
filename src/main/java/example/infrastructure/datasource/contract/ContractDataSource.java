@@ -1,16 +1,16 @@
 package example.infrastructure.datasource.contract;
 
 import example.application.repository.ContractRepository;
-import example.domain.model.contract.*;
+import example.domain.model.contract.Contract;
+import example.domain.model.contract.Contracts;
+import example.domain.model.contract.HourlyWage;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import example.domain.type.date.DateRange;
-import example.domain.type.date.YearMonth;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Repository
 public class ContractDataSource implements ContractRepository {
@@ -25,13 +25,6 @@ public class ContractDataSource implements ContractRepository {
     @Override
     public HourlyWage getHourlyWage(WorkerNumber workerNumber, Date workDay) {
         return new HourlyWage(getContract(workerNumber, workDay).value);
-    }
-
-    @Override
-    public MonthlyHourlyWages getMonthlyHourlyWage(WorkerNumber workerNumber, YearMonth yearMonth) {
-        List<Date> days = yearMonth.days();
-        List<DailyHourlyWage> wages = days.stream().map(day -> new DailyHourlyWage(day, getHourlyWage(workerNumber, day))).collect(Collectors.toList());
-        return new MonthlyHourlyWages(wages);
     }
 
     @Override
