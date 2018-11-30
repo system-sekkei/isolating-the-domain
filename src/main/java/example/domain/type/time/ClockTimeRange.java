@@ -32,17 +32,45 @@ public class ClockTimeRange {
     }
 
     public ClockTimeRange intersect(ClockTimeRange other) {
-        LocalDate now = LocalDate.now();
-        LocalDateTime thisBegin = beginDateTime(now);
-        LocalDateTime otherBegin = other.beginDateTime(now);
-        LocalDateTime thisEnd = endDateTime(now);
-        LocalDateTime otherEnd = other.endDateTime(now);
-        if (thisBegin.compareTo(otherEnd) >= 0) return EMPTY_RANGE;
-        if (thisEnd.compareTo(otherBegin) <= 0) return EMPTY_RANGE;
+        //XXX ここ良い方法は実装できない
+        //Just Ideaですが、24時間を円と捉えて円弧の重なりみたいなロジック書けると
+        //シンプルな気がするんだけどなぁ...
+        if(dayStraddle() == other.dayStraddle()) {
+            return intersect(this, other, 0);
+        } else if(dayStraddle()){
+            return intersectDouble(this, other);
+        } else {
+            return intersectDouble(other, this);
+        }
+    }
 
-        ClockTime newBegin = thisBegin.compareTo(otherBegin) > 0 ? begin : other.begin;
-        ClockTime newEnd = thisEnd.compareTo(otherEnd) < 0 ? end : other.end;
+    private ClockTimeRange intersect(ClockTimeRange range1, ClockTimeRange range2, int supplyDays) {
+        LocalDate now = LocalDate.now();
+        LocalDateTime range1Begin = range1.beginDateTime(now);
+        LocalDateTime range1End = range1.endDateTime(now);
+        LocalDateTime range2Begin = range2.beginDateTime(now.plusDays(supplyDays));
+        LocalDateTime range2End = range2.endDateTime(now.plusDays(supplyDays));
+        if (range1Begin.compareTo(range2End) >= 0) return EMPTY_RANGE;
+        if (range1End.compareTo(range2Begin) <= 0) return EMPTY_RANGE;
+
+        ClockTime newBegin = range1Begin.compareTo(range2Begin) > 0 ? range1.begin : range2.begin;
+        ClockTime newEnd = range1End.compareTo(range2End) < 0 ? range1.end : range2.end;
         return new ClockTimeRange(newBegin, newEnd);
+    }
+
+    private ClockTimeRange intersectDouble(ClockTimeRange straddleRange, ClockTimeRange nonStraddleRange) {
+        //日跨ぎして無い方を矯正定期に1日進めてどちらか範囲が収まれば正とする
+        for(int i = 0 ; i < 2 ; i++) {
+            ClockTimeRange ret = intersect(straddleRange, nonStraddleRange, i);
+            if(ret != EMPTY_RANGE) {
+                return ret;
+            }
+        }
+        return EMPTY_RANGE;
+    }
+
+    private boolean dayStraddle() {
+        return begin.value.compareTo(end.value) > 0;
     }
 
     public static ClockTimeRange EMPTY_RANGE = new ClockTimeRange(new ClockTime("0:00"), new ClockTime("0:00"));

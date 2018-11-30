@@ -12,7 +12,8 @@ public class WorkTimeRangeTest {
     @ParameterizedTest
     @CsvSource({
             "18:00, 3:00, 300",
-            "8:00, 17:00, 0"
+            "8:00, 17:00, 0",
+            "1:00, 3:00, 120"
     })
     void midnightWorkTime(String begin, String end, int expected) {
         WorkTimeRange sut = new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)));
