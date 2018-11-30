@@ -4,7 +4,7 @@ import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.contract.ContractQueryService;
 import example.domain.model.contract.Contracts;
 import example.domain.model.payroll.ContractPayroll;
-import example.domain.model.payroll.Payroll2;
+import example.domain.model.payroll.Payroll;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.YearMonth;
@@ -21,11 +21,11 @@ public class PayrollQueryService {
     ContractQueryService contractQueryService;
     AttendanceQueryService attendanceQueryService;
 
-    public Payroll2 getPayroll2(Worker worker, YearMonth yearMonth) {
+    public Payroll getPayroll2(Worker worker, YearMonth yearMonth) {
         WorkerNumber workerNumber = worker.workerNumber();
         Contracts contracts = contractQueryService.getContracts(workerNumber, yearMonth.start(), yearMonth.end());
         List<ContractPayroll> contractPayrolls = contracts.value().stream().map(c -> new ContractPayroll(c, attendanceQueryService.getAttendances(workerNumber, c.startDate(), c.endDate()))).collect(Collectors.toList());
-        return new Payroll2(worker, yearMonth, contractPayrolls);
+        return new Payroll(worker, yearMonth, contractPayrolls);
     }
 
     PayrollQueryService(ContractQueryService contractQueryService, AttendanceQueryService attendanceQueryService) {

@@ -9,12 +9,12 @@ import java.util.List;
 /**
  * 給与
  */
-public class Payroll2 {
+public class Payroll {
     Worker worker;
     YearMonth yearMonth;
     List<ContractPayroll> payrolls;
 
-    public Payroll2(Worker worker, YearMonth yearMonth, List<ContractPayroll> payrolls) {
+    public Payroll(Worker worker, YearMonth yearMonth, List<ContractPayroll> payrolls) {
         this.worker = worker;
         this.yearMonth = yearMonth;
         this.payrolls = payrolls;

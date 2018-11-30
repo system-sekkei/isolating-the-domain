@@ -2,7 +2,7 @@ package example.presentation.controller.payroll;
 
 import example.application.service.payroll.PayrollQueryService;
 import example.application.service.worker.WorkerQueryService;
-import example.domain.model.payroll.Payroll2;
+import example.domain.model.payroll.Payroll;
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
@@ -37,12 +37,12 @@ public class PayrollController {
         model.addAttribute("workers", contractingWorkers);
 
         // TODO 型にする
-        Map<String, Payroll2> map = new HashMap<>();
+        Map<String, Payroll> map = new HashMap<>();
         // TODO 入力から
         YearMonth month = new YearMonth(2018, 11);
         for (Worker worker : contractingWorkers.list()) {
-            Payroll2 payroll2 = payrollQueryService.getPayroll2(worker, month);
-            map.put(worker.workerNumber().toString(), payroll2);
+            Payroll payroll = payrollQueryService.getPayroll2(worker, month);
+            map.put(worker.workerNumber().toString(), payroll);
         }
         model.addAttribute("map", map);
 
