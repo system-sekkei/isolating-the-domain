@@ -113,3 +113,13 @@ CREATE TABLE 給与.時給 (
 );
 
 CREATE SEQUENCE 給与.時給ID;
+
+CREATE TABLE 給与.時給契約 (
+  従業員ID INTEGER NOT NULL,
+  適用開始日 DATE NOT NULL,
+  適用終了日 DATE NOT NULL,
+  時給 INTEGER NOT NULL,
+  登録日時 TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    ,PRIMARY KEY (従業員ID, 適用開始日, 適用終了日)
+    ,FOREIGN KEY (従業員ID) REFERENCES  給与.従業員(従業員ID)
+);
