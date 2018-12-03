@@ -6,6 +6,7 @@ import example.domain.type.date.Date;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Mapper
@@ -15,4 +16,14 @@ public interface ContractMapper {
                             @Param("applyDate") Date applyDate, @Param("hourlyWage") HourlyWage hourlyWage);
 
     List<ContractData> getContractData(@Param("workerNumber") WorkerNumber workerNumber, @Param("workDay") Date workDay);
+
+    ContractData2 getContractData2(@Param("workerNumber") WorkerNumber workerNumber, @Param("workDay") Date workDay);
+
+    void insertContract(@Param("workerNumber") WorkerNumber workerNumber,
+                        @Param("startDate")Date applyDate, @Param("endDate") Date date, @Param("hourlyWage") HourlyWage hourlyWage);
+
+    void deleteContractData(@Param("workerNumber") WorkerNumber workerNumber,
+                            @Param("startDate")Date startDate, @Param("endDate")Date endDate);
+
+    List<ContractData2> getFeatureContractData(@Param("workerNumber") WorkerNumber workerNumber, @Param("date") Date date);
 }

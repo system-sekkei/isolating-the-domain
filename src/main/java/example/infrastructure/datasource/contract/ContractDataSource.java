@@ -24,7 +24,7 @@ public class ContractDataSource implements ContractRepository {
 
     @Override
     public HourlyWage getHourlyWage(WorkerNumber workerNumber, Date workDay) {
-        return new HourlyWage(getContract(workerNumber, workDay).value);
+        return new HourlyWage(getContractData(workerNumber, workDay).value);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ContractDataSource implements ContractRepository {
         }};
         for(Date date : days) {
             try {
-                map.put(date.value(), getContract(workerNumber, date));
+                map.put(date.value(), getContractData(workerNumber, date));
             } catch(HourlyWageNotFoundException e) {
                 map.put(date.value(), noContract);
             }
@@ -59,7 +59,42 @@ public class ContractDataSource implements ContractRepository {
         return new Contracts(ret);
     }
 
-    private ContractData getContract(WorkerNumber workerNumber, Date workDay) {
+    @Override
+    public void registerHourlyWage2(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage) {
+        registerHourlyWage(workerNumber, applyDate, hourlyWage);
+        mapper.insertContract(workerNumber, applyDate, getEndDate(workerNumber, applyDate), hourlyWage);
+        getEndDate(workerNumber, applyDate);
+    }
+
+    @Override
+    public void stopHourlyWageContract(WorkerNumber workerNumber, Date lastDate) {
+        ContractData2 contractData2 = mapper.getContractData2(workerNumber, lastDate);
+        if(contractData2 == null) return;
+        mapper.deleteContractData(workerNumber, contractData2.startDate(), contractData2.endDate());
+        mapper.insertContract(workerNumber, contractData2.startDate(), lastDate, contractData2.hourlyWage());
+    }
+
+    @Override
+    public Contracts getContracts2(WorkerNumber workerNumber, Date startDate, Date endDate) {
+        return null;
+    }
+
+    @Override
+    public Contract getContract(WorkerNumber workerNumber, Date date) {
+        ContractData2 contractData2 = mapper.getContractData2(workerNumber, date);
+        if(contractData2 == null) {
+            //FIXME 後で例外変える
+            throw new HourlyWageNotFoundException();
+        }
+        return new Contract(contractData2.startDate(), contractData2.endDate(), contractData2.hourlyWage());
+    }
+
+    private Date getEndDate(WorkerNumber workerNumber, Date date) {
+        List<ContractData2> ret = mapper.getFeatureContractData(workerNumber, date);
+        return (ret.size() == 0) ? new Date("9999-12-31") : new Date(ret.get(0).startDate.minusDays(1));
+    }
+
+    private ContractData getContractData(WorkerNumber workerNumber, Date workDay) {
         List<ContractData> contracts = mapper.getContractData(workerNumber, workDay);
         return contracts.stream().findFirst().orElseThrow(() -> new HourlyWageNotFoundException());
     }

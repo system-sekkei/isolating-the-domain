@@ -4,6 +4,8 @@ import example.Application;
 import example.application.service.contract.ContractQueryService;
 import example.application.service.contract.ContractRecordService;
 import example.application.service.worker.WorkerQueryService;
+import example.application.service.worker.WorkerRecordService;
+import example.domain.model.contract.Contract;
 import example.domain.model.contract.Contracts;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.worker.WorkerNumber;
@@ -26,13 +28,15 @@ public class ContractRecordServiceTest {
     @Autowired
     WorkerQueryService workerQueryService;
     @Autowired
+    WorkerRecordService workerRecordService;
+    @Autowired
     ContractRecordService sutRecord;
     @Autowired
     ContractQueryService sutQuery;
 
     @DisplayName("時給の登録参照が正しく行われていること")
     @Test
-    public void hourlyWage_io() {
+    void hourlyWage_io() {
         WorkerNumber workerNumber = workerQueryService.contractingWorkers().list().get(0).workerNumber();
         Date applyDate1 = new Date("2099-11-12");
         HourlyWage wage1 = new HourlyWage(800);
@@ -63,5 +67,67 @@ public class ContractRecordServiceTest {
 
         //not found
         assertThrows(HourlyWageNotFoundException.class, () -> sutQuery.getHourlyWage(new WorkerNumber(9999), applyDate1));
+    }
+
+    @DisplayName("時給の登録参照が正しく出来ること２")
+    @Test
+    void hourlyWage_io2() {
+        //一発目
+        WorkerNumber number = workerRecordService.prepareNewContract();
+        LocalDate now = LocalDate.now();
+        Date applyDate1 = new Date(now);
+        HourlyWage wage1 = new HourlyWage(800);
+        updateHourlyWageContract(number, applyDate1, wage1);
+        Contract contract = sutQuery.getContract(number, applyDate1);
+        assertAll(
+                () -> assertEquals(now, contract.startDate().value()),
+                () -> assertEquals(LocalDate.of(9999, 12, 31), contract.endDate().value()),
+                () -> assertEquals(800, contract.hourlyWage().value().intValue()));
+
+        //2発目
+        Date applyDate2 = new Date(now.plusDays(10));
+        HourlyWage wage2 = new HourlyWage(850);
+        updateHourlyWageContract(number, applyDate2, wage2);
+        Contract contract2 = sutQuery.getContract(number, applyDate1);
+        Contract contract3 = sutQuery.getContract(number, applyDate2);
+        assertAll(
+                () -> assertEquals(now, contract2.startDate().value()),
+                () -> assertEquals(applyDate2.value().minusDays(1), contract2.endDate().value()),
+                () -> assertEquals(800, contract2.hourlyWage().value().intValue()),
+                () -> assertEquals(applyDate2.value(), contract3.startDate().value()),
+                () -> assertEquals(LocalDate.of(9999, 12, 31), contract3.endDate().value()),
+                () -> assertEquals(850, contract3.hourlyWage().value().intValue())
+        );
+        //3発目（過去）
+        Date applyDate3 = new Date(now.plusDays(5));
+        HourlyWage wage3 = new HourlyWage(830);
+        updateHourlyWageContract(number, applyDate3, wage3);
+        Contract contract4 = sutQuery.getContract(number, applyDate1);
+        Contract contract5 = sutQuery.getContract(number, applyDate2);
+        Contract contract6 = sutQuery.getContract(number, applyDate3);
+        assertAll(
+                () -> assertEquals(now, contract4.startDate().value()),
+                () -> assertEquals(applyDate3.value().minusDays(1), contract4.endDate().value()),
+                () -> assertEquals(800, contract4.hourlyWage().value().intValue()),
+                () -> assertEquals(applyDate2.value(), contract5.startDate().value()),
+                () -> assertEquals(LocalDate.of(9999, 12, 31), contract5.endDate().value()),
+                () -> assertEquals(850, contract5.hourlyWage().value().intValue()),
+                () -> assertEquals(applyDate3.value(), contract6.startDate().value()),
+                () -> assertEquals(applyDate2.value().minusDays(1), contract6.endDate().value()),
+                () -> assertEquals(830, contract6.hourlyWage().value().intValue())
+        );
+    }
+
+    private void updateHourlyWageContract(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage) {
+        sutRecord.stopHourlyWageContract(workerNumber, new Date(applyDate.value().minusDays(1)));
+        sutRecord.registerHourlyWage2(workerNumber, applyDate, hourlyWage);
+    }
+
+    @DisplayName("data.sqlが正しく動いていることの確認")
+    @Test
+    void inititalDataCheck() {
+        WorkerNumber workerNumber = new WorkerNumber(1);
+        HourlyWage hourlyWage = sutQuery.getHourlyWage(workerNumber, Date.now());
+        assertEquals(950, hourlyWage.value().intValue());
     }
 }

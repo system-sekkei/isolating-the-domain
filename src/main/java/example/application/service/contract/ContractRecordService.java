@@ -23,4 +23,12 @@ public class ContractRecordService {
     ContractRecordService(ContractRepository contractRepository) {
         this.contractRepository = contractRepository;
     }
+
+    public void registerHourlyWage2(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage) {
+        contractRepository.registerHourlyWage2(workerNumber, applyDate, hourlyWage);
+    }
+
+    public void stopHourlyWageContract(WorkerNumber workerNumber, Date lastDate) {
+        contractRepository.stopHourlyWageContract(workerNumber, lastDate);
+    }
 }
