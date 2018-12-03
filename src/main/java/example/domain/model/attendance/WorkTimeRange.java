@@ -52,23 +52,32 @@ public class WorkTimeRange {
 
     public Minute midnightWorkMinute() {
         ClockTimeRange clockTimeRange = toTimeRange();
-        List<ClockTime> midnightTickes = new ArrayList<>();
-        midnightTickIterator().forEachRemaining(midnightTickes::add);
+        List<ClockTime> midnightTickes = getMidnightTicks();
         List<ClockTime> includeMidnidhtTickes = midnightTickes.stream()
                 .filter(ct -> clockTimeRange.include(ct)).collect(Collectors.toList());
         return new Minute((includeMidnidhtTickes.size() - rangeStartCount(includeMidnidhtTickes)) * ClockTime.tickPeriod().value());
+    }
+
+    private static List<ClockTime> midnightTickes;
+    static {
+        midnightTickes = new ArrayList<>();
+        midnightTickIterator().forEachRemaining(midnightTickes::add);
+    }
+    private List<ClockTime> getMidnightTicks() {
+        return midnightTickes;
     }
 
     private int rangeStartCount(List<ClockTime> ticks) {
         if(ticks.size() == 0) {
             return 0;
         }
+        LocalTime last = ticks.get(0).value();
         for(int i = 1 ; i < ticks.size() ; i++) {
-            LocalTime last = ticks.get(i - 1).value();
             LocalTime current = ticks.get(i).value();
             if(!last.plusMinutes(ClockTime.tickPeriod().value()).equals(current)) {
                 return 2;
             }
+            last = current;
         }
         return 1;
     }
