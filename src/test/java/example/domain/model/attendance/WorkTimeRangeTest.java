@@ -2,8 +2,12 @@ package example.domain.model.attendance;
 
 import example.domain.type.time.ClockTime;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,7 +17,8 @@ public class WorkTimeRangeTest {
     @CsvSource({
             "18:00, 3:00, 300",
             "8:00, 17:00, 0",
-            "1:00, 3:00, 120"
+            "1:00, 3:00, 120",
+            "3:00, 23:00, 180"
     })
     void midnightWorkTime(String begin, String end, int expected) {
         WorkTimeRange sut = new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)));

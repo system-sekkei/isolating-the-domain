@@ -22,27 +22,19 @@ class ClockTimeRangeTest {
         assertEquals(rangeTime, result.toString());
     }
 
-    @DisplayName("積集合のテスト")
+    @DisplayName("含有のテスト")
     @ParameterizedTest
     @CsvSource({
-            //業務的な範囲
-            "9:00, 17:00, 8:00, 16:00, 09:00, 16:00",
-            "19:00, 3:00, 22:00, 5:00, 22:00, 03:00",
-            "19:00, 23:00, 22:00, 5:00, 22:00, 23:00",
-            "01:00, 03:00, 22:00, 5:00, 01:00, 03:00",
-            //数学的な範囲
-            "8:00, 11:00, 7:00, 8:00, 00:00, 00:00",
-            "8:00, 11:00, 7:00, 9:00, 08:00, 09:00",
-            "8:00, 11:00, 9:00, 10:00, 09:00, 10:00",
-            "8:00, 11:00, 10:00, 12:00, 10:00, 11:00",
-            "8:00, 11:00, 11:00, 12:00, 00:00, 00:00",
-            "8:00, 11:00, 7:00, 12:00, 08:00, 11:00"
+            "22:00, 5:00, 22:00, true",
+            "22:00, 5:00, 21:50, false",
+            "22:00, 5:00, 22:01, true",
+            "22:00, 5:00, 4:59, true",
+            "22:00, 5:00, 5:00, true",
+            "22:00, 5:00, 5:01, false",
     })
-    void intercect(String start1, String end1, String start2, String end2, String expectedStart, String expectedEnd) {
-        ClockTimeRange r1 = new ClockTimeRange(new ClockTime(start1), new ClockTime(end1));
-        ClockTimeRange r2 = new ClockTimeRange(new ClockTime(start2), new ClockTime(end2));
-        ClockTimeRange sut = r1.intersect(r2);
-        assertAll(() -> assertEquals(expectedStart, sut.begin.toString()),
-                () -> assertEquals(expectedEnd, sut.end.toString()));
+    void include(String begin, String end, String target, boolean actual) {
+        ClockTimeRange sut = new ClockTimeRange(new ClockTime(begin), new ClockTime(end));
+        ClockTime value = new ClockTime(target);
+        assertEquals(actual, sut.include(value));
     }
 }

@@ -35,7 +35,12 @@ public class ClockTime {
     }
 
     public ClockTime quarterRoundDown() {
-        int normalMinute = value.getMinute() / 15 * 15;
+        int tickPeriod = tickPeriod().value;
+        int normalMinute = value.getMinute() / tickPeriod * tickPeriod;
         return new ClockTime(value().withMinute(normalMinute));
+    }
+
+    public static Minute tickPeriod() {
+        return new Minute(15);
     }
 }
