@@ -4,6 +4,7 @@ import example.application.repository.AttendanceRepository;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.Attendances;
 import example.domain.model.attendance.MonthlyAttendances;
+import example.domain.model.attendance.WorkDay;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import example.domain.type.date.DateRange;
@@ -24,7 +25,7 @@ public class AttendanceDataSource implements AttendanceRepository {
         mapper.insertWorkTime(workerNumber, identifier, attendance);
     }
 
-    Attendance findBy(WorkerNumber workerNumber, Date workDay) {
+    Attendance findBy(WorkerNumber workerNumber, WorkDay workDay) {
         Attendance attendance = mapper.select(workerNumber, workDay);
         return (attendance == null) ? new Attendance(workDay) : attendance;
     }

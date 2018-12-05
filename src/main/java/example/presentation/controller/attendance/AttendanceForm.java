@@ -2,14 +2,14 @@ package example.presentation.controller.attendance;
 
 import example.domain.model.attendance.MidnightBreakTime;
 import example.domain.model.attendance.NormalBreakTime;
+import example.domain.model.attendance.WorkDay;
 import example.domain.model.worker.WorkerNumber;
-import example.domain.type.date.Date;
 
 import java.time.LocalDate;
 
 public class AttendanceForm {
     WorkerNumber workerNumber;
-    Date date;
+    WorkDay date;
     Integer startHour;
     Integer startMinute;
     Integer endHour;
@@ -18,7 +18,7 @@ public class AttendanceForm {
     MidnightBreakTime midnightBreakTime;
 
     public AttendanceForm() {
-        this.date = new Date(LocalDate.now());
+        this.date = new WorkDay(LocalDate.now());
         this.startHour = 9;
         this.startMinute = 0;
         this.endHour = 17;
