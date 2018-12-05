@@ -23,7 +23,7 @@ context('isolating-the-domain', () => {
     cy.title().should('contains', '確認')
     cy.get('.button').contains('登録する').click()
     cy.title().should('contains', '完了')
-    cy.get('a').contains('従業員一覧へ').click()
+    cy.get('a').contains('従業員一覧').click()
     cy.title().should('eq', '従業員の一覧')
 
     // 従業員更新
@@ -32,9 +32,9 @@ context('isolating-the-domain', () => {
     })
     cy.title().should('contains', '変更')
     cy.get('#name\\.value').clear().type('テスト次郎')
-    cy.get('.button').contains('編集の確認').click()
+    cy.get('.button').contains('変更の確認').click()
     cy.title().should('contains', '確認')
-    cy.get('.button').contains('保存する').click()
+    cy.get('.button').contains('保存').click()
 
     cy.get('a').contains('ダッシュボード').click()
     cy.title().should('eq', 'ダッシュボード')
