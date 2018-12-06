@@ -48,7 +48,7 @@ public class YearMonth {
     }
 
     public Date end() {
-        LocalDate tmp = LocalDate.of(year().value(), month().value() + 1, 1);
+        LocalDate tmp = LocalDate.of(year().value(), month().value() % Month.values().length + 1, 1);
         return new Date(tmp.minusDays(1L));
     }
 

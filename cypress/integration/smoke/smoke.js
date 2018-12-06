@@ -55,7 +55,7 @@ context('isolating-the-domain', () => {
         cy.get('.button').contains('勤務時間').click()
     })
     cy.title().should('contains', '一覧')
-    cy.get('a').contains('給与計算一覧へ').click()
+    cy.get('a').contains('給与計算の一覧').click()
     cy.title().should('contains', '給与計算の一覧')
 
     // 契約終了
