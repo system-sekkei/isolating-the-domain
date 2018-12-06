@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
+  <title>時給の一覧</title>
+</head>
+<body>
+<div th:replace="fragments/menuHead::menuHead('')">
+</div>
+
+<div class="ui container">
+  <div class="pageHeader">
+    <h1 class="ui center aligned header">時給の一覧</h1>
+  </div>
+  
+  <div class="attendanceInfo">
+    <table class="ui celled center aligned definition table">
+      <tr>
+        <th class="six wide tableHeader">従業員名</th>
+        <td class="ten wide">テスト太郎</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="wageList">  
+
+    <div class="ui center aligned basic segment">
+      <a class="ui labeled icon primary button">
+        <i class="calculator icon"></i>時給の登録
+      </a>
+    </div>
+
+    <table class="ui celled table">
+      <thead>
+        <tr class="center aligned">
+          <th class="eight wide">開始日付</th>
+          <th class="eight wide">時給</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2018/12/01</td>
+          <td class="right aligned">937</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+</body>
+</html>

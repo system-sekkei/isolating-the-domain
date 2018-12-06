@@ -16,6 +16,12 @@
   margin: 0 auto;
 }
 
+/*時給 wage*/
+.wageList {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
 .wageInput {
   max-width: 400px;
   margin: 0 auto;
