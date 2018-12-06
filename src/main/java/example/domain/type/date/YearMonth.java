@@ -48,8 +48,8 @@ public class YearMonth {
     }
 
     public Date end() {
-        LocalDate tmp = LocalDate.of(year().value(), month().value() + 1, 1);
-        return new Date(tmp.minusDays(1L));
+        LocalDate endOfMonth = java.time.YearMonth.of(year.value(), month().value()).atEndOfMonth();
+        return new Date(endOfMonth);
     }
 
     public List<Date> days() {
