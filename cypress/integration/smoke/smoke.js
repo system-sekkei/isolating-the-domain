@@ -23,7 +23,7 @@ context('isolating-the-domain', () => {
     cy.title().should('contains', '確認')
     cy.get('.button').contains('登録する').click()
     cy.title().should('contains', '完了')
-    cy.get('a').contains('従業員一覧').click()
+    cy.get('a').contains('従業員の一覧').click()
     cy.title().should('eq', '従業員の一覧')
 
     // 従業員更新
