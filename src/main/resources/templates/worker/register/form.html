@@ -16,7 +16,7 @@
     <form id="custom-form" class="ui large form" name="body"
           method="post" action="#"
           th:object="${newWorker}"
-          th:action="@{/worker/register/confirm}">
+          th:action="@{/workers/register/confirm}">
 
       <div class="ui basic segment">
         <div class="field"
@@ -40,7 +40,7 @@
 
       <div class="ui center aligned basic segment">
         <a class="ui grey button"
-           th:href="@{/worker/workers}">一覧に戻る</a>
+           th:href="@{/workers}">一覧に戻る</a>
         <button class="ui positive button">確認する</button>
       </div>
     </form>

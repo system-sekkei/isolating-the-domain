@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
-@RequestMapping("worker/register")
+@RequestMapping("workers/register")
 @SessionAttributes({"newWorker"})
 class RegisterController {
 
@@ -36,7 +36,7 @@ class RegisterController {
     @GetMapping(value = "")
     String clearSessionAtStart(SessionStatus sessionStatus) {
         sessionStatus.setComplete();
-        return "forward:/worker/register/input";
+        return "forward:/workers/register/input";
     }
 
     @GetMapping(value = "input")
@@ -74,7 +74,7 @@ class RegisterController {
         attributes.addAttribute("name", name);
         attributes.addAttribute("workerNumber", workerNumber);
 
-        return "redirect:/worker/register/completed";
+        return "redirect:/workers/register/completed";
     }
 
     @GetMapping(value = "completed")
