@@ -11,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
+/**
+ * 時給の一覧
+ */
 @Controller
-@RequestMapping("worker/wage/{workerNumber}")
+@RequestMapping("workers/wage/{workerNumber}")
 class WageController {
 
     WorkerQueryService workerQueryService;
@@ -60,7 +62,7 @@ class WageController {
                            @RequestParam("startDate") Date startDate,
                            @RequestParam("hourlyWage") HourlyWage hourlyWage) {
         contractRecordService.registerHourlyWage(worker.workerNumber(), startDate, hourlyWage);
-        return String.format("redirect:/worker/wage/%d/completed", worker.workerNumber().value());
+        return String.format("redirect:/workers/wage/%d/completed", worker.workerNumber().value());
     }
 
     @GetMapping(value="completed")
