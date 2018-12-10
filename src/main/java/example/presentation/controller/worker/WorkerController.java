@@ -7,17 +7,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 従業員の一覧
+ */
 @Controller
-@RequestMapping("worker")
+@RequestMapping("workers")
 public class WorkerController {
 
     WorkerQueryService workerQueryService;
 
-    @GetMapping("workers")
+    @GetMapping("")
     String workers(Model model) {
         ContractingWorkers contractingWorkers = workerQueryService.contractingWorkers();
         model.addAttribute("workers", contractingWorkers);
-        return "worker/workers";
+        return "worker/list";
     }
 
     WorkerController(WorkerQueryService workerQueryService) {
