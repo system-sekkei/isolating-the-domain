@@ -1,6 +1,5 @@
 package example.domain.model.attendance;
 
-import example.domain.type.date.Date;
 import example.domain.type.time.HourAndMinute;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public class Attendances {
         return list;
     }
 
-    public Attendance get(Date date) {
+    public Attendance get(WorkDay date) {
         return list.stream().filter(
                 w -> w.workDay().value().equals(date.value())).findFirst().orElseThrow(() -> new RuntimeException());
     }
