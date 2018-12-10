@@ -127,7 +127,7 @@ public class ContractRecordServiceTest {
     @Test
     void inititalDataCheck() {
         WorkerNumber workerNumber = new WorkerNumber(1);
-        HourlyWage hourlyWage = sutQuery.getHourlyWage(workerNumber, Date.now());
+        HourlyWage hourlyWage = sutQuery.getHourlyWage(workerNumber, new Date(LocalDate.now()));
         assertEquals(950, hourlyWage.value().intValue());
     }
 }

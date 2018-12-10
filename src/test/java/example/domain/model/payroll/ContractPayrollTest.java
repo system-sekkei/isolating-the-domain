@@ -10,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.time.LocalDate;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -36,7 +37,7 @@ class ContractPayrollTest {
                 new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)),
                 new NormalBreakTime(new Minute(breakMinute)), new MidnightBreakTime(new Minute(midnightBreakMinute)));
 
-        Contract contract = new Contract(Date.now(), new HourlyWage(hourlyWage));
+        Contract contract = new Contract(new Date(LocalDate.now()), new HourlyWage(hourlyWage));
         ContractPayroll sut = new ContractPayroll(contract, new Attendances(Collections.singletonList(attendance)));
         assertEquals(expected, sut.wage().value.intValue());
     }
