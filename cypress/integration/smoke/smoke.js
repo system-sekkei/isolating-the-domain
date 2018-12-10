@@ -26,8 +26,13 @@ context('isolating-the-domain', () => {
     cy.get('a').contains('従業員の一覧').click()
     cy.title().should('eq', '従業員の一覧')
 
+    // 従業員詳細
+    cy.get('tbody > tr > td > a').contains('テスト太郎').click()
+    cy.title().should('contains', '従業員情報の詳細')
+    cy.get('.button').contains('一覧に戻る').click()
+
     // 従業員更新
-    cy.get('tbody > tr > td').contains('テスト太郎').parent().within(() => {
+    cy.get('tbody > tr > td > a > span').contains('テスト太郎').parent().parent().parent().within(() => {
         cy.get('.button').contains('変更').click()
     })
     cy.title().should('contains', '変更')
@@ -51,7 +56,7 @@ context('isolating-the-domain', () => {
     // 給与計算
     cy.get('a').contains('給与計算').click()
     cy.title().should('contains', '給与計算の一覧')
-    cy.get('tbody > tr > td').contains('テスト次郎').parent().within(() => {
+    cy.get('tbody > tr > td ').contains('テスト次郎').parent().within(() => {
         cy.get('.button').contains('勤務時間').click()
     })
     cy.title().should('contains', '一覧')
@@ -65,7 +70,7 @@ context('isolating-the-domain', () => {
     cy.get('a').contains('従業員').click()
     cy.title().should('contains', '従業員の一覧')
 
-    cy.get('tbody > tr > td').contains('テスト次郎').parent().within(() => {
+    cy.get('tbody > tr > td > a > span').contains('テスト次郎').parent().parent().parent().within(() => {
         cy.get('.button').contains('変更').click()
     })
     cy.title().should('contains', '変更')
