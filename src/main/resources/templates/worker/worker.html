@@ -35,6 +35,10 @@
 
   <div class="ui center aligned basic segment">
     <a class="ui grey button" th:href="@{/workers}">一覧に戻る</a>
+    <a class="ui primary basic button"
+       th:href="@{/workers/{workerNumber}/update(workerNumber=${worker.workerNumber()})}">
+      従業員情報の変更
+    </a>
   </div>
 </div>
 </body>

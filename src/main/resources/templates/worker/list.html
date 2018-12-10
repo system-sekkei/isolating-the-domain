@@ -40,10 +40,6 @@
             <td></td>
             <td class="ui center aligned">
             <!-- TODO:登録や変更から戻ると入るとここ崩れる -->
-              <a class="ui tiny primary basic button"
-                 th:href="@{/workers/{workerNumber}/update(workerNumber=${worker.workerNumber()})}">
-                <i class="edit icon"></i>従業員情報の変更
-              </a>
               <a class="ui tiny positive basic button"
                  th:href="@{/workers/wage/{workerNumber}(workerNumber=${worker.workerNumber()})}">
                 <i class="calculator icon"></i>時給の一覧
