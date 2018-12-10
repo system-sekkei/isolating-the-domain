@@ -14,7 +14,7 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("worker/{workerNumber}/update")
+@RequestMapping("workers/{workerNumber}/update")
 @SessionAttributes({"worker"})
 class UpdateController {
 
@@ -37,7 +37,7 @@ class UpdateController {
     String clearSessionAtStart(@PathVariable(value = "workerNumber") WorkerNumber workerNumber,
                                SessionStatus status) {
         status.setComplete();
-        return "forward:/worker/" + workerNumber + "/update/input";
+        return "forward:/workers/" + workerNumber + "/update/input";
     }
 
     @GetMapping(value = "input")
@@ -73,7 +73,7 @@ class UpdateController {
         attributes.addAttribute("name", worker.name().toString());
         attributes.addAttribute("workerNumber", worker.workerNumber().toString());
 
-        return "redirect:/worker/someone/update/completed";
+        return "redirect:/workers/someone/update/completed";
     }
 
     @GetMapping(value = "completed")
