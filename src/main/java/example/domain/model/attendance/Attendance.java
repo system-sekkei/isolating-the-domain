@@ -9,7 +9,7 @@ import example.domain.type.time.Minute;
  * 日次勤怠
  */
 public class Attendance {
-    WorkDay date;
+    WorkDay workDay;
     WorkTimeRange workTimeRange;
     NormalBreakTime normalBreakTime;
     MidnightBreakTime midnightBreakTime;
@@ -18,20 +18,20 @@ public class Attendance {
         this(new WorkDay());
     }
 
-    public Attendance(WorkDay date) {
+    public Attendance(WorkDay workDay) {
         // TODO 休みの扱い
-        this(date, new WorkStartTime(new ClockTime("00:00")), new WorkEndTime(new ClockTime("00:00")), new NormalBreakTime(new Minute(0)), new MidnightBreakTime("0"));
+        this(workDay, new WorkStartTime(new ClockTime("00:00")), new WorkEndTime(new ClockTime("00:00")), new NormalBreakTime(new Minute(0)), new MidnightBreakTime("0"));
     }
 
-    public Attendance(WorkDay date, WorkStartTime workStartTime, WorkEndTime workEndTime, NormalBreakTime normalBreakTime, MidnightBreakTime midnightBreakTime) {
-        this.date = date;
+    public Attendance(WorkDay workDay, WorkStartTime workStartTime, WorkEndTime workEndTime, NormalBreakTime normalBreakTime, MidnightBreakTime midnightBreakTime) {
+        this.workDay = workDay;
         this.workTimeRange = new WorkTimeRange(workStartTime, workEndTime);
         this.normalBreakTime = normalBreakTime;
         this.midnightBreakTime = midnightBreakTime;
     }
 
-    public WorkDay date() {
-        return date;
+    public WorkDay workDay() {
+        return workDay;
     }
 
     public WorkTimeRange workTimeRange() {

@@ -67,11 +67,11 @@
       </thead>
       <tbody>
         <th:block th:each="attendance : ${monthlyAttendances.list()}">
-          <tr th:class="${attendance.date().dayOfWeek()}">
+          <tr th:class="${attendance.workDay().dayOfWeek()}">
             <td class="center aligned"
-                th:text="${attendance.date().dayOfMonth()}"></td>
+                th:text="${attendance.workDay().dayOfMonth()}"></td>
             <td class="center aligned"
-                th:text="${attendance.date().dayOfWeek()}"></td>
+                th:text="${attendance.workDay().dayOfWeek()}"></td>
             <td th:text="${attendance.workTimeRange().start()}"></td>
             <td th:text="${attendance.workTimeRange().end()}"></td>
             <td th:text="${attendance.totalBreakTime()}"></td>

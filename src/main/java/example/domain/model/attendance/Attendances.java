@@ -23,7 +23,7 @@ public class Attendances {
 
     public Attendance get(Date date) {
         return list.stream().filter(
-                w -> w.date().value().equals(date.value())).findFirst().orElseThrow(() -> new RuntimeException());
+                w -> w.workDay().value().equals(date.value())).findFirst().orElseThrow(() -> new RuntimeException());
     }
 
     public HourAndMinute workTime() {
