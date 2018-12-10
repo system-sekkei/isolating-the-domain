@@ -25,7 +25,7 @@ public class MonthlyAttendances {
         return attendances.totalWorkTime();
     }
 
-    public Attendance attendanceOf(Date day) {
+    public Attendance attendanceOf(WorkDay day) {
         return attendances.get(day);
     }
 }

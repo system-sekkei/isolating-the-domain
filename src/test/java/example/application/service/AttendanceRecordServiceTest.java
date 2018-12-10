@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -31,12 +33,17 @@ class AttendanceRecordServiceTest {
     @Test
     void register() {
         WorkerNumber workerNumber = workerQueryService.contractingWorkers().list().get(0).workerNumber();
-        Date workDay = new Date("2099-10-20");
+
+        int year = 2099;
+        int month = 10;
+        int day = 20;
+
+        WorkDay workDay = new WorkDay(LocalDate.of(year,month,day));
         Attendance work = new Attendance(workDay, new WorkStartTime(new ClockTime("9:00")), new WorkEndTime(new ClockTime("17:00")), new NormalBreakTime(new Minute(60)), new MidnightBreakTime("0"));
 
         sut.registerAttendance(workerNumber, work);
 
-        MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(workerNumber, workDay.yearMonth());
+        MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(workerNumber, new WorkMonth(year,month));
         Attendance registeredAttendance = monthlyAttendances.attendanceOf(workDay);
         assertAll(() -> assertEquals(work.workDay().value(), registeredAttendance.workDay().value()),
                 () -> assertEquals(work.workTimeRange().start().toString(), registeredAttendance.workTimeRange().start().toString()),
