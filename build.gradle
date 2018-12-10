@@ -23,7 +23,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-dependencies:2.1.0.RELEASE")
+    implementation platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
@@ -36,7 +36,7 @@ dependencies {
       exclude(group: 'junit')
     }
 
-    testImplementation("org.junit:junit-bom:5.3.1")
+    testImplementation platform("org.junit:junit-bom:5.3.1")
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testImplementation("org.junit.jupiter:junit-jupiter-params")
     testRuntimeClasspath("org.junit.platform:junit-platform-launcher")
