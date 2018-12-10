@@ -34,7 +34,9 @@
           <tr th:each="worker : ${workers.list()}">
             <td class="right aligned"
                 th:text="${worker.workerNumber()}"/>
-            <td th:text="${worker.name()}"/>
+            <td>
+              <a th:href="@{/workers/{workerNumber}(workerNumber=${worker.workerNumber()})}"><span th:text="${worker.name()}"></span></a>
+            </td>
             <td></td>
             <td class="ui center aligned">
             <!-- TODO:登録や変更から戻ると入るとここ崩れる -->
