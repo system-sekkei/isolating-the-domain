@@ -37,7 +37,7 @@
         時給契約.適用終了日,
         時給契約.時給
         FROM 給与.時給契約 as 時給契約
-        WHERE 時給契約.従業員ID = #{workerNumber.value} AND #{workDay.value} &lt; 時給契約.適用開始日
+        WHERE 時給契約.従業員ID = #{workerNumber.value} AND #{date.value} &lt; 時給契約.適用開始日
         ORDER BY 時給契約.適用開始日 asc;
     </select>
 

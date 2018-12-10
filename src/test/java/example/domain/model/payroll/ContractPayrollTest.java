@@ -32,7 +32,7 @@ class ContractPayrollTest {
             "8:00, 0:00, 60, 60, 1000, 15850"
     })
     void wage(String begin, String end, int breakMinute, int midnightBreakMinute, int hourlyWage, int expected) {
-        Attendance attendance = new Attendance(Date.now(),
+        Attendance attendance = new Attendance(new WorkDay(),
                 new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)),
                 new NormalBreakTime(new Minute(breakMinute)), new MidnightBreakTime(new Minute(midnightBreakMinute)));
 

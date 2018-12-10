@@ -1,6 +1,5 @@
 package example.domain.model.attendance;
 
-import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +15,7 @@ class AttendanceTest {
     @ParameterizedTest
     @CsvSource({"9:00, 18:00, 60, 08:00", "9:01, 18:14, 46, 08:00"})
     void workTime(String begin, String end, int breaks, String expected) {
-        Attendance sut = new Attendance(Date.now(), new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)), new NormalBreakTime(new Minute(breaks)), new MidnightBreakTime("0"));
+        Attendance sut = new Attendance(new WorkDay(), new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)), new NormalBreakTime(new Minute(breaks)), new MidnightBreakTime("0"));
         assertEquals(expected, sut.workTime().toString());
     }
 
@@ -28,7 +27,7 @@ class AttendanceTest {
     })
     void midnightWorkTime(String begin, String end, int breaks, String expected) {
         Attendance sut = new Attendance(
-                Date.now(),
+                new WorkDay(),
                 new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)),
                 new NormalBreakTime(new Minute(0)),
                 new MidnightBreakTime(new Minute(breaks))
@@ -40,14 +39,14 @@ class AttendanceTest {
     @ParameterizedTest
     @CsvSource({"9:00, 17:00, 60, 00:00", "09:00, 22:00, 60, 04:00"})
     void overWorkTime(String begin, String end, int breaks, String expected) {
-        Attendance sut = new Attendance(Date.now(), new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)), new NormalBreakTime(new Minute(breaks)), new MidnightBreakTime("0"));
+        Attendance sut = new Attendance(new WorkDay(), new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)), new NormalBreakTime(new Minute(breaks)), new MidnightBreakTime("0"));
         assertEquals(expected, sut.overTime().toString());
     }
 
     @DisplayName("就業時間/時間外就業時間/深夜作業時間/休憩時間の相関")
     @Test
     void 時間の仕様() {
-        Attendance sut = new Attendance(Date.now(),
+        Attendance sut = new Attendance(new WorkDay(),
                 new WorkStartTime(new ClockTime("8:00")), new WorkEndTime(new ClockTime("00:00")),
                 new NormalBreakTime(new Minute(120)), new MidnightBreakTime("30"));
         assertAll(
