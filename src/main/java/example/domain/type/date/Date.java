@@ -1,5 +1,7 @@
 package example.domain.type.date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -7,6 +9,8 @@ import java.time.format.DateTimeFormatter;
  * 日付
  */
 public class Date {
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate value;
 
     public Date(String dayOfMonth) {

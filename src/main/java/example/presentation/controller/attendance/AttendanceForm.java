@@ -5,8 +5,6 @@ import example.domain.model.attendance.NormalBreakTime;
 import example.domain.model.attendance.WorkDay;
 import example.domain.model.worker.WorkerNumber;
 
-import java.time.LocalDate;
-
 public class AttendanceForm {
     WorkerNumber workerNumber;
     WorkDay workDay;
@@ -18,7 +16,7 @@ public class AttendanceForm {
     MidnightBreakTime midnightBreakTime;
 
     public AttendanceForm() {
-        this.workDay = new WorkDay(LocalDate.now());
+        this.workDay = new WorkDay();
         this.startHour = 9;
         this.startMinute = 0;
         this.endHour = 17;
@@ -26,7 +24,5 @@ public class AttendanceForm {
         this.normalBreakTime = new NormalBreakTime("60");
         this.midnightBreakTime = new MidnightBreakTime("0");
     }
-
-
 
 }

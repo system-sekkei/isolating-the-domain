@@ -8,18 +8,18 @@
     </select>
     <insert id="insertWorkTimeHistory">
         INSERT INTO 給与.就業時間履歴 (就業時間ID, 従業員ID, 就業日, 開始時刻, 終了時刻, 休憩時間)
-        VALUES (#{id}, #{workerNumber.value}, #{work.workDay.value}, #{work.workTimeRange.startTime.value.value}, #{work.workTimeRange.endTime.value.value}, #{work.normalBreakTime.value.value});
+        VALUES (#{id}, #{workerNumber.value}, #{work.workDay.value.value}, #{work.workTimeRange.startTime.value.value}, #{work.workTimeRange.endTime.value.value}, #{work.normalBreakTime.value.value});
     </insert>
     <insert id="insertWorkTime">
         INSERT INTO 給与.就業時間 (従業員ID, 就業時間ID, 就業日, 開始時刻, 終了時刻, 休憩時間)
-        VALUES (#{workerNumber.value}, #{workTimeId}, #{work.workDay.value}, #{work.workTimeRange.startTime.value.value}, #{work.workTimeRange.endTime.value.value}, #{work.normalBreakTime.value.value});
+        VALUES (#{workerNumber.value}, #{workTimeId}, #{work.workDay.value.value}, #{work.workTimeRange.startTime.value.value}, #{work.workTimeRange.endTime.value.value}, #{work.normalBreakTime.value.value});
     </insert>
     <delete id="deleteWorkTime">
-        DELETE FROM 給与.就業時間 WHERE 従業員ID = #{workerNumber.value} and 就業日 = #{workDay.value}
+        DELETE FROM 給与.就業時間 WHERE 従業員ID = #{workerNumber.value} and 就業日 = #{workDay.value.value}
     </delete>
 
     <resultMap id="timeRecord" type="example.domain.model.attendance.Attendance">
-        <result property="workDay.value" column="就業日"/>
+        <result property="workDay.value.value" column="就業日"/>
         <result property="workTimeRange.startTime.value.value" column="開始時刻"/>
         <result property="workTimeRange.endTime.value.value" column="終了時刻"/>
         <result property="normalBreakTime.value.value" column="休憩時間"/>
@@ -32,6 +32,6 @@
         就業時間.終了時刻,
         就業時間.休憩時間
         FROM 給与.就業時間 as 就業時間
-        WHERE 就業時間.従業員ID = #{workerNumber.value} AND 就業時間.就業日 = #{workDay.value}
+        WHERE 就業時間.従業員ID = #{workerNumber.value} AND 就業時間.就業日 = #{workDay.value.value}
     </select>
 </mapper>

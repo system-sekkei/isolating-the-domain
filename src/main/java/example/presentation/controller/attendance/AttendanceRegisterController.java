@@ -68,7 +68,7 @@ public class AttendanceRegisterController {
     public void initBinder(WebDataBinder binder) {
         binder.setAllowedFields(
                 "workerNumber",
-                "workDay.value",
+                "workDay.value.value",
                 "startHour",
                 "startMinute",
                 "endHour",
