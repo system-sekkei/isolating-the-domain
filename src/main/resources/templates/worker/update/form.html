@@ -46,7 +46,7 @@
           
       <div class="ui center aligned basic segment">
         <a class="ui grey button" 
-           th:href="@{/workers}">一覧に戻る</a>
+           th:href="@{/workers/{workerNumber}(workerNumber=${worker.workerNumber()})}">従業員情報の詳細に戻る</a>
         <button class="ui positive button">変更の確認</button>
         <a class="ui negative button"
            th:href="@{/workers/{workerNumber}/delete/view(workerNumber=${worker.workerNumber()})}">削除の確認</a>
