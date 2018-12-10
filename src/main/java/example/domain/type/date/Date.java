@@ -13,10 +13,6 @@ public class Date {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate value;
 
-    public Date(String dayOfMonth) {
-        this(LocalDate.parse(dayOfMonth, DateTimeFormatter.ISO_DATE));
-    }
-
     public Date(LocalDate value) {
         this.value = value;
     }

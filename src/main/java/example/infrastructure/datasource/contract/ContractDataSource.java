@@ -91,12 +91,12 @@ public class ContractDataSource implements ContractRepository {
 
     private Date getEndDate(WorkerNumber workerNumber, Date date) {
         List<ContractData2> ret = mapper.getFeatureContractData(workerNumber, date);
-        return (ret.size() == 0) ? new Date("9999-12-31") : new Date(ret.get(0).startDate.minusDays(1));
+        return (ret.size() == 0) ? new Date(LocalDate.of(9999,12,31)) : new Date(ret.get(0).startDate.minusDays(1));
     }
 
     private ContractData getContractData(WorkerNumber workerNumber, Date workDay) {
         List<ContractData> contracts = mapper.getContractData(workerNumber, workDay);
-        return contracts.stream().findFirst().orElseThrow(() -> new HourlyWageNotFoundException());
+        return contracts.stream().findFirst().orElseThrow(HourlyWageNotFoundException::new);
     }
 
     ContractDataSource(ContractMapper payrollMapper) {
