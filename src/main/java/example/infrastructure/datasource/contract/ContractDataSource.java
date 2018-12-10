@@ -61,9 +61,9 @@ public class ContractDataSource implements ContractRepository {
 
     @Override
     public void registerHourlyWage2(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage) {
+        mapper.deleteFeatureContract(workerNumber, applyDate);
         registerHourlyWage(workerNumber, applyDate, hourlyWage);
         mapper.insertContract(workerNumber, applyDate, getEndDate(workerNumber, applyDate), hourlyWage);
-        getEndDate(workerNumber, applyDate);
     }
 
     @Override
@@ -90,8 +90,7 @@ public class ContractDataSource implements ContractRepository {
     }
 
     private Date getEndDate(WorkerNumber workerNumber, Date date) {
-        List<ContractData2> ret = mapper.getFeatureContractData(workerNumber, date);
-        return (ret.size() == 0) ? new Date(LocalDate.of(9999,12,31)) : new Date(ret.get(0).startDate.minusDays(1));
+        return new Date(LocalDate.of(9999,12,31));
     }
 
     private ContractData getContractData(WorkerNumber workerNumber, Date workDay) {

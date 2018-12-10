@@ -109,11 +109,11 @@ public class ContractRecordServiceTest {
                 () -> assertEquals(now, contract4.startDate().value()),
                 () -> assertEquals(applyDate3.value().minusDays(1), contract4.endDate().value()),
                 () -> assertEquals(800, contract4.hourlyWage().value().intValue()),
-                () -> assertEquals(applyDate2.value(), contract5.startDate().value()),
+                () -> assertEquals(applyDate3.value(), contract5.startDate().value()),
                 () -> assertEquals(LocalDate.of(9999, 12, 31), contract5.endDate().value()),
-                () -> assertEquals(850, contract5.hourlyWage().value().intValue()),
+                () -> assertEquals(830, contract5.hourlyWage().value().intValue()),
                 () -> assertEquals(applyDate3.value(), contract6.startDate().value()),
-                () -> assertEquals(applyDate2.value().minusDays(1), contract6.endDate().value()),
+                () -> assertEquals(LocalDate.of(9999, 12, 31), contract6.endDate().value()),
                 () -> assertEquals(830, contract6.hourlyWage().value().intValue())
         );
     }
