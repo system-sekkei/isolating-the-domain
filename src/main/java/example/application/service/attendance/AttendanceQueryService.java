@@ -3,9 +3,9 @@ package example.application.service.attendance;
 import example.application.repository.AttendanceRepository;
 import example.domain.model.attendance.Attendances;
 import example.domain.model.attendance.MonthlyAttendances;
+import example.domain.model.attendance.WorkMonth;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
-import example.domain.type.date.YearMonth;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,7 +19,7 @@ public class AttendanceQueryService {
     /**
      * 月次勤務時間取得
      */
-    public MonthlyAttendances findMonthlyAttendances(WorkerNumber workerNumber, YearMonth month) {
+    public MonthlyAttendances findMonthlyAttendances(WorkerNumber workerNumber, WorkMonth month) {
         return attendanceRepository.findMonthly(workerNumber, month);
     }
 

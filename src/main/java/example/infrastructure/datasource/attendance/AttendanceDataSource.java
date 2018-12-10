@@ -1,17 +1,15 @@
 package example.infrastructure.datasource.attendance;
 
 import example.application.repository.AttendanceRepository;
-import example.domain.model.attendance.Attendance;
-import example.domain.model.attendance.Attendances;
-import example.domain.model.attendance.MonthlyAttendances;
-import example.domain.model.attendance.WorkDay;
+import example.domain.model.attendance.*;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import example.domain.type.date.DateRange;
-import example.domain.type.date.YearMonth;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Repository
 public class AttendanceDataSource implements AttendanceRepository {
@@ -31,7 +29,7 @@ public class AttendanceDataSource implements AttendanceRepository {
     }
 
     @Override
-    public MonthlyAttendances findMonthly(WorkerNumber workerNumber, YearMonth month) {
+    public MonthlyAttendances findMonthly(WorkerNumber workerNumber, WorkMonth month) {
         return new MonthlyAttendances(month, new Attendances(month.days().stream()
                 .map(day -> findBy(workerNumber, day)).collect(Collectors.toList())));
     }
@@ -39,8 +37,10 @@ public class AttendanceDataSource implements AttendanceRepository {
     @Override
     public Attendances getAttendances(WorkerNumber workerNumber, Date startDate, Date endDate) {
         DateRange range = new DateRange(startDate, endDate);
-        return new Attendances(range.days().stream()
-                .map(day -> findBy(workerNumber, day)).collect(Collectors.toList()));
+        Stream<WorkDay> workDayStream = range.days().stream().map(date -> new WorkDay(LocalDate.of(date.year().value(), date.month().value(), date.dayOfMonth())));
+
+        return new Attendances(workDayStream.map(day -> findBy(workerNumber, day))
+                .collect(Collectors.toList()));
     }
 
     AttendanceDataSource(AttendanceMapper mapper) {

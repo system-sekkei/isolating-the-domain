@@ -4,6 +4,7 @@ import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.MonthlyAttendances;
+import example.domain.model.attendance.WorkMonth;
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
@@ -43,7 +44,7 @@ public class AttendanceController {
         // TODO 型にする
         Map<String, MonthlyAttendances> map = new HashMap<>();
         // TODO 入力から
-        YearMonth month = new YearMonth(2018, 11);
+        WorkMonth month = new WorkMonth(2018,11);
         for (Worker worker : contractingWorkers.list()) {
             MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(worker.workerNumber(), month);
             map.put(worker.workerNumber().toString(), monthlyAttendances);
@@ -58,7 +59,7 @@ public class AttendanceController {
         Worker worker = workerQueryService.choose(workerNumber);
         model.addAttribute("worker", worker);
 
-        MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(worker.workerNumber(), Date.now().yearMonth());
+        MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(worker.workerNumber(),new WorkMonth());
         model.addAttribute("monthlyAttendances", monthlyAttendances);
         return "attendance/list";
     }
