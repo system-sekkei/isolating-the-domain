@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("worker/{workerNumber}/delete")
+@RequestMapping("workers/{workerNumber}/delete")
 public class DeleteController {
 
     WorkerRecordService workerRecordService;
@@ -35,7 +35,7 @@ public class DeleteController {
 
         attributes.addAttribute("name", worker.name().toString());
 
-        return "redirect:/worker/someone/delete/completed";
+        return "redirect:/workers/someone/delete/completed";
     }
 
     @GetMapping(value = "/completed")
