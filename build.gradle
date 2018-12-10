@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'idea'
-    id 'org.springframework.boot' version '2.1.0.RELEASE'
+    id 'org.springframework.boot' version '2.1.1.RELEASE'
     id "org.dddjava.jig-gradle-plugin" version "2018.11.3"
 }
 
@@ -36,7 +36,7 @@ dependencies {
       exclude(group: 'junit')
     }
 
-    testImplementation platform("org.junit:junit-bom:5.3.1")
+    testImplementation platform("org.junit:junit-bom:5.3.2")
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testImplementation("org.junit.jupiter:junit-jupiter-params")
     testRuntimeClasspath("org.junit.platform:junit-platform-launcher")
