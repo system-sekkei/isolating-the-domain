@@ -21,10 +21,6 @@ public class Date {
         return value;
     }
 
-    public YearMonth yearMonth() {
-        return new YearMonth(value.getYear(), value.getMonthValue());
-    }
-
     public Year year() {
         return new Year(value.getYear());
     }
