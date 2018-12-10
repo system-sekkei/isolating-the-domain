@@ -53,7 +53,7 @@ public class AttendanceRegisterController {
         attendanceRecordService.registerAttendance(
                 attendanceForm.workerNumber,
                 new Attendance(
-                        attendanceForm.date,
+                        attendanceForm.workDay,
                         new WorkStartTime(new ClockTime(attendanceForm.startHour, attendanceForm.startMinute)),
                         new WorkEndTime(new ClockTime(attendanceForm.endHour, attendanceForm.endMinute)),
                         attendanceForm.normalBreakTime,
@@ -68,7 +68,7 @@ public class AttendanceRegisterController {
     public void initBinder(WebDataBinder binder) {
         binder.setAllowedFields(
                 "workerNumber",
-                "date.value",
+                "workDay.value",
                 "startHour",
                 "startMinute",
                 "endHour",

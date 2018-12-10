@@ -4,13 +4,12 @@ import example.domain.model.attendance.MidnightBreakTime;
 import example.domain.model.attendance.NormalBreakTime;
 import example.domain.model.attendance.WorkDay;
 import example.domain.model.worker.WorkerNumber;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
 public class AttendanceForm {
     WorkerNumber workerNumber;
-    WorkDay date;
+    WorkDay workDay;
     Integer startHour;
     Integer startMinute;
     Integer endHour;
@@ -19,7 +18,7 @@ public class AttendanceForm {
     MidnightBreakTime midnightBreakTime;
 
     public AttendanceForm() {
-        this.date = new WorkDay(LocalDate.now());
+        this.workDay = new WorkDay(LocalDate.now());
         this.startHour = 9;
         this.startMinute = 0;
         this.endHour = 17;
