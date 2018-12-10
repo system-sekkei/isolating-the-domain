@@ -20,7 +20,7 @@ public class Attendances {
         return list;
     }
 
-    public Attendance get(WorkDay day) {
+    public Attendance atWorkDay(WorkDay day) {
         return list.stream().filter(attendance -> attendance.workDay().hasSameValue(day)).findFirst().orElseThrow(RuntimeException::new);
     }
 

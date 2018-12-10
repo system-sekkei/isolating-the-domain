@@ -1,6 +1,5 @@
 package example.domain.model.attendance;
 
-import example.domain.type.date.Date;
 import example.domain.type.time.HourAndMinute;
 
 import java.util.List;
@@ -26,6 +25,6 @@ public class MonthlyAttendances {
     }
 
     public Attendance attendanceOf(WorkDay day) {
-        return attendances.get(day);
+        return attendances.atWorkDay(day);
     }
 }
