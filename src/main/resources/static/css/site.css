@@ -1,17 +1,25 @@
+/*TODO:16分割で各ページに違和感がないように調整するよー*/
+
 /*給与計算 payroll*/
 .payrollList {
-  max-width: 800px;
+  max-width: 960px;
   margin: 0 auto 5rem;
 }
 
 
 /*従業員 worker*/
 .workerList {
-  max-width: 1024px;
+  max-width: 880px;
   margin: 0 auto 5rem;
 }
 
 .userInput {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/*時給 wage*/
+.wageList {
   max-width: 500px;
   margin: 0 auto;
 }
