@@ -41,6 +41,10 @@ public class Date {
         return DayOfWeek.of(value.getDayOfWeek());
     }
 
+    public boolean hasSameValue(Date other){
+        return value.equals(other.value);
+    }
+
     @Override
     public String toString() {
         return value.format(DateTimeFormatter.ISO_DATE);

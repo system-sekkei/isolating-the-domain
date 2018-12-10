@@ -20,9 +20,8 @@ public class Attendances {
         return list;
     }
 
-    public Attendance get(WorkDay date) {
-        return list.stream().filter(
-                w -> w.workDay().value().equals(date.value())).findFirst().orElseThrow(() -> new RuntimeException());
+    public Attendance get(WorkDay day) {
+        return list.stream().filter(attendance -> attendance.workDay().hasSameValue(day)).findFirst().orElseThrow(RuntimeException::new);
     }
 
     public HourAndMinute workTime() {

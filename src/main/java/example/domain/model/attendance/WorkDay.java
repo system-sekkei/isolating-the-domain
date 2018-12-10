@@ -32,6 +32,10 @@ public class WorkDay {
         return value.dayOfWeek();
     }
 
+    public boolean hasSameValue(WorkDay other){
+        return value.hasSameValue(other.value);
+    }
+
     @Override
     public String toString() {
         return value.toString();

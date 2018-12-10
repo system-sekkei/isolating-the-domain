@@ -6,7 +6,6 @@ import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.*;
 import example.domain.model.worker.WorkerNumber;
-import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.Test;
@@ -17,8 +16,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class)
@@ -45,7 +43,7 @@ class AttendanceRecordServiceTest {
 
         MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(workerNumber, new WorkMonth(year,month));
         Attendance registeredAttendance = monthlyAttendances.attendanceOf(workDay);
-        assertAll(() -> assertEquals(work.workDay().value(), registeredAttendance.workDay().value()),
+        assertAll(() -> assertTrue(work.workDay().hasSameValue(registeredAttendance.workDay())),
                 () -> assertEquals(work.workTimeRange().start().toString(), registeredAttendance.workTimeRange().start().toString()),
                 () -> assertEquals(work.workTimeRange().end().toString(), registeredAttendance.workTimeRange().end().toString()),
                 () -> assertEquals(work.totalBreakTime().toString(), registeredAttendance.totalBreakTime().toString()));
