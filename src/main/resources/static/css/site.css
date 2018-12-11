@@ -6,7 +6,6 @@
   margin: 0 auto 5rem;
 }
 
-
 /*従業員 worker*/
 .workerList {
   max-width: 880px;
@@ -14,6 +13,11 @@
 }
 
 .userInput {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.userInfo {
   max-width: 500px;
   margin: 0 auto;
 }
@@ -74,5 +78,6 @@
 
 /*テーブルヘッダー*/
 .tableHeader {
-    background: #f9fafb;
+  background: #f9fafb;
+  text-align: center;
 }
