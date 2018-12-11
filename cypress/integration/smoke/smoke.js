@@ -72,10 +72,9 @@ context('isolating-the-domain', () => {
     //従業員削除
     cy.get('tbody > tr > td > a').contains('テスト次郎').click()
     cy.title().should('contains', '従業員情報の詳細')
-    cy.get('.button').contains('削除').click()
-    cy.title().should('contains', '従業員情報の削除')
-    cy.get('.button').contains('削除').click()
-    cy.get('a').contains('従業員の一覧').click()
+    cy.get('#deleteConfirmButton').click()
+    cy.get('#deleteButton').click()
+    cy.title().should('contains', '従業員の一覧')
     cy.get('tbody > tr > td > a').contains('テスト次郎').should('not.exist')
 })
 })
