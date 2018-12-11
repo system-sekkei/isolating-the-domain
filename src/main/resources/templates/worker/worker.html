@@ -16,6 +16,10 @@
     <div class="ui attached segment">
       <div class="ui large form">
         <div class="field">
+          <label>従業員番号</label>
+          <p th:text="${worker.workerNumber()}">1</p>
+        </div>
+        <div class="field">
           <label>名前</label>
           <p th:text="${worker.name()}">山田 太郎</p>
         </div>
@@ -34,10 +38,10 @@
   </div>
 
   <div class="ui center aligned basic segment">
-    <a class="ui grey button" th:href="@{/workers}">従業員の一覧に戻る</a>
-    <a class="ui primary basic button"
+    <a class="ui grey button" th:href="@{/workers}">一覧に戻る</a>
+    <a class="ui positive button"
        th:href="@{/workers/{workerNumber}/update(workerNumber=${worker.workerNumber()})}">
-      従業員情報の変更
+      変更する
     </a>
   </div>
 </div>
