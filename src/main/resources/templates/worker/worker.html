@@ -43,11 +43,36 @@
        th:href="@{/workers/{workerNumber}/update(workerNumber=${worker.workerNumber()})}">
       変更
     </a>
-    <a class="ui negative button"
-       th:href="@{/workers/{workerNumber}/delete/view(workerNumber=${worker.workerNumber()})}">
+    <button id="deleteConfirmButton" class="ui negative button">
+      削除
+    </button>
+  </div>
+</div>
+
+<div id="deleteConfirmModal" class="ui modal">
+  <div class="header">
+    削除の確認
+  </div>
+  <div class="content">
+    <div class="description">
+      <p>この従業員を削除しますか？</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui grey deny button">
+      キャンセル
+    </div>
+    <a id="deleteButton" class="ui negative button"
+       th:href="@{/workers/{workerNumber}/delete(workerNumber=${worker.workerNumber()})}">
       削除
     </a>
   </div>
 </div>
+<script>
+    $('#deleteConfirmButton').click(function () {
+        $('#deleteConfirmModal').modal('show');
+        }
+    );
+</script>
 </body>
 </html>
