@@ -41,7 +41,11 @@
     <a class="ui grey button" th:href="@{/workers}">一覧に戻る</a>
     <a class="ui positive button"
        th:href="@{/workers/{workerNumber}/update(workerNumber=${worker.workerNumber()})}">
-      変更する
+      変更
+    </a>
+    <a class="ui negative button"
+       th:href="@{/workers/{workerNumber}/delete/view(workerNumber=${worker.workerNumber()})}">
+      削除
     </a>
   </div>
 </div>

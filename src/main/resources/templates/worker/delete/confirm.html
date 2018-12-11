@@ -42,7 +42,7 @@
 
   <div class="ui center aligned basic segment">
     <a class="ui grey button"
-       th:href="@{/workers/{workerNumber}/update(workerNumber=${worker.workerNumber()})}">変更画面に戻る</a>
+       th:href="@{/workers/{workerNumber}(workerNumber=${worker.workerNumber()})}">詳細に戻る</a>
     <a class="ui negative button"
        th:href="@{/workers/{workerNumber}/delete(workerNumber=${worker.workerNumber()})}">削除</a>
   </div>
