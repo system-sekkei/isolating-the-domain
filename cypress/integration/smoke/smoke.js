@@ -75,7 +75,9 @@ context('isolating-the-domain', () => {
     cy.get('.button').contains('削除').click()
     cy.title().should('contains', '従業員情報の削除')
     cy.get('.button').contains('削除').click()
-    })
+    cy.get('a').contains('従業員の一覧').click()
+    cy.get('tbody > tr > td > a').contains('テスト次郎').should('not.exist')
+})
 })
 
 
