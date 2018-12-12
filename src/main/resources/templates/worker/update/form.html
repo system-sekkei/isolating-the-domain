@@ -16,7 +16,7 @@
     <form id="custom-form" class="ui large form" name="body" 
           method="post" action="#"
           th:object="${worker}"
-          th:action="@{/workers/{workerNumber}/update/confirm(workerNumber=${worker.workerNumber()})}">
+          th:action="@{/workers/{workerNumber}/update/register(workerNumber=${worker.workerNumber()})}">
       
       <div class="ui message inline field">
         <label>従業員番号</label>
@@ -47,7 +47,7 @@
       <div class="ui center aligned basic segment">
         <a class="ui grey button" 
            th:href="@{/workers/{workerNumber}(workerNumber=${worker.workerNumber()})}">詳細に戻る</a>
-        <button class="ui positive button">確認</button>
+        <button class="ui positive button">保存</button>
       </div>
     </form>
   </div>

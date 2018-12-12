@@ -48,41 +48,24 @@ class UpdateController {
         return "worker/update/form";
     }
 
-    @GetMapping(value = "input/again")
-    String formAgain() {
-        return "worker/update/form";
-    }
 
-    @PostMapping(value = "confirm")
-    String validate(@Validated @ModelAttribute Worker worker,
-                    BindingResult binding) {
-        if (binding.hasErrors()) return "worker/update/form";
-
-        return "worker/update/confirm";
-    }
-
-    @GetMapping(value = "register")
-    String registerThenRedirect(@ModelAttribute Worker worker,
+    @PostMapping(value = "register")
+    String registerThenRedirect(@Validated @ModelAttribute Worker worker,
+                                BindingResult result,
                                 SessionStatus status,
                                 RedirectAttributes attributes) {
+        if (result.hasErrors()) return "worker/update/form";
+
         workerRecordService.registerName(worker.workerNumber(), worker.name());
         workerRecordService.registerMailAddress(worker.workerNumber(), worker.mailAddress());
         workerRecordService.registerPhoneNumber(worker.workerNumber(), worker.phoneNumber());
+
         status.setComplete();
 
         attributes.addAttribute("name", worker.name().toString());
         attributes.addAttribute("workerNumber", worker.workerNumber().toString());
 
-        return "redirect:/workers/someone/update/completed";
-    }
-
-    @GetMapping(value = "completed")
-    String showResult(Model model,
-                      @RequestParam("name") String name,
-                      @RequestParam("workerNumber") String workerNumber) {
-        model.addAttribute("name", name);
-        model.addAttribute("workerNumber", workerNumber);
-        return "worker/update/result";
+        return "redirect:/workers/" + worker.workerNumber();
     }
 
     UpdateController(WorkerRecordService workerRecordService, WorkerQueryService workerQueryService) {
