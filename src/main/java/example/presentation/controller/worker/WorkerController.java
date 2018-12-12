@@ -4,10 +4,8 @@ import example.application.service.worker.WorkerQueryService;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 従業員詳細
@@ -28,7 +26,11 @@ public class WorkerController {
     }
 
     @GetMapping
-    public String init(Worker worker) {
+    public String init(Model model,
+                       @RequestParam(value = "updateResult", required = false) String updateResult) {
+
+        model.addAttribute("updateResult", updateResult);
+
         return "worker/worker";
     }
 }

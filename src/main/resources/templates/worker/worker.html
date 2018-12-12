@@ -49,6 +49,7 @@
   </div>
 </div>
 
+<!-- 削除の確認 -->
 <div id="deleteConfirmModal" class="ui modal">
   <div class="header">
     削除の確認
@@ -73,6 +74,30 @@
         $('#deleteConfirmModal').modal('show');
         }
     );
+</script>
+
+<!-- 変更の完了 -->
+<div id="updateCompletedModal" class="ui modal">
+  <div class="content">
+    <div class="description">
+      <p>従業員情報を変更しました</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui grey deny button">
+      ＯＫ
+    </div>
+  </div>
+</div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var updateResult = /*[[${updateResult}]]*/ '';
+    $(function(){
+        if(updateResult === 'completed'){
+            $('#updateCompletedModal').modal('show');
+        }
+    });
+    /*]]>*/
 </script>
 </body>
 </html>
