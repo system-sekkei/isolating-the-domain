@@ -57,4 +57,11 @@ public class YearMonth {
     public String toString() {
         return value.format(FORMATTER);
     }
+
+    /**
+     * LIKE検索用
+     */
+    public String toEndingWithCondition() {
+        return value.format(DateTimeFormatter.ofPattern("uuuuMM")) + "%";
+    }
 }

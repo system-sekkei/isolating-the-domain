@@ -34,4 +34,15 @@
         FROM 給与.就業時間 as 就業時間
         WHERE 就業時間.従業員ID = #{workerNumber.value} AND 就業時間.就業日 = #{workDay.value.value}
     </select>
+
+    <select id="selectByMonth" resultMap="timeRecord">
+        SELECT
+        就業時間.就業日,
+        就業時間.開始時刻,
+        就業時間.終了時刻,
+        就業時間.休憩時間
+        FROM 給与.就業時間 as 就業時間
+        WHERE 就業時間.従業員ID = #{workerNumber.value}
+          AND 就業時間.就業日 LIKE #{workMonth.endingWithCondition}
+    </select>
 </mapper>

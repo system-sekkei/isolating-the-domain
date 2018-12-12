@@ -8,6 +8,7 @@ import example.domain.type.date.DateRange;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,8 +31,9 @@ public class AttendanceDataSource implements AttendanceRepository {
 
     @Override
     public MonthlyAttendances findMonthly(WorkerNumber workerNumber, WorkMonth month) {
-        return new MonthlyAttendances(month, new Attendances(month.days().stream()
-                .map(day -> findBy(workerNumber, day)).collect(Collectors.toList())));
+        List<Attendance> attendances = mapper.selectByMonth(workerNumber, month);
+        MonthlyAttendances monthlyAttendances = new MonthlyAttendances(month, new Attendances(attendances));
+        return monthlyAttendances;
     }
 
     @Override

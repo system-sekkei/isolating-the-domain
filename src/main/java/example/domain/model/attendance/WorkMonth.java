@@ -27,4 +27,8 @@ public class WorkMonth {
         return workDays;
     }
 
+    public String getEndingWithCondition(){
+        return value.toEndingWithCondition();
+    }
+
 }
