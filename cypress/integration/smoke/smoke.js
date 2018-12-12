@@ -73,6 +73,7 @@ context('isolating-the-domain', () => {
     cy.get('#deleteConfirmButton').click()
     cy.get('#deleteButton').click()
     cy.title().should('contains', '従業員の一覧')
+    // TODO : ２回以上テスト回すと名前がダブるので落ちる。新規登録した従業員番号が取得できればいいんだけど。。。
     cy.get('tbody > tr > td > a').contains('テスト次郎').should('not.exist')
 })
 })
