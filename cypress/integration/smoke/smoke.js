@@ -29,16 +29,14 @@ context('isolating-the-domain', () => {
     // 従業員詳細
     cy.get('tbody > tr > td > a').contains('テスト太郎').click()
     cy.title().should('contains', '従業員情報の詳細')
-    cy.get('.button').contains('一覧に戻る').click()
 
-    // 従業員更新
-    cy.get('tbody > tr > td > a').contains('テスト太郎').click()
+    // 従業員変更
     cy.get('.button').contains('変更').click()
     cy.title().should('contains', '変更')
     cy.get('#name\\.value').clear().type('テスト次郎')
-    cy.get('.button').contains('確認').click()
-    cy.title().should('contains', '確認')
     cy.get('.button').contains('保存').click()
+    cy.title().should('contains', '従業員情報の詳細')
+    cy.get('.button').contains('ＯＫ').click()
 
     cy.get('a').contains('ダッシュボード').click()
     cy.title().should('eq', 'ダッシュボード')
