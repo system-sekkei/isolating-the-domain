@@ -1,12 +1,10 @@
 package example.domain.model.attendance;
 
 import example.domain.type.date.Date;
+import example.domain.type.date.YearMonth;
 
-import java.time.LocalDate;
-import java.time.YearMonth;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * 勤務月
@@ -15,22 +13,18 @@ public class WorkMonth {
     YearMonth value;
 
     public WorkMonth() {
-        value = YearMonth.now();
+        value = new YearMonth();
     }
 
     public WorkMonth(int year, int month) {
-        value = YearMonth.of(year, month);
+        value = new YearMonth(year, month);
     }
 
-    public List<WorkDay> days() {
-        IntStream days = IntStream.rangeClosed(1, endOfMonth());
-        List<WorkDay> workDays = days.mapToObj(day -> new WorkDay(LocalDate.of(value.getYear(), value.getMonth(), day)))
+    public List<WorkDay> days(){
+        List<Date> days = value.days();
+        List<WorkDay> workDays = days.stream().map(WorkDay::new)
                 .collect(Collectors.toList());
         return workDays;
-    }
-
-    private int endOfMonth() {
-        return value.atEndOfMonth().getDayOfMonth();
     }
 
 }

@@ -13,6 +13,10 @@ public class YearMonth {
     private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("uuuu-MM");
     java.time.YearMonth value;
 
+    public YearMonth() {
+        value = java.time.YearMonth.now();
+    }
+
     public YearMonth(Year year, Month month) {
         this.value = java.time.YearMonth.of(year.value(), month.value());
     }

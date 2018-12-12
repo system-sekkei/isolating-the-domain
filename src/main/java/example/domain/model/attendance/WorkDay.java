@@ -20,6 +20,10 @@ public class WorkDay {
         this.value = new Date(value);
     }
 
+    public WorkDay(Date date) {
+        value = date;
+    }
+
     public Date value() {
         return value;
     }
