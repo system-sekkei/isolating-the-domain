@@ -3,7 +3,7 @@ package example.domain.model.attendance;
 import java.util.List;
 
 /**
- * 月次勤怠
+ * 勤怠情報
  */
 public class Attendances {
     List<Attendance> list;
