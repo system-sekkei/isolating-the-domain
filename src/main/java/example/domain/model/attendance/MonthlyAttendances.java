@@ -4,6 +4,7 @@ package example.domain.model.attendance;
  * 月次勤怠
  */
 public class MonthlyAttendances {
+
     WorkMonth month;
     Attendances attendances;
 
@@ -12,12 +13,12 @@ public class MonthlyAttendances {
         this.attendances = attendances;
     }
 
-    public Attendances attendances(){
-        return attendances;
-    }
-
     public WorkMonth month (){
         return month;
+    }
+
+    public Attendances attendances(){
+        return attendances;
     }
 
     public Attendance attendanceOf(WorkDay day) {
