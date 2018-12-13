@@ -31,4 +31,8 @@ public class WorkMonth {
         return value.toEndingWithCondition();
     }
 
+    public String toStringWithUnit(){
+        return String.format("%s月",value.month().toString());
+    }
+
 }

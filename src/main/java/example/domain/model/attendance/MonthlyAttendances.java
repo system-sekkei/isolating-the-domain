@@ -1,7 +1,5 @@
 package example.domain.model.attendance;
 
-import java.util.List;
-
 /**
  * 月次勤怠
  */
@@ -14,8 +12,12 @@ public class MonthlyAttendances {
         this.attendances = attendances;
     }
 
-    public List<Attendance> list() {
-        return attendances.list();
+    public Attendances attendances(){
+        return attendances;
+    }
+
+    public WorkMonth month (){
+        return month;
     }
 
     public Attendance attendanceOf(WorkDay day) {
