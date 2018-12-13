@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class)
-class AttendanceRecordServiceTest {
+class AttendanceServiceTest {
 
     @Autowired
     WorkerQueryService workerQueryService;
