@@ -8,7 +8,7 @@ import example.domain.type.time.Minute;
  */
 public class WorkTime {
 
-    Minute workTime;
+    Minute normalTime;
     Minute midnightWorkTime;
     Minute overWorkTime;
 
@@ -16,8 +16,8 @@ public class WorkTime {
         this(new Minute(0), new Minute(0), new Minute(0));
     }
 
-    public WorkTime(Minute workTime, Minute midnightWorkTime, Minute overWorkTime) {
-        this.workTime = workTime;
+    public WorkTime(Minute normalTime, Minute midnightWorkTime, Minute overWorkTime) {
+        this.normalTime = normalTime;
         this.midnightWorkTime = midnightWorkTime;
         this.overWorkTime = overWorkTime;
     }
@@ -32,17 +32,17 @@ public class WorkTime {
 
     public WorkTime add(WorkTime other) {
         return new WorkTime(
-                this.workTime.add(other.workTime),
+                this.normalTime.add(other.normalTime),
                 this.midnightWorkTime.add(other.midnightWorkTime),
                 this.overWorkTime.add(other.overWorkTime));
     }
 
     public HourAndMinute totalWorkTime() {
-        return HourAndMinute.from(workTime.add(midnightWorkTime));
+        return HourAndMinute.from(normalTime.add(midnightWorkTime));
     }
 
-    public HourAndMinute workTime() {
-        return HourAndMinute.from(workTime);
+    public HourAndMinute normalTime() {
+        return HourAndMinute.from(normalTime);
     }
 
     public HourAndMinute midnightWorkTime() {
