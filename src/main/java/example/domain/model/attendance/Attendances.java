@@ -1,7 +1,5 @@
 package example.domain.model.attendance;
 
-import example.domain.type.time.HourAndMinute;
-
 import java.util.List;
 
 /**
@@ -9,11 +7,9 @@ import java.util.List;
  */
 public class Attendances {
     List<Attendance> list;
-    WorkTime workTime;
 
     public Attendances(List<Attendance> list) {
         this.list = list;
-        this.workTime = WorkTime.from(list);
     }
 
     public List<Attendance> list() {
@@ -24,19 +20,8 @@ public class Attendances {
         return list.stream().filter(attendance -> attendance.workDay().hasSameValue(day)).findFirst().orElseThrow(RuntimeException::new);
     }
 
-    public HourAndMinute workTime() {
-        return workTime.workTime();
+    public WorkTime summarize(){
+       return WorkTime.from(list);
     }
 
-    public HourAndMinute overTime() {
-        return workTime.overTime();
-    }
-
-    public HourAndMinute midnightWorkTime() {
-        return workTime.midnightWorkTime();
-    }
-
-    public HourAndMinute totalWorkTime() {
-        return workTime.totalWorkTime();
-    }
 }

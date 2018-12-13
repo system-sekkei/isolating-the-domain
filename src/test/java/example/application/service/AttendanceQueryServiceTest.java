@@ -4,6 +4,7 @@ import example.Application;
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.Attendances;
+import example.domain.model.attendance.WorkTime;
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
@@ -39,10 +40,11 @@ public class AttendanceQueryServiceTest {
         Worker worker = workers.list().get(0);
         WorkerNumber workerNumber = worker.workerNumber();
         Attendances attendances = attendanceQueryService.getAttendances(workerNumber, startDate, endDate);
+        WorkTime workTime = attendances.summarize();
 
         assertAll(
                 () -> assertEquals(attendances.list().size(),31),
-                () -> assertEquals(attendances.workTime().toString(),"00:00")
+                () -> assertEquals(workTime.toString(),"00:00")
         );
     }
 
