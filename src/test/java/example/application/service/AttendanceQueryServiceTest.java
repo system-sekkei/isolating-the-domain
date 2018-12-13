@@ -16,6 +16,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
@@ -24,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class)
+@Transactional
 public class AttendanceQueryServiceTest {
 
     @Autowired
@@ -55,7 +57,6 @@ public class AttendanceQueryServiceTest {
 
     @Test
     void findMonthlyAttendances() {
-        // TODO : 登録サービスのテストとかぶるのでまとめたほうがいい
         int year = 2099;
         int month = 10;
         int day = 20;
