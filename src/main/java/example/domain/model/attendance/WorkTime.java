@@ -3,8 +3,6 @@ package example.domain.model.attendance;
 import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;
 
-import java.util.List;
-
 /**
  * 労働時間
  */
@@ -55,11 +53,4 @@ public class WorkTime {
         return HourAndMinute.from(overWorkTime);
     }
 
-    static WorkTime from(List<Attendance> list) {
-        return list.stream()
-                .reduce(new WorkTime(),
-                        (workTime, attendanceOfDay) -> workTime.addAttendanceOfDay(attendanceOfDay),
-                        WorkTime::add
-                );
-    }
 }

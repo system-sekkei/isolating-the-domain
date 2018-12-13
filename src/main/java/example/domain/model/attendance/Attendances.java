@@ -21,7 +21,11 @@ public class Attendances {
     }
 
     public WorkTime summarize(){
-       return WorkTime.from(list);
+        return list.stream()
+                .reduce(new WorkTime(),
+                        WorkTime::addAttendanceOfDay,
+                        WorkTime::add
+                );
     }
 
 }
