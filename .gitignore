@@ -5,6 +5,12 @@
 *.ipr
 *.iws
 
+# For eclipse
+.project
+.classpath
+.settings/
+bin/
+
 # For Gradle
 **/build
 build/**
