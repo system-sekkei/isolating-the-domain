@@ -40,6 +40,10 @@ public class WorkDay {
         return value.hasSameValue(other.value);
     }
 
+    public WorkMonth month() {
+        return new WorkMonth(value.year(), value.month());
+    }
+
     public int compareTo(WorkDay other) {
         return value.compareTo(other.value);
     }

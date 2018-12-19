@@ -1,6 +1,8 @@
 package example.domain.model.attendance;
 
 import example.domain.type.date.Date;
+import example.domain.type.date.Month;
+import example.domain.type.date.Year;
 import example.domain.type.date.YearMonth;
 
 import java.util.List;
@@ -20,19 +22,31 @@ public class WorkMonth {
         value = new YearMonth(year, month);
     }
 
-    public List<WorkDay> days(){
+    public WorkMonth(Year year, Month month) {
+        value = new YearMonth(year, month);
+    }
+
+    public WorkMonth(String yearMonth) {
+        value = new YearMonth(yearMonth);
+    }
+
+    public List<WorkDay> days() {
         List<Date> days = value.days();
         List<WorkDay> workDays = days.stream().map(WorkDay::new)
                 .collect(Collectors.toList());
         return workDays;
     }
 
-    public String getEndingWithCondition(){
+    public String getEndingWithCondition() {
         return value.toEndingWithCondition();
     }
 
-    public String toStringWithUnit(){
-        return String.format("%s月",value.month().toString());
+    public String toString(){
+        return value.toString();
+    }
+
+    public String toStringWithUnit() {
+        return String.format("%s月", value.month().toString());
     }
 
 }

@@ -5,6 +5,7 @@ import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.WorkEndTime;
+import example.domain.model.attendance.WorkMonth;
 import example.domain.model.attendance.WorkStartTime;
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.type.time.ClockTime;
@@ -61,7 +62,9 @@ public class AttendanceRegisterController {
                 )
         );
 
-        return "redirect:/attendance/" + attendanceForm.workerNumber.value() + "/list";
+        WorkMonth workMonth =  attendanceForm.workDay.month();
+
+        return "redirect:/attendances/" + attendanceForm.workerNumber.value() + "/" + workMonth.toString();
     }
 
     @InitBinder

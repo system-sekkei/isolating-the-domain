@@ -8,8 +8,6 @@ import example.domain.model.attendance.WorkMonth;
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
-import example.domain.type.date.Date;
-import example.domain.type.date.YearMonth;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,10 +18,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 勤怠コントローラー
+ * 勤務時間の一覧
  */
 @Controller
-@RequestMapping("attendance")
+@RequestMapping("attendances")
 public class AttendanceController {
 
     WorkerQueryService workerQueryService;
@@ -44,7 +42,7 @@ public class AttendanceController {
         // TODO 型にする
         Map<String, MonthlyAttendances> map = new HashMap<>();
         // TODO 入力から
-        WorkMonth month = new WorkMonth(2018,11);
+        WorkMonth month = new WorkMonth(2018, 11);
         for (Worker worker : contractingWorkers.list()) {
             MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(worker.workerNumber(), month);
             map.put(worker.workerNumber().toString(), monthlyAttendances);
@@ -54,12 +52,14 @@ public class AttendanceController {
         return "attendance/workers";
     }
 
-    @GetMapping("{workerNumber}/list")
-    String list(Model model, @PathVariable("workerNumber") WorkerNumber workerNumber) {
+    @GetMapping("{workerNumber}/{yearMonth}")
+    String list(Model model,
+                @PathVariable("workerNumber") WorkerNumber workerNumber,
+                @PathVariable("yearMonth") WorkMonth workMonth) {
         Worker worker = workerQueryService.choose(workerNumber);
         model.addAttribute("worker", worker);
 
-        MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(worker.workerNumber(),new WorkMonth());
+        MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(worker.workerNumber(), workMonth);
         model.addAttribute("monthlyAttendances", monthlyAttendances);
         return "attendance/list";
     }
