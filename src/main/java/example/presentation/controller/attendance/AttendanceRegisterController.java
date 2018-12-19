@@ -11,6 +11,8 @@ import example.domain.model.worker.ContractingWorkers;
 import example.domain.type.time.ClockTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,21 +50,26 @@ public class AttendanceRegisterController {
     }
 
     @PostMapping
-    String register(@ModelAttribute("attendanceForm") AttendanceForm attendanceForm) {
-        // TODO validation
+    String register(@Validated @ModelAttribute("attendanceForm") AttendanceForm attendanceForm,
+                    BindingResult result) {
+        if (result.hasErrors()) return "attendance/form";
+
+
+        ClockTime startTime = new ClockTime(Integer.valueOf(attendanceForm.startHour), Integer.valueOf(attendanceForm.startMinute));
+        ClockTime endTime = new ClockTime(Integer.valueOf(attendanceForm.endHour), Integer.valueOf(attendanceForm.endMinute));
 
         attendanceRecordService.registerAttendance(
                 attendanceForm.workerNumber,
                 new Attendance(
                         attendanceForm.workDay,
-                        new WorkStartTime(new ClockTime(attendanceForm.startHour, attendanceForm.startMinute)),
-                        new WorkEndTime(new ClockTime(attendanceForm.endHour, attendanceForm.endMinute)),
+                        new WorkStartTime(startTime),
+                        new WorkEndTime(endTime),
                         attendanceForm.normalBreakTime,
                         attendanceForm.midnightBreakTime
                 )
         );
 
-        WorkMonth workMonth =  attendanceForm.workDay.month();
+        WorkMonth workMonth = attendanceForm.workDay.month();
 
         return "redirect:/attendances/" + attendanceForm.workerNumber.value() + "/" + workMonth.toString();
     }

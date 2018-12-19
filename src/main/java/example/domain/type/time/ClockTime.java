@@ -17,7 +17,7 @@ public class ClockTime {
         this(LocalTime.parse(value, DateTimeFormatter.ofPattern("H:mm")));
     }
 
-    public ClockTime(int hour, int minute) {
+    public ClockTime(Integer hour, Integer minute) {
         value = LocalTime.of(hour, minute);
     }
 

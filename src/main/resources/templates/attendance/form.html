@@ -32,6 +32,7 @@
 
       <div class="field">
         <label>勤務日</label>
+
         <div class="eight wide field">
           <input class="short-input" type="date" placeholder="2018-01-01"
                  th:field="*{workDay.value.value}"/>
@@ -54,6 +55,10 @@
             <div class="ui basic label">分</div>
           </div>
         </div>
+        <div class="ui pointing red basic label"
+             th:if="${#fields.hasErrors('startTimeValid')}">
+          <span th:errors="*{startTimeValid}">開始時刻が不正です</span>
+        </div>
       </div>
 
       <div class="field">
@@ -70,7 +75,12 @@
                    th:field="*{endMinute}"
             />
             <div class="ui basic label">分</div>
+
           </div>
+        </div>
+        <div class="ui pointing red basic label"
+             th:if="${#fields.hasErrors('endTimeValid')}">
+          <span th:errors="*{endTimeValid}">終了時刻が不正です</span>
         </div>
       </div>
 
