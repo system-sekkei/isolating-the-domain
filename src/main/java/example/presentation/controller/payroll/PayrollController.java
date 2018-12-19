@@ -40,6 +40,8 @@ public class PayrollController {
         Map<String, Payroll> map = new HashMap<>();
         // TODO 入力から
         YearMonth month = new YearMonth(2018, 11);
+        model.addAttribute("workMonth", month.toString());
+
         for (Worker worker : contractingWorkers.list()) {
             Payroll payroll = payrollQueryService.getPayroll2(worker, month);
             map.put(worker.workerNumber().toString(), payroll);
