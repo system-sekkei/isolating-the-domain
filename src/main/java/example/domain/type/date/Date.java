@@ -45,6 +45,10 @@ public class Date {
         return value.equals(other.value);
     }
 
+    public boolean isBefore(Date other){
+        return value.isBefore(other.value);
+    }
+
     @Override
     public String toString() {
         return value.format(DateTimeFormatter.ISO_DATE);

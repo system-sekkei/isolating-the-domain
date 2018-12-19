@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 勤怠情報
  */
-public class Attendances {
+public class Attendances{
     List<Attendance> list;
 
     public Attendances(List<Attendance> list) {
@@ -20,6 +20,15 @@ public class Attendances {
         return list.stream().filter(attendance -> attendance.workDay().hasSameValue(day)).findFirst().orElseThrow(RuntimeException::new);
     }
 
+
+    public boolean isWorked(WorkDay day) {
+        return list.stream().anyMatch(attendance -> attendance.workDay().hasSameValue(day));
+    }
+
+    public boolean notWorked(WorkDay day) {
+        return !isWorked(day);
+    }
+
     public WorkTime summarize(){
         return list.stream()
                 .reduce(new WorkTime(),
@@ -27,5 +36,4 @@ public class Attendances {
                         WorkTime::add
                 );
     }
-
 }

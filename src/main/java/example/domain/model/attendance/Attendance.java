@@ -8,7 +8,7 @@ import example.domain.type.time.Minute;
 /**
  * 日次勤怠
  */
-public class Attendance {
+public class Attendance implements Comparable{
     WorkDay workDay;
     WorkTimeRange workTimeRange;
     NormalBreakTime normalBreakTime;
@@ -62,5 +62,11 @@ public class Attendance {
         DailyOvertimeWork dailyOvertimeWork = DailyOvertimeWork.legal();
         Minute overMinute = dailyOvertimeWork.overMinute(totalWorkMinute);
         return HourAndMinute.from(overMinute);
+    }
+
+    @Override
+    public int compareTo(Object attendance) {
+
+        return 0;
     }
 }

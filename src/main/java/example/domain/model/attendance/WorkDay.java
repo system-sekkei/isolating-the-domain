@@ -40,6 +40,10 @@ public class WorkDay {
         return value.hasSameValue(other.value);
     }
 
+    public boolean isBefore(WorkDay other){
+        return value.isBefore(other.value);
+    }
+
     @Override
     public String toString() {
         return value.toString();
