@@ -13,11 +13,7 @@ public class WorkDay {
     Date value;
 
     public WorkDay() {
-        this(LocalDate.now());
-    }
-
-    public WorkDay(LocalDate value) {
-        this.value = new Date(value);
+        this(new Date(LocalDate.now()));
     }
 
     public WorkDay(Date date) {
@@ -52,5 +48,6 @@ public class WorkDay {
     public String toString() {
         return value.toString();
     }
+
 
 }

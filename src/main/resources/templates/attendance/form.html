@@ -32,10 +32,17 @@
 
       <div class="field">
         <label>勤務日</label>
-
         <div class="eight wide field">
           <input class="short-input" type="date" placeholder="2018-01-01"
-                 th:field="*{workDay.value.value}"/>
+                 th:field="*{workDay}"/>
+        </div>
+        <div class="ui pointing red basic label"
+             th:if="${#fields.hasErrors('workDayComplete')}">
+          <span th:errors="*{workDayComplete}">勤務日を入力してください</span>
+        </div>
+        <div class="ui pointing red basic label"
+             th:if="${#fields.hasErrors('workDayValid')}">
+          <span th:errors="*{workDayValid}">勤務日が不正です</span>
         </div>
       </div>
 

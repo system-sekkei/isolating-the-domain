@@ -5,6 +5,7 @@ import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.*;
 import example.domain.model.worker.ContractingWorkers;
+import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * 勤怠コントローラー
@@ -52,6 +56,7 @@ public class AttendanceRegisterController {
                     BindingResult result) {
         if (result.hasErrors()) return "attendance/form";
 
+        WorkDay workDay = new WorkDay(new Date(LocalDate.parse(attendanceForm.workDay, DateTimeFormatter.ISO_DATE)));
         ClockTime startTime = new ClockTime(Integer.valueOf(attendanceForm.startHour), Integer.valueOf(attendanceForm.startMinute));
         ClockTime endTime = new ClockTime(Integer.valueOf(attendanceForm.endHour), Integer.valueOf(attendanceForm.endMinute));
         Minute minute = new Minute(attendanceForm.normalBreakTime);
@@ -59,7 +64,7 @@ public class AttendanceRegisterController {
         attendanceRecordService.registerAttendance(
                 attendanceForm.workerNumber,
                 new Attendance(
-                        attendanceForm.workDay,
+                        workDay,
                         new WorkStartTime(startTime),
                         new WorkEndTime(endTime),
                         new NormalBreakTime(minute),
@@ -67,7 +72,7 @@ public class AttendanceRegisterController {
                 )
         );
 
-        WorkMonth workMonth = attendanceForm.workDay.month();
+        WorkMonth workMonth = workDay.month();
 
         return "redirect:/attendances/" + attendanceForm.workerNumber.value() + "/" + workMonth.toString();
     }
@@ -76,7 +81,7 @@ public class AttendanceRegisterController {
     public void initBinder(WebDataBinder binder) {
         binder.setAllowedFields(
                 "workerNumber",
-                "workDay.value.value",
+                "workDay",
                 "startHour",
                 "startMinute",
                 "endHour",

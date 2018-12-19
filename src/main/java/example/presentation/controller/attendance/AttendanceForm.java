@@ -2,16 +2,19 @@ package example.presentation.controller.attendance;
 
 import example.domain.model.attendance.*;
 import example.domain.model.worker.WorkerNumber;
+import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 
 import javax.validation.constraints.AssertTrue;
 import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class AttendanceForm {
 
     WorkerNumber workerNumber;
-    WorkDay workDay;
+    String workDay;
 
     String startHour;
     String startMinute;
@@ -22,13 +25,33 @@ public class AttendanceForm {
     String midnightBreakTime;
 
     public AttendanceForm() {
-        this.workDay = new WorkDay();
+        this.workDay = LocalDate.now().toString();
         this.startHour = "9";
         this.startMinute = "0";
         this.endHour = "17";
         this.endMinute = "30";
         this.normalBreakTime = "60";
         this.midnightBreakTime = "0";
+    }
+
+    boolean workDayComplete;
+
+    @AssertTrue(message = "勤務日を入力してください")
+    boolean isWorkDayComplete() {
+        return !workDay.isEmpty();
+    }
+
+    boolean workDayValid;
+
+    @AssertTrue(message = "勤務日が不正です")
+    boolean isWorkDayValid() {
+        if (!isWorkDayComplete()) return true;
+        try {
+            new WorkDay(new Date(LocalDate.parse(workDay, DateTimeFormatter.ISO_DATE)));
+        } catch (DateTimeException ex) {
+            return false;
+        }
+        return true;
     }
 
     boolean startTimeComplete;
@@ -83,7 +106,6 @@ public class AttendanceForm {
 
     @AssertTrue(message = "終了時刻には開始時刻よりあとの時刻を入力してください")
     public boolean isWorkTimeValid() {
-        // TODO : 空値チェックはClockTimeモデルにさせるべき
         if (!isStartTimeComplete()) return true;
         if (!isEndTimeComplete()) return true;
         if (!isStartTimeValid() || !isEndTimeValid()) return true;

@@ -39,7 +39,7 @@ public class AttendanceDataSource implements AttendanceRepository {
     @Override
     public Attendances getAttendances(WorkerNumber workerNumber, Date startDate, Date endDate) {
         DateRange range = new DateRange(startDate, endDate);
-        Stream<WorkDay> workDayStream = range.days().stream().map(date -> new WorkDay(LocalDate.of(date.year().value(), date.month().value(), date.dayOfMonth())));
+        Stream<WorkDay> workDayStream = range.days().stream().map(date -> new WorkDay(new Date(LocalDate.of(date.year().value(), date.month().value(), date.dayOfMonth()))));
 
         return new Attendances(workDayStream.map(day -> findBy(workerNumber, day))
                 .collect(Collectors.toList()));
