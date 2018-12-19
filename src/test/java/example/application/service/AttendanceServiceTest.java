@@ -54,7 +54,7 @@ class AttendanceServiceTest {
         MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(workerNumber, new WorkMonth(year, month));
         assertAll(
                 () -> assertEquals(monthlyAttendances.month().toStringWithUnit(), month + "月"),
-                () -> assertEquals(monthlyAttendances.attendances().list().size(), 1)
+                () -> assertEquals(monthlyAttendances.attendances().list().size(), 31)
         );
 
         Date startDate = new Date(LocalDate.of(year, month, day));
