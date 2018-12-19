@@ -1,5 +1,22 @@
 /*TODO:16分割で各ページに違和感がないように調整するよー*/
 
+/*文字*/
+.emphasis {
+  font-size: 2rem;
+}
+
+/*ページヘッダー*/
+.pageHeader {
+  margin-top: 4em;
+  padding: 2em 0;
+}
+
+/*テーブルヘッダー*/
+.tableHeader {
+  background: #f9fafb;
+  text-align: center;
+}
+
 /*給与計算 payroll*/
 .payrollList {
   max-width: 960px;
@@ -21,6 +38,23 @@
   max-width: 500px;
   margin: 0 auto;
 }
+
+#deleteConfirmModal {
+  max-width: 500px;
+}
+
+#deleteConfirmModal > .actions {
+  text-align: center;
+}
+
+#updateCompletedModal {
+  max-width: 500px;
+}
+
+#updateCompletedModal > .actions {
+  text-align: center;
+}
+
 
 /*時給 wage*/
 .wageList {
@@ -65,19 +99,3 @@
   margin-bottom: 1rem;
 }
 
-/*文字*/
-.emphasis {
-  font-size: 2rem;
-}
-
-/*ページヘッダー*/
-.pageHeader {
-  margin-top: 4em;
-  padding: 2em 0;
-}
-
-/*テーブルヘッダー*/
-.tableHeader {
-  background: #f9fafb;
-  text-align: center;
-}
