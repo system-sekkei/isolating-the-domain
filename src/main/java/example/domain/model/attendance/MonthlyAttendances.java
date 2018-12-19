@@ -34,7 +34,7 @@ public class MonthlyAttendances {
                 .collect(Collectors.toList());
 
         return new Attendances(Stream.concat(attendances.list.stream(), notWorkedDays.stream())
-                .sorted((attendance1, attendance2) -> attendance1.workDay.isBefore(attendance2.workDay) ? -1 : 1)
+                .sorted(Attendance::compareTo)
                 .collect(Collectors.toList()));
 
     }

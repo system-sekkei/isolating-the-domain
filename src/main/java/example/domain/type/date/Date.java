@@ -13,8 +13,8 @@ public class Date {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate value;
 
-    public Date(String value){
-        this(LocalDate.parse(value,DateTimeFormatter.ISO_DATE));
+    public Date(String value) {
+        this(LocalDate.parse(value, DateTimeFormatter.ISO_DATE));
     }
 
     public Date(LocalDate value) {
@@ -41,12 +41,12 @@ public class Date {
         return DayOfWeek.of(value.getDayOfWeek());
     }
 
-    public boolean hasSameValue(Date other){
+    public boolean hasSameValue(Date other) {
         return value.equals(other.value);
     }
 
-    public boolean isBefore(Date other){
-        return value.isBefore(other.value);
+    public int compareTo(Date other) {
+        return value.compareTo(other.value);
     }
 
     @Override
