@@ -33,14 +33,11 @@ public class MonthlyAttendances {
                 .map(Attendance::new)
                 .collect(Collectors.toList());
 
+        // Attendancesのしごとかなあ・・・
         return new Attendances(Stream.concat(attendances.list.stream(), notWorkedDays.stream())
                 .sorted(Attendance::compareTo)
                 .collect(Collectors.toList()));
 
-    }
-
-    public Attendance attendanceOf(WorkDay day) {
-        return attendances.atWorkDay(day);
     }
 
 }

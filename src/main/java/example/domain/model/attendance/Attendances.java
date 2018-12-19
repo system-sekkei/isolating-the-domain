@@ -16,11 +16,6 @@ public class Attendances{
         return list;
     }
 
-    public Attendance atWorkDay(WorkDay day) {
-        return list.stream().filter(attendance -> attendance.workDay().hasSameValue(day)).findFirst().orElseThrow(RuntimeException::new);
-    }
-
-
     public boolean isWorked(WorkDay day) {
         return list.stream().anyMatch(attendance -> attendance.workDay().hasSameValue(day));
     }
