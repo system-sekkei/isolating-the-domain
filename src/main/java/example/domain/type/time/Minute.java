@@ -9,7 +9,10 @@ public class Minute {
     int value;
 
     public Minute(String time) {
-        value = Integer.parseInt(time);
+        value = time.isEmpty() ? 0 : Integer.parseInt(time);
+        if (value < 0) {
+            throw new DateTimeException("分が負の値になっています");
+        }
     }
 
     public Minute(int time) {

@@ -3,6 +3,7 @@ package example.presentation.controller.attendance;
 import example.domain.model.attendance.*;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.time.ClockTime;
+import example.domain.type.time.Minute;
 
 import javax.validation.constraints.AssertTrue;
 import java.time.DateTimeException;
@@ -17,7 +18,7 @@ public class AttendanceForm {
     String endHour;
     String endMinute;
 
-    NormalBreakTime normalBreakTime;
+    String normalBreakTime;
     MidnightBreakTime midnightBreakTime;
 
     public AttendanceForm() {
@@ -26,7 +27,7 @@ public class AttendanceForm {
         this.startMinute = "0";
         this.endHour = "17";
         this.endMinute = "30";
-        this.normalBreakTime = new NormalBreakTime("60");
+        this.normalBreakTime = "60";
         this.midnightBreakTime = new MidnightBreakTime("0");
     }
 
@@ -85,4 +86,17 @@ public class AttendanceForm {
         return new WorkEndTime(clockTime);
     }
 
+    boolean normalBreakTimeValid;
+
+    @AssertTrue(message = "休憩時間が不正です")
+    public boolean isNormalBreakTimeValid() {
+        if (normalBreakTime.isEmpty()) return true;
+
+        try {
+            new NormalBreakTime(new Minute(normalBreakTime));
+        } catch (NumberFormatException | DateTimeException ex) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -98,6 +98,10 @@
             <div class="ui basic label">分</div>
           </div>
         </div>
+        <div class="ui pointing red basic label"
+             th:if="${#fields.hasErrors('normalBreakTimeValid')}">
+          <span th:errors="*{normalBreakTimeValid}">休憩時間が不正です</span>
+        </div>
       </div>
 
       <div class="field">

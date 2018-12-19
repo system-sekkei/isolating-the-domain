@@ -3,12 +3,10 @@ package example.presentation.controller.attendance;
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
-import example.domain.model.attendance.Attendance;
-import example.domain.model.attendance.WorkEndTime;
-import example.domain.model.attendance.WorkMonth;
-import example.domain.model.attendance.WorkStartTime;
+import example.domain.model.attendance.*;
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.type.time.ClockTime;
+import example.domain.type.time.Minute;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -54,17 +52,16 @@ public class AttendanceRegisterController {
                     BindingResult result) {
         if (result.hasErrors()) return "attendance/form";
 
-
         ClockTime startTime = new ClockTime(Integer.valueOf(attendanceForm.startHour), Integer.valueOf(attendanceForm.startMinute));
         ClockTime endTime = new ClockTime(Integer.valueOf(attendanceForm.endHour), Integer.valueOf(attendanceForm.endMinute));
-
+        Minute minute = new Minute(attendanceForm.normalBreakTime);
         attendanceRecordService.registerAttendance(
                 attendanceForm.workerNumber,
                 new Attendance(
                         attendanceForm.workDay,
                         new WorkStartTime(startTime),
                         new WorkEndTime(endTime),
-                        attendanceForm.normalBreakTime,
+                        new NormalBreakTime(minute),
                         attendanceForm.midnightBreakTime
                 )
         );

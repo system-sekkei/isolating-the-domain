@@ -8,10 +8,6 @@ import example.domain.type.time.Minute;
 public class NormalBreakTime {
     Minute value;
 
-    public NormalBreakTime(String value) {
-        this(new Minute(value));
-    }
-
     public NormalBreakTime(Minute value) {
         this.value = value;
     }
