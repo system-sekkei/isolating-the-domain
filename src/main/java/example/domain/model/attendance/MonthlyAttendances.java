@@ -2,6 +2,7 @@ package example.domain.model.attendance;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * 月次勤怠
@@ -13,8 +14,7 @@ public class MonthlyAttendances {
 
     public MonthlyAttendances(WorkMonth month, Attendances attendances) {
         this.month = month;
-        this.attendances = attendances;
-        monthly();
+        this.attendances = toMonthly(attendances);
     }
 
     public WorkMonth month() {
@@ -25,17 +25,15 @@ public class MonthlyAttendances {
         return attendances;
     }
 
-    private void monthly() {
+    private Attendances toMonthly(Attendances attendances){
         List<WorkDay> days = month.days();
 
-        List<Attendance> notWorkedDays = days.stream().filter(day -> attendances.notWorked(day))
+        List<Attendance> notWorkedDays = days.stream()
+                .filter(attendances::notWorked)
                 .map(Attendance::new)
                 .collect(Collectors.toList());
 
-        // attendancesの中身は変えるべきではないかも
-        attendances.list.addAll(notWorkedDays);
-
-        attendances = new Attendances(attendances.list.stream()
+        return new Attendances(Stream.concat(attendances.list.stream(), notWorkedDays.stream())
                 .sorted((attendance1, attendance2) -> attendance1.workDay.isBefore(attendance2.workDay) ? -1 : 1)
                 .collect(Collectors.toList()));
 
