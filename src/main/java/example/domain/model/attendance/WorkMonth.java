@@ -30,6 +30,10 @@ public class WorkMonth {
         value = new YearMonth(yearMonth);
     }
 
+    public WorkMonth(YearMonth month) {
+        value = month;
+    }
+
     public List<WorkDay> days() {
         List<Date> days = value.days();
         List<WorkDay> workDays = days.stream().map(WorkDay::new)
@@ -39,6 +43,14 @@ public class WorkMonth {
 
     public String getEndingWithCondition() {
         return value.toEndingWithCondition();
+    }
+
+    public WorkMonth before() {
+        return new WorkMonth(value.before());
+    }
+
+    public WorkMonth after() {
+        return new WorkMonth(value.after());
     }
 
     public String toString(){

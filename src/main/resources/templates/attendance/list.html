@@ -12,7 +12,7 @@
   <div class="pageHeader">
     <h1 class="ui center aligned header">勤務時間の一覧</h1>
   </div>
-  
+
   <div class="attendanceInfo">
     <table class="ui celled center aligned definition table">
       <tr>
@@ -25,59 +25,58 @@
       <tr>
         <th class="six wide tableHeader">総勤務時間</th>
         <td class="ten wide"
-            th:text="${monthlyAttendances.attendances().summarize().totalWorkTime()}">50</td>
+            th:text="${monthlyAttendances.attendances().summarize().totalWorkTime()}">50
+        </td>
       </tr>
     </table>
   </div>
 
-  <div class="ui section divider"></div> 
+  <div class="ui section divider"></div>
 
-  <div class="attendanceList">  
+  <div class="attendanceList">
 
     <div class="ui centerd three column grid">
       <div class="left aligned column">
-        <!-- 前月のカレンダーとつなげたい -->
         <a href=""
-           th:href="@{/attendance/{workerNumber}/list(workerNumber=${worker.workerNumber()})}">
-           <i class="angle double left link large icon"></i>
+           th:href="@{/attendances/{workerNumber}/{beforeMonth}(workerNumber=${worker.workerNumber()},beforeMonth=${beforeMonth})}">
+          <i class="angle double left link large icon"></i>
         </a>
       </div>
       <div class="column">
         <h2 class="ui center aligned header" th:text="${monthlyAttendances.month().toStringWithUnit()}">11月</h2>
       </div>
       <div class="right aligned column">
-        <!-- 来月のカレンダーとつなげたい -->
         <a href=""
-           th:href="@{/attendance/{workerNumber}/list(workerNumber=${worker.workerNumber()})}">
-           <i class="angle double right link large icon"></i>
+           th:href="@{/attendances/{workerNumber}/{afterMonth}(workerNumber=${worker.workerNumber()},afterMonth=${afterMonth})}">
+          <i class="angle double right link large icon"></i>
         </a>
       </div>
     </div>
 
     <table class="ui celled table">
       <thead>
-        <tr class="center aligned">
-          <th class="one wide">日</th>
-          <th class="one wide">曜日</th>
-          <th>開始時刻</th>
-          <th>終了時刻</th>
-          <th>休憩時間</th>
-          <th>勤務時間</th>
-        </tr>
+      <tr class="center aligned">
+        <th class="one wide">日</th>
+        <th class="one wide">曜日</th>
+        <th>開始時刻</th>
+        <th>終了時刻</th>
+        <th>休憩時間</th>
+        <th>勤務時間</th>
+      </tr>
       </thead>
       <tbody>
-        <th:block th:each="attendance : ${monthlyAttendances.attendances().list()}">
-          <tr th:class="${attendance.workDay().dayOfWeek()}">
-            <td class="center aligned"
-                th:text="${attendance.workDay().dayOfMonth()}"></td>
-            <td class="center aligned"
-                th:text="${attendance.workDay().dayOfWeek()}"></td>
-            <td th:text="${attendance.workTimeRange().start()}"></td>
-            <td th:text="${attendance.workTimeRange().end()}"></td>
-            <td th:text="${attendance.totalBreakTime()}"></td>
-            <td th:text="${attendance.totalWorkTime()}"></td>
-          </tr>
-        </th:block>
+      <th:block th:each="attendance : ${monthlyAttendances.attendances().list()}">
+        <tr th:class="${attendance.workDay().dayOfWeek()}">
+          <td class="center aligned"
+              th:text="${attendance.workDay().dayOfMonth()}"></td>
+          <td class="center aligned"
+              th:text="${attendance.workDay().dayOfWeek()}"></td>
+          <td th:text="${attendance.workTimeRange().start()}"></td>
+          <td th:text="${attendance.workTimeRange().end()}"></td>
+          <td th:text="${attendance.totalBreakTime()}"></td>
+          <td th:text="${attendance.totalWorkTime()}"></td>
+        </tr>
+      </th:block>
       </tbody>
     </table>
 

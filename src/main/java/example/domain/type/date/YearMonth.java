@@ -33,6 +33,10 @@ public class YearMonth {
         }
     }
 
+    public YearMonth(java.time.YearMonth month) {
+        value = month;
+    }
+
     public Year year() {
         return new Year(value.getYear());
     }
@@ -54,6 +58,14 @@ public class YearMonth {
         return intStream.mapToObj(i -> new Date(start().value().plusDays((long) i - 1))).collect(Collectors.toList());
     }
 
+    public YearMonth before() {
+        return new YearMonth(value.minusMonths(1));
+    }
+
+    public YearMonth after() {
+        return new YearMonth(value.plusMonths(1));
+    }
+
     public String toString() {
         return value.format(FORMATTER);
     }
@@ -64,4 +76,5 @@ public class YearMonth {
     public String toEndingWithCondition() {
         return value.format(DateTimeFormatter.ofPattern("uuuuMM")) + "%";
     }
+
 }
