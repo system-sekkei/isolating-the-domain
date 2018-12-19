@@ -55,6 +55,7 @@ public class AttendanceRegisterController {
         ClockTime startTime = new ClockTime(Integer.valueOf(attendanceForm.startHour), Integer.valueOf(attendanceForm.startMinute));
         ClockTime endTime = new ClockTime(Integer.valueOf(attendanceForm.endHour), Integer.valueOf(attendanceForm.endMinute));
         Minute minute = new Minute(attendanceForm.normalBreakTime);
+        Minute midnightMinute = new Minute(attendanceForm.midnightBreakTime);
         attendanceRecordService.registerAttendance(
                 attendanceForm.workerNumber,
                 new Attendance(
@@ -62,7 +63,7 @@ public class AttendanceRegisterController {
                         new WorkStartTime(startTime),
                         new WorkEndTime(endTime),
                         new NormalBreakTime(minute),
-                        attendanceForm.midnightBreakTime
+                        new MidnightBreakTime(midnightMinute)
                 )
         );
 

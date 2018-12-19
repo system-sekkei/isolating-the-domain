@@ -19,7 +19,7 @@ public class AttendanceForm {
     String endMinute;
 
     String normalBreakTime;
-    MidnightBreakTime midnightBreakTime;
+    String midnightBreakTime;
 
     public AttendanceForm() {
         this.workDay = new WorkDay();
@@ -28,7 +28,7 @@ public class AttendanceForm {
         this.endHour = "17";
         this.endMinute = "30";
         this.normalBreakTime = "60";
-        this.midnightBreakTime = new MidnightBreakTime("0");
+        this.midnightBreakTime = "0";
     }
 
     boolean startTimeComplete;
@@ -113,6 +113,20 @@ public class AttendanceForm {
 
         try {
             new NormalBreakTime(new Minute(normalBreakTime));
+        } catch (NumberFormatException | DateTimeException ex) {
+            return false;
+        }
+        return true;
+    }
+
+    boolean midnightBreakTimeValid;
+
+    @AssertTrue(message = "休憩時間（深夜）が不正です")
+    public boolean isMidnightBreakTimeValid() {
+        if (midnightBreakTime.isEmpty()) return true;
+
+        try {
+            new MidnightBreakTime(new Minute(midnightBreakTime));
         } catch (NumberFormatException | DateTimeException ex) {
             return false;
         }

@@ -122,6 +122,10 @@
             <div class="ui basic label">分</div>
           </div>
         </div>
+        <div class="ui pointing red basic label"
+             th:if="${#fields.hasErrors('midnightBreakTimeValid')}">
+          <span th:errors="*{midnightBreakTimeValid}">休憩時間（深夜）が不正です</span>
+        </div>
       </div>
 
       <div class="ui center aligned basic segment">
