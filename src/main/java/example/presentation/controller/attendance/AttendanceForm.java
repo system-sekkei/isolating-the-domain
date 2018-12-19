@@ -31,11 +31,19 @@ public class AttendanceForm {
         this.midnightBreakTime = new MidnightBreakTime("0");
     }
 
-    boolean startTimeValid = false;
+    boolean startTimeComplete;
+
+    @AssertTrue(message = "開始時刻を入力してください")
+    boolean isStartTimeComplete() {
+        if (startHour.isEmpty() || startMinute.isEmpty()) return false;
+        return true;
+    }
+
+    boolean startTimeValid;
 
     @AssertTrue(message = "開始時刻が不正です")
     public boolean isStartTimeValid() {
-        if (startHour.isEmpty() || startMinute.isEmpty()) return false;
+        if (startHour.isEmpty() || startMinute.isEmpty()) return true;
 
         try {
             workStartTime();
@@ -46,13 +54,21 @@ public class AttendanceForm {
         return true;
     }
 
-    boolean endTimeValid = false;
+    boolean endTimeComplete;
+
+    @AssertTrue(message = "終了時刻を入力してください")
+    boolean isEndTimeComplete() {
+        if (endHour.isEmpty() || endMinute.isEmpty()) return false;
+        return true;
+    }
+
+    boolean endTimeValid;
 
     @AssertTrue(message = "終了時刻が不正です")
     public boolean isEndTimeValid() {
         // TODO : 24時を超える終業時刻を入力できるようにする
         // TODO : 上記に対応したあとで開始時刻 < 終了時刻のチェックもする
-        if (endHour.isEmpty() || endMinute.isEmpty()) return false;
+        if (endHour.isEmpty() || endMinute.isEmpty()) return true;
 
         try {
             workEndTime();
@@ -63,10 +79,12 @@ public class AttendanceForm {
         return true;
     }
 
-    boolean workTimeValid = false;
+    boolean workTimeValid;
 
     @AssertTrue(message = "終了時刻には開始時刻よりあとの時刻を入力してください")
     public boolean isWorkTimeValid() {
+        if (startHour.isEmpty() || startMinute.isEmpty()) return true;
+        if (endHour.isEmpty() || endMinute.isEmpty()) return true;
         if (!isStartTimeValid() || !isEndTimeValid()) return true;
 
         WorkStartTime workStartTime = workStartTime();
