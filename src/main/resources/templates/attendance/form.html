@@ -82,6 +82,10 @@
              th:if="${#fields.hasErrors('endTimeValid')}">
           <span th:errors="*{endTimeValid}">終了時刻が不正です</span>
         </div>
+        <div class="ui pointing red basic label"
+             th:if="${#fields.hasErrors('workTimeValid')}">
+          <span th:errors="*{workTimeValid}">終了時刻には開始時刻よりあとの時刻を入力してください</span>
+        </div>
       </div>
 
       <div class="field">

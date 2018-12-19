@@ -43,4 +43,8 @@ public class ClockTime {
     public static Minute tickPeriod() {
         return new Minute(15);
     }
+
+    public boolean isAfter(ClockTime other){
+        return value.isAfter(other.value);
+    }
 }

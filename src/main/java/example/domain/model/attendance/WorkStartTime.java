@@ -17,8 +17,13 @@ public class WorkStartTime {
         return value.quarterRoundDown();
     }
 
+    public boolean isAfter(WorkEndTime workEndTime) {
+        return value.isAfter(workEndTime.value);
+    }
+
     @Override
     public String toString() {
         return value.toString();
     }
+
 }

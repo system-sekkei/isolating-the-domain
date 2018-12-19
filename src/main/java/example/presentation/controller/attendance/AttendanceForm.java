@@ -37,8 +37,7 @@ public class AttendanceForm {
         if (startHour.isEmpty() || startMinute.isEmpty()) return false;
 
         try {
-            ClockTime clockTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
-            new WorkStartTime(clockTime);
+            workStartTime();
         } catch (NumberFormatException | DateTimeException ex) {
             return false;
         }
@@ -55,11 +54,35 @@ public class AttendanceForm {
         if (endHour.isEmpty() || endMinute.isEmpty()) return false;
 
         try {
-            new WorkEndTime(new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute)));
+            workEndTime();
         } catch (NumberFormatException | DateTimeException ex) {
             return false;
         }
 
         return true;
     }
+
+    boolean workTimeValid = false;
+
+    @AssertTrue(message = "終了時刻には開始時刻よりあとの時刻を入力してください")
+    public boolean isWorkTimeValid() {
+        if (!isStartTimeValid() || !isEndTimeValid()) return true;
+
+        WorkStartTime workStartTime = workStartTime();
+        WorkEndTime workEndTime = workEndTime();
+        if (workStartTime.isAfter(workEndTime)) return false;
+
+        return true;
+    }
+
+    private WorkStartTime workStartTime() {
+        ClockTime clockTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
+        return new WorkStartTime(clockTime);
+    }
+
+    private WorkEndTime workEndTime() {
+        ClockTime clockTime = new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
+        return new WorkEndTime(clockTime);
+    }
+
 }
