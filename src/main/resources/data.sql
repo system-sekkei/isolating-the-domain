@@ -92,7 +92,7 @@ values
 INSERT INTO 給与.契約中(従業員ID) values(1),(2),(3),(4),(5),(6);
 
 -- 時給
-INSERT INTO 給与.時給(時給ID, 従業員ID, 時給, 適用開始日) VALUES
+INSERT INTO 給与.契約履歴(時給ID, 従業員ID, 時給, 適用開始日) VALUES
 (1, 1, 950, DATEADD('DAY', -60, CURRENT_DATE)),
 (2, 2, 950, DATEADD('DAY', -60, CURRENT_DATE)),
 (3, 3, 950, DATEADD('DAY', -60, CURRENT_DATE)),
