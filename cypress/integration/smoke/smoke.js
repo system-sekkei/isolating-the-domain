@@ -38,12 +38,26 @@ context('isolating-the-domain', () => {
     cy.title().should('contains', '従業員情報の詳細')
     cy.get('.button').contains('ＯＫ').click()
 
+    // 時給の一覧
+    cy.get('.button').contains('時給の一覧').click()
+    cy.title().should('contains', '時給の一覧')
+
+    // 時給の登録
+    // TODO : とりあえず画面遷移だけ。登録機能が完成したら登録フローも追加する
+    cy.get('.button').contains('登録').click()
+    cy.title().should('contains', '時給の登録')
+    cy.get('.button').contains('戻る').click()
+    cy.title().should('contains', '時給の一覧')
+    cy.get('.button').contains('戻る').click()
+    cy.title().should('contains', '従業員情報の詳細')
+
     cy.get('a').contains('ダッシュボード').click()
     cy.title().should('eq', 'ダッシュボード')
 
     // 勤務時間入力
     cy.get('a').contains('勤務時間の入力').click()
     cy.title().should('contains', '入力')
+    // TODO : バリデーションのテスト
     cy.get('.button').contains('登録').click()
     cy.title().should('contains', '勤務時間の一覧')
 
