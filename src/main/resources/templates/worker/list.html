@@ -38,13 +38,6 @@
               <a th:href="@{/workers/{workerNumber}(workerNumber=${worker.workerNumber()})}"><span th:text="${worker.name()}"></span></a>
             </td>
             <td></td>
-            <td class="ui center aligned">
-              <a class="ui tiny positive basic button"
-                 th:href="@{/workers/wage/{workerNumber}(workerNumber=${worker.workerNumber()})}">
-                <i class="calculator icon"></i>時給の一覧
-                <!-- TODO:時給一覧に飛ばす まだいまは時給の登録に飛んでしまうですー -->
-              </a>
-            </td>
           </tr>
         </tbody>
       </table>
