@@ -12,7 +12,7 @@
   <div class="pageHeader">
     <h1 class="ui center aligned header">時給の一覧</h1>
   </div>
-  
+
   <div class="attendanceInfo">
     <table class="ui celled center aligned definition table">
       <tr>
@@ -22,27 +22,29 @@
     </table>
   </div>
 
-  <div class="wageList">  
+  <div class="wageList">
 
     <div class="ui center aligned basic segment">
+      <a class="ui grey button"
+         th:href="@{/workers/{workerNumber}(workerNumber=${worker.workerNumber()})}">詳細に戻る</a>
       <a class="ui labeled icon primary button"
-      th:href="@{/wages/{workerNumber}/register(workerNumber=${worker.workerNumber()})}">
+         th:href="@{/wages/{workerNumber}/register(workerNumber=${worker.workerNumber()})}">
         <i class="calculator icon"></i>時給の登録
       </a>
     </div>
 
     <table class="ui celled table">
       <thead>
-        <tr class="center aligned">
-          <th class="eight wide">開始日付</th>
-          <th class="eight wide">時給</th>
-        </tr>
+      <tr class="center aligned">
+        <th class="eight wide">開始日付</th>
+        <th class="eight wide">時給</th>
+      </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>2018/12/01</td>
-          <td class="right aligned">937</td>
-        </tr>
+      <tr>
+        <td>2018/12/01</td>
+        <td class="right aligned">937</td>
+      </tr>
       </tbody>
     </table>
 
