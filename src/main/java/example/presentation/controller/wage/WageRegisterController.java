@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.*;
  * 時給の一覧
  */
 @Controller
-@RequestMapping("workers/wage/{workerNumber}")
-class WageController {
+@RequestMapping("wages/{workerNumber}/register")
+class WageRegisterController {
 
     WorkerQueryService workerQueryService;
     ContractRecordService contractRecordService;
 
-    public WageController(WorkerQueryService workerQueryService, ContractRecordService contractRecordService) {
+    public WageRegisterController(WorkerQueryService workerQueryService, ContractRecordService contractRecordService) {
         this.workerQueryService = workerQueryService;
         this.contractRecordService = contractRecordService;
     }
@@ -34,7 +34,7 @@ class WageController {
     @GetMapping
     public String init(Worker worker,
                        Model model) {
-        return "worker/wage/form";
+        return "wage/form";
     }
 
     @PostMapping(value="confirm")
@@ -44,7 +44,7 @@ class WageController {
                            Model model) {
         model.addAttribute("startDate", startDate);
         model.addAttribute("hourlyWage", hourlyWage);
-        return "worker/wage/confirm";
+        return "wage/confirm";
     }
 
     @PostMapping(value="again")
@@ -54,7 +54,7 @@ class WageController {
                           Model model) {
         model.addAttribute("startDate", startDate);
         model.addAttribute("hourlyWage", hourlyWage);
-        return "worker/wage/form";
+        return "wage/form";
     }
 
     @PostMapping(value="register")
@@ -67,6 +67,6 @@ class WageController {
 
     @GetMapping(value="completed")
     String showResult(Worker worker) {
-        return "worker/wage/result";
+        return "wage/result";
     }
 }

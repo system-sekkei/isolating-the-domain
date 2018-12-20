@@ -25,10 +25,10 @@
   <div class="wageList">  
 
     <div class="ui center aligned basic segment">
-      <a class="ui labeled icon primary button">
+      <a class="ui labeled icon primary button"
+      th:href="@{/wages/{workerNumber}/register(workerNumber=${worker.workerNumber()})}">
         <i class="calculator icon"></i>時給の登録
       </a>
-      <!-- TODO:時給の登録ページにつなぐよー -->
     </div>
 
     <table class="ui celled table">
