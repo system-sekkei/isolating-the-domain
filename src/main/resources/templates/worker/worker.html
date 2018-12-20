@@ -54,15 +54,8 @@
 </div>
 
 <!-- 削除の確認 -->
-<div id="deleteConfirmModal" class="ui modal">
-  <div class="ui top attached negative message">
-    <div class="header">削除の確認</div>
-  </div>
-  <div class="content">
-    <p>
-      <strong th:text="${worker.name()}">従業員さん</strong>を削除しますか？
-    </p>
-  </div>
+<div id="deleteConfirmModal" class="ui tiny modal">
+  <h3 class="caution"><strong th:text="${worker.name()}">従業員さん</strong>を削除しますか？</h3>
   <div class="actions">
     <div class="ui grey deny button">
       キャンセル
@@ -81,10 +74,8 @@
 </script>
 
 <!-- 変更の完了 -->
-<div id="updateCompletedModal" class="ui modal">
-  <div class="ui top attached success message">
-    <div class="header">従業員情報を変更しました。</div>
-  </div>
+<div id="updateCompletedModal" class="ui tiny modal">
+  <h3 class="complete">従業員情報を変更しました。</h3>
   <div class="actions">
     <div class="ui positive deny button">
       ＯＫ

@@ -39,22 +39,29 @@
   margin: 0 auto;
 }
 
-#deleteConfirmModal {
-  max-width: 500px;
-}
-
 #deleteConfirmModal > .actions {
   text-align: center;
-}
-
-#updateCompletedModal {
-  max-width: 500px;
 }
 
 #updateCompletedModal > .actions {
   text-align: center;
 }
 
+.caution {
+  padding: 1rem;
+  margin-bottom: 0;
+  background-color: #fff6f6;
+  color: #9f3a38;
+  font-weight: bold;
+}
+
+.complete {
+  padding: 1rem;
+  margin-bottom: 0;
+  background-color: #fcfff5;
+  color: #2c662d;
+  font-weight: bold;
+}
 
 /*時給 wage*/
 .wageList {
