@@ -21,7 +21,7 @@ public class PayrollQueryService {
     ContractQueryService contractQueryService;
     AttendanceQueryService attendanceQueryService;
 
-    public Payroll getPayroll2(Worker worker, YearMonth yearMonth) {
+    public Payroll getPayroll(Worker worker, YearMonth yearMonth) {
         WorkerNumber workerNumber = worker.workerNumber();
         Contracts contracts = contractQueryService.getContracts(workerNumber, yearMonth.start(), yearMonth.end());
         List<ContractPayroll> contractPayrolls = contracts.value().stream().map(c -> new ContractPayroll(c, attendanceQueryService.getAttendances(workerNumber, c.startDate(), c.endDate()))).collect(Collectors.toList());

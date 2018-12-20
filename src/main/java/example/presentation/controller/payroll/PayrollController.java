@@ -43,7 +43,7 @@ public class PayrollController {
         model.addAttribute("workMonth", month.toString());
 
         for (Worker worker : contractingWorkers.list()) {
-            Payroll payroll = payrollQueryService.getPayroll2(worker, month);
+            Payroll payroll = payrollQueryService.getPayroll(worker, month);
             map.put(worker.workerNumber().toString(), payroll);
         }
         model.addAttribute("map", map);
