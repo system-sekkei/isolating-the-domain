@@ -1,4 +1,4 @@
-package example.presentation.controller.worker;
+package example.presentation.controller.wage;
 
 
 import example.application.service.contract.ContractRecordService;
