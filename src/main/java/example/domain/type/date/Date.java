@@ -54,4 +54,10 @@ public class Date {
         return value.format(DateTimeFormatter.ISO_DATE);
     }
 
+    public boolean inRange(DateRange range) {
+        return value.isEqual(range.startDate().value)
+                || value.isEqual(range.endDate().value)
+                || value.isAfter(range.startDate().value)
+                || value.isBefore(range.endDate().value);
+    }
 }

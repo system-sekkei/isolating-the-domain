@@ -56,21 +56,5 @@ class AttendanceServiceTest {
                 () -> assertEquals(monthlyAttendances.month().toStringWithUnit(), month + "月"),
                 () -> assertEquals(monthlyAttendances.attendances().list().size(), 31)
         );
-
-        Date startDate = new Date(LocalDate.of(year, month, day));
-        Date endDate = new Date(LocalDate.of(year, month, day));
-        Attendances attendances = attendanceQueryService.getAttendances(workerNumber, startDate, endDate);
-        WorkTime workTime = attendances.summarize();
-        assertAll(
-                () -> assertEquals(attendances.list().size(), 1),
-                () -> assertEquals(workTime.normalTime().toString(), "07:00")
-        );
-
-        Attendance actualAttendance = attendances.list().get(0);
-        assertAll(() -> assertTrue(expectAttendance.workDay().hasSameValue(actualAttendance.workDay())),
-                () -> assertEquals(expectAttendance.workTimeRange().start().toString(), actualAttendance.workTimeRange().start().toString()),
-                () -> assertEquals(expectAttendance.workTimeRange().end().toString(), actualAttendance.workTimeRange().end().toString()),
-                () -> assertEquals(expectAttendance.totalBreakTime().toString(), actualAttendance.totalBreakTime().toString()));
     }
-
 }
