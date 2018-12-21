@@ -1,6 +1,5 @@
 package example.domain.type.time;
 
-import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;

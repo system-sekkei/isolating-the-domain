@@ -5,7 +5,6 @@ import example.domain.type.time.ClockTime;
 import example.domain.type.time.ClockTimeRange;
 import example.domain.type.time.Minute;
 
-import java.time.Clock;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Iterator;

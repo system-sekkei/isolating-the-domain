@@ -3,12 +3,9 @@ package example.application.service;
 import example.Application;
 import example.application.service.contract.ContractQueryService;
 import example.application.service.contract.ContractRecordService;
-import example.application.service.worker.WorkerQueryService;
 import example.application.service.worker.WorkerRecordService;
 import example.domain.model.contract.Contract;
-import example.domain.model.contract.Contracts;
 import example.domain.model.contract.HourlyWage;
-import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import org.junit.jupiter.api.DisplayName;
@@ -28,8 +25,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ContractRecordServiceTest {
     @Autowired
     WorkerRecordService workerRecordService;
-    @Autowired
-    WorkerQueryService workerQueryService;
     @Autowired
     ContractRecordService sutRecord;
     @Autowired

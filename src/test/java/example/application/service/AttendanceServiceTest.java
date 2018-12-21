@@ -20,7 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * 勤怠情報のテスト

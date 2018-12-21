@@ -10,7 +10,7 @@ import example.domain.type.date.Date;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
