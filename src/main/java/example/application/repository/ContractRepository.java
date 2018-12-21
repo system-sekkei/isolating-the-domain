@@ -13,8 +13,6 @@ public interface ContractRepository {
 
     void stopHourlyWageContract(WorkerNumber workerNumber, Date lastDate);
 
-    Contract getContract(WorkerNumber workerNumber, Date date);
-
     ContractHistory getContractHistory(WorkerNumber workerNumber);
 
     void registerHourlyWage(WorkerNumber workerNumber, Date startDate, HourlyWage hourlyWage);

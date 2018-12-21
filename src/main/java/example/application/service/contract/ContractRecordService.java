@@ -17,14 +17,14 @@ public class ContractRecordService {
         this.contractRepository = contractRepository;
     }
 
-    public void stopHourlyWageContract(WorkerNumber workerNumber, Date lastDate) {
-        contractRepository.stopHourlyWageContract(workerNumber, lastDate);
-    }
-
     /**
      * 時給登録
      */
     public void registerHourlyWage(WorkerNumber workerNumber, Date startDate, HourlyWage hourlyWage) {
         contractRepository.registerHourlyWage(workerNumber, startDate, hourlyWage);
+    }
+
+    public void stopHourlyWageContract(WorkerNumber workerNumber, Date lastDate) {
+        contractRepository.stopHourlyWageContract(workerNumber, lastDate);
     }
 }

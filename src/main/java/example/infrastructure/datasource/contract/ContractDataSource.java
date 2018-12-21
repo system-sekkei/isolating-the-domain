@@ -45,16 +45,6 @@ public class ContractDataSource implements ContractRepository {
         return new Contracts(list.stream().map(cd2 -> new Contract(cd2.startDate(), cd2.endDate(), cd2.hourlyWage())).collect(Collectors.toList()));
     }
 
-    @Override
-    public Contract getContract(WorkerNumber workerNumber, Date date) {
-        HourlyWageData contractData2 = mapper.selectHourlyWageData(workerNumber, date);
-        if(contractData2 == null) {
-            //FIXME 後で例外変える
-            throw new HourlyWageNotFoundException();
-        }
-        return new Contract(contractData2.startDate(), contractData2.endDate(), contractData2.hourlyWage());
-    }
-
     private Date getEndDate(WorkerNumber workerNumber, Date date) {
         return new Date(LocalDate.of(9999, 12, 31));
     }

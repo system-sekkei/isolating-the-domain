@@ -1,7 +1,6 @@
 package example.application.service.contract;
 
 import example.application.repository.ContractRepository;
-import example.domain.model.contract.Contract;
 import example.domain.model.contract.ContractHistory;
 import example.domain.model.contract.Contracts;
 import example.domain.model.worker.WorkerNumber;
@@ -20,10 +19,6 @@ public class ContractQueryService {
      */
     public Contracts getContracts(WorkerNumber workerNumber, Date startDate, Date endDate) {
         return contractRepository.getContracts(workerNumber, startDate, endDate);
-    }
-
-    public Contract getContract(WorkerNumber workerNumber, Date date) {
-        return contractRepository.getContract(workerNumber, date);
     }
 
     public ContractHistory getContractHistory(WorkerNumber workerNumber) {
