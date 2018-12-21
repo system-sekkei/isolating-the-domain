@@ -1,24 +1,21 @@
 package example.domain.model.contract;
 
-import java.time.LocalDate;
-import java.util.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
+/**
+ * 契約の変遷
+ */
 public class ContractHistory {
-    List<Contract> contracts;
+    List<Contract> list;
 
-    public ContractHistory(List<Contract> contracts) {
-        this.contracts = sort(contracts);
+    public ContractHistory(Contracts contracts) {
+        this.list = contracts.list;
     }
 
-    private List<Contract> sort(List<Contract> contracts) {
-        SortedMap<LocalDate, Contract> map = new TreeMap<>();
-        contracts.forEach(contract -> map.put(contract.startDate().value(), contract));
-        ArrayList<Contract> ret = new ArrayList<>(map.values());
-        Collections.reverse(ret);
-        return ret;
-    }
-
-    public List<Contract> history() {
-        return contracts;
+    public List<Contract> list() {
+        return list.stream()
+                .sorted((c1, c2) -> c2.startDate().compareTo(c1.startDate()))
+                .collect(Collectors.toList());
     }
 }

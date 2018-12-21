@@ -1,7 +1,6 @@
 package example.application.repository;
 
 
-import example.domain.model.contract.ContractHistory;
 import example.domain.model.contract.Contracts;
 import example.domain.model.contract.HourlyWageContract;
 import example.domain.model.worker.WorkerNumber;
@@ -11,8 +10,6 @@ public interface ContractRepository {
     Contracts getContracts(WorkerNumber workerNumber);
 
     void stopHourlyWageContract(WorkerNumber workerNumber, Date lastDate);
-
-    ContractHistory getContractHistory(WorkerNumber workerNumber);
 
     void registerHourlyWage(WorkerNumber workerNumber, Date startDate, HourlyWageContract hourlyWageContract);
 }

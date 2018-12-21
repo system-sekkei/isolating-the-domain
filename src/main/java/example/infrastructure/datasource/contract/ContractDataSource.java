@@ -1,7 +1,6 @@
 package example.infrastructure.datasource.contract;
 
 import example.application.repository.ContractRepository;
-import example.domain.model.contract.ContractHistory;
 import example.domain.model.contract.Contracts;
 import example.domain.model.contract.HourlyWageContract;
 import example.domain.model.worker.WorkerNumber;
@@ -29,12 +28,6 @@ public class ContractDataSource implements ContractRepository {
         if (hourlyWageData == null) return;
         mapper.deleteContractData(workerNumber, hourlyWageData.startDate(), hourlyWageData.endDate());
         mapper.insertContract(workerNumber, hourlyWageData.startDate(), stopDate, hourlyWageData.toHourlyWageContract());
-    }
-
-    @Override
-    public ContractHistory getContractHistory(WorkerNumber workerNumber) {
-        Contracts contracts = getContracts(workerNumber);
-        return new ContractHistory(contracts.value());
     }
 
     @Override

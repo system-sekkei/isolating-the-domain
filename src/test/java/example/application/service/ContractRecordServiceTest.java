@@ -41,11 +41,11 @@ public class ContractRecordServiceTest {
         HourlyWage wage1 = new HourlyWage(800);
         updateHourlyWageContract(number, applyDate1, wage1);
         ContractHistory history1 = sutQuery.getContractHistory(number);
-        assertEquals(1, history1.history().size());
+        assertEquals(1, history1.list().size());
         assertAll(
-                () -> assertEquals(now, history1.history().get(0).startDate().value()),
-                () -> assertEquals(infinite, history1.history().get(0).endDate().value()),
-                () -> assertEquals(800, history1.history().get(0).hourlyWage().value().intValue())
+                () -> assertEquals(now, history1.list().get(0).startDate().value()),
+                () -> assertEquals(infinite, history1.list().get(0).endDate().value()),
+                () -> assertEquals(800, history1.list().get(0).hourlyWage().value().intValue())
         );
 
         //2発目
@@ -53,14 +53,14 @@ public class ContractRecordServiceTest {
         HourlyWage wage2 = new HourlyWage(850);
         updateHourlyWageContract(number, applyDate2, wage2);
         ContractHistory history2 = sutQuery.getContractHistory(number);
-        assertEquals(2, history2.history().size());
+        assertEquals(2, history2.list().size());
         assertAll(
-                () -> assertEquals(applyDate2.value(), history2.history().get(0).startDate().value()),
-                () -> assertEquals(infinite, history2.history().get(0).endDate().value()),
-                () -> assertEquals(850, history2.history().get(0).hourlyWage().value().intValue()),
-                () -> assertEquals(now, history2.history().get(1).startDate().value()),
-                () -> assertEquals(applyDate2.value().minusDays(1), history2.history().get(1).endDate().value()),
-                () -> assertEquals(800, history2.history().get(1).hourlyWage().value().intValue())
+                () -> assertEquals(applyDate2.value(), history2.list().get(0).startDate().value()),
+                () -> assertEquals(infinite, history2.list().get(0).endDate().value()),
+                () -> assertEquals(850, history2.list().get(0).hourlyWage().value().intValue()),
+                () -> assertEquals(now, history2.list().get(1).startDate().value()),
+                () -> assertEquals(applyDate2.value().minusDays(1), history2.list().get(1).endDate().value()),
+                () -> assertEquals(800, history2.list().get(1).hourlyWage().value().intValue())
         );
 
         //3発目（過去）
@@ -68,14 +68,14 @@ public class ContractRecordServiceTest {
         HourlyWage wage3 = new HourlyWage(830);
         updateHourlyWageContract(number, applyDate3, wage3);
         ContractHistory history3 = sutQuery.getContractHistory(number);
-        assertEquals(2, history3.history().size());
+        assertEquals(2, history3.list().size());
         assertAll(
-                () -> assertEquals(applyDate3.value(), history3.history().get(0).startDate().value()),
-                () -> assertEquals(infinite, history3.history().get(0).endDate().value()),
-                () -> assertEquals(830, history3.history().get(0).hourlyWage().value().intValue()),
-                () -> assertEquals(now, history3.history().get(1).startDate().value()),
-                () -> assertEquals(applyDate3.value().minusDays(1), history3.history().get(1).endDate().value()),
-                () -> assertEquals(800, history3.history().get(1).hourlyWage().value().intValue())
+                () -> assertEquals(applyDate3.value(), history3.list().get(0).startDate().value()),
+                () -> assertEquals(infinite, history3.list().get(0).endDate().value()),
+                () -> assertEquals(830, history3.list().get(0).hourlyWage().value().intValue()),
+                () -> assertEquals(now, history3.list().get(1).startDate().value()),
+                () -> assertEquals(applyDate3.value().minusDays(1), history3.list().get(1).endDate().value()),
+                () -> assertEquals(800, history3.list().get(1).hourlyWage().value().intValue())
         );
     }
 
