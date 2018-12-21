@@ -16,23 +16,23 @@ public class WorkMonth {
 
     @Deprecated
     public WorkMonth() {
-        value = new YearMonth();
+        this(new YearMonth());
     }
 
     public WorkMonth(int year, int month) {
-        value = new YearMonth(year, month);
+        this(new YearMonth(year, month));
     }
 
     public WorkMonth(Year year, Month month) {
-        value = new YearMonth(year, month);
+        this(new YearMonth(year, month));
     }
 
     public WorkMonth(String yearMonth) {
-        value = new YearMonth(yearMonth);
+        this(new YearMonth(yearMonth));
     }
 
-    public WorkMonth(YearMonth month) {
-        value = month;
+    public WorkMonth(YearMonth value) {
+        this.value = value;
     }
 
     public List<WorkDay> days() {
@@ -54,7 +54,7 @@ public class WorkMonth {
         return new WorkMonth(value.after());
     }
 
-    public String toString(){
+    public String toString() {
         return value.toString();
     }
 
