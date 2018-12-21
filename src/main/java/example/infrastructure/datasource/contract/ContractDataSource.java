@@ -23,11 +23,6 @@ public class ContractDataSource implements ContractRepository {
     }
 
     @Override
-    public HourlyWage getHourlyWage(WorkerNumber workerNumber, Date workDay) {
-        return new HourlyWage(getContractData(workerNumber, workDay).hourlyWage);
-    }
-
-    @Override
     public Contracts getContracts(WorkerNumber workerNumber, Date startDate, Date endDate) {
         DateRange range = new DateRange(startDate, endDate);
         List<Date> days = range.days();

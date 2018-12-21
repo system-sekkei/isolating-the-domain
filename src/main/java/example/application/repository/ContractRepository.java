@@ -8,8 +8,6 @@ import example.domain.type.date.Date;
 public interface ContractRepository {
     void registerHourlyWage(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage);
 
-    HourlyWage getHourlyWage(WorkerNumber workerNumber, Date workDay);
-
     Contracts getContracts(WorkerNumber workerNumber, Date startDate, Date endDate);
 
     void stopHourlyWageContract(WorkerNumber workerNumber, Date lastDate);
