@@ -4,7 +4,6 @@ import example.application.repository.ContractRepository;
 import example.domain.model.contract.Contract;
 import example.domain.model.contract.ContractHistory;
 import example.domain.model.contract.Contracts;
-import example.domain.model.contract.HourlyWage;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import org.springframework.stereotype.Service;
@@ -15,13 +14,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ContractQueryService {
     ContractRepository contractRepository;
-
-    /**
-     * 時給取得
-     */
-    public HourlyWage getHourlyWage(WorkerNumber workerNumber, Date workDay) {
-        return contractRepository.getHourlyWage(workerNumber, workDay);
-    }
 
     /**
      *　雇用契約変遷

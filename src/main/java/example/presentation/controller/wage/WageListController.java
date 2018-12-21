@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 従業員ごとの時給の一覧
+ * 従業員ごとの時給の変遷
  */
 @Controller
 @RequestMapping("wages/{workerNumber}")

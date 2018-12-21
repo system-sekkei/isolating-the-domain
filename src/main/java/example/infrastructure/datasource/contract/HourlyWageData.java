@@ -5,7 +5,7 @@ import example.domain.type.date.Date;
 
 import java.time.LocalDate;
 
-public class ContractData2 {
+public class HourlyWageData {
     LocalDate startDate;
     LocalDate endDate;
     Integer hourlyWage;
