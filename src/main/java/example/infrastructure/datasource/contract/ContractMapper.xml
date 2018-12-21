@@ -8,8 +8,8 @@
     </select>
 
     <insert id="registerHourlyWage">
-        INSERT INTO 給与.時給契約履歴 (時給ID, 従業員ID, 時給, 適用開始日)
-        VALUES (#{id}, #{workerNumber.value}, #{hourlyWage.value}, #{applyDate.value});
+        INSERT INTO 給与.時給契約履歴 (時給ID, 従業員ID, 時給, 適用開始日, 時間外割増率, 深夜割増率)
+        VALUES (#{id}, #{workerNumber.value}, #{hourlyWage.value}, #{applyDate.value}, #{overTimeHourlyWage}, #{midnightExtraPayRate});
     </insert>
 
     <resultMap id="contractHistory" type="example.infrastructure.datasource.contract.ContractHistoryData">
@@ -48,8 +48,8 @@
     </select>
 
     <insert id="insertContract">
-        INSERT INTO 給与.時給契約(従業員ID, 適用開始日, 適用終了日, 時給) VALUES
-        (#{workerNumber.value}, #{startDate.value}, #{endDate.value}, #{hourlyWage.value})
+        INSERT INTO 給与.時給契約(従業員ID, 適用開始日, 適用終了日, 時給, 時間外割増率, 深夜割増率) VALUES
+        (#{workerNumber.value}, #{startDate.value}, #{endDate.value}, #{hourlyWage.value}, #{overTimeHourlyWage}, #{midnightExtraPayRate})
     </insert>
 
     <delete id="deleteFeatureContract">

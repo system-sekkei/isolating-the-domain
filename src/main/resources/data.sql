@@ -92,30 +92,30 @@ values
 INSERT INTO 給与.契約中(従業員ID) values(1),(2),(3),(4),(5),(6);
 
 -- 時給
-INSERT INTO 給与.時給契約履歴(時給ID, 従業員ID, 時給, 適用開始日) VALUES
-(1, 1, 950, DATEADD('DAY', -60, CURRENT_DATE)),
-(2, 2, 950, DATEADD('DAY', -60, CURRENT_DATE)),
-(3, 3, 950, DATEADD('DAY', -60, CURRENT_DATE)),
-(4, 4, 950, DATEADD('DAY', -60, CURRENT_DATE)),
-(5, 5, 950, DATEADD('DAY', -60, CURRENT_DATE)),
-(6, 6, 950, DATEADD('DAY', -60, CURRENT_DATE));
+INSERT INTO 給与.時給契約履歴(時給ID, 従業員ID, 時給, 適用開始日, 時間外割増率, 深夜割増率) VALUES
+(1, 1, 950, DATEADD('DAY', -60, CURRENT_DATE), 25, 35),
+(2, 2, 950, DATEADD('DAY', -60, CURRENT_DATE), 25, 35),
+(3, 3, 950, DATEADD('DAY', -60, CURRENT_DATE), 25, 35),
+(4, 4, 950, DATEADD('DAY', -60, CURRENT_DATE), 25, 35),
+(5, 5, 950, DATEADD('DAY', -60, CURRENT_DATE), 25, 35),
+(6, 6, 950, DATEADD('DAY', -60, CURRENT_DATE), 25, 35);
 
-INSERT INTO 給与.時給契約(従業員ID, 適用開始日, 適用終了日, 時給) VALUES
-(1, DATEADD('DAY', -60, CURRENT_DATE), '9999-12-31', 950),
-(2, DATEADD('DAY', -60, CURRENT_DATE), '9999-12-31', 950),
-(3, DATEADD('DAY', -60, CURRENT_DATE), '9999-12-31', 950),
-(4, DATEADD('DAY', -60, CURRENT_DATE), '9999-12-31', 950),
-(5, DATEADD('DAY', -60, CURRENT_DATE), '9999-12-31', 950),
-(6, DATEADD('DAY', -60, CURRENT_DATE), '9999-12-31', 950)
+INSERT INTO 給与.時給契約(従業員ID, 適用開始日, 適用終了日, 時給, 時間外割増率, 深夜割増率) VALUES
+(1, DATEADD('DAY', -60, CURRENT_DATE), '9999-12-31', 950, 25, 35),
+(2, DATEADD('DAY', -60, CURRENT_DATE), '9999-12-31', 950, 25, 35),
+(3, DATEADD('DAY', -60, CURRENT_DATE), '9999-12-31', 950, 25, 35),
+(4, DATEADD('DAY', -60, CURRENT_DATE), '9999-12-31', 950, 25, 35),
+(5, DATEADD('DAY', -60, CURRENT_DATE), '9999-12-31', 950, 25, 35),
+(6, DATEADD('DAY', -60, CURRENT_DATE), '9999-12-31', 950, 25, 35)
 ;
 
 -- 時給変遷を確認するためのデータ
-INSERT INTO 給与.時給契約履歴(時給ID, 従業員ID, 時給, 適用開始日) VALUES
-(7, 6, 955, DATEADD('DAY', -30, CURRENT_DATE));
+INSERT INTO 給与.時給契約履歴(時給ID, 従業員ID, 時給, 適用開始日, 時間外割増率, 深夜割増率) VALUES
+(7, 6, 955, DATEADD('DAY', -30, CURRENT_DATE), 25, 35);
 UPDATE 給与.時給契約 SET 適用終了日 = DATEADD('DAY', -31, CURRENT_DATE)
 WHERE 従業員ID = 6 AND 適用開始日 = DATEADD('DAY', -60, CURRENT_DATE) AND 適用終了日='9999-12-31';
-INSERT INTO 給与.時給契約(従業員ID, 適用開始日, 適用終了日, 時給) VALUES
-(6, DATEADD('DAY', -30, CURRENT_DATE), '9999-12-31', 955);
+INSERT INTO 給与.時給契約(従業員ID, 適用開始日, 適用終了日, 時給, 時間外割増率, 深夜割増率) VALUES
+(6, DATEADD('DAY', -30, CURRENT_DATE), '9999-12-31', 955, 25, 35);
 
 -- 作業時間
 INSERT INTO 給与.就業時間履歴(就業時間ID, 従業員ID, 就業日, 開始時刻, 終了時刻, 休憩時間) VALUES

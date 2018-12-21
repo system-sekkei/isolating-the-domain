@@ -21,21 +21,21 @@ public class ContractDataSource implements ContractRepository {
     public void registerHourlyWage(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage) {
         mapper.deleteFeatureContract(workerNumber, applyDate);
         Integer hourlyWageId = mapper.newHourlyWageIdentifier();
-        mapper.registerHourlyWage(workerNumber, hourlyWageId, applyDate, hourlyWage);
-        mapper.insertContract(workerNumber, applyDate, getEndDate(workerNumber, applyDate), hourlyWage);
+        mapper.registerHourlyWage(workerNumber, hourlyWageId, applyDate, hourlyWage, 25, 35);
+        mapper.insertContract(workerNumber, applyDate, getEndDate(workerNumber, applyDate), hourlyWage, 25, 35);
     }
 
     public void stopHourlyWageContract(WorkerNumber workerNumber, Date stopDate) {
         HourlyWageData hourlyWageData = mapper.selectHourlyWageData(workerNumber, stopDate);
         if (hourlyWageData == null) return;
         mapper.deleteContractData(workerNumber, hourlyWageData.startDate(), hourlyWageData.endDate());
-        mapper.insertContract(workerNumber, hourlyWageData.startDate(), stopDate, hourlyWageData.hourlyWage());
+        mapper.insertContract(workerNumber, hourlyWageData.startDate(), stopDate, hourlyWageData.hourlyWage(), 25, 35);
     }
 
     @Override
     public ContractHistory getContractHistory(WorkerNumber workerNumber) {
-        Contracts contracts = getContracts(workerNumber, new Date(LocalDate.of(1,1,1)),
-                new Date(LocalDate.of(9999,12,31)));
+        Contracts contracts = getContracts(workerNumber, new Date(LocalDate.of(1, 1, 1)),
+                new Date(LocalDate.of(9999, 12, 31)));
         return new ContractHistory(contracts.value());
     }
 
