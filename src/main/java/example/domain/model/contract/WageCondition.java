@@ -21,11 +21,15 @@ public class WageCondition {
         this(baseHourlyWage, OverTimeExtraRate.legal(), MidnightExtraRate.legal());
     }
 
-    OverTimeHourlyExtraWage overTimeHourlyExtraWage() {
+    public HourlyWage baseHourlyWage() {
+        return baseHourlyWage;
+    }
+
+    public OverTimeHourlyExtraWage overTimeHourlyExtraWage() {
         return baseHourlyWage.overTimeHourlyExtraWage(overTimeExtraRate);
     }
 
-    MidnightHourlyExtraWage midnightHourlyExtraWage() {
+    public MidnightHourlyExtraWage midnightHourlyExtraWage() {
         return baseHourlyWage.midnightHourlyExtraWage(midnightExtraRate);
     }
 }

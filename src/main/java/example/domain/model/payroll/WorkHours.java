@@ -2,6 +2,7 @@ package example.domain.model.payroll;
 
 import example.domain.model.attendance.MidnightWorkTime;
 import example.domain.model.attendance.OverWorkTime;
+import example.domain.model.contract.HourlyWage;
 import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;
 
@@ -37,5 +38,9 @@ public class WorkHours {
 
     public BigDecimal value() {
         return value;
+    }
+
+    public BigDecimal multiply(HourlyWage hourlyWage) {
+        return this.value.multiply(BigDecimal.valueOf(hourlyWage.value()));
     }
 }

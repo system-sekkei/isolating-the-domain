@@ -8,7 +8,6 @@ import example.domain.type.date.DateRange;
  */
 public class Contract {
     DateRange period;
-
     WageCondition wageCondition;
 
     public Contract(DateRange period, WageCondition wageCondition) {
@@ -16,8 +15,12 @@ public class Contract {
         this.wageCondition = wageCondition;
     }
 
+    public WageCondition wageCondition() {
+        return wageCondition;
+    }
+
     public HourlyWage hourlyWage() {
-        return wageCondition.baseHourlyWage;
+        return wageCondition.baseHourlyWage();
     }
 
     public Date startDate() {
@@ -30,13 +33,5 @@ public class Contract {
 
     public DateRange period() {
         return period;
-    }
-
-    public OverTimeHourlyExtraWage overTimeHourlyExtraWage() {
-        return wageCondition.overTimeHourlyExtraWage();
-    }
-
-    public MidnightHourlyExtraWage midnightHourlyExtraWage() {
-        return wageCondition.midnightHourlyExtraWage();
     }
 }

@@ -49,7 +49,7 @@ public class WorkTime {
         return new MidnightWorkTime(midnightWorkTime);
     }
 
-    public OverWorkTime overTime() {
+    public OverWorkTime overWorkTime() {
         return new OverWorkTime(overWorkTime);
     }
 
