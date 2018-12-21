@@ -27,13 +27,17 @@ public class MonthlyAttendances {
 
     // TODO:メソッド名にMonthlyとかついていた方がいいかも
     public Attendances attendances() {
-        List<WorkDay> days = month.days();
+        List<WorkDay> days = listWorkDays();
 
         List<Attendance> monthlyAttendances = days.stream()
                 .map(attendances::at)
                 .collect(Collectors.toList());
 
         return new Attendances(monthlyAttendances);
+    }
+
+    public List<WorkDay> listWorkDays() {
+        return month.days();
     }
 
     public Attendances attendancesOf(DateRange range) {
