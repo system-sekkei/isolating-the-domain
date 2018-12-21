@@ -33,12 +33,12 @@ public class PayrollController {
         this.payrollQueryService = payrollQueryService;
     }
 
-    @GetMapping("workers")
+    @GetMapping()
     String workers(Model model) {
         return workers(model, new YearMonth(java.time.YearMonth.now()).toString());
     }
 
-    @GetMapping("workers/{yearMonth}")
+    @GetMapping("{yearMonth}")
     String workers(Model model, @PathVariable("yearMonth") String yearMonth) {
         ContractingWorkers contractingWorkers = workerQueryService.contractingWorkers();
         model.addAttribute("workers", contractingWorkers);

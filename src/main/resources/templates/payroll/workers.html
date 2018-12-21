@@ -17,7 +17,7 @@
     <div class="ui centerd three column grid">
       <div class="left aligned column">
         <a href=""
-           th:href="@{/payroll/workers/{beforeMonth}(beforeMonth=${workMonth.before()})}">
+           th:href="@{/payroll/{beforeMonth}(beforeMonth=${workMonth.before()})}">
           <i class="angle double left link large icon"></i>
         </a>
       </div>
@@ -26,7 +26,7 @@
       </div>
       <div class="right aligned column">
         <a href=""
-           th:href="@{/payroll/workers/{afterMonth}(afterMonth=${workMonth.after()})}">
+           th:href="@{/payroll/{afterMonth}(afterMonth=${workMonth.after()})}">
           <i class="angle double right link large icon"></i>
         </a>
       </div>
