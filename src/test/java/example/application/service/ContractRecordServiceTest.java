@@ -82,6 +82,6 @@ public class ContractRecordServiceTest {
     }
 
     private void updateHourlyWageContract(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage) {
-        sutRecord.registerHourlyWage(workerNumber, applyDate, new HourlyWageContract(hourlyWage, new OverTimeExtraRate(25), new MidnightExtraRate(35)));
+        sutRecord.registerHourlyWage(workerNumber, applyDate, new WageCondition(hourlyWage, new OverTimeExtraRate(25), new MidnightExtraRate(35)));
     }
 }

@@ -3,7 +3,7 @@ package example.domain.model.payroll;
 import example.domain.model.attendance.*;
 import example.domain.model.contract.Contract;
 import example.domain.model.contract.HourlyWage;
-import example.domain.model.contract.HourlyWageContract;
+import example.domain.model.contract.WageCondition;
 import example.domain.type.date.Date;
 import example.domain.type.date.DateRange;
 import example.domain.type.time.ClockTime;
@@ -41,7 +41,7 @@ class ContractPayrollTest {
 
         Contract contract = new Contract(
                 new DateRange(new Date(LocalDate.now()), new Date(LocalDate.MAX)),
-                new HourlyWageContract(new HourlyWage(hourlyWage))
+                new WageCondition(new HourlyWage(hourlyWage))
         );
         ContractPayroll sut = new ContractPayroll(contract, new Attendances(Collections.singletonList(attendance)));
         assertEquals(expected, sut.wage().value.intValue());

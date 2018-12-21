@@ -4,9 +4,7 @@ package example.presentation.controller.wage;
 import example.application.service.contract.ContractRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.contract.HourlyWage;
-import example.domain.model.contract.HourlyWageContract;
-import example.domain.model.labour_standards_law.MidnightExtraRate;
-import example.domain.model.labour_standards_law.OverTimeExtraRate;
+import example.domain.model.contract.WageCondition;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
@@ -64,8 +62,8 @@ class WageRegisterController {
     public String register(Worker worker,
                            @RequestParam("startDate") Date startDate,
                            @RequestParam("hourlyWage") HourlyWage hourlyWage) {
-        HourlyWageContract hourlyWageContract = new HourlyWageContract(hourlyWage);
-        contractRecordService.registerHourlyWage(worker.workerNumber(), startDate, hourlyWageContract);
+        WageCondition wageCondition = new WageCondition(hourlyWage);
+        contractRecordService.registerHourlyWage(worker.workerNumber(), startDate, wageCondition);
         return String.format("redirect:/wages/%d/register/completed", worker.workerNumber().value());
     }
 

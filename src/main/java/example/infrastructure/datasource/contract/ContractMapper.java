@@ -1,6 +1,6 @@
 package example.infrastructure.datasource.contract;
 
-import example.domain.model.contract.HourlyWageContract;
+import example.domain.model.contract.WageCondition;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import org.apache.ibatis.annotations.Mapper;
@@ -14,7 +14,7 @@ public interface ContractMapper {
 
     void registerHourlyWage(@Param("workerNumber") WorkerNumber workerNumber, @Param("id") Integer hourlyWageId,
                             @Param("applyDate") Date applyDate,
-                            @Param("hourlyWageContract") HourlyWageContract hourlyWageContract);
+                            @Param("wageCondition") WageCondition wageCondition);
 
     List<HourlyWageData> selectContracts(@Param("workerNumber") WorkerNumber workerNumber);
 
@@ -22,7 +22,7 @@ public interface ContractMapper {
 
     void insertContract(@Param("workerNumber") WorkerNumber workerNumber,
                         @Param("startDate") Date applyDate, @Param("endDate") Date date,
-                        @Param("hourlyWageContract") HourlyWageContract hourlyWageContract);
+                        @Param("wageCondition") WageCondition wageCondition);
 
     void deleteContractData(@Param("workerNumber") WorkerNumber workerNumber,
                             @Param("startDate") Date startDate, @Param("endDate") Date endDate);
