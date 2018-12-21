@@ -3,7 +3,6 @@ package example.domain.model.attendance;
 import example.domain.type.date.DateRange;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -29,10 +28,10 @@ public class Attendances {
     }
 
     public Attendance at(WorkDay day) {
-        Optional<Attendance> attendance = list.stream()
+        return list.stream()
                 .filter(worked -> worked.workDay().hasSameValue(day))
-                .findFirst();
-        return attendance.orElse(new Attendance(day));
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException(day.toString()));
     }
 
     public Attendances rangeOf(DateRange range) {

@@ -8,6 +8,10 @@ import example.domain.type.time.Minute;
 public class NormalBreakTime {
     Minute value;
 
+    @Deprecated
+    NormalBreakTime() {
+    }
+
     public NormalBreakTime(Minute value) {
         this.value = value;
     }

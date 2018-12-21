@@ -8,6 +8,10 @@ import java.time.DateTimeException;
 public class Minute {
     int value;
 
+    @Deprecated
+    Minute() {
+    }
+
     public Minute(String time) {
         value = time.isEmpty() ? 0 : Integer.parseInt(time);
         if (value < 0) {

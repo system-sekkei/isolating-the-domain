@@ -2,7 +2,6 @@ package example.domain.model.attendance;
 
 import example.domain.model.labour_standards_law.DailyOvertimeWork;
 import example.domain.type.date.DateRange;
-import example.domain.type.time.ClockTime;
 import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;
 
@@ -18,12 +17,6 @@ public class Attendance {
 
     @Deprecated
     Attendance() {
-        this(new WorkDay());
-    }
-
-    public Attendance(WorkDay workDay) {
-        // TODO 休みの扱い。非稼動日は時間を出力しないようにしたい。
-        this(workDay, new WorkStartTime(new ClockTime("00:00")), new WorkEndTime(new ClockTime("00:00")), new NormalBreakTime(new Minute(0)), new MidnightBreakTime(new Minute(0)));
     }
 
     public Attendance(WorkDay workDay, WorkStartTime workStartTime, WorkEndTime workEndTime, NormalBreakTime normalBreakTime, MidnightBreakTime midnightBreakTime) {

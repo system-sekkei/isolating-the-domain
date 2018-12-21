@@ -9,6 +9,10 @@ public class WorkStartTime {
 
     ClockTime value;
 
+    @Deprecated
+    WorkStartTime(){
+    }
+
     public WorkStartTime(ClockTime value) {
         this.value = value;
     }

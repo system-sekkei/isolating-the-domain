@@ -7,7 +7,12 @@ import java.time.format.DateTimeFormatter;
  * 時刻を時分単位で表す
  */
 public class ClockTime {
+
     LocalTime value;
+
+    @Deprecated
+    ClockTime() {
+    }
 
     public ClockTime(LocalTime value) {
         this.value = value;
