@@ -18,6 +18,7 @@ public class ContractDataSource implements ContractRepository {
 
     @Override
     public void registerHourlyWage(WorkerNumber workerNumber, Date applyDate, HourlyWageContract hourlyWageContract) {
+        stopHourlyWageContract(workerNumber, applyDate.previousDay());
         mapper.deleteFeatureContract(workerNumber, applyDate);
         Integer hourlyWageId = mapper.newHourlyWageIdentifier();
         mapper.registerHourlyWage(workerNumber, hourlyWageId, applyDate, hourlyWageContract);

@@ -32,9 +32,10 @@ public class ContractRecordServiceTest {
     @DisplayName("時給の登録参照が正しく出来ること")
     @Test
     void hourlyWage_io() {
+        WorkerNumber number = workerRecordService.prepareNewContract();
+
         LocalDate infinite = LocalDate.of(9999, 12, 31);
         //一発目
-        WorkerNumber number = workerRecordService.prepareNewContract();
         LocalDate now = LocalDate.now();
         Date applyDate1 = new Date(now);
         HourlyWage wage1 = new HourlyWage(800);
@@ -79,7 +80,6 @@ public class ContractRecordServiceTest {
     }
 
     private void updateHourlyWageContract(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage) {
-        sutRecord.stopHourlyWageContract(workerNumber, new Date(applyDate.value().minusDays(1)));
         sutRecord.registerHourlyWage(workerNumber, applyDate, new HourlyWageContract(hourlyWage, new OverTimeExtraRate(25), new MidnightExtraRate(35)));
     }
 }

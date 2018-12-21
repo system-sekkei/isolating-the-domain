@@ -60,4 +60,8 @@ public class Date {
                 || value.isAfter(range.startDate().value)
                 || value.isBefore(range.endDate().value);
     }
+
+    public Date previousDay() {
+        return new Date(value.minusDays(1));
+    }
 }
