@@ -7,16 +7,17 @@ import example.domain.type.date.DateRange;
  * 雇用契約
  */
 public class Contract {
-    HourlyWage hourlyWage;
     DateRange period;
 
-    public Contract(Date startDate, Date endDate, HourlyWage hourlyWage) {
+    HourlyWageContract hourlyWageContract;
+
+    public Contract(Date startDate, Date endDate, HourlyWageContract hourlyWageContract) {
         this.period = new DateRange(startDate, endDate);
-        this.hourlyWage = hourlyWage;
+        this.hourlyWageContract = hourlyWageContract;
     }
 
     public HourlyWage hourlyWage() {
-        return hourlyWage;
+        return hourlyWageContract.hourlyWage;
     }
 
     public Date startDate() {
@@ -31,11 +32,11 @@ public class Contract {
         return new DateRange(startDate());
     }
 
-    public OverTimeHourlyExtraWage overTimeAdditionalHourlyWage() {
-        return new OverTimeExtraRate(25).apply(hourlyWage());
+    public OverTimeHourlyExtraWage overTimeHourlyExtraWage() {
+        return hourlyWageContract.overTimeExtraRate.apply(hourlyWage());
     }
 
-    public MidnightHourlyExtraWage midnightAdditionalHourlyWage() {
-        return new MidnightExtraRate(35).apply(hourlyWage());
+    public MidnightHourlyExtraWage midnightHourlyExtraWage() {
+        return hourlyWageContract.midnightExtraRate.apply(hourlyWage());
     }
 }

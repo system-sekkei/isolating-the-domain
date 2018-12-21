@@ -20,7 +20,7 @@ public class ContractPayroll {
         WorkTime workTime = attendances.summarize();
 
         return Wage.of(WorkHours.of(workTime.totalWorkTime()), contract.hourlyWage())
-                .add(workTime.overTime(), contract.overTimeAdditionalHourlyWage())
-                .add(workTime.midnightWorkTime(), contract.midnightAdditionalHourlyWage());
+                .add(workTime.overTime(), contract.overTimeHourlyExtraWage())
+                .add(workTime.midnightWorkTime(), contract.midnightHourlyExtraWage());
     }
 }

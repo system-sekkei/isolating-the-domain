@@ -1,7 +1,6 @@
 package example.infrastructure.datasource.contract;
 
 import example.application.repository.ContractRepository;
-import example.domain.model.contract.Contract;
 import example.domain.model.contract.ContractHistory;
 import example.domain.model.contract.Contracts;
 import example.domain.model.contract.HourlyWage;
@@ -29,7 +28,7 @@ public class ContractDataSource implements ContractRepository {
         HourlyWageData hourlyWageData = mapper.selectHourlyWageData(workerNumber, stopDate);
         if (hourlyWageData == null) return;
         mapper.deleteContractData(workerNumber, hourlyWageData.startDate(), hourlyWageData.endDate());
-        mapper.insertContract(workerNumber, hourlyWageData.startDate(), stopDate, hourlyWageData.hourlyWage(), 25, 35);
+        mapper.insertContract(workerNumber, hourlyWageData.startDate(), stopDate, hourlyWageData.hourlyWage(), hourlyWageData.overTimeExtraRate, hourlyWageData.midnightExtraRate);
     }
 
     @Override
@@ -42,7 +41,9 @@ public class ContractDataSource implements ContractRepository {
     @Override
     public Contracts getContracts(WorkerNumber workerNumber, Date startDate, Date endDate) {
         List<HourlyWageData> list = mapper.getContracts(workerNumber, startDate, endDate);
-        return new Contracts(list.stream().map(cd2 -> new Contract(cd2.startDate(), cd2.endDate(), cd2.hourlyWage())).collect(Collectors.toList()));
+        return new Contracts(list.stream()
+                .map(HourlyWageData::toContract)
+                .collect(Collectors.toList()));
     }
 
     private Date getEndDate(WorkerNumber workerNumber, Date date) {

@@ -22,13 +22,17 @@
         <result property="startDate" column="適用開始日" />
         <result property="endDate" column="適用終了日" />
         <result property="hourlyWage" column="時給"/>
+        <result property="overTimeExtraRate" column="時間外割増率"/>
+        <result property="midnightExtraRate" column="深夜割増率"/>
     </resultMap>
 
     <select id="getContracts" resultMap="hourlyWage">
         SELECT
         時給契約.適用開始日,
         時給契約.適用終了日,
-        時給契約.時給
+        時給契約.時給,
+        時給契約.時間外割増率,
+        時給契約.深夜割増率
         FROM 給与.時給契約 as 時給契約
         WHERE 時給契約.従業員ID = #{workerNumber.value}
         AND NOT (
@@ -42,7 +46,9 @@
         SELECT
         時給契約.適用開始日,
         時給契約.適用終了日,
-        時給契約.時給
+        時給契約.時給,
+        時給契約.時間外割増率,
+        時給契約.深夜割増率
         FROM 給与.時給契約 as 時給契約
         WHERE 時給契約.従業員ID = #{workerNumber.value} AND #{workDay.value} between 時給契約.適用開始日 AND 時給契約.適用終了日
     </select>
