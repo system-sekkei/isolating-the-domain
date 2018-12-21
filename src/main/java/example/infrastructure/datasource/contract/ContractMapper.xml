@@ -18,16 +18,6 @@
         <result property="startDate" column="適用開始日"/>
     </resultMap>
 
-    <select id="getContractHistoryData" resultMap="contractHistory">
-        SELECT
-        時給契約履歴.時給ID,
-        時給契約履歴.時給,
-        時給契約履歴.適用開始日
-        FROM 給与.時給契約履歴 as 時給契約履歴
-        WHERE 時給契約履歴.従業員ID = #{workerNumber.value} AND 時給契約履歴.適用開始日 &lt;= #{workDay.value}
-        ORDER BY 時給契約履歴.登録日時 desc
-    </select>
-
     <resultMap id="hourlyWage" type="example.infrastructure.datasource.contract.HourlyWageData">
         <result property="startDate" column="適用開始日" />
         <result property="endDate" column="適用終了日" />
@@ -44,6 +34,7 @@
         AND NOT (
             時給契約.適用終了日 &lt; #{startDate.value} OR 時給契約.適用開始日 > #{endDate.value}
         )
+        <!--TODO ORDER BY 無くしたい-->
         ORDER BY 時給契約.適用開始日 asc;
     </select>
 
@@ -54,7 +45,6 @@
         時給契約.時給
         FROM 給与.時給契約 as 時給契約
         WHERE 時給契約.従業員ID = #{workerNumber.value} AND #{workDay.value} between 時給契約.適用開始日 AND 時給契約.適用終了日
-        ORDER BY 時給契約.登録日時 desc
     </select>
 
     <insert id="insertContract">
