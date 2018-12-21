@@ -64,15 +64,15 @@ context('isolating-the-domain', () => {
     cy.get('a').contains('ダッシュボード').click()
     cy.title().should('eq', 'ダッシュボード')
 
-    // 給与計算
-    cy.get('a').contains('給与計算').click()
-    cy.title().should('contains', '給与計算の一覧')
+    // 給与
+    cy.get('a').contains('給与').click()
+    cy.title().should('contains', '給与の一覧')
     cy.get('tbody > tr > td ').contains('テスト次郎').parent().within(() => {
         cy.get('.button').contains('勤務時間').click()
     })
     cy.title().should('contains', '一覧')
-    cy.get('a').contains('給与計算の一覧').click()
-    cy.title().should('contains', '給与計算の一覧')
+    cy.get('a').contains('給与の一覧').click()
+    cy.title().should('contains', '給与の一覧')
 
     // 契約終了
     cy.get('a').contains('ダッシュボード').click()

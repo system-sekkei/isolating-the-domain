@@ -15,9 +15,9 @@ s<!DOCTYPE html>
            th:href="@{/attendance}">
             <i class="clock outline icon"></i>勤務時間の入力
         </a>
-        <a class="item" th:classappend="${active.equals('給与計算')} ? 'active' : ''"
+        <a class="item" th:classappend="${active.equals('給与')} ? 'active' : ''"
            th:href="@{/payroll/workers}">
-            <i class="yen sign icon"></i>給与計算の一覧
+            <i class="yen sign icon"></i>給与の一覧
         </a>
         <a class="item" th:classappend="${active.equals('従業員')} ? 'active' : ''"
            th:href="@{/workers}">
