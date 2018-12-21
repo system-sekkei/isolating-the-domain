@@ -63,6 +63,7 @@
         <th>休憩時間</th>
         <th>勤務時間</th>
         <!-- TODO 編集リンクをつけたい -->
+        <th class="one wide">編集</th>
       </tr>
       </thead>
       <tbody>
@@ -77,6 +78,9 @@
           <td th:text="${attendance.workTimeRange().end()}"></td><!-- TODO 休日,未稼働日は空白で -->
           <td th:text="${attendance.totalBreakTime()}"></td><!-- TODO 休日,未稼働日は空白で -->
           <td th:text="${attendance.totalWorkTime()}"></td><!-- TODO 休日,未稼働日は空白で -->
+          <td class="center aligned">
+            <button class="ui icon primary tiny basic button"><i class="pencil alternate icon"></i></button>
+          </td>
         </tr>
       </th:block>
       </tbody>
