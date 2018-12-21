@@ -1,9 +1,12 @@
 package example.infrastructure.datasource.contract;
 
-import example.domain.model.contract.*;
+import example.domain.model.contract.Contract;
+import example.domain.model.contract.HourlyWage;
+import example.domain.model.contract.HourlyWageContract;
 import example.domain.model.labour_standards_law.MidnightExtraRate;
 import example.domain.model.labour_standards_law.OverTimeExtraRate;
 import example.domain.type.date.Date;
+import example.domain.type.date.DateRange;
 
 import java.time.LocalDate;
 
@@ -28,8 +31,7 @@ public class HourlyWageData {
 
     Contract toContract() {
         return new Contract(
-                new Date(startDate),
-                new Date(endDate),
+                new DateRange(new Date(startDate), new Date(endDate)),
                 toHourlyWageContract()
         );
     }

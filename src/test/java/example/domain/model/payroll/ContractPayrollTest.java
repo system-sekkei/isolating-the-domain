@@ -1,10 +1,11 @@
 package example.domain.model.payroll;
 
 import example.domain.model.attendance.*;
-import example.domain.model.contract.*;
-import example.domain.model.labour_standards_law.MidnightExtraRate;
-import example.domain.model.labour_standards_law.OverTimeExtraRate;
+import example.domain.model.contract.Contract;
+import example.domain.model.contract.HourlyWage;
+import example.domain.model.contract.HourlyWageContract;
 import example.domain.type.date.Date;
+import example.domain.type.date.DateRange;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.DisplayName;
@@ -38,12 +39,9 @@ class ContractPayrollTest {
                 new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)),
                 new NormalBreakTime(new Minute(breakMinute)), new MidnightBreakTime(new Minute(midnightBreakMinute)));
 
-        Contract contract = new Contract(new Date(LocalDate.now()), new Date(LocalDate.MAX),
-                new HourlyWageContract(
-                        new HourlyWage(hourlyWage),
-                        new OverTimeExtraRate(25),
-                        new MidnightExtraRate(35)
-                )
+        Contract contract = new Contract(
+                new DateRange(new Date(LocalDate.now()), new Date(LocalDate.MAX)),
+                new HourlyWageContract(new HourlyWage(hourlyWage))
         );
         ContractPayroll sut = new ContractPayroll(contract, new Attendances(Collections.singletonList(attendance)));
         assertEquals(expected, sut.wage().value.intValue());

@@ -11,8 +11,8 @@ public class Contract {
 
     HourlyWageContract hourlyWageContract;
 
-    public Contract(Date startDate, Date endDate, HourlyWageContract hourlyWageContract) {
-        this.period = new DateRange(startDate, endDate);
+    public Contract(DateRange period, HourlyWageContract hourlyWageContract) {
+        this.period = period;
         this.hourlyWageContract = hourlyWageContract;
     }
 
