@@ -25,5 +25,4 @@ public class WorkStartTime {
     public String toString() {
         return value.toString();
     }
-
 }

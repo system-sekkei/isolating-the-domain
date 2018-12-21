@@ -28,7 +28,7 @@ public class Attendances {
                 );
     }
 
-    Attendance at(WorkDay day) {
+    public Attendance at(WorkDay day) {
         Optional<Attendance> attendance = list.stream()
                 .filter(worked -> worked.workDay().hasSameValue(day))
                 .findFirst();
@@ -40,5 +40,9 @@ public class Attendances {
                 .filter(attendance -> attendance.inRange(range))
                 .collect(Collectors.toList());
         return new Attendances(inRangeAttendances);
+    }
+
+    public AttendanceStatus statusOf(WorkDay workDay) {
+        return list.stream().anyMatch(attendance -> attendance.workDay.hasSameValue(workDay)) ? AttendanceStatus.出勤 : AttendanceStatus.非出勤;
     }
 }
