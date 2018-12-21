@@ -1,7 +1,5 @@
 package example.domain.model.contract;
 
-import java.math.BigDecimal;
-
 /**
  * 時給
  */
@@ -22,10 +20,5 @@ public class HourlyWage {
 
     public String toString() {
         return value.toString();
-    }
-
-    public HourlyWage withExtraRate(ExtraPayRate extraRate) {
-        //TODO 切り捨てでいいのかな...
-        return new HourlyWage(extraRate.value().multiply(new BigDecimal(value)).intValue());
     }
 }

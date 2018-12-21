@@ -37,17 +37,10 @@ public class Contract {
     }
 
     public HourlyWage overTimeHourlyWage() {
-        //TODO
-        return hourlyWage().withExtraRate(new ExtraPayRate("0.25")); //TODO: 割増率は雇用契約の内容から取得する
+        return new OverTimeExtraRate(25).apply(hourlyWage());
     }
 
     public HourlyWage midnightExtraPayRate() {
-        //TODO
-        return hourlyWage().withExtraRate(new ExtraPayRate("0.35")); //TODO: 割増率は雇用契約の内容から取得する
-    }
-
-    public HourlyWage holidayExtraPayRate() {
-        //TODO
-        return hourlyWage().withExtraRate(new ExtraPayRate("0.25")); //TODO: 割増率は雇用契約の内容から取得する
+        return new MidnightExtraRate(35).apply(hourlyWage());
     }
 }
