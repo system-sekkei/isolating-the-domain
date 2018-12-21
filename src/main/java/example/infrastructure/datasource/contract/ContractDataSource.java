@@ -8,7 +8,6 @@ import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,7 +33,7 @@ public class ContractDataSource implements ContractRepository {
 
     @Override
     public ContractHistory getContractHistory(WorkerNumber workerNumber) {
-        Contracts contracts = getContracts(workerNumber, new Date(LocalDate.of(1, 1, 1)), Date.distantFuture());
+        Contracts contracts = getContracts(workerNumber, Date.distantPast(), Date.distantFuture());
         return new ContractHistory(contracts.value());
     }
 
