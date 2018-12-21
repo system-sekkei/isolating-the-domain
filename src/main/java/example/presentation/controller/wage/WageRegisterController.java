@@ -62,7 +62,7 @@ class WageRegisterController {
                            @RequestParam("startDate") Date startDate,
                            @RequestParam("hourlyWage") HourlyWage hourlyWage) {
         contractRecordService.registerHourlyWage(worker.workerNumber(), startDate, hourlyWage);
-        return String.format("redirect:/workers/wage/%d/completed", worker.workerNumber().value());
+        return String.format("redirect:/wages/%d/register/completed", worker.workerNumber().value());
     }
 
     @GetMapping(value="completed")
