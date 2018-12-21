@@ -28,13 +28,13 @@
         ORDER BY 契約履歴.登録日時 desc
     </select>
 
-    <resultMap id="contract2" type="example.infrastructure.datasource.contract.ContractData2">
+    <resultMap id="hourlyWage" type="example.infrastructure.datasource.contract.HourlyWageData">
         <result property="startDate" column="適用開始日" />
         <result property="endDate" column="適用終了日" />
         <result property="hourlyWage" column="時給"/>
     </resultMap>
 
-    <select id="getContractData2" resultMap="contract2">
+    <select id="selectHourlyWageData" resultMap="hourlyWage">
         SELECT
         時給契約.適用開始日,
         時給契約.適用終了日,

@@ -55,11 +55,11 @@ public class ContractDataSource implements ContractRepository {
     }
 
     @Override
-    public void stopHourlyWageContract(WorkerNumber workerNumber, Date lastDate) {
-        ContractData2 contractData2 = mapper.getContractData2(workerNumber, lastDate);
-        if (contractData2 == null) return;
-        mapper.deleteContractData(workerNumber, contractData2.startDate(), contractData2.endDate());
-        mapper.insertContract(workerNumber, contractData2.startDate(), lastDate, contractData2.hourlyWage());
+    public void stopHourlyWageContract(WorkerNumber workerNumber, Date stopDate) {
+        HourlyWageData hourlyWageData = mapper.selectHourlyWageData(workerNumber, stopDate);
+        if (hourlyWageData == null) return;
+        mapper.deleteContractData(workerNumber, hourlyWageData.startDate(), hourlyWageData.endDate());
+        mapper.insertContract(workerNumber, hourlyWageData.startDate(), stopDate, hourlyWageData.hourlyWage());
     }
 
     private ContractHistoryData getContractData(WorkerNumber workerNumber, Date workDay) {
