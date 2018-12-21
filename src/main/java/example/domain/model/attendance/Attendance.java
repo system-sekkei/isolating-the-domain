@@ -1,6 +1,7 @@
 package example.domain.model.attendance;
 
 import example.domain.model.labour_standards_law.DailyOvertimeWork;
+import example.domain.type.date.DateRange;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;
@@ -66,4 +67,7 @@ public class Attendance {
         return HourAndMinute.from(overMinute);
     }
 
+    public boolean inRange(DateRange range) {
+        return workDay.value().inRange(range);
+    }
 }

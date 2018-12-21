@@ -1,5 +1,7 @@
 package example.domain.model.attendance;
 
+import example.domain.type.date.DateRange;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,4 +33,7 @@ public class MonthlyAttendances {
         return new Attendances(monthlyAttendances);
     }
 
+    public Attendances attendancesOf(DateRange range) {
+        return attendances.rangeOf(range);
+    }
 }

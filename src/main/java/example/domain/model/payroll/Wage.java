@@ -20,9 +20,12 @@ public class Wage {
         this(BigDecimal.valueOf(hourlyWage.value()).multiply(workHours.value()));
     }
 
+    public Wage() {
+        this(BigDecimal.ZERO);
+    }
+
     public static Wage of(WorkHours workHours, HourlyWage hourlyWage) {
         BigDecimal value = workHours.value().multiply(new BigDecimal(hourlyWage.value()));
-//        System.out.println(value);
         return new Wage(value);
     }
 
