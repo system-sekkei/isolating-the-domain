@@ -24,6 +24,8 @@ public class PayrollQueryService {
     public Payroll getPayroll(Worker worker, YearMonth yearMonth) {
         WorkerNumber workerNumber = worker.workerNumber();
         Contracts contracts = contractQueryService.getContracts(workerNumber, yearMonth.start(), yearMonth.end());
+        // TODO streamを使わない
+        // TODO 型にする（Listなどはserviceに登場しない
         List<ContractPayroll> contractPayrolls = contracts.value().stream().map(c -> new ContractPayroll(c, attendanceQueryService.getAttendances(workerNumber, c.startDate(), c.endDate()))).collect(Collectors.toList());
         return new Payroll(worker, yearMonth, contractPayrolls);
     }
