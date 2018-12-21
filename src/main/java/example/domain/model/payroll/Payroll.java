@@ -27,4 +27,6 @@ public class Payroll {
         }
         return wage;
     }
+
+    // TODO 時給登録無しの場合に備考に出力する何かしら
 }

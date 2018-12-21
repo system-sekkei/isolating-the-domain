@@ -21,7 +21,7 @@ public class Attendance {
     }
 
     public Attendance(WorkDay workDay) {
-        // TODO 休みの扱い
+        // TODO 休みの扱い。非稼動日は時間を出力しないようにしたい。
         this(workDay, new WorkStartTime(new ClockTime("00:00")), new WorkEndTime(new ClockTime("00:00")), new NormalBreakTime(new Minute(0)), new MidnightBreakTime(new Minute(0)));
     }
 
