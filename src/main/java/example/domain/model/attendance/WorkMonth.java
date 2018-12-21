@@ -14,20 +14,12 @@ import java.util.stream.Collectors;
 public class WorkMonth {
     YearMonth value;
 
-    public WorkMonth() {
-        value = new YearMonth();
-    }
-
     public WorkMonth(int year, int month) {
         value = new YearMonth(year, month);
     }
 
     public WorkMonth(Year year, Month month) {
         value = new YearMonth(year, month);
-    }
-
-    public WorkMonth(String yearMonth) {
-        value = new YearMonth(yearMonth);
     }
 
     public WorkMonth(YearMonth month) {
