@@ -1,6 +1,7 @@
 package example.domain.model.payroll;
 
 import example.domain.model.attendance.Attendances;
+import example.domain.model.attendance.MonthlyAttendances;
 import example.domain.model.attendance.WorkTime;
 import example.domain.model.contract.Contract;
 
@@ -14,6 +15,10 @@ public class ContractPayroll {
     public ContractPayroll(Contract contract, Attendances attendances) {
         this.contract = contract;
         this.attendances = attendances;
+    }
+
+    public ContractPayroll(Contract contract, MonthlyAttendances monthlyAttendances) {
+        this(contract, monthlyAttendances.attendancesOf(contract.period()));
     }
 
     public Wage wage() {
