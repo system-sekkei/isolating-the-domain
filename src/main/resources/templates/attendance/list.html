@@ -71,10 +71,10 @@
               th:text="${attendance.workDay().dayOfMonth()}"></td>
           <td class="center aligned"
               th:text="${attendance.workDay().dayOfWeek()}"></td>
-          <td th:text="${attendance.workTimeRange().start()}"></td>
-          <td th:text="${attendance.workTimeRange().end()}"></td>
-          <td th:text="${attendance.totalBreakTime()}"></td>
-          <td th:text="${attendance.totalWorkTime()}"></td>
+          <td th:text="${attendance.workTimeRange().start()}"></td><!-- TODO 休日,未稼働日は空白で -->
+          <td th:text="${attendance.workTimeRange().end()}"></td><!-- TODO 休日,未稼働日は空白で -->
+          <td th:text="${attendance.totalBreakTime()}"></td><!-- TODO 休日,未稼働日は空白で -->
+          <td th:text="${attendance.totalWorkTime()}"></td><!-- TODO 休日,未稼働日は空白で -->
         </tr>
       </th:block>
       </tbody>
