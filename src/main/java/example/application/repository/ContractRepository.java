@@ -9,8 +9,6 @@ import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 
 public interface ContractRepository {
-    void registerHourlyWage(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage);
-
     Contracts getContracts(WorkerNumber workerNumber, Date startDate, Date endDate);
 
     void stopHourlyWageContract(WorkerNumber workerNumber, Date lastDate);
@@ -19,5 +17,5 @@ public interface ContractRepository {
 
     ContractHistory getContractHistory(WorkerNumber workerNumber);
 
-    void registerHourlyWage2(WorkerNumber workerNumber, Date startDate, HourlyWage hourlyWage);
+    void registerHourlyWage(WorkerNumber workerNumber, Date startDate, HourlyWage hourlyWage);
 }

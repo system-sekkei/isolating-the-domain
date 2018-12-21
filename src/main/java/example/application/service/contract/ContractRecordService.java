@@ -13,13 +13,6 @@ import org.springframework.stereotype.Service;
 public class ContractRecordService {
     ContractRepository contractRepository;
 
-    /**
-     * 時給登録
-     */
-    public void registerHourlyWage(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage) {
-        contractRepository.registerHourlyWage(workerNumber, applyDate, hourlyWage);
-    }
-
     ContractRecordService(ContractRepository contractRepository) {
         this.contractRepository = contractRepository;
     }
@@ -28,7 +21,10 @@ public class ContractRecordService {
         contractRepository.stopHourlyWageContract(workerNumber, lastDate);
     }
 
-    public void registerHourlyWage2(WorkerNumber workerNumber, Date startDate, HourlyWage hourlyWage) {
-        contractRepository.registerHourlyWage2(workerNumber, startDate, hourlyWage);
+    /**
+     * 時給登録
+     */
+    public void registerHourlyWage(WorkerNumber workerNumber, Date startDate, HourlyWage hourlyWage) {
+        contractRepository.registerHourlyWage(workerNumber, startDate, hourlyWage);
     }
 }

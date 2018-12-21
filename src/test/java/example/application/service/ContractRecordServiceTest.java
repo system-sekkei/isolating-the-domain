@@ -81,5 +81,5 @@ public class ContractRecordServiceTest {
 
     private void updateHourlyWageContract(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage) {
         sutRecord.stopHourlyWageContract(workerNumber, new Date(applyDate.value().minusDays(1)));
-        sutRecord.registerHourlyWage2(workerNumber, applyDate, hourlyWage);
+        sutRecord.registerHourlyWage(workerNumber, applyDate, hourlyWage);
     }}
