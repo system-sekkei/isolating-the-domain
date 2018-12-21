@@ -25,7 +25,7 @@ public class Payroll {
 
     public Wage wage() {
         Wage wage = new Wage(BigDecimal.ZERO);
-        for (Contract contract : contracts.value()) {
+        for (Contract contract : contracts.list()) {
             WorkTime workTime = monthlyAttendances.workTimeWithin(contract.period());
             wage = wage.add(Wage.from(workTime, contract.wageCondition()));
         }

@@ -1,0 +1,33 @@
+package example.domain.model.contract;
+
+import example.domain.model.worker.Name;
+import example.domain.model.worker.Worker;
+import example.domain.model.worker.WorkerNumber;
+
+/**
+ * 従業員契約
+ */
+public class WorkerContract {
+    Worker worker;
+    Contracts contracts;
+
+    public WorkerContract(Worker worker, Contracts contracts) {
+        this.worker = worker;
+        this.contracts = contracts;
+    }
+
+    public WorkerNumber workerNumber() {
+        return worker.workerNumber();
+    }
+
+    public Name workerName() {
+        return worker.name();
+    }
+
+    public ContractStartingDate contractStartingDate() {
+        return contracts.list().stream()
+                .min((c1, c2) -> c1.startDate().compareTo(c2.startDate()))
+                .map(contract -> new ContractStartingDate(contract.startDate()))
+                .orElse(ContractStartingDate.none());
+    }
+}
