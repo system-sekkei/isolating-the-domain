@@ -36,11 +36,11 @@ public class Contract {
         return new DateRange(startDate());
     }
 
-    public HourlyWage overTimeHourlyWage() {
+    public OverTimeHourlyExtraWage overTimeAdditionalHourlyWage() {
         return new OverTimeExtraRate(25).apply(hourlyWage());
     }
 
-    public HourlyWage midnightExtraPayRate() {
+    public MidnightHourlyExtraWage midnightAdditionalHourlyWage() {
         return new MidnightExtraRate(35).apply(hourlyWage());
     }
 }

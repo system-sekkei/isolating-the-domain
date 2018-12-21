@@ -10,7 +10,7 @@ public class MidnightExtraRate {
         this.value = new ExtraPayRate(value);
     }
 
-    public HourlyWage apply(HourlyWage hourlyWage) {
-        return value.apply(hourlyWage);
+    public MidnightHourlyExtraWage apply(HourlyWage hourlyWage) {
+        return new MidnightHourlyExtraWage(value.apply(hourlyWage));
     }
 }

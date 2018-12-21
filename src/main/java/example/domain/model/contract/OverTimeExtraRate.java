@@ -10,7 +10,7 @@ public class OverTimeExtraRate {
         this.value = new ExtraPayRate(value);
     }
 
-    public HourlyWage apply(HourlyWage hourlyWage) {
-        return value.apply(hourlyWage);
+    public OverTimeHourlyExtraWage apply(HourlyWage hourlyWage) {
+        return new OverTimeHourlyExtraWage(value.apply(hourlyWage));
     }
 }

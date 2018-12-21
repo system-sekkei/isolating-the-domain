@@ -1,5 +1,7 @@
 package example.domain.model.payroll;
 
+import example.domain.model.attendance.MidnightWorkTime;
+import example.domain.model.attendance.OverWorkTime;
 import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;
 
@@ -24,6 +26,14 @@ public class WorkHours {
 
     public static WorkHours of(HourAndMinute hourAndMinute) {
         return new WorkHours(hourAndMinute.toMinute());
+    }
+
+    public static WorkHours of(OverWorkTime overTime) {
+        return WorkHours.of(overTime.minute());
+    }
+
+    public static WorkHours of(MidnightWorkTime midnightWorkTime) {
+        return WorkHours.of(midnightWorkTime.minute());
     }
 
     public BigDecimal value() {
