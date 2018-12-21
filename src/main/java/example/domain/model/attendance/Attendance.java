@@ -16,8 +16,8 @@ public class Attendance {
     NormalBreakTime normalBreakTime;
     MidnightBreakTime midnightBreakTime;
 
-    private Attendance() {
-        //Use OR-Mapper ONLY!!
+    @Deprecated
+    Attendance() {
         this(new WorkDay());
     }
 

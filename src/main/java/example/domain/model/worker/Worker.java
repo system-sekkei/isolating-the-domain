@@ -18,6 +18,7 @@ public class Worker {
     @Valid
     PhoneNumber phoneNumber;
 
+    @Deprecated
     public Worker() {
         workerNumber = new WorkerNumber();
         name = new Name();
