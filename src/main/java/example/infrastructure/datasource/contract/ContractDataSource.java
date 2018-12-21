@@ -2,6 +2,7 @@ package example.infrastructure.datasource.contract;
 
 import example.application.repository.ContractRepository;
 import example.domain.model.contract.Contract;
+import example.domain.model.contract.ContractHistory;
 import example.domain.model.contract.Contracts;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.worker.WorkerNumber;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class ContractDataSource implements ContractRepository {
@@ -75,8 +77,16 @@ public class ContractDataSource implements ContractRepository {
     }
 
     @Override
+    public ContractHistory getContractHistory(WorkerNumber workerNumber) {
+        Contracts contracts = getContracts2(workerNumber, new Date(LocalDate.of(1,1,1)),
+                new Date(LocalDate.of(9999,12,31)));
+        return new ContractHistory(contracts.value());
+    }
+
+    @Override
     public Contracts getContracts2(WorkerNumber workerNumber, Date startDate, Date endDate) {
-        return null;
+        List<ContractData2> list = mapper.getContracts(workerNumber, startDate, endDate);
+        return new Contracts(list.stream().map(cd2 -> new Contract(cd2.startDate(), cd2.endDate(), cd2.hourlyWage())).collect(Collectors.toList()));
     }
 
     @Override

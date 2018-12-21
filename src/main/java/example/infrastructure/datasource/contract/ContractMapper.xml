@@ -32,6 +32,16 @@
         <result property="hourlyWage" column="時給"/>
     </resultMap>
 
+    <select id="getContracts" resultMap="contract2">
+        SELECT
+        時給契約.適用開始日,
+        時給契約.適用終了日,
+        時給契約.時給
+        FROM 給与.時給契約 as 時給契約
+        WHERE 時給契約.従業員ID = #{workerNumber.value} AND 時給契約.適用開始日 >= #{startDate.value} AND 時給契約.適用終了日 &gt;=時給契約.適用終了日
+        ORDER BY 時給契約.適用開始日 asc;
+    </select>
+
     <select id="getContractData2" resultMap="contract2">
         SELECT
         時給契約.適用開始日,

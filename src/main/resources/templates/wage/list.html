@@ -41,10 +41,9 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <!-- TODO 時給の出力。日付降順（モデルに実装） -->
-        <td>2018/12/01</td>
-        <td class="right aligned">937</td>
+      <tr th:each="contract : ${contractHistory.history()}">
+        <td th:text="${contract.startDate()}">2018/12/01</td>
+        <td class="right aligned" th:text="${contract.hourlyWage()}">937</td>
       </tr>
       </tbody>
     </table>

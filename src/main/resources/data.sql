@@ -109,6 +109,14 @@ INSERT INTO 給与.時給契約(従業員ID, 適用開始日, 適用終了日, �
 (6, DATEADD('DAY', -60, CURRENT_DATE), '9999-12-31', 950)
 ;
 
+-- 時給変遷を確認するためのデータ
+INSERT INTO 給与.契約履歴(時給ID, 従業員ID, 時給, 適用開始日) VALUES
+(7, 6, 955, DATEADD('DAY', -30, CURRENT_DATE));
+UPDATE 給与.時給契約 SET 適用終了日 = DATEADD('DAY', -31, CURRENT_DATE)
+WHERE 従業員ID = 6 AND 適用開始日 = DATEADD('DAY', -60, CURRENT_DATE) AND 適用終了日='9999-12-31';
+INSERT INTO 給与.時給契約(従業員ID, 適用開始日, 適用終了日, 時給) VALUES
+(6, DATEADD('DAY', -30, CURRENT_DATE), '9999-12-31', 955);
+
 -- 作業時間
 INSERT INTO 給与.就業時間履歴(就業時間ID, 従業員ID, 就業日, 開始時刻, 終了時刻, 休憩時間) VALUES
 (1, 1, DATEADD('DAY', -1, CURRENT_DATE), '09:00:00', '17:00:00', 60),
