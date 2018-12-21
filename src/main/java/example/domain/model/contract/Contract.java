@@ -29,7 +29,7 @@ public class Contract {
     }
 
     public DateRange period() {
-        return new DateRange(startDate());
+        return period;
     }
 
     public OverTimeHourlyExtraWage overTimeHourlyExtraWage() {

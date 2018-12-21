@@ -63,10 +63,8 @@ public class Date {
     }
 
     public boolean inRange(DateRange range) {
-        return value.isEqual(range.startDate().value)
-                || value.isEqual(range.endDate().value)
-                || value.isAfter(range.startDate().value)
-                || value.isBefore(range.endDate().value);
+        return (value.isEqual(range.startDate().value) || value.isAfter(range.startDate().value))
+                && (value.isEqual(range.endDate().value) || value.isBefore(range.endDate().value));
     }
 
     public Date previousDay() {
