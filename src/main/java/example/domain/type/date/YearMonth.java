@@ -77,4 +77,7 @@ public class YearMonth {
         return value.format(DateTimeFormatter.ofPattern("uuuuMM")) + "%";
     }
 
+    public boolean isThisYear() {
+        return value.getYear() == java.time.YearMonth.now().getYear();
+    }
 }

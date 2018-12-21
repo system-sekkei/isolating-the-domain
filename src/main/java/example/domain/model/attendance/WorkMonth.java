@@ -53,12 +53,15 @@ public class WorkMonth {
         return new WorkMonth(value.after());
     }
 
-    public String toString(){
+    public String toString() {
         return value.toString();
     }
 
     public String toStringWithUnit() {
-        return String.format("%s月", value.month().toString());
+        if (value.isThisYear()) {
+            return String.format("%s月", value.month().toString());
+        }
+        return String.format("%s年%s月", value.year().toString(), value.month().toString());
     }
 
 }
