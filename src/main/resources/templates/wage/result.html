@@ -17,6 +17,10 @@
       <p th:text="${worker.name()} + '(' + ${worker.workerNumber()} + ')' + さんの時給を登録しました。">登録しました。</p>
     </div>
   </div>
+  <div class="ui center aligned basic segment">
+    <a class="ui grey button"
+       th:href="@{/wages/{workerNumber}(workerNumber=${worker.workerNumber()})}">戻る</a>
+  </div>
 </div>
 
 </body>
