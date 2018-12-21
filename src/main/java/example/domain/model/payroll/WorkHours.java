@@ -16,8 +16,7 @@ public class WorkHours {
 
     WorkHours(Minute minute) {
         //XXX 15分刻みなので２桁で十分
-        value = new BigDecimal(minute.value()).divide(new BigDecimal(60), 2, RoundingMode.DOWN);
-        int value = minute.value();
+        this.value = new BigDecimal(minute.value()).divide(new BigDecimal(60), 2, RoundingMode.DOWN);
     }
 
     public static WorkHours of(Minute minute) {
