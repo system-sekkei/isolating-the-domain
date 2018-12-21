@@ -16,8 +16,7 @@ public interface ContractMapper {
                             @Param("applyDate") Date applyDate,
                             @Param("hourlyWageContract") HourlyWageContract hourlyWageContract);
 
-    List<HourlyWageData> getContracts(@Param("workerNumber") WorkerNumber workerNumber,
-                                      @Param("startDate") Date startDate, @Param("endDate") Date endDate);
+    List<HourlyWageData> selectContracts(@Param("workerNumber") WorkerNumber workerNumber);
 
     HourlyWageData selectHourlyWageData(@Param("workerNumber") WorkerNumber workerNumber, @Param("workDay") Date workDay);
 

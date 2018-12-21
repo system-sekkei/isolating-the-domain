@@ -8,7 +8,7 @@ import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 
 public interface ContractRepository {
-    Contracts getContracts(WorkerNumber workerNumber, Date startDate, Date endDate);
+    Contracts getContracts(WorkerNumber workerNumber);
 
     void stopHourlyWageContract(WorkerNumber workerNumber, Date lastDate);
 

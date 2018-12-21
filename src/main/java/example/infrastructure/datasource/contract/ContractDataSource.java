@@ -33,13 +33,13 @@ public class ContractDataSource implements ContractRepository {
 
     @Override
     public ContractHistory getContractHistory(WorkerNumber workerNumber) {
-        Contracts contracts = getContracts(workerNumber, Date.distantPast(), Date.distantFuture());
+        Contracts contracts = getContracts(workerNumber);
         return new ContractHistory(contracts.value());
     }
 
     @Override
-    public Contracts getContracts(WorkerNumber workerNumber, Date startDate, Date endDate) {
-        List<HourlyWageData> list = mapper.getContracts(workerNumber, startDate, endDate);
+    public Contracts getContracts(WorkerNumber workerNumber) {
+        List<HourlyWageData> list = mapper.selectContracts(workerNumber);
         return new Contracts(list.stream()
                 .map(HourlyWageData::toContract)
                 .collect(Collectors.toList()));

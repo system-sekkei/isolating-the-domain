@@ -17,8 +17,8 @@ public class ContractQueryService {
     /**
      *　雇用契約変遷
      */
-    public Contracts getContracts(WorkerNumber workerNumber, Date startDate, Date endDate) {
-        return contractRepository.getContracts(workerNumber, startDate, endDate);
+    public Contracts getContracts(WorkerNumber workerNumber) {
+        return contractRepository.getContracts(workerNumber);
     }
 
     public ContractHistory getContractHistory(WorkerNumber workerNumber) {

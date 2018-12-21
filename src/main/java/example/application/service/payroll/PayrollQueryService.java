@@ -22,7 +22,7 @@ public class PayrollQueryService {
 
     public Payroll getPayroll(Worker worker, YearMonth yearMonth) {
         WorkerNumber workerNumber = worker.workerNumber();
-        Contracts contracts = contractQueryService.getContracts(workerNumber, yearMonth.start(), yearMonth.end());
+        Contracts contracts = contractQueryService.getContracts(workerNumber);
         MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(workerNumber, new WorkMonth(yearMonth));
 
         ContractPayrolls contractPayrolls = new ContractPayrolls(contracts, monthlyAttendances);

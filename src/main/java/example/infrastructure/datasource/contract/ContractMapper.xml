@@ -26,7 +26,7 @@
         <result property="midnightExtraRate" column="深夜割増率"/>
     </resultMap>
 
-    <select id="getContracts" resultMap="hourlyWage">
+    <select id="selectContracts" resultMap="hourlyWage">
         SELECT
         時給契約.適用開始日,
         時給契約.適用終了日,
@@ -35,9 +35,6 @@
         時給契約.深夜割増率
         FROM 給与.時給契約 as 時給契約
         WHERE 時給契約.従業員ID = #{workerNumber.value}
-        AND NOT (
-            時給契約.適用終了日 &lt; #{startDate.value} OR 時給契約.適用開始日 > #{endDate.value}
-        )
         <!--TODO ORDER BY 無くしたい-->
         ORDER BY 時給契約.適用開始日 asc;
     </select>
