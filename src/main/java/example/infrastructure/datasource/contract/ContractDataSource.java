@@ -63,7 +63,7 @@ public class ContractDataSource implements ContractRepository {
     }
 
     private ContractHistoryData getContractData(WorkerNumber workerNumber, Date workDay) {
-        List<ContractHistoryData> contracts = mapper.getContractData(workerNumber, workDay);
+        List<ContractHistoryData> contracts = mapper.getContractHistoryData(workerNumber, workDay);
         return contracts.stream().findFirst().orElseThrow(HourlyWageNotFoundException::new);
     }
 

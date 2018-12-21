@@ -12,13 +12,13 @@
         VALUES (#{id}, #{workerNumber.value}, #{hourlyWage.value}, #{applyDate.value});
     </insert>
 
-    <resultMap id="contract" type="example.infrastructure.datasource.contract.ContractHistoryData">
+    <resultMap id="contractHistory" type="example.infrastructure.datasource.contract.ContractHistoryData">
         <result property="id" column="時給ID" />
         <result property="hourlyWage" column="時給"/>
         <result property="startDate" column="適用開始日"/>
     </resultMap>
 
-    <select id="getContractData" resultMap="contract">
+    <select id="getContractHistoryData" resultMap="contractHistory">
         SELECT
         契約履歴.時給ID,
         契約履歴.時給,
