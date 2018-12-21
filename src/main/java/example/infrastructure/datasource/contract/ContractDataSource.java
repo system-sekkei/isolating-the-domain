@@ -3,7 +3,7 @@ package example.infrastructure.datasource.contract;
 import example.application.repository.ContractRepository;
 import example.domain.model.contract.ContractHistory;
 import example.domain.model.contract.Contracts;
-import example.domain.model.contract.HourlyWage;
+import example.domain.model.contract.HourlyWageContract;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import org.springframework.stereotype.Repository;
@@ -17,18 +17,18 @@ public class ContractDataSource implements ContractRepository {
     ContractMapper mapper;
 
     @Override
-    public void registerHourlyWage(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage) {
+    public void registerHourlyWage(WorkerNumber workerNumber, Date applyDate, HourlyWageContract hourlyWageContract) {
         mapper.deleteFeatureContract(workerNumber, applyDate);
         Integer hourlyWageId = mapper.newHourlyWageIdentifier();
-        mapper.registerHourlyWage(workerNumber, hourlyWageId, applyDate, hourlyWage, 25, 35);
-        mapper.insertContract(workerNumber, applyDate, getEndDate(workerNumber, applyDate), hourlyWage, 25, 35);
+        mapper.registerHourlyWage(workerNumber, hourlyWageId, applyDate, hourlyWageContract);
+        mapper.insertContract(workerNumber, applyDate, getEndDate(workerNumber, applyDate), hourlyWageContract);
     }
 
     public void stopHourlyWageContract(WorkerNumber workerNumber, Date stopDate) {
         HourlyWageData hourlyWageData = mapper.selectHourlyWageData(workerNumber, stopDate);
         if (hourlyWageData == null) return;
         mapper.deleteContractData(workerNumber, hourlyWageData.startDate(), hourlyWageData.endDate());
-        mapper.insertContract(workerNumber, hourlyWageData.startDate(), stopDate, hourlyWageData.hourlyWage(), hourlyWageData.overTimeExtraRate, hourlyWageData.midnightExtraRate);
+        mapper.insertContract(workerNumber, hourlyWageData.startDate(), stopDate, hourlyWageData.toHourlyWageContract());
     }
 
     @Override

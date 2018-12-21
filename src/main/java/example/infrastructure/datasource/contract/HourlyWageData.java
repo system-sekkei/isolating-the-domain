@@ -28,11 +28,15 @@ public class HourlyWageData {
         return new Contract(
                 new Date(startDate),
                 new Date(endDate),
-                new HourlyWageContract(
-                        new HourlyWage(hourlyWage),
-                        new OverTimeExtraRate(overTimeExtraRate),
-                        new MidnightExtraRate(midnightExtraRate)
-                )
+                toHourlyWageContract()
+        );
+    }
+
+    HourlyWageContract toHourlyWageContract() {
+        return new HourlyWageContract(
+                new HourlyWage(hourlyWage),
+                new OverTimeExtraRate(overTimeExtraRate),
+                new MidnightExtraRate(midnightExtraRate)
         );
     }
 }

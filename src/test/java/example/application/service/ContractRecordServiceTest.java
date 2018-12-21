@@ -4,8 +4,7 @@ import example.Application;
 import example.application.service.contract.ContractQueryService;
 import example.application.service.contract.ContractRecordService;
 import example.application.service.worker.WorkerRecordService;
-import example.domain.model.contract.ContractHistory;
-import example.domain.model.contract.HourlyWage;
+import example.domain.model.contract.*;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import org.junit.jupiter.api.DisplayName;
@@ -81,5 +80,6 @@ public class ContractRecordServiceTest {
 
     private void updateHourlyWageContract(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage) {
         sutRecord.stopHourlyWageContract(workerNumber, new Date(applyDate.value().minusDays(1)));
-        sutRecord.registerHourlyWage(workerNumber, applyDate, hourlyWage);
-    }}
+        sutRecord.registerHourlyWage(workerNumber, applyDate, new HourlyWageContract(hourlyWage, new OverTimeExtraRate(25), new MidnightExtraRate(35)));
+    }
+}

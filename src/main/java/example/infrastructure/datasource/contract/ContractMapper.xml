@@ -9,7 +9,7 @@
 
     <insert id="registerHourlyWage">
         INSERT INTO 給与.時給契約履歴 (時給ID, 従業員ID, 時給, 適用開始日, 時間外割増率, 深夜割増率)
-        VALUES (#{id}, #{workerNumber.value}, #{hourlyWage.value}, #{applyDate.value}, #{overTimeHourlyWage}, #{midnightExtraPayRate});
+        VALUES (#{id}, #{workerNumber.value}, #{hourlyWageContract.hourlyWage.value}, #{applyDate.value}, #{hourlyWageContract.overTimeExtraRate.value.value}, #{hourlyWageContract.midnightExtraRate.value.value});
     </insert>
 
     <resultMap id="contractHistory" type="example.infrastructure.datasource.contract.ContractHistoryData">
@@ -55,7 +55,7 @@
 
     <insert id="insertContract">
         INSERT INTO 給与.時給契約(従業員ID, 適用開始日, 適用終了日, 時給, 時間外割増率, 深夜割増率) VALUES
-        (#{workerNumber.value}, #{startDate.value}, #{endDate.value}, #{hourlyWage.value}, #{overTimeHourlyWage}, #{midnightExtraPayRate})
+        (#{workerNumber.value}, #{startDate.value}, #{endDate.value}, #{hourlyWageContract.hourlyWage.value}, #{hourlyWageContract.overTimeExtraRate.value.value}, #{hourlyWageContract.midnightExtraRate.value.value})
     </insert>
 
     <delete id="deleteFeatureContract">
