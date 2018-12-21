@@ -9,6 +9,7 @@ import example.domain.type.time.Minute;
  * 日次勤怠
  */
 public class Attendance {
+
     WorkDay workDay;
     WorkTimeRange workTimeRange;
     NormalBreakTime normalBreakTime;
@@ -64,7 +65,4 @@ public class Attendance {
         return HourAndMinute.from(overMinute);
     }
 
-    public int compareTo(Attendance other) {
-        return workDay.compareTo(other.workDay);
-    }
 }
