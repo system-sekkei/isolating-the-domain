@@ -34,7 +34,7 @@ public class ContractRecordServiceTest {
     void hourlyWage_io() {
         WorkerNumber number = workerRecordService.prepareNewContract();
 
-        LocalDate infinite = LocalDate.of(9999, 12, 31);
+        LocalDate infinite = Date.distantFuture().value();
         //一発目
         LocalDate now = LocalDate.now();
         Date applyDate1 = new Date(now);

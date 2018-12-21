@@ -21,6 +21,10 @@ public class Date {
         this.value = value;
     }
 
+    public static Date distantFuture() {
+        return new Date(LocalDate.of(9999, 12, 31));
+    }
+
     public LocalDate value() {
         return value;
     }

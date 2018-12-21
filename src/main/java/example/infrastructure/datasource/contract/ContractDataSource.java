@@ -22,7 +22,7 @@ public class ContractDataSource implements ContractRepository {
         mapper.deleteFeatureContract(workerNumber, applyDate);
         Integer hourlyWageId = mapper.newHourlyWageIdentifier();
         mapper.registerHourlyWage(workerNumber, hourlyWageId, applyDate, hourlyWageContract);
-        mapper.insertContract(workerNumber, applyDate, getEndDate(workerNumber, applyDate), hourlyWageContract);
+        mapper.insertContract(workerNumber, applyDate, Date.distantFuture(), hourlyWageContract);
     }
 
     public void stopHourlyWageContract(WorkerNumber workerNumber, Date stopDate) {
@@ -34,8 +34,7 @@ public class ContractDataSource implements ContractRepository {
 
     @Override
     public ContractHistory getContractHistory(WorkerNumber workerNumber) {
-        Contracts contracts = getContracts(workerNumber, new Date(LocalDate.of(1, 1, 1)),
-                new Date(LocalDate.of(9999, 12, 31)));
+        Contracts contracts = getContracts(workerNumber, new Date(LocalDate.of(1, 1, 1)), Date.distantFuture());
         return new ContractHistory(contracts.value());
     }
 
@@ -45,10 +44,6 @@ public class ContractDataSource implements ContractRepository {
         return new Contracts(list.stream()
                 .map(HourlyWageData::toContract)
                 .collect(Collectors.toList()));
-    }
-
-    private Date getEndDate(WorkerNumber workerNumber, Date date) {
-        return new Date(LocalDate.of(9999, 12, 31));
     }
 
     ContractDataSource(ContractMapper payrollMapper) {
