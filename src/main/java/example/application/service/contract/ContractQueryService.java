@@ -8,8 +8,6 @@ import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-
 /**
  * 契約参照サービス
  */
@@ -29,10 +27,6 @@ public class ContractQueryService {
      */
     public Contracts getContracts(WorkerNumber workerNumber, Date startDate, Date endDate) {
         return contractRepository.getContracts(workerNumber, startDate, endDate);
-    }
-
-    public Contracts getContracts2(WorkerNumber workerNumber, Date startDate, Date endDate) {
-        return contractRepository.getContracts2(workerNumber, startDate, endDate);
     }
 
     public Contract getContract(WorkerNumber workerNumber, Date date) {

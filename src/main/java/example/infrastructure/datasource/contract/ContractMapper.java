@@ -6,7 +6,6 @@ import example.domain.type.date.Date;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Mapper
@@ -21,8 +20,6 @@ public interface ContractMapper {
 
     void insertContract(@Param("workerNumber") WorkerNumber workerNumber,
                         @Param("startDate")Date applyDate, @Param("endDate") Date date, @Param("hourlyWage") HourlyWage hourlyWage);
-
-    void deleteFeatureContract(@Param("workerNumber") WorkerNumber workerNumber, @Param("date")Date date);
 
     void deleteContractData(@Param("workerNumber") WorkerNumber workerNumber,
                             @Param("startDate")Date startDate, @Param("endDate")Date endDate);

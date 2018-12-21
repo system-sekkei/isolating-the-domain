@@ -13,11 +13,7 @@ public interface ContractRepository {
 
     Contracts getContracts(WorkerNumber workerNumber, Date startDate, Date endDate);
 
-    void registerHourlyWage2(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage);
-
     void stopHourlyWageContract(WorkerNumber workerNumber, Date lastDate);
-
-    Contracts getContracts2(WorkerNumber workerNumber, Date startDate, Date endDate);
 
     Contract getContract(WorkerNumber workerNumber, Date date);
 }

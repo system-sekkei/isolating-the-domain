@@ -16,16 +16,12 @@ public class ContractRecordService {
     /**
      * 時給登録
      */
-    public void registerHourlyWage (WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage) {
+    public void registerHourlyWage(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage) {
         contractRepository.registerHourlyWage(workerNumber, applyDate, hourlyWage);
     }
 
     ContractRecordService(ContractRepository contractRepository) {
         this.contractRepository = contractRepository;
-    }
-
-    public void registerHourlyWage2(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage) {
-        contractRepository.registerHourlyWage2(workerNumber, applyDate, hourlyWage);
     }
 
     public void stopHourlyWageContract(WorkerNumber workerNumber, Date lastDate) {

@@ -53,10 +53,4 @@
         時給契約.適用開始日 = #{startDate.value} AND
         時給契約.適用終了日 = #{endDate.value}
     </delete>
-
-    <delete id="deleteFeatureContract">
-        DELETE FROM 給与.時給契約 WHERE
-          従業員ID = #{workerNumber.value} AND
-          時給契約.適用開始日 >= #{date.value}
-    </delete>
 </mapper>
