@@ -16,6 +16,7 @@ public class WorkHours {
     BigDecimal value;
 
     WorkHours(Minute minute) {
+        // TODO quarterRoundDownしているMinuteであることを型にしたい
         //XXX 15分刻みなので２桁で十分
         this.value = new BigDecimal(minute.value()).divide(new BigDecimal(60), 2, RoundingMode.DOWN);
     }
