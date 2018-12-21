@@ -26,6 +26,8 @@
         </tr>
         </thead>
         <tbody>
+        <!-- TODO 時給登録なしの給与を出さない -->
+        <!-- TODO 時給登録なしなどは備考欄を作ってそこにメッセージ -->
         <tr th:each="worker : ${workers.list()}">
           <td class="right aligned"
               th:text="${worker.workerNumber()}"/>

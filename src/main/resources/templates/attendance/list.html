@@ -65,6 +65,7 @@
       </tr>
       </thead>
       <tbody>
+      <!-- TODO 勤務時間の一覧の各日に編集（入力？）ボタンをつけ、従業員と日付が指定された勤務時間入力画面に飛ぶ-->
       <th:block th:each="attendance : ${monthlyAttendances.attendances().list()}">
         <tr th:class="${attendance.workDay().dayOfWeek()}">
           <td class="center aligned"
