@@ -1,6 +1,5 @@
 package example.domain.model.payroll;
 
-import example.domain.model.attendance.Attendances;
 import example.domain.model.attendance.MonthlyAttendances;
 import example.domain.model.attendance.WorkTime;
 import example.domain.model.contract.Contract;
@@ -10,19 +9,15 @@ import example.domain.model.contract.Contract;
  */
 public class ContractPayroll {
     Contract contract;
-    Attendances attendances;
-
-    public ContractPayroll(Contract contract, Attendances attendances) {
-        this.contract = contract;
-        this.attendances = attendances;
-    }
+    MonthlyAttendances monthlyAttendances;
 
     public ContractPayroll(Contract contract, MonthlyAttendances monthlyAttendances) {
-        this(contract, monthlyAttendances.attendancesOf(contract.period()));
+        this.contract = contract;
+        this.monthlyAttendances = monthlyAttendances;
     }
 
     public Wage wage() {
-        WorkTime workTime = attendances.summarize();
+        WorkTime workTime = monthlyAttendances.workTimeWithin(contract.period());
 
         return Wage.of(WorkHours.of(workTime.totalWorkTime()), contract.hourlyWage())
                 .add(workTime.overTime(), contract.overTimeHourlyExtraWage())

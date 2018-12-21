@@ -29,10 +29,6 @@ public class MonthlyAttendances {
         return month.days();
     }
 
-    public Attendances attendancesOf(DateRange range) {
-        return attendances.rangeOf(range);
-    }
-
     public WorkerAttendance at(WorkDay workDay) {
         return new WorkerAttendance(workerNumber, attendances.at(workDay));
     }
@@ -43,5 +39,9 @@ public class MonthlyAttendances {
 
     public HourAndMinute totalWorkTime() {
         return attendances.summarize().totalWorkTime();
+    }
+
+    public WorkTime workTimeWithin(DateRange period) {
+        return attendances.rangeOf(period).summarize();
     }
 }

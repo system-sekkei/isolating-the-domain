@@ -4,6 +4,7 @@ import example.domain.model.attendance.*;
 import example.domain.model.contract.Contract;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.WageCondition;
+import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import example.domain.type.date.DateRange;
 import example.domain.type.time.ClockTime;
@@ -12,7 +13,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.time.LocalDate;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,15 +35,20 @@ class ContractPayrollTest {
             "8:00, 0:00, 60, 60, 1000, 15850"
     })
     void wage(String begin, String end, int breakMinute, int midnightBreakMinute, int hourlyWage, int expected) {
-        Attendance attendance = new Attendance(new WorkDay(),
+        Attendance attendance = new Attendance(new WorkDay("2018-11-04"),
                 new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)),
                 new NormalBreakTime(new Minute(breakMinute)), new MidnightBreakTime(new Minute(midnightBreakMinute)));
 
         Contract contract = new Contract(
-                new DateRange(new Date(LocalDate.now()), new Date(LocalDate.MAX)),
+                new DateRange(Date.distantPast(), Date.distantFuture()),
                 new WageCondition(new HourlyWage(hourlyWage))
         );
-        ContractPayroll sut = new ContractPayroll(contract, new Attendances(Collections.singletonList(attendance)));
+        MonthlyAttendances monthlyAttendances = new MonthlyAttendances(
+                new WorkerNumber("0"),
+                new WorkMonth("2018-11"),
+                new Attendances(Collections.singletonList(attendance))
+        );
+        ContractPayroll sut = new ContractPayroll(contract, monthlyAttendances);
         assertEquals(expected, sut.wage().value.intValue());
     }
 }
