@@ -2,6 +2,8 @@ package example.domain.model.payroll;
 
 import example.domain.model.attendance.*;
 import example.domain.model.contract.*;
+import example.domain.model.labour_standards_law.MidnightExtraRate;
+import example.domain.model.labour_standards_law.OverTimeExtraRate;
 import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;

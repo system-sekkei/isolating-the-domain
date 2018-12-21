@@ -1,6 +1,8 @@
 package example.infrastructure.datasource.contract;
 
 import example.domain.model.contract.*;
+import example.domain.model.labour_standards_law.MidnightExtraRate;
+import example.domain.model.labour_standards_law.OverTimeExtraRate;
 import example.domain.type.date.Date;
 
 import java.time.LocalDate;

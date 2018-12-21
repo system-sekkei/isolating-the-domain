@@ -33,10 +33,10 @@ public class Contract {
     }
 
     public OverTimeHourlyExtraWage overTimeHourlyExtraWage() {
-        return hourlyWageContract.overTimeExtraRate.apply(hourlyWage());
+        return hourlyWage().overTimeHourlyExtraWage(hourlyWageContract.overTimeExtraRate);
     }
 
     public MidnightHourlyExtraWage midnightHourlyExtraWage() {
-        return hourlyWageContract.midnightExtraRate.apply(hourlyWage());
+        return hourlyWage().midnightHourlyExtraWage(hourlyWageContract.midnightExtraRate);
     }
 }

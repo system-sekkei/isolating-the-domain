@@ -5,12 +5,11 @@ import example.application.service.contract.ContractRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.HourlyWageContract;
-import example.domain.model.contract.MidnightExtraRate;
-import example.domain.model.contract.OverTimeExtraRate;
+import example.domain.model.labour_standards_law.MidnightExtraRate;
+import example.domain.model.labour_standards_law.OverTimeExtraRate;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,17 +23,10 @@ class WageRegisterController {
 
     WorkerQueryService workerQueryService;
     ContractRecordService contractRecordService;
-    OverTimeExtraRate overTimeExtraRate;
-    MidnightExtraRate midnightExtraRate;
 
-    public WageRegisterController(WorkerQueryService workerQueryService, ContractRecordService contractRecordService,
-                                  @Value("${example.over-time-extra-rate}") Integer overTimeExtraRate,
-                                  @Value("${example.midnight-extra-rate}") Integer midnightExtraRate) {
+    public WageRegisterController(WorkerQueryService workerQueryService, ContractRecordService contractRecordService) {
         this.workerQueryService = workerQueryService;
         this.contractRecordService = contractRecordService;
-
-        this.overTimeExtraRate = new OverTimeExtraRate(overTimeExtraRate);
-        this.midnightExtraRate = new MidnightExtraRate(midnightExtraRate);
     }
 
     @ModelAttribute("worker")
@@ -72,7 +64,7 @@ class WageRegisterController {
     public String register(Worker worker,
                            @RequestParam("startDate") Date startDate,
                            @RequestParam("hourlyWage") HourlyWage hourlyWage) {
-        HourlyWageContract hourlyWageContract = new HourlyWageContract(hourlyWage, overTimeExtraRate, midnightExtraRate);
+        HourlyWageContract hourlyWageContract = new HourlyWageContract(hourlyWage);
         contractRecordService.registerHourlyWage(worker.workerNumber(), startDate, hourlyWageContract);
         return String.format("redirect:/wages/%d/register/completed", worker.workerNumber().value());
     }

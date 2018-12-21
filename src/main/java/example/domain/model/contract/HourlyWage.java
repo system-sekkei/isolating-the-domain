@@ -1,5 +1,12 @@
 package example.domain.model.contract;
 
+import example.domain.model.labour_standards_law.ExtraPayRate;
+import example.domain.model.labour_standards_law.MidnightExtraRate;
+import example.domain.model.labour_standards_law.OverTimeExtraRate;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * 時給
  */
@@ -20,5 +27,20 @@ public class HourlyWage {
 
     public String toString() {
         return value.toString();
+    }
+
+    public OverTimeHourlyExtraWage overTimeHourlyExtraWage(OverTimeExtraRate overTimeExtraRate) {
+        return new OverTimeHourlyExtraWage(withExtraPayRate(overTimeExtraRate.value()));
+    }
+
+    public MidnightHourlyExtraWage midnightHourlyExtraWage(MidnightExtraRate midnightExtraRate) {
+        return new MidnightHourlyExtraWage(withExtraPayRate(midnightExtraRate.value()));
+    }
+
+    HourlyWage withExtraPayRate(ExtraPayRate extraPayRate) {
+        BigDecimal rate = extraPayRate.rate();
+        BigDecimal hourlyWageValue = BigDecimal.valueOf(value);
+        BigDecimal calculatedHourlyWage = hourlyWageValue.multiply(rate).setScale(0, RoundingMode.DOWN);
+        return new HourlyWage(calculatedHourlyWage.intValueExact());
     }
 }

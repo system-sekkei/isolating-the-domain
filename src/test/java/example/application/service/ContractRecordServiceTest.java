@@ -5,6 +5,8 @@ import example.application.service.contract.ContractQueryService;
 import example.application.service.contract.ContractRecordService;
 import example.application.service.worker.WorkerRecordService;
 import example.domain.model.contract.*;
+import example.domain.model.labour_standards_law.MidnightExtraRate;
+import example.domain.model.labour_standards_law.OverTimeExtraRate;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import org.junit.jupiter.api.DisplayName;
