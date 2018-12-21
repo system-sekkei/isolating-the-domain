@@ -15,11 +15,6 @@ public class Wage {
         this.value = value;
     }
 
-    public Wage(HourlyWage hourlyWage, WorkHours workHours) {
-        // TODO まるめ
-        this(BigDecimal.valueOf(hourlyWage.value()).multiply(workHours.value()));
-    }
-
     public Wage() {
         this(BigDecimal.ZERO);
     }

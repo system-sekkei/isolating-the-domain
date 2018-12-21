@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class WorkMonth {
     YearMonth value;
 
+    @Deprecated
     public WorkMonth() {
         value = new YearMonth();
     }
