@@ -33,23 +33,23 @@ public class ContractDataSource implements ContractRepository {
         List<Date> days = range.days();
         SortedMap<LocalDate, ContractHistoryData> map = new TreeMap<>();
         //TODO 時給無いときどうしよう
-        ContractHistoryData noContract = new ContractHistoryData(){{
-          id = -1;
-          hourlyWage = 0;
+        ContractHistoryData noContract = new ContractHistoryData() {{
+            id = -1;
+            hourlyWage = 0;
         }};
-        for(Date date : days) {
+        for (Date date : days) {
             try {
                 map.put(date.value(), getContractData(workerNumber, date));
-            } catch(HourlyWageNotFoundException e) {
+            } catch (HourlyWageNotFoundException e) {
                 map.put(date.value(), noContract);
             }
         }
         List<Contract> ret = new ArrayList<>();
         LocalDate s = startDate.value();
         Integer lastId = map.get(s).id;
-        for(Map.Entry<LocalDate, ContractHistoryData> entry : map.entrySet()) {
-            if(entry.getValue().id.equals(lastId)) {
-               continue;
+        for (Map.Entry<LocalDate, ContractHistoryData> entry : map.entrySet()) {
+            if (entry.getValue().id.equals(lastId)) {
+                continue;
             }
             ret.add(new Contract(new Date(s), new Date(entry.getKey().minusDays(1L)), new HourlyWage(map.get(s).hourlyWage)));
             s = entry.getKey();
@@ -62,23 +62,9 @@ public class ContractDataSource implements ContractRepository {
     @Override
     public void stopHourlyWageContract(WorkerNumber workerNumber, Date lastDate) {
         ContractData2 contractData2 = mapper.getContractData2(workerNumber, lastDate);
-        if(contractData2 == null) return;
+        if (contractData2 == null) return;
         mapper.deleteContractData(workerNumber, contractData2.startDate(), contractData2.endDate());
         mapper.insertContract(workerNumber, contractData2.startDate(), lastDate, contractData2.hourlyWage());
-    }
-
-    @Override
-    public Contract getContract(WorkerNumber workerNumber, Date date) {
-        ContractData2 contractData2 = mapper.getContractData2(workerNumber, date);
-        if(contractData2 == null) {
-            //FIXME 後で例外変える
-            throw new HourlyWageNotFoundException();
-        }
-        return new Contract(contractData2.startDate(), contractData2.endDate(), contractData2.hourlyWage());
-    }
-
-    private Date getEndDate(WorkerNumber workerNumber, Date date) {
-        return new Date(LocalDate.of(9999,12,31));
     }
 
     private ContractHistoryData getContractData(WorkerNumber workerNumber, Date workDay) {
