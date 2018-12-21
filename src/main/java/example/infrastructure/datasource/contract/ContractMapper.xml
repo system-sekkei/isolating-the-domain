@@ -12,15 +12,17 @@
         VALUES (#{id}, #{workerNumber.value}, #{hourlyWage.value}, #{applyDate.value});
     </insert>
 
-    <resultMap id="contract" type="example.infrastructure.datasource.contract.ContractData">
+    <resultMap id="contract" type="example.infrastructure.datasource.contract.ContractHistoryData">
         <result property="id" column="時給ID" />
-        <result property="value" column="時給"/>
+        <result property="hourlyWage" column="時給"/>
+        <result property="startDate" column="適用開始日"/>
     </resultMap>
 
     <select id="getContractData" resultMap="contract">
         SELECT
         契約履歴.時給ID,
-        契約履歴.時給
+        契約履歴.時給,
+        契約履歴.適用開始日
         FROM 給与.契約履歴 as 契約履歴
         WHERE 契約履歴.従業員ID = #{workerNumber.value} AND 契約履歴.適用開始日 &lt;= #{workDay.value}
         ORDER BY 契約履歴.登録日時 desc
