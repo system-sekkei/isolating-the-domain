@@ -1,7 +1,6 @@
 package example.application.repository;
 
 
-import example.domain.model.contract.Contract;
 import example.domain.model.contract.ContractHistory;
 import example.domain.model.contract.Contracts;
 import example.domain.model.contract.HourlyWage;
