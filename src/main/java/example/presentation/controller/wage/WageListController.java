@@ -32,7 +32,7 @@ public class WageListController {
         return workerQueryService.choose(workerNumber);
     }
 
-    @GetMapping("")
+    @GetMapping
     public String list(Worker worker, Model model) {
         ContractHistory contractHistory = contractQueryService.getContractHistory(worker.workerNumber());
         model.addAttribute("contractHistory", contractHistory);
