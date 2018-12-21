@@ -7,7 +7,6 @@ import example.domain.model.contract.Contracts;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
-import example.domain.type.date.DateRange;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -24,37 +23,6 @@ public class ContractDataSource implements ContractRepository {
         mapper.registerHourlyWage(workerNumber, hourlyWageId, applyDate, hourlyWage);
     }
 
-    @Override
-    public Contracts getContracts(WorkerNumber workerNumber, Date startDate, Date endDate) {
-        DateRange range = new DateRange(startDate, endDate);
-        List<Date> days = range.days();
-        SortedMap<LocalDate, ContractHistoryData> map = new TreeMap<>();
-        //TODO 時給無いときどうしよう
-        ContractHistoryData noContract = new ContractHistoryData() {{
-            id = -1;
-            hourlyWage = 0;
-        }};
-        for (Date date : days) {
-            try {
-                map.put(date.value(), getContractData(workerNumber, date));
-            } catch (HourlyWageNotFoundException e) {
-                map.put(date.value(), noContract);
-            }
-        }
-        List<Contract> ret = new ArrayList<>();
-        LocalDate s = startDate.value();
-        Integer lastId = map.get(s).id;
-        for (Map.Entry<LocalDate, ContractHistoryData> entry : map.entrySet()) {
-            if (entry.getValue().id.equals(lastId)) {
-                continue;
-            }
-            ret.add(new Contract(new Date(s), new Date(entry.getKey().minusDays(1L)), new HourlyWage(map.get(s).hourlyWage)));
-            s = entry.getKey();
-            lastId = entry.getValue().id;
-        }
-        ret.add(new Contract(new Date(s), endDate, new HourlyWage(map.get(s).hourlyWage)));
-        return new Contracts(ret);
-    }
 
     @Override
     public void registerHourlyWage2(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage) {
@@ -72,13 +40,13 @@ public class ContractDataSource implements ContractRepository {
 
     @Override
     public ContractHistory getContractHistory(WorkerNumber workerNumber) {
-        Contracts contracts = getContracts2(workerNumber, new Date(LocalDate.of(1,1,1)),
+        Contracts contracts = getContracts(workerNumber, new Date(LocalDate.of(1,1,1)),
                 new Date(LocalDate.of(9999,12,31)));
         return new ContractHistory(contracts.value());
     }
 
     @Override
-    public Contracts getContracts2(WorkerNumber workerNumber, Date startDate, Date endDate) {
+    public Contracts getContracts(WorkerNumber workerNumber, Date startDate, Date endDate) {
         List<HourlyWageData> list = mapper.getContracts(workerNumber, startDate, endDate);
         return new Contracts(list.stream().map(cd2 -> new Contract(cd2.startDate(), cd2.endDate(), cd2.hourlyWage())).collect(Collectors.toList()));
     }

@@ -22,10 +22,6 @@ public class ContractQueryService {
         return contractRepository.getContracts(workerNumber, startDate, endDate);
     }
 
-    public Contracts getContracts2(WorkerNumber workerNumber, Date startDate, Date endDate) {
-        return contractRepository.getContracts2(workerNumber, startDate, endDate);
-    }
-
     public Contract getContract(WorkerNumber workerNumber, Date date) {
         return contractRepository.getContract(workerNumber, date);
     }
