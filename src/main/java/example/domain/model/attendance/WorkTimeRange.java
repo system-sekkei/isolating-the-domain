@@ -17,8 +17,12 @@ import java.util.stream.Collectors;
  */
 public class WorkTimeRange {
 
-    private final WorkStartTime startTime;
-    private final WorkEndTime endTime;
+    WorkStartTime startTime;
+    WorkEndTime endTime;
+
+    @Deprecated
+    WorkTimeRange() {
+    }
 
     public WorkTimeRange(WorkStartTime startTime, WorkEndTime endTime) {
         this.startTime = startTime;

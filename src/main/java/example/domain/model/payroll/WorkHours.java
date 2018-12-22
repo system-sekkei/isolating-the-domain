@@ -2,6 +2,7 @@ package example.domain.model.payroll;
 
 import example.domain.model.attendance.MidnightWorkTime;
 import example.domain.model.attendance.OverWorkTime;
+import example.domain.model.contract.HourlyWage;
 import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;
 
@@ -15,9 +16,9 @@ public class WorkHours {
     BigDecimal value;
 
     WorkHours(Minute minute) {
+        // TODO quarterRoundDownしているMinuteであることを型にしたい
         //XXX 15分刻みなので２桁で十分
-        value = new BigDecimal(minute.value()).divide(new BigDecimal(60), 2, RoundingMode.DOWN);
-        int value = minute.value();
+        this.value = new BigDecimal(minute.value()).divide(new BigDecimal(60), 2, RoundingMode.DOWN);
     }
 
     public static WorkHours of(Minute minute) {
@@ -38,5 +39,9 @@ public class WorkHours {
 
     public BigDecimal value() {
         return value;
+    }
+
+    public BigDecimal multiply(HourlyWage hourlyWage) {
+        return this.value.multiply(BigDecimal.valueOf(hourlyWage.value()));
     }
 }

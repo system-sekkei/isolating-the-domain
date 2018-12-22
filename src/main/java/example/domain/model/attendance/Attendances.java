@@ -3,7 +3,6 @@ package example.domain.model.attendance;
 import example.domain.type.date.DateRange;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -28,11 +27,11 @@ public class Attendances {
                 );
     }
 
-    Attendance at(WorkDay day) {
-        Optional<Attendance> attendance = list.stream()
+    public Attendance at(WorkDay day) {
+        return list.stream()
                 .filter(worked -> worked.workDay().hasSameValue(day))
-                .findFirst();
-        return attendance.orElse(new Attendance(day));
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException(day.toString()));
     }
 
     public Attendances rangeOf(DateRange range) {
@@ -40,5 +39,9 @@ public class Attendances {
                 .filter(attendance -> attendance.inRange(range))
                 .collect(Collectors.toList());
         return new Attendances(inRangeAttendances);
+    }
+
+    public AttendanceStatus statusOf(WorkDay workDay) {
+        return list.stream().anyMatch(attendance -> attendance.workDay.hasSameValue(workDay)) ? AttendanceStatus.出勤 : AttendanceStatus.非出勤;
     }
 }

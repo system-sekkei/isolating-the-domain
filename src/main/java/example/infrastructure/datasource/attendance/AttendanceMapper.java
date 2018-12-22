@@ -19,7 +19,5 @@ public interface AttendanceMapper {
 
     void deleteWorkTime(@Param("workerNumber") WorkerNumber workerNumber, @Param("workDay") WorkDay workDay);
 
-    Attendance select(@Param("workerNumber") WorkerNumber workerNumber, @Param("workDay") WorkDay workDay);
-
     List<Attendance> selectByMonth(@Param("workerNumber") WorkerNumber workerNumber, @Param("workMonth") WorkMonth workMonth);
 }

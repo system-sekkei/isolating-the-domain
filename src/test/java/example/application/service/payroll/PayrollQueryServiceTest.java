@@ -7,7 +7,7 @@ import example.application.service.worker.WorkerQueryService;
 import example.application.service.worker.WorkerRecordService;
 import example.domain.model.attendance.*;
 import example.domain.model.contract.HourlyWage;
-import example.domain.model.contract.HourlyWageContract;
+import example.domain.model.contract.WageCondition;
 import example.domain.model.labour_standards_law.MidnightExtraRate;
 import example.domain.model.labour_standards_law.OverTimeExtraRate;
 import example.domain.model.payroll.Payroll;
@@ -56,8 +56,8 @@ class PayrollQueryServiceTest {
         }
 
         {
-            HourlyWageContract hourlyWageContract = new HourlyWageContract(new HourlyWage(1000), OverTimeExtraRate.legal(), MidnightExtraRate.legal());
-            contractRecordService.registerHourlyWage(workerNumber, new Date("2018-11-20"), hourlyWageContract);
+            WageCondition wageCondition = new WageCondition(new HourlyWage(1000), OverTimeExtraRate.legal(), MidnightExtraRate.legal());
+            contractRecordService.registerHourlyWage(workerNumber, new Date("2018-11-20"), wageCondition);
 
             Attendance attendance = new Attendance(
                     new WorkDay(new Date("2018-11-20")),
@@ -87,8 +87,8 @@ class PayrollQueryServiceTest {
         }
 
         {
-            HourlyWageContract hourlyWageContract = new HourlyWageContract(new HourlyWage(2000), OverTimeExtraRate.legal(), MidnightExtraRate.legal());
-            contractRecordService.registerHourlyWage(workerNumber, new Date("2018-11-25"), hourlyWageContract);
+            WageCondition wageCondition = new WageCondition(new HourlyWage(2000), OverTimeExtraRate.legal(), MidnightExtraRate.legal());
+            contractRecordService.registerHourlyWage(workerNumber, new Date("2018-11-25"), wageCondition);
 
             Payroll payroll = sut.getPayroll(worker, new YearMonth("2018-11"));
             assertEquals("3,700", payroll.wage().toString());

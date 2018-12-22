@@ -26,18 +26,17 @@
           <tr class="center aligned">
             <th class="two wide">従業員番号</th>
             <th class="four wide">従業員名</th>
-            <th class="five wide">契約開始日</th>
+            <th class="five wide">時給設定開始日</th>
           </tr>
         </thead>
         <tbody>
-          <tr th:each="worker : ${workers.list()}">
+          <tr th:each="workerContract : ${workerContracts.list()}">
             <td class="right aligned"
-                th:text="${worker.workerNumber()}"/>
+                th:text="${workerContract.workerNumber()}">123</td>
             <td class="selectable linkCell">
-              <a th:href="@{/workers/{workerNumber}(workerNumber=${worker.workerNumber()})}"><span th:text="${worker.name()}"></span></a>
+              <a th:href="@{/workers/{workerNumber}(workerNumber=${workerContract.workerNumber()})}"><span th:text="${workerContract.workerName()}"></span></a>
             </td>
-            <!-- TODO 最古の契約開始日の出力 -->
-            <td></td>
+            <td th:text="${workerContract.contractStartingDate()}">2001-01-02</td>
           </tr>
         </tbody>
       </table>

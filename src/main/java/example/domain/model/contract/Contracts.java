@@ -12,7 +12,7 @@ public class Contracts {
         this.list = contracts;
     }
 
-    public List<Contract> value() {
+    public List<Contract> list() {
         return list;
     }
 }

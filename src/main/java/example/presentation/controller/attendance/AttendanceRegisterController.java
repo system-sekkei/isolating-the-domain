@@ -5,11 +5,11 @@ import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.*;
 import example.domain.model.worker.ContractingWorkers;
+import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
@@ -47,7 +47,19 @@ public class AttendanceRegisterController {
     }
 
     @GetMapping
-    String init(Model model) {
+    String init(@RequestParam(value = "workerNumber", required = false) WorkerNumber workerNumber, @RequestParam(value = "workDay", required = false) WorkDay workDay, @ModelAttribute AttendanceForm attendanceForm) {
+        if (workerNumber != null) {
+            attendanceForm.workerNumber = workerNumber;
+        }
+        if (workDay != null) {
+            attendanceForm.workDay = workDay.toString();
+        }
+        if (workerNumber != null && workDay != null) {
+            if (attendanceQueryService.attendanceStatus(workerNumber, workDay).isWork()) {
+                WorkerAttendance attendance = attendanceQueryService.getWorkerAttendance(workerNumber, workDay);
+                attendanceForm.apply(attendance);
+            }
+        }
         return "attendance/form";
     }
 

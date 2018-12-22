@@ -16,10 +16,6 @@ public class DateRange {
         this.endDate = endDate;
     }
 
-    public DateRange(Date startDate) {
-        this(startDate, new Date(LocalDate.MAX));
-    }
-
     public Date startDate() {
         return startDate;
     }

@@ -20,8 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * 勤怠情報のテスト
@@ -55,7 +54,8 @@ class AttendanceServiceTest {
         MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(workerNumber, new WorkMonth(year, month));
         assertAll(
                 () -> assertEquals(monthlyAttendances.month().toStringWithUnit(), month + "月"),
-                () -> assertEquals(monthlyAttendances.attendances().list().size(), 31)
+                () -> assertEquals(monthlyAttendances.listWorkDays().size(), 31),
+                () -> assertTrue(monthlyAttendances.statusOf(workDay).isWork())
         );
     }
 }

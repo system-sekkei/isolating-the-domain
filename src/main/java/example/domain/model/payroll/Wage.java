@@ -2,9 +2,12 @@ package example.domain.model.payroll;
 
 import example.domain.model.attendance.MidnightWorkTime;
 import example.domain.model.attendance.OverWorkTime;
+import example.domain.model.attendance.WorkTime;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.MidnightHourlyExtraWage;
 import example.domain.model.contract.OverTimeHourlyExtraWage;
+import example.domain.model.contract.WageCondition;
+import example.domain.type.time.HourAndMinute;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -13,34 +16,36 @@ import java.text.DecimalFormat;
  * 賃金
  */
 public class Wage {
+
     BigDecimal value;
 
     public Wage(BigDecimal value) {
         this.value = value;
     }
 
-    public Wage() {
-        this(BigDecimal.ZERO);
+    Wage(HourAndMinute totalWorkTime, HourlyWage hourlyWage) {
+        this(WorkHours.of(totalWorkTime).multiply(hourlyWage));
     }
 
-    public static Wage of(WorkHours workHours, HourlyWage hourlyWage) {
-        BigDecimal value = workHours.value().multiply(new BigDecimal(hourlyWage.value()));
-        return new Wage(value);
+    Wage(OverWorkTime overWorkTime, OverTimeHourlyExtraWage overTimeHourlyExtraWage) {
+        this(WorkHours.of(overWorkTime).multiply(overTimeHourlyExtraWage.value()));
     }
 
-    public Wage add(Wage other) {
-        return new Wage(value.add(other.value));
+    Wage(MidnightWorkTime midnightWorkTime, MidnightHourlyExtraWage midnightHourlyExtraWage) {
+        this(WorkHours.of(midnightWorkTime).multiply(midnightHourlyExtraWage.value()));
+    }
+
+    public static Wage from(WorkTime workTime, WageCondition wageCondition) {
+        return new Wage(workTime.totalWorkTime(), wageCondition.baseHourlyWage())
+                .add(new Wage(workTime.overWorkTime(), wageCondition.overTimeHourlyExtraWage()))
+                .add(new Wage(workTime.midnightWorkTime(), wageCondition.midnightHourlyExtraWage()));
+    }
+
+    Wage add(Wage wage) {
+        return new Wage(this.value.add(wage.value));
     }
 
     public String toString() {
         return new DecimalFormat("#,##0").format(value.intValue());
-    }
-
-    public Wage add(OverWorkTime overTime, OverTimeHourlyExtraWage overTimeAdditionalHourlyWage) {
-        return this.add(Wage.of(WorkHours.of(overTime), overTimeAdditionalHourlyWage.value()));
-    }
-
-    public Wage add(MidnightWorkTime midnightWorkTime, MidnightHourlyExtraWage midnightAdditionalHourlyWage) {
-        return this.add(Wage.of(WorkHours.of(midnightWorkTime), midnightAdditionalHourlyWage.value()));
     }
 }
