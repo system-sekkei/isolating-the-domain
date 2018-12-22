@@ -5,25 +5,27 @@
   <title>時給の登録</title>
 </head>
 <body>
-<div th:replace="fragments/menuHead::menuHead('')">
-</div>
-<div class="pageHeader">
-  <div class="ui basic segment">
+<div th:replace="fragments/menuHead::menuHead('')"></div>
+
+<div class="ui container">
+  <div class="pageHeader">
     <h1 class="ui center aligned header">時給の登録</h1>
   </div>
 
-  <div class="wageInput">
-    <form id="custom-form" class="ui large form" th:action="@{/wages/{workerNumber}/register/confirm(workerNumber=${worker.workerNumber()})}" method="post">
+  <form id="custom-form" class="ui large form" th:action="@{/wages/{workerNumber}/register/confirm(workerNumber=${worker.workerNumber()})}" method="post">
 
+    <div class="wageInfo">
       <table class="ui celled center aligned definition table">
         <tr>
           <th class="six wide tableHeader">従業員名</th>
           <td class="ten wide" th:text="${worker.name()}">テスト太郎</td>
         </tr>
       </table>
+    </div>
 
-      <div class="ui section divider"></div>
-
+    <div class="ui section divider"></div>
+  
+    <div class="wageInput">
       <div class="ui basic segment">
         <div class="field">
           <label>開始日</label>
@@ -46,9 +48,8 @@
            th:href="@{/wages/{workerNumber}(workerNumber=${worker.workerNumber()})}">時給の変遷に戻る</a>
         <button class="ui positive button">確認</button>
       </div>
-    </form>
-
-  </div>
+    </div>
+  </form>
 </div>
 
 </body>

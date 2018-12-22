@@ -73,6 +73,11 @@
   margin: 0 auto;
 }
 
+.wageInfo {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
 .wageInput {
   max-width: 400px;
   margin: 0 auto;
