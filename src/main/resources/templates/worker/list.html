@@ -24,7 +24,7 @@
       <table class="ui striped celled table">
        <thead>
           <tr class="center aligned">
-            <th class="three wide">従業員番号</th>
+            <th class="two wide">従業員番号</th>
             <th class="four wide">従業員名</th>
             <th class="five wide">契約開始日</th>
           </tr>
@@ -33,7 +33,7 @@
           <tr th:each="worker : ${workers.list()}">
             <td class="right aligned"
                 th:text="${worker.workerNumber()}"/>
-            <td>
+            <td class="selectable linkCell">
               <a th:href="@{/workers/{workerNumber}(workerNumber=${worker.workerNumber()})}"><span th:text="${worker.name()}"></span></a>
             </td>
             <!-- TODO 最古の契約開始日の出力 -->

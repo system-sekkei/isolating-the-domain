@@ -13,7 +13,7 @@
     <h1 class="ui center aligned header">時給の変遷</h1>
   </div>
 
-  <div class="attendanceInfo">
+  <div class="wageInfo">
     <table class="ui celled center aligned definition table">
       <tr>
         <th class="six wide tableHeader">従業員名</th>
@@ -22,15 +22,13 @@
     </table>
   </div>
 
-  <div class="wageList">
+  <div class="ui section divider"></div>
 
+  <div class="wageList">
     <div class="ui center aligned basic segment">
-      <a class="ui grey button"
-         th:href="@{/workers/{workerNumber}(workerNumber=${worker.workerNumber()})}">詳細に戻る</a>
       <a class="ui labeled icon primary button"
          th:href="@{/wages/{workerNumber}/register(workerNumber=${worker.workerNumber()})}">
-        <i class="calculator icon"></i>時給の登録
-      </a>
+      <i class="calculator icon"></i>時給の登録</a>
     </div>
 
     <table class="ui celled table">
@@ -48,6 +46,10 @@
       </tbody>
     </table>
 
+    <div class="ui center aligned basic segment">
+      <a class="ui grey button"
+         th:href="@{/workers/{workerNumber}(workerNumber=${worker.workerNumber()})}">詳細に戻る</a>
+    </div>
   </div>
 </div>
 

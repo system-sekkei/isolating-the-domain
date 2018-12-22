@@ -25,16 +25,16 @@
 
 /*従業員 worker*/
 .workerList {
-  max-width: 800px;
+  max-width: 780px;
   margin: 0 auto 5rem;
 }
 
-.userInput {
+.workerInfo {
   max-width: 500px;
   margin: 0 auto;
 }
 
-.userInfo {
+.workerInput {
   max-width: 500px;
   margin: 0 auto;
 }
@@ -45,6 +45,10 @@
 
 #updateCompletedModal > .actions {
   text-align: center;
+}
+
+.linkCell {
+  color: blue;
 }
 
 .caution {
