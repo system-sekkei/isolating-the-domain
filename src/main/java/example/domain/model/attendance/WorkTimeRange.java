@@ -49,7 +49,7 @@ public class WorkTimeRange {
         return startTime.normalizedHourTime().until(endTime.normalizedHourTime());
     }
 
-    public Minute workMinute() {
+    public Minute normalWorkTime() {
         return totalWorkMinute().subtract(midnightWorkMinute());
     }
 

@@ -52,7 +52,7 @@ public class Attendance {
 
     public HourAndMinute workTime() {
         // TODO 勤務時間を休憩時間が超える場合のバリデーションをどこかでやる
-        return HourAndMinute.from(normalBreakTime.subtractFrom(workTimeRange.workMinute()));
+        return HourAndMinute.from(normalBreakTime.subtractFrom(workTimeRange.normalWorkTime()));
     }
 
     public HourAndMinute midnightWorkTime() {
