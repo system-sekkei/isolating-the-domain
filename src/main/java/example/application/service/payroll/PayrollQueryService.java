@@ -7,10 +7,14 @@ import example.domain.model.attendance.WorkMonth;
 import example.domain.model.contract.Contracts;
 import example.domain.model.contract.WorkerContract;
 import example.domain.model.payroll.Payroll;
+import example.domain.model.payroll.Payrolls;
+import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
-import example.domain.type.date.YearMonth;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 給与参照サービス
@@ -20,10 +24,24 @@ public class PayrollQueryService {
     ContractQueryService contractQueryService;
     AttendanceQueryService attendanceQueryService;
 
-    public Payroll getPayroll(Worker worker, YearMonth yearMonth) {
+    /**
+     * 月次給与取得
+     */
+    public Payrolls payrolls(ContractingWorkers contractingWorkers, WorkMonth workMonth) {
+        List<Payroll> list = new ArrayList<>();
+        for (Worker worker : contractingWorkers.list()) {
+            list.add(payroll(worker, workMonth));
+        }
+        return new Payrolls(workMonth, list);
+    }
+
+    /**
+     * 従業員別月次給与取得
+     */
+    public Payroll payroll(Worker worker, WorkMonth workMonth) {
         WorkerNumber workerNumber = worker.workerNumber();
         Contracts contracts = contractQueryService.getContracts(workerNumber);
-        MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(workerNumber, new WorkMonth(yearMonth));
+        MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(workerNumber, workMonth);
 
         return new Payroll(new WorkerContract(worker, contracts), monthlyAttendances);
     }

@@ -13,7 +13,6 @@ import example.domain.model.labour_standards_law.OverTimeExtraRate;
 import example.domain.model.payroll.Payroll;
 import example.domain.model.worker.*;
 import example.domain.type.date.Date;
-import example.domain.type.date.YearMonth;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.Test;
@@ -51,8 +50,8 @@ class PayrollQueryServiceTest {
         Worker worker = workerQueryService.choose(workerNumber);
 
         {
-            Payroll payroll = sut.getPayroll(worker, new YearMonth("2018-11"));
-            assertEquals("0", payroll.wage().toString());
+            Payroll payroll = sut.payroll(worker, new WorkMonth("2018-11"));
+            assertEquals("", payroll.totalWage().toString());
         }
 
         {
@@ -68,8 +67,8 @@ class PayrollQueryServiceTest {
             );
             attendanceRecordService.registerAttendance(new WorkerAttendance(workerNumber, attendance));
 
-            Payroll payroll = sut.getPayroll(worker, new YearMonth("2018-11"));
-            assertEquals("1,000", payroll.wage().toString());
+            Payroll payroll = sut.payroll(worker, new WorkMonth("2018-11"));
+            assertEquals("1,000", payroll.totalWage().toString());
         }
 
         {
@@ -82,16 +81,16 @@ class PayrollQueryServiceTest {
             );
             attendanceRecordService.registerAttendance(new WorkerAttendance(workerNumber, attendance));
 
-            Payroll payroll = sut.getPayroll(worker, new YearMonth("2018-11"));
-            assertEquals("2,350", payroll.wage().toString());
+            Payroll payroll = sut.payroll(worker, new WorkMonth("2018-11"));
+            assertEquals("2,350", payroll.totalWage().toString());
         }
 
         {
             WageCondition wageCondition = new WageCondition(new HourlyWage(2000), OverTimeExtraRate.legal(), MidnightExtraRate.legal());
             contractRecordService.registerHourlyWage(workerNumber, new Date("2018-11-25"), wageCondition);
 
-            Payroll payroll = sut.getPayroll(worker, new YearMonth("2018-11"));
-            assertEquals("3,700", payroll.wage().toString());
+            Payroll payroll = sut.payroll(worker, new WorkMonth("2018-11"));
+            assertEquals("3,700", payroll.totalWage().toString());
         }
     }
 }

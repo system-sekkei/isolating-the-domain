@@ -18,16 +18,16 @@
     <div class="ui centerd three column grid">
       <div class="left aligned column">
         <a href=""
-           th:href="@{/payroll/{beforeMonth}(beforeMonth=${workMonth.before()})}">
+           th:href="@{/payroll/{beforeMonth}(beforeMonth=${payrolls.workMonth().before()})}">
           <i class="angle double left link large icon"></i>
         </a>
       </div>
       <div class="column">
-        <h2 class="ui center aligned header" th:text="${workMonth.toStringWithUnit()}">11月</h2>
+        <h2 class="ui center aligned header" th:text="${payrolls.workMonth().toStringWithUnit()}">11月</h2>
       </div>
       <div class="right aligned column">
         <a href=""
-           th:href="@{/payroll/{afterMonth}(afterMonth=${workMonth.after()})}">
+           th:href="@{/payroll/{afterMonth}(afterMonth=${payrolls.workMonth().after()})}">
           <i class="angle double right link large icon"></i>
         </a>
       </div>
@@ -45,16 +45,16 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="worker : ${workers.list()}">
+        <tr th:each="payroll : ${payrolls.list()}">
           <td class="right aligned"
-              th:text="${worker.workerNumber()}"/>
-          <td th:text="${worker.name()}"/>
+              th:text="${payroll.workerNumber()}"/>
+          <td th:text="${payroll.workerName()}"/>
           <td class="right aligned"
-              th:text="${map.get(worker.workerNumber().toString()).wage()}"/><!-- TODO ここでmapからとってきてるのはいまいち -->
-          <td th:utext="#{${map.get(worker.workerNumber().toString()).payrollStatus().messageKey()}}"></td>
+              th:text="${payroll.totalWage()}"/>
+          <td th:utext="#{${payroll.payrollStatus().messageKey()}}"></td>
           <td class="ui center aligned">
             <a class="ui tiny primary basic button"
-               th:href="@{/attendances/{workerNumber}/{workMonth}(workerNumber=${worker.workerNumber()},workMonth=${workMonth.toString()})}">
+               th:href="@{/attendances/{workerNumber}/{workMonth}(workerNumber=${payroll.workerNumber()},workMonth=${payrolls.workMonth()})}">
               <i class="calendar alternate outline icon"></i>勤務時間の一覧
             </a>
           </td>

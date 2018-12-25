@@ -4,6 +4,8 @@ import example.domain.model.attendance.MonthlyAttendances;
 import example.domain.model.attendance.WorkTime;
 import example.domain.model.contract.Contract;
 import example.domain.model.contract.WorkerContract;
+import example.domain.model.worker.Name;
+import example.domain.model.worker.WorkerNumber;
 
 import java.math.BigDecimal;
 
@@ -20,7 +22,15 @@ public class Payroll {
         this.monthlyAttendances = monthlyAttendances;
     }
 
-    public Wage wage() {
+    public WorkerNumber workerNumber() {
+        return workerContract.workerNumber();
+    }
+
+    public Name workerName() {
+        return workerContract.workerName();
+    }
+
+    public Wage totalWage() {
         if (payrollStatus().available()) {
             return Wage.invalid();
         }
