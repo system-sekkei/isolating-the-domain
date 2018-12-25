@@ -3,6 +3,9 @@ package example.domain.model.contract;
 import example.domain.model.worker.Name;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
+import example.domain.type.date.Date;
+
+import java.util.List;
 
 /**
  * 従業員契約
@@ -29,5 +32,13 @@ public class WorkerContract {
                 .min((c1, c2) -> c1.startDate().compareTo(c2.startDate()))
                 .map(contract -> new ContractStartingDate(contract.startDate()))
                 .orElse(ContractStartingDate.none());
+    }
+
+    public List<Contract> listContracts() {
+        return contracts.list();
+    }
+
+    public boolean notContractedAt(Date value) {
+        return contractStartingDate().isAfter(value);
     }
 }

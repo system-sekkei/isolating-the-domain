@@ -41,11 +41,18 @@ public class Wage {
                 .add(new Wage(workTime.midnightWorkTime(), wageCondition.midnightHourlyExtraWage()));
     }
 
+    public static Wage invalid() {
+        return new Wage(null);
+    }
+
     Wage add(Wage wage) {
         return new Wage(this.value.add(wage.value));
     }
 
     public String toString() {
+        if (this.value == null) {
+            return "";
+        }
         return new DecimalFormat("#,##0").format(value.intValue());
     }
 }

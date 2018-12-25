@@ -70,4 +70,8 @@ public class Date {
     public Date previousDay() {
         return new Date(value.minusDays(1));
     }
+
+    public boolean isAfter(Date date) {
+        return value.isAfter(date.value);
+    }
 }

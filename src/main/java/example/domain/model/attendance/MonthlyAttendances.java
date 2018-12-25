@@ -44,4 +44,13 @@ public class MonthlyAttendances {
     public WorkTime workTimeWithin(DateRange period) {
         return attendances.rangeOf(period).summarize();
     }
+
+    public boolean notWorking() {
+        return attendances.list().isEmpty();
+    }
+
+    public WorkDay firstWorkDay() {
+        List<Attendance> list = attendances.list();
+        return list.get(0).workDay();
+    }
 }

@@ -28,4 +28,8 @@ public class ContractStartingDate {
     private boolean notAvailable() {
         return value.hasSameValue(Date.distantFuture());
     }
+
+    public boolean isAfter(Date date) {
+        return value.isAfter(date);
+    }
 }

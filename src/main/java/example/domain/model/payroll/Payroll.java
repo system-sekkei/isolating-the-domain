@@ -3,8 +3,7 @@ package example.domain.model.payroll;
 import example.domain.model.attendance.MonthlyAttendances;
 import example.domain.model.attendance.WorkTime;
 import example.domain.model.contract.Contract;
-import example.domain.model.contract.Contracts;
-import example.domain.model.worker.Worker;
+import example.domain.model.contract.WorkerContract;
 
 import java.math.BigDecimal;
 
@@ -13,24 +12,35 @@ import java.math.BigDecimal;
  */
 public class Payroll {
 
-    Worker worker;
-    Contracts contracts;
+    WorkerContract workerContract;
     MonthlyAttendances monthlyAttendances;
 
-    public Payroll(Worker worker, Contracts contracts, MonthlyAttendances monthlyAttendances) {
-        this.worker = worker;
-        this.contracts = contracts;
+    public Payroll(WorkerContract workerContract, MonthlyAttendances monthlyAttendances) {
+        this.workerContract = workerContract;
         this.monthlyAttendances = monthlyAttendances;
     }
 
     public Wage wage() {
+        if (payrollStatus().available()) {
+            return Wage.invalid();
+        }
+
         Wage wage = new Wage(BigDecimal.ZERO);
-        for (Contract contract : contracts.list()) {
+        for (Contract contract : workerContract.listContracts()) {
             WorkTime workTime = monthlyAttendances.workTimeWithin(contract.period());
             wage = wage.add(Wage.from(workTime, contract.wageCondition()));
         }
         return wage;
     }
 
-    // TODO 時給登録無しの場合に備考に出力する何かしら
+    public PayrollStatus payrollStatus() {
+        if (monthlyAttendances.notWorking()) {
+            return PayrollStatus.稼働登録無し;
+        }
+        if (workerContract.notContractedAt(monthlyAttendances.firstWorkDay().value())) {
+            return PayrollStatus.時給登録無し;
+        }
+
+        return PayrollStatus.有効;
+    }
 }

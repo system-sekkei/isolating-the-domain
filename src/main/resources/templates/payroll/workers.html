@@ -45,15 +45,13 @@
         </tr>
         </thead>
         <tbody>
-        <!-- TODO 時給登録なしの給与を出さない -->
-        <!-- TODO 時給登録なしなどは備考欄を作ってそこにメッセージ -->
         <tr th:each="worker : ${workers.list()}">
           <td class="right aligned"
               th:text="${worker.workerNumber()}"/>
           <td th:text="${worker.name()}"/>
           <td class="right aligned"
               th:text="${map.get(worker.workerNumber().toString()).wage()}"/><!-- TODO ここでmapからとってきてるのはいまいち -->
-          <td></td>
+          <td th:utext="#{${map.get(worker.workerNumber().toString()).payrollStatus().messageKey()}}"></td>
           <td class="ui center aligned">
             <a class="ui tiny primary basic button"
                th:href="@{/attendances/{workerNumber}/{workMonth}(workerNumber=${worker.workerNumber()},workMonth=${workMonth.toString()})}">

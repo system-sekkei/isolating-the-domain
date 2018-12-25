@@ -5,6 +5,7 @@ import example.application.service.contract.ContractQueryService;
 import example.domain.model.attendance.MonthlyAttendances;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.contract.Contracts;
+import example.domain.model.contract.WorkerContract;
 import example.domain.model.payroll.Payroll;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
@@ -24,7 +25,7 @@ public class PayrollQueryService {
         Contracts contracts = contractQueryService.getContracts(workerNumber);
         MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(workerNumber, new WorkMonth(yearMonth));
 
-        return new Payroll(worker, contracts, monthlyAttendances);
+        return new Payroll(new WorkerContract(worker, contracts), monthlyAttendances);
     }
 
     PayrollQueryService(ContractQueryService contractQueryService, AttendanceQueryService attendanceQueryService) {
