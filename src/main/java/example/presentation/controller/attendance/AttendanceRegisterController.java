@@ -3,20 +3,17 @@ package example.presentation.controller.attendance;
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
-import example.domain.model.attendance.*;
+import example.domain.model.attendance.Attendance;
+import example.domain.model.attendance.WorkDay;
+import example.domain.model.attendance.WorkMonth;
+import example.domain.model.attendance.WorkerAttendance;
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.WorkerNumber;
-import example.domain.type.date.Date;
-import example.domain.type.time.ClockTime;
-import example.domain.type.time.Minute;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * 勤怠コントローラー
@@ -67,24 +64,11 @@ public class AttendanceRegisterController {
     String register(@Validated @ModelAttribute("attendanceForm") AttendanceForm attendanceForm,
                     BindingResult result) {
         if (result.hasErrors()) return "attendance/form";
+        Attendance attendance = attendanceForm.toAttendance();
 
-        WorkDay workDay = new WorkDay(new Date(LocalDate.parse(attendanceForm.workDay, DateTimeFormatter.ISO_DATE)));
-        ClockTime startTime = new ClockTime(Integer.valueOf(attendanceForm.startHour), Integer.valueOf(attendanceForm.startMinute));
-        ClockTime endTime = new ClockTime(Integer.valueOf(attendanceForm.endHour), Integer.valueOf(attendanceForm.endMinute));
-        Minute minute = new Minute(attendanceForm.normalBreakTime);
-        Minute midnightMinute = new Minute(attendanceForm.midnightBreakTime);
-        attendanceRecordService.registerAttendance(
-                attendanceForm.workerNumber,
-                new Attendance(
-                        workDay,
-                        new WorkStartTime(startTime),
-                        new WorkEndTime(endTime),
-                        new NormalBreakTime(minute),
-                        new MidnightBreakTime(midnightMinute)
-                )
-        );
+        attendanceRecordService.registerAttendance(attendanceForm.workerNumber, attendance);
 
-        WorkMonth workMonth = workDay.month();
+        WorkMonth workMonth = attendance.workDay().month();
 
         return "redirect:/attendances/" + attendanceForm.workerNumber.value() + "/" + workMonth.toString();
     }

@@ -35,6 +35,22 @@ public class AttendanceForm {
         this.midnightBreakTime = "0";
     }
 
+    public Attendance toAttendance() {
+        WorkDay workDay = new WorkDay(new Date(LocalDate.parse(this.workDay, DateTimeFormatter.ISO_DATE)));
+        ClockTime startTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
+        ClockTime endTime = new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
+        Minute minute = new Minute(normalBreakTime);
+        Minute midnightMinute = new Minute(midnightBreakTime);
+        Attendance attendance = new Attendance(
+                workDay,
+                new WorkStartTime(startTime),
+                new WorkEndTime(endTime),
+                new NormalBreakTime(minute),
+                new MidnightBreakTime(midnightMinute)
+        );
+        return attendance;
+    };
+
     public void apply(WorkerAttendance attendance) {
         this.workerNumber = attendance.workerNumber();
         this.workDay = attendance.attendance().workDay().toString();
