@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'org.springframework.boot' version '2.1.1.RELEASE'
-    id "org.dddjava.jig-gradle-plugin" version "2018.12.3"
+    id "org.dddjava.jig-gradle-plugin" version "2018.12.4"
 }
 
 jigReports.dependsOn(clean, compileJava, processResources)
