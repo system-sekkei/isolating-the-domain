@@ -3,7 +3,6 @@ package example.presentation.controller.attendance;
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
-import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.WorkDay;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.attendance.WorkerAttendance;
@@ -64,11 +63,11 @@ public class AttendanceRegisterController {
     String register(@Validated @ModelAttribute("attendanceForm") AttendanceForm attendanceForm,
                     BindingResult result) {
         if (result.hasErrors()) return "attendance/form";
-        Attendance attendance = attendanceForm.toAttendance();
+        WorkerAttendance workerAttendance = attendanceForm.toWorkerAttendance();
 
-        attendanceRecordService.registerAttendance(attendanceForm.workerNumber, attendance);
+        attendanceRecordService.registerAttendance(workerAttendance);
 
-        WorkMonth workMonth = attendance.workDay().month();
+        WorkMonth workMonth = workerAttendance.attendance().workDay().month();
 
         return "redirect:/attendances/" + attendanceForm.workerNumber.value() + "/" + workMonth.toString();
     }

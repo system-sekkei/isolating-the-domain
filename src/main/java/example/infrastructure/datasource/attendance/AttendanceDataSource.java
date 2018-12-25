@@ -12,11 +12,11 @@ public class AttendanceDataSource implements AttendanceRepository {
     AttendanceMapper mapper;
 
     @Override
-    public void registerAttendance(WorkerNumber workerNumber, Attendance attendance) {
+    public void registerAttendance(WorkerAttendance workerAttendance) {
         Integer identifier = mapper.newWorkTimeIdentifier();
-        mapper.insertWorkTimeHistory(identifier, workerNumber, attendance);
-        mapper.deleteWorkTime(workerNumber, attendance.workDay());
-        mapper.insertWorkTime(workerNumber, identifier, attendance);
+        mapper.insertWorkTimeHistory(identifier, workerAttendance.workerNumber(), workerAttendance.attendance());
+        mapper.deleteWorkTime(workerAttendance.workerNumber(), workerAttendance.attendance().workDay());
+        mapper.insertWorkTime(workerAttendance.workerNumber(), identifier, workerAttendance.attendance());
     }
 
     @Override

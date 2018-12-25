@@ -2,6 +2,9 @@ package example.domain.model.attendance;
 
 import example.domain.model.worker.WorkerNumber;
 
+/**
+ * 従業員勤怠
+ */
 public class WorkerAttendance {
 
     WorkerNumber workerNumber;

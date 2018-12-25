@@ -35,7 +35,7 @@ public class AttendanceForm {
         this.midnightBreakTime = "0";
     }
 
-    public Attendance toAttendance() {
+    public WorkerAttendance toWorkerAttendance() {
         WorkDay workDay = new WorkDay(new Date(LocalDate.parse(this.workDay, DateTimeFormatter.ISO_DATE)));
         ClockTime startTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
         ClockTime endTime = new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
@@ -48,7 +48,7 @@ public class AttendanceForm {
                 new NormalBreakTime(minute),
                 new MidnightBreakTime(midnightMinute)
         );
-        return attendance;
+        return new WorkerAttendance(workerNumber, attendance);
     };
 
     public void apply(WorkerAttendance attendance) {

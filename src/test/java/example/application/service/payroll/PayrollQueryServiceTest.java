@@ -66,7 +66,7 @@ class PayrollQueryServiceTest {
                     new NormalBreakTime(new Minute("0")),
                     new MidnightBreakTime(new Minute("0"))
             );
-            attendanceRecordService.registerAttendance(workerNumber, attendance);
+            attendanceRecordService.registerAttendance(new WorkerAttendance(workerNumber, attendance));
 
             Payroll payroll = sut.getPayroll(worker, new YearMonth("2018-11"));
             assertEquals("1,000", payroll.wage().toString());
@@ -80,7 +80,7 @@ class PayrollQueryServiceTest {
                     new NormalBreakTime(new Minute("0")),
                     new MidnightBreakTime(new Minute("0"))
             );
-            attendanceRecordService.registerAttendance(workerNumber, attendance);
+            attendanceRecordService.registerAttendance(new WorkerAttendance(workerNumber, attendance));
 
             Payroll payroll = sut.getPayroll(worker, new YearMonth("2018-11"));
             assertEquals("2,350", payroll.wage().toString());
