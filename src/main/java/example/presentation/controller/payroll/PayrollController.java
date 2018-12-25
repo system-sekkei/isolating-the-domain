@@ -2,6 +2,7 @@ package example.presentation.controller.payroll;
 
 import example.application.service.payroll.PayrollQueryService;
 import example.application.service.worker.WorkerQueryService;
+import example.domain.model.attendance.WorkMonth;
 import example.domain.model.payroll.Payroll;
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.Worker;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,16 +33,23 @@ public class PayrollController {
         this.payrollQueryService = payrollQueryService;
     }
 
-    @GetMapping("workers")
+    @GetMapping()
     String workers(Model model) {
+        return workers(model, new YearMonth(java.time.YearMonth.now()).toString());
+    }
+
+    @GetMapping("{yearMonth}")
+    String workers(Model model, @PathVariable("yearMonth") String yearMonth) {
         ContractingWorkers contractingWorkers = workerQueryService.contractingWorkers();
         model.addAttribute("workers", contractingWorkers);
 
         // TODO 型にする
         Map<String, Payroll> map = new HashMap<>();
-        // TODO 入力から
-        YearMonth month = new YearMonth(2018, 11);
-        model.addAttribute("workMonth", month.toString());
+
+        YearMonth month = new YearMonth(yearMonth);
+
+        WorkMonth attributeValue = new WorkMonth(month);
+        model.addAttribute("workMonth", attributeValue);
 
         for (Worker worker : contractingWorkers.list()) {
             Payroll payroll = payrollQueryService.getPayroll(worker, month);

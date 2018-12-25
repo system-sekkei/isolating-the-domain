@@ -5,7 +5,6 @@ import example.domain.type.time.ClockTime;
 import example.domain.type.time.ClockTimeRange;
 import example.domain.type.time.Minute;
 
-import java.time.Clock;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,8 +17,12 @@ import java.util.stream.Collectors;
  */
 public class WorkTimeRange {
 
-    private final WorkStartTime startTime;
-    private final WorkEndTime endTime;
+    WorkStartTime startTime;
+    WorkEndTime endTime;
+
+    @Deprecated
+    WorkTimeRange() {
+    }
 
     public WorkTimeRange(WorkStartTime startTime, WorkEndTime endTime) {
         this.startTime = startTime;

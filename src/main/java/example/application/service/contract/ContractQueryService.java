@@ -1,14 +1,12 @@
 package example.application.service.contract;
 
 import example.application.repository.ContractRepository;
-import example.domain.model.contract.Contract;
+import example.domain.model.contract.ContractHistory;
 import example.domain.model.contract.Contracts;
-import example.domain.model.contract.HourlyWage;
+import example.domain.model.contract.WorkerContracts;
+import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.WorkerNumber;
-import example.domain.type.date.Date;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 /**
  * 契約参照サービス
@@ -18,29 +16,27 @@ public class ContractQueryService {
     ContractRepository contractRepository;
 
     /**
-     * 時給取得
+     * 契約取得
      */
-    public HourlyWage getHourlyWage(WorkerNumber workerNumber, Date workDay) {
-        return contractRepository.getHourlyWage(workerNumber, workDay);
+    public Contracts getContracts(WorkerNumber workerNumber) {
+        return contractRepository.getContracts(workerNumber);
     }
 
     /**
      *　雇用契約変遷
      */
-    public Contracts getContracts(WorkerNumber workerNumber, Date startDate, Date endDate) {
-        return contractRepository.getContracts(workerNumber, startDate, endDate);
+    public ContractHistory getContractHistory(WorkerNumber workerNumber) {
+        return new ContractHistory(getContracts(workerNumber));
     }
 
-    public Contracts getContracts2(WorkerNumber workerNumber, Date startDate, Date endDate) {
-        return contractRepository.getContracts2(workerNumber, startDate, endDate);
-    }
-
-    public Contract getContract(WorkerNumber workerNumber, Date date) {
-        return contractRepository.getContract(workerNumber, date);
+    /**
+     * 従業員契約一覧
+     */
+    public WorkerContracts findWorkerContracts(ContractingWorkers contractingWorkers) {
+        return contractRepository.findWorkerContracts(contractingWorkers);
     }
 
     ContractQueryService(ContractRepository contractRepository) {
         this.contractRepository = contractRepository;
     }
-
 }

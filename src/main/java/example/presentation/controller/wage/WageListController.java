@@ -1,7 +1,8 @@
 package example.presentation.controller.wage;
 
-import example.application.service.contract.ContractRecordService;
+import example.application.service.contract.ContractQueryService;
 import example.application.service.worker.WorkerQueryService;
+import example.domain.model.contract.ContractHistory;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
 import org.springframework.stereotype.Controller;
@@ -12,16 +13,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 従業員ごとの時給の一覧
+ * 従業員ごとの時給の変遷
  */
 @Controller
 @RequestMapping("wages/{workerNumber}")
 public class WageListController {
 
     WorkerQueryService workerQueryService;
+    ContractQueryService contractQueryService;
 
-    public WageListController(WorkerQueryService workerQueryService, ContractRecordService contractRecordService) {
+    public WageListController(WorkerQueryService workerQueryService, ContractQueryService contractQueryService) {
         this.workerQueryService = workerQueryService;
+        this.contractQueryService = contractQueryService;
     }
 
     @ModelAttribute("worker")
@@ -29,8 +32,10 @@ public class WageListController {
         return workerQueryService.choose(workerNumber);
     }
 
-    @GetMapping("")
-    public String list(Model model) {
+    @GetMapping
+    public String list(Worker worker, Model model) {
+        ContractHistory contractHistory = contractQueryService.getContractHistory(worker.workerNumber());
+        model.addAttribute("contractHistory", contractHistory);
         return "wage/list";
     }
 

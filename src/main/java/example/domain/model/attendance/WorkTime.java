@@ -45,12 +45,12 @@ public class WorkTime {
         return HourAndMinute.from(normalTime);
     }
 
-    public HourAndMinute midnightWorkTime() {
-        return HourAndMinute.from(midnightWorkTime);
+    public MidnightWorkTime midnightWorkTime() {
+        return new MidnightWorkTime(midnightWorkTime);
     }
 
-    public HourAndMinute overTime() {
-        return HourAndMinute.from(overWorkTime);
+    public OverWorkTime overWorkTime() {
+        return new OverWorkTime(overWorkTime);
     }
 
 }

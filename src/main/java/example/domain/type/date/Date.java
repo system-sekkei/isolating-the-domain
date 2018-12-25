@@ -21,6 +21,14 @@ public class Date {
         this.value = value;
     }
 
+    public static Date distantPast() {
+        return new Date(LocalDate.of(1, 1, 1));
+    }
+
+    public static Date distantFuture() {
+        return new Date(LocalDate.of(9999, 12, 31));
+    }
+
     public LocalDate value() {
         return value;
     }
@@ -54,4 +62,12 @@ public class Date {
         return value.format(DateTimeFormatter.ISO_DATE);
     }
 
+    public boolean inRange(DateRange range) {
+        return (value.isEqual(range.startDate().value) || value.isAfter(range.startDate().value))
+                && (value.isEqual(range.endDate().value) || value.isBefore(range.endDate().value));
+    }
+
+    public Date previousDay() {
+        return new Date(value.minusDays(1));
+    }
 }

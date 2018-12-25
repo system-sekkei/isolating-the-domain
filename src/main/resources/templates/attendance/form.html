@@ -5,10 +5,9 @@
   <title>勤務時間の入力</title>
 </head>
 <body>
-<div th:replace="fragments/menuHead::menuHead('勤務時間入力')">
-</div>
-<div class="ui container">
+<div th:replace="fragments/menuHead::menuHead('勤務時間入力')"></div>
 
+<div class="ui container">
   <div class="pageHeader">
     <h1 class="ui center aligned header">勤務時間の入力</h1>
   </div>
@@ -22,7 +21,7 @@
       <div class="field">
         <label>従業員名</label>
         <div class="eight wide field">
-          <select class="ui search dropdown" name="workerNumber">
+          <select class="ui search dropdown" th:field="*{workerNumber}">
             <option th:each="worker : ${workers.list()}" th:value="${worker.workerNumber()}" th:text="${worker.name()}">
               DUMMY
             </option>

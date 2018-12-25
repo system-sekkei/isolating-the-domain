@@ -7,21 +7,20 @@ import example.domain.type.date.DateRange;
  * 雇用契約
  */
 public class Contract {
-    HourlyWage hourlyWage;
     DateRange period;
+    WageCondition wageCondition;
 
-    public Contract(Date startDate, Date endDate, HourlyWage hourlyWage) {
-        this.period = new DateRange(startDate, endDate);
-        this.hourlyWage = hourlyWage;
+    public Contract(DateRange period, WageCondition wageCondition) {
+        this.period = period;
+        this.wageCondition = wageCondition;
     }
 
-    public Contract(Date startDate, HourlyWage hourlyWage) {
-        this.period = new DateRange(startDate);
-        this.hourlyWage = hourlyWage;
+    public WageCondition wageCondition() {
+        return wageCondition;
     }
 
     public HourlyWage hourlyWage() {
-        return hourlyWage;
+        return wageCondition.baseHourlyWage();
     }
 
     public Date startDate() {
@@ -33,21 +32,6 @@ public class Contract {
     }
 
     public DateRange period() {
-        return new DateRange(startDate());
-    }
-
-    public HourlyWage overTimeHourlyWage() {
-        //TODO
-        return hourlyWage().withExtraRate(new ExtraPayRate("0.25")); //TODO: 割増率は雇用契約の内容から取得する
-    }
-
-    public HourlyWage midnightExtraPayRate() {
-        //TODO
-        return hourlyWage().withExtraRate(new ExtraPayRate("0.35")); //TODO: 割増率は雇用契約の内容から取得する
-    }
-
-    public HourlyWage holidayExtraPayRate() {
-        //TODO
-        return hourlyWage().withExtraRate(new ExtraPayRate("0.25")); //TODO: 割増率は雇用契約の内容から取得する
+        return period;
     }
 }

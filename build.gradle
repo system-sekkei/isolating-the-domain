@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'org.springframework.boot' version '2.1.1.RELEASE'
-    id "org.dddjava.jig-gradle-plugin" version "2018.11.3"
+    id "org.dddjava.jig-gradle-plugin" version "2018.12.3"
 }
 
 jigReports.dependsOn(clean, compileJava, processResources)
@@ -33,7 +33,7 @@ dependencies {
     runtimeOnly("com.h2database:h2")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
-      exclude(group: 'junit')
+        exclude(group: 'junit')
     }
 
     testImplementation platform("org.junit:junit-bom:5.3.2")
@@ -44,5 +44,19 @@ dependencies {
 }
 
 test {
-   useJUnitPlatform()
+    useJUnitPlatform()
+}
+
+jig {
+    documentTypes = [
+            'ServiceMethodCallHierarchyDiagram',
+            'PackageRelationDiagram',
+            'BusinessRuleRelationDiagram',
+            'ApplicationList',
+            'BusinessRuleList',
+            'BranchList',
+            'CategoryUsageDiagram',
+            'CategoryDiagram',
+            'BooleanServiceDiagram',
+            'PackageTreeDiagram']
 }

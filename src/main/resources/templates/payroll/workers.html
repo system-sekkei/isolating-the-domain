@@ -2,17 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/layout :: htmlhead(~{::title})">
   <meta charset="utf-8"/>
-  <title>給与計算の一覧</title>
+  <title>給与の一覧</title>
 </head>
 <body>
-<div th:replace="fragments/menuHead::menuHead('給与計算')">
+<div th:replace="fragments/menuHead::menuHead('給与')">
 </div>
 <div class="ui container">
   <div class="pageHeader">
-    <h1 class="ui center aligned header">給与計算の一覧</h1><!-- TODO "計算"を外す -->
+    <h1 class="ui center aligned header">給与の一覧</h1>
   </div>
 
+  <div class="ui section divider"></div>
+
   <div class="payrollList">
+    <div class="ui centerd three column grid">
+      <div class="left aligned column">
+        <a href=""
+           th:href="@{/payroll/{beforeMonth}(beforeMonth=${workMonth.before()})}">
+          <i class="angle double left link large icon"></i>
+        </a>
+      </div>
+      <div class="column">
+        <h2 class="ui center aligned header" th:text="${workMonth.toStringWithUnit()}">11月</h2>
+      </div>
+      <div class="right aligned column">
+        <a href=""
+           th:href="@{/payroll/{afterMonth}(afterMonth=${workMonth.after()})}">
+          <i class="angle double right link large icon"></i>
+        </a>
+      </div>
+    </div>
 
     <div class="ui basic segment">
       <table class="ui striped celled table">
@@ -20,12 +39,14 @@
         <tr class="center aligned">
           <th class="two wide">従業員番号</th>
           <th class="three wide">従業員名</th>
-          <th class="three wide">当月給与</th><!-- TODO 前月がでてる -->
+          <th class="three wide">給与</th>
           <th class="five wide">備考</th>
           <th></th>
         </tr>
         </thead>
         <tbody>
+        <!-- TODO 時給登録なしの給与を出さない -->
+        <!-- TODO 時給登録なしなどは備考欄を作ってそこにメッセージ -->
         <tr th:each="worker : ${workers.list()}">
           <td class="right aligned"
               th:text="${worker.workerNumber()}"/>

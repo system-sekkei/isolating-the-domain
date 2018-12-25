@@ -1,23 +1,19 @@
 package example.application.repository;
 
-import example.domain.model.contract.Contract;
+
 import example.domain.model.contract.Contracts;
-import example.domain.model.contract.HourlyWage;
+import example.domain.model.contract.WageCondition;
+import example.domain.model.contract.WorkerContracts;
+import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 
 public interface ContractRepository {
-    void registerHourlyWage(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage);
-
-    HourlyWage getHourlyWage(WorkerNumber workerNumber, Date workDay);
-
-    Contracts getContracts(WorkerNumber workerNumber, Date startDate, Date endDate);
-
-    void registerHourlyWage2(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage);
+    Contracts getContracts(WorkerNumber workerNumber);
 
     void stopHourlyWageContract(WorkerNumber workerNumber, Date lastDate);
 
-    Contracts getContracts2(WorkerNumber workerNumber, Date startDate, Date endDate);
+    void registerHourlyWage(WorkerNumber workerNumber, Date startDate, WageCondition wageCondition);
 
-    Contract getContract(WorkerNumber workerNumber, Date date);
+    WorkerContracts findWorkerContracts(ContractingWorkers contractingWorkers);
 }

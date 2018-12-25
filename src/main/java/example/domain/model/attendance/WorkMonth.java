@@ -14,16 +14,25 @@ import java.util.stream.Collectors;
 public class WorkMonth {
     YearMonth value;
 
+    @Deprecated
+    public WorkMonth() {
+        this(new YearMonth());
+    }
+
     public WorkMonth(int year, int month) {
-        value = new YearMonth(year, month);
+        this(new YearMonth(year, month));
     }
 
     public WorkMonth(Year year, Month month) {
-        value = new YearMonth(year, month);
+        this(new YearMonth(year, month));
     }
 
-    public WorkMonth(YearMonth month) {
-        value = month;
+    public WorkMonth(String yearMonth) {
+        this(new YearMonth(yearMonth));
+    }
+
+    public WorkMonth(YearMonth value) {
+        this.value = value;
     }
 
     public List<WorkDay> days() {

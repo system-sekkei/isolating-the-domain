@@ -43,7 +43,7 @@ class AttendanceServiceTest {
         Worker worker = workers.list().get(0);
         WorkerNumber workerNumber = worker.workerNumber();
 
-        int year = 2017;
+        int year = 2099;
         int month = 10;
         int day = 20;
         WorkDay workDay = new WorkDay(new Date(LocalDate.of(year, month, day)));
@@ -53,24 +53,9 @@ class AttendanceServiceTest {
 
         MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(workerNumber, new WorkMonth(year, month));
         assertAll(
-                () -> assertEquals(monthlyAttendances.month().toStringWithUnit(), year + "年" + month + "月"),
-                () -> assertEquals(monthlyAttendances.attendances().list().size(), 31)
+                () -> assertEquals(monthlyAttendances.month().toStringWithUnit(), month + "月"),
+                () -> assertEquals(monthlyAttendances.listWorkDays().size(), 31),
+                () -> assertTrue(monthlyAttendances.statusOf(workDay).isWork())
         );
-
-        Date startDate = new Date(LocalDate.of(year, month, day));
-        Date endDate = new Date(LocalDate.of(year, month, day));
-        Attendances attendances = attendanceQueryService.getAttendances(workerNumber, startDate, endDate);
-        WorkTime workTime = attendances.summarize();
-        assertAll(
-                () -> assertEquals(attendances.list().size(), 1),
-                () -> assertEquals(workTime.normalTime().toString(), "07:00")
-        );
-
-        Attendance actualAttendance = attendances.list().get(0);
-        assertAll(() -> assertTrue(expectAttendance.workDay().hasSameValue(actualAttendance.workDay())),
-                () -> assertEquals(expectAttendance.workTimeRange().start().toString(), actualAttendance.workTimeRange().start().toString()),
-                () -> assertEquals(expectAttendance.workTimeRange().end().toString(), actualAttendance.workTimeRange().end().toString()),
-                () -> assertEquals(expectAttendance.totalBreakTime().toString(), actualAttendance.totalBreakTime().toString()));
     }
-
 }
