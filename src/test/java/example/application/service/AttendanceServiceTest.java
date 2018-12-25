@@ -43,7 +43,7 @@ class AttendanceServiceTest {
         Worker worker = workers.list().get(0);
         WorkerNumber workerNumber = worker.workerNumber();
 
-        int year = 2099;
+        int year = 2017;
         int month = 10;
         int day = 20;
         WorkDay workDay = new WorkDay(new Date(LocalDate.of(year, month, day)));
@@ -53,7 +53,7 @@ class AttendanceServiceTest {
 
         MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(workerNumber, new WorkMonth(year, month));
         assertAll(
-                () -> assertEquals(monthlyAttendances.month().toStringWithUnit(), month + "月"),
+                () -> assertEquals(monthlyAttendances.month().toStringWithUnit(), year + "年" + month + "月"),
                 () -> assertEquals(monthlyAttendances.listWorkDays().size(), 31),
                 () -> assertTrue(monthlyAttendances.statusOf(workDay).isWork())
         );
