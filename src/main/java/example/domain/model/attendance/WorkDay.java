@@ -1,6 +1,7 @@
 package example.domain.model.attendance;
 
 import example.domain.type.date.Date;
+import example.domain.type.date.DateRange;
 import example.domain.type.date.DayOfWeek;
 
 import java.time.LocalDate;
@@ -46,6 +47,10 @@ public class WorkDay {
 
     public int compareTo(WorkDay other) {
         return value.compareTo(other.value);
+    }
+
+    public boolean inRange(DateRange range) {
+        return value.inRange(range);
     }
 
     @Override

@@ -36,7 +36,7 @@ public class Attendances {
 
     public Attendances rangeOf(DateRange range) {
         List<Attendance> inRangeAttendances = list.stream()
-                .filter(attendance -> attendance.inRange(range))
+                .filter(attendance -> attendance.workDay().inRange(range))
                 .collect(Collectors.toList());
         return new Attendances(inRangeAttendances);
     }

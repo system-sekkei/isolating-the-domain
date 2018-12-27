@@ -1,7 +1,5 @@
 package example.domain.model.attendance;
 
-import example.domain.type.date.DateRange;
-
 /**
  * 日次勤怠
  */
@@ -27,7 +25,4 @@ public class Attendance {
         return timeRecord;
     }
 
-    public boolean inRange(DateRange range) {
-        return workDay.value().inRange(range);
-    }
 }
