@@ -38,10 +38,6 @@ public class Attendance {
         return HourAndMinute.from(normalBreakTime.toMinute().add(midnightBreakTime.toMinute()));
     }
 
-    public NormalBreakTime normalBreakTime() {
-        return normalBreakTime;
-    }
-
     public MidnightBreakTime midnightBreakTime() {
         return midnightBreakTime;
     }
