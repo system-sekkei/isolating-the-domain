@@ -30,24 +30,8 @@ public class Attendance {
         return timeRecord;
     }
 
-    public HourAndMinute totalBreakTime() {
-        return timeRecord.totalBreakTime();
-    }
-
-    public HourAndMinute totalWorkTime() {
-        return timeRecord.totalWorkTime();
-    }
-
-    public HourAndMinute workTime() {
-        return timeRecord.workTime();
-    }
-
-    public HourAndMinute midnightWorkTime() {
-        return timeRecord.midnightWorkTime();
-    }
-
     public HourAndMinute overTime() {
-        Minute totalWorkMinute = totalWorkTime().toMinute();
+        Minute totalWorkMinute = timeRecord.totalWorkTime().toMinute();
 
         DailyOvertimeWork dailyOvertimeWork = DailyOvertimeWork.legal();
         Minute overMinute = dailyOvertimeWork.overMinute(totalWorkMinute);

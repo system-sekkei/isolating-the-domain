@@ -74,8 +74,8 @@
               th:text="${workDay.dayOfWeek()}"></td>
           <td th:text="*{timeRecord().workTimeRange().start()}"></td>
           <td th:text="*{timeRecord().workTimeRange().end()}"></td>
-          <td th:text="*{totalBreakTime()}"></td>
-          <td th:text="*{totalWorkTime()}"></td>
+          <td th:text="*{timeRecord().totalBreakTime()}"></td>
+          <td th:text="*{timeRecord().totalWorkTime()}"></td>
           <td class="center aligned">
             <a th:href="@{/attendance?workerNumber={workerNumber}&workDay={workDay}(workerNumber=${worker.workerNumber()},workDay=${workDay})}">
               <i class="edit icon"></i>

@@ -22,7 +22,7 @@ class AttendanceTest {
                         new NormalBreakTime(new Minute(breaks)),
                         new MidnightBreakTime(new Minute("0")))
         );
-        assertEquals(expected, sut.workTime().toString());
+        assertEquals(expected, sut.timeRecord().workTime().toString());
     }
 
     @DisplayName("深夜時間帯の作業時間を正しく返却できること")
@@ -40,7 +40,7 @@ class AttendanceTest {
                         new MidnightBreakTime(new Minute(breaks))
                 )
         );
-        assertEquals(expected, sut.midnightWorkTime().toString());
+        assertEquals(expected, sut.timeRecord().midnightWorkTime().toString());
     }
 
     @DisplayName("時間外作業時間を正しく返却できること")
@@ -67,9 +67,9 @@ class AttendanceTest {
                         new MidnightBreakTime(new Minute("30")))
         );
         assertAll(
-                () -> assertEquals("12:00", sut.workTime().toString(), "就業時間は就業時間から休憩時間を引いた値です。")
+                () -> assertEquals("12:00", sut.timeRecord().workTime().toString(), "就業時間は就業時間から休憩時間を引いた値です。")
                 , () -> assertEquals("05:30", sut.overTime().toString(), "時間外作業時間は就業時間から8時間を減算した値です。")
-                , () -> assertEquals("01:30", sut.midnightWorkTime().toString(), "深夜作業時間は深夜時間帯の作業時間から深夜休憩時間を引いた値です。")
+                , () -> assertEquals("01:30", sut.timeRecord().midnightWorkTime().toString(), "深夜作業時間は深夜時間帯の作業時間から深夜休憩時間を引いた値です。")
         );
     }
 }
