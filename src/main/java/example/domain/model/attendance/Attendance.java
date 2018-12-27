@@ -11,27 +11,27 @@ import example.domain.type.time.Minute;
 public class Attendance {
 
     WorkDay workDay;
-    WorkTimeRange workTimeRange;
-    NormalBreakTime normalBreakTime;
-    MidnightBreakTime midnightBreakTime;
+    TimeRecord timeRecord;
 
     @Deprecated
     Attendance() {
     }
 
+    public Attendance(WorkDay workDay, TimeRecord timeRecord) {
+        this.workDay = workDay;
+        this.timeRecord = timeRecord;
+    }
+
     public Attendance(WorkDay workDay, WorkStartTime workStartTime, WorkEndTime workEndTime, NormalBreakTime normalBreakTime, MidnightBreakTime midnightBreakTime) {
         this.workDay = workDay;
-        this.workTimeRange = new WorkTimeRange(workStartTime, workEndTime);
-        this.normalBreakTime = normalBreakTime;
-        this.midnightBreakTime = midnightBreakTime;
     }
 
     public WorkDay workDay() {
         return workDay;
     }
 
-    public WorkTimeRange workTimeRange() {
-        return workTimeRange;
+    public TimeRecord timeRecord() {
+        return timeRecord;
     }
 
     public HourAndMinute totalBreakTime() {

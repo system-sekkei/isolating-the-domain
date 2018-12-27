@@ -72,8 +72,8 @@
               th:text="${workDay.dayOfMonth()}"></td>
           <td class="center aligned"
               th:text="${workDay.dayOfWeek()}"></td>
-          <td th:text="*{workTimeRange().start()}"></td>
-          <td th:text="*{workTimeRange().end()}"></td>
+          <td th:text="*{timeRecord().workTimeRange().start()}"></td>
+          <td th:text="*{timeRecord().workTimeRange().end()}"></td>
           <td th:text="*{totalBreakTime()}"></td>
           <td th:text="*{totalWorkTime()}"></td>
           <td class="center aligned">

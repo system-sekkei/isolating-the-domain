@@ -39,25 +39,27 @@ public class AttendanceForm {
         ClockTime endTime = new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
         Minute minute = new Minute(normalBreakTime);
         Minute midnightMinute = new Minute(midnightBreakTime);
-        Attendance attendance = new Attendance(
-                workDay,
-                new WorkStartTime(startTime),
+        TimeRecord timeRecord = new TimeRecord(new WorkStartTime(startTime),
                 new WorkEndTime(endTime),
                 new NormalBreakTime(minute),
                 new MidnightBreakTime(midnightMinute)
         );
+        Attendance attendance = new Attendance(
+                workDay,
+                timeRecord
+        );
         return new WorkerAttendance(workerNumber, attendance);
-    };
+    }
 
     public void apply(WorkerAttendance attendance) {
         this.workerNumber = attendance.workerNumber();
         this.workDay = attendance.attendance().workDay().toString();
 
-        LocalTime start = LocalTime.parse(attendance.attendance().workTimeRange().start().toString());
+        LocalTime start = LocalTime.parse(attendance.attendance().timeRecord().workTimeRange().start().toString());
         this.startHour = Integer.toString(start.getHour());
         this.startMinute = Integer.toString(start.getMinute());
 
-        LocalTime end = LocalTime.parse(attendance.attendance().workTimeRange().end().toString());
+        LocalTime end = LocalTime.parse(attendance.attendance().timeRecord().workTimeRange().end().toString());
         this.endHour = Integer.toString(end.getHour());
         this.endMinute = Integer.toString(end.getMinute());
 
