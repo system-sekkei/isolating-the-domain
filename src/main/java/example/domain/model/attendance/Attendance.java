@@ -22,10 +22,6 @@ public class Attendance {
         this.timeRecord = timeRecord;
     }
 
-    public Attendance(WorkDay workDay, WorkStartTime workStartTime, WorkEndTime workEndTime, NormalBreakTime normalBreakTime, MidnightBreakTime midnightBreakTime) {
-        this.workDay = workDay;
-    }
-
     public WorkDay workDay() {
         return workDay;
     }
