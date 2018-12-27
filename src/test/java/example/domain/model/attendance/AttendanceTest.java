@@ -53,7 +53,7 @@ class AttendanceTest {
                         new NormalBreakTime(new Minute(breaks)),
                         new MidnightBreakTime(new Minute("0"))
                 ));
-        assertEquals(expected, sut.overTime().toString());
+        assertEquals(expected, sut.timeRecord().overTime().toString());
     }
 
     @DisplayName("就業時間/時間外就業時間/深夜作業時間/休憩時間の相関")
@@ -68,7 +68,7 @@ class AttendanceTest {
         );
         assertAll(
                 () -> assertEquals("12:00", sut.timeRecord().workTime().toString(), "就業時間は就業時間から休憩時間を引いた値です。")
-                , () -> assertEquals("05:30", sut.overTime().toString(), "時間外作業時間は就業時間から8時間を減算した値です。")
+                , () -> assertEquals("05:30", sut.timeRecord().overTime().toString(), "時間外作業時間は就業時間から8時間を減算した値です。")
                 , () -> assertEquals("01:30", sut.timeRecord().midnightWorkTime().toString(), "深夜作業時間は深夜時間帯の作業時間から深夜休憩時間を引いた値です。")
         );
     }

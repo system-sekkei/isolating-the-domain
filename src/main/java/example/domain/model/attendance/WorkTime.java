@@ -23,7 +23,7 @@ public class WorkTime {
     }
 
     public WorkTime(Attendance attendance) {
-        this(attendance.timeRecord().workTime().toMinute(), attendance.timeRecord().midnightWorkTime().toMinute(), attendance.overTime().toMinute());
+        this(attendance.timeRecord().workTime().toMinute(), attendance.timeRecord().midnightWorkTime().toMinute(), attendance.timeRecord().overTime().toMinute());
     }
 
     public WorkTime addAttendanceOfDay(Attendance attendance) {
