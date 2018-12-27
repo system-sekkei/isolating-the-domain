@@ -17,6 +17,14 @@
   text-align: center;
 }
 
+.tableWorkerNumber {
+  width:120px;
+}
+
+.tableWorkerName {
+  width:160px;
+}
+
 /*給与 payroll*/
 .payrollList {
   max-width: 960px;
@@ -25,7 +33,7 @@
 
 /*従業員 worker*/
 .workerList {
-  max-width: 780px;
+  max-width: 640px;
   margin: 0 auto 5rem;
 }
 
