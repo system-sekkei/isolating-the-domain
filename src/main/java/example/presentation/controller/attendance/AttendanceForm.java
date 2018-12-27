@@ -63,8 +63,8 @@ public class AttendanceForm {
         this.endHour = Integer.toString(end.getHour());
         this.endMinute = Integer.toString(end.getMinute());
 
-        this.normalBreakTime = attendance.attendance().normalBreakTime().toString();
-        this.midnightBreakTime = attendance.attendance().midnightBreakTime().toString();
+        this.normalBreakTime = attendance.attendance().timeRecord().normalBreakTime().toString();
+        this.midnightBreakTime = attendance.attendance().timeRecord().midnightBreakTime().toString();
     }
 
     boolean workDayComplete;
