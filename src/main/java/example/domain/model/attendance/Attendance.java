@@ -31,21 +31,19 @@ public class Attendance {
     }
 
     public HourAndMinute totalBreakTime() {
-        return HourAndMinute.from(normalBreakTime.toMinute().add(midnightBreakTime.toMinute()));
+        return timeRecord.totalBreakTime();
     }
 
     public HourAndMinute totalWorkTime() {
-        return HourAndMinute.from(workTime().toMinute().add(midnightWorkTime().toMinute()));
+        return timeRecord.totalWorkTime();
     }
 
     public HourAndMinute workTime() {
-        // TODO 勤務時間を休憩時間が超える場合のバリデーションをどこかでやる
-        return HourAndMinute.from(normalBreakTime.subtractFrom(workTimeRange.normalWorkTime()));
+        return timeRecord.workTime();
     }
 
     public HourAndMinute midnightWorkTime() {
-        // TODO 深夜勤務時間を深夜休憩時間が超える場合のバリデーションをどこかでやる
-        return HourAndMinute.from(midnightBreakTime.subtractFrom(workTimeRange.midnightWorkMinute()));
+        return timeRecord.midnightWorkTime();
     }
 
     public HourAndMinute overTime() {
