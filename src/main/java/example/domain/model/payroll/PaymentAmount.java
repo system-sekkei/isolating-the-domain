@@ -13,40 +13,40 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 /**
- * 賃金
+ * 支払い金額
  */
-public class Wage {
+public class PaymentAmount {
 
     BigDecimal value;
 
-    public Wage(BigDecimal value) {
+    public PaymentAmount(BigDecimal value) {
         this.value = value;
     }
 
-    Wage(TotalWorkTime totalWorkTime, HourlyWage hourlyWage) {
+    PaymentAmount(TotalWorkTime totalWorkTime, HourlyWage hourlyWage) {
         this(WorkHours.of(totalWorkTime.minute()).multiply(hourlyWage));
     }
 
-    Wage(OverWorkTime overWorkTime, OverTimeHourlyExtraWage overTimeHourlyExtraWage) {
+    PaymentAmount(OverWorkTime overWorkTime, OverTimeHourlyExtraWage overTimeHourlyExtraWage) {
         this(WorkHours.of(overWorkTime.minute()).multiply(overTimeHourlyExtraWage.value()));
     }
 
-    Wage(MidnightWorkTime midnightWorkTime, MidnightHourlyExtraWage midnightHourlyExtraWage) {
+    PaymentAmount(MidnightWorkTime midnightWorkTime, MidnightHourlyExtraWage midnightHourlyExtraWage) {
         this(WorkHours.of(midnightWorkTime.minute()).multiply(midnightHourlyExtraWage.value()));
     }
 
-    public static Wage from(WorkTimeSummary workTimeSummary, WageCondition wageCondition) {
-        return new Wage(workTimeSummary.totalWorkTime(), wageCondition.baseHourlyWage())
-                .add(new Wage(workTimeSummary.overWorkTime(), wageCondition.overTimeHourlyExtraWage()))
-                .add(new Wage(workTimeSummary.midnightWorkTime(), wageCondition.midnightHourlyExtraWage()));
+    public static PaymentAmount from(WorkTimeSummary workTimeSummary, WageCondition wageCondition) {
+        return new PaymentAmount(workTimeSummary.totalWorkTime(), wageCondition.baseHourlyWage())
+                .add(new PaymentAmount(workTimeSummary.overWorkTime(), wageCondition.overTimeHourlyExtraWage()))
+                .add(new PaymentAmount(workTimeSummary.midnightWorkTime(), wageCondition.midnightHourlyExtraWage()));
     }
 
-    public static Wage invalid() {
-        return new Wage(null);
+    public static PaymentAmount invalid() {
+        return new PaymentAmount(null);
     }
 
-    Wage add(Wage wage) {
-        return new Wage(this.value.add(wage.value));
+    PaymentAmount add(PaymentAmount paymentAmount) {
+        return new PaymentAmount(this.value.add(paymentAmount.value));
     }
 
     public String toString() {

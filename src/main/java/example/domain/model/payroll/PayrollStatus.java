@@ -5,7 +5,7 @@ package example.domain.model.payroll;
  */
 public enum PayrollStatus {
     有効("payroll.normal"),
-    時給登録無し("payroll.invalid-wage"),
+    時給登録無し("payroll.payment-amount-unregistered"),
     稼働登録無し("payroll.not-working");
 
     String messageKey;

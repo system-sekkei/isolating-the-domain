@@ -30,17 +30,17 @@ public class Payroll {
         return workerContract.workerName();
     }
 
-    public Wage totalWage() {
+    public PaymentAmount totalPaymentAmount() {
         if (payrollStatus().available()) {
-            return Wage.invalid();
+            return PaymentAmount.invalid();
         }
 
-        Wage wage = new Wage(BigDecimal.ZERO);
+        PaymentAmount paymentAmount = new PaymentAmount(BigDecimal.ZERO);
         for (Contract contract : workerContract.listContracts()) {
             WorkTimeSummary workTimeSummary = monthlyAttendances.workTimeWithin(contract.period());
-            wage = wage.add(Wage.from(workTimeSummary, contract.wageCondition()));
+            paymentAmount = paymentAmount.add(PaymentAmount.from(workTimeSummary, contract.wageCondition()));
         }
-        return wage;
+        return paymentAmount;
     }
 
     public PayrollStatus payrollStatus() {

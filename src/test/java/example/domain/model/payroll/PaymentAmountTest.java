@@ -15,7 +15,7 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class WageTest {
+class PaymentAmountTest {
     @DisplayName("作業時間と時給で賃金計算が行えること")
     @ParameterizedTest
     @CsvSource({
@@ -40,8 +40,8 @@ class WageTest {
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));
         Attendances attendances = new Attendances(Collections.singletonList(attendance));
 
-        Wage wage = Wage.from(attendances.summarize(), wageCondition);
+        PaymentAmount paymentAmount = PaymentAmount.from(attendances.summarize(), wageCondition);
 
-        assertEquals(expected, wage.value.intValue());
+        assertEquals(expected, paymentAmount.value.intValue());
     }
 }
