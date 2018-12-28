@@ -1,8 +1,8 @@
 package example.domain.model.attendance;
 
+import example.domain.model.attendance.worktimerecord.TotalWorkTime;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.DateRange;
-import example.domain.type.time.HourAndMinute;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class MonthlyAttendances {
         return attendances.statusOf(workDay);
     }
 
-    public HourAndMinute totalWorkTime() {
+    public TotalWorkTime totalWorkTime() {
         return attendances.summarize().totalWorkTime();
     }
 

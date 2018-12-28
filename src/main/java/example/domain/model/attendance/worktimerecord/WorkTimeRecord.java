@@ -1,7 +1,5 @@
 package example.domain.model.attendance.worktimerecord;
 
-import example.domain.type.time.HourAndMinute;
-
 /**
  * 労働時間実績
  */
@@ -40,14 +38,12 @@ public class WorkTimeRecord {
         return new TotalBreakTime(normalBreakTime, midnightBreakTime);
     }
 
-    public HourAndMinute workTime() {
-        // TODO 勤務時間を休憩時間が超える場合のバリデーションをどこかでやる
-        return HourAndMinute.from(normalBreakTime.subtractFrom(workTimeRange.normalBindingTime()));
+    public NormalWorkTime normalWorkTime() {
+        return new NormalWorkTime(workTimeRange, normalBreakTime());
     }
 
-    public HourAndMinute midnightWorkTime() {
-        // TODO 深夜勤務時間を深夜休憩時間が超える場合のバリデーションをどこかでやる
-        return HourAndMinute.from(midnightBreakTime.subtractFrom(workTimeRange.midnightWorkMinute()));
+    public MidnightWorkTime midnightWorkTime() {
+        return new MidnightWorkTime(workTimeRange, midnightBreakTime());
     }
 
     public OverWorkTime overTime() {
