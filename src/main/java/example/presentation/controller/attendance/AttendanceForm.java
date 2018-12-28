@@ -39,14 +39,14 @@ public class AttendanceForm {
         ClockTime endTime = new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
         Minute minute = new Minute(normalBreakTime);
         Minute midnightMinute = new Minute(midnightBreakTime);
-        TimeRecord timeRecord = new TimeRecord(new WorkStartTime(startTime),
+        WorkTimeRecord workTimeRecord = new WorkTimeRecord(new WorkStartTime(startTime),
                 new WorkEndTime(endTime),
                 new NormalBreakTime(minute),
                 new MidnightBreakTime(midnightMinute)
         );
         Attendance attendance = new Attendance(
                 workDay,
-                timeRecord
+                workTimeRecord
         );
         return new WorkerAttendance(workerNumber, attendance);
     }
@@ -55,16 +55,16 @@ public class AttendanceForm {
         this.workerNumber = attendance.workerNumber();
         this.workDay = attendance.attendance().workDay().toString();
 
-        LocalTime start = LocalTime.parse(attendance.attendance().timeRecord().workTimeRange().start().toString());
+        LocalTime start = LocalTime.parse(attendance.attendance().workTimeRecord().workTimeRange().start().toString());
         this.startHour = Integer.toString(start.getHour());
         this.startMinute = Integer.toString(start.getMinute());
 
-        LocalTime end = LocalTime.parse(attendance.attendance().timeRecord().workTimeRange().end().toString());
+        LocalTime end = LocalTime.parse(attendance.attendance().workTimeRecord().workTimeRange().end().toString());
         this.endHour = Integer.toString(end.getHour());
         this.endMinute = Integer.toString(end.getMinute());
 
-        this.normalBreakTime = attendance.attendance().timeRecord().normalBreakTime().toString();
-        this.midnightBreakTime = attendance.attendance().timeRecord().midnightBreakTime().toString();
+        this.normalBreakTime = attendance.attendance().workTimeRecord().normalBreakTime().toString();
+        this.midnightBreakTime = attendance.attendance().workTimeRecord().midnightBreakTime().toString();
     }
 
     boolean workDayComplete;

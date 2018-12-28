@@ -4,16 +4,19 @@ import example.domain.model.labour_standards_law.DailyOvertimeWork;
 import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;
 
-public class TimeRecord {
+/**
+ * 労働時間実績
+ */
+public class WorkTimeRecord {
     WorkTimeRange workTimeRange;
     NormalBreakTime normalBreakTime;
     MidnightBreakTime midnightBreakTime;
 
     @Deprecated
-    public TimeRecord() {
+    public WorkTimeRecord() {
     }
 
-    public TimeRecord(WorkStartTime workStartTime, WorkEndTime workEndTime, NormalBreakTime normalBreakTime, MidnightBreakTime midnightBreakTime) {
+    public WorkTimeRecord(WorkStartTime workStartTime, WorkEndTime workEndTime, NormalBreakTime normalBreakTime, MidnightBreakTime midnightBreakTime) {
         this.workTimeRange = new WorkTimeRange(workStartTime, workEndTime);
         this.normalBreakTime = normalBreakTime;
         this.midnightBreakTime = midnightBreakTime;
