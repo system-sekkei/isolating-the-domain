@@ -1,6 +1,5 @@
 package example.domain.model.attendance;
 
-import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.QuarterHour;
 
 /**
@@ -14,12 +13,12 @@ public class TotalMidnightWorkTime {
         this.value = value;
     }
 
-    @Override
-    public String toString() {
-        return HourAndMinute.from(value.minute()).toString();
-    }
-
     public QuarterHour quarterHour() {
         return value;
+    }
+
+    @Override
+    public String toString() {
+        return value.toString();
     }
 }
