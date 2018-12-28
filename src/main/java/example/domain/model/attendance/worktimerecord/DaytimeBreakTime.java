@@ -4,7 +4,7 @@ import example.domain.type.time.Minute;
 import example.domain.type.time.QuarterHour;
 
 /**
- * 休憩時間
+ * 日中休憩時間
  */
 public class DaytimeBreakTime {
     Minute value;
@@ -17,8 +17,8 @@ public class DaytimeBreakTime {
         this.value = value;
     }
 
-    public QuarterHour subtractFrom(QuarterHour quarterHour) {
-        return quarterHour.subtract(value.quarterHourRoundUp());
+    public QuarterHour subtractFrom(DaytimeBindingTime daytimeBindingTime) {
+        return daytimeBindingTime.quarterHour().subtract(value.quarterHourRoundUp());
     }
 
     public Minute minute() {
