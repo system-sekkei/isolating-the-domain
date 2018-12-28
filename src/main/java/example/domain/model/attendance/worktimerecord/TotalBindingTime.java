@@ -6,11 +6,11 @@ import example.domain.type.time.Minute;
 /**
  * 拘束時間
  */
-public class BindingTime {
+public class TotalBindingTime {
 
     Minute value;
 
-    public BindingTime(Minute value) {
+    public TotalBindingTime(Minute value) {
         this.value = value;
     }
 

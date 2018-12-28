@@ -10,12 +10,8 @@ public class MidnightWorkTime {
 
     Minute value;
 
-    public MidnightWorkTime(Minute value) {
-        this.value = value;
-    }
-
     public MidnightWorkTime(WorkTimeRange workTimeRange, MidnightBreakTime midnightBreakTime) {
-        this(midnightBreakTime.subtractFrom(workTimeRange.midnightWorkMinute()));
+        this.value = midnightBreakTime.subtractFrom(workTimeRange.midnightBindingTime());
     }
 
     public Minute minute() {

@@ -1,17 +1,17 @@
-package example.domain.model.attendance.worktimerecord;
+package example.domain.model.attendance;
 
 import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;
 
 /**
- * 日中労働時間
+ * 総時間外労働時間
  */
-public class NormalWorkTime {
+public class AllOverWorkTime {
 
     Minute value;
 
-    public NormalWorkTime(WorkTimeRange workTimeRange, NormalBreakTime normalBreakTime) {
-        value = normalBreakTime.subtractFrom(workTimeRange.normalBindingTime().minute());
+    public AllOverWorkTime(Minute value) {
+        this.value = value;
     }
 
     public Minute minute() {

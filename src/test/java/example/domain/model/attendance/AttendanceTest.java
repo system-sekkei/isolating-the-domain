@@ -27,7 +27,7 @@ class AttendanceTest {
     @DisplayName("深夜時間帯の作業時間を正しく返却できること")
     @ParameterizedTest
     @CsvSource({
-            "18:00, 3:00, 60, 04:00",
+            "18:00, 27:00, 60, 04:00",
             "8:00, 17:00, 0, 00:00"
     })
     void midnightWorkTime(String begin, String end, int breaks, String expected) {
@@ -52,7 +52,10 @@ class AttendanceTest {
     void 時間の仕様() {
         Attendance sut = new Attendance(
                 new WorkerNumber(), new WorkDay(),
-                new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("8:00")), new WorkEndTime(new ClockTime("00:00"))), new NormalBreakTime(new Minute(120)), new MidnightBreakTime(new Minute("30")))
+                new WorkTimeRecord(
+                        new WorkTimeRange(new WorkStartTime("8:00"), new WorkEndTime("24:00")),
+                        new NormalBreakTime(new Minute(120)),
+                        new MidnightBreakTime(new Minute("30")))
         );
         assertAll(
                 () -> assertEquals("12:00", sut.workTimeRecord().normalWorkTime().toString(), "就業時間は就業時間から休憩時間を引いた値です。")

@@ -19,6 +19,7 @@
     </delete>
 
     <resultMap id="workTimeRecord" type="example.domain.model.attendance.Attendance">
+        <result property="workerNumber.value" column="従業員ID"/>
         <result property="workDay.value.value" column="就業日"/>
         <result property="workTimeRecord.workTimeRange.startTime.value.value" column="開始時刻"/>
         <result property="workTimeRecord.workTimeRange.endTime.value.value" column="終了時刻"/>
@@ -28,6 +29,7 @@
 
     <select id="selectByMonth" resultMap="workTimeRecord">
         SELECT
+        就業時間.従業員ID,
         就業時間.就業日,
         就業時間.開始時刻,
         就業時間.終了時刻,

@@ -29,6 +29,10 @@ public class ClockTime {
         this.value = String.format("%d:%02d", hour, minute);
     }
 
+    public ClockTime(Hour hour, Minute minute) {
+        this(hour.value, minute.value);
+    }
+
     public LocalTime value() {
         // TODO 廃止
         return LocalTime.parse(value, DateTimeFormatter.ofPattern("H:mm"));
@@ -40,17 +44,12 @@ public class ClockTime {
     }
 
     public Minute until(ClockTime other) {
-        return new ClockTimeRange(this, other).between().toMinute();
+        return new ClockTimeRange(this, other).between();
     }
 
     public ClockTime quarterRoundDown() {
-        int tickPeriod = tickPeriod().value;
-        int normalMinute = value().getMinute() / tickPeriod * tickPeriod;
-        return new ClockTime(value().withMinute(normalMinute));
-    }
-
-    public static Minute tickPeriod() {
-        return new Minute(15);
+        Minute minute = minute().quarterHourRoundDown();
+        return new ClockTime(hour(), minute);
     }
 
     public boolean isAfter(ClockTime other) {
@@ -59,11 +58,27 @@ public class ClockTime {
         return otherMinute.lessThan(thisMinute);
     }
 
+    public boolean isBefore(ClockTime other) {
+        Minute thisMinute = hour().toMinute().add(minute());
+        Minute otherMinute = other.hour().toMinute().add(other.minute());
+        return thisMinute.lessThan(otherMinute);
+    }
+
     public Hour hour() {
         return new Hour(Integer.valueOf(value.split(":")[0]));
     }
 
     public Minute minute() {
         return new Minute(Integer.valueOf(value.split(":")[1]));
+    }
+
+    public Minute betweenMinute(ClockTime other) {
+        Minute thisMinute = hour().toMinute().add(minute());
+        Minute otherMinute = other.hour().toMinute().add(other.minute());
+
+        if (thisMinute.lessThan(otherMinute)) {
+            return otherMinute.subtract(thisMinute);
+        }
+        return thisMinute.subtract(otherMinute);
     }
 }

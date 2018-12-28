@@ -2,7 +2,6 @@ package example.domain.type.time;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 /**
  * 開始時刻と終了時刻を表現する(時刻間の時間間隔を返す)
@@ -13,14 +12,13 @@ public class ClockTimeRange {
     ClockTime end;
 
     public ClockTimeRange(ClockTime begin, ClockTime end) {
+        // TODO 逆転不可
         this.begin = begin;
         this.end = end;
     }
 
-    public HourAndMinute between() {
-        LocalDate now = LocalDate.now();
-        long difference = ChronoUnit.MINUTES.between(beginDateTime(now), endDateTime(now));
-        return HourAndMinute.from(new Minute(Math.toIntExact(difference)));
+    public Minute between() {
+        return begin.betweenMinute(end);
     }
 
     public ClockTime begin() {

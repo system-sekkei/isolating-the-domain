@@ -30,7 +30,9 @@ class PaymentAmountTest {
             // 通常10時間（超過2時間）
             "09:00, 19:00, 0, 0, 1000, 10500",
             // 通常13時間＋深夜1時間（超過6時間）
-            "8:00, 0:00, 60, 60, 1000, 15850"
+            "8:00, 24:00, 60, 60, 1000, 15850",
+            // 通常17時間＋深夜7時間（超過16時間）
+            "0:00, 24:00, 0, 0, 1000, 30450"
     })
     void wage(String begin, String end, int breakMinute, int midnightBreakMinute, int hourlyWage, int expected) {
         Attendance attendance = new Attendance(

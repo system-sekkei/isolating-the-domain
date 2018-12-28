@@ -1,8 +1,5 @@
 package example.domain.model.attendance;
 
-import example.domain.model.attendance.worktimerecord.MidnightWorkTime;
-import example.domain.model.attendance.worktimerecord.OverWorkTime;
-import example.domain.model.attendance.worktimerecord.TotalWorkTime;
 import example.domain.type.time.Minute;
 
 import java.util.stream.Collector;
@@ -44,16 +41,15 @@ public class WorkTimeSummary {
                 this.overWorkTime.add(other.overWorkTime));
     }
 
-    public TotalWorkTime totalWorkTime() {
-        return new TotalWorkTime(normalTime.add(midnightWorkTime));
+    public AllWorkTime totalWorkTime() {
+        return new AllWorkTime(normalTime.add(midnightWorkTime));
     }
 
-    public MidnightWorkTime midnightWorkTime() {
-        return new MidnightWorkTime(midnightWorkTime);
+    public AllMidnightWorkTime midnightWorkTime() {
+        return new AllMidnightWorkTime(midnightWorkTime);
     }
 
-    public OverWorkTime overWorkTime() {
-        return new OverWorkTime(overWorkTime);
+    public AllOverWorkTime overWorkTime() {
+        return new AllOverWorkTime(overWorkTime);
     }
-
 }

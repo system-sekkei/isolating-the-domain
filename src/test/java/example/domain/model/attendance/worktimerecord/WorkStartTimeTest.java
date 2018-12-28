@@ -10,7 +10,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class WorkStartTimeTest {
     @DisplayName("勤務時刻は15分刻みで切り捨てられる")
     @ParameterizedTest
-    @CsvSource({"10:14, 10:00", "10:15, 10:15", "10:16, 10:15"})
+    @CsvSource({
+            "10:14, 10:00",
+            "10:15, 10:15",
+            "10:16, 10:15"})
     void normalizeHourTime(String org, String normalize) {
         WorkStartTime ht = new WorkStartTime(new ClockTime(org));
         assertEquals(normalize, ht.normalizedHourTime().toString());

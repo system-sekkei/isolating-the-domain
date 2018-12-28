@@ -17,6 +17,10 @@ public class WorkStartTime {
         this.value = value;
     }
 
+    public WorkStartTime(String value) {
+        this(new ClockTime(value));
+    }
+
     ClockTime normalizedHourTime() {
         return value.quarterRoundDown();
     }
@@ -25,7 +29,7 @@ public class WorkStartTime {
         return value.isAfter(workEndTime.value);
     }
 
-    public ClockTime value() {
+    public ClockTime clockTime() {
         return value;
     }
 

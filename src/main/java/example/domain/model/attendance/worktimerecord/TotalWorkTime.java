@@ -11,7 +11,7 @@ public class TotalWorkTime {
     Minute value;
 
     public TotalWorkTime(WorkTimeRange workTimeRange, TotalBreakTime totalBreakTime) {
-        this(workTimeRange.bindingTime().minute().subtract(totalBreakTime.minute()));
+        this.value = workTimeRange.totalBindingTime().minute().subtract(totalBreakTime.minute());
     }
 
     public TotalWorkTime(Minute value) {

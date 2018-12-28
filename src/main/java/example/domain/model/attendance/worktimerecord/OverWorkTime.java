@@ -11,16 +11,12 @@ public class OverWorkTime {
 
     Minute value;
 
-    public OverWorkTime(Minute value) {
-        this.value = value;
-    }
-
     public OverWorkTime(TotalWorkTime totalWorkTime) {
         this(totalWorkTime, DailyOvertimeWork.legal());
     }
 
     OverWorkTime(TotalWorkTime totalWorkTime, DailyOvertimeWork dailyOvertimeWork) {
-        this(dailyOvertimeWork.overMinute(totalWorkTime.minute()));
+        this.value = dailyOvertimeWork.overMinute(totalWorkTime.minute());
     }
 
     public Minute minute() {

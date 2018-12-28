@@ -44,22 +44,18 @@ public class AttendanceForm {
                 new WorkTimeRange(new WorkStartTime(startTime), new WorkEndTime(endTime)),
                 new NormalBreakTime(minute),
                 new MidnightBreakTime(midnightMinute));
-        return new Attendance(
-                workerNumber,
-                workDay,
-                workTimeRecord
-        );
+        return new Attendance(workerNumber, workDay, workTimeRecord);
     }
 
     public void apply(Attendance attendance) {
         this.workerNumber = attendance.workerNumber();
         this.workDay = attendance.workDay().toString();
 
-        this.startHour = attendance.workTimeRecord().workTimeRange().start().value().hour().toString();
-        this.startMinute = attendance.workTimeRecord().workTimeRange().start().value().minute().toString();
+        this.startHour = attendance.workTimeRecord().workTimeRange().start().clockTime().hour().toString();
+        this.startMinute = attendance.workTimeRecord().workTimeRange().start().clockTime().minute().toString();
 
-        this.endHour = attendance.workTimeRecord().workTimeRange().end().value().hour().toString();
-        this.endMinute = attendance.workTimeRecord().workTimeRange().end().value().minute().toString();
+        this.endHour = attendance.workTimeRecord().workTimeRange().end().clockTime().hour().toString();
+        this.endMinute = attendance.workTimeRecord().workTimeRange().end().clockTime().minute().toString();
 
         this.normalBreakTime = attendance.workTimeRecord().normalBreakTime().toString();
         this.midnightBreakTime = attendance.workTimeRecord().midnightBreakTime().toString();

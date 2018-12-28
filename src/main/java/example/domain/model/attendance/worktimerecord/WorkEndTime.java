@@ -17,11 +17,15 @@ public class WorkEndTime {
         this.value = value;
     }
 
+    public WorkEndTime(String value) {
+        this(new ClockTime(value));
+    }
+
     ClockTime normalizedHourTime() {
         return value.quarterRoundDown();
     }
 
-    public ClockTime value() {
+    public ClockTime clockTime() {
         return value;
     }
 

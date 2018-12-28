@@ -1,9 +1,9 @@
 package example.domain.model.payroll;
 
+import example.domain.model.attendance.AllMidnightWorkTime;
+import example.domain.model.attendance.AllOverWorkTime;
+import example.domain.model.attendance.AllWorkTime;
 import example.domain.model.attendance.WorkTimeSummary;
-import example.domain.model.attendance.worktimerecord.MidnightWorkTime;
-import example.domain.model.attendance.worktimerecord.OverWorkTime;
-import example.domain.model.attendance.worktimerecord.TotalWorkTime;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.MidnightHourlyExtraWage;
 import example.domain.model.contract.OverTimeHourlyExtraWage;
@@ -23,15 +23,15 @@ public class PaymentAmount {
         this.value = value;
     }
 
-    PaymentAmount(TotalWorkTime totalWorkTime, HourlyWage hourlyWage) {
+    PaymentAmount(AllWorkTime totalWorkTime, HourlyWage hourlyWage) {
         this(WorkHours.of(totalWorkTime.minute()).multiply(hourlyWage));
     }
 
-    PaymentAmount(OverWorkTime overWorkTime, OverTimeHourlyExtraWage overTimeHourlyExtraWage) {
+    PaymentAmount(AllOverWorkTime overWorkTime, OverTimeHourlyExtraWage overTimeHourlyExtraWage) {
         this(WorkHours.of(overWorkTime.minute()).multiply(overTimeHourlyExtraWage.value()));
     }
 
-    PaymentAmount(MidnightWorkTime midnightWorkTime, MidnightHourlyExtraWage midnightHourlyExtraWage) {
+    PaymentAmount(AllMidnightWorkTime midnightWorkTime, MidnightHourlyExtraWage midnightHourlyExtraWage) {
         this(WorkHours.of(midnightWorkTime.minute()).multiply(midnightHourlyExtraWage.value()));
     }
 

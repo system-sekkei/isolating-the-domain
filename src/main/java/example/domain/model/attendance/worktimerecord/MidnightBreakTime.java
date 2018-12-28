@@ -16,8 +16,8 @@ public class MidnightBreakTime {
         this.value = value;
     }
 
-    public Minute subtractFrom(Minute workMinute) {
-        return workMinute.subtract(value.quarterHourRoundUp());
+    public Minute subtractFrom(MidnightBindingTime midnightBindingTime) {
+        return midnightBindingTime.minute().subtract(value.quarterHourRoundUp());
     }
 
     public Minute toMinute() {
