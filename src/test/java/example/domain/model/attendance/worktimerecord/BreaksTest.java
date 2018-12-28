@@ -19,7 +19,7 @@ public class BreaksTest {
             "16, 30"
     })
     void normalizeMinute(int breakMinute, String expectedWorkMinute) {
-        NormalBreakTime breakTime = new NormalBreakTime(new Minute(breakMinute));
+        DaytimeBreakTime breakTime = new DaytimeBreakTime(new Minute(breakMinute));
 
         Minute workMinute = new Minute(60);
         assertEquals(expectedWorkMinute, breakTime.subtractFrom(workMinute).toString());

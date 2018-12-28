@@ -60,8 +60,8 @@ class PayrollQueryServiceTest {
             contractRecordService.registerHourlyWage(workerNumber, new Date("2018-11-20"), wageCondition);
 
             Attendance attendance = new Attendance(
-                    workerNumber, new WorkDay(new Date("2018-11-20")),
-                    new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("09:00")), new WorkEndTime(new ClockTime("10:00"))), new NormalBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
+                    workerNumber, new WorkDate(new Date("2018-11-20")),
+                    new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("09:00")), new WorkEndTime(new ClockTime("10:00"))), new DaytimeBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
             );
             attendanceRecordService.registerAttendance(attendance);
 
@@ -71,8 +71,8 @@ class PayrollQueryServiceTest {
 
         {
             Attendance attendance = new Attendance(
-                    workerNumber, new WorkDay(new Date("2018-11-25")),
-                    new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("22:00")), new WorkEndTime(new ClockTime("23:00"))), new NormalBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
+                    workerNumber, new WorkDate(new Date("2018-11-25")),
+                    new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("22:00")), new WorkEndTime(new ClockTime("23:00"))), new DaytimeBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
             );
             attendanceRecordService.registerAttendance(attendance);
 

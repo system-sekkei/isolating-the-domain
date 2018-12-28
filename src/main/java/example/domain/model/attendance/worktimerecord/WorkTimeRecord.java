@@ -5,16 +5,16 @@ package example.domain.model.attendance.worktimerecord;
  */
 public class WorkTimeRecord {
     WorkTimeRange workTimeRange;
-    NormalBreakTime normalBreakTime;
+    DaytimeBreakTime daytimeBreakTime;
     MidnightBreakTime midnightBreakTime;
 
     @Deprecated
     public WorkTimeRecord() {
     }
 
-    public WorkTimeRecord(WorkTimeRange workTimeRange, NormalBreakTime normalBreakTime, MidnightBreakTime midnightBreakTime) {
+    public WorkTimeRecord(WorkTimeRange workTimeRange, DaytimeBreakTime daytimeBreakTime, MidnightBreakTime midnightBreakTime) {
         this.workTimeRange = workTimeRange;
-        this.normalBreakTime = normalBreakTime;
+        this.daytimeBreakTime = daytimeBreakTime;
         this.midnightBreakTime = midnightBreakTime;
     }
 
@@ -22,31 +22,31 @@ public class WorkTimeRecord {
         return workTimeRange;
     }
 
-    public NormalBreakTime normalBreakTime() {
-        return normalBreakTime;
+    public DaytimeBreakTime daytimeBreakTime() {
+        return daytimeBreakTime;
     }
 
     public MidnightBreakTime midnightBreakTime() {
         return midnightBreakTime;
     }
 
-    public TotalWorkTime totalWorkTime() {
-        return new TotalWorkTime(workTimeRange, totalBreakTime());
+    public WorkTime workTime() {
+        return new WorkTime(daytimeWorkTime(), midnightWorkTime());
     }
 
-    public TotalBreakTime totalBreakTime() {
-        return new TotalBreakTime(normalBreakTime, midnightBreakTime);
+    public BreakTime breakTime() {
+        return new BreakTime(daytimeBreakTime, midnightBreakTime);
     }
 
-    public NormalWorkTime normalWorkTime() {
-        return new NormalWorkTime(workTimeRange, normalBreakTime());
+    public DaytimeWorkTime daytimeWorkTime() {
+        return new DaytimeWorkTime(workTimeRange, daytimeBreakTime);
     }
 
     public MidnightWorkTime midnightWorkTime() {
-        return new MidnightWorkTime(workTimeRange, midnightBreakTime());
+        return new MidnightWorkTime(workTimeRange, midnightBreakTime);
     }
 
-    public OverWorkTime overTime() {
-        return new OverWorkTime(totalWorkTime());
+    public OverWorkTime overWorkTime() {
+        return new OverWorkTime(workTime());
     }
 }

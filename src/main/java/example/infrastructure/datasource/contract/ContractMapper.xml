@@ -47,7 +47,7 @@
         時給契約.時間外割増率,
         時給契約.深夜割増率
         FROM 給与.時給契約 as 時給契約
-        WHERE 時給契約.従業員ID = #{workerNumber.value} AND #{workDay.value} between 時給契約.適用開始日 AND 時給契約.適用終了日
+        WHERE 時給契約.従業員ID = #{workerNumber.value} AND #{workDate.value} between 時給契約.適用開始日 AND 時給契約.適用終了日
     </select>
 
     <insert id="insertContract">

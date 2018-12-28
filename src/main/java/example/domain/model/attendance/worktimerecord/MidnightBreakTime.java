@@ -20,7 +20,7 @@ public class MidnightBreakTime {
         return midnightBindingTime.minute().subtract(value.quarterHourRoundUp());
     }
 
-    public Minute toMinute() {
+    public Minute minute() {
         return value;
     }
 

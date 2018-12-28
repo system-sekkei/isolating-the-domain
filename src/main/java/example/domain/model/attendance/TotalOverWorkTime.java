@@ -4,22 +4,22 @@ import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;
 
 /**
- * 総深夜労働時間
+ * 総時間外労働時間
  */
-public class AllMidnightWorkTime {
+public class TotalOverWorkTime {
 
     Minute value;
 
-    public AllMidnightWorkTime(Minute value) {
+    public TotalOverWorkTime(Minute value) {
         this.value = value;
+    }
+
+    public Minute minute() {
+        return value;
     }
 
     @Override
     public String toString() {
         return HourAndMinute.from(value).toString();
-    }
-
-    public Minute minute() {
-        return value;
     }
 }

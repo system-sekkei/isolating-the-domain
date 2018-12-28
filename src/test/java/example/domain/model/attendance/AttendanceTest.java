@@ -18,10 +18,10 @@ class AttendanceTest {
     @CsvSource({"9:00, 18:00, 60, 08:00", "9:01, 18:14, 46, 08:00"})
     void workTime(String begin, String end, int breaks, String expected) {
         Attendance sut = new Attendance(
-                new WorkerNumber(), new WorkDay(),
-                new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end))), new NormalBreakTime(new Minute(breaks)), new MidnightBreakTime(new Minute("0")))
+                new WorkerNumber(), new WorkDate(),
+                new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end))), new DaytimeBreakTime(new Minute(breaks)), new MidnightBreakTime(new Minute("0")))
         );
-        assertEquals(expected, sut.workTimeRecord().normalWorkTime().toString());
+        assertEquals(expected, sut.workTimeRecord().daytimeWorkTime().toString());
     }
 
     @DisplayName("深夜時間帯の作業時間を正しく返却できること")
@@ -32,8 +32,8 @@ class AttendanceTest {
     })
     void midnightWorkTime(String begin, String end, int breaks, String expected) {
         Attendance sut = new Attendance(
-                new WorkerNumber(), new WorkDay(),
-                new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end))), new NormalBreakTime(new Minute(0)), new MidnightBreakTime(new Minute(breaks)))
+                new WorkerNumber(), new WorkDate(),
+                new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end))), new DaytimeBreakTime(new Minute(0)), new MidnightBreakTime(new Minute(breaks)))
         );
         assertEquals(expected, sut.workTimeRecord().midnightWorkTime().toString());
     }
@@ -42,24 +42,24 @@ class AttendanceTest {
     @ParameterizedTest
     @CsvSource({"9:00, 17:00, 60, 00:00", "09:00, 22:00, 60, 04:00"})
     void overWorkTime(String begin, String end, int breaks, String expected) {
-        Attendance sut = new Attendance(new WorkerNumber(), new WorkDay(),
-                new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end))), new NormalBreakTime(new Minute(breaks)), new MidnightBreakTime(new Minute("0"))));
-        assertEquals(expected, sut.workTimeRecord().overTime().toString());
+        Attendance sut = new Attendance(new WorkerNumber(), new WorkDate(),
+                new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end))), new DaytimeBreakTime(new Minute(breaks)), new MidnightBreakTime(new Minute("0"))));
+        assertEquals(expected, sut.workTimeRecord().overWorkTime().toString());
     }
 
     @DisplayName("就業時間/時間外就業時間/深夜作業時間/休憩時間の相関")
     @Test
     void 時間の仕様() {
         Attendance sut = new Attendance(
-                new WorkerNumber(), new WorkDay(),
+                new WorkerNumber(), new WorkDate(),
                 new WorkTimeRecord(
                         new WorkTimeRange(new WorkStartTime("8:00"), new WorkEndTime("24:00")),
-                        new NormalBreakTime(new Minute(120)),
+                        new DaytimeBreakTime(new Minute(120)),
                         new MidnightBreakTime(new Minute("30")))
         );
         assertAll(
-                () -> assertEquals("12:00", sut.workTimeRecord().normalWorkTime().toString(), "就業時間は就業時間から休憩時間を引いた値です。")
-                , () -> assertEquals("05:30", sut.workTimeRecord().overTime().toString(), "時間外作業時間は就業時間から8時間を減算した値です。")
+                () -> assertEquals("12:00", sut.workTimeRecord().daytimeWorkTime().toString(), "就業時間は就業時間から休憩時間を引いた値です。")
+                , () -> assertEquals("05:30", sut.workTimeRecord().overWorkTime().toString(), "時間外作業時間は就業時間から8時間を減算した値です。")
                 , () -> assertEquals("01:30", sut.workTimeRecord().midnightWorkTime().toString(), "深夜作業時間は深夜時間帯の作業時間から深夜休憩時間を引いた値です。")
         );
     }

@@ -5,14 +5,14 @@ import example.domain.type.time.Minute;
 /**
  * 休憩時間
  */
-public class NormalBreakTime {
+public class DaytimeBreakTime {
     Minute value;
 
     @Deprecated
-    NormalBreakTime() {
+    DaytimeBreakTime() {
     }
 
-    public NormalBreakTime(Minute value) {
+    public DaytimeBreakTime(Minute value) {
         this.value = value;
     }
 
@@ -20,7 +20,7 @@ public class NormalBreakTime {
         return workMinute.subtract(value.quarterHourRoundUp());
     }
 
-    public Minute toMinute() {
+    public Minute minute() {
         return value;
     }
 

@@ -1,7 +1,7 @@
 package example.presentation.controller.attendance;
 
 import example.domain.model.attendance.Attendance;
-import example.domain.model.attendance.WorkDay;
+import example.domain.model.attendance.WorkDate;
 import example.domain.model.attendance.worktimerecord.*;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.time.ClockTime;
@@ -14,42 +14,42 @@ import java.time.LocalDate;
 public class AttendanceForm {
 
     WorkerNumber workerNumber;
-    String workDay;
+    String workDate;
 
     String startHour;
     String startMinute;
     String endHour;
     String endMinute;
 
-    String normalBreakTime;
+    String daytimeBreakTime;
     String midnightBreakTime;
 
     public AttendanceForm() {
-        this.workDay = LocalDate.now().toString();
+        this.workDate = LocalDate.now().toString();
         this.startHour = "9";
         this.startMinute = "0";
         this.endHour = "17";
         this.endMinute = "30";
-        this.normalBreakTime = "60";
+        this.daytimeBreakTime = "60";
         this.midnightBreakTime = "0";
     }
 
     public Attendance toAttendance() {
-        WorkDay workDay = new WorkDay(this.workDay);
+        WorkDate workDate = new WorkDate(this.workDate);
         ClockTime startTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
         ClockTime endTime = new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
-        Minute minute = new Minute(normalBreakTime);
+        Minute minute = new Minute(daytimeBreakTime);
         Minute midnightMinute = new Minute(midnightBreakTime);
         WorkTimeRecord workTimeRecord = new WorkTimeRecord(
                 new WorkTimeRange(new WorkStartTime(startTime), new WorkEndTime(endTime)),
-                new NormalBreakTime(minute),
+                new DaytimeBreakTime(minute),
                 new MidnightBreakTime(midnightMinute));
-        return new Attendance(workerNumber, workDay, workTimeRecord);
+        return new Attendance(workerNumber, workDate, workTimeRecord);
     }
 
     public void apply(Attendance attendance) {
         this.workerNumber = attendance.workerNumber();
-        this.workDay = attendance.workDay().toString();
+        this.workDate = attendance.workDate().toString();
 
         this.startHour = attendance.workTimeRecord().workTimeRange().start().clockTime().hour().toString();
         this.startMinute = attendance.workTimeRecord().workTimeRange().start().clockTime().minute().toString();
@@ -57,24 +57,24 @@ public class AttendanceForm {
         this.endHour = attendance.workTimeRecord().workTimeRange().end().clockTime().hour().toString();
         this.endMinute = attendance.workTimeRecord().workTimeRange().end().clockTime().minute().toString();
 
-        this.normalBreakTime = attendance.workTimeRecord().normalBreakTime().toString();
+        this.daytimeBreakTime = attendance.workTimeRecord().daytimeBreakTime().toString();
         this.midnightBreakTime = attendance.workTimeRecord().midnightBreakTime().toString();
     }
 
-    boolean workDayComplete;
+    boolean workDateComplete;
 
     @AssertTrue(message = "勤務日を入力してください")
-    boolean isWorkDayComplete() {
-        return !workDay.isEmpty();
+    boolean isWorkDateComplete() {
+        return !workDate.isEmpty();
     }
 
-    boolean workDayValid;
+    boolean workDateValid;
 
     @AssertTrue(message = "勤務日が不正です")
-    boolean isWorkDayValid() {
-        if (!isWorkDayComplete()) return true;
+    boolean isWorkDateValid() {
+        if (!isWorkDateComplete()) return true;
         try {
-            new WorkDay(this.workDay);
+            new WorkDate(this.workDate);
         } catch (DateTimeException ex) {
             return false;
         }
@@ -152,14 +152,14 @@ public class AttendanceForm {
         return new WorkEndTime(clockTime);
     }
 
-    boolean normalBreakTimeValid;
+    boolean daytimeBreakTimeValid;
 
     @AssertTrue(message = "休憩時間が不正です")
-    public boolean isNormalBreakTimeValid() {
-        if (normalBreakTime.isEmpty()) return true;
+    public boolean isDaytimeBreakTimeValid() {
+        if (daytimeBreakTime.isEmpty()) return true;
 
         try {
-            new NormalBreakTime(new Minute(normalBreakTime));
+            new DaytimeBreakTime(new Minute(daytimeBreakTime));
         } catch (NumberFormatException | DateTimeException ex) {
             return false;
         }

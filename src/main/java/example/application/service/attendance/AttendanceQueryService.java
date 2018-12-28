@@ -23,15 +23,15 @@ public class AttendanceQueryService {
     /**
      * 日次勤怠取得
      */
-    public Attendance attendance(WorkerNumber workerNumber, WorkDay workDay) {
-        return findMonthlyAttendances(workerNumber, workDay.month()).at(workDay);
+    public Attendance attendance(WorkerNumber workerNumber, WorkDate workDate) {
+        return findMonthlyAttendances(workerNumber, workDate.month()).at(workDate);
     }
 
     /**
      * 出勤状況取得
      */
-    public AttendanceStatus attendanceStatus(WorkerNumber workerNumber, WorkDay workDay) {
-        return findMonthlyAttendances(workerNumber, workDay.month()).statusOf(workDay);
+    public AttendanceStatus attendanceStatus(WorkerNumber workerNumber, WorkDate workDate) {
+        return findMonthlyAttendances(workerNumber, workDate.month()).statusOf(workDate);
     }
 
     AttendanceQueryService(AttendanceRepository attendanceRepository) {

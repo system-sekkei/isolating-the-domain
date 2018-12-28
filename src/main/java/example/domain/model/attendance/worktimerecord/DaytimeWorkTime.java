@@ -6,12 +6,12 @@ import example.domain.type.time.Minute;
 /**
  * 日中労働時間
  */
-public class NormalWorkTime {
+public class DaytimeWorkTime {
 
     Minute value;
 
-    public NormalWorkTime(WorkTimeRange workTimeRange, NormalBreakTime normalBreakTime) {
-        value = normalBreakTime.subtractFrom(workTimeRange.normalBindingTime().minute());
+    public DaytimeWorkTime(WorkTimeRange workTimeRange, DaytimeBreakTime daytimeBreakTime) {
+        value = daytimeBreakTime.subtractFrom(workTimeRange.daytimeBindingTime().minute());
     }
 
     public Minute minute() {

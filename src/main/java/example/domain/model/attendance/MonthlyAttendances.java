@@ -24,19 +24,19 @@ public class MonthlyAttendances {
         return month;
     }
 
-    public List<WorkDay> listWorkDays() {
+    public List<WorkDate> listWorkDates() {
         return month.days();
     }
 
-    public Attendance at(WorkDay workDay) {
-        return attendances.at(workDay);
+    public Attendance at(WorkDate workDate) {
+        return attendances.at(workDate);
     }
 
-    public AttendanceStatus statusOf(WorkDay workDay) {
-        return attendances.statusOf(workDay);
+    public AttendanceStatus statusOf(WorkDate workDate) {
+        return attendances.statusOf(workDate);
     }
 
-    public AllWorkTime totalWorkTime() {
+    public TotalWorkTime totalWorkTime() {
         return attendances.summarize().totalWorkTime();
     }
 
@@ -48,8 +48,8 @@ public class MonthlyAttendances {
         return attendances.list().isEmpty();
     }
 
-    public WorkDay firstWorkDay() {
+    public WorkDate firstWorkDate() {
         List<Attendance> list = attendances.list();
-        return list.get(0).workDay();
+        return list.get(0).workDate();
     }
 }

@@ -66,33 +66,33 @@
       </tr>
       </thead>
       <tbody>
-      <th:block th:each="workDay : ${monthlyAttendances.listWorkDays()}">
-        <tr th:class="${workDay.dayOfWeek()}" th:if="${monthlyAttendances.statusOf(workDay).isWork()}" th:object="${monthlyAttendances.at(workDay)}">
+      <th:block th:each="workDate : ${monthlyAttendances.listWorkDates()}">
+        <tr th:class="${workDate.dayOfWeek()}" th:if="${monthlyAttendances.statusOf(workDate).isWork()}" th:object="${monthlyAttendances.at(workDate)}">
           <td class="center aligned"
-              th:text="${workDay.dayOfMonth()}"></td>
+              th:text="${workDate.dayOfMonth()}"></td>
           <td class="center aligned"
-              th:text="${workDay.dayOfWeek()}"></td>
+              th:text="${workDate.dayOfWeek()}"></td>
           <td th:text="*{workTimeRecord().workTimeRange().start()}"></td>
           <td th:text="*{workTimeRecord().workTimeRange().end()}"></td>
-          <td th:text="*{workTimeRecord().totalBreakTime()}"></td>
-          <td th:text="*{workTimeRecord().totalWorkTime()}"></td>
+          <td th:text="*{workTimeRecord().breakTime()}"></td>
+          <td th:text="*{workTimeRecord().workTime()}"></td>
           <td class="center aligned">
-            <a th:href="@{/attendance?workerNumber={workerNumber}&workDay={workDay}(workerNumber=${worker.workerNumber()},workDay=${workDay})}">
+            <a th:href="@{/attendance?workerNumber={workerNumber}&workDate={workDate}(workerNumber=${worker.workerNumber()},workDate=${workDate})}">
               <i class="edit icon"></i>
             </a>
           </td>
         </tr>
-        <tr th:class="${workDay.dayOfWeek()}" th:unless="${monthlyAttendances.statusOf(workDay).isWork()}">
+        <tr th:class="${workDate.dayOfWeek()}" th:unless="${monthlyAttendances.statusOf(workDate).isWork()}">
           <td class="center aligned"
-              th:text="${workDay.dayOfMonth()}"></td>
+              th:text="${workDate.dayOfMonth()}"></td>
           <td class="center aligned"
-              th:text="${workDay.dayOfWeek()}"></td>
+              th:text="${workDate.dayOfWeek()}"></td>
           <td></td>
           <td></td>
           <td></td>
           <td></td>
           <td class="center aligned">
-            <a th:href="@{/attendance?workerNumber={workerNumber}&workDay={workDay}(workerNumber=${worker.workerNumber()},workDay=${workDay})}">
+            <a th:href="@{/attendance?workerNumber={workerNumber}&workDate={workDate}(workerNumber=${worker.workerNumber()},workDate=${workDate})}">
               <i class="edit icon"></i>
             </a>
           </td>

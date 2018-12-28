@@ -43,7 +43,7 @@ public class Payroll {
         if (monthlyAttendances.notWorking()) {
             return PayrollStatus.稼働登録無し;
         }
-        if (workerContract.notContractedAt(monthlyAttendances.firstWorkDay().value())) {
+        if (workerContract.notContractedAt(monthlyAttendances.firstWorkDate().value())) {
             return PayrollStatus.時給登録無し;
         }
 

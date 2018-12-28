@@ -27,16 +27,12 @@ public class WorkTimeRange {
         return endTime;
     }
 
-    public static WorkTimeRange of(ClockTimeRange timeRange) {
-        return new WorkTimeRange(new WorkStartTime(timeRange.begin()), new WorkEndTime(timeRange.end()));
+    public BindingTime bindingTime() {
+        return new BindingTime(startTime.normalizedHourTime().until(endTime.normalizedHourTime()));
     }
 
-    public TotalBindingTime totalBindingTime() {
-        return new TotalBindingTime(startTime.normalizedHourTime().until(endTime.normalizedHourTime()));
-    }
-
-    public NormalBindingTime normalBindingTime() {
-        return new NormalBindingTime(totalBindingTime(), midnightBindingTime());
+    public DaytimeBindingTime daytimeBindingTime() {
+        return new DaytimeBindingTime(bindingTime(), midnightBindingTime());
     }
 
     public MidnightBindingTime midnightBindingTime() {

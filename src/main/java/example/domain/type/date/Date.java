@@ -13,6 +13,10 @@ public class Date {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate value;
 
+    @Deprecated
+    public Date() {
+    }
+
     public Date(String value) {
         this(LocalDate.parse(value, DateTimeFormatter.ISO_DATE));
     }

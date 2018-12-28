@@ -4,24 +4,22 @@ import example.domain.type.date.Date;
 import example.domain.type.date.DateRange;
 import example.domain.type.date.DayOfWeek;
 
-import java.time.LocalDate;
-
 /**
- * 勤務日
+ * 勤務日付
  */
-public class WorkDay {
+public class WorkDate {
 
     Date value;
 
-    public WorkDay() {
-        this(new Date(LocalDate.now()));
+    @Deprecated
+    public WorkDate() {
     }
 
-    public WorkDay(Date date) {
+    public WorkDate(Date date) {
         value = date;
     }
 
-    public WorkDay(String value) {
+    public WorkDate(String value) {
         this(new Date(value));
     }
 
@@ -37,7 +35,7 @@ public class WorkDay {
         return value.dayOfWeek();
     }
 
-    public boolean hasSameValue(WorkDay other) {
+    public boolean hasSameValue(WorkDate other) {
         return value.hasSameValue(other.value);
     }
 
@@ -45,7 +43,7 @@ public class WorkDay {
         return new WorkMonth(value.year(), value.month());
     }
 
-    public int compareTo(WorkDay other) {
+    public int compareTo(WorkDate other) {
         return value.compareTo(other.value);
     }
 
@@ -57,6 +55,4 @@ public class WorkDay {
     public String toString() {
         return value.toString();
     }
-
-
 }

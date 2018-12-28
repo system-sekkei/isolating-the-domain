@@ -4,7 +4,7 @@ import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.Attendance;
-import example.domain.model.attendance.WorkDay;
+import example.domain.model.attendance.WorkDate;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.WorkerNumber;
@@ -43,16 +43,16 @@ public class AttendanceRegisterController {
     }
 
     @GetMapping
-    String init(@RequestParam(value = "workerNumber", required = false) WorkerNumber workerNumber, @RequestParam(value = "workDay", required = false) WorkDay workDay, @ModelAttribute AttendanceForm attendanceForm) {
+    String init(@RequestParam(value = "workerNumber", required = false) WorkerNumber workerNumber, @RequestParam(value = "workDate", required = false) WorkDate workDate, @ModelAttribute AttendanceForm attendanceForm) {
         if (workerNumber != null) {
             attendanceForm.workerNumber = workerNumber;
         }
-        if (workDay != null) {
-            attendanceForm.workDay = workDay.toString();
+        if (workDate != null) {
+            attendanceForm.workDate = workDate.toString();
         }
-        if (workerNumber != null && workDay != null) {
-            if (attendanceQueryService.attendanceStatus(workerNumber, workDay).isWork()) {
-                Attendance attendance = attendanceQueryService.attendance(workerNumber, workDay);
+        if (workerNumber != null && workDate != null) {
+            if (attendanceQueryService.attendanceStatus(workerNumber, workDate).isWork()) {
+                Attendance attendance = attendanceQueryService.attendance(workerNumber, workDate);
                 attendanceForm.apply(attendance);
             }
         }
@@ -67,7 +67,7 @@ public class AttendanceRegisterController {
 
         attendanceRecordService.registerAttendance(attendance);
 
-        WorkMonth workMonth = attendance.workDay().month();
+        WorkMonth workMonth = attendance.workDate().month();
 
         return "redirect:/attendances/" + attendanceForm.workerNumber.value() + "/" + workMonth.toString();
     }
@@ -76,12 +76,12 @@ public class AttendanceRegisterController {
     public void initBinder(WebDataBinder binder) {
         binder.setAllowedFields(
                 "workerNumber",
-                "workDay",
+                "workDate",
                 "startHour",
                 "startMinute",
                 "endHour",
                 "endMinute",
-                "normalBreakTime",
+                "daytimeBreakTime",
                 "midnightBreakTime"
         );
     }

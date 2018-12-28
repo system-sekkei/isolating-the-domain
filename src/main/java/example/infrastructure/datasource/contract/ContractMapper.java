@@ -18,7 +18,8 @@ public interface ContractMapper {
 
     List<HourlyWageData> selectContracts(@Param("workerNumber") WorkerNumber workerNumber);
 
-    HourlyWageData selectHourlyWageData(@Param("workerNumber") WorkerNumber workerNumber, @Param("workDay") Date workDay);
+    //TODO 変数名と型があってない
+    HourlyWageData selectHourlyWageData(@Param("workerNumber") WorkerNumber workerNumber, @Param("workDate") Date workDate);
 
     void insertContract(@Param("workerNumber") WorkerNumber workerNumber,
                         @Param("startDate") Date applyDate, @Param("endDate") Date date,

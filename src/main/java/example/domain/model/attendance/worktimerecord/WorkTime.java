@@ -4,14 +4,14 @@ import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;
 
 /**
- * 休憩時間合計
+ * 業務時間
  */
-public class TotalBreakTime {
+public class WorkTime {
 
     Minute value;
 
-    public TotalBreakTime(NormalBreakTime normalBreakTime, MidnightBreakTime midnightBreakTime) {
-        value = normalBreakTime.toMinute().add(midnightBreakTime.toMinute());
+    public WorkTime(DaytimeWorkTime daytimeWorkTime, MidnightWorkTime midnightWorkTime) {
+        this.value = daytimeWorkTime.minute().add(midnightWorkTime.minute());
     }
 
     public Minute minute() {

@@ -47,17 +47,17 @@ class AttendanceServiceTest {
         int year = 2017;
         int month = 10;
         int day = 20;
-        WorkDay workDay = new WorkDay(new Date(LocalDate.of(year, month, day)));
-        WorkTimeRecord workTimeRecord = new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("9:00")), new WorkEndTime(new ClockTime("24:00"))), new NormalBreakTime(new Minute(60)), new MidnightBreakTime(new Minute("0")));
+        WorkDate workDate = new WorkDate(new Date(LocalDate.of(year, month, day)));
+        WorkTimeRecord workTimeRecord = new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("9:00")), new WorkEndTime(new ClockTime("24:00"))), new DaytimeBreakTime(new Minute(60)), new MidnightBreakTime(new Minute("0")));
 
-        Attendance expectAttendance = new Attendance(workerNumber, workDay, workTimeRecord);
+        Attendance expectAttendance = new Attendance(workerNumber, workDate, workTimeRecord);
         attendanceRecordService.registerAttendance(expectAttendance);
 
         MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(workerNumber, new WorkMonth(year, month));
         assertAll(
                 () -> assertEquals(monthlyAttendances.month().toStringWithUnit(), year + "年" + month + "月"),
-                () -> assertEquals(monthlyAttendances.listWorkDays().size(), 31),
-                () -> assertTrue(monthlyAttendances.statusOf(workDay).isWork())
+                () -> assertEquals(monthlyAttendances.listWorkDates().size(), 31),
+                () -> assertTrue(monthlyAttendances.statusOf(workDate).isWork())
         );
     }
 }

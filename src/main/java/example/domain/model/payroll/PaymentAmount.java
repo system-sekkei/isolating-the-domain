@@ -1,8 +1,8 @@
 package example.domain.model.payroll;
 
-import example.domain.model.attendance.AllMidnightWorkTime;
-import example.domain.model.attendance.AllOverWorkTime;
-import example.domain.model.attendance.AllWorkTime;
+import example.domain.model.attendance.TotalMidnightWorkTime;
+import example.domain.model.attendance.TotalOverWorkTime;
+import example.domain.model.attendance.TotalWorkTime;
 import example.domain.model.attendance.WorkTimeSummary;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.MidnightHourlyExtraWage;
@@ -23,22 +23,22 @@ public class PaymentAmount {
         this.value = value;
     }
 
-    PaymentAmount(AllWorkTime totalWorkTime, HourlyWage hourlyWage) {
+    PaymentAmount(TotalWorkTime totalWorkTime, HourlyWage hourlyWage) {
         this(WorkHours.of(totalWorkTime.minute()).multiply(hourlyWage));
     }
 
-    PaymentAmount(AllOverWorkTime overWorkTime, OverTimeHourlyExtraWage overTimeHourlyExtraWage) {
+    PaymentAmount(TotalOverWorkTime overWorkTime, OverTimeHourlyExtraWage overTimeHourlyExtraWage) {
         this(WorkHours.of(overWorkTime.minute()).multiply(overTimeHourlyExtraWage.value()));
     }
 
-    PaymentAmount(AllMidnightWorkTime midnightWorkTime, MidnightHourlyExtraWage midnightHourlyExtraWage) {
+    PaymentAmount(TotalMidnightWorkTime midnightWorkTime, MidnightHourlyExtraWage midnightHourlyExtraWage) {
         this(WorkHours.of(midnightWorkTime.minute()).multiply(midnightHourlyExtraWage.value()));
     }
 
     public static PaymentAmount from(WorkTimeSummary workTimeSummary, WageCondition wageCondition) {
         return new PaymentAmount(workTimeSummary.totalWorkTime(), wageCondition.baseHourlyWage())
-                .add(new PaymentAmount(workTimeSummary.overWorkTime(), wageCondition.overTimeHourlyExtraWage()))
-                .add(new PaymentAmount(workTimeSummary.midnightWorkTime(), wageCondition.midnightHourlyExtraWage()));
+                .add(new PaymentAmount(workTimeSummary.totalOverWorkTime(), wageCondition.overTimeHourlyExtraWage()))
+                .add(new PaymentAmount(workTimeSummary.totalMidnightWorkTime(), wageCondition.midnightHourlyExtraWage()));
     }
 
     PaymentAmount add(PaymentAmount paymentAmount) {

@@ -36,8 +36,8 @@ class PaymentAmountTest {
     })
     void wage(String begin, String end, int breakMinute, int midnightBreakMinute, int hourlyWage, int expected) {
         Attendance attendance = new Attendance(
-                new WorkerNumber(), new WorkDay("2018-11-04"),
-                new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end))), new NormalBreakTime(new Minute(breakMinute)), new MidnightBreakTime(new Minute(midnightBreakMinute)))
+                new WorkerNumber(), new WorkDate("2018-11-04"),
+                new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end))), new DaytimeBreakTime(new Minute(breakMinute)), new MidnightBreakTime(new Minute(midnightBreakMinute)))
         );
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));
         Attendances attendances = new Attendances(Collections.singletonList(attendance));

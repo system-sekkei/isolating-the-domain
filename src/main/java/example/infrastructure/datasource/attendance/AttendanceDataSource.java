@@ -18,7 +18,7 @@ public class AttendanceDataSource implements AttendanceRepository {
     public void registerAttendance(Attendance attendance) {
         Integer identifier = mapper.newWorkTimeIdentifier();
         mapper.insertWorkTimeHistory(identifier, attendance.workerNumber(), attendance);
-        mapper.deleteWorkTime(attendance.workerNumber(), attendance.workDay());
+        mapper.deleteWorkTime(attendance.workerNumber(), attendance.workDate());
         mapper.insertWorkTime(attendance.workerNumber(), identifier, attendance);
     }
 

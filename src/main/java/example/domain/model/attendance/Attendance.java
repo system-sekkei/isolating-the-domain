@@ -9,21 +9,21 @@ import example.domain.model.worker.WorkerNumber;
 public class Attendance {
 
     WorkerNumber workerNumber;
-    WorkDay workDay;
+    WorkDate workDate;
     WorkTimeRecord workTimeRecord;
 
     @Deprecated
     Attendance() {
     }
 
-    public Attendance(WorkerNumber workerNumber, WorkDay workDay, WorkTimeRecord workTimeRecord) {
+    public Attendance(WorkerNumber workerNumber, WorkDate workDate, WorkTimeRecord workTimeRecord) {
         this.workerNumber = workerNumber;
-        this.workDay = workDay;
+        this.workDate = workDate;
         this.workTimeRecord = workTimeRecord;
     }
 
-    public WorkDay workDay() {
-        return workDay;
+    public WorkDate workDate() {
+        return workDate;
     }
 
     public WorkTimeRecord workTimeRecord() {
@@ -32,5 +32,9 @@ public class Attendance {
 
     public WorkerNumber workerNumber() {
         return workerNumber;
+    }
+
+    public boolean isWorkedAt(WorkDate other) {
+        return this.workDate.hasSameValue(other);
     }
 }

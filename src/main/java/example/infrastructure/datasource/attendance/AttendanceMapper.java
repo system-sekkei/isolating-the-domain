@@ -1,7 +1,7 @@
 package example.infrastructure.datasource.attendance;
 
 import example.domain.model.attendance.Attendance;
-import example.domain.model.attendance.WorkDay;
+import example.domain.model.attendance.WorkDate;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.worker.WorkerNumber;
 import org.apache.ibatis.annotations.Mapper;
@@ -17,7 +17,7 @@ public interface AttendanceMapper {
 
     void insertWorkTime(@Param("workerNumber") WorkerNumber workerNumber, @Param("workTimeId") Integer workTimeId, @Param("work") Attendance work);
 
-    void deleteWorkTime(@Param("workerNumber") WorkerNumber workerNumber, @Param("workDay") WorkDay workDay);
+    void deleteWorkTime(@Param("workerNumber") WorkerNumber workerNumber, @Param("workDate") WorkDate workDate);
 
     List<Attendance> selectByMonth(@Param("workerNumber") WorkerNumber workerNumber, @Param("workMonth") WorkMonth workMonth);
 }

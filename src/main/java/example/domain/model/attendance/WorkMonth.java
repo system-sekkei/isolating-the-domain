@@ -34,11 +34,11 @@ public class WorkMonth {
         this.value = value;
     }
 
-    public List<WorkDay> days() {
+    public List<WorkDate> days() {
         List<Date> days = value.days();
-        List<WorkDay> workDays = days.stream().map(WorkDay::new)
+        List<WorkDate> workDates = days.stream().map(WorkDate::new)
                 .collect(Collectors.toList());
-        return workDays;
+        return workDates;
     }
 
     public String getEndingWithCondition() {
