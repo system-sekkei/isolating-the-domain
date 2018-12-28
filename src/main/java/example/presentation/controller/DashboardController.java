@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * ダッシュボード
+ */
 @Controller
 @RequestMapping("/")
-class TopController {
+class DashboardController {
     WorkerQueryService workerQueryService;
 
     @ModelAttribute("workers")
@@ -22,7 +25,7 @@ class TopController {
         return "dashboard";
     }
 
-    TopController(WorkerQueryService workerQueryService) {
+    DashboardController(WorkerQueryService workerQueryService) {
         this.workerQueryService = workerQueryService;
     }
 }

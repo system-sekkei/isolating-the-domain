@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 従業員詳細
+ * 従業員の詳細
  */
 @Controller
 @RequestMapping("workers/{workerNumber}")

@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 従業員の削除
+ */
 @Controller
 @RequestMapping("workers/{workerNumber}/delete")
-public class DeleteController {
+public class WorkerDeleteController {
 
     WorkerRecordService workerRecordService;
     WorkerQueryService workerQueryService;
@@ -23,7 +26,7 @@ public class DeleteController {
         return "redirect:/workers";
     }
 
-    DeleteController(WorkerRecordService workerRecordService, WorkerQueryService workerQueryService) {
+    WorkerDeleteController(WorkerRecordService workerRecordService, WorkerQueryService workerQueryService) {
         this.workerRecordService = workerRecordService;
         this.workerQueryService = workerQueryService;
     }

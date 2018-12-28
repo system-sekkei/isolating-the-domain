@@ -13,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 時給の変遷
+ * 時給の登録
  */
 @Controller
 @RequestMapping("wages/{workerNumber}/register")

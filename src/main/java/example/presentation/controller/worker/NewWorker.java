@@ -1,4 +1,4 @@
-package example.presentation.view;
+package example.presentation.controller.worker;
 
 import example.domain.model.worker.MailAddress;
 import example.domain.model.worker.Name;

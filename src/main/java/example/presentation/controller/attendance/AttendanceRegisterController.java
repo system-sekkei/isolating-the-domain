@@ -15,7 +15,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 勤怠コントローラー
+ * 勤務時間の登録
  */
 @Controller
 @RequestMapping("attendance")

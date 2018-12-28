@@ -8,6 +8,9 @@ import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
 
+/**
+ * 契約リポジトリ
+ */
 public interface ContractRepository {
     Contracts getContracts(WorkerNumber workerNumber);
 

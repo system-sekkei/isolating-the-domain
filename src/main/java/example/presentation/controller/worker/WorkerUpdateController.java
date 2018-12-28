@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+/**
+ * 従業員の更新
+ */
 @Controller
 @RequestMapping("workers/{workerNumber}/update")
 @SessionAttributes({"worker"})
-class UpdateController {
+class WorkerUpdateController {
 
     private static final String[] allowFields =
             {
@@ -67,7 +70,7 @@ class UpdateController {
         return "redirect:/workers/" + worker.workerNumber();
     }
 
-    UpdateController(WorkerRecordService workerRecordService, WorkerQueryService workerQueryService) {
+    WorkerUpdateController(WorkerRecordService workerRecordService, WorkerQueryService workerQueryService) {
         this.workerRecordService = workerRecordService;
         this.workerQueryService = workerQueryService;
     }

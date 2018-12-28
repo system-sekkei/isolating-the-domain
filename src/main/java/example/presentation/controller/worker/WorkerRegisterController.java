@@ -3,7 +3,6 @@ package example.presentation.controller.worker;
 import example.application.service.worker.WorkerRecordService;
 import example.domain.model.worker.Name;
 import example.domain.model.worker.WorkerNumber;
-import example.presentation.view.NewWorker;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,11 +12,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+/**
+ * 従業員の登録
+ */
 @Controller
 @RequestMapping("workers/register")
 @SessionAttributes({"newWorker"})
-class RegisterController {
+class WorkerRegisterController {
 
     private static final String[] accept =
             {
@@ -86,7 +87,7 @@ class RegisterController {
         return "worker/register/result";
     }
 
-    RegisterController(WorkerRecordService workerRecordService) {
+    WorkerRegisterController(WorkerRecordService workerRecordService) {
         this.workerRecordService = workerRecordService;
     }
 }
