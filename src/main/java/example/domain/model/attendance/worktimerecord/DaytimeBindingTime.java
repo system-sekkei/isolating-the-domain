@@ -1,19 +1,19 @@
 package example.domain.model.attendance.worktimerecord;
 
-import example.domain.type.time.Minute;
+import example.domain.type.time.QuarterHour;
 
 /**
  * 日中拘束時間
  */
 public class DaytimeBindingTime {
 
-    Minute value;
+    QuarterHour value;
 
     public DaytimeBindingTime(BindingTime bindingTime, MidnightBindingTime midnightBindingTime) {
-        this.value = bindingTime.minute().subtract(midnightBindingTime.minute());
+        this.value = bindingTime.quarterHour().subtract(midnightBindingTime.quarterHour());
     }
 
-    public Minute minute() {
+    public QuarterHour quarterHour() {
         return value;
     }
 }

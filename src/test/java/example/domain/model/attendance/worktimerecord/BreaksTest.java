@@ -1,6 +1,7 @@
 package example.domain.model.attendance.worktimerecord;
 
 import example.domain.type.time.Minute;
+import example.domain.type.time.QuarterHour;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -22,6 +23,6 @@ public class BreaksTest {
         DaytimeBreakTime breakTime = new DaytimeBreakTime(new Minute(breakMinute));
 
         Minute workMinute = new Minute(60);
-        assertEquals(expectedWorkMinute, breakTime.subtractFrom(workMinute).toString());
+        assertEquals(expectedWorkMinute, breakTime.subtractFrom(new QuarterHour(workMinute)).minute().toString());
     }
 }

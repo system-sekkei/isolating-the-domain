@@ -49,12 +49,12 @@ public class Minute {
         return value;
     }
 
-    public Minute quarterHourRoundUp() {
-        return (value % 15 == 0) ? this : new Minute((value / 15 + 1) * 15);
+    public QuarterHour quarterHourRoundUp() {
+        return new QuarterHour((value % 15 == 0) ? this : new Minute((value / 15 + 1) * 15));
     }
 
-    public Minute quarterHourRoundDown() {
-        return (value % 15 == 0) ? this : new Minute((value / 15) * 15);
+    public QuarterHour quarterHourRoundDown() {
+        return new QuarterHour((value % 15 == 0) ? this : new Minute((value / 15) * 15));
     }
 
     public boolean lessThan(Minute value) {

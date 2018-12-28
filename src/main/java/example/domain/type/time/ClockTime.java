@@ -30,13 +30,9 @@ public class ClockTime {
         return value;
     }
 
-    public Minute until(ClockTime other) {
-        return new ClockTimeRange(this, other).between();
-    }
-
-    public ClockTime quarterRoundDown() {
-        Minute minute = minute().quarterHourRoundDown();
-        return new ClockTime(hour(), minute);
+    public QuarterRoundClockTime quarterRoundDown() {
+        QuarterHour quarterHour = minute().quarterHourRoundDown();
+        return new QuarterRoundClockTime(new ClockTime(hour(), quarterHour.minute()));
     }
 
     public boolean isAfter(ClockTime other) {

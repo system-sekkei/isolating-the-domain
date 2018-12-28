@@ -1,6 +1,6 @@
 package example.domain.model.attendance.worktimerecord;
 
-import example.domain.type.time.ClockTimeRange;
+import example.domain.type.time.QuarterRoundClockTimeRange;
 
 /**
  * 業務時刻の範囲
@@ -19,6 +19,10 @@ public class WorkTimeRange {
         this.endTime = endTime;
     }
 
+    QuarterRoundClockTimeRange quarterRoundClockTimeRange() {
+        return new QuarterRoundClockTimeRange(startTime.normalizedClockTime(), endTime.normalizedClockTime());
+    }
+
     public WorkStartTime start() {
         return startTime;
     }
@@ -28,7 +32,7 @@ public class WorkTimeRange {
     }
 
     public BindingTime bindingTime() {
-        return new BindingTime(startTime.normalizedHourTime().until(endTime.normalizedHourTime()));
+        return new BindingTime(quarterRoundClockTimeRange().between());
     }
 
     public DaytimeBindingTime daytimeBindingTime() {
@@ -36,10 +40,6 @@ public class WorkTimeRange {
     }
 
     public MidnightBindingTime midnightBindingTime() {
-        return new MidnightBindingTime(normalizedClockTimeRange());
-    }
-
-    private ClockTimeRange normalizedClockTimeRange() {
-        return new ClockTimeRange(startTime.normalizedHourTime(), endTime.normalizedHourTime());
+        return new MidnightBindingTime(quarterRoundClockTimeRange());
     }
 }

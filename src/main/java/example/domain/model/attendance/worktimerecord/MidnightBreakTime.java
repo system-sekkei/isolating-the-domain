@@ -1,6 +1,7 @@
 package example.domain.model.attendance.worktimerecord;
 
 import example.domain.type.time.Minute;
+import example.domain.type.time.QuarterHour;
 
 /**
  * 休憩時間（深夜）
@@ -16,8 +17,8 @@ public class MidnightBreakTime {
         this.value = value;
     }
 
-    public Minute subtractFrom(MidnightBindingTime midnightBindingTime) {
-        return midnightBindingTime.minute().subtract(value.quarterHourRoundUp());
+    public QuarterHour subtractFrom(MidnightBindingTime midnightBindingTime) {
+        return midnightBindingTime.quarterHour().subtract(value.quarterHourRoundUp());
     }
 
     public Minute minute() {

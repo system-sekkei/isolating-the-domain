@@ -1,6 +1,6 @@
 package example.domain.model.attendance;
 
-import example.domain.type.time.Minute;
+import example.domain.type.time.QuarterHour;
 
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -10,19 +10,19 @@ import java.util.stream.Collectors;
  */
 public class WorkTimeSummary {
 
-    Minute daytimeWorkTime;
-    Minute midnightWorkTime;
-    Minute overWorkTime;
+    QuarterHour daytimeWorkTime;
+    QuarterHour midnightWorkTime;
+    QuarterHour overWorkTime;
 
     WorkTimeSummary() {
-        this(new Minute(0), new Minute(0), new Minute(0));
+        this(new QuarterHour(), new QuarterHour(), new QuarterHour());
     }
 
     WorkTimeSummary(Attendance attendance) {
-        this(attendance.workTimeRecord().daytimeWorkTime().minute(), attendance.workTimeRecord().midnightWorkTime().minute(), attendance.workTimeRecord().overWorkTime().minute());
+        this(attendance.workTimeRecord().daytimeWorkTime().quarterHour(), attendance.workTimeRecord().midnightWorkTime().quarterHour(), attendance.workTimeRecord().overWorkTime().quarterHour());
     }
 
-    WorkTimeSummary(Minute daytimeWorkTime, Minute midnightWorkTime, Minute overWorkTime) {
+    WorkTimeSummary(QuarterHour daytimeWorkTime, QuarterHour midnightWorkTime, QuarterHour overWorkTime) {
         this.daytimeWorkTime = daytimeWorkTime;
         this.midnightWorkTime = midnightWorkTime;
         this.overWorkTime = overWorkTime;

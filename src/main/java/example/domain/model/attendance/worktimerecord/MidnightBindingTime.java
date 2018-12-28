@@ -1,29 +1,29 @@
 package example.domain.model.attendance.worktimerecord;
 
 import example.domain.model.labour_standards_law.Midnight;
-import example.domain.type.time.ClockTimeRange;
-import example.domain.type.time.Minute;
+import example.domain.type.time.QuarterHour;
+import example.domain.type.time.QuarterRoundClockTimeRange;
 
 /**
  * 深夜拘束時間
  */
 public class MidnightBindingTime {
 
-    Minute value;
+    QuarterHour value;
 
-    public MidnightBindingTime(Minute value) {
+    public MidnightBindingTime(QuarterHour value) {
         this.value = value;
     }
 
-    public MidnightBindingTime(ClockTimeRange clockTimeRange) {
-        this(clockTimeRange, Midnight.legal());
+    public MidnightBindingTime(QuarterRoundClockTimeRange quarterRoundClockTimeRange) {
+        this(quarterRoundClockTimeRange, Midnight.legal());
     }
 
-    public MidnightBindingTime(ClockTimeRange clockTimeRange, Midnight midnight) {
-        this(midnight.midnightMinute(clockTimeRange));
+    public MidnightBindingTime(QuarterRoundClockTimeRange clockTimeRange, Midnight midnight) {
+        this(new QuarterHour(midnight.midnightMinute(clockTimeRange.clockTimeRange())));
     }
 
-    public Minute minute() {
+    public QuarterHour quarterHour() {
         return value;
     }
 }

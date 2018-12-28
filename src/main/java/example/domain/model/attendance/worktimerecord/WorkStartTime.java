@@ -1,6 +1,7 @@
 package example.domain.model.attendance.worktimerecord;
 
 import example.domain.type.time.ClockTime;
+import example.domain.type.time.QuarterRoundClockTime;
 
 /**
  * 業務開始時刻
@@ -10,7 +11,7 @@ public class WorkStartTime {
     ClockTime value;
 
     @Deprecated
-    WorkStartTime(){
+    WorkStartTime() {
     }
 
     public WorkStartTime(ClockTime value) {
@@ -21,7 +22,7 @@ public class WorkStartTime {
         this(new ClockTime(value));
     }
 
-    ClockTime normalizedHourTime() {
+    QuarterRoundClockTime normalizedClockTime() {
         return value.quarterRoundDown();
     }
 

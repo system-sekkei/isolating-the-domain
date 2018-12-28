@@ -16,6 +16,6 @@ public class WorkStartTimeTest {
             "10:16, 10:15"})
     void normalizeHourTime(String org, String normalize) {
         WorkStartTime ht = new WorkStartTime(new ClockTime(org));
-        assertEquals(normalize, ht.normalizedHourTime().toString());
+        assertEquals(normalize, ht.normalizedClockTime().toString());
     }
 }

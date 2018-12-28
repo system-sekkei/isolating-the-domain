@@ -18,7 +18,7 @@ public class WorkTimeRangeTest {
     })
     void midnightBindingTime(String begin, String end, String expected) {
         WorkTimeRange sut = new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)));
-        assertEquals(expected, sut.midnightBindingTime().minute().toString());
+        assertEquals(expected, sut.midnightBindingTime().quarterHour().minute().toString());
     }
 
     @DisplayName("拘束時間を正しく返却できること")
@@ -31,6 +31,6 @@ public class WorkTimeRangeTest {
     })
     void totalBindingTime(String begin, String end, String expected) {
         WorkTimeRange sut = new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)));
-        assertEquals(expected, sut.bindingTime().minute().toString());
+        assertEquals(expected, sut.bindingTime().quarterHour().minute().toString());
     }
 }

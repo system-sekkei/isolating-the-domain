@@ -1,25 +1,25 @@
 package example.domain.model.attendance;
 
 import example.domain.type.time.HourAndMinute;
-import example.domain.type.time.Minute;
+import example.domain.type.time.QuarterHour;
 
 /**
  * 総深夜労働時間
  */
 public class TotalMidnightWorkTime {
 
-    Minute value;
+    QuarterHour value;
 
-    public TotalMidnightWorkTime(Minute value) {
+    public TotalMidnightWorkTime(QuarterHour value) {
         this.value = value;
     }
 
     @Override
     public String toString() {
-        return HourAndMinute.from(value).toString();
+        return HourAndMinute.from(value.minute()).toString();
     }
 
-    public Minute minute() {
+    public QuarterHour quarterHour() {
         return value;
     }
 }

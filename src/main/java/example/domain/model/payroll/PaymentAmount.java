@@ -1,12 +1,6 @@
 package example.domain.model.payroll;
 
-import example.domain.model.attendance.TotalMidnightWorkTime;
-import example.domain.model.attendance.TotalOverWorkTime;
-import example.domain.model.attendance.TotalWorkTime;
 import example.domain.model.attendance.WorkTimeSummary;
-import example.domain.model.contract.HourlyWage;
-import example.domain.model.contract.MidnightHourlyExtraWage;
-import example.domain.model.contract.OverTimeHourlyExtraWage;
 import example.domain.model.contract.WageCondition;
 
 import java.math.BigDecimal;
@@ -23,22 +17,10 @@ public class PaymentAmount {
         this.value = value;
     }
 
-    PaymentAmount(TotalWorkTime totalWorkTime, HourlyWage hourlyWage) {
-        this(WorkHours.of(totalWorkTime.minute()).multiply(hourlyWage));
-    }
-
-    PaymentAmount(TotalOverWorkTime overWorkTime, OverTimeHourlyExtraWage overTimeHourlyExtraWage) {
-        this(WorkHours.of(overWorkTime.minute()).multiply(overTimeHourlyExtraWage.value()));
-    }
-
-    PaymentAmount(TotalMidnightWorkTime midnightWorkTime, MidnightHourlyExtraWage midnightHourlyExtraWage) {
-        this(WorkHours.of(midnightWorkTime.minute()).multiply(midnightHourlyExtraWage.value()));
-    }
-
     public static PaymentAmount from(WorkTimeSummary workTimeSummary, WageCondition wageCondition) {
-        return new PaymentAmount(workTimeSummary.totalWorkTime(), wageCondition.baseHourlyWage())
-                .add(new PaymentAmount(workTimeSummary.totalOverWorkTime(), wageCondition.overTimeHourlyExtraWage()))
-                .add(new PaymentAmount(workTimeSummary.totalMidnightWorkTime(), wageCondition.midnightHourlyExtraWage()));
+        return new PaymentWorkTime(workTimeSummary.totalWorkTime()).multiply(wageCondition.baseHourlyWage())
+                .add(new PaymentWorkTime(workTimeSummary.totalOverWorkTime()).multiply(wageCondition.overTimeHourlyExtraWage().value()))
+                .add(new PaymentWorkTime(workTimeSummary.totalMidnightWorkTime()).multiply(wageCondition.midnightHourlyExtraWage().value()));
     }
 
     PaymentAmount add(PaymentAmount paymentAmount) {

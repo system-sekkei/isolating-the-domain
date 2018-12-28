@@ -1,25 +1,24 @@
 package example.domain.model.attendance.worktimerecord;
 
-import example.domain.type.time.HourAndMinute;
-import example.domain.type.time.Minute;
+import example.domain.type.time.QuarterHour;
 
 /**
  * 業務時間
  */
 public class WorkTime {
 
-    Minute value;
+    QuarterHour value;
 
     public WorkTime(DaytimeWorkTime daytimeWorkTime, MidnightWorkTime midnightWorkTime) {
-        this.value = daytimeWorkTime.minute().add(midnightWorkTime.minute());
+        this.value = daytimeWorkTime.quarterHour().add(midnightWorkTime.quarterHour());
     }
 
-    public Minute minute() {
+    public QuarterHour quarterHour() {
         return value;
     }
 
     @Override
     public String toString() {
-        return HourAndMinute.from(value).toString();
+        return value.toString();
     }
 }

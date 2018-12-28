@@ -1,25 +1,24 @@
 package example.domain.model.attendance.worktimerecord;
 
-import example.domain.type.time.HourAndMinute;
-import example.domain.type.time.Minute;
+import example.domain.type.time.QuarterHour;
 
 /**
  * 拘束時間
  */
 public class BindingTime {
 
-    Minute value;
+    QuarterHour value;
 
-    public BindingTime(Minute value) {
+    public BindingTime(QuarterHour value) {
         this.value = value;
     }
 
-    public Minute minute() {
+    public QuarterHour quarterHour() {
         return value;
     }
 
     @Override
     public String toString() {
-        return HourAndMinute.from(value).toString();
+        return value.toString();
     }
 }
