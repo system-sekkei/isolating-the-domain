@@ -44,8 +44,6 @@ public class WorkerRecordService {
      * 従業員契約開始
      */
     public void inspireContract(WorkerNumber workerNumber) {
-        // TODO 契約に必要な項目が揃ってなかったらエラーにする
-
         workerRepository.registerInspireContract(workerNumber);
     }
 
