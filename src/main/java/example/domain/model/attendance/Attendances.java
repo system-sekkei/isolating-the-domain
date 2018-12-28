@@ -20,11 +20,7 @@ public class Attendances {
     }
 
     public WorkTimeSummary summarize() {
-        return list.stream()
-                .reduce(new WorkTimeSummary(),
-                        WorkTimeSummary::addAttendanceOfDay,
-                        WorkTimeSummary::add
-                );
+        return list.stream().collect(WorkTimeSummary.collector());
     }
 
     public Attendance at(WorkDay day) {

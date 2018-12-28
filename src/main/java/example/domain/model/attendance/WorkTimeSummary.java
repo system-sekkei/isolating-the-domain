@@ -5,6 +5,9 @@ import example.domain.model.attendance.worktimerecord.OverWorkTime;
 import example.domain.model.attendance.worktimerecord.TotalWorkTime;
 import example.domain.type.time.Minute;
 
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 /**
  * 労働時間
  */
@@ -14,22 +17,24 @@ public class WorkTimeSummary {
     Minute midnightWorkTime;
     Minute overWorkTime;
 
-    public WorkTimeSummary() {
+    private WorkTimeSummary() {
         this(new Minute(0), new Minute(0), new Minute(0));
     }
 
-    public WorkTimeSummary(Minute normalTime, Minute midnightWorkTime, Minute overWorkTime) {
+    private WorkTimeSummary(Attendance attendance) {
+        this(attendance.workTimeRecord().normalWorkTime().minute(), attendance.workTimeRecord().midnightWorkTime().minute(), attendance.workTimeRecord().overTime().minute());
+    }
+
+    private WorkTimeSummary(Minute normalTime, Minute midnightWorkTime, Minute overWorkTime) {
         this.normalTime = normalTime;
         this.midnightWorkTime = midnightWorkTime;
         this.overWorkTime = overWorkTime;
     }
 
-    public WorkTimeSummary(Attendance attendance) {
-        this(attendance.workTimeRecord().normalWorkTime().minute(), attendance.workTimeRecord().midnightWorkTime().minute(), attendance.workTimeRecord().overTime().minute());
-    }
-
-    public WorkTimeSummary addAttendanceOfDay(Attendance attendance) {
-        return add(new WorkTimeSummary(attendance));
+    public static Collector<Attendance, ?, WorkTimeSummary> collector() {
+        return Collectors.reducing(new WorkTimeSummary(),
+                WorkTimeSummary::new,
+                WorkTimeSummary::add);
     }
 
     public WorkTimeSummary add(WorkTimeSummary other) {
