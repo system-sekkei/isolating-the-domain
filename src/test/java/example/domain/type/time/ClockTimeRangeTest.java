@@ -12,6 +12,7 @@ class ClockTimeRangeTest {
     @ParameterizedTest
     @CsvSource({
             "9:00, 17:00, 08:00",
+            "17:00, 9:00, 08:00",
             "9:00, 9:30, 00:30",
             "9:30, 10:00, 00:30",
             "20:00, 26:00, 06:00"})
@@ -23,21 +24,5 @@ class ClockTimeRangeTest {
         HourAndMinute result = HourAndMinute.from(range.between());
 
         assertEquals(rangeTime, result.toString());
-    }
-
-    @DisplayName("含有のテスト")
-    @ParameterizedTest
-    @CsvSource({
-            "22:00, 5:00, 22:00, true",
-            "22:00, 5:00, 21:50, false",
-            "22:00, 5:00, 22:01, true",
-            "22:00, 5:00, 4:59, true",
-            "22:00, 5:00, 5:00, true",
-            "22:00, 5:00, 5:01, false",
-    })
-    void include(String begin, String end, String target, boolean actual) {
-        ClockTimeRange sut = new ClockTimeRange(new ClockTime(begin), new ClockTime(end));
-        ClockTime value = new ClockTime(target);
-        assertEquals(actual, sut.include(value));
     }
 }

@@ -97,7 +97,7 @@ public class AttendanceForm {
 
         try {
             workStartTime();
-        } catch (NumberFormatException | DateTimeException ex) {
+        } catch (NumberFormatException ex) {
             return false;
         }
 
@@ -116,13 +116,11 @@ public class AttendanceForm {
 
     @AssertTrue(message = "終了時刻が不正です")
     public boolean isEndTimeValid() {
-        // TODO : 24時を超える終業時刻を入力できるようにする
-        // TODO : 上記に対応したあとで開始時刻 < 終了時刻のチェックもする
         if (!isEndTimeComplete()) return true;
 
         try {
             workEndTime();
-        } catch (NumberFormatException | DateTimeException ex) {
+        } catch (NumberFormatException ex) {
             return false;
         }
 

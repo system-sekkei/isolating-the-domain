@@ -1,8 +1,5 @@
 package example.domain.type.time;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
 /**
  * 時刻を時分単位で表す
  */
@@ -12,11 +9,6 @@ public class ClockTime {
 
     @Deprecated
     ClockTime() {
-    }
-
-    public ClockTime(LocalTime value) {
-        // TODO 廃止
-        this(value.format(DateTimeFormatter.ofPattern("H:mm")));
     }
 
     public ClockTime(String value) {
@@ -31,11 +23,6 @@ public class ClockTime {
 
     public ClockTime(Hour hour, Minute minute) {
         this(hour.value, minute.value);
-    }
-
-    public LocalTime value() {
-        // TODO 廃止
-        return LocalTime.parse(value, DateTimeFormatter.ofPattern("H:mm"));
     }
 
     @Override
