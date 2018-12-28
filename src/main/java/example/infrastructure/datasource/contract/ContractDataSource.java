@@ -22,13 +22,13 @@ public class ContractDataSource implements ContractRepository {
     @Override
     public void registerHourlyWage(WorkerNumber workerNumber, Date applyDate, WageCondition wageCondition) {
         stopHourlyWageContract(workerNumber, applyDate.previousDay());
+
         mapper.deleteFeatureContract(workerNumber, applyDate);
         Integer hourlyWageId = mapper.newHourlyWageIdentifier();
         mapper.registerHourlyWage(workerNumber, hourlyWageId, applyDate, wageCondition);
         mapper.insertContract(workerNumber, applyDate, Date.distantFuture(), wageCondition);
     }
 
-    @Override
     public void stopHourlyWageContract(WorkerNumber workerNumber, Date stopDate) {
         HourlyWageData hourlyWageData = mapper.selectHourlyWageData(workerNumber, stopDate);
         if (hourlyWageData == null) return;

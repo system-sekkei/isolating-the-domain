@@ -11,8 +11,6 @@ import example.domain.type.date.Date;
 public interface ContractRepository {
     Contracts getContracts(WorkerNumber workerNumber);
 
-    void stopHourlyWageContract(WorkerNumber workerNumber, Date lastDate);
-
     void registerHourlyWage(WorkerNumber workerNumber, Date startDate, WageCondition wageCondition);
 
     WorkerContracts findWorkerContracts(ContractingWorkers contractingWorkers);
