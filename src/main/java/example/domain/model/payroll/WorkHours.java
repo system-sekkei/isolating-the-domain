@@ -1,7 +1,6 @@
 package example.domain.model.payroll;
 
 import example.domain.model.contract.HourlyWage;
-import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;
 
 import java.math.BigDecimal;
@@ -21,10 +20,6 @@ public class WorkHours {
 
     public static WorkHours of(Minute minute) {
         return new WorkHours(minute);
-    }
-
-    public static WorkHours of(HourAndMinute hourAndMinute) {
-        return new WorkHours(hourAndMinute.toMinute());
     }
 
     public BigDecimal value() {
