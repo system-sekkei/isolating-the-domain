@@ -23,8 +23,4 @@ public class ContractRecordService {
     public void registerHourlyWage(WorkerNumber workerNumber, Date startDate, WageCondition wageCondition) {
         contractRepository.registerHourlyWage(workerNumber, startDate, wageCondition);
     }
-
-    public void stopHourlyWageContract(WorkerNumber workerNumber, Date lastDate) {
-        contractRepository.stopHourlyWageContract(workerNumber, lastDate);
-    }
 }
