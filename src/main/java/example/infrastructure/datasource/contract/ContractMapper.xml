@@ -35,8 +35,6 @@
         時給契約.深夜割増率
         FROM 給与.時給契約 as 時給契約
         WHERE 時給契約.従業員ID = #{workerNumber.value}
-        <!--TODO ORDER BY 無くしたい-->
-        ORDER BY 時給契約.適用開始日 asc;
     </select>
 
     <select id="selectHourlyWageData" resultMap="hourlyWage">
