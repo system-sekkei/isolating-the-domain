@@ -10,7 +10,6 @@ import example.domain.type.time.Minute;
 import javax.validation.constraints.AssertTrue;
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 
 public class AttendanceForm {
 
@@ -56,13 +55,11 @@ public class AttendanceForm {
         this.workerNumber = attendance.workerNumber();
         this.workDay = attendance.workDay().toString();
 
-        LocalTime start = LocalTime.parse(attendance.workTimeRecord().workTimeRange().start().toString());
-        this.startHour = Integer.toString(start.getHour());
-        this.startMinute = Integer.toString(start.getMinute());
+        this.startHour = attendance.workTimeRecord().workTimeRange().start().value().hour().toString();
+        this.startMinute = attendance.workTimeRecord().workTimeRange().start().value().minute().toString();
 
-        LocalTime end = LocalTime.parse(attendance.workTimeRecord().workTimeRange().end().toString());
-        this.endHour = Integer.toString(end.getHour());
-        this.endMinute = Integer.toString(end.getMinute());
+        this.endHour = attendance.workTimeRecord().workTimeRange().end().value().hour().toString();
+        this.endMinute = attendance.workTimeRecord().workTimeRange().end().value().minute().toString();
 
         this.normalBreakTime = attendance.workTimeRecord().normalBreakTime().toString();
         this.midnightBreakTime = attendance.workTimeRecord().midnightBreakTime().toString();

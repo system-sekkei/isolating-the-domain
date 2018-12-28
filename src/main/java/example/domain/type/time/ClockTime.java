@@ -8,31 +8,35 @@ import java.time.format.DateTimeFormatter;
  */
 public class ClockTime {
 
-    LocalTime value;
+    String value;
 
     @Deprecated
     ClockTime() {
     }
 
     public ClockTime(LocalTime value) {
-        this.value = value;
+        // TODO 廃止
+        this(value.format(DateTimeFormatter.ofPattern("H:mm")));
     }
 
     public ClockTime(String value) {
-        this(LocalTime.parse(value, DateTimeFormatter.ofPattern("H:mm")));
+        if (!value.matches("\\d{1,2}:\\d{2}(:\\d{2})?")) throw new IllegalArgumentException(value);
+        String[] split = value.split(":");
+        this.value = String.format("%d:%02d", Integer.valueOf(split[0]), Integer.valueOf(split[1]));
     }
 
     public ClockTime(Integer hour, Integer minute) {
-        value = LocalTime.of(hour, minute);
+        this.value = String.format("%d:%02d", hour, minute);
     }
 
     public LocalTime value() {
-        return value;
+        // TODO 廃止
+        return LocalTime.parse(value, DateTimeFormatter.ofPattern("H:mm"));
     }
 
     @Override
     public String toString() {
-        return value.format(DateTimeFormatter.ofPattern("HH:mm"));
+        return value;
     }
 
     public Minute until(ClockTime other) {
@@ -41,7 +45,7 @@ public class ClockTime {
 
     public ClockTime quarterRoundDown() {
         int tickPeriod = tickPeriod().value;
-        int normalMinute = value.getMinute() / tickPeriod * tickPeriod;
+        int normalMinute = value().getMinute() / tickPeriod * tickPeriod;
         return new ClockTime(value().withMinute(normalMinute));
     }
 
@@ -49,7 +53,17 @@ public class ClockTime {
         return new Minute(15);
     }
 
-    public boolean isAfter(ClockTime other){
-        return value.isAfter(other.value);
+    public boolean isAfter(ClockTime other) {
+        Minute thisMinute = hour().toMinute().add(minute());
+        Minute otherMinute = other.hour().toMinute().add(other.minute());
+        return otherMinute.lessThan(thisMinute);
+    }
+
+    public Hour hour() {
+        return new Hour(Integer.valueOf(value.split(":")[0]));
+    }
+
+    public Minute minute() {
+        return new Minute(Integer.valueOf(value.split(":")[1]));
     }
 }

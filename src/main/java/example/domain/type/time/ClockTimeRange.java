@@ -40,7 +40,7 @@ public class ClockTimeRange {
         LocalDate now = LocalDate.now();
         LocalDateTime begin = beginDateTime(now);
         LocalDateTime end = endDateTime(now);
-        LocalDateTime target = LocalDateTime.of(now.plusDays(supplyDays), clockTime.value);
+        LocalDateTime target = LocalDateTime.of(now.plusDays(supplyDays), clockTime.value());
         return begin.compareTo(target) <= 0 && target.compareTo(end) <= 0;
     }
 
@@ -48,10 +48,10 @@ public class ClockTimeRange {
 
     //日またぎの計算やねこいので内部系算用にLocalDateTimeを使う
     private LocalDateTime beginDateTime(LocalDate baseDate) {
-        return LocalDateTime.of(baseDate, begin.value);
+        return LocalDateTime.of(baseDate, begin.value());
     }
 
     private LocalDateTime endDateTime(LocalDate baseDate) {
-        return LocalDateTime.of(begin.value.compareTo(end.value) > 0 ? baseDate.plusDays(1L) : baseDate, end.value);
+        return LocalDateTime.of(begin.value().compareTo(end.value()) > 0 ? baseDate.plusDays(1L) : baseDate, end.value());
     }
 }

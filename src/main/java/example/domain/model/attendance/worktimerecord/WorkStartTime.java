@@ -25,6 +25,10 @@ public class WorkStartTime {
         return value.isAfter(workEndTime.value);
     }
 
+    public ClockTime value() {
+        return value;
+    }
+
     @Override
     public String toString() {
         return value.toString();

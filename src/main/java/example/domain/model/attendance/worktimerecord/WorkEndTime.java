@@ -21,6 +21,10 @@ public class WorkEndTime {
         return value.quarterRoundDown();
     }
 
+    public ClockTime value() {
+        return value;
+    }
+
     @Override
     public String toString() {
         return value.toString();
