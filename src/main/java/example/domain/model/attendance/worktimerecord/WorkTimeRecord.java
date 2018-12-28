@@ -1,8 +1,6 @@
 package example.domain.model.attendance.worktimerecord;
 
-import example.domain.model.labour_standards_law.DailyOvertimeWork;
 import example.domain.type.time.HourAndMinute;
-import example.domain.type.time.Minute;
 
 /**
  * 労働時間実績
@@ -52,11 +50,7 @@ public class WorkTimeRecord {
         return HourAndMinute.from(midnightBreakTime.subtractFrom(workTimeRange.midnightWorkMinute()));
     }
 
-    public HourAndMinute overTime() {
-        Minute totalWorkMinute = totalWorkTime().minute();
-
-        DailyOvertimeWork dailyOvertimeWork = DailyOvertimeWork.legal();
-        Minute overMinute = dailyOvertimeWork.overMinute(totalWorkMinute);
-        return HourAndMinute.from(overMinute);
+    public OverWorkTime overTime() {
+        return new OverWorkTime(totalWorkTime());
     }
 }

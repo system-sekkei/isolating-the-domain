@@ -1,5 +1,6 @@
 package example.domain.model.attendance;
 
+import example.domain.model.attendance.worktimerecord.OverWorkTime;
 import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;
 
@@ -23,7 +24,7 @@ public class WorkTimeSummary {
     }
 
     public WorkTimeSummary(Attendance attendance) {
-        this(attendance.workTimeRecord().workTime().toMinute(), attendance.workTimeRecord().midnightWorkTime().toMinute(), attendance.workTimeRecord().overTime().toMinute());
+        this(attendance.workTimeRecord().workTime().toMinute(), attendance.workTimeRecord().midnightWorkTime().toMinute(), attendance.workTimeRecord().overTime().minute());
     }
 
     public WorkTimeSummary addAttendanceOfDay(Attendance attendance) {
