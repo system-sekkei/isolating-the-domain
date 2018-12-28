@@ -1,5 +1,7 @@
 package example.domain.model.attendance;
 
+import example.domain.model.attendance.worktimerecord.WorkTimeRecord;
+
 /**
  * 日次勤怠
  */

@@ -1,28 +1,24 @@
-package example.domain.model.attendance;
+package example.domain.model.attendance.worktimerecord;
 
 import example.domain.type.time.ClockTime;
 
 /**
- * 業務開始時刻
+ * 業務終了時刻
  */
-public class WorkStartTime {
+public class WorkEndTime {
 
     ClockTime value;
 
     @Deprecated
-    WorkStartTime(){
+    WorkEndTime() {
     }
 
-    public WorkStartTime(ClockTime value) {
+    public WorkEndTime(ClockTime value) {
         this.value = value;
     }
 
     ClockTime normalizedHourTime() {
         return value.quarterRoundDown();
-    }
-
-    public boolean isAfter(WorkEndTime workEndTime) {
-        return value.isAfter(workEndTime.value);
     }
 
     @Override

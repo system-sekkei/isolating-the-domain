@@ -6,6 +6,7 @@ import example.application.service.contract.ContractRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.application.service.worker.WorkerRecordService;
 import example.domain.model.attendance.*;
+import example.domain.model.attendance.worktimerecord.*;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.WageCondition;
 import example.domain.model.labour_standards_law.MidnightExtraRate;

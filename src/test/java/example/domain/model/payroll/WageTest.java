@@ -1,6 +1,7 @@
 package example.domain.model.payroll;
 
 import example.domain.model.attendance.*;
+import example.domain.model.attendance.worktimerecord.*;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.WageCondition;
 import example.domain.type.time.ClockTime;

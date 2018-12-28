@@ -1,4 +1,4 @@
-package example.domain.model.attendance;
+package example.domain.model.attendance.worktimerecord;
 
 import example.domain.model.labour_standards_law.DailyOvertimeWork;
 import example.domain.type.time.HourAndMinute;

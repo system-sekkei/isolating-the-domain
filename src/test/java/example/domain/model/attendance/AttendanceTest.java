@@ -1,5 +1,6 @@
 package example.domain.model.attendance;
 
+import example.domain.model.attendance.worktimerecord.*;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.DisplayName;
