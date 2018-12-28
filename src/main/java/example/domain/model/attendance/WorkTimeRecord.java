@@ -16,8 +16,8 @@ public class WorkTimeRecord {
     public WorkTimeRecord() {
     }
 
-    public WorkTimeRecord(WorkStartTime workStartTime, WorkEndTime workEndTime, NormalBreakTime normalBreakTime, MidnightBreakTime midnightBreakTime) {
-        this.workTimeRange = new WorkTimeRange(workStartTime, workEndTime);
+    public WorkTimeRecord(WorkTimeRange workTimeRange, NormalBreakTime normalBreakTime, MidnightBreakTime midnightBreakTime) {
+        this.workTimeRange = workTimeRange;
         this.normalBreakTime = normalBreakTime;
         this.midnightBreakTime = midnightBreakTime;
     }

@@ -17,10 +17,7 @@ class AttendanceTest {
     void workTime(String begin, String end, int breaks, String expected) {
         Attendance sut = new Attendance(
                 new WorkDay(),
-                new WorkTimeRecord(
-                        new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)),
-                        new NormalBreakTime(new Minute(breaks)),
-                        new MidnightBreakTime(new Minute("0")))
+                new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end))), new NormalBreakTime(new Minute(breaks)), new MidnightBreakTime(new Minute("0")))
         );
         assertEquals(expected, sut.workTimeRecord().workTime().toString());
     }
@@ -34,11 +31,7 @@ class AttendanceTest {
     void midnightWorkTime(String begin, String end, int breaks, String expected) {
         Attendance sut = new Attendance(
                 new WorkDay(),
-                new WorkTimeRecord(
-                        new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)),
-                        new NormalBreakTime(new Minute(0)),
-                        new MidnightBreakTime(new Minute(breaks))
-                )
+                new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end))), new NormalBreakTime(new Minute(0)), new MidnightBreakTime(new Minute(breaks)))
         );
         assertEquals(expected, sut.workTimeRecord().midnightWorkTime().toString());
     }
@@ -48,11 +41,7 @@ class AttendanceTest {
     @CsvSource({"9:00, 17:00, 60, 00:00", "09:00, 22:00, 60, 04:00"})
     void overWorkTime(String begin, String end, int breaks, String expected) {
         Attendance sut = new Attendance(new WorkDay(),
-                new WorkTimeRecord(
-                        new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)),
-                        new NormalBreakTime(new Minute(breaks)),
-                        new MidnightBreakTime(new Minute("0"))
-                ));
+                new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end))), new NormalBreakTime(new Minute(breaks)), new MidnightBreakTime(new Minute("0"))));
         assertEquals(expected, sut.workTimeRecord().overTime().toString());
     }
 
@@ -61,10 +50,7 @@ class AttendanceTest {
     void 時間の仕様() {
         Attendance sut = new Attendance(
                 new WorkDay(),
-                new WorkTimeRecord(
-                        new WorkStartTime(new ClockTime("8:00")), new WorkEndTime(new ClockTime("00:00")),
-                        new NormalBreakTime(new Minute(120)),
-                        new MidnightBreakTime(new Minute("30")))
+                new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("8:00")), new WorkEndTime(new ClockTime("00:00"))), new NormalBreakTime(new Minute(120)), new MidnightBreakTime(new Minute("30")))
         );
         assertAll(
                 () -> assertEquals("12:00", sut.workTimeRecord().workTime().toString(), "就業時間は就業時間から休憩時間を引いた値です。")

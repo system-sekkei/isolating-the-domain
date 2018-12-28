@@ -39,11 +39,10 @@ public class AttendanceForm {
         ClockTime endTime = new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
         Minute minute = new Minute(normalBreakTime);
         Minute midnightMinute = new Minute(midnightBreakTime);
-        WorkTimeRecord workTimeRecord = new WorkTimeRecord(new WorkStartTime(startTime),
-                new WorkEndTime(endTime),
+        WorkTimeRecord workTimeRecord = new WorkTimeRecord(
+                new WorkTimeRange(new WorkStartTime(startTime), new WorkEndTime(endTime)),
                 new NormalBreakTime(minute),
-                new MidnightBreakTime(midnightMinute)
-        );
+                new MidnightBreakTime(midnightMinute));
         Attendance attendance = new Attendance(
                 workDay,
                 workTimeRecord

@@ -47,7 +47,7 @@ class AttendanceServiceTest {
         int month = 10;
         int day = 20;
         WorkDay workDay = new WorkDay(new Date(LocalDate.of(year, month, day)));
-        WorkTimeRecord workTimeRecord = new WorkTimeRecord(new WorkStartTime(new ClockTime("9:00")), new WorkEndTime(new ClockTime("17:00")), new NormalBreakTime(new Minute(60)), new MidnightBreakTime(new Minute("0")));
+        WorkTimeRecord workTimeRecord = new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("9:00")), new WorkEndTime(new ClockTime("17:00"))), new NormalBreakTime(new Minute(60)), new MidnightBreakTime(new Minute("0")));
 
         Attendance expectAttendance = new Attendance(workDay, workTimeRecord);
         attendanceRecordService.registerAttendance(new WorkerAttendance(workerNumber, expectAttendance));

@@ -60,10 +60,7 @@ class PayrollQueryServiceTest {
 
             Attendance attendance = new Attendance(
                     new WorkDay(new Date("2018-11-20")),
-                    new WorkTimeRecord(
-                            new WorkStartTime(new ClockTime("09:00")), new WorkEndTime(new ClockTime("10:00")),
-                            new NormalBreakTime(new Minute("0")),
-                            new MidnightBreakTime(new Minute("0")))
+                    new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("09:00")), new WorkEndTime(new ClockTime("10:00"))), new NormalBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
             );
             attendanceRecordService.registerAttendance(new WorkerAttendance(workerNumber, attendance));
 
@@ -74,10 +71,7 @@ class PayrollQueryServiceTest {
         {
             Attendance attendance = new Attendance(
                     new WorkDay(new Date("2018-11-25")),
-                    new WorkTimeRecord(
-                            new WorkStartTime(new ClockTime("22:00")), new WorkEndTime(new ClockTime("23:00")),
-                            new NormalBreakTime(new Minute("0")),
-                            new MidnightBreakTime(new Minute("0")))
+                    new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("22:00")), new WorkEndTime(new ClockTime("23:00"))), new NormalBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
             );
             attendanceRecordService.registerAttendance(new WorkerAttendance(workerNumber, attendance));
 
