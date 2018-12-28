@@ -1,6 +1,5 @@
-package example.domain.model.attendance;
+package example.domain.model.attendance.worktimerecord;
 
-import example.domain.model.attendance.worktimerecord.NormalBreakTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
