@@ -4,6 +4,7 @@ import example.domain.model.attendance.*;
 import example.domain.model.attendance.worktimerecord.*;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.WageCondition;
+import example.domain.model.worker.WorkerNumber;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.DisplayName;
@@ -33,7 +34,7 @@ class WageTest {
     })
     void wage(String begin, String end, int breakMinute, int midnightBreakMinute, int hourlyWage, int expected) {
         Attendance attendance = new Attendance(
-                new WorkDay("2018-11-04"),
+                new WorkerNumber(), new WorkDay("2018-11-04"),
                 new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end))), new NormalBreakTime(new Minute(breakMinute)), new MidnightBreakTime(new Minute(midnightBreakMinute)))
         );
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));

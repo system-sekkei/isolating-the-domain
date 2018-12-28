@@ -23,7 +23,7 @@ public class AttendanceQueryService {
     /**
      * 日次勤怠取得
      */
-    public WorkerAttendance getWorkerAttendance(WorkerNumber workerNumber, WorkDay workDay) {
+    public Attendance attendance(WorkerNumber workerNumber, WorkDay workDay) {
         return findMonthlyAttendances(workerNumber, workDay.month()).at(workDay);
     }
 

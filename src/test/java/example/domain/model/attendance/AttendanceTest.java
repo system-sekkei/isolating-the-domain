@@ -1,6 +1,7 @@
 package example.domain.model.attendance;
 
 import example.domain.model.attendance.worktimerecord.*;
+import example.domain.model.worker.WorkerNumber;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +18,7 @@ class AttendanceTest {
     @CsvSource({"9:00, 18:00, 60, 08:00", "9:01, 18:14, 46, 08:00"})
     void workTime(String begin, String end, int breaks, String expected) {
         Attendance sut = new Attendance(
-                new WorkDay(),
+                new WorkerNumber(), new WorkDay(),
                 new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end))), new NormalBreakTime(new Minute(breaks)), new MidnightBreakTime(new Minute("0")))
         );
         assertEquals(expected, sut.workTimeRecord().normalWorkTime().toString());
@@ -31,7 +32,7 @@ class AttendanceTest {
     })
     void midnightWorkTime(String begin, String end, int breaks, String expected) {
         Attendance sut = new Attendance(
-                new WorkDay(),
+                new WorkerNumber(), new WorkDay(),
                 new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end))), new NormalBreakTime(new Minute(0)), new MidnightBreakTime(new Minute(breaks)))
         );
         assertEquals(expected, sut.workTimeRecord().midnightWorkTime().toString());
@@ -41,7 +42,7 @@ class AttendanceTest {
     @ParameterizedTest
     @CsvSource({"9:00, 17:00, 60, 00:00", "09:00, 22:00, 60, 04:00"})
     void overWorkTime(String begin, String end, int breaks, String expected) {
-        Attendance sut = new Attendance(new WorkDay(),
+        Attendance sut = new Attendance(new WorkerNumber(), new WorkDay(),
                 new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end))), new NormalBreakTime(new Minute(breaks)), new MidnightBreakTime(new Minute("0"))));
         assertEquals(expected, sut.workTimeRecord().overTime().toString());
     }
@@ -50,7 +51,7 @@ class AttendanceTest {
     @Test
     void 時間の仕様() {
         Attendance sut = new Attendance(
-                new WorkDay(),
+                new WorkerNumber(), new WorkDay(),
                 new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("8:00")), new WorkEndTime(new ClockTime("00:00"))), new NormalBreakTime(new Minute(120)), new MidnightBreakTime(new Minute("30")))
         );
         assertAll(

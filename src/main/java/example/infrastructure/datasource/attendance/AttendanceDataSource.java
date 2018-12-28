@@ -1,7 +1,10 @@
 package example.infrastructure.datasource.attendance;
 
 import example.application.repository.AttendanceRepository;
-import example.domain.model.attendance.*;
+import example.domain.model.attendance.Attendance;
+import example.domain.model.attendance.Attendances;
+import example.domain.model.attendance.MonthlyAttendances;
+import example.domain.model.attendance.WorkMonth;
 import example.domain.model.worker.WorkerNumber;
 import org.springframework.stereotype.Repository;
 
@@ -12,11 +15,11 @@ public class AttendanceDataSource implements AttendanceRepository {
     AttendanceMapper mapper;
 
     @Override
-    public void registerAttendance(WorkerAttendance workerAttendance) {
+    public void registerAttendance(Attendance attendance) {
         Integer identifier = mapper.newWorkTimeIdentifier();
-        mapper.insertWorkTimeHistory(identifier, workerAttendance.workerNumber(), workerAttendance.attendance());
-        mapper.deleteWorkTime(workerAttendance.workerNumber(), workerAttendance.attendance().workDay());
-        mapper.insertWorkTime(workerAttendance.workerNumber(), identifier, workerAttendance.attendance());
+        mapper.insertWorkTimeHistory(identifier, attendance.workerNumber(), attendance);
+        mapper.deleteWorkTime(attendance.workerNumber(), attendance.workDay());
+        mapper.insertWorkTime(attendance.workerNumber(), identifier, attendance);
     }
 
     @Override

@@ -29,8 +29,8 @@ public class MonthlyAttendances {
         return month.days();
     }
 
-    public WorkerAttendance at(WorkDay workDay) {
-        return new WorkerAttendance(workerNumber, attendances.at(workDay));
+    public Attendance at(WorkDay workDay) {
+        return attendances.at(workDay);
     }
 
     public AttendanceStatus statusOf(WorkDay workDay) {

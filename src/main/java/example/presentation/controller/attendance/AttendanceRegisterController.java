@@ -3,9 +3,9 @@ package example.presentation.controller.attendance;
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
+import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.WorkDay;
 import example.domain.model.attendance.WorkMonth;
-import example.domain.model.attendance.WorkerAttendance;
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.WorkerNumber;
 import org.springframework.stereotype.Controller;
@@ -52,7 +52,7 @@ public class AttendanceRegisterController {
         }
         if (workerNumber != null && workDay != null) {
             if (attendanceQueryService.attendanceStatus(workerNumber, workDay).isWork()) {
-                WorkerAttendance attendance = attendanceQueryService.getWorkerAttendance(workerNumber, workDay);
+                Attendance attendance = attendanceQueryService.attendance(workerNumber, workDay);
                 attendanceForm.apply(attendance);
             }
         }
@@ -63,11 +63,11 @@ public class AttendanceRegisterController {
     String register(@Validated @ModelAttribute("attendanceForm") AttendanceForm attendanceForm,
                     BindingResult result) {
         if (result.hasErrors()) return "attendance/form";
-        WorkerAttendance workerAttendance = attendanceForm.toWorkerAttendance();
+        Attendance attendance = attendanceForm.toAttendance();
 
-        attendanceRecordService.registerAttendance(workerAttendance);
+        attendanceRecordService.registerAttendance(attendance);
 
-        WorkMonth workMonth = workerAttendance.attendance().workDay().month();
+        WorkMonth workMonth = attendance.workDay().month();
 
         return "redirect:/attendances/" + attendanceForm.workerNumber.value() + "/" + workMonth.toString();
     }

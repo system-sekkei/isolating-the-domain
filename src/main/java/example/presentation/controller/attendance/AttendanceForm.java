@@ -1,6 +1,7 @@
 package example.presentation.controller.attendance;
 
-import example.domain.model.attendance.*;
+import example.domain.model.attendance.Attendance;
+import example.domain.model.attendance.WorkDay;
 import example.domain.model.attendance.worktimerecord.*;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.time.ClockTime;
@@ -34,7 +35,7 @@ public class AttendanceForm {
         this.midnightBreakTime = "0";
     }
 
-    public WorkerAttendance toWorkerAttendance() {
+    public Attendance toAttendance() {
         WorkDay workDay = new WorkDay(this.workDay);
         ClockTime startTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
         ClockTime endTime = new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
@@ -44,27 +45,27 @@ public class AttendanceForm {
                 new WorkTimeRange(new WorkStartTime(startTime), new WorkEndTime(endTime)),
                 new NormalBreakTime(minute),
                 new MidnightBreakTime(midnightMinute));
-        Attendance attendance = new Attendance(
+        return new Attendance(
+                workerNumber,
                 workDay,
                 workTimeRecord
         );
-        return new WorkerAttendance(workerNumber, attendance);
     }
 
-    public void apply(WorkerAttendance attendance) {
+    public void apply(Attendance attendance) {
         this.workerNumber = attendance.workerNumber();
-        this.workDay = attendance.attendance().workDay().toString();
+        this.workDay = attendance.workDay().toString();
 
-        LocalTime start = LocalTime.parse(attendance.attendance().workTimeRecord().workTimeRange().start().toString());
+        LocalTime start = LocalTime.parse(attendance.workTimeRecord().workTimeRange().start().toString());
         this.startHour = Integer.toString(start.getHour());
         this.startMinute = Integer.toString(start.getMinute());
 
-        LocalTime end = LocalTime.parse(attendance.attendance().workTimeRecord().workTimeRange().end().toString());
+        LocalTime end = LocalTime.parse(attendance.workTimeRecord().workTimeRange().end().toString());
         this.endHour = Integer.toString(end.getHour());
         this.endMinute = Integer.toString(end.getMinute());
 
-        this.normalBreakTime = attendance.attendance().workTimeRecord().normalBreakTime().toString();
-        this.midnightBreakTime = attendance.attendance().workTimeRecord().midnightBreakTime().toString();
+        this.normalBreakTime = attendance.workTimeRecord().normalBreakTime().toString();
+        this.midnightBreakTime = attendance.workTimeRecord().midnightBreakTime().toString();
     }
 
     boolean workDayComplete;

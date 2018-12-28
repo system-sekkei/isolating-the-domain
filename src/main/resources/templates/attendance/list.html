@@ -67,7 +67,7 @@
       </thead>
       <tbody>
       <th:block th:each="workDay : ${monthlyAttendances.listWorkDays()}">
-        <tr th:class="${workDay.dayOfWeek()}" th:if="${monthlyAttendances.statusOf(workDay).isWork()}" th:object="${monthlyAttendances.at(workDay).attendance()}">
+        <tr th:class="${workDay.dayOfWeek()}" th:if="${monthlyAttendances.statusOf(workDay).isWork()}" th:object="${monthlyAttendances.at(workDay)}">
           <td class="center aligned"
               th:text="${workDay.dayOfMonth()}"></td>
           <td class="center aligned"
