@@ -21,7 +21,7 @@ public class WorkTimeRangeTest {
         assertEquals(expected, sut.midnightWorkMinute().value());
     }
 
-    @DisplayName("作業時間を正しく返却できること")
+    @DisplayName("拘束時間を正しく返却できること")
     @ParameterizedTest
     @CsvSource({
             "9:00, 17:00, 480",
@@ -31,6 +31,6 @@ public class WorkTimeRangeTest {
     })
     void normalWorkTime(String begin, String end, String expected) {
         WorkTimeRange sut = new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end)));
-        assertEquals(expected, sut.totalWorkMinute().toString());
+        assertEquals(expected, sut.bindingTime().minute().toString());
     }
 }

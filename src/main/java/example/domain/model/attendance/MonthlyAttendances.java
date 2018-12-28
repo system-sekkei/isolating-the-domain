@@ -41,7 +41,7 @@ public class MonthlyAttendances {
         return attendances.summarize().totalWorkTime();
     }
 
-    public WorkTime workTimeWithin(DateRange period) {
+    public WorkTimeSummary workTimeWithin(DateRange period) {
         return attendances.rangeOf(period).summarize();
     }
 

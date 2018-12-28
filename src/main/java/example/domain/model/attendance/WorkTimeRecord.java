@@ -34,17 +34,17 @@ public class WorkTimeRecord {
         return midnightBreakTime;
     }
 
-    public HourAndMinute totalWorkTime() {
-        return HourAndMinute.from(workTime().toMinute().add(midnightWorkTime().toMinute()));
+    public TotalWorkTime totalWorkTime() {
+        return new TotalWorkTime(workTimeRange, totalBreakTime());
     }
 
-    public HourAndMinute totalBreakTime() {
-        return HourAndMinute.from(normalBreakTime.toMinute().add(midnightBreakTime.toMinute()));
+    public TotalBreakTime totalBreakTime() {
+        return new TotalBreakTime(normalBreakTime, midnightBreakTime);
     }
 
     public HourAndMinute workTime() {
         // TODO 勤務時間を休憩時間が超える場合のバリデーションをどこかでやる
-        return HourAndMinute.from(normalBreakTime.subtractFrom(workTimeRange.normalWorkTime()));
+        return HourAndMinute.from(normalBreakTime.subtractFrom(workTimeRange.normalBindingTime()));
     }
 
     public HourAndMinute midnightWorkTime() {
@@ -53,7 +53,7 @@ public class WorkTimeRecord {
     }
 
     public HourAndMinute overTime() {
-        Minute totalWorkMinute = totalWorkTime().toMinute();
+        Minute totalWorkMinute = totalWorkTime().minute();
 
         DailyOvertimeWork dailyOvertimeWork = DailyOvertimeWork.legal();
         Minute overMinute = dailyOvertimeWork.overMinute(totalWorkMinute);

@@ -1,7 +1,7 @@
 package example.domain.model.payroll;
 
 import example.domain.model.attendance.MonthlyAttendances;
-import example.domain.model.attendance.WorkTime;
+import example.domain.model.attendance.WorkTimeSummary;
 import example.domain.model.contract.Contract;
 import example.domain.model.contract.WorkerContract;
 import example.domain.model.worker.Name;
@@ -37,8 +37,8 @@ public class Payroll {
 
         Wage wage = new Wage(BigDecimal.ZERO);
         for (Contract contract : workerContract.listContracts()) {
-            WorkTime workTime = monthlyAttendances.workTimeWithin(contract.period());
-            wage = wage.add(Wage.from(workTime, contract.wageCondition()));
+            WorkTimeSummary workTimeSummary = monthlyAttendances.workTimeWithin(contract.period());
+            wage = wage.add(Wage.from(workTimeSummary, contract.wageCondition()));
         }
         return wage;
     }

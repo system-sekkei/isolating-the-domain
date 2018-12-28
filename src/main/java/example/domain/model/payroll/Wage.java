@@ -2,7 +2,7 @@ package example.domain.model.payroll;
 
 import example.domain.model.attendance.MidnightWorkTime;
 import example.domain.model.attendance.OverWorkTime;
-import example.domain.model.attendance.WorkTime;
+import example.domain.model.attendance.WorkTimeSummary;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.MidnightHourlyExtraWage;
 import example.domain.model.contract.OverTimeHourlyExtraWage;
@@ -35,10 +35,10 @@ public class Wage {
         this(WorkHours.of(midnightWorkTime).multiply(midnightHourlyExtraWage.value()));
     }
 
-    public static Wage from(WorkTime workTime, WageCondition wageCondition) {
-        return new Wage(workTime.totalWorkTime(), wageCondition.baseHourlyWage())
-                .add(new Wage(workTime.overWorkTime(), wageCondition.overTimeHourlyExtraWage()))
-                .add(new Wage(workTime.midnightWorkTime(), wageCondition.midnightHourlyExtraWage()));
+    public static Wage from(WorkTimeSummary workTimeSummary, WageCondition wageCondition) {
+        return new Wage(workTimeSummary.totalWorkTime(), wageCondition.baseHourlyWage())
+                .add(new Wage(workTimeSummary.overWorkTime(), wageCondition.overTimeHourlyExtraWage()))
+                .add(new Wage(workTimeSummary.midnightWorkTime(), wageCondition.midnightHourlyExtraWage()));
     }
 
     public static Wage invalid() {

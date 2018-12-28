@@ -45,12 +45,12 @@ public class WorkTimeRange {
         return new WorkTimeRange(new WorkStartTime(timeRange.begin()), new WorkEndTime(timeRange.end()));
     }
 
-    public Minute totalWorkMinute() {
-        return startTime.normalizedHourTime().until(endTime.normalizedHourTime());
+    public BindingTime bindingTime() {
+        return new BindingTime(startTime.normalizedHourTime().until(endTime.normalizedHourTime()));
     }
 
-    public Minute normalWorkTime() {
-        return totalWorkMinute().subtract(midnightWorkMinute());
+    public Minute normalBindingTime() {
+        return bindingTime().minute().subtract(midnightWorkMinute());
     }
 
     public Minute midnightWorkMinute() {
@@ -62,22 +62,24 @@ public class WorkTimeRange {
     }
 
     private static List<ClockTime> midnightTicks;
+
     static {
         midnightTicks = new ArrayList<>();
         midnightTickIterator().forEachRemaining(midnightTicks::add);
     }
+
     private List<ClockTime> getMidnightTicks() {
         return midnightTicks;
     }
 
     private int rangeStartCount(List<ClockTime> ticks) {
-        if(ticks.size() == 0) {
+        if (ticks.size() == 0) {
             return 0;
         }
         LocalTime last = ticks.get(0).value();
-        for(int i = 1 ; i < ticks.size() ; i++) {
+        for (int i = 1; i < ticks.size(); i++) {
             LocalTime current = ticks.get(i).value();
-            if(!last.plusMinutes(ClockTime.tickPeriod().value()).equals(current)) {
+            if (!last.plusMinutes(ClockTime.tickPeriod().value()).equals(current)) {
                 return 2;
             }
             last = current;
@@ -96,7 +98,7 @@ public class WorkTimeRange {
 
             @Override
             public ClockTime next() {
-                if(!hasNext()) throw new NoSuchElementException();
+                if (!hasNext()) throw new NoSuchElementException();
                 ClockTime ret = next;
                 next = new ClockTime(next.value().plusMinutes(ClockTime.tickPeriod().value()));
                 return ret;

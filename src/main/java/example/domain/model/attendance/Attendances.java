@@ -19,11 +19,11 @@ public class Attendances {
         return list;
     }
 
-    public WorkTime summarize() {
+    public WorkTimeSummary summarize() {
         return list.stream()
-                .reduce(new WorkTime(),
-                        WorkTime::addAttendanceOfDay,
-                        WorkTime::add
+                .reduce(new WorkTimeSummary(),
+                        WorkTimeSummary::addAttendanceOfDay,
+                        WorkTimeSummary::add
                 );
     }
 

@@ -6,32 +6,32 @@ import example.domain.type.time.Minute;
 /**
  * 労働時間
  */
-public class WorkTime {
+public class WorkTimeSummary {
 
     Minute normalTime;
     Minute midnightWorkTime;
     Minute overWorkTime;
 
-    public WorkTime() {
+    public WorkTimeSummary() {
         this(new Minute(0), new Minute(0), new Minute(0));
     }
 
-    public WorkTime(Minute normalTime, Minute midnightWorkTime, Minute overWorkTime) {
+    public WorkTimeSummary(Minute normalTime, Minute midnightWorkTime, Minute overWorkTime) {
         this.normalTime = normalTime;
         this.midnightWorkTime = midnightWorkTime;
         this.overWorkTime = overWorkTime;
     }
 
-    public WorkTime(Attendance attendance) {
+    public WorkTimeSummary(Attendance attendance) {
         this(attendance.workTimeRecord().workTime().toMinute(), attendance.workTimeRecord().midnightWorkTime().toMinute(), attendance.workTimeRecord().overTime().toMinute());
     }
 
-    public WorkTime addAttendanceOfDay(Attendance attendance) {
-        return add(new WorkTime(attendance));
+    public WorkTimeSummary addAttendanceOfDay(Attendance attendance) {
+        return add(new WorkTimeSummary(attendance));
     }
 
-    public WorkTime add(WorkTime other) {
-        return new WorkTime(
+    public WorkTimeSummary add(WorkTimeSummary other) {
+        return new WorkTimeSummary(
                 this.normalTime.add(other.normalTime),
                 this.midnightWorkTime.add(other.midnightWorkTime),
                 this.overWorkTime.add(other.overWorkTime));
