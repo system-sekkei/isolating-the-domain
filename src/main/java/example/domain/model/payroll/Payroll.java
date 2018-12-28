@@ -31,10 +31,6 @@ public class Payroll {
     }
 
     public PaymentAmount totalPaymentAmount() {
-        if (payrollStatus().available()) {
-            return PaymentAmount.invalid();
-        }
-
         PaymentAmount paymentAmount = new PaymentAmount(BigDecimal.ZERO);
         for (Contract contract : workerContract.listContracts()) {
             WorkTimeSummary workTimeSummary = monthlyAttendances.workTimeWithin(contract.period());

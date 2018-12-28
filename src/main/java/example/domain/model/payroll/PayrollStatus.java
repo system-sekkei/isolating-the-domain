@@ -19,6 +19,6 @@ public enum PayrollStatus {
     }
 
     public boolean available() {
-        return this != 有効;
+        return this == 有効;
     }
 }

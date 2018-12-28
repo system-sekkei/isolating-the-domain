@@ -41,18 +41,12 @@ public class PaymentAmount {
                 .add(new PaymentAmount(workTimeSummary.midnightWorkTime(), wageCondition.midnightHourlyExtraWage()));
     }
 
-    public static PaymentAmount invalid() {
-        return new PaymentAmount(null);
-    }
-
     PaymentAmount add(PaymentAmount paymentAmount) {
         return new PaymentAmount(this.value.add(paymentAmount.value));
     }
 
+    @Override
     public String toString() {
-        if (this.value == null) {
-            return "";
-        }
         return new DecimalFormat("#,##0").format(value.intValue());
     }
 }

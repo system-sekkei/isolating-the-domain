@@ -52,7 +52,7 @@ class PayrollQueryServiceTest {
 
         {
             Payroll payroll = sut.payroll(worker, new WorkMonth("2018-11"));
-            assertEquals("", payroll.totalPaymentAmount().toString());
+            assertEquals("0", payroll.totalPaymentAmount().toString());
         }
 
         {
