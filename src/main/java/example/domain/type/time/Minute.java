@@ -24,10 +24,6 @@ public class Minute {
     }
 
     public Minute subtract(Minute minute) {
-        if (lessThan(minute)) {
-            // FIXME エラーメッセージをわかりやすく
-            throw new DateTimeException("Error of minus time.");
-        }
         return add(0 - minute.value);
     }
 

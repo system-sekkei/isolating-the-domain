@@ -159,7 +159,13 @@ public class AttendanceForm {
         if (daytimeBreakTime.isEmpty()) return true;
 
         try {
-            new DaytimeBreakTime(new Minute(daytimeBreakTime));
+            DaytimeBreakTime daytimeBreakTime = new DaytimeBreakTime(new Minute(this.daytimeBreakTime));
+
+            Attendance attendance = toAttendance();
+            Minute daytimeBindingMinute = attendance.workTimeRecord().workTimeRange().daytimeBindingTime().quarterHour().minute();
+            if (daytimeBindingMinute.lessThan(daytimeBreakTime.minute())) {
+                return false;
+            }
         } catch (NumberFormatException | DateTimeException ex) {
             return false;
         }
@@ -173,7 +179,13 @@ public class AttendanceForm {
         if (midnightBreakTime.isEmpty()) return true;
 
         try {
-            new MidnightBreakTime(new Minute(midnightBreakTime));
+            MidnightBreakTime midnightBreakTime = new MidnightBreakTime(new Minute(this.midnightBreakTime));
+
+            Attendance attendance = toAttendance();
+            Minute midnightBindingMinute = attendance.workTimeRecord().workTimeRange().midnightBindingTime().quarterHour().minute();
+            if (midnightBindingMinute.lessThan(midnightBreakTime.minute())) {
+                return false;
+            }
         } catch (NumberFormatException | DateTimeException ex) {
             return false;
         }
