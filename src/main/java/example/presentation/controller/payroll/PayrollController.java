@@ -36,6 +36,6 @@ public class PayrollController {
         ContractingWorkers contractingWorkers = workerQueryService.contractingWorkers();
         Payrolls payrolls = payrollQueryService.payrolls(contractingWorkers, workMonth);
         model.addAttribute("payrolls", payrolls);
-        return "payroll/workers";
+        return "payroll/list";
     }
 }

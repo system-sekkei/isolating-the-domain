@@ -31,6 +31,6 @@ public class WorkerController {
 
         model.addAttribute("updateResult", updateResult);
 
-        return "worker/worker";
+        return "worker/detail";
     }
 }
