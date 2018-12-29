@@ -1,11 +1,12 @@
 package example.domain.model.payroll;
 
-import example.domain.model.attendance.*;
+import example.domain.model.attendance.Attendance;
+import example.domain.model.attendance.Attendances;
+import example.domain.model.attendance.WorkDate;
 import example.domain.model.attendance.worktimerecord.*;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.WageCondition;
 import example.domain.model.worker.WorkerNumber;
-import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -37,12 +38,15 @@ class PaymentAmountTest {
     void wage(String begin, String end, int breakMinute, int midnightBreakMinute, int hourlyWage, int expected) {
         Attendance attendance = new Attendance(
                 new WorkerNumber(), new WorkDate("2018-11-04"),
-                new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime(begin)), new WorkEndTime(new ClockTime(end))), new DaytimeBreakTime(new Minute(breakMinute)), new MidnightBreakTime(new Minute(midnightBreakMinute)))
+                new WorkTimeRecord(
+                        new WorkTimeRange(new WorkStartTime(begin), new WorkEndTime(end)),
+                        new DaytimeBreakTime(new Minute(breakMinute)),
+                        new MidnightBreakTime(new Minute(midnightBreakMinute)))
         );
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));
         Attendances attendances = new Attendances(Collections.singletonList(attendance));
 
-        PaymentAmount paymentAmount = PaymentAmount.from(attendances.summarize(), wageCondition);
+        PaymentAmount paymentAmount = new PaymentAmount(attendances.summarize(), wageCondition);
 
         assertEquals(expected, paymentAmount.value.intValue());
     }

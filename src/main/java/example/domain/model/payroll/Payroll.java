@@ -34,7 +34,7 @@ public class Payroll {
         PaymentAmount paymentAmount = new PaymentAmount(BigDecimal.ZERO);
         for (Contract contract : workerContract.listContracts()) {
             WorkTimeSummary workTimeSummary = monthlyAttendances.workTimeWithin(contract.period());
-            paymentAmount = paymentAmount.add(PaymentAmount.from(workTimeSummary, contract.wageCondition()));
+            paymentAmount = paymentAmount.add(new PaymentAmount(workTimeSummary, contract.wageCondition()));
         }
         return paymentAmount;
     }

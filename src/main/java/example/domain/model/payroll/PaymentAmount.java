@@ -17,10 +17,11 @@ public class PaymentAmount {
         this.value = value;
     }
 
-    public static PaymentAmount from(WorkTimeSummary workTimeSummary, WageCondition wageCondition) {
-        return new PaymentWorkTime(workTimeSummary.totalWorkTime()).multiply(wageCondition.baseHourlyWage())
-                .add(new PaymentWorkTime(workTimeSummary.totalOverWorkTime()).multiply(wageCondition.overTimeHourlyExtraWage().value()))
-                .add(new PaymentWorkTime(workTimeSummary.totalMidnightWorkTime()).multiply(wageCondition.midnightHourlyExtraWage().value()));
+    public PaymentAmount(WorkTimeSummary workTimeSummary, WageCondition wageCondition) {
+        PaymentAmount workTimeAmount = new PaymentWorkTime(workTimeSummary.totalWorkTime()).multiply(wageCondition.baseHourlyWage());
+        PaymentAmount overTimeExtraAmount = new PaymentWorkTime(workTimeSummary.totalOverWorkTime()).multiply(wageCondition.overTimeHourlyExtraWage().value());
+        PaymentAmount midnightExtraAmount = new PaymentWorkTime(workTimeSummary.totalMidnightWorkTime()).multiply(wageCondition.midnightHourlyExtraWage().value());
+        this.value = workTimeAmount.value.add(overTimeExtraAmount.value).add(midnightExtraAmount.value);
     }
 
     PaymentAmount add(PaymentAmount paymentAmount) {
