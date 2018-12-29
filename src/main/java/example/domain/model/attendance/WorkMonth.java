@@ -5,6 +5,7 @@ import example.domain.type.date.Month;
 import example.domain.type.date.Year;
 import example.domain.type.date.YearMonth;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,10 +42,6 @@ public class WorkMonth {
         return workDates;
     }
 
-    public String getEndingWithCondition() {
-        return value.toEndingWithCondition();
-    }
-
     public WorkMonth before() {
         return new WorkMonth(value.before());
     }
@@ -64,4 +61,7 @@ public class WorkMonth {
         return String.format("%s年%s月", value.year().toString(), value.month().toString());
     }
 
+    public String yyyyMM() {
+        return value.value().format(DateTimeFormatter.ofPattern("uuuuMM"));
+    }
 }

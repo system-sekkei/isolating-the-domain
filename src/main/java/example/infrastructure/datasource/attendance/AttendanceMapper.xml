@@ -37,6 +37,6 @@
         就業時間.深夜休憩時間
         FROM 給与.就業時間 as 就業時間
         WHERE 就業時間.従業員ID = #{workerNumber.value}
-          AND to_char(就業時間.就業日,'yyyymm') LIKE #{workMonth.endingWithCondition}
+          AND to_char(就業時間.就業日,'yyyymm') = #{yearMonth}
     </select>
 </mapper>

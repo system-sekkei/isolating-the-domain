@@ -24,7 +24,7 @@ public class AttendanceDataSource implements AttendanceRepository {
 
     @Override
     public MonthlyAttendances findMonthly(WorkerNumber workerNumber, WorkMonth month) {
-        List<Attendance> attendances = mapper.selectByMonth(workerNumber, month);
+        List<Attendance> attendances = mapper.selectByMonth(workerNumber, month.yyyyMM());
         return new MonthlyAttendances(workerNumber, month, new Attendances(attendances));
     }
 

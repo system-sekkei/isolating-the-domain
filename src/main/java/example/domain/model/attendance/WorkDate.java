@@ -43,10 +43,6 @@ public class WorkDate {
         return new WorkMonth(value.year(), value.month());
     }
 
-    public int compareTo(WorkDate other) {
-        return value.compareTo(other.value);
-    }
-
     public boolean inRange(DateRange range) {
         return value.inRange(range);
     }

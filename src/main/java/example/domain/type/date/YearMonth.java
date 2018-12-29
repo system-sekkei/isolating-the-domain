@@ -66,18 +66,16 @@ public class YearMonth {
         return new YearMonth(value.plusMonths(1));
     }
 
+    @Override
     public String toString() {
         return value.format(FORMATTER);
     }
 
-    /**
-     * LIKE検索用
-     */
-    public String toEndingWithCondition() {
-        return value.format(DateTimeFormatter.ofPattern("uuuuMM")) + "%";
-    }
-
     public boolean isThisYear() {
         return value.getYear() == java.time.YearMonth.now().getYear();
+    }
+
+    public java.time.YearMonth value() {
+        return value;
     }
 }
