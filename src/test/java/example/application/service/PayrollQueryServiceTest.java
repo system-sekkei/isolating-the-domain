@@ -6,8 +6,7 @@ import example.application.service.contract.ContractRecordService;
 import example.application.service.payroll.PayrollQueryService;
 import example.application.service.worker.WorkerQueryService;
 import example.application.service.worker.WorkerRecordService;
-import example.domain.model.attendance.*;
-import example.domain.model.worktimerecord.*;
+import example.domain.model.workrecord.*;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.WageCondition;
 import example.domain.model.labour_standards_law.MidnightExtraRate;
@@ -60,22 +59,22 @@ class PayrollQueryServiceTest {
             WageCondition wageCondition = new WageCondition(new HourlyWage(1000), OverTimeExtraRate.legal(), MidnightExtraRate.legal());
             contractRecordService.registerHourlyWage(workerNumber, new Date("2018-11-20"), wageCondition);
 
-            Attendance attendance = new Attendance(
+            WorkRecord workRecord = new WorkRecord(
                     workerNumber, new WorkDate(new Date("2018-11-20")),
                     new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("09:00")), new WorkEndTime(new ClockTime("10:00"))), new DaytimeBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
             );
-            attendanceRecordService.registerAttendance(attendance);
+            attendanceRecordService.registerAttendance(workRecord);
 
             Payroll payroll = sut.payroll(worker, new WorkMonth("2018-11"));
             assertEquals("1,000", payroll.totalPaymentAmount().toString());
         }
 
         {
-            Attendance attendance = new Attendance(
+            WorkRecord workRecord = new WorkRecord(
                     workerNumber, new WorkDate(new Date("2018-11-25")),
                     new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("22:00")), new WorkEndTime(new ClockTime("23:00"))), new DaytimeBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
             );
-            attendanceRecordService.registerAttendance(attendance);
+            attendanceRecordService.registerAttendance(workRecord);
 
             Payroll payroll = sut.payroll(worker, new WorkMonth("2018-11"));
             assertEquals("2,350", payroll.totalPaymentAmount().toString());

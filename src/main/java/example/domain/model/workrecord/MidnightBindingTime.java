@@ -1,4 +1,4 @@
-package example.domain.model.worktimerecord;
+package example.domain.model.workrecord;
 
 import example.domain.model.labour_standards_law.Midnight;
 import example.domain.type.time.QuarterHour;

@@ -1,6 +1,6 @@
 package example.domain.model.payroll;
 
-import example.domain.model.attendance.MonthlyAttendances;
+import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.WorkTimeSummary;
 import example.domain.model.contract.Contract;
 import example.domain.model.contract.WorkerContract;
@@ -15,11 +15,11 @@ import java.math.BigDecimal;
 public class Payroll {
 
     WorkerContract workerContract;
-    MonthlyAttendances monthlyAttendances;
+    Attendance attendance;
 
-    public Payroll(WorkerContract workerContract, MonthlyAttendances monthlyAttendances) {
+    public Payroll(WorkerContract workerContract, Attendance attendance) {
         this.workerContract = workerContract;
-        this.monthlyAttendances = monthlyAttendances;
+        this.attendance = attendance;
     }
 
     public WorkerNumber workerNumber() {
@@ -33,17 +33,17 @@ public class Payroll {
     public PaymentAmount totalPaymentAmount() {
         PaymentAmount paymentAmount = new PaymentAmount(BigDecimal.ZERO);
         for (Contract contract : workerContract.listContracts()) {
-            WorkTimeSummary workTimeSummary = monthlyAttendances.workTimeWithin(contract.period());
+            WorkTimeSummary workTimeSummary = attendance.workTimeWithin(contract.period());
             paymentAmount = paymentAmount.add(new PaymentAmount(workTimeSummary, contract.wageCondition()));
         }
         return paymentAmount;
     }
 
     public PayrollStatus payrollStatus() {
-        if (monthlyAttendances.notWorking()) {
+        if (attendance.notWorking()) {
             return PayrollStatus.稼働登録無し;
         }
-        if (workerContract.notContractedAt(monthlyAttendances.firstWorkDate().value())) {
+        if (workerContract.notContractedAt(attendance.firstWorkDate().value())) {
             return PayrollStatus.時給登録無し;
         }
 

@@ -1,8 +1,8 @@
 package example.application.repository;
 
+import example.domain.model.workrecord.WorkRecord;
 import example.domain.model.attendance.Attendance;
-import example.domain.model.attendance.MonthlyAttendances;
-import example.domain.model.attendance.WorkMonth;
+import example.domain.model.workrecord.WorkMonth;
 import example.domain.model.worker.WorkerNumber;
 
 /**
@@ -10,7 +10,7 @@ import example.domain.model.worker.WorkerNumber;
  */
 public interface AttendanceRepository {
 
-    void registerAttendance(Attendance attendance);
+    void registerAttendance(WorkRecord workRecord);
 
-    MonthlyAttendances findMonthly(WorkerNumber workerNumber, WorkMonth month);
+    Attendance findMonthly(WorkerNumber workerNumber, WorkMonth month);
 }

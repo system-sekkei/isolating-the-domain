@@ -5,7 +5,7 @@ import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.*;
-import example.domain.model.worktimerecord.*;
+import example.domain.model.workrecord.*;
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class)
-class AttendanceServiceTest {
+class WorkRecordServiceTest {
 
     @Autowired
     WorkerQueryService workerQueryService;
@@ -50,14 +50,14 @@ class AttendanceServiceTest {
         WorkDate workDate = new WorkDate(new Date(LocalDate.of(year, month, day)));
         WorkTimeRecord workTimeRecord = new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("9:00")), new WorkEndTime(new ClockTime("24:00"))), new DaytimeBreakTime(new Minute(60)), new MidnightBreakTime(new Minute("0")));
 
-        Attendance expectAttendance = new Attendance(workerNumber, workDate, workTimeRecord);
-        attendanceRecordService.registerAttendance(expectAttendance);
+        WorkRecord expectWorkRecord = new WorkRecord(workerNumber, workDate, workTimeRecord);
+        attendanceRecordService.registerAttendance(expectWorkRecord);
 
-        MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(workerNumber, new WorkMonth(year, month));
+        Attendance attendance = attendanceQueryService.findMonthlyAttendances(workerNumber, new WorkMonth(year, month));
         assertAll(
-                () -> assertEquals(monthlyAttendances.month().toStringWithUnit(), year + "年" + month + "月"),
-                () -> assertEquals(monthlyAttendances.listWorkDates().size(), 31),
-                () -> assertTrue(monthlyAttendances.statusOf(workDate).isWork())
+                () -> assertEquals(attendance.month().toStringWithUnit(), year + "年" + month + "月"),
+                () -> assertEquals(attendance.listWorkDates().size(), 31),
+                () -> assertTrue(attendance.statusOf(workDate).isWork())
         );
     }
 }

@@ -3,9 +3,9 @@ package example.presentation.controller.attendance;
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
-import example.domain.model.attendance.Attendance;
-import example.domain.model.attendance.WorkDate;
-import example.domain.model.attendance.WorkMonth;
+import example.domain.model.workrecord.WorkRecord;
+import example.domain.model.workrecord.WorkDate;
+import example.domain.model.workrecord.WorkMonth;
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.WorkerNumber;
 import org.springframework.stereotype.Controller;
@@ -52,8 +52,8 @@ public class AttendanceRegisterController {
         }
         if (workerNumber != null && workDate != null) {
             if (attendanceQueryService.attendanceStatus(workerNumber, workDate).isWork()) {
-                Attendance attendance = attendanceQueryService.attendance(workerNumber, workDate);
-                attendanceForm.apply(attendance);
+                WorkRecord workRecord = attendanceQueryService.attendance(workerNumber, workDate);
+                attendanceForm.apply(workRecord);
             }
         }
         return "attendance/form";
@@ -63,11 +63,11 @@ public class AttendanceRegisterController {
     String register(@Validated @ModelAttribute("attendanceForm") AttendanceForm attendanceForm,
                     BindingResult result) {
         if (result.hasErrors()) return "attendance/form";
-        Attendance attendance = attendanceForm.toAttendance();
+        WorkRecord workRecord = attendanceForm.toAttendance();
 
-        attendanceRecordService.registerAttendance(attendance);
+        attendanceRecordService.registerAttendance(workRecord);
 
-        WorkMonth workMonth = attendance.workDate().month();
+        WorkMonth workMonth = workRecord.workDate().month();
 
         return "redirect:/attendances/" + attendanceForm.workerNumber.value() + "/" + workMonth.toString();
     }

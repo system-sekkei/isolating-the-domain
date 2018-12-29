@@ -1,8 +1,8 @@
 package example.presentation.controller.attendance;
 
-import example.domain.model.attendance.Attendance;
-import example.domain.model.attendance.WorkDate;
-import example.domain.model.worktimerecord.*;
+import example.domain.model.workrecord.WorkRecord;
+import example.domain.model.workrecord.WorkDate;
+import example.domain.model.workrecord.*;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
@@ -34,7 +34,7 @@ public class AttendanceForm {
         this.midnightBreakTime = "0";
     }
 
-    public Attendance toAttendance() {
+    public WorkRecord toAttendance() {
         WorkDate workDate = new WorkDate(this.workDate);
         ClockTime startTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
         ClockTime endTime = new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
@@ -44,21 +44,21 @@ public class AttendanceForm {
                 new WorkTimeRange(new WorkStartTime(startTime), new WorkEndTime(endTime)),
                 new DaytimeBreakTime(minute),
                 new MidnightBreakTime(midnightMinute));
-        return new Attendance(workerNumber, workDate, workTimeRecord);
+        return new WorkRecord(workerNumber, workDate, workTimeRecord);
     }
 
-    public void apply(Attendance attendance) {
-        this.workerNumber = attendance.workerNumber();
-        this.workDate = attendance.workDate().toString();
+    public void apply(WorkRecord workRecord) {
+        this.workerNumber = workRecord.workerNumber();
+        this.workDate = workRecord.workDate().toString();
 
-        this.startHour = attendance.workTimeRecord().workTimeRange().start().clockTime().hour().toString();
-        this.startMinute = attendance.workTimeRecord().workTimeRange().start().clockTime().minute().toString();
+        this.startHour = workRecord.workTimeRecord().workTimeRange().start().clockTime().hour().toString();
+        this.startMinute = workRecord.workTimeRecord().workTimeRange().start().clockTime().minute().toString();
 
-        this.endHour = attendance.workTimeRecord().workTimeRange().end().clockTime().hour().toString();
-        this.endMinute = attendance.workTimeRecord().workTimeRange().end().clockTime().minute().toString();
+        this.endHour = workRecord.workTimeRecord().workTimeRange().end().clockTime().hour().toString();
+        this.endMinute = workRecord.workTimeRecord().workTimeRange().end().clockTime().minute().toString();
 
-        this.daytimeBreakTime = attendance.workTimeRecord().daytimeBreakTime().toString();
-        this.midnightBreakTime = attendance.workTimeRecord().midnightBreakTime().toString();
+        this.daytimeBreakTime = workRecord.workTimeRecord().daytimeBreakTime().toString();
+        this.midnightBreakTime = workRecord.workTimeRecord().midnightBreakTime().toString();
     }
 
     boolean workDateComplete;
@@ -161,8 +161,8 @@ public class AttendanceForm {
         try {
             DaytimeBreakTime daytimeBreakTime = new DaytimeBreakTime(new Minute(this.daytimeBreakTime));
 
-            Attendance attendance = toAttendance();
-            Minute daytimeBindingMinute = attendance.workTimeRecord().workTimeRange().daytimeBindingTime().quarterHour().minute();
+            WorkRecord workRecord = toAttendance();
+            Minute daytimeBindingMinute = workRecord.workTimeRecord().workTimeRange().daytimeBindingTime().quarterHour().minute();
             if (daytimeBindingMinute.lessThan(daytimeBreakTime.minute())) {
                 return false;
             }
@@ -181,8 +181,8 @@ public class AttendanceForm {
         try {
             MidnightBreakTime midnightBreakTime = new MidnightBreakTime(new Minute(this.midnightBreakTime));
 
-            Attendance attendance = toAttendance();
-            Minute midnightBindingMinute = attendance.workTimeRecord().workTimeRange().midnightBindingTime().quarterHour().minute();
+            WorkRecord workRecord = toAttendance();
+            Minute midnightBindingMinute = workRecord.workTimeRecord().workTimeRange().midnightBindingTime().quarterHour().minute();
             if (midnightBindingMinute.lessThan(midnightBreakTime.minute())) {
                 return false;
             }

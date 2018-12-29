@@ -1,4 +1,4 @@
-package example.domain.model.attendance;
+package example.domain.model.workrecord;
 
 import example.domain.type.date.Date;
 import example.domain.type.date.Month;

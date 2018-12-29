@@ -3,8 +3,8 @@ package example.presentation.controller.attendance;
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.attendance.AttendanceRecordService;
 import example.application.service.worker.WorkerQueryService;
-import example.domain.model.attendance.MonthlyAttendances;
-import example.domain.model.attendance.WorkMonth;
+import example.domain.model.attendance.Attendance;
+import example.domain.model.workrecord.WorkMonth;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
 import org.springframework.stereotype.Controller;
@@ -48,8 +48,8 @@ public class AttendanceController {
         Worker worker = workerQueryService.choose(workerNumber);
         model.addAttribute("worker", worker);
 
-        MonthlyAttendances monthlyAttendances = attendanceQueryService.findMonthlyAttendances(worker.workerNumber(), workMonth);
-        model.addAttribute("monthlyAttendances", monthlyAttendances);
+        Attendance attendance = attendanceQueryService.findMonthlyAttendances(worker.workerNumber(), workMonth);
+        model.addAttribute("attendance", attendance);
         return "attendance/list";
     }
 }

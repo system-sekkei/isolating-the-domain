@@ -1,4 +1,4 @@
-package example.domain.model.worktimerecord;
+package example.domain.model.workrecord;
 
 import example.domain.type.time.Minute;
 import example.domain.type.time.QuarterHour;

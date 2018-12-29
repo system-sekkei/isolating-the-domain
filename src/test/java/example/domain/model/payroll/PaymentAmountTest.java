@@ -1,9 +1,9 @@
 package example.domain.model.payroll;
 
-import example.domain.model.attendance.Attendance;
-import example.domain.model.attendance.Attendances;
-import example.domain.model.attendance.WorkDate;
-import example.domain.model.worktimerecord.*;
+import example.domain.model.workrecord.WorkRecord;
+import example.domain.model.workrecord.WorkRecords;
+import example.domain.model.workrecord.WorkDate;
+import example.domain.model.workrecord.*;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.WageCondition;
 import example.domain.model.worker.WorkerNumber;
@@ -36,7 +36,7 @@ class PaymentAmountTest {
             "0:00, 24:00, 0, 0, 1000, 30450"
     })
     void wage(String begin, String end, int breakMinute, int midnightBreakMinute, int hourlyWage, int expected) {
-        Attendance attendance = new Attendance(
+        WorkRecord workRecord = new WorkRecord(
                 new WorkerNumber(), new WorkDate("2018-11-04"),
                 new WorkTimeRecord(
                         new WorkTimeRange(new WorkStartTime(begin), new WorkEndTime(end)),
@@ -44,9 +44,9 @@ class PaymentAmountTest {
                         new MidnightBreakTime(new Minute(midnightBreakMinute)))
         );
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));
-        Attendances attendances = new Attendances(Collections.singletonList(attendance));
+        WorkRecords workRecords = new WorkRecords(Collections.singletonList(workRecord));
 
-        PaymentAmount paymentAmount = new PaymentAmount(attendances.summarize(), wageCondition);
+        PaymentAmount paymentAmount = new PaymentAmount(workRecords.summarize(), wageCondition);
 
         assertEquals(expected, paymentAmount.value.intValue());
     }

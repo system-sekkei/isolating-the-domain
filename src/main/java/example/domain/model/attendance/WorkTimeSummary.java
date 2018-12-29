@@ -1,5 +1,7 @@
 package example.domain.model.attendance;
 
+import example.domain.model.workrecord.WorkRecord;
+import example.domain.model.workrecord.WorkRecords;
 import example.domain.type.time.QuarterHour;
 
 import java.util.stream.Collector;
@@ -18,14 +20,21 @@ public class WorkTimeSummary {
         this(new QuarterHour(), new QuarterHour(), new QuarterHour());
     }
 
-    WorkTimeSummary(Attendance attendance) {
-        this(attendance.workTimeRecord().daytimeWorkTime().quarterHour(), attendance.workTimeRecord().midnightWorkTime().quarterHour(), attendance.workTimeRecord().overWorkTime().quarterHour());
+    WorkTimeSummary(WorkRecord workRecord) {
+        this(workRecord.workTimeRecord().daytimeWorkTime().quarterHour(), workRecord.workTimeRecord().midnightWorkTime().quarterHour(), workRecord.workTimeRecord().overWorkTime().quarterHour());
     }
 
     WorkTimeSummary(QuarterHour daytimeWorkTime, QuarterHour midnightWorkTime, QuarterHour overWorkTime) {
         this.daytimeWorkTime = daytimeWorkTime;
         this.midnightWorkTime = midnightWorkTime;
         this.overWorkTime = overWorkTime;
+    }
+
+    public WorkTimeSummary(WorkRecords workRecords) {
+        WorkTimeSummary temp = workRecords.list().stream().collect(WorkTimeSummary.collector());
+        this.daytimeWorkTime = temp.daytimeWorkTime;
+        this.midnightWorkTime = temp.midnightWorkTime;
+        this.overWorkTime = temp.overWorkTime;
     }
 
     WorkTimeSummary add(WorkTimeSummary other) {
@@ -47,7 +56,7 @@ public class WorkTimeSummary {
         return new TotalOverWorkTime(overWorkTime);
     }
 
-    public static Collector<Attendance, ?, WorkTimeSummary> collector() {
+    public static Collector<WorkRecord, ?, WorkTimeSummary> collector() {
         return Collectors.reducing(new WorkTimeSummary(),
                 WorkTimeSummary::new,
                 WorkTimeSummary::add);
