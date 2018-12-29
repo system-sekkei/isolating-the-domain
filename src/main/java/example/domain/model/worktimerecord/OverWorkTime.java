@@ -1,10 +1,10 @@
-package example.domain.model.attendance.worktimerecord;
+package example.domain.model.worktimerecord;
 
 import example.domain.model.labour_standards_law.DailyOvertimeWork;
 import example.domain.type.time.QuarterHour;
 
 /**
- * 時間外労働時間
+ * 時間外勤務時間
  */
 public class OverWorkTime {
 

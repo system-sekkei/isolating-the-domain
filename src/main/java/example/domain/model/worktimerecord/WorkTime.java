@@ -1,9 +1,9 @@
-package example.domain.model.attendance.worktimerecord;
+package example.domain.model.worktimerecord;
 
 import example.domain.type.time.QuarterHour;
 
 /**
- * 業務時間
+ * 勤務時間
  */
 public class WorkTime {
 

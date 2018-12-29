@@ -2,7 +2,7 @@ package example.presentation.controller.attendance;
 
 import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.WorkDate;
-import example.domain.model.attendance.worktimerecord.*;
+import example.domain.model.worktimerecord.*;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;

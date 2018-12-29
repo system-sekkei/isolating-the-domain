@@ -1,9 +1,9 @@
-package example.domain.model.attendance.worktimerecord;
+package example.domain.model.worktimerecord;
 
 import example.domain.type.time.QuarterRoundClockTimeRange;
 
 /**
- * 業務時刻の範囲
+ * 勤務の開始と終了
  */
 public class WorkTimeRange {
 

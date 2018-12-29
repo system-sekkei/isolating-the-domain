@@ -1,10 +1,10 @@
-package example.domain.model.attendance.worktimerecord;
+package example.domain.model.worktimerecord;
 
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.QuarterRoundClockTime;
 
 /**
- * 業務開始時刻
+ * 勤務開始時刻
  */
 public class WorkStartTime {
 

@@ -1,4 +1,4 @@
-package example.domain.model.attendance.worktimerecord;
+package example.domain.model.worktimerecord;
 
 import example.domain.type.time.QuarterHour;
 

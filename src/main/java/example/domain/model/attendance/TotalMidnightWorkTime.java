@@ -3,7 +3,7 @@ package example.domain.model.attendance;
 import example.domain.type.time.QuarterHour;
 
 /**
- * 総深夜労働時間
+ * 総深夜勤務時間
  */
 public class TotalMidnightWorkTime {
 

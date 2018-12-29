@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * 勤怠情報
+ * 勤怠一覧
  */
 public class Attendances {
     List<Attendance> list;

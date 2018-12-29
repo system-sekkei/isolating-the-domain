@@ -6,7 +6,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
- * 労働時間
+ * 勤務時間集計
  */
 public class WorkTimeSummary {
 

@@ -1,6 +1,6 @@
 package example.domain.model.attendance;
 
-import example.domain.model.attendance.worktimerecord.WorkTimeRecord;
+import example.domain.model.worktimerecord.WorkTimeRecord;
 import example.domain.model.worker.WorkerNumber;
 
 /**

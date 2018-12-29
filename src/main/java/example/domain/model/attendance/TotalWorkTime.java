@@ -3,7 +3,7 @@ package example.domain.model.attendance;
 import example.domain.type.time.QuarterHour;
 
 /**
- * 総労働時間
+ * 総勤務時間
  */
 public class TotalWorkTime {
 

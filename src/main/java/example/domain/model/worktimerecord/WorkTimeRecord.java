@@ -1,7 +1,7 @@
-package example.domain.model.attendance.worktimerecord;
+package example.domain.model.worktimerecord;
 
 /**
- * 労働時間実績
+ * 勤務時間実績
  */
 public class WorkTimeRecord {
     WorkTimeRange workTimeRange;
