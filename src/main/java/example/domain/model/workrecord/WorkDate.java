@@ -1,7 +1,6 @@
 package example.domain.model.workrecord;
 
 import example.domain.type.date.Date;
-import example.domain.type.date.DateRange;
 import example.domain.type.date.DayOfWeek;
 
 /**
@@ -41,10 +40,6 @@ public class WorkDate {
 
     public WorkMonth month() {
         return new WorkMonth(value.year(), value.month());
-    }
-
-    public boolean inRange(DateRange range) {
-        return value.inRange(range);
     }
 
     @Override

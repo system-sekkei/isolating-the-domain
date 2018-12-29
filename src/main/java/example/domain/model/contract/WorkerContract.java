@@ -41,4 +41,12 @@ public class WorkerContract {
     public boolean notContractedAt(Date value) {
         return contractStartingDate().isAfter(value);
     }
+
+    public Contract availableContractAt(Date date) {
+        return listContracts().stream()
+                .sorted((o1, o2) -> o2.startDate().compareTo(o1.startDate()))
+                .filter(contract -> contract.availableAt(date))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException(date.toString()));
+    }
 }

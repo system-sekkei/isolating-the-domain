@@ -1,17 +1,16 @@
 package example.domain.model.contract;
 
 import example.domain.type.date.Date;
-import example.domain.type.date.DateRange;
 
 /**
  * 雇用契約
  */
 public class Contract {
-    DateRange period;
+    Date startDate;
     WageCondition wageCondition;
 
-    public Contract(DateRange period, WageCondition wageCondition) {
-        this.period = period;
+    public Contract(Date startDate, WageCondition wageCondition) {
+        this.startDate = startDate;
         this.wageCondition = wageCondition;
     }
 
@@ -24,14 +23,10 @@ public class Contract {
     }
 
     public Date startDate() {
-        return period.startDate();
+        return startDate;
     }
 
-    public Date endDate() {
-        return period.endDate();
-    }
-
-    public DateRange period() {
-        return period;
+    public boolean availableAt(Date date) {
+        return startDate.hasSameValue(date) || date.isAfter(startDate);
     }
 }

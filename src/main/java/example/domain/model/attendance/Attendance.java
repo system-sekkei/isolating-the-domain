@@ -5,7 +5,6 @@ import example.domain.model.workrecord.WorkDate;
 import example.domain.model.workrecord.WorkMonth;
 import example.domain.model.workrecord.WorkRecord;
 import example.domain.model.workrecord.WorkRecords;
-import example.domain.type.date.DateRange;
 
 import java.util.List;
 
@@ -40,14 +39,6 @@ public class Attendance {
         return AttendanceStatus.from(workRecords.recordedAt(workDate));
     }
 
-    public TotalWorkTime totalWorkTime() {
-        return new WorkTimeSummary(workRecords).totalWorkTime();
-    }
-
-    public WorkTimeSummary workTimeWithin(DateRange period) {
-        return new WorkTimeSummary(workRecords.rangeOf(period));
-    }
-
     public boolean notWorking() {
         return workRecords.list().isEmpty();
     }
@@ -55,5 +46,9 @@ public class Attendance {
     public WorkDate firstWorkDate() {
         List<WorkRecord> list = workRecords.list();
         return list.get(0).workDate();
+    }
+
+    public List<WorkRecord> listAvailableWorkRecord() {
+        return workRecords.list();
     }
 }

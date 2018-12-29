@@ -6,13 +6,11 @@ import example.domain.model.contract.WageCondition;
 import example.domain.model.labour_standards_law.MidnightExtraRate;
 import example.domain.model.labour_standards_law.OverTimeExtraRate;
 import example.domain.type.date.Date;
-import example.domain.type.date.DateRange;
 
 import java.time.LocalDate;
 
 public class HourlyWageData {
     LocalDate startDate;
-    LocalDate endDate;
     Integer hourlyWage;
     Integer overTimeExtraRate;
     Integer midnightExtraRate;
@@ -21,19 +19,12 @@ public class HourlyWageData {
         return new Date(startDate);
     }
 
-    Date endDate() {
-        return new Date(endDate);
-    }
-
     HourlyWage hourlyWage() {
         return new HourlyWage(hourlyWage);
     }
 
     Contract toContract() {
-        return new Contract(
-                new DateRange(new Date(startDate), new Date(endDate)),
-                toHourlyWageContract()
-        );
+        return new Contract(new Date(startDate), toHourlyWageContract());
     }
 
     WageCondition toHourlyWageContract() {
