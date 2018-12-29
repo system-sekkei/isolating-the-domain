@@ -28,9 +28,10 @@ public class WorkRecordRegisterController {
     WorkRecordQueryService workRecordQueryService;
     AttendanceQueryService attendanceQueryService;
 
-    public WorkRecordRegisterController(WorkerQueryService workerQueryService, WorkRecordRecordService workRecordRecordService, AttendanceQueryService attendanceQueryService) {
+    public WorkRecordRegisterController(WorkerQueryService workerQueryService, WorkRecordRecordService workRecordRecordService, WorkRecordQueryService workRecordQueryService, AttendanceQueryService attendanceQueryService) {
         this.workerQueryService = workerQueryService;
         this.workRecordRecordService = workRecordRecordService;
+        this.workRecordQueryService = workRecordQueryService;
         this.attendanceQueryService = attendanceQueryService;
     }
 
@@ -60,7 +61,6 @@ public class WorkRecordRegisterController {
             if (attendanceQueryService.attendanceStatus(workerNumber, workDate).isWork()) {
                 WorkRecord workRecord = workRecordQueryService.workRecord(workerNumber, workDate);
                 attendanceForm.apply(workRecord);
-                model.addAttribute("mode", "edit");
             }
         }
         return "workrecord/form";
