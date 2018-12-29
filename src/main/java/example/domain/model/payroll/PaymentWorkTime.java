@@ -1,9 +1,9 @@
 package example.domain.model.payroll;
 
-import example.domain.model.attendance.TotalMidnightWorkTime;
-import example.domain.model.attendance.TotalOverWorkTime;
-import example.domain.model.attendance.TotalWorkTime;
 import example.domain.model.contract.HourlyWage;
+import example.domain.model.workrecord.MidnightWorkTime;
+import example.domain.model.workrecord.OverWorkTime;
+import example.domain.model.workrecord.WorkTime;
 import example.domain.type.time.QuarterHour;
 
 import java.math.BigDecimal;
@@ -15,16 +15,16 @@ import java.math.RoundingMode;
 public class PaymentWorkTime {
     QuarterHour value;
 
-    PaymentWorkTime(TotalWorkTime totalWorkTime) {
-        this(totalWorkTime.quarterHour());
+    PaymentWorkTime(MidnightWorkTime midnightWorkTime) {
+        this(midnightWorkTime.quarterHour());
     }
 
-    PaymentWorkTime(TotalOverWorkTime totalOverWorkTime) {
-        this(totalOverWorkTime.quarterHour());
+    PaymentWorkTime(OverWorkTime overWorkTime) {
+        this(overWorkTime.quarterHour());
     }
 
-    PaymentWorkTime(TotalMidnightWorkTime totalMidnightWorkTime) {
-        this(totalMidnightWorkTime.quarterHour());
+    PaymentWorkTime(WorkTime workTime) {
+        this(workTime.quarterHour());
     }
 
     private PaymentWorkTime(QuarterHour value) {

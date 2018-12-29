@@ -1,8 +1,5 @@
 package example.domain.model.payroll;
 
-import example.domain.model.attendance.TotalOverWorkTime;
-import example.domain.model.attendance.TotalWorkTime;
-import example.domain.model.attendance.WorkTimeSummary;
 import example.domain.model.contract.WageCondition;
 import example.domain.model.workrecord.WorkTimeRecord;
 
@@ -20,17 +17,10 @@ public class PaymentAmount {
         this.value = value;
     }
 
-    public PaymentAmount(WorkTimeSummary workTimeSummary, WageCondition wageCondition) {
-        PaymentAmount workTimeAmount = new PaymentWorkTime(workTimeSummary.totalWorkTime()).multiply(wageCondition.baseHourlyWage());
-        PaymentAmount overTimeExtraAmount = new PaymentWorkTime(workTimeSummary.totalOverWorkTime()).multiply(wageCondition.overTimeHourlyExtraWage().value());
-        PaymentAmount midnightExtraAmount = new PaymentWorkTime(workTimeSummary.totalMidnightWorkTime()).multiply(wageCondition.midnightHourlyExtraWage().value());
-        this.value = workTimeAmount.value.add(overTimeExtraAmount.value).add(midnightExtraAmount.value);
-    }
-
     public PaymentAmount(WorkTimeRecord workTimeRecord, WageCondition wageCondition) {
-        PaymentAmount workTimeAmount = new PaymentWorkTime(new TotalWorkTime(workTimeRecord.workTime().quarterHour())).multiply(wageCondition.baseHourlyWage());
-        PaymentAmount overTimeExtraAmount = new PaymentWorkTime(new TotalOverWorkTime(workTimeRecord.overWorkTime().quarterHour())).multiply(wageCondition.overTimeHourlyExtraWage().value());
-        PaymentAmount midnightExtraAmount = new PaymentWorkTime(new TotalWorkTime(workTimeRecord.midnightWorkTime().quarterHour())).multiply(wageCondition.midnightHourlyExtraWage().value());
+        PaymentAmount workTimeAmount = new PaymentWorkTime(workTimeRecord.workTime()).multiply(wageCondition.baseHourlyWage());
+        PaymentAmount overTimeExtraAmount = new PaymentWorkTime(workTimeRecord.overWorkTime()).multiply(wageCondition.overTimeHourlyExtraWage().value());
+        PaymentAmount midnightExtraAmount = new PaymentWorkTime(workTimeRecord.midnightWorkTime()).multiply(wageCondition.midnightHourlyExtraWage().value());
         this.value = workTimeAmount.value.add(overTimeExtraAmount.value).add(midnightExtraAmount.value);
     }
 
