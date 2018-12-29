@@ -10,12 +10,26 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class WorkTimeRecordTest {
+
     @DisplayName("就業時間の計算を正しく行えること")
     @ParameterizedTest
     @CsvSource({
             "9:00, 18:00, 60, 08:00",
-            "9:00, 18:00, 46, 08:00",
-            "9:01, 18:14, 46, 08:00",
+            // 休憩時間
+            "9:00, 18:00, 61, 07:45",
+            "9:00, 18:00, 75, 07:45",
+            "9:00, 18:00, 76, 07:30",
+            // 始業時間
+            "9:01, 18:00, 60, 07:45",
+            "9:15, 18:00, 60, 07:45",
+            "9:16, 18:00, 60, 07:30",
+            // 終業時間
+            "9:00, 18:01, 60, 08:00",
+            "9:00, 18:14, 60, 08:00",
+            "9:00, 18:15, 60, 08:15",
+            // 組み合わせ
+            "9:16, 18:00, 76, 07:00",
+            "9:01, 18:01, 59, 07:45",
     })
     void workTime(String begin, String end, int breaks, String expected) {
         WorkTimeRecord sut = new WorkTimeRecord(

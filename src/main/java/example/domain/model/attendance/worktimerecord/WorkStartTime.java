@@ -23,7 +23,7 @@ public class WorkStartTime {
     }
 
     QuarterRoundClockTime normalizedClockTime() {
-        return value.quarterRoundDown();
+        return value.quarterRoundUp();
     }
 
     public boolean isAfter(WorkEndTime workEndTime) {

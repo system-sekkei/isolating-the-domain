@@ -35,6 +35,11 @@ public class ClockTime {
         return new QuarterRoundClockTime(new ClockTime(hour(), quarterHour.minute()));
     }
 
+    public QuarterRoundClockTime quarterRoundUp() {
+        QuarterHour quarterHour = minute().quarterHourRoundUp();
+        return new QuarterRoundClockTime(new ClockTime(hour(), quarterHour.minute()));
+    }
+
     public boolean isAfter(ClockTime other) {
         Minute thisMinute = hour().toMinute().add(minute());
         Minute otherMinute = other.hour().toMinute().add(other.minute());
