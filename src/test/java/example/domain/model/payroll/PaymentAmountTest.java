@@ -1,12 +1,10 @@
 package example.domain.model.payroll;
 
-import example.domain.model.workrecord.WorkRecord;
-import example.domain.model.workrecord.WorkRecords;
-import example.domain.model.workrecord.WorkDate;
-import example.domain.model.workrecord.*;
+import example.domain.model.attendance.WorkTimeSummary;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.WageCondition;
 import example.domain.model.worker.WorkerNumber;
+import example.domain.model.workrecord.*;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -46,7 +44,7 @@ class PaymentAmountTest {
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));
         WorkRecords workRecords = new WorkRecords(Collections.singletonList(workRecord));
 
-        PaymentAmount paymentAmount = new PaymentAmount(workRecords.summarize(), wageCondition);
+        PaymentAmount paymentAmount = new PaymentAmount(new WorkTimeSummary(workRecords), wageCondition);
 
         assertEquals(expected, paymentAmount.value.intValue());
     }

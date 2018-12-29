@@ -41,7 +41,7 @@ public class PayrollQueryService {
     public Payroll payroll(Worker worker, WorkMonth workMonth) {
         WorkerNumber workerNumber = worker.workerNumber();
         Contracts contracts = contractQueryService.getContracts(workerNumber);
-        Attendance attendance = attendanceQueryService.findMonthlyAttendances(workerNumber, workMonth);
+        Attendance attendance = attendanceQueryService.findAttendance(workerNumber, workMonth);
 
         return new Payroll(new WorkerContract(worker, contracts), attendance);
     }

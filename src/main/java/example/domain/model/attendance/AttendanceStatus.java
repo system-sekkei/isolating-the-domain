@@ -3,7 +3,7 @@ package example.domain.model.attendance;
 import example.domain.model.workrecord.Recorded;
 
 /**
- * 勤怠
+ * 勤怠状況
  */
 public enum AttendanceStatus {
     出勤,

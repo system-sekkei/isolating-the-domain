@@ -1,4 +1,4 @@
-package example.presentation.controller.attendance;
+package example.presentation.controller.workrecord;
 
 import example.domain.model.workrecord.WorkRecord;
 import example.domain.model.workrecord.WorkDate;

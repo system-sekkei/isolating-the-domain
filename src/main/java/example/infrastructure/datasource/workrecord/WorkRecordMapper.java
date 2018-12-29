@@ -1,4 +1,4 @@
-package example.infrastructure.datasource.attendance;
+package example.infrastructure.datasource.workrecord;
 
 import example.domain.model.workrecord.WorkRecord;
 import example.domain.model.workrecord.WorkDate;
@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 @Mapper
-public interface AttendanceMapper {
+public interface WorkRecordMapper {
     Integer newWorkTimeIdentifier();
 
     void insertWorkTimeHistory(@Param("id") Integer id, @Param("workerNumber") WorkerNumber workerNumber, @Param("work") WorkRecord work);

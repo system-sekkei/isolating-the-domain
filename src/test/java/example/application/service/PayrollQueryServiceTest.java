@@ -1,7 +1,7 @@
 package example.application.service;
 
 import example.Application;
-import example.application.service.attendance.AttendanceRecordService;
+import example.application.service.workrecord.WorkRecordRecordService;
 import example.application.service.contract.ContractRecordService;
 import example.application.service.payroll.PayrollQueryService;
 import example.application.service.worker.WorkerQueryService;
@@ -35,7 +35,7 @@ class PayrollQueryServiceTest {
     @Autowired
     WorkerQueryService workerQueryService;
     @Autowired
-    AttendanceRecordService attendanceRecordService;
+    WorkRecordRecordService workRecordRecordService;
 
     @Test
     void test() {
@@ -63,7 +63,7 @@ class PayrollQueryServiceTest {
                     workerNumber, new WorkDate(new Date("2018-11-20")),
                     new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("09:00")), new WorkEndTime(new ClockTime("10:00"))), new DaytimeBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
             );
-            attendanceRecordService.registerAttendance(workRecord);
+            workRecordRecordService.registerWorkRecord(workRecord);
 
             Payroll payroll = sut.payroll(worker, new WorkMonth("2018-11"));
             assertEquals("1,000", payroll.totalPaymentAmount().toString());
@@ -74,7 +74,7 @@ class PayrollQueryServiceTest {
                     workerNumber, new WorkDate(new Date("2018-11-25")),
                     new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("22:00")), new WorkEndTime(new ClockTime("23:00"))), new DaytimeBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
             );
-            attendanceRecordService.registerAttendance(workRecord);
+            workRecordRecordService.registerWorkRecord(workRecord);
 
             Payroll payroll = sut.payroll(worker, new WorkMonth("2018-11"));
             assertEquals("2,350", payroll.totalPaymentAmount().toString());

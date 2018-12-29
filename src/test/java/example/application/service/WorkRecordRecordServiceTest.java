@@ -2,7 +2,7 @@ package example.application.service;
 
 import example.Application;
 import example.application.service.attendance.AttendanceQueryService;
-import example.application.service.attendance.AttendanceRecordService;
+import example.application.service.workrecord.WorkRecordRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.*;
 import example.domain.model.workrecord.*;
@@ -28,12 +28,12 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class)
-class WorkRecordServiceTest {
+class WorkRecordRecordServiceTest {
 
     @Autowired
     WorkerQueryService workerQueryService;
     @Autowired
-    AttendanceRecordService attendanceRecordService;
+    WorkRecordRecordService workRecordRecordService;
     @Autowired
     AttendanceQueryService attendanceQueryService;
 
@@ -51,9 +51,9 @@ class WorkRecordServiceTest {
         WorkTimeRecord workTimeRecord = new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("9:00")), new WorkEndTime(new ClockTime("24:00"))), new DaytimeBreakTime(new Minute(60)), new MidnightBreakTime(new Minute("0")));
 
         WorkRecord expectWorkRecord = new WorkRecord(workerNumber, workDate, workTimeRecord);
-        attendanceRecordService.registerAttendance(expectWorkRecord);
+        workRecordRecordService.registerWorkRecord(expectWorkRecord);
 
-        Attendance attendance = attendanceQueryService.findMonthlyAttendances(workerNumber, new WorkMonth(year, month));
+        Attendance attendance = attendanceQueryService.findAttendance(workerNumber, new WorkMonth(year, month));
         assertAll(
                 () -> assertEquals(attendance.month().toStringWithUnit(), year + "年" + month + "月"),
                 () -> assertEquals(attendance.listWorkDates().size(), 31),

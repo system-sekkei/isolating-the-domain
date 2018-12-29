@@ -1,7 +1,7 @@
 package example.presentation.controller.attendance;
 
 import example.application.service.attendance.AttendanceQueryService;
-import example.application.service.attendance.AttendanceRecordService;
+import example.application.service.workrecord.WorkRecordRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.workrecord.WorkMonth;
@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AttendanceController {
 
     WorkerQueryService workerQueryService;
-    AttendanceRecordService attendanceRecordService;
+    WorkRecordRecordService workRecordRecordService;
     AttendanceQueryService attendanceQueryService;
 
-    public AttendanceController(WorkerQueryService workerQueryService, AttendanceRecordService attendanceRecordService, AttendanceQueryService attendanceQueryService) {
+    public AttendanceController(WorkerQueryService workerQueryService, WorkRecordRecordService workRecordRecordService, AttendanceQueryService attendanceQueryService) {
         this.workerQueryService = workerQueryService;
-        this.attendanceRecordService = attendanceRecordService;
+        this.workRecordRecordService = workRecordRecordService;
         this.attendanceQueryService = attendanceQueryService;
     }
 
@@ -48,7 +48,7 @@ public class AttendanceController {
         Worker worker = workerQueryService.choose(workerNumber);
         model.addAttribute("worker", worker);
 
-        Attendance attendance = attendanceQueryService.findMonthlyAttendances(worker.workerNumber(), workMonth);
+        Attendance attendance = attendanceQueryService.findAttendance(worker.workerNumber(), workMonth);
         model.addAttribute("attendance", attendance);
         return "attendance/list";
     }

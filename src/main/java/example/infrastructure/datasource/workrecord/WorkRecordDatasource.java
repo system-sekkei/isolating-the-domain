@@ -1,7 +1,6 @@
-package example.infrastructure.datasource.attendance;
+package example.infrastructure.datasource.workrecord;
 
-import example.application.repository.AttendanceRepository;
-import example.domain.model.attendance.Attendance;
+import example.application.repository.WorkRecordRepository;
 import example.domain.model.workrecord.WorkRecord;
 import example.domain.model.workrecord.WorkRecords;
 import example.domain.model.workrecord.WorkMonth;
@@ -11,11 +10,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class AttendanceDataSource implements AttendanceRepository {
-    AttendanceMapper mapper;
+public class WorkRecordDatasource implements WorkRecordRepository {
+    WorkRecordMapper mapper;
 
     @Override
-    public void registerAttendance(WorkRecord workRecord) {
+    public void registerWorkRecord(WorkRecord workRecord) {
         Integer identifier = mapper.newWorkTimeIdentifier();
         mapper.insertWorkTimeHistory(identifier, workRecord.workerNumber(), workRecord);
         mapper.deleteWorkTime(workRecord.workerNumber(), workRecord.workDate());
@@ -23,12 +22,12 @@ public class AttendanceDataSource implements AttendanceRepository {
     }
 
     @Override
-    public Attendance findMonthly(WorkerNumber workerNumber, WorkMonth month) {
+    public WorkRecords findWorkRecords(WorkerNumber workerNumber, WorkMonth month) {
         List<WorkRecord> workRecords = mapper.selectByMonth(workerNumber, month.yyyyMM());
-        return new Attendance(workerNumber, month, new WorkRecords(workRecords));
+        return new WorkRecords(workRecords);
     }
 
-    AttendanceDataSource(AttendanceMapper mapper) {
+    WorkRecordDatasource(WorkRecordMapper mapper) {
         this.mapper = mapper;
     }
 }

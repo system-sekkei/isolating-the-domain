@@ -1,11 +1,12 @@
 package example.application.service.attendance;
 
-import example.application.repository.AttendanceRepository;
-import example.domain.model.attendance.*;
+import example.application.repository.WorkRecordRepository;
+import example.domain.model.attendance.Attendance;
+import example.domain.model.attendance.AttendanceStatus;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.model.workrecord.WorkDate;
 import example.domain.model.workrecord.WorkMonth;
-import example.domain.model.workrecord.WorkRecord;
+import example.domain.model.workrecord.WorkRecords;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,30 +15,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class AttendanceQueryService {
 
-    AttendanceRepository attendanceRepository;
+    WorkRecordRepository workRecordRepository;
 
     /**
      * 月次勤怠取得
      */
-    public Attendance findMonthlyAttendances(WorkerNumber workerNumber, WorkMonth month) {
-        return attendanceRepository.findMonthly(workerNumber, month);
+    public Attendance findAttendance(WorkerNumber workerNumber, WorkMonth month) {
+        WorkRecords workRecords = workRecordRepository.findWorkRecords(workerNumber, month);
+        return new Attendance(workerNumber, month, workRecords);
     }
 
     /**
-     * 日次勤怠取得
-     */
-    public WorkRecord attendance(WorkerNumber workerNumber, WorkDate workDate) {
-        return findMonthlyAttendances(workerNumber, workDate.month()).at(workDate);
-    }
-
-    /**
-     * 出勤状況取得
+     * 勤怠状況取得
      */
     public AttendanceStatus attendanceStatus(WorkerNumber workerNumber, WorkDate workDate) {
-        return findMonthlyAttendances(workerNumber, workDate.month()).statusOf(workDate);
+        return findAttendance(workerNumber, workDate.month()).statusOf(workDate);
     }
 
-    AttendanceQueryService(AttendanceRepository attendanceRepository) {
-        this.attendanceRepository = attendanceRepository;
+    AttendanceQueryService(WorkRecordRepository workRecordRepository) {
+        this.workRecordRepository = workRecordRepository;
     }
 }
