@@ -69,7 +69,7 @@ public class WorkRecordRegisterController {
     @PostMapping
     String register(@Validated @ModelAttribute("attendanceForm") AttendanceForm attendanceForm,
                     BindingResult result) {
-        if (result.hasErrors()) return "attendance/form";
+        if (result.hasErrors()) return "workrecord/form";
         WorkRecord workRecord = attendanceForm.toAttendance();
 
         workRecordRecordService.registerWorkRecord(workRecord);
