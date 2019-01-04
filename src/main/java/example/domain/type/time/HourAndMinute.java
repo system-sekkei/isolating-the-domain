@@ -28,6 +28,6 @@ public class HourAndMinute {
 
     @Override
     public String toString() {
-        return String.format("%02d:%02d", hour.value, minute.value);
+        return String.format("%d時間%d分", hour.value, minute.value);
     }
 }
