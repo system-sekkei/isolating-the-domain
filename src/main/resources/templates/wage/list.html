@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/layout :: htmlhead(~{::title})">
   <meta charset="utf-8"/>
-  <title>時給の変遷</title>
+  <title>時給の履歴</title>
 </head>
 <body>
 <div th:replace="fragments/menuHead::menuHead('')">
@@ -10,13 +10,13 @@
 
 <div class="ui container">
   <div class="pageHeader">
-    <h1 class="ui center aligned header">時給の変遷</h1>
+    <h1 class="ui center aligned header">時給の履歴</h1>
   </div>
 
   <div class="wageInfo">
     <table class="ui celled center aligned definition table">
       <tr>
-        <th class="six wide tableHeader">従業員名</th>
+        <th class="six wide tableHeader">氏名</th>
         <td class="ten wide" th:text="${worker.name()}">テスト太郎</td>
       </tr>
     </table>

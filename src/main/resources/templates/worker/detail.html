@@ -2,20 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/layout :: htmlhead(~{::title})">
   <meta charset="utf-8"/>
-  <title>従業員情報の詳細</title>
+  <title>詳細</title>
 </head>
 <body>
 <div th:replace="fragments/menuHead::menuHead('')">
 </div>
 <div class="ui container">
   <div class="pageHeader">
-    <h1 class="ui center aligned header">従業員情報の詳細</h1>
+    <h1 class="ui center aligned header">詳細</h1>
   </div>
 
   <div class="ui center aligned basic segment">
     <a class="ui labeled icon primary button"
        th:href="@{/wages/{workerNumber}(workerNumber=${worker.workerNumber()})}">
-      <i class="calculator icon"></i>時給の変遷
+      <i class="calculator icon"></i>時給の履歴
     </a>
   </div>
 
@@ -27,7 +27,7 @@
             th:text="${worker.workerNumber()}">1</td>
       </tr>
       <tr>
-        <td class="six wide tableHeader">従業員名</td>
+        <td class="six wide tableHeader">氏名</td>
         <td class="ten wide"
             th:text="${worker.name()}">山田 太郎</td>
       </tr>
@@ -37,7 +37,7 @@
             th:text="${worker.mailAddress()}">someone@example.com</td>
       </tr>
       <tr>
-        <td class="six wide tableHeader">従業員名</td>
+        <td class="six wide tableHeader">電話番号</td>
         <td class="ten wide"
             th:text="${worker.phoneNumber()}">0120-888-888</td>
       </tr>
