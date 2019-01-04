@@ -59,4 +59,5 @@ jig {
             'CategoryDiagram',
             'BooleanServiceDiagram',
             'PackageTreeDiagram']
+    modelPattern = ".+\\.domain\\.(model|type)\\..+"
 }
