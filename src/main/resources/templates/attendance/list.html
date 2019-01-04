@@ -39,7 +39,7 @@
       <div class="left aligned column">
         <a href=""
            th:href="@{/attendances/{workerNumber}/{beforeMonth}(workerNumber=${worker.workerNumber()},beforeMonth=${beforeMonth})}">
-          <i class="angle double left link large icon"></i>
+          <i class="angle double left link large icon"></i>前の月
         </a>
       </div>
       <div class="column">
@@ -48,7 +48,7 @@
       <div class="right aligned column">
         <a href=""
            th:href="@{/attendances/{workerNumber}/{afterMonth}(workerNumber=${worker.workerNumber()},afterMonth=${afterMonth})}">
-          <i class="angle double right link large icon"></i>
+          次の月<i class="angle double right link large icon"></i>
         </a>
       </div>
     </div>
@@ -56,8 +56,7 @@
     <table class="ui celled table">
       <thead>
       <tr class="center aligned">
-        <th class="one wide">日</th>
-        <th class="one wide">曜日</th>
+        <th colspan="2" class="one wide">勤務日</th>
         <th>開始時刻</th>
         <th>終了時刻</th>
         <th>休憩時間</th>
