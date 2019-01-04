@@ -14,9 +14,14 @@
   </div>
 
   <div class="wageInfo">
-    <table class="ui celled center aligned definition table">
+    <table class="ui celled definition table">
       <tr>
-        <th class="six wide tableHeader">氏名</th>
+        <td class="six wide center aligned tableHeader">従業員番号</td>
+        <td class="ten wide"
+            th:text="${worker.workerNumber()}">1</td>
+      </tr>
+      <tr>
+        <td class="six wide center aligned tableHeader">氏名</td>
         <td class="ten wide" th:text="${worker.name()}">テスト太郎</td>
       </tr>
     </table>

@@ -12,12 +12,12 @@
     <h1 class="ui center aligned header">時給の登録</h1>
   </div>
 
-  <form id="custom-form" class="ui large form" th:action="@{/wages/{workerNumber}/register/confirm(workerNumber=${worker.workerNumber()})}" method="post">
+  <form id="custom-form" class="ui form" th:action="@{/wages/{workerNumber}/register/confirm(workerNumber=${worker.workerNumber()})}" method="post">
 
     <div class="wageInfo">
       <table class="ui celled center aligned definition table">
         <tr>
-          <th class="six wide tableHeader">氏名</th>
+          <td class="six wide center aligned tableHeader">氏名</td>
           <td class="ten wide" th:text="${worker.name()}">テスト太郎</td>
         </tr>
       </table>

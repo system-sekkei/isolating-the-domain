@@ -19,25 +19,25 @@
     </a>
   </div>
 
-  <div class="workerInfo">
+  <div class="workerDetail">
     <table class="ui celled definition table">
       <tr>
-        <td class="six wide tableHeader">従業員番号</td>
+        <td class="six wide center aligned tableHeader">従業員番号</td>
         <td class="ten wide"
             th:text="${worker.workerNumber()}">1</td>
       </tr>
       <tr>
-        <td class="six wide tableHeader">氏名</td>
+        <td class="six wide center aligned tableHeader">氏名</td>
         <td class="ten wide"
             th:text="${worker.name()}">山田 太郎</td>
       </tr>
       <tr>
-        <td class="six wide tableHeader">メールアドレス</td>
+        <td class="six wide center aligned tableHeader">メールアドレス</td>
         <td class="ten wide"
             th:text="${worker.mailAddress()}">someone@example.com</td>
       </tr>
       <tr>
-        <td class="six wide tableHeader">電話番号</td>
+        <td class="six wide center aligned tableHeader">電話番号</td>
         <td class="ten wide"
             th:text="${worker.phoneNumber()}">0120-888-888</td>
       </tr>

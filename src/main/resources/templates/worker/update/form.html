@@ -12,45 +12,51 @@
     <h1 class="ui center aligned header">従業員情報の変更</h1>
   </div>
   
-  <div class="workerInput">
-    <form id="custom-form" class="ui large form" name="body" 
+    <form id="custom-form" class="ui form" name="body" 
           method="post" action="#"
           th:object="${worker}"
           th:action="@{/workers/{workerNumber}/update/register(workerNumber=${worker.workerNumber()})}">
       
-      <div class="ui message inline field">
-        <label>従業員番号</label>
-        <p th:text="${worker.workerNumber()}">9999</p>
+      <div class="workerInfo">
+        <table class="ui celled center aligned definition table">
+          <tr>
+            <td class="six wide center aligned tableHeader">従業員番号</td>
+            <td class="ten wide" th:text="${worker.workerNumber()}">9999</td>
+          </tr>
+        </table>
       </div>
 
-      <div class="ui basic segment">
-        <div class="field"
-             th:replace="fragments/input::macro('name.value','氏名','名前')">
-          <label>氏名</label>
-          <input type="text">
-        </div>
+      <div class="ui section divider"></div>
 
-        <div class="field"
-             th:replace="fragments/input::macro('mailAddress.value','メールアドレス','someone@example.com')">
-          <label>メールアドレス</label>
-          <input type="text">
-        </div>
+      <div class="workerInput">
+        <div class="ui basic segment">
+          <div class="field"
+               th:replace="fragments/input::macro('name.value','氏名','名前')">
+            <label>氏名</label>
+            <input type="text">
+          </div>
 
-        <div class="field"
-             th:replace="fragments/input::macro('phoneNumber.value','電話番号','03-1234-5678')">
-          <label>電話番号</label>
-          <input type="text">
-        </div>
+          <div class="field"
+               th:replace="fragments/input::macro('mailAddress.value','メールアドレス','someone@example.com')">
+            <label>メールアドレス</label>
+            <input type="text">
+          </div>
 
-      </div>
-          
-      <div class="ui center aligned basic segment">
-        <a class="ui grey button" 
-           th:href="@{/workers/{workerNumber}(workerNumber=${worker.workerNumber()})}">詳細に戻る</a>
-        <button class="ui positive button">保存</button>
-      </div>
+          <div class="field"
+               th:replace="fragments/input::macro('phoneNumber.value','電話番号','03-1234-5678')">
+            <label>電話番号</label>
+            <input type="text">
+          </div>
+
+        </div>
+            
+        <div class="ui center aligned basic segment">
+          <a class="ui grey button" 
+             th:href="@{/workers/{workerNumber}(workerNumber=${worker.workerNumber()})}">詳細に戻る</a>
+          <button class="ui positive button">保存</button>
+        </div>
+      </div>      
     </form>
-  </div>
 </div>
 
 </body>
