@@ -1,6 +1,6 @@
 package example.domain.model.attendance;
 
-import example.domain.model.workrecord.Recorded;
+import example.domain.model.timerecord.Recorded;
 
 /**
  * 勤怠状況

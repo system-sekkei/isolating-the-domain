@@ -1,10 +1,10 @@
 package example.domain.model.attendance;
 
 import example.domain.model.worker.WorkerNumber;
-import example.domain.model.workrecord.WorkDate;
-import example.domain.model.workrecord.WorkMonth;
-import example.domain.model.workrecord.WorkRecord;
-import example.domain.model.workrecord.WorkRecords;
+import example.domain.model.timerecord.WorkDate;
+import example.domain.model.timerecord.WorkMonth;
+import example.domain.model.timerecord.WorkRecord;
+import example.domain.model.timerecord.WorkRecords;
 import example.domain.type.time.QuarterHour;
 
 import java.util.List;

@@ -5,7 +5,7 @@ import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.workrecord.WorkRecordRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.*;
-import example.domain.model.workrecord.*;
+import example.domain.model.timerecord.*;
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;

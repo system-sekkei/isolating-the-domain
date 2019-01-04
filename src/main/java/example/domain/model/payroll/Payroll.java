@@ -5,7 +5,7 @@ import example.domain.model.contract.Contract;
 import example.domain.model.contract.WorkerContract;
 import example.domain.model.worker.Name;
 import example.domain.model.worker.WorkerNumber;
-import example.domain.model.workrecord.WorkRecord;
+import example.domain.model.timerecord.WorkRecord;
 
 import java.math.BigDecimal;
 

@@ -2,8 +2,8 @@ package example.application.service.workrecord;
 
 import example.application.repository.WorkRecordRepository;
 import example.domain.model.worker.WorkerNumber;
-import example.domain.model.workrecord.WorkDate;
-import example.domain.model.workrecord.WorkRecord;
+import example.domain.model.timerecord.WorkDate;
+import example.domain.model.timerecord.WorkRecord;
 import org.springframework.stereotype.Service;
 
 /**

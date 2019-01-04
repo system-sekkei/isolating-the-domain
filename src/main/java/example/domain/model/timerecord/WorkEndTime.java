@@ -1,4 +1,4 @@
-package example.domain.model.workrecord;
+package example.domain.model.timerecord;
 
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.QuarterRoundClockTime;

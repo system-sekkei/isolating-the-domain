@@ -1,7 +1,7 @@
 package example.infrastructure.datasource.workrecord;
 
-import example.domain.model.workrecord.WorkRecord;
-import example.domain.model.workrecord.WorkDate;
+import example.domain.model.timerecord.WorkRecord;
+import example.domain.model.timerecord.WorkDate;
 import example.domain.model.worker.WorkerNumber;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

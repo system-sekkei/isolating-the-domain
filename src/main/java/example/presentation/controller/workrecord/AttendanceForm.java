@@ -1,8 +1,8 @@
 package example.presentation.controller.workrecord;
 
-import example.domain.model.workrecord.WorkRecord;
-import example.domain.model.workrecord.WorkDate;
-import example.domain.model.workrecord.*;
+import example.domain.model.timerecord.WorkRecord;
+import example.domain.model.timerecord.WorkDate;
+import example.domain.model.timerecord.*;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;

@@ -1,9 +1,9 @@
 package example.domain.model.payroll;
 
 import example.domain.model.contract.HourlyWage;
-import example.domain.model.workrecord.MidnightWorkTime;
-import example.domain.model.workrecord.OverWorkTime;
-import example.domain.model.workrecord.WorkTime;
+import example.domain.model.timerecord.MidnightWorkTime;
+import example.domain.model.timerecord.OverWorkTime;
+import example.domain.model.timerecord.WorkTime;
 import example.domain.type.time.QuarterHour;
 
 import java.math.BigDecimal;

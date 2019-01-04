@@ -1,4 +1,4 @@
-package example.domain.model.workrecord;
+package example.domain.model.timerecord;
 
 import example.domain.model.worker.WorkerNumber;
 

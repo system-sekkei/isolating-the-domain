@@ -1,7 +1,7 @@
 package example.domain.model.payroll;
 
 import example.domain.model.contract.WageCondition;
-import example.domain.model.workrecord.WorkTimeRecord;
+import example.domain.model.timerecord.WorkTimeRecord;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;

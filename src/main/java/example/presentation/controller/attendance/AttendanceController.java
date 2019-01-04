@@ -4,7 +4,7 @@ import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.workrecord.WorkRecordRecordService;
 import example.application.service.worker.WorkerQueryService;
 import example.domain.model.attendance.Attendance;
-import example.domain.model.workrecord.WorkMonth;
+import example.domain.model.timerecord.WorkMonth;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
 import org.springframework.stereotype.Controller;

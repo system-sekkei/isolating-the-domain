@@ -4,9 +4,9 @@ import example.application.repository.WorkRecordRepository;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.AttendanceStatus;
 import example.domain.model.worker.WorkerNumber;
-import example.domain.model.workrecord.WorkDate;
-import example.domain.model.workrecord.WorkMonth;
-import example.domain.model.workrecord.WorkRecords;
+import example.domain.model.timerecord.WorkDate;
+import example.domain.model.timerecord.WorkMonth;
+import example.domain.model.timerecord.WorkRecords;
 import org.springframework.stereotype.Service;
 
 /**

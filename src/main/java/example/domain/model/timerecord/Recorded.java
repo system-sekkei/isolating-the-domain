@@ -1,4 +1,4 @@
-package example.domain.model.workrecord;
+package example.domain.model.timerecord;
 
 /**
  * 勤務記録有無
