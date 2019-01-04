@@ -1,4 +1,4 @@
-package example.domain.model.labour_standards_law;
+package example.domain.model.legislation;
 
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.ClockTimeRange;

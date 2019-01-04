@@ -1,6 +1,6 @@
 package example.domain.model.workrecord;
 
-import example.domain.model.labour_standards_law.Midnight;
+import example.domain.model.legislation.Midnight;
 import example.domain.type.time.QuarterHour;
 import example.domain.type.time.QuarterRoundClockTimeRange;
 

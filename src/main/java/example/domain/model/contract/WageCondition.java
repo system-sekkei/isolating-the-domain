@@ -1,7 +1,7 @@
 package example.domain.model.contract;
 
-import example.domain.model.labour_standards_law.MidnightExtraRate;
-import example.domain.model.labour_standards_law.OverTimeExtraRate;
+import example.domain.model.legislation.MidnightExtraRate;
+import example.domain.model.legislation.OverTimeExtraRate;
 
 /**
  * 給与条件

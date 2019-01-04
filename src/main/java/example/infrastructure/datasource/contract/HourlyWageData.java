@@ -3,8 +3,8 @@ package example.infrastructure.datasource.contract;
 import example.domain.model.contract.Contract;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.WageCondition;
-import example.domain.model.labour_standards_law.MidnightExtraRate;
-import example.domain.model.labour_standards_law.OverTimeExtraRate;
+import example.domain.model.legislation.MidnightExtraRate;
+import example.domain.model.legislation.OverTimeExtraRate;
 import example.domain.type.date.Date;
 
 import java.time.LocalDate;

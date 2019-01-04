@@ -1,8 +1,8 @@
 package example.domain.model.contract;
 
-import example.domain.model.labour_standards_law.ExtraPayRate;
-import example.domain.model.labour_standards_law.MidnightExtraRate;
-import example.domain.model.labour_standards_law.OverTimeExtraRate;
+import example.domain.model.legislation.ExtraPayRate;
+import example.domain.model.legislation.MidnightExtraRate;
+import example.domain.model.legislation.OverTimeExtraRate;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

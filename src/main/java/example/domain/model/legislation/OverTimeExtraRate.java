@@ -1,4 +1,4 @@
-package example.domain.model.labour_standards_law;
+package example.domain.model.legislation;
 
 /**
  * 時間外割増率
