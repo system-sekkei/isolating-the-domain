@@ -38,6 +38,6 @@ class PaymentAmountTest {
 
         PaymentAmount paymentAmount = new PaymentAmount(workTimeRecord, wageCondition);
 
-        assertEquals(expected, paymentAmount.value.intValue());
+        assertEquals(expected, paymentAmount.value.value().intValue());
     }
 }

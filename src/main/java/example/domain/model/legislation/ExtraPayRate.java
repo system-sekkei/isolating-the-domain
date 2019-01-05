@@ -1,19 +1,18 @@
 package example.domain.model.legislation;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import example.domain.type.amount.Percentage;
 
 /**
  * 割増率（％）
  */
 public class ExtraPayRate {
-    Integer value;
+    Percentage value;
 
     public ExtraPayRate(Integer value) {
-        this.value = value;
+        this.value = new Percentage(value);
     }
 
-    public BigDecimal rate() {
-        return BigDecimal.valueOf(value).divide(BigDecimal.valueOf(100), 2, RoundingMode.UNNECESSARY);
+    public Percentage value() {
+        return value;
     }
 }

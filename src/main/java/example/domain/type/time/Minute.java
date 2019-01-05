@@ -40,6 +40,7 @@ public class Minute {
         return String.format("%d", value);
     }
 
+    // TODO かくにん
     @Deprecated // なくせる？
     public int value() {
         return value;

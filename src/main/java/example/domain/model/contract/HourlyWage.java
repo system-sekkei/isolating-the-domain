@@ -3,28 +3,35 @@ package example.domain.model.contract;
 import example.domain.model.legislation.ExtraPayRate;
 import example.domain.model.legislation.MidnightExtraRate;
 import example.domain.model.legislation.OverTimeExtraRate;
+import example.domain.type.amount.Amount;
+import example.domain.type.amount.RoundingMode;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 /**
  * 時給
  */
 public class HourlyWage {
-    Integer value;
+
+    Amount value;
 
     public HourlyWage(Integer value) {
-        this.value = value;
+        this(new Amount(value));
     }
 
     public HourlyWage(String value) {
-        this.value = Integer.parseInt(value);
+        this(new Amount(value));
     }
 
-    public Integer value() {
-        return value;
+    HourlyWage(Amount value) {
+        this.value = value;
     }
 
+    public BigDecimal value() {
+        return value.value();
+    }
+
+    @Override
     public String toString() {
         return value.toString();
     }
@@ -38,9 +45,6 @@ public class HourlyWage {
     }
 
     HourlyWage withExtraPayRate(ExtraPayRate extraPayRate) {
-        BigDecimal rate = extraPayRate.rate();
-        BigDecimal hourlyWageValue = BigDecimal.valueOf(value);
-        BigDecimal calculatedHourlyWage = hourlyWageValue.multiply(rate).setScale(0, RoundingMode.DOWN);
-        return new HourlyWage(calculatedHourlyWage.intValueExact());
+        return new HourlyWage(value.multiply(extraPayRate.value(), RoundingMode.切り捨て));
     }
 }

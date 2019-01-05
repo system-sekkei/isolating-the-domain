@@ -33,6 +33,6 @@ public class PaymentWorkTime {
 
     public PaymentAmount multiply(HourlyWage hourlyWage) {
         BigDecimal hour = new BigDecimal(value.minute().value()).divide(BigDecimal.valueOf(60), 2, RoundingMode.UNNECESSARY);
-        return new PaymentAmount(hour.multiply(BigDecimal.valueOf(hourlyWage.value())));
+        return new PaymentAmount(hour.multiply(hourlyWage.value()));
     }
 }
