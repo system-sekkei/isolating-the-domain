@@ -1,7 +1,6 @@
 package example.application.service.contract;
 
 import example.application.repository.ContractRepository;
-import example.domain.model.contract.ContractHistory;
 import example.domain.model.contract.Contracts;
 import example.domain.model.contract.WorkerContracts;
 import example.domain.model.worker.ContractingWorkers;
@@ -20,13 +19,6 @@ public class ContractQueryService {
      */
     public Contracts getContracts(WorkerNumber workerNumber) {
         return contractRepository.getContracts(workerNumber);
-    }
-
-    /**
-     * 雇用契約変遷
-     */
-    public ContractHistory getContractHistory(WorkerNumber workerNumber) {
-        return new ContractHistory(getContracts(workerNumber));
     }
 
     /**

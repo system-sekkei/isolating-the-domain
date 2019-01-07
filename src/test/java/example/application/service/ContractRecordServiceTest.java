@@ -4,7 +4,7 @@ import example.Application;
 import example.application.service.contract.ContractQueryService;
 import example.application.service.contract.ContractRecordService;
 import example.application.service.worker.WorkerRecordService;
-import example.domain.model.contract.ContractHistory;
+import example.domain.model.contract.Contracts;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.WageCondition;
 import example.domain.model.legislation.MidnightExtraRate;
@@ -41,7 +41,7 @@ public class ContractRecordServiceTest {
         Date applyDate1 = new Date(baseDate);
         HourlyWage wage1 = new HourlyWage(800);
         updateHourlyWageContract(number, applyDate1, wage1);
-        ContractHistory history1 = sutQuery.getContractHistory(number);
+        Contracts history1 = sutQuery.getContracts(number);
         assertEquals(1, history1.list().size());
         assertAll(
                 () -> assertEquals(applyDate1.value(), history1.list().get(0).startDate().value().value()),
@@ -52,7 +52,7 @@ public class ContractRecordServiceTest {
         Date applyDate2 = new Date("2018-12-22");
         HourlyWage wage2 = new HourlyWage(850);
         updateHourlyWageContract(number, applyDate2, wage2);
-        ContractHistory history2 = sutQuery.getContractHistory(number);
+        Contracts history2 = sutQuery.getContracts(number);
         assertEquals(2, history2.list().size());
         assertAll(
                 () -> assertEquals(applyDate2.value(), history2.list().get(0).startDate().value().value()),
@@ -65,7 +65,7 @@ public class ContractRecordServiceTest {
         Date applyDate3 = new Date("2018-12-17");
         HourlyWage wage3 = new HourlyWage(830);
         updateHourlyWageContract(number, applyDate3, wage3);
-        ContractHistory history3 = sutQuery.getContractHistory(number);
+        Contracts history3 = sutQuery.getContracts(number);
         assertEquals(3, history3.list().size());
         assertAll(
                 () -> assertEquals(applyDate2.value(), history3.list().get(0).startDate().value().value()),
