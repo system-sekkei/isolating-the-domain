@@ -56,12 +56,12 @@
     <table class="ui celled table">
       <thead>
       <tr class="center aligned">
-        <th colspan="2" class="one wide">勤務日</th>
+        <th colspan="2" class="one wide">日付</th>
         <th>開始時刻</th>
         <th>終了時刻</th>
         <th>休憩時間</th>
         <th>勤務時間</th>
-        <th class="one wide">編集</th>
+        <th class="編集ボタン">編集</th>
       </tr>
       </thead>
       <tbody>
@@ -75,7 +75,7 @@
           <td th:text="*{actualWorkTime().timeRange().end()}"></td>
           <td th:text="*{actualWorkTime().breakTime()}"></td>
           <td th:text="*{actualWorkTime().workTime()}"></td>
-          <td class="center aligned">
+          <td class="center aligned selectable linkCell">
             <a th:href="@{/workrecord?workerNumber={workerNumber}&workDate={workDate}(workerNumber=${worker.workerNumber()},workDate=${workDate})}">
               <i class="edit icon"></i>
             </a>
@@ -90,7 +90,7 @@
           <td></td>
           <td></td>
           <td></td>
-          <td class="center aligned">
+          <td class="center aligned selectable linkCell">
             <a th:href="@{/workrecord?workerNumber={workerNumber}&workDate={workDate}(workerNumber=${worker.workerNumber()},workDate=${workDate})}">
               <i class="edit icon"></i>
             </a>
