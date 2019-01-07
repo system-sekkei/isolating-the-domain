@@ -2,12 +2,18 @@ package example.domain.model.contract;
 
 import example.domain.type.date.Date;
 
+import java.time.format.DateTimeFormatter;
+
 /**
  * 契約開始日
  */
 public class ContractStartingDate {
 
     Date value;
+
+    public ContractStartingDate(String value) {
+        this(new Date(value));
+    }
 
     public ContractStartingDate(Date value) {
         this.value = value;
@@ -22,7 +28,7 @@ public class ContractStartingDate {
         if (notAvailable()) {
             return "未設定";
         }
-        return value.toString();
+        return value.value().format(DateTimeFormatter.ofPattern("uuuu年M月d日"));
     }
 
     private boolean notAvailable() {
@@ -31,5 +37,9 @@ public class ContractStartingDate {
 
     public boolean isAfter(Date date) {
         return value.isAfter(date);
+    }
+
+    public Date value() {
+        return value;
     }
 }

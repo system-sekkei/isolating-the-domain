@@ -44,7 +44,7 @@ public class ContractRecordServiceTest {
         ContractHistory history1 = sutQuery.getContractHistory(number);
         assertEquals(1, history1.list().size());
         assertAll(
-                () -> assertEquals(baseDate, history1.list().get(0).startDate().toString()),
+                () -> assertEquals(applyDate1.value(), history1.list().get(0).startDate().value().value()),
                 () -> assertEquals(800, history1.list().get(0).hourlyWage().value().intValue())
         );
 
@@ -55,26 +55,26 @@ public class ContractRecordServiceTest {
         ContractHistory history2 = sutQuery.getContractHistory(number);
         assertEquals(2, history2.list().size());
         assertAll(
-                () -> assertEquals(applyDate2.value(), history2.list().get(0).startDate().value()),
+                () -> assertEquals(applyDate2.value(), history2.list().get(0).startDate().value().value()),
                 () -> assertEquals(850, history2.list().get(0).hourlyWage().value().intValue()),
-                () -> assertEquals(baseDate, history2.list().get(1).startDate().toString()),
+                () -> assertEquals(applyDate1.value(), history2.list().get(1).startDate().value().value()),
                 () -> assertEquals(800, history2.list().get(1).hourlyWage().value().intValue())
         );
 
-        //3発目（過去）
+        //3発目（2件目よりも過去）
         Date applyDate3 = new Date("2018-12-17");
         HourlyWage wage3 = new HourlyWage(830);
         updateHourlyWageContract(number, applyDate3, wage3);
         ContractHistory history3 = sutQuery.getContractHistory(number);
         assertEquals(3, history3.list().size());
         assertAll(
-                () -> assertEquals(applyDate2.value(), history3.list().get(0).startDate().value()),
+                () -> assertEquals(applyDate2.value(), history3.list().get(0).startDate().value().value()),
                 () -> assertEquals(850, history3.list().get(0).hourlyWage().value().intValue()),
 
-                () -> assertEquals(applyDate3.value(), history3.list().get(1).startDate().value()),
+                () -> assertEquals(applyDate3.value(), history3.list().get(1).startDate().value().value()),
                 () -> assertEquals(830, history3.list().get(1).hourlyWage().value().intValue()),
 
-                () -> assertEquals(baseDate, history3.list().get(2).startDate().toString()),
+                () -> assertEquals(applyDate1.value(), history3.list().get(2).startDate().value().value()),
                 () -> assertEquals(800, history3.list().get(2).hourlyWage().value().intValue())
         );
     }

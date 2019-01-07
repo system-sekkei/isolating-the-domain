@@ -6,10 +6,10 @@ import example.domain.type.date.Date;
  * 雇用契約
  */
 public class Contract {
-    Date startDate;
+    ContractStartingDate startDate;
     WageCondition wageCondition;
 
-    public Contract(Date startDate, WageCondition wageCondition) {
+    public Contract(ContractStartingDate startDate, WageCondition wageCondition) {
         this.startDate = startDate;
         this.wageCondition = wageCondition;
     }
@@ -22,11 +22,11 @@ public class Contract {
         return wageCondition.baseHourlyWage();
     }
 
-    public Date startDate() {
+    public ContractStartingDate startDate() {
         return startDate;
     }
 
     public boolean availableAt(Date date) {
-        return startDate.hasSameValue(date) || date.isAfter(startDate);
+        return startDate.value().hasSameValue(date) || date.isAfter(startDate.value());
     }
 }

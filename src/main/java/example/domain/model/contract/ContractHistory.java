@@ -15,7 +15,7 @@ public class ContractHistory {
 
     public List<Contract> list() {
         return list.stream()
-                .sorted((c1, c2) -> c2.startDate().compareTo(c1.startDate()))
+                .sorted((c1, c2) -> c2.startDate().value().compareTo(c1.startDate().value()))
                 .collect(Collectors.toList());
     }
 }

@@ -29,8 +29,8 @@ public class WorkerContract {
 
     public ContractStartingDate contractStartingDate() {
         return contracts.list().stream()
-                .min((c1, c2) -> c1.startDate().compareTo(c2.startDate()))
-                .map(contract -> new ContractStartingDate(contract.startDate()))
+                .min((c1, c2) -> c1.startDate().value().compareTo(c2.startDate().value()))
+                .map(contract -> new ContractStartingDate(contract.startDate().value()))
                 .orElse(ContractStartingDate.none());
     }
 
@@ -44,7 +44,7 @@ public class WorkerContract {
 
     public Contract availableContractAt(Date date) {
         return listContracts().stream()
-                .sorted((o1, o2) -> o2.startDate().compareTo(o1.startDate()))
+                .sorted((o1, o2) -> o2.startDate().value().compareTo(o1.startDate().value()))
                 .filter(contract -> contract.availableAt(date))
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException(date.toString()));
