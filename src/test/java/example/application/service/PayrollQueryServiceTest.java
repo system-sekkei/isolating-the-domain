@@ -1,17 +1,17 @@
 package example.application.service;
 
 import example.Application;
-import example.application.service.workrecord.WorkRecordRecordService;
 import example.application.service.contract.ContractRecordService;
 import example.application.service.payroll.PayrollQueryService;
 import example.application.service.worker.WorkerQueryService;
 import example.application.service.worker.WorkerRecordService;
-import example.domain.model.timerecord.*;
+import example.application.service.workrecord.WorkRecordRecordService;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.WageCondition;
 import example.domain.model.legislation.MidnightExtraRate;
 import example.domain.model.legislation.OverTimeExtraRate;
 import example.domain.model.payroll.Payroll;
+import example.domain.model.timerecord.*;
 import example.domain.model.worker.*;
 import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
@@ -59,22 +59,22 @@ class PayrollQueryServiceTest {
             WageCondition wageCondition = new WageCondition(new HourlyWage(1000), OverTimeExtraRate.legal(), MidnightExtraRate.legal());
             contractRecordService.registerHourlyWage(workerNumber, new Date("2018-11-20"), wageCondition);
 
-            WorkRecord workRecord = new WorkRecord(
+            TimeRecord timeRecord = new TimeRecord(
                     workerNumber, new WorkDate(new Date("2018-11-20")),
-                    new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("09:00")), new WorkEndTime(new ClockTime("10:00"))), new DaytimeBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
+                    new ActualWorkTime(new TimeRange(new StartTime(new ClockTime("09:00")), new EndTime(new ClockTime("10:00"))), new DaytimeBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
             );
-            workRecordRecordService.registerWorkRecord(workRecord);
+            workRecordRecordService.registerWorkRecord(timeRecord);
 
             Payroll payroll = sut.payroll(worker, new WorkMonth("2018-11"));
             assertEquals("1,000", payroll.totalPaymentAmount().toString());
         }
 
         {
-            WorkRecord workRecord = new WorkRecord(
+            TimeRecord timeRecord = new TimeRecord(
                     workerNumber, new WorkDate(new Date("2018-11-25")),
-                    new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("22:00")), new WorkEndTime(new ClockTime("23:00"))), new DaytimeBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
+                    new ActualWorkTime(new TimeRange(new StartTime(new ClockTime("22:00")), new EndTime(new ClockTime("23:00"))), new DaytimeBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
             );
-            workRecordRecordService.registerWorkRecord(workRecord);
+            workRecordRecordService.registerWorkRecord(timeRecord);
 
             Payroll payroll = sut.payroll(worker, new WorkMonth("2018-11"));
             assertEquals("2,350", payroll.totalPaymentAmount().toString());

@@ -1,7 +1,7 @@
 package example.domain.model.payroll;
 
 import example.domain.model.contract.WageCondition;
-import example.domain.model.timerecord.WorkTimeRecord;
+import example.domain.model.timerecord.ActualWorkTime;
 import example.domain.type.amount.Amount;
 
 import java.math.BigDecimal;
@@ -22,10 +22,10 @@ public class PaymentAmount {
     }
 
 
-    public PaymentAmount(WorkTimeRecord workTimeRecord, WageCondition wageCondition) {
-        PaymentAmount workTimeAmount = new PaymentWorkTime(workTimeRecord.workTime()).multiply(wageCondition.baseHourlyWage());
-        PaymentAmount overTimeExtraAmount = new PaymentWorkTime(workTimeRecord.overWorkTime()).multiply(wageCondition.overTimeHourlyExtraWage().value());
-        PaymentAmount midnightExtraAmount = new PaymentWorkTime(workTimeRecord.midnightWorkTime()).multiply(wageCondition.midnightHourlyExtraWage().value());
+    public PaymentAmount(ActualWorkTime actualWorkTime, WageCondition wageCondition) {
+        PaymentAmount workTimeAmount = new PaymentWorkTime(actualWorkTime.workTime()).multiply(wageCondition.baseHourlyWage());
+        PaymentAmount overTimeExtraAmount = new PaymentWorkTime(actualWorkTime.overWorkTime()).multiply(wageCondition.overTimeHourlyExtraWage().value());
+        PaymentAmount midnightExtraAmount = new PaymentWorkTime(actualWorkTime.midnightWorkTime()).multiply(wageCondition.midnightHourlyExtraWage().value());
         this.value = workTimeAmount.value.add(overTimeExtraAmount.value).add(midnightExtraAmount.value);
     }
 

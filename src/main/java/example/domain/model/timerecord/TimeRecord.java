@@ -5,28 +5,28 @@ import example.domain.model.worker.WorkerNumber;
 /**
  * 勤務実績
  */
-public class WorkRecord {
+public class TimeRecord {
 
     WorkerNumber workerNumber;
     WorkDate workDate;
-    WorkTimeRecord workTimeRecord;
+    ActualWorkTime actualWorkTime;
 
     @Deprecated
-    WorkRecord() {
+    TimeRecord() {
     }
 
-    public WorkRecord(WorkerNumber workerNumber, WorkDate workDate, WorkTimeRecord workTimeRecord) {
+    public TimeRecord(WorkerNumber workerNumber, WorkDate workDate, ActualWorkTime actualWorkTime) {
         this.workerNumber = workerNumber;
         this.workDate = workDate;
-        this.workTimeRecord = workTimeRecord;
+        this.actualWorkTime = actualWorkTime;
     }
 
     public WorkDate workDate() {
         return workDate;
     }
 
-    public WorkTimeRecord workTimeRecord() {
-        return workTimeRecord;
+    public ActualWorkTime actualWorkTime() {
+        return actualWorkTime;
     }
 
     public WorkerNumber workerNumber() {

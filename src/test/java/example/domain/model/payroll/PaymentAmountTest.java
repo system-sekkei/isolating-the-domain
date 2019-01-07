@@ -30,13 +30,13 @@ class PaymentAmountTest {
             "0:00, 24:00, 0, 0, 1000, 30450"
     })
     void wage(String begin, String end, int breakMinute, int midnightBreakMinute, int hourlyWage, int expected) {
-        WorkTimeRecord workTimeRecord = new WorkTimeRecord(
-                new WorkTimeRange(new WorkStartTime(begin), new WorkEndTime(end)),
+        ActualWorkTime actualWorkTime = new ActualWorkTime(
+                new TimeRange(new StartTime(begin), new EndTime(end)),
                 new DaytimeBreakTime(new Minute(breakMinute)),
                 new MidnightBreakTime(new Minute(midnightBreakMinute)));
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));
 
-        PaymentAmount paymentAmount = new PaymentAmount(workTimeRecord, wageCondition);
+        PaymentAmount paymentAmount = new PaymentAmount(actualWorkTime, wageCondition);
 
         assertEquals(expected, paymentAmount.value.value().intValue());
     }

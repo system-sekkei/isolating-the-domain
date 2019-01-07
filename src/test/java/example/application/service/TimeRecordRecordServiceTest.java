@@ -2,9 +2,9 @@ package example.application.service;
 
 import example.Application;
 import example.application.service.attendance.AttendanceQueryService;
-import example.application.service.workrecord.WorkRecordRecordService;
 import example.application.service.worker.WorkerQueryService;
-import example.domain.model.attendance.*;
+import example.application.service.workrecord.WorkRecordRecordService;
+import example.domain.model.attendance.Attendance;
 import example.domain.model.timerecord.*;
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.Worker;
@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class)
-class WorkRecordRecordServiceTest {
+class TimeRecordRecordServiceTest {
 
     @Autowired
     WorkerQueryService workerQueryService;
@@ -48,10 +48,10 @@ class WorkRecordRecordServiceTest {
         int month = 10;
         int day = 20;
         WorkDate workDate = new WorkDate(new Date(LocalDate.of(year, month, day)));
-        WorkTimeRecord workTimeRecord = new WorkTimeRecord(new WorkTimeRange(new WorkStartTime(new ClockTime("9:00")), new WorkEndTime(new ClockTime("24:00"))), new DaytimeBreakTime(new Minute(60)), new MidnightBreakTime(new Minute("0")));
+        ActualWorkTime actualWorkTime = new ActualWorkTime(new TimeRange(new StartTime(new ClockTime("9:00")), new EndTime(new ClockTime("24:00"))), new DaytimeBreakTime(new Minute(60)), new MidnightBreakTime(new Minute("0")));
 
-        WorkRecord expectWorkRecord = new WorkRecord(workerNumber, workDate, workTimeRecord);
-        workRecordRecordService.registerWorkRecord(expectWorkRecord);
+        TimeRecord expectTimeRecord = new TimeRecord(workerNumber, workDate, actualWorkTime);
+        workRecordRecordService.registerWorkRecord(expectTimeRecord);
 
         Attendance attendance = attendanceQueryService.findAttendance(workerNumber, new WorkMonth(year, month));
         assertAll(

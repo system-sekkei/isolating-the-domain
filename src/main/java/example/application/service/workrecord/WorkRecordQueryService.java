@@ -1,9 +1,9 @@
 package example.application.service.workrecord;
 
 import example.application.repository.WorkRecordRepository;
-import example.domain.model.worker.WorkerNumber;
+import example.domain.model.timerecord.TimeRecord;
 import example.domain.model.timerecord.WorkDate;
-import example.domain.model.timerecord.WorkRecord;
+import example.domain.model.worker.WorkerNumber;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,7 +17,7 @@ public class WorkRecordQueryService {
     /**
      * 日次勤務実績取得
      */
-    public WorkRecord workRecord(WorkerNumber workerNumber, WorkDate workDate) {
+    public TimeRecord workRecord(WorkerNumber workerNumber, WorkDate workDate) {
         return workRecordRepository.findWorkRecords(workerNumber, workDate.month()).at(workDate);
     }
 

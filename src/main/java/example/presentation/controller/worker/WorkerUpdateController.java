@@ -65,7 +65,7 @@ class WorkerUpdateController {
 
         status.setComplete();
 
-        attributes.addAttribute("updateResult","completed");
+        attributes.addAttribute("updateResult", "completed");
 
         return "redirect:/workers/" + worker.workerNumber();
     }

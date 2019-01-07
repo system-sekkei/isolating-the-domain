@@ -9,8 +9,8 @@ public class DaytimeWorkTime {
 
     QuarterHour value;
 
-    public DaytimeWorkTime(WorkTimeRange workTimeRange, DaytimeBreakTime daytimeBreakTime) {
-        value = daytimeBreakTime.subtractFrom(workTimeRange.daytimeBindingTime());
+    public DaytimeWorkTime(TimeRange timeRange, DaytimeBreakTime daytimeBreakTime) {
+        value = daytimeBreakTime.subtractFrom(timeRange.daytimeBindingTime());
     }
 
     public QuarterHour quarterHour() {

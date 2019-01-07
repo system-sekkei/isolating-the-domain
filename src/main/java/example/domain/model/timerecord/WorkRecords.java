@@ -6,17 +6,17 @@ import java.util.List;
  * 勤務実績一覧
  */
 public class WorkRecords {
-    List<WorkRecord> list;
+    List<TimeRecord> list;
 
-    public WorkRecords(List<WorkRecord> list) {
+    public WorkRecords(List<TimeRecord> list) {
         this.list = list;
     }
 
-    public List<WorkRecord> list() {
+    public List<TimeRecord> list() {
         return list;
     }
 
-    public WorkRecord at(WorkDate day) {
+    public TimeRecord at(WorkDate day) {
         return list.stream()
                 .filter(worked -> worked.isWorkedAt(day))
                 .findFirst()

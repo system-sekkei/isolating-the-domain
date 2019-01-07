@@ -23,7 +23,7 @@ public class ContractQueryService {
     }
 
     /**
-     *　雇用契約変遷
+     * 雇用契約変遷
      */
     public ContractHistory getContractHistory(WorkerNumber workerNumber) {
         return new ContractHistory(getContracts(workerNumber));

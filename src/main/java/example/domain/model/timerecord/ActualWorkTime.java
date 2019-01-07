@@ -3,23 +3,24 @@ package example.domain.model.timerecord;
 /**
  * 勤務時間実績
  */
-public class WorkTimeRecord {
-    WorkTimeRange workTimeRange;
+public class ActualWorkTime {
+
+    TimeRange timeRange;
     DaytimeBreakTime daytimeBreakTime;
     MidnightBreakTime midnightBreakTime;
 
     @Deprecated
-    public WorkTimeRecord() {
+    public ActualWorkTime() {
     }
 
-    public WorkTimeRecord(WorkTimeRange workTimeRange, DaytimeBreakTime daytimeBreakTime, MidnightBreakTime midnightBreakTime) {
-        this.workTimeRange = workTimeRange;
+    public ActualWorkTime(TimeRange timeRange, DaytimeBreakTime daytimeBreakTime, MidnightBreakTime midnightBreakTime) {
+        this.timeRange = timeRange;
         this.daytimeBreakTime = daytimeBreakTime;
         this.midnightBreakTime = midnightBreakTime;
     }
 
-    public WorkTimeRange workTimeRange() {
-        return workTimeRange;
+    public TimeRange timeRange() {
+        return timeRange;
     }
 
     public DaytimeBreakTime daytimeBreakTime() {
@@ -39,11 +40,11 @@ public class WorkTimeRecord {
     }
 
     public DaytimeWorkTime daytimeWorkTime() {
-        return new DaytimeWorkTime(workTimeRange, daytimeBreakTime);
+        return new DaytimeWorkTime(timeRange, daytimeBreakTime);
     }
 
     public MidnightWorkTime midnightWorkTime() {
-        return new MidnightWorkTime(workTimeRange, midnightBreakTime);
+        return new MidnightWorkTime(timeRange, midnightBreakTime);
     }
 
     public OverWorkTime overWorkTime() {

@@ -71,10 +71,10 @@
               th:text="${workDate.dayOfMonth()}"></td>
           <td class="center aligned"
               th:text="${workDate.dayOfWeek()}"></td>
-          <td th:text="*{workTimeRecord().workTimeRange().start()}"></td>
-          <td th:text="*{workTimeRecord().workTimeRange().end()}"></td>
-          <td th:text="*{workTimeRecord().breakTime()}"></td>
-          <td th:text="*{workTimeRecord().workTime()}"></td>
+          <td th:text="*{actualWorkTime().timeRange().start()}"></td>
+          <td th:text="*{actualWorkTime().timeRange().end()}"></td>
+          <td th:text="*{actualWorkTime().breakTime()}"></td>
+          <td th:text="*{actualWorkTime().workTime()}"></td>
           <td class="center aligned">
             <a th:href="@{/workrecord?workerNumber={workerNumber}&workDate={workDate}(workerNumber=${worker.workerNumber()},workDate=${workDate})}">
               <i class="edit icon"></i>

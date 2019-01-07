@@ -8,26 +8,28 @@
     </select>
     <insert id="insertWorkTimeHistory">
         INSERT INTO 給与.就業時間履歴 (就業時間ID, 従業員ID, 就業日, 開始時刻, 終了時刻, 休憩時間, 深夜休憩時間)
-        VALUES (#{id}, #{workerNumber.value}, #{work.workDate.value.value}, #{work.workTimeRecord.workTimeRange.startTime.value.value}, #{work.workTimeRecord.workTimeRange.endTime.value.value}, #{work.workTimeRecord.daytimeBreakTime.value.value}, #{work.workTimeRecord.midnightBreakTime.value.value});
+        VALUES (#{id}, #{workerNumber.value}, #{work.workDate.value.value}, #{work.actualWorkTime.timeRange.startTime.value.value}, #{work.actualWorkTime.timeRange.endTime.value.value},
+        #{work.actualWorkTime.daytimeBreakTime.value.value}, #{work.actualWorkTime.midnightBreakTime.value.value});
     </insert>
     <insert id="insertWorkTime">
         INSERT INTO 給与.就業時間 (従業員ID, 就業時間ID, 就業日, 開始時刻, 終了時刻, 休憩時間, 深夜休憩時間)
-        VALUES (#{workerNumber.value}, #{workTimeId}, #{work.workDate.value.value}, #{work.workTimeRecord.workTimeRange.startTime.value.value}, #{work.workTimeRecord.workTimeRange.endTime.value.value}, #{work.workTimeRecord.daytimeBreakTime.value.value}, #{work.workTimeRecord.midnightBreakTime.value.value});
+        VALUES (#{workerNumber.value}, #{workTimeId}, #{work.workDate.value.value}, #{work.actualWorkTime.timeRange.startTime.value.value}, #{work.actualWorkTime.timeRange.endTime.value.value},
+        #{work.actualWorkTime.daytimeBreakTime.value.value}, #{work.actualWorkTime.midnightBreakTime.value.value});
     </insert>
     <delete id="deleteWorkTime">
         DELETE FROM 給与.就業時間 WHERE 従業員ID = #{workerNumber.value} and 就業日 = #{workDate.value.value}
     </delete>
 
-    <resultMap id="workTimeRecord" type="example.domain.model.timerecord.WorkRecord">
+    <resultMap id="actualWorkTime" type="example.domain.model.timerecord.TimeRecord">
         <result property="workerNumber.value" column="従業員ID"/>
         <result property="workDate.value.value" column="就業日"/>
-        <result property="workTimeRecord.workTimeRange.startTime.value.value" column="開始時刻"/>
-        <result property="workTimeRecord.workTimeRange.endTime.value.value" column="終了時刻"/>
-        <result property="workTimeRecord.daytimeBreakTime.value.value" column="休憩時間"/>
-        <result property="workTimeRecord.midnightBreakTime.value.value" column="深夜休憩時間"/>
+        <result property="actualWorkTime.timeRange.startTime.value.value" column="開始時刻"/>
+        <result property="actualWorkTime.timeRange.endTime.value.value" column="終了時刻"/>
+        <result property="actualWorkTime.daytimeBreakTime.value.value" column="休憩時間"/>
+        <result property="actualWorkTime.midnightBreakTime.value.value" column="深夜休憩時間"/>
     </resultMap>
 
-    <select id="selectByMonth" resultMap="workTimeRecord">
+    <select id="selectByMonth" resultMap="actualWorkTime">
         SELECT
         就業時間.従業員ID,
         就業時間.就業日,
@@ -37,6 +39,6 @@
         就業時間.深夜休憩時間
         FROM 給与.就業時間 as 就業時間
         WHERE 就業時間.従業員ID = #{workerNumber.value}
-          AND to_char(就業時間.就業日,'yyyymm') = #{yearMonth}
+        AND to_char(就業時間.就業日,'yyyymm') = #{yearMonth}
     </select>
 </mapper>

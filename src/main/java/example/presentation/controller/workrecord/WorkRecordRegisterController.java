@@ -4,11 +4,11 @@ import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.worker.WorkerQueryService;
 import example.application.service.workrecord.WorkRecordQueryService;
 import example.application.service.workrecord.WorkRecordRecordService;
-import example.domain.model.worker.ContractingWorkers;
-import example.domain.model.worker.WorkerNumber;
+import example.domain.model.timerecord.TimeRecord;
 import example.domain.model.timerecord.WorkDate;
 import example.domain.model.timerecord.WorkMonth;
-import example.domain.model.timerecord.WorkRecord;
+import example.domain.model.worker.ContractingWorkers;
+import example.domain.model.worker.WorkerNumber;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -59,8 +59,8 @@ public class WorkRecordRegisterController {
         }
         if (workerNumber != null && workDate != null) {
             if (attendanceQueryService.attendanceStatus(workerNumber, workDate).isWork()) {
-                WorkRecord workRecord = workRecordQueryService.workRecord(workerNumber, workDate);
-                attendanceForm.apply(workRecord);
+                TimeRecord timeRecord = workRecordQueryService.workRecord(workerNumber, workDate);
+                attendanceForm.apply(timeRecord);
             }
         }
         return "workrecord/form";
@@ -70,11 +70,11 @@ public class WorkRecordRegisterController {
     String register(@Validated @ModelAttribute("attendanceForm") AttendanceForm attendanceForm,
                     BindingResult result) {
         if (result.hasErrors()) return "workrecord/form";
-        WorkRecord workRecord = attendanceForm.toAttendance();
+        TimeRecord timeRecord = attendanceForm.toAttendance();
 
-        workRecordRecordService.registerWorkRecord(workRecord);
+        workRecordRecordService.registerWorkRecord(timeRecord);
 
-        WorkMonth workMonth = workRecord.workDate().month();
+        WorkMonth workMonth = timeRecord.workDate().month();
 
         return "redirect:/attendances/" + attendanceForm.workerNumber.value() + "/" + workMonth.toString();
     }

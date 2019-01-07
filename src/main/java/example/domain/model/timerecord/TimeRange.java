@@ -5,16 +5,16 @@ import example.domain.type.time.QuarterRoundClockTimeRange;
 /**
  * 勤務の開始と終了
  */
-public class WorkTimeRange {
+public class TimeRange {
 
-    WorkStartTime startTime;
-    WorkEndTime endTime;
+    StartTime startTime;
+    EndTime endTime;
 
     @Deprecated
-    WorkTimeRange() {
+    TimeRange() {
     }
 
-    public WorkTimeRange(WorkStartTime startTime, WorkEndTime endTime) {
+    public TimeRange(StartTime startTime, EndTime endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -23,11 +23,11 @@ public class WorkTimeRange {
         return new QuarterRoundClockTimeRange(startTime.normalizedClockTime(), endTime.normalizedClockTime());
     }
 
-    public WorkStartTime start() {
+    public StartTime start() {
         return startTime;
     }
 
-    public WorkEndTime end() {
+    public EndTime end() {
         return endTime;
     }
 

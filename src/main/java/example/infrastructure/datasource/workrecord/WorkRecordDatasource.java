@@ -1,9 +1,9 @@
 package example.infrastructure.datasource.workrecord;
 
 import example.application.repository.WorkRecordRepository;
-import example.domain.model.timerecord.WorkRecord;
-import example.domain.model.timerecord.WorkRecords;
+import example.domain.model.timerecord.TimeRecord;
 import example.domain.model.timerecord.WorkMonth;
+import example.domain.model.timerecord.WorkRecords;
 import example.domain.model.worker.WorkerNumber;
 import org.springframework.stereotype.Repository;
 
@@ -14,17 +14,17 @@ public class WorkRecordDatasource implements WorkRecordRepository {
     WorkRecordMapper mapper;
 
     @Override
-    public void registerWorkRecord(WorkRecord workRecord) {
+    public void registerWorkRecord(TimeRecord timeRecord) {
         Integer identifier = mapper.newWorkTimeIdentifier();
-        mapper.insertWorkTimeHistory(identifier, workRecord.workerNumber(), workRecord);
-        mapper.deleteWorkTime(workRecord.workerNumber(), workRecord.workDate());
-        mapper.insertWorkTime(workRecord.workerNumber(), identifier, workRecord);
+        mapper.insertWorkTimeHistory(identifier, timeRecord.workerNumber(), timeRecord);
+        mapper.deleteWorkTime(timeRecord.workerNumber(), timeRecord.workDate());
+        mapper.insertWorkTime(timeRecord.workerNumber(), identifier, timeRecord);
     }
 
     @Override
     public WorkRecords findWorkRecords(WorkerNumber workerNumber, WorkMonth month) {
-        List<WorkRecord> workRecords = mapper.selectByMonth(workerNumber, month.yyyyMM());
-        return new WorkRecords(workRecords);
+        List<TimeRecord> timeRecords = mapper.selectByMonth(workerNumber, month.yyyyMM());
+        return new WorkRecords(timeRecords);
     }
 
     WorkRecordDatasource(WorkRecordMapper mapper) {

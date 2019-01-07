@@ -1,10 +1,10 @@
 package example.domain.model.attendance;
 
-import example.domain.model.worker.WorkerNumber;
+import example.domain.model.timerecord.TimeRecord;
 import example.domain.model.timerecord.WorkDate;
 import example.domain.model.timerecord.WorkMonth;
-import example.domain.model.timerecord.WorkRecord;
 import example.domain.model.timerecord.WorkRecords;
+import example.domain.model.worker.WorkerNumber;
 import example.domain.type.time.QuarterHour;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class Attendance {
         return month.days();
     }
 
-    public WorkRecord at(WorkDate workDate) {
+    public TimeRecord at(WorkDate workDate) {
         return workRecords.at(workDate);
     }
 
@@ -45,18 +45,18 @@ public class Attendance {
     }
 
     public WorkDate firstWorkDate() {
-        List<WorkRecord> list = workRecords.list();
+        List<TimeRecord> list = workRecords.list();
         return list.get(0).workDate();
     }
 
     public TotalWorkTime totalWorkTime() {
         return new TotalWorkTime(workRecords.list().stream()
-                .map(workRecord -> workRecord.workTimeRecord().workTime().quarterHour())
+                .map(workRecord -> workRecord.actualWorkTime().workTime().quarterHour())
                 .reduce(QuarterHour::add)
                 .orElseGet(QuarterHour::new));
     }
 
-    public List<WorkRecord> listAvailableWorkRecord() {
+    public List<TimeRecord> listAvailableWorkRecord() {
         return workRecords.list();
     }
 }

@@ -9,11 +9,12 @@
 
     <insert id="insertContractHistory">
         INSERT INTO 給与.時給契約履歴 (時給ID, 従業員ID, 時給, 適用開始日, 時間外割増率, 深夜割増率)
-        VALUES (#{id}, #{workerNumber.value}, #{wageCondition.baseHourlyWage.value.value}, #{applyDate.value}, #{wageCondition.overTimeExtraRate.value.value.value}, #{wageCondition.midnightExtraRate.value.value.value});
+        VALUES (#{id}, #{workerNumber.value}, #{wageCondition.baseHourlyWage.value.value}, #{applyDate.value}, #{wageCondition.overTimeExtraRate.value.value.value},
+        #{wageCondition.midnightExtraRate.value.value.value});
     </insert>
 
     <resultMap id="hourlyWage" type="example.infrastructure.datasource.contract.HourlyWageData">
-        <result property="startDate" column="適用開始日" />
+        <result property="startDate" column="適用開始日"/>
         <result property="hourlyWage" column="時給"/>
         <result property="overTimeExtraRate" column="時間外割増率"/>
         <result property="midnightExtraRate" column="深夜割増率"/>
@@ -31,7 +32,8 @@
 
     <insert id="insertContract">
         INSERT INTO 給与.時給契約(従業員ID, 適用開始日, 時給, 時間外割増率, 深夜割増率) VALUES
-        (#{workerNumber.value}, #{startDate.value}, #{wageCondition.baseHourlyWage.value.value}, #{wageCondition.overTimeExtraRate.value.value.value}, #{wageCondition.midnightExtraRate.value.value.value})
+        (#{workerNumber.value}, #{startDate.value}, #{wageCondition.baseHourlyWage.value.value}, #{wageCondition.overTimeExtraRate.value.value.value},
+        #{wageCondition.midnightExtraRate.value.value.value})
     </insert>
 
     <delete id="deleteContractData">

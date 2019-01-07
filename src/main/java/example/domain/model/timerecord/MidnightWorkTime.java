@@ -9,8 +9,8 @@ public class MidnightWorkTime {
 
     QuarterHour value;
 
-    public MidnightWorkTime(WorkTimeRange workTimeRange, MidnightBreakTime midnightBreakTime) {
-        this.value = midnightBreakTime.subtractFrom(workTimeRange.midnightBindingTime());
+    public MidnightWorkTime(TimeRange timeRange, MidnightBreakTime midnightBreakTime) {
+        this.value = midnightBreakTime.subtractFrom(timeRange.midnightBindingTime());
     }
 
     public QuarterHour quarterHour() {
