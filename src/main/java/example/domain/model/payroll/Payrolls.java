@@ -1,6 +1,6 @@
 package example.domain.model.payroll;
 
-import example.domain.model.timerecord.WorkMonth;
+import example.domain.model.attendance.WorkMonth;
 
 import java.util.List;
 

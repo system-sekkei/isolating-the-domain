@@ -4,9 +4,9 @@ import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.worker.WorkerQueryService;
 import example.application.service.workrecord.WorkRecordQueryService;
 import example.application.service.workrecord.WorkRecordRecordService;
+import example.domain.model.attendance.WorkMonth;
 import example.domain.model.timerecord.TimeRecord;
 import example.domain.model.timerecord.WorkDate;
-import example.domain.model.timerecord.WorkMonth;
 import example.domain.model.worker.ContractingWorkers;
 import example.domain.model.worker.WorkerNumber;
 import org.springframework.stereotype.Controller;
@@ -74,7 +74,7 @@ public class WorkRecordRegisterController {
 
         workRecordRecordService.registerWorkRecord(timeRecord);
 
-        WorkMonth workMonth = timeRecord.workDate().month();
+        WorkMonth workMonth = WorkMonth.from(timeRecord.workDate());
 
         return "redirect:/attendances/" + attendanceForm.workerNumber.value() + "/" + workMonth.toString();
     }

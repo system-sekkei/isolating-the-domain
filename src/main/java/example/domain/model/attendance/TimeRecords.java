@@ -1,14 +1,17 @@
-package example.domain.model.timerecord;
+package example.domain.model.attendance;
+
+import example.domain.model.timerecord.TimeRecord;
+import example.domain.model.timerecord.WorkDate;
 
 import java.util.List;
 
 /**
  * 勤務実績一覧
  */
-public class WorkRecords {
+public class TimeRecords {
     List<TimeRecord> list;
 
-    public WorkRecords(List<TimeRecord> list) {
+    public TimeRecords(List<TimeRecord> list) {
         this.list = list;
     }
 

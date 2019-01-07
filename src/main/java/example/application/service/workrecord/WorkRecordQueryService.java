@@ -1,6 +1,7 @@
 package example.application.service.workrecord;
 
 import example.application.repository.WorkRecordRepository;
+import example.domain.model.attendance.WorkMonth;
 import example.domain.model.timerecord.TimeRecord;
 import example.domain.model.timerecord.WorkDate;
 import example.domain.model.worker.WorkerNumber;
@@ -18,7 +19,7 @@ public class WorkRecordQueryService {
      * 日次勤務実績取得
      */
     public TimeRecord workRecord(WorkerNumber workerNumber, WorkDate workDate) {
-        return workRecordRepository.findWorkRecords(workerNumber, workDate.month()).at(workDate);
+        return workRecordRepository.findWorkRecords(workerNumber, WorkMonth.from(workDate)).at(workDate);
     }
 
     WorkRecordQueryService(WorkRecordRepository workRecordRepository) {

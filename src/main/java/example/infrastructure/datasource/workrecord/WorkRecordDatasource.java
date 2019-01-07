@@ -1,9 +1,9 @@
 package example.infrastructure.datasource.workrecord;
 
 import example.application.repository.WorkRecordRepository;
+import example.domain.model.attendance.TimeRecords;
+import example.domain.model.attendance.WorkMonth;
 import example.domain.model.timerecord.TimeRecord;
-import example.domain.model.timerecord.WorkMonth;
-import example.domain.model.timerecord.WorkRecords;
 import example.domain.model.worker.WorkerNumber;
 import org.springframework.stereotype.Repository;
 
@@ -22,9 +22,9 @@ public class WorkRecordDatasource implements WorkRecordRepository {
     }
 
     @Override
-    public WorkRecords findWorkRecords(WorkerNumber workerNumber, WorkMonth month) {
+    public TimeRecords findWorkRecords(WorkerNumber workerNumber, WorkMonth month) {
         List<TimeRecord> timeRecords = mapper.selectByMonth(workerNumber, month.yyyyMM());
-        return new WorkRecords(timeRecords);
+        return new TimeRecords(timeRecords);
     }
 
     WorkRecordDatasource(WorkRecordMapper mapper) {

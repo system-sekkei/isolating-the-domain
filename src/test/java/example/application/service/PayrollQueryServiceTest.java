@@ -6,6 +6,7 @@ import example.application.service.payroll.PayrollQueryService;
 import example.application.service.worker.WorkerQueryService;
 import example.application.service.worker.WorkerRecordService;
 import example.application.service.workrecord.WorkRecordRecordService;
+import example.domain.model.attendance.WorkMonth;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.WageCondition;
 import example.domain.model.legislation.MidnightExtraRate;

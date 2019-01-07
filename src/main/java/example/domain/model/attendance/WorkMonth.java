@@ -1,5 +1,6 @@
-package example.domain.model.timerecord;
+package example.domain.model.attendance;
 
+import example.domain.model.timerecord.WorkDate;
 import example.domain.type.date.Date;
 import example.domain.type.date.Month;
 import example.domain.type.date.Year;
@@ -35,6 +36,10 @@ public class WorkMonth {
         this.value = value;
     }
 
+    public static WorkMonth from(WorkDate workDate) {
+        return new WorkMonth(workDate.value().year(), workDate.value().month());
+    }
+
     public List<WorkDate> days() {
         List<Date> days = value.days();
         List<WorkDate> workDates = days.stream().map(WorkDate::new)
@@ -50,6 +55,7 @@ public class WorkMonth {
         return new WorkMonth(value.after());
     }
 
+    @Override
     public String toString() {
         return value.toString();
     }

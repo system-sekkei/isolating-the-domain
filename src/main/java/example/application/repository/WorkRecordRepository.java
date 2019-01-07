@@ -1,8 +1,8 @@
 package example.application.repository;
 
+import example.domain.model.attendance.TimeRecords;
+import example.domain.model.attendance.WorkMonth;
 import example.domain.model.timerecord.TimeRecord;
-import example.domain.model.timerecord.WorkMonth;
-import example.domain.model.timerecord.WorkRecords;
 import example.domain.model.worker.WorkerNumber;
 
 /**
@@ -12,5 +12,5 @@ public interface WorkRecordRepository {
 
     void registerWorkRecord(TimeRecord timeRecord);
 
-    WorkRecords findWorkRecords(WorkerNumber workerNumber, WorkMonth month);
+    TimeRecords findWorkRecords(WorkerNumber workerNumber, WorkMonth month);
 }

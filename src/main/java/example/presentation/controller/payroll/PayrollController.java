@@ -2,8 +2,8 @@ package example.presentation.controller.payroll;
 
 import example.application.service.payroll.PayrollQueryService;
 import example.application.service.worker.WorkerQueryService;
+import example.domain.model.attendance.WorkMonth;
 import example.domain.model.payroll.Payrolls;
-import example.domain.model.timerecord.WorkMonth;
 import example.domain.model.worker.ContractingWorkers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

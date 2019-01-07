@@ -2,8 +2,6 @@ package example.domain.model.attendance;
 
 import example.domain.model.timerecord.TimeRecord;
 import example.domain.model.timerecord.WorkDate;
-import example.domain.model.timerecord.WorkMonth;
-import example.domain.model.timerecord.WorkRecords;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.time.QuarterHour;
 
@@ -16,12 +14,12 @@ public class Attendance {
 
     WorkerNumber workerNumber;
     WorkMonth month;
-    WorkRecords workRecords;
+    TimeRecords timeRecords;
 
-    public Attendance(WorkerNumber workerNumber, WorkMonth month, WorkRecords workRecords) {
+    public Attendance(WorkerNumber workerNumber, WorkMonth month, TimeRecords timeRecords) {
         this.workerNumber = workerNumber;
         this.month = month;
-        this.workRecords = workRecords;
+        this.timeRecords = timeRecords;
     }
 
     public WorkMonth month() {
@@ -33,30 +31,30 @@ public class Attendance {
     }
 
     public TimeRecord at(WorkDate workDate) {
-        return workRecords.at(workDate);
+        return timeRecords.at(workDate);
     }
 
     public AttendanceStatus statusOf(WorkDate workDate) {
-        return AttendanceStatus.from(workRecords.recordedAt(workDate));
+        return AttendanceStatus.from(timeRecords.recordedAt(workDate));
     }
 
     public boolean notWorking() {
-        return workRecords.list().isEmpty();
+        return timeRecords.list().isEmpty();
     }
 
     public WorkDate firstWorkDate() {
-        List<TimeRecord> list = workRecords.list();
+        List<TimeRecord> list = timeRecords.list();
         return list.get(0).workDate();
     }
 
     public TotalWorkTime totalWorkTime() {
-        return new TotalWorkTime(workRecords.list().stream()
+        return new TotalWorkTime(timeRecords.list().stream()
                 .map(workRecord -> workRecord.actualWorkTime().workTime().quarterHour())
                 .reduce(QuarterHour::add)
                 .orElseGet(QuarterHour::new));
     }
 
     public List<TimeRecord> listAvailableWorkRecord() {
-        return workRecords.list();
+        return timeRecords.list();
     }
 }

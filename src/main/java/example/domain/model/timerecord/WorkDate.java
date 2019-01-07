@@ -38,10 +38,6 @@ public class WorkDate {
         return value.hasSameValue(other.value);
     }
 
-    public WorkMonth month() {
-        return new WorkMonth(value.year(), value.month());
-    }
-
     @Override
     public String toString() {
         return value.toString();
