@@ -39,7 +39,7 @@ public class Amount {
 
     @Override
     public String toString() {
-        return new DecimalFormat("#,##0").format(value.intValue());
+        return new DecimalFormat("#,##0'円'").format(value.intValue());
     }
 
     public BigDecimal value() {

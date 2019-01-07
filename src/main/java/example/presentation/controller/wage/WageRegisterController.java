@@ -8,6 +8,7 @@ import example.domain.model.contract.WageCondition;
 import example.domain.model.worker.Worker;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.date.Date;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("wages/{workerNumber}/register")
 class WageRegisterController {
+
+    @Value("${hourly-wage.base}")
+    HourlyWage baseHourlyWage;
 
     WorkerQueryService workerQueryService;
     ContractRecordService contractRecordService;
@@ -35,6 +39,7 @@ class WageRegisterController {
     @GetMapping
     public String init(Worker worker,
                        Model model) {
+        model.addAttribute("hourlyWage", baseHourlyWage);
         return "wage/form";
     }
 
