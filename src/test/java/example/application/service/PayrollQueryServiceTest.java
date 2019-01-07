@@ -12,6 +12,8 @@ import example.domain.model.legislation.MidnightExtraRate;
 import example.domain.model.legislation.OverTimeExtraRate;
 import example.domain.model.payroll.Payroll;
 import example.domain.model.timerecord.*;
+import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
+import example.domain.model.timerecord.breaktime.MidnightBreakTime;
 import example.domain.model.worker.*;
 import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;

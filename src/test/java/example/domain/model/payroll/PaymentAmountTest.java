@@ -2,7 +2,12 @@ package example.domain.model.payroll;
 
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.WageCondition;
-import example.domain.model.timerecord.*;
+import example.domain.model.timerecord.ActualWorkTime;
+import example.domain.model.timerecord.EndTime;
+import example.domain.model.timerecord.StartTime;
+import example.domain.model.timerecord.TimeRange;
+import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
+import example.domain.model.timerecord.breaktime.MidnightBreakTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

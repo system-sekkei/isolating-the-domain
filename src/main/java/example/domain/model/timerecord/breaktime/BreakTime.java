@@ -1,4 +1,4 @@
-package example.domain.model.timerecord;
+package example.domain.model.timerecord.breaktime;
 
 import example.domain.type.time.HourAndMinute;
 import example.domain.type.time.Minute;

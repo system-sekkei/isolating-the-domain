@@ -1,5 +1,8 @@
 package example.domain.model.timerecord;
 
+import example.domain.model.timerecord.bindingtime.BindingTime;
+import example.domain.model.timerecord.bindingtime.DaytimeBindingTime;
+import example.domain.model.timerecord.bindingtime.MidnightBindingTime;
 import example.domain.type.time.QuarterRoundClockTimeRange;
 
 /**

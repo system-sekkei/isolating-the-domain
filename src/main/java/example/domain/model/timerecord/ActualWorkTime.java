@@ -1,5 +1,9 @@
 package example.domain.model.timerecord;
 
+import example.domain.model.timerecord.breaktime.BreakTime;
+import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
+import example.domain.model.timerecord.breaktime.MidnightBreakTime;
+
 /**
  * 勤務時間実績
  */

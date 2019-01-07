@@ -1,5 +1,6 @@
 package example.domain.model.timerecord;
 
+import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
 import example.domain.type.time.QuarterHour;
 
 /**

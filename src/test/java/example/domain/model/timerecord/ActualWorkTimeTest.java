@@ -1,5 +1,7 @@
 package example.domain.model.timerecord;
 
+import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
+import example.domain.model.timerecord.breaktime.MidnightBreakTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

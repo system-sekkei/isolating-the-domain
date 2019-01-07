@@ -1,6 +1,8 @@
 package example.presentation.controller.workrecord;
 
 import example.domain.model.timerecord.*;
+import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
+import example.domain.model.timerecord.breaktime.MidnightBreakTime;
 import example.domain.model.worker.WorkerNumber;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
