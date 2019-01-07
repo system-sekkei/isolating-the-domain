@@ -1,5 +1,7 @@
 package example.domain.model.payroll;
 
+import example.domain.model.contract.ContractStatus;
+
 /**
  * 給与ステータス
  */
@@ -12,6 +14,13 @@ public enum PayrollStatus {
 
     PayrollStatus(String messageKey) {
         this.messageKey = messageKey;
+    }
+
+    public static PayrollStatus from(ContractStatus contractStatus) {
+        if (contractStatus == ContractStatus.契約なし) {
+            return 時給登録無し;
+        }
+        return 有効;
     }
 
     public String messageKey() {

@@ -26,7 +26,8 @@
           <tr class="center aligned">
             <th class="tableWorkerNumber">従業員番号</th>
             <th class="tableWorkerName">氏名</th>
-            <th>時給設定開始日</th>
+            <th>現在の時給</th>
+            <th>開始日</th>
           </tr>
         </thead>
         <tbody>
@@ -36,6 +37,7 @@
             <td class="selectable linkCell">
               <a th:href="@{/workers/{workerNumber}(workerNumber=${workerContract.workerNumber()})}"><span th:text="${workerContract.workerName()}"></span></a>
             </td>
+            <td th:text="${workerContract.todayHourlyWage()}">1,234円</td>
             <td th:text="${workerContract.contractStartingDate()}">2001-01-02</td>
           </tr>
         </tbody>

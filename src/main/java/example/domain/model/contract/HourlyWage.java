@@ -27,12 +27,19 @@ public class HourlyWage {
         this.value = value;
     }
 
+    public static HourlyWage disable() {
+        return new HourlyWage(Integer.MIN_VALUE);
+    }
+
     public BigDecimal value() {
         return value.value();
     }
 
     @Override
     public String toString() {
+        if (value.value().equals(disable().value())) {
+            return "";
+        }
         return value.toString();
     }
 
