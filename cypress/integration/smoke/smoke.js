@@ -28,28 +28,27 @@ context('isolating-the-domain', () => {
 
     // 従業員詳細
     cy.get('tbody > tr > td > a').contains('テスト太郎').click()
-    cy.title().should('contains', '従業員情報の詳細')
+    cy.title().should('contains', '詳細')
 
     // 従業員変更
     cy.get('.button').contains('変更').click()
     cy.title().should('contains', '変更')
     cy.get('#name\\.value').clear().type('テスト次郎')
     cy.get('.button').contains('保存').click()
-    cy.title().should('contains', '従業員情報の詳細')
+    cy.title().should('contains', '詳細')
     cy.get('.button').contains('ＯＫ').click()
 
     // 時給の変遷
-    cy.get('.button').contains('時給の変遷').click()
-    cy.title().should('contains', '時給の変遷')
+    cy.get('.button').contains('時給の履歴').click()
+    cy.title().should('contains', '時給の履歴')
 
     // 時給の登録
-    // TODO : とりあえず画面遷移だけ。登録機能が完成したら登録フローも追加する
     cy.get('.button').contains('登録').click()
     cy.title().should('contains', '時給の登録')
     cy.get('.button').contains('戻る').click()
-    cy.title().should('contains', '時給の変遷')
+    cy.title().should('contains', '時給の履歴')
     cy.get('.button').contains('戻る').click()
-    cy.title().should('contains', '従業員情報の詳細')
+    cy.title().should('contains', '詳細')
 
     cy.get('a').contains('ダッシュボード').click()
     cy.title().should('eq', 'ダッシュボード')
@@ -57,7 +56,6 @@ context('isolating-the-domain', () => {
     // 勤務時間入力
     cy.get('a').contains('勤務時間の入力').click()
     cy.title().should('contains', '入力')
-    // TODO : バリデーションのテスト
     cy.get('.button').contains('登録').click()
     cy.title().should('contains', '勤務時間の一覧')
 
@@ -83,11 +81,10 @@ context('isolating-the-domain', () => {
 
     //従業員削除
     cy.get('tbody > tr > td > a').contains('テスト次郎').click()
-    cy.title().should('contains', '従業員情報の詳細')
+    cy.title().should('contains', '詳細')
     cy.get('#deleteConfirmButton').click()
     cy.get('#deleteButton').click()
     cy.title().should('contains', '従業員の一覧')
-    // TODO : ２回以上テスト回すと名前がダブるので落ちる。新規登録した従業員番号が取得できればいいんだけど。。。
     cy.get('tbody > tr > td > a').contains('テスト次郎').should('not.exist')
 })
 })
