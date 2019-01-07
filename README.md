@@ -11,7 +11,9 @@ MyBatis SQL Mapper
 ```
 
 ## 設計ガイド
-https://github.com/system-sekkei/isolating-the-domain/wiki
+[ドメインを隔離する](https://github.com/system-sekkei/isolating-the-domain/wiki)
+
+[型による設計](https://github.com/masuda220/business-logic-patterns/wiki/%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3)
 
 ## 2018-XX-XX リリースノート
 
