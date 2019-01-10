@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
+  <title>従業員の一覧</title>
+</head>
+<body>
+<div th:replace="fragments/menuHead::menuHead('従業員')">
+</div>
+
+<div class="ui container">
+  <div class="pageHeader">
+    <h1 class="ui center aligned header">従業員の一覧</h1>
+  </div>
+  
+  <div class="ui center aligned basic segment">
+    <a class="ui labeled icon primary button"
+       th:href="@{/employees/register}">
+      <i class="user plus icon"></i>従業員の新規登録</a>
+  </div>
+  
+  <div class="employeeList">
+    <div class="ui basic segment">
+      <table class="ui striped celled table">
+       <thead>
+          <tr class="center aligned">
+            <th class="tableEmployeeNumber">従業員番号</th>
+            <th class="tableEmployeeName">氏名</th>
+            <th>現在の時給</th>
+            <th>開始日</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="contract : ${contracts.list()}">
+            <td class="right aligned"
+                th:text="${contract.employeeNumber()}">123</td>
+            <td class="selectable linkCell">
+              <a th:href="@{/employees/{employeeNumber}(employeeNumber=${contract.employeeNumber()})}"><span th:text="${contract.employeeName()}"></span></a>
+            </td>
+            <td th:text="${contract.todayHourlyWage()}">1,234円</td>
+            <td th:text="${contract.contractStartingDate()}">2001-01-02</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

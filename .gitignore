@@ -32,3 +32,13 @@ temp
 # log files
 *.log
 
+# For Eclipse
+.classpath
+.project
+.settings
+
+# For Cypress
+cypress/videos
+cypress/screenshots
+
+node_modules/

@@ -18,5 +18,11 @@ jobs:
           paths:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
-      - run: ./gradlew build
+      - run: ./gradlew test
+      - store_test_results:
+          path: build/test-results
+      - run:
+          name: Deploy to Heroku
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/isolating-the-domain.git develop:master
 

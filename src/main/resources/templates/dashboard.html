@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
+  <title>ダッシュボード</title>
+</head>
+<body>
+<div th:replace="fragments/menuHead::menuHead('ダッシュボード')">
+</div>
+<div class="ui container">
+  <div class="pageHeader">
+    <h1 class="ui center aligned header">ダッシュボード</h1>
+  </div>
+
+  <div class="ui centerd three column grid">
+    <div class="column">
+      <a th:href="@{/workrecord}">
+        <div class="ui header aligned segment icon">
+          <div class="dashboardIcon">
+            <i class="clock outline icon"></i>
+            <div class="content">勤務時間の入力</div>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="column">
+      <a th:href="@{/payroll}">
+        <div class="ui header aligned segment icon">
+          <div class="dashboardIcon">
+            <i class="yen sign icon"></i>
+            <span class="content">給与の一覧</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="column">
+      <a th:href="@{/employees}">
+        <div class="ui header aligned segment icon">
+          <div class="dashboardIcon">
+            <i class="user icon"></i>
+            <div class="content">従業員の一覧</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

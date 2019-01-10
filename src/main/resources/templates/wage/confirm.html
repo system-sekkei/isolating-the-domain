@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
+  <title>時給の登録の確認</title>
+</head>
+<body>
+<div th:replace="fragments/menuHead::menuHead('')">
+</div>
+<div class="pageHeader">
+  <div class="ui basic segment">
+    <h1 class="ui center aligned header">時給の登録の確認</h1>
+  </div>
+
+  <div class="wageInput">
+    <form id="custom-form" class="ui large form" th:action="@{/wages/{employeeNumber}/register/register(employeeNumber=${employee.employeeNumber()})}" method="post">
+
+      <div class="ui basic segment">
+        <div class="field">
+          <label>氏名</label>
+          <input type="text" readonly th:value="${employee.name()}">
+        </div>
+
+        <div class="field">
+          <label>開始日</label>
+          <input class="short-input" readonly type="date" placeholder="2018-01-01" name="startDate" th:value="${startDate}">
+        </div>
+
+        <div class="field">
+          <label>時給</label>
+          <div class="two fields">
+            <div class="ui right labeled small input field">
+              <input type="number" readonly placeholder="936" name="hourlyWage" th:value="${hourlyWage.value()}"/>
+              <div class="ui basic label">円</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui center aligned basic segment">
+        <button form="again-form" class="ui grey button">入力に戻る</button>
+        <button class="ui positive button">登録</button>
+      </div>
+    </form>
+    <form id="again-form" class="ui large form" th:action="@{/wages/{employeeNumber}/register/again(employeeNumber=${employee.employeeNumber()})}" method="post">
+      <input type="hidden" name="startDate" th:value="${startDate}">
+      <input type="hidden" name="hourlyWage" th:value="${hourlyWage}"/>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
+  <title>給与の一覧</title>
+</head>
+<body>
+<div th:replace="fragments/menuHead::menuHead('給与')">
+</div>
+<div class="ui container">
+  <div class="pageHeader">
+    <h1 class="ui center aligned header">給与の一覧</h1>
+  </div>
+
+  <div class="ui section divider"></div>
+
+  <div class="payrollList">
+    <div class="ui centerd three column grid">
+      <div class="left aligned column">
+        <a href=""
+           th:href="@{/payroll/{beforeMonth}(beforeMonth=${payrolls.workMonth().before()})}">
+          <i class="angle double left link large icon"></i>前の月
+        </a>
+      </div>
+      <div class="column">
+        <h2 class="ui center aligned header" th:text="${payrolls.workMonth().toStringWithUnit()}">11月</h2>
+      </div>
+      <div class="right aligned column">
+        <a href=""
+           th:href="@{/payroll/{afterMonth}(afterMonth=${payrolls.workMonth().after()})}">
+          次の月<i class="angle double right link large icon"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="ui basic segment">
+      <table class="ui striped celled table">
+        <thead>
+        <tr class="center aligned">
+          <th class="tableEmployeeNumber">従業員番号</th>
+          <th class="tableEmployeeName">氏名</th>
+          <th class="three wide">支払額</th>
+          <th>備考</th>
+          <th class="three wide"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="payroll : ${payrolls.list()}">
+          <tr th:if="${payroll.payrollStatus().available()}">
+            <td class="right aligned"
+                th:text="${payroll.employeeNumber()}"/>
+            <td th:text="${payroll.employeeName()}"/>
+            <td class="right aligned"
+                th:text="${payroll.totalPaymentAmount()}"/>
+            <td></td>
+            <td class="ui center aligned">
+              <a class="ui tiny primary basic button"
+                 th:href="@{/attendances/{employeeNumber}/{workMonth}(employeeNumber=${payroll.employeeNumber()},workMonth=${payrolls.workMonth()})}">
+                <i class="calendar alternate outline icon"></i>勤務時間の一覧
+              </a>
+            </td>
+          </tr>
+          <tr th:unless="${payroll.payrollStatus().available()}">
+            <td class="right aligned"
+                th:text="${payroll.employeeNumber()}"/>
+            <td th:text="${payroll.employeeName()}"/>
+            <td></td>
+            <td th:utext="#{${payroll.payrollStatus().messageKey()}}"></td>
+            <td class="ui center aligned">
+              <a class="ui tiny primary basic button"
+                 th:href="@{/attendances/{employeeNumber}/{workMonth}(employeeNumber=${payroll.employeeNumber()},workMonth=${payrolls.workMonth()})}">
+                <i class="calendar alternate outline icon"></i>勤務時間の一覧
+              </a>
+            </td>
+          </tr>
+        </th:block>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

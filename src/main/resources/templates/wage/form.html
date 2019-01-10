@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
+  <title>時給の登録</title>
+</head>
+<body>
+<div th:replace="fragments/menuHead::menuHead('')"></div>
+
+<div class="ui container">
+  <div class="pageHeader">
+    <h1 class="ui center aligned header">時給の登録</h1>
+  </div>
+
+  <form id="custom-form" class="ui form" th:action="@{/wages/{employeeNumber}/register/confirm(employeeNumber=${employee.employeeNumber()})}" method="post">
+
+    <div class="wageInfo">
+      <table class="ui celled center aligned definition table">
+        <tr>
+          <td class="six wide center aligned tableHeader">氏名</td>
+          <td class="ten wide" th:text="${employee.name()}">テスト太郎</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="ui section divider"></div>
+  
+    <div class="wageInput">
+      <div class="ui basic segment">
+        <div class="field">
+          <label>開始日</label>
+          <input class="short-input" type="date" placeholder="2018-01-01" name="startDate" th:value="${startDate}">
+        </div>
+
+        <div class="field">
+          <label>時給</label>
+          <div class="two fields">
+            <div class="ui right labeled small input field">
+              <input type="number" placeholder="936" name="hourlyWage" th:value="${hourlyWage.value()}"/>
+              <div class="ui basic label">円</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui center aligned basic segment">
+        <a class="ui grey button"
+           th:href="@{/wages/{employeeNumber}(employeeNumber=${employee.employeeNumber()})}">時給の変遷に戻る</a>
+        <button class="ui positive button">確認</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>

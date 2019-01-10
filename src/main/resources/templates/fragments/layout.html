@@ -11,22 +11,15 @@
     <title th:replace="${title}">(title)</title>
 
     <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css"/>
+          href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"/>
     <link rel="stylesheet"
           th:href="@{/css/site.css}"/>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
 </head>
 
 <body>
 
-
-<footer th:fragment="footer" id="footer">
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-    </script>
-    <script
-      src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js">
-    </script>
-</footer>
 </body>
 </html>

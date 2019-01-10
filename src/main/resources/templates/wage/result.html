@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
+  <title>時給の登録の完了</title>
+</head>
+<body>
+<div th:replace="fragments/menuHead::menuHead('')">
+</div>
+<div class="pageHeader">
+  <div class="ui basic segment">
+    <h1 class="ui center aligned header">時給の登録の完了</h1>
+  </div>
+
+  <div class="userInput">
+    <div class="ui info message segment">
+      <p th:text="${employee.name()} + '(' + ${employee.employeeNumber()} + ')' + さんの時給を登録しました。">登録しました。</p>
+    </div>
+  </div>
+  <div class="ui center aligned basic segment">
+    <a class="ui grey button"
+       th:href="@{/wages/{employeeNumber}(employeeNumber=${employee.employeeNumber()})}">戻る</a>
+  </div>
+</div>
+
+</body>
+</html>
