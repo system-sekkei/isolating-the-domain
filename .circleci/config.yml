@@ -24,5 +24,5 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/isolating-the-domain.git develop:master
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/isolating-the-domain.git master
 
