@@ -2,16 +2,16 @@ package example.application.service;
 
 import example.Application;
 import example.application.service.attendance.AttendanceQueryService;
-import example.application.service.worker.WorkerQueryService;
+import example.application.service.employee.EmployeeQueryService;
 import example.application.service.workrecord.WorkRecordRecordService;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.timerecord.*;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
 import example.domain.model.timerecord.breaktime.MidnightBreakTime;
-import example.domain.model.worker.ContractingWorkers;
-import example.domain.model.worker.Worker;
-import example.domain.model.worker.WorkerNumber;
+import example.domain.model.employee.ContractingEmployees;
+import example.domain.model.employee.Employee;
+import example.domain.model.employee.EmployeeNumber;
 import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TimeRecordRecordServiceTest {
 
     @Autowired
-    WorkerQueryService workerQueryService;
+    EmployeeQueryService employeeQueryService;
     @Autowired
     WorkRecordRecordService workRecordRecordService;
     @Autowired
@@ -43,9 +43,9 @@ class TimeRecordRecordServiceTest {
     @Test
     @Transactional
     void 登録した勤怠情報を取得できる() {
-        ContractingWorkers workers = workerQueryService.contractingWorkers();
-        Worker worker = workers.list().get(0);
-        WorkerNumber workerNumber = worker.workerNumber();
+        ContractingEmployees employees = employeeQueryService.contractingEmployees();
+        Employee employee = employees.list().get(0);
+        EmployeeNumber employeeNumber = employee.employeeNumber();
 
         int year = 2017;
         int month = 10;
@@ -53,10 +53,10 @@ class TimeRecordRecordServiceTest {
         WorkDate workDate = new WorkDate(new Date(LocalDate.of(year, month, day)));
         ActualWorkTime actualWorkTime = new ActualWorkTime(new TimeRange(new StartTime(new ClockTime("9:00")), new EndTime(new ClockTime("24:00"))), new DaytimeBreakTime(new Minute(60)), new MidnightBreakTime(new Minute("0")));
 
-        TimeRecord expectTimeRecord = new TimeRecord(workerNumber, workDate, actualWorkTime);
+        TimeRecord expectTimeRecord = new TimeRecord(employeeNumber, workDate, actualWorkTime);
         workRecordRecordService.registerWorkRecord(expectTimeRecord);
 
-        Attendance attendance = attendanceQueryService.findAttendance(workerNumber, new WorkMonth(year, month));
+        Attendance attendance = attendanceQueryService.findAttendance(employeeNumber, new WorkMonth(year, month));
         assertAll(
                 () -> assertEquals(attendance.month().toStringWithUnit(), year + "年" + month + "月"),
                 () -> assertEquals(attendance.listWorkDates().size(), 31),

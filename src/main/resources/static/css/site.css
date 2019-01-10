@@ -14,11 +14,11 @@
   background: #f9fafb;
 }
 
-.tableWorkerNumber {
+.tableEmployeeNumber {
   width:120px;
 }
 
-.tableWorkerName {
+.tableEmployeeName {
   width:160px;
 }
 
@@ -28,25 +28,25 @@
   margin: 0 auto 5rem;
 }
 
-/*従業員 worker*/
-.workerList {
+/*従業員 employee*/
+.employeeList {
   max-width: 640px;
   margin: 0 auto 5rem;
 }
 
-.workerInfo {
+.employeeInfo {
   max-width: 400px;
   margin: 1em auto;
   padding: 1em 1.5em;
   text-align: center;
 }
 
-.workerInput {
+.employeeInput {
   max-width: 500px;
   margin: 0 auto;
 }
 
-.workerDetail {
+.employeeDetail {
   max-width: 540px;
   margin: 0 auto;
 }

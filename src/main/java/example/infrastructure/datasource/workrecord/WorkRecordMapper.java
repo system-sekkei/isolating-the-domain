@@ -2,7 +2,7 @@ package example.infrastructure.datasource.workrecord;
 
 import example.domain.model.timerecord.TimeRecord;
 import example.domain.model.timerecord.WorkDate;
-import example.domain.model.worker.WorkerNumber;
+import example.domain.model.employee.EmployeeNumber;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -12,11 +12,11 @@ import java.util.List;
 public interface WorkRecordMapper {
     Integer newWorkTimeIdentifier();
 
-    void insertWorkTimeHistory(@Param("id") Integer id, @Param("workerNumber") WorkerNumber workerNumber, @Param("work") TimeRecord work);
+    void insertWorkTimeHistory(@Param("id") Integer id, @Param("employeeNumber") EmployeeNumber employeeNumber, @Param("work") TimeRecord work);
 
-    void insertWorkTime(@Param("workerNumber") WorkerNumber workerNumber, @Param("workTimeId") Integer workTimeId, @Param("work") TimeRecord work);
+    void insertWorkTime(@Param("employeeNumber") EmployeeNumber employeeNumber, @Param("workTimeId") Integer workTimeId, @Param("work") TimeRecord work);
 
-    void deleteWorkTime(@Param("workerNumber") WorkerNumber workerNumber, @Param("workDate") WorkDate workDate);
+    void deleteWorkTime(@Param("employeeNumber") EmployeeNumber employeeNumber, @Param("workDate") WorkDate workDate);
 
-    List<TimeRecord> selectByMonth(@Param("workerNumber") WorkerNumber workerNumber, @Param("yearMonth") String yearMonth);
+    List<TimeRecord> selectByMonth(@Param("employeeNumber") EmployeeNumber employeeNumber, @Param("yearMonth") String yearMonth);
 }

@@ -1,10 +1,10 @@
 package example.presentation.controller.wage;
 
 import example.application.service.contract.ContractQueryService;
-import example.application.service.worker.WorkerQueryService;
+import example.application.service.employee.EmployeeQueryService;
 import example.domain.model.contract.Contracts;
-import example.domain.model.worker.Worker;
-import example.domain.model.worker.WorkerNumber;
+import example.domain.model.employee.Employee;
+import example.domain.model.employee.EmployeeNumber;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,25 +16,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 従業員ごとの時給の変遷
  */
 @Controller
-@RequestMapping("wages/{workerNumber}")
+@RequestMapping("wages/{employeeNumber}")
 public class WageListController {
 
-    WorkerQueryService workerQueryService;
+    EmployeeQueryService employeeQueryService;
     ContractQueryService contractQueryService;
 
-    public WageListController(WorkerQueryService workerQueryService, ContractQueryService contractQueryService) {
-        this.workerQueryService = workerQueryService;
+    public WageListController(EmployeeQueryService employeeQueryService, ContractQueryService contractQueryService) {
+        this.employeeQueryService = employeeQueryService;
         this.contractQueryService = contractQueryService;
     }
 
-    @ModelAttribute("worker")
-    Worker worker(@PathVariable(value = "workerNumber") WorkerNumber workerNumber) {
-        return workerQueryService.choose(workerNumber);
+    @ModelAttribute("employee")
+    Employee employee(@PathVariable(value = "employeeNumber") EmployeeNumber employeeNumber) {
+        return employeeQueryService.choose(employeeNumber);
     }
 
     @GetMapping
-    public String list(Worker worker, Model model) {
-        Contracts contracts= contractQueryService.getContracts(worker.workerNumber());
+    public String list(Employee employee, Model model) {
+        Contracts contracts= contractQueryService.getContracts(employee.employeeNumber());
         model.addAttribute("contracts", contracts);
         return "wage/list";
     }

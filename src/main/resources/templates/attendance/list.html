@@ -18,7 +18,7 @@
       <tr>
         <th class="six wide tableHeader">氏名</th>
         <td class="ten wide"
-            th:text="${worker.name()}"></td>
+            th:text="${employee.name()}"></td>
       </tr>
     </table>
     <table class="ui celled center aligned definition table">
@@ -38,7 +38,7 @@
     <div class="ui centerd three column grid">
       <div class="left aligned column">
         <a href=""
-           th:href="@{/attendances/{workerNumber}/{beforeMonth}(workerNumber=${worker.workerNumber()},beforeMonth=${beforeMonth})}">
+           th:href="@{/attendances/{employeeNumber}/{beforeMonth}(employeeNumber=${employee.employeeNumber()},beforeMonth=${beforeMonth})}">
           <i class="angle double left link large icon"></i>前の月
         </a>
       </div>
@@ -47,7 +47,7 @@
       </div>
       <div class="right aligned column">
         <a href=""
-           th:href="@{/attendances/{workerNumber}/{afterMonth}(workerNumber=${worker.workerNumber()},afterMonth=${afterMonth})}">
+           th:href="@{/attendances/{employeeNumber}/{afterMonth}(employeeNumber=${employee.employeeNumber()},afterMonth=${afterMonth})}">
           次の月<i class="angle double right link large icon"></i>
         </a>
       </div>
@@ -76,7 +76,7 @@
           <td th:text="*{actualWorkTime().breakTime()}"></td>
           <td th:text="*{actualWorkTime().workTime()}"></td>
           <td class="center aligned selectable linkCell">
-            <a th:href="@{/workrecord?workerNumber={workerNumber}&workDate={workDate}(workerNumber=${worker.workerNumber()},workDate=${workDate})}">
+            <a th:href="@{/workrecord?employeeNumber={employeeNumber}&workDate={workDate}(employeeNumber=${employee.employeeNumber()},workDate=${workDate})}">
               <i class="edit icon"></i>
             </a>
           </td>
@@ -91,7 +91,7 @@
           <td></td>
           <td></td>
           <td class="center aligned selectable linkCell">
-            <a th:href="@{/workrecord?workerNumber={workerNumber}&workDate={workDate}(workerNumber=${worker.workerNumber()},workDate=${workDate})}">
+            <a th:href="@{/workrecord?employeeNumber={employeeNumber}&workDate={workDate}(employeeNumber=${employee.employeeNumber()},workDate=${workDate})}">
               <i class="edit icon"></i>
             </a>
           </td>

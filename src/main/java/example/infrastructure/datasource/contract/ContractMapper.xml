@@ -9,7 +9,7 @@
 
     <insert id="insertContractHistory">
         INSERT INTO 給与.時給契約履歴 (時給ID, 従業員ID, 時給, 適用開始日, 時間外割増率, 深夜割増率)
-        VALUES (#{id}, #{workerNumber.value}, #{wageCondition.baseHourlyWage.value.value}, #{applyDate.value}, #{wageCondition.overTimeExtraRate.value.value.value},
+        VALUES (#{id}, #{employeeNumber.value}, #{wageCondition.baseHourlyWage.value.value}, #{applyDate.value}, #{wageCondition.overTimeExtraRate.value.value.value},
         #{wageCondition.midnightExtraRate.value.value.value});
     </insert>
 
@@ -27,18 +27,18 @@
         時給契約.時間外割増率,
         時給契約.深夜割増率
         FROM 給与.時給契約 as 時給契約
-        WHERE 時給契約.従業員ID = #{workerNumber.value}
+        WHERE 時給契約.従業員ID = #{employeeNumber.value}
     </select>
 
     <insert id="insertContract">
         INSERT INTO 給与.時給契約(従業員ID, 適用開始日, 時給, 時間外割増率, 深夜割増率) VALUES
-        (#{workerNumber.value}, #{startDate.value}, #{wageCondition.baseHourlyWage.value.value}, #{wageCondition.overTimeExtraRate.value.value.value},
+        (#{employeeNumber.value}, #{startDate.value}, #{wageCondition.baseHourlyWage.value.value}, #{wageCondition.overTimeExtraRate.value.value.value},
         #{wageCondition.midnightExtraRate.value.value.value})
     </insert>
 
     <delete id="deleteContractData">
         DELETE FROM 給与.時給契約 WHERE
-        従業員ID = #{workerNumber.value} AND
+        従業員ID = #{employeeNumber.value} AND
         時給契約.適用開始日 = #{startDate.value}
     </delete>
 </mapper>

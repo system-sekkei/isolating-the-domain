@@ -2,7 +2,7 @@ package example.domain.model.attendance;
 
 import example.domain.model.timerecord.TimeRecord;
 import example.domain.model.timerecord.WorkDate;
-import example.domain.model.worker.WorkerNumber;
+import example.domain.model.employee.EmployeeNumber;
 import example.domain.type.time.QuarterHour;
 
 import java.util.List;
@@ -12,12 +12,12 @@ import java.util.List;
  */
 public class Attendance {
 
-    WorkerNumber workerNumber;
+    EmployeeNumber employeeNumber;
     WorkMonth month;
     TimeRecords timeRecords;
 
-    public Attendance(WorkerNumber workerNumber, WorkMonth month, TimeRecords timeRecords) {
-        this.workerNumber = workerNumber;
+    public Attendance(EmployeeNumber employeeNumber, WorkMonth month, TimeRecords timeRecords) {
+        this.employeeNumber = employeeNumber;
         this.month = month;
         this.timeRecords = timeRecords;
     }

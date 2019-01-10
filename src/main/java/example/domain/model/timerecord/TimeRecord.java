@@ -1,13 +1,13 @@
 package example.domain.model.timerecord;
 
-import example.domain.model.worker.WorkerNumber;
+import example.domain.model.employee.EmployeeNumber;
 
 /**
  * 勤務実績
  */
 public class TimeRecord {
 
-    WorkerNumber workerNumber;
+    EmployeeNumber employeeNumber;
     WorkDate workDate;
     ActualWorkTime actualWorkTime;
 
@@ -15,8 +15,8 @@ public class TimeRecord {
     TimeRecord() {
     }
 
-    public TimeRecord(WorkerNumber workerNumber, WorkDate workDate, ActualWorkTime actualWorkTime) {
-        this.workerNumber = workerNumber;
+    public TimeRecord(EmployeeNumber employeeNumber, WorkDate workDate, ActualWorkTime actualWorkTime) {
+        this.employeeNumber = employeeNumber;
         this.workDate = workDate;
         this.actualWorkTime = actualWorkTime;
     }
@@ -29,8 +29,8 @@ public class TimeRecord {
         return actualWorkTime;
     }
 
-    public WorkerNumber workerNumber() {
-        return workerNumber;
+    public EmployeeNumber employeeNumber() {
+        return employeeNumber;
     }
 
     public boolean isWorkedAt(WorkDate other) {

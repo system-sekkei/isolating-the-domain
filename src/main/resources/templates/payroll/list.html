@@ -37,8 +37,8 @@
       <table class="ui striped celled table">
         <thead>
         <tr class="center aligned">
-          <th class="tableWorkerNumber">従業員番号</th>
-          <th class="tableWorkerName">氏名</th>
+          <th class="tableEmployeeNumber">従業員番号</th>
+          <th class="tableEmployeeName">氏名</th>
           <th class="three wide">支払額</th>
           <th>備考</th>
           <th class="three wide"></th>
@@ -48,27 +48,27 @@
         <th:block th:each="payroll : ${payrolls.list()}">
           <tr th:if="${payroll.payrollStatus().available()}">
             <td class="right aligned"
-                th:text="${payroll.workerNumber()}"/>
-            <td th:text="${payroll.workerName()}"/>
+                th:text="${payroll.employeeNumber()}"/>
+            <td th:text="${payroll.employeeName()}"/>
             <td class="right aligned"
                 th:text="${payroll.totalPaymentAmount()}"/>
             <td></td>
             <td class="ui center aligned">
               <a class="ui tiny primary basic button"
-                 th:href="@{/attendances/{workerNumber}/{workMonth}(workerNumber=${payroll.workerNumber()},workMonth=${payrolls.workMonth()})}">
+                 th:href="@{/attendances/{employeeNumber}/{workMonth}(employeeNumber=${payroll.employeeNumber()},workMonth=${payrolls.workMonth()})}">
                 <i class="calendar alternate outline icon"></i>勤務時間の一覧
               </a>
             </td>
           </tr>
           <tr th:unless="${payroll.payrollStatus().available()}">
             <td class="right aligned"
-                th:text="${payroll.workerNumber()}"/>
-            <td th:text="${payroll.workerName()}"/>
+                th:text="${payroll.employeeNumber()}"/>
+            <td th:text="${payroll.employeeName()}"/>
             <td></td>
             <td th:utext="#{${payroll.payrollStatus().messageKey()}}"></td>
             <td class="ui center aligned">
               <a class="ui tiny primary basic button"
-                 th:href="@{/attendances/{workerNumber}/{workMonth}(workerNumber=${payroll.workerNumber()},workMonth=${payrolls.workMonth()})}">
+                 th:href="@{/attendances/{employeeNumber}/{workMonth}(employeeNumber=${payroll.employeeNumber()},workMonth=${payrolls.workMonth()})}">
                 <i class="calendar alternate outline icon"></i>勤務時間の一覧
               </a>
             </td>

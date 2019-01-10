@@ -2,11 +2,11 @@ package example.presentation.controller.wage;
 
 
 import example.application.service.contract.ContractRecordService;
-import example.application.service.worker.WorkerQueryService;
+import example.application.service.employee.EmployeeQueryService;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.WageCondition;
-import example.domain.model.worker.Worker;
-import example.domain.model.worker.WorkerNumber;
+import example.domain.model.employee.Employee;
+import example.domain.model.employee.EmployeeNumber;
 import example.domain.type.date.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -17,34 +17,34 @@ import org.springframework.web.bind.annotation.*;
  * 時給の登録
  */
 @Controller
-@RequestMapping("wages/{workerNumber}/register")
+@RequestMapping("wages/{employeeNumber}/register")
 class WageRegisterController {
 
     @Value("${hourly-wage.base}")
     HourlyWage baseHourlyWage;
 
-    WorkerQueryService workerQueryService;
+    EmployeeQueryService employeeQueryService;
     ContractRecordService contractRecordService;
 
-    public WageRegisterController(WorkerQueryService workerQueryService, ContractRecordService contractRecordService) {
-        this.workerQueryService = workerQueryService;
+    public WageRegisterController(EmployeeQueryService employeeQueryService, ContractRecordService contractRecordService) {
+        this.employeeQueryService = employeeQueryService;
         this.contractRecordService = contractRecordService;
     }
 
-    @ModelAttribute("worker")
-    Worker worker(@PathVariable(value = "workerNumber") WorkerNumber workerNumber) {
-        return workerQueryService.choose(workerNumber);
+    @ModelAttribute("employee")
+    Employee employee(@PathVariable(value = "employeeNumber") EmployeeNumber employeeNumber) {
+        return employeeQueryService.choose(employeeNumber);
     }
 
     @GetMapping
-    public String init(Worker worker,
+    public String init(Employee employee,
                        Model model) {
         model.addAttribute("hourlyWage", baseHourlyWage);
         return "wage/form";
     }
 
     @PostMapping(value = "confirm")
-    public String confirm(Worker worker,
+    public String confirm(Employee employee,
                           @RequestParam("startDate") Date startDate,
                           @RequestParam("hourlyWage") HourlyWage hourlyWage,
                           Model model) {
@@ -54,7 +54,7 @@ class WageRegisterController {
     }
 
     @PostMapping(value = "again")
-    public String again(Worker worker,
+    public String again(Employee employee,
                         @RequestParam("startDate") Date startDate,
                         @RequestParam("hourlyWage") HourlyWage hourlyWage,
                         Model model) {
@@ -64,16 +64,16 @@ class WageRegisterController {
     }
 
     @PostMapping(value = "register")
-    public String register(Worker worker,
+    public String register(Employee employee,
                            @RequestParam("startDate") Date startDate,
                            @RequestParam("hourlyWage") HourlyWage hourlyWage) {
         WageCondition wageCondition = new WageCondition(hourlyWage);
-        contractRecordService.registerHourlyWage(worker.workerNumber(), startDate, wageCondition);
-        return String.format("redirect:/wages/%d/register/completed", worker.workerNumber().value());
+        contractRecordService.registerHourlyWage(employee.employeeNumber(), startDate, wageCondition);
+        return String.format("redirect:/wages/%d/register/completed", employee.employeeNumber().value());
     }
 
     @GetMapping(value = "completed")
-    String showResult(Worker worker) {
+    String showResult(Employee employee) {
         return "wage/result";
     }
 }

@@ -3,13 +3,13 @@ package example.application.service;
 import example.Application;
 import example.application.service.contract.ContractQueryService;
 import example.application.service.contract.ContractRecordService;
-import example.application.service.worker.WorkerRecordService;
+import example.application.service.employee.EmployeeRecordService;
 import example.domain.model.contract.Contracts;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.WageCondition;
 import example.domain.model.legislation.MidnightExtraRate;
 import example.domain.model.legislation.OverTimeExtraRate;
-import example.domain.model.worker.WorkerNumber;
+import example.domain.model.employee.EmployeeNumber;
 import example.domain.type.date.Date;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(classes = Application.class)
 public class ContractRecordServiceTest {
     @Autowired
-    WorkerRecordService workerRecordService;
+    EmployeeRecordService employeeRecordService;
     @Autowired
     ContractRecordService sutRecord;
     @Autowired
@@ -34,7 +34,7 @@ public class ContractRecordServiceTest {
     @DisplayName("時給の登録参照が正しく出来ること")
     @Test
     void hourlyWage_io() {
-        WorkerNumber number = workerRecordService.prepareNewContract();
+        EmployeeNumber number = employeeRecordService.prepareNewContract();
 
         //一発目
         String baseDate = "2018-12-12";
@@ -79,7 +79,7 @@ public class ContractRecordServiceTest {
         );
     }
 
-    private void updateHourlyWageContract(WorkerNumber workerNumber, Date applyDate, HourlyWage hourlyWage) {
-        sutRecord.registerHourlyWage(workerNumber, applyDate, new WageCondition(hourlyWage, new OverTimeExtraRate(25), new MidnightExtraRate(35)));
+    private void updateHourlyWageContract(EmployeeNumber employeeNumber, Date applyDate, HourlyWage hourlyWage) {
+        sutRecord.registerHourlyWage(employeeNumber, applyDate, new WageCondition(hourlyWage, new OverTimeExtraRate(25), new MidnightExtraRate(35)));
     }
 }

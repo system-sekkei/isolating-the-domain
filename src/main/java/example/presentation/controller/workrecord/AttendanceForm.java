@@ -3,7 +3,7 @@ package example.presentation.controller.workrecord;
 import example.domain.model.timerecord.*;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
 import example.domain.model.timerecord.breaktime.MidnightBreakTime;
-import example.domain.model.worker.WorkerNumber;
+import example.domain.model.employee.EmployeeNumber;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 
@@ -13,7 +13,7 @@ import java.time.LocalDate;
 
 public class AttendanceForm {
 
-    WorkerNumber workerNumber;
+    EmployeeNumber employeeNumber;
     String workDate;
 
     String startHour;
@@ -44,11 +44,11 @@ public class AttendanceForm {
                 new TimeRange(new StartTime(startTime), new EndTime(endTime)),
                 new DaytimeBreakTime(minute),
                 new MidnightBreakTime(midnightMinute));
-        return new TimeRecord(workerNumber, workDate, actualWorkTime);
+        return new TimeRecord(employeeNumber, workDate, actualWorkTime);
     }
 
     public void apply(TimeRecord timeRecord) {
-        this.workerNumber = timeRecord.workerNumber();
+        this.employeeNumber = timeRecord.employeeNumber();
         this.workDate = timeRecord.workDate().toString();
 
         this.startHour = timeRecord.actualWorkTime().timeRange().start().clockTime().hour().toString();

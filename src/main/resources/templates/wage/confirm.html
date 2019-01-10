@@ -13,12 +13,12 @@
   </div>
 
   <div class="wageInput">
-    <form id="custom-form" class="ui large form" th:action="@{/wages/{workerNumber}/register/register(workerNumber=${worker.workerNumber()})}" method="post">
+    <form id="custom-form" class="ui large form" th:action="@{/wages/{employeeNumber}/register/register(employeeNumber=${employee.employeeNumber()})}" method="post">
 
       <div class="ui basic segment">
         <div class="field">
           <label>氏名</label>
-          <input type="text" readonly th:value="${worker.name()}">
+          <input type="text" readonly th:value="${employee.name()}">
         </div>
 
         <div class="field">
@@ -42,7 +42,7 @@
         <button class="ui positive button">登録</button>
       </div>
     </form>
-    <form id="again-form" class="ui large form" th:action="@{/wages/{workerNumber}/register/again(workerNumber=${worker.workerNumber()})}" method="post">
+    <form id="again-form" class="ui large form" th:action="@{/wages/{employeeNumber}/register/again(employeeNumber=${employee.employeeNumber()})}" method="post">
       <input type="hidden" name="startDate" th:value="${startDate}">
       <input type="hidden" name="hourlyWage" th:value="${hourlyWage}"/>
     </form>

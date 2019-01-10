@@ -18,11 +18,11 @@
       <tr>
         <td class="six wide center aligned tableHeader">従業員番号</td>
         <td class="ten wide"
-            th:text="${worker.workerNumber()}">1</td>
+            th:text="${employee.employeeNumber()}">1</td>
       </tr>
       <tr>
         <td class="six wide center aligned tableHeader">氏名</td>
-        <td class="ten wide" th:text="${worker.name()}">テスト太郎</td>
+        <td class="ten wide" th:text="${employee.name()}">テスト太郎</td>
       </tr>
     </table>
   </div>
@@ -32,7 +32,7 @@
   <div class="wageList">
     <div class="ui center aligned basic segment">
       <a class="ui labeled icon primary button"
-         th:href="@{/wages/{workerNumber}/register(workerNumber=${worker.workerNumber()})}">
+         th:href="@{/wages/{employeeNumber}/register(employeeNumber=${employee.employeeNumber()})}">
       <i class="calculator icon"></i>時給の登録</a>
     </div>
 
@@ -53,7 +53,7 @@
 
     <div class="ui center aligned basic segment">
       <a class="ui grey button"
-         th:href="@{/workers/{workerNumber}(workerNumber=${worker.workerNumber()})}">詳細に戻る</a>
+         th:href="@{/employees/{employeeNumber}(employeeNumber=${employee.employeeNumber()})}">詳細に戻る</a>
     </div>
   </div>
 </div>

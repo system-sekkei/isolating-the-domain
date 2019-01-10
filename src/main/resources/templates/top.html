@@ -15,11 +15,11 @@
        th:href="@{/workrecord}">
       <i class="clock outline icon"></i>勤務時間入力</a>
     <a class="ui labeled icon positive button"
-       th:href="@{/worker/register}">
+       th:href="@{/employee/register}">
       <i class="user plus icon"></i>従業員の新規登録</a>
   </div>
   
-  <div class="workerList">
+  <div class="employeeList">
     <div class="ui basic segment">
       <table class="ui striped celled table">
         <thead>
@@ -31,17 +31,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr th:each="worker : ${workers.list()}">
-            <td th:text="${worker.workerNumber()}"/>
-            <td th:text="${worker.name()}"/>
-            <td th:text="${worker.mailAddress()}"/>
+          <tr th:each="employee : ${employees.list()}">
+            <td th:text="${employee.employeeNumber()}"/>
+            <td th:text="${employee.name()}"/>
+            <td th:text="${employee.mailAddress()}"/>
             <td class="ui center aligned">
               <a class="ui tiny primary basic button"
-                 th:href="@{/attendance/{workerNumber}/list(workerNumber=${worker.workerNumber()})}">
+                 th:href="@{/attendance/{employeeNumber}/list(employeeNumber=${employee.employeeNumber()})}">
                 <i class="calendar alternate outline icon"></i>勤務時間の一覧
               </a>
               <a class="ui tiny positive basic button"
-                 th:href="@{/worker/{workerNumber}/update(workerNumber=${worker.workerNumber()})}">
+                 th:href="@{/employee/{employeeNumber}/update(employeeNumber=${employee.employeeNumber()})}">
                 <i class="edit icon"></i>従業員情報の変更
               </a>
             </td>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
+  <title>従業員情報の登録の確認</title>
+</head>
+<body>
+<div th:replace="fragments/menuHead::menuHead('')">
+</div>
+<div class="ui container">
+  <div class="pageHeader">
+    <h1 class="ui center aligned header">従業員情報の登録の確認</h1>
+  </div>
+
+  <div class="userInput">
+
+    <div class="ui attached positive message">
+      <div class="header">従業員情報を登録します。</div>
+      <p>確認の上、登録するボタンを押してください。</p>
+    </div>
+    
+    <div class="ui attached segment">
+      <div class="ui large form">
+        <div class="field">
+          <label>氏名</label>
+          <p th:text="${newEmployee.name()}">山田 太郎</p>
+        </div>
+
+        <div class="field">
+          <label>メールアドレス</label>
+          <p th:text="${newEmployee.mailAddress()}">someone@example.com</p>
+        </div>
+
+        <div class="field">
+          <label>電話番号</label>
+          <p th:text="${newEmployee.phoneNumber()}">0120-888-888</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ui center aligned basic segment">
+    <a class="ui grey button"
+       th:href="@{/employees/register/input/again}">入力に戻る
+     </a>
+    <a class="ui positive button"
+       th:href="@{/employees/register/register}">登録</a>
+  </div>
+</div>
+
+</body>
+</html>

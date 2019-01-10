@@ -1,14 +1,14 @@
 package example.presentation.controller.workrecord;
 
 import example.application.service.attendance.AttendanceQueryService;
-import example.application.service.worker.WorkerQueryService;
+import example.application.service.employee.EmployeeQueryService;
 import example.application.service.workrecord.WorkRecordQueryService;
 import example.application.service.workrecord.WorkRecordRecordService;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.timerecord.TimeRecord;
 import example.domain.model.timerecord.WorkDate;
-import example.domain.model.worker.ContractingWorkers;
-import example.domain.model.worker.WorkerNumber;
+import example.domain.model.employee.ContractingEmployees;
+import example.domain.model.employee.EmployeeNumber;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,21 +23,21 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("workrecord")
 public class WorkRecordRegisterController {
 
-    WorkerQueryService workerQueryService;
+    EmployeeQueryService employeeQueryService;
     WorkRecordRecordService workRecordRecordService;
     WorkRecordQueryService workRecordQueryService;
     AttendanceQueryService attendanceQueryService;
 
-    public WorkRecordRegisterController(WorkerQueryService workerQueryService, WorkRecordRecordService workRecordRecordService, WorkRecordQueryService workRecordQueryService, AttendanceQueryService attendanceQueryService) {
-        this.workerQueryService = workerQueryService;
+    public WorkRecordRegisterController(EmployeeQueryService employeeQueryService, WorkRecordRecordService workRecordRecordService, WorkRecordQueryService workRecordQueryService, AttendanceQueryService attendanceQueryService) {
+        this.employeeQueryService = employeeQueryService;
         this.workRecordRecordService = workRecordRecordService;
         this.workRecordQueryService = workRecordQueryService;
         this.attendanceQueryService = attendanceQueryService;
     }
 
-    @ModelAttribute("workers")
-    ContractingWorkers workers() {
-        return workerQueryService.contractingWorkers();
+    @ModelAttribute("employees")
+    ContractingEmployees employees() {
+        return employeeQueryService.contractingEmployees();
     }
 
     @ModelAttribute("attendanceForm")
@@ -47,19 +47,19 @@ public class WorkRecordRegisterController {
     }
 
     @GetMapping
-    String init(@RequestParam(value = "workerNumber", required = false) WorkerNumber workerNumber,
+    String init(@RequestParam(value = "employeeNumber", required = false) EmployeeNumber employeeNumber,
                 @RequestParam(value = "workDate", required = false) WorkDate workDate,
                 @ModelAttribute AttendanceForm attendanceForm,
                 Model model) {
-        if (workerNumber != null) {
-            attendanceForm.workerNumber = workerNumber;
+        if (employeeNumber != null) {
+            attendanceForm.employeeNumber = employeeNumber;
         }
         if (workDate != null) {
             attendanceForm.workDate = workDate.toString();
         }
-        if (workerNumber != null && workDate != null) {
-            if (attendanceQueryService.attendanceStatus(workerNumber, workDate).isWork()) {
-                TimeRecord timeRecord = workRecordQueryService.workRecord(workerNumber, workDate);
+        if (employeeNumber != null && workDate != null) {
+            if (attendanceQueryService.attendanceStatus(employeeNumber, workDate).isWork()) {
+                TimeRecord timeRecord = workRecordQueryService.workRecord(employeeNumber, workDate);
                 attendanceForm.apply(timeRecord);
             }
         }
@@ -76,13 +76,13 @@ public class WorkRecordRegisterController {
 
         WorkMonth workMonth = WorkMonth.from(timeRecord.workDate());
 
-        return "redirect:/attendances/" + attendanceForm.workerNumber.value() + "/" + workMonth.toString();
+        return "redirect:/attendances/" + attendanceForm.employeeNumber.value() + "/" + workMonth.toString();
     }
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         binder.setAllowedFields(
-                "workerNumber",
+                "employeeNumber",
                 "workDate",
                 "startHour",
                 "startMinute",

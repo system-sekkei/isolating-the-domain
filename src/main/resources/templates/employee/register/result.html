@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
+  <title>従業員情報の登録の完了</title>
+</head>
+<body>
+<div th:replace="fragments/menuHead::menuHead('')">
+</div>
+<div class="ui container">
+  <div class="pageHeader">
+    <h1 class="ui center aligned header">従業員情報の登録の完了</h1>
+  </div>
+  
+  <div class="userInput">
+    <div class="ui info message segment">
+      <p th:text="${name} + ' (' + ${employeeNumber} + ') ' + さんを登録しました。">登録完了しました。</p>
+    </div>
+  </div>
+  
+</div>
+
+</body>
+</html>

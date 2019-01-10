@@ -12,13 +12,13 @@
     <h1 class="ui center aligned header">時給の登録</h1>
   </div>
 
-  <form id="custom-form" class="ui form" th:action="@{/wages/{workerNumber}/register/confirm(workerNumber=${worker.workerNumber()})}" method="post">
+  <form id="custom-form" class="ui form" th:action="@{/wages/{employeeNumber}/register/confirm(employeeNumber=${employee.employeeNumber()})}" method="post">
 
     <div class="wageInfo">
       <table class="ui celled center aligned definition table">
         <tr>
           <td class="six wide center aligned tableHeader">氏名</td>
-          <td class="ten wide" th:text="${worker.name()}">テスト太郎</td>
+          <td class="ten wide" th:text="${employee.name()}">テスト太郎</td>
         </tr>
       </table>
     </div>
@@ -45,7 +45,7 @@
 
       <div class="ui center aligned basic segment">
         <a class="ui grey button"
-           th:href="@{/wages/{workerNumber}(workerNumber=${worker.workerNumber()})}">時給の変遷に戻る</a>
+           th:href="@{/wages/{employeeNumber}(employeeNumber=${employee.employeeNumber()})}">時給の変遷に戻る</a>
         <button class="ui positive button">確認</button>
       </div>
     </div>

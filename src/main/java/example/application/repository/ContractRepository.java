@@ -2,19 +2,19 @@ package example.application.repository;
 
 
 import example.domain.model.contract.Contracts;
+import example.domain.model.contract.EmploymentContracts;
 import example.domain.model.contract.WageCondition;
-import example.domain.model.contract.WorkerContracts;
-import example.domain.model.worker.ContractingWorkers;
-import example.domain.model.worker.WorkerNumber;
+import example.domain.model.employee.ContractingEmployees;
+import example.domain.model.employee.EmployeeNumber;
 import example.domain.type.date.Date;
 
 /**
  * 契約リポジトリ
  */
 public interface ContractRepository {
-    Contracts getContracts(WorkerNumber workerNumber);
+    Contracts getContracts(EmployeeNumber employeeNumber);
 
-    void registerHourlyWage(WorkerNumber workerNumber, Date startDate, WageCondition wageCondition);
+    void registerHourlyWage(EmployeeNumber employeeNumber, Date startDate, WageCondition wageCondition);
 
-    WorkerContracts findWorkerContracts(ContractingWorkers contractingWorkers);
+    EmploymentContracts findEmploymentContracts(ContractingEmployees contractingEmployees);
 }

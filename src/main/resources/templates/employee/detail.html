@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
+  <title>詳細</title>
+</head>
+<body>
+<div th:replace="fragments/menuHead::menuHead('')">
+</div>
+<div class="ui container">
+  <div class="pageHeader">
+    <h1 class="ui center aligned header">詳細</h1>
+  </div>
+
+  <div class="ui center aligned basic segment">
+    <a class="ui labeled icon primary button"
+       th:href="@{/wages/{employeeNumber}(employeeNumber=${employee.employeeNumber()})}">
+      <i class="calculator icon"></i>時給の履歴
+    </a>
+  </div>
+
+  <div class="employeeDetail">
+    <table class="ui celled definition table">
+      <tr>
+        <td class="six wide center aligned tableHeader">従業員番号</td>
+        <td class="ten wide"
+            th:text="${employee.employeeNumber()}">1</td>
+      </tr>
+      <tr>
+        <td class="six wide center aligned tableHeader">氏名</td>
+        <td class="ten wide"
+            th:text="${employee.name()}">山田 太郎</td>
+      </tr>
+      <tr>
+        <td class="six wide center aligned tableHeader">メールアドレス</td>
+        <td class="ten wide"
+            th:text="${employee.mailAddress()}">someone@example.com</td>
+      </tr>
+      <tr>
+        <td class="six wide center aligned tableHeader">電話番号</td>
+        <td class="ten wide"
+            th:text="${employee.phoneNumber()}">0120-888-888</td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="ui center aligned basic segment">
+    <a class="ui grey button" th:href="@{/employees}">一覧に戻る</a>
+    <a class="ui positive button"
+       th:href="@{/employees/{employeeNumber}/update(employeeNumber=${employee.employeeNumber()})}">
+      変更
+    </a>
+    <button id="deleteConfirmButton" class="ui negative button">
+      削除
+    </button>
+  </div>
+</div>
+
+<!-- 削除の確認 -->
+<div id="deleteConfirmModal" class="ui tiny modal">
+  <h3 class="caution"><strong th:text="${employee.name()}">従業員さん</strong>を削除しますか？</h3>
+  <div class="actions">
+    <div class="ui grey deny button">
+      キャンセル
+    </div>
+    <a id="deleteButton" class="ui negative button"
+       th:href="@{/employees/{employeeNumber}/delete(employeeNumber=${employee.employeeNumber()})}">
+      削除
+    </a>
+  </div>
+</div>
+<script>
+    $('#deleteConfirmButton').click(function () {
+        $('#deleteConfirmModal').modal('show');
+        }
+    );
+</script>
+
+<!-- 変更の完了 -->
+<div id="updateCompletedModal" class="ui tiny modal">
+  <h3 class="complete">従業員情報を変更しました。</h3>
+  <div class="actions">
+    <div class="ui positive deny button">
+      ＯＫ
+    </div>
+  </div>
+</div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var updateResult = /*[[${updateResult}]]*/ '';
+    $(function(){
+        if(updateResult === 'completed'){
+            $('#updateCompletedModal').modal('show');
+        }
+    });
+    /*]]>*/
+</script>
+</body>
+</html>

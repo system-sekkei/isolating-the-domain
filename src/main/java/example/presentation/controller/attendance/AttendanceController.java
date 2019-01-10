@@ -1,12 +1,12 @@
 package example.presentation.controller.attendance;
 
 import example.application.service.attendance.AttendanceQueryService;
-import example.application.service.worker.WorkerQueryService;
+import example.application.service.employee.EmployeeQueryService;
 import example.application.service.workrecord.WorkRecordRecordService;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.WorkMonth;
-import example.domain.model.worker.Worker;
-import example.domain.model.worker.WorkerNumber;
+import example.domain.model.employee.Employee;
+import example.domain.model.employee.EmployeeNumber;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,15 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * 勤務時間の一覧
  */
 @Controller
-@RequestMapping("attendances/{workerNumber}/{yearMonth}")
+@RequestMapping("attendances/{employeeNumber}/{yearMonth}")
 public class AttendanceController {
 
-    WorkerQueryService workerQueryService;
+    EmployeeQueryService employeeQueryService;
     WorkRecordRecordService workRecordRecordService;
     AttendanceQueryService attendanceQueryService;
 
-    public AttendanceController(WorkerQueryService workerQueryService, WorkRecordRecordService workRecordRecordService, AttendanceQueryService attendanceQueryService) {
-        this.workerQueryService = workerQueryService;
+    public AttendanceController(EmployeeQueryService employeeQueryService, WorkRecordRecordService workRecordRecordService, AttendanceQueryService attendanceQueryService) {
+        this.employeeQueryService = employeeQueryService;
         this.workRecordRecordService = workRecordRecordService;
         this.attendanceQueryService = attendanceQueryService;
     }
@@ -43,12 +43,12 @@ public class AttendanceController {
 
     @GetMapping
     String list(Model model,
-                @PathVariable("workerNumber") WorkerNumber workerNumber,
+                @PathVariable("employeeNumber") EmployeeNumber employeeNumber,
                 @PathVariable("yearMonth") WorkMonth workMonth) {
-        Worker worker = workerQueryService.choose(workerNumber);
-        model.addAttribute("worker", worker);
+        Employee employee = employeeQueryService.choose(employeeNumber);
+        model.addAttribute("employee", employee);
 
-        Attendance attendance = attendanceQueryService.findAttendance(worker.workerNumber(), workMonth);
+        Attendance attendance = attendanceQueryService.findAttendance(employee.employeeNumber(), workMonth);
         model.addAttribute("attendance", attendance);
         return "attendance/list";
     }

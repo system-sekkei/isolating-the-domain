@@ -21,8 +21,8 @@
       <div class="field">
         <label>氏名</label>
         <div class="eight wide field">
-          <select class="ui search dropdown" th:field="*{workerNumber}">
-            <option th:each="worker : ${workers.list()}" th:value="${worker.workerNumber()}" th:text="${worker.name()}">
+          <select class="ui search dropdown" th:field="*{employeeNumber}">
+            <option th:each="employee : ${employees.list()}" th:value="${employee.employeeNumber()}" th:text="${employee.name()}">
               DUMMY
             </option>
           </select>

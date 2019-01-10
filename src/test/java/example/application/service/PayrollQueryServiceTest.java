@@ -2,9 +2,9 @@ package example.application.service;
 
 import example.Application;
 import example.application.service.contract.ContractRecordService;
+import example.application.service.employee.EmployeeRecordService;
 import example.application.service.payroll.PayrollQueryService;
-import example.application.service.worker.WorkerQueryService;
-import example.application.service.worker.WorkerRecordService;
+import example.application.service.employee.EmployeeQueryService;
 import example.application.service.workrecord.WorkRecordRecordService;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.contract.HourlyWage;
@@ -15,7 +15,7 @@ import example.domain.model.payroll.Payroll;
 import example.domain.model.timerecord.*;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
 import example.domain.model.timerecord.breaktime.MidnightBreakTime;
-import example.domain.model.worker.*;
+import example.domain.model.employee.*;
 import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
@@ -34,60 +34,60 @@ class PayrollQueryServiceTest {
     @Autowired
     ContractRecordService contractRecordService;
     @Autowired
-    WorkerRecordService workerRecordService;
+    EmployeeRecordService employeeRecordService;
     @Autowired
-    WorkerQueryService workerQueryService;
+    EmployeeQueryService employeeQueryService;
     @Autowired
     WorkRecordRecordService workRecordRecordService;
 
     @Test
     void test() {
-        WorkerNumber workerNumber = workerRecordService.prepareNewContract();
+        EmployeeNumber employeeNumber = employeeRecordService.prepareNewContract();
         // この時点で呼んだらエラーにしなきゃならない。このテストのスコープからは外れるが。
-        // workerRecordService.inspireContract(workerNumber);
+        // employeeRecordService.inspireContract(employeeNumber);
 
-        workerRecordService.registerMailAddress(workerNumber, new MailAddress(""));
-        workerRecordService.registerName(workerNumber, new Name(""));
-        workerRecordService.registerPhoneNumber(workerNumber, new PhoneNumber(""));
-        workerRecordService.inspireContract(workerNumber);
+        employeeRecordService.registerMailAddress(employeeNumber, new MailAddress(""));
+        employeeRecordService.registerName(employeeNumber, new Name(""));
+        employeeRecordService.registerPhoneNumber(employeeNumber, new PhoneNumber(""));
+        employeeRecordService.inspireContract(employeeNumber);
 
-        Worker worker = workerQueryService.choose(workerNumber);
+        Employee employee = employeeQueryService.choose(employeeNumber);
 
         {
-            Payroll payroll = sut.payroll(worker, new WorkMonth("2018-11"));
+            Payroll payroll = sut.payroll(employee, new WorkMonth("2018-11"));
             assertEquals("0円", payroll.totalPaymentAmount().toString());
         }
 
         {
             WageCondition wageCondition = new WageCondition(new HourlyWage(1000), OverTimeExtraRate.legal(), MidnightExtraRate.legal());
-            contractRecordService.registerHourlyWage(workerNumber, new Date("2018-11-20"), wageCondition);
+            contractRecordService.registerHourlyWage(employeeNumber, new Date("2018-11-20"), wageCondition);
 
             TimeRecord timeRecord = new TimeRecord(
-                    workerNumber, new WorkDate(new Date("2018-11-20")),
+                    employeeNumber, new WorkDate(new Date("2018-11-20")),
                     new ActualWorkTime(new TimeRange(new StartTime(new ClockTime("09:00")), new EndTime(new ClockTime("10:00"))), new DaytimeBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
             );
             workRecordRecordService.registerWorkRecord(timeRecord);
 
-            Payroll payroll = sut.payroll(worker, new WorkMonth("2018-11"));
+            Payroll payroll = sut.payroll(employee, new WorkMonth("2018-11"));
             assertEquals("1,000円", payroll.totalPaymentAmount().toString());
         }
 
         {
             TimeRecord timeRecord = new TimeRecord(
-                    workerNumber, new WorkDate(new Date("2018-11-25")),
+                    employeeNumber, new WorkDate(new Date("2018-11-25")),
                     new ActualWorkTime(new TimeRange(new StartTime(new ClockTime("22:00")), new EndTime(new ClockTime("23:00"))), new DaytimeBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
             );
             workRecordRecordService.registerWorkRecord(timeRecord);
 
-            Payroll payroll = sut.payroll(worker, new WorkMonth("2018-11"));
+            Payroll payroll = sut.payroll(employee, new WorkMonth("2018-11"));
             assertEquals("2,350円", payroll.totalPaymentAmount().toString());
         }
 
         {
             WageCondition wageCondition = new WageCondition(new HourlyWage(2000), OverTimeExtraRate.legal(), MidnightExtraRate.legal());
-            contractRecordService.registerHourlyWage(workerNumber, new Date("2018-11-25"), wageCondition);
+            contractRecordService.registerHourlyWage(employeeNumber, new Date("2018-11-25"), wageCondition);
 
-            Payroll payroll = sut.payroll(worker, new WorkMonth("2018-11"));
+            Payroll payroll = sut.payroll(employee, new WorkMonth("2018-11"));
             assertEquals("3,700円", payroll.totalPaymentAmount().toString());
         }
     }

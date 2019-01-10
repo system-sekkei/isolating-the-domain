@@ -1,4 +1,4 @@
-s<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -20,7 +20,7 @@ s<!DOCTYPE html>
             <i class="yen sign icon"></i>給与の一覧
         </a>
         <a class="item" th:classappend="${active.equals('従業員')} ? 'active' : ''"
-           th:href="@{/workers}">
+           th:href="@{/employees}">
             <i class="user icon"></i>従業員の一覧
         </a>
     </div>

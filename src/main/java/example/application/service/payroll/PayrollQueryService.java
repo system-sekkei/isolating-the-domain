@@ -5,12 +5,12 @@ import example.application.service.contract.ContractQueryService;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.contract.Contracts;
-import example.domain.model.contract.WorkerContract;
+import example.domain.model.contract.EmploymentContract;
 import example.domain.model.payroll.Payroll;
 import example.domain.model.payroll.Payrolls;
-import example.domain.model.worker.ContractingWorkers;
-import example.domain.model.worker.Worker;
-import example.domain.model.worker.WorkerNumber;
+import example.domain.model.employee.ContractingEmployees;
+import example.domain.model.employee.Employee;
+import example.domain.model.employee.EmployeeNumber;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -27,10 +27,10 @@ public class PayrollQueryService {
     /**
      * 月次給与取得
      */
-    public Payrolls payrolls(ContractingWorkers contractingWorkers, WorkMonth workMonth) {
+    public Payrolls payrolls(ContractingEmployees contractingEmployees, WorkMonth workMonth) {
         List<Payroll> list = new ArrayList<>();
-        for (Worker worker : contractingWorkers.list()) {
-            list.add(payroll(worker, workMonth));
+        for (Employee employee : contractingEmployees.list()) {
+            list.add(payroll(employee, workMonth));
         }
         return new Payrolls(workMonth, list);
     }
@@ -38,12 +38,12 @@ public class PayrollQueryService {
     /**
      * 従業員別月次給与取得
      */
-    public Payroll payroll(Worker worker, WorkMonth workMonth) {
-        WorkerNumber workerNumber = worker.workerNumber();
-        Contracts contracts = contractQueryService.getContracts(workerNumber);
-        Attendance attendance = attendanceQueryService.findAttendance(workerNumber, workMonth);
+    public Payroll payroll(Employee employee, WorkMonth workMonth) {
+        EmployeeNumber employeeNumber = employee.employeeNumber();
+        Contracts contracts = contractQueryService.getContracts(employeeNumber);
+        Attendance attendance = attendanceQueryService.findAttendance(employeeNumber, workMonth);
 
-        return new Payroll(new WorkerContract(worker, contracts), attendance);
+        return new Payroll(new EmploymentContract(employee, contracts), attendance);
     }
 
     PayrollQueryService(ContractQueryService contractQueryService, AttendanceQueryService attendanceQueryService) {

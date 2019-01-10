@@ -2,9 +2,9 @@ package example.application.service.contract;
 
 import example.application.repository.ContractRepository;
 import example.domain.model.contract.Contracts;
-import example.domain.model.contract.WorkerContracts;
-import example.domain.model.worker.ContractingWorkers;
-import example.domain.model.worker.WorkerNumber;
+import example.domain.model.contract.EmploymentContracts;
+import example.domain.model.employee.ContractingEmployees;
+import example.domain.model.employee.EmployeeNumber;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,15 +17,15 @@ public class ContractQueryService {
     /**
      * 契約取得
      */
-    public Contracts getContracts(WorkerNumber workerNumber) {
-        return contractRepository.getContracts(workerNumber);
+    public Contracts getContracts(EmployeeNumber employeeNumber) {
+        return contractRepository.getContracts(employeeNumber);
     }
 
     /**
      * 従業員契約一覧
      */
-    public WorkerContracts findWorkerContracts(ContractingWorkers contractingWorkers) {
-        return contractRepository.findWorkerContracts(contractingWorkers);
+    public EmploymentContracts findEmployeeContracts(ContractingEmployees contractingEmployees) {
+        return contractRepository.findEmploymentContracts(contractingEmployees);
     }
 
     ContractQueryService(ContractRepository contractRepository) {
