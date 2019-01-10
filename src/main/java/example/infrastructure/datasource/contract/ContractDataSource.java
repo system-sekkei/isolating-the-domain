@@ -1,9 +1,9 @@
 package example.infrastructure.datasource.contract;
 
 import example.application.repository.ContractRepository;
+import example.domain.model.contract.ContractWages;
+import example.domain.model.contract.Contract;
 import example.domain.model.contract.Contracts;
-import example.domain.model.contract.EmploymentContract;
-import example.domain.model.contract.EmploymentContracts;
 import example.domain.model.contract.WageCondition;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.Employee;
@@ -29,20 +29,20 @@ public class ContractDataSource implements ContractRepository {
     }
 
     @Override
-    public Contracts getContracts(EmployeeNumber employeeNumber) {
+    public ContractWages getContractWages(EmployeeNumber employeeNumber) {
         List<HourlyWageData> list = mapper.selectContracts(employeeNumber);
-        return new Contracts(list.stream()
+        return new ContractWages(list.stream()
                 .map(HourlyWageData::toContract)
                 .collect(Collectors.toList()));
     }
 
     @Override
-    public EmploymentContracts findEmploymentContracts(ContractingEmployees contractingEmployees) {
-        List<EmploymentContract> list = new ArrayList<>();
+    public Contracts findContracts(ContractingEmployees contractingEmployees) {
+        List<Contract> list = new ArrayList<>();
         for (Employee employee : contractingEmployees.list()) {
-            list.add(new EmploymentContract(employee, getContracts(employee.employeeNumber())));
+            list.add(new Contract(employee, getContractWages(employee.employeeNumber())));
         }
-        return new EmploymentContracts(list);
+        return new Contracts(list);
     }
 
     ContractDataSource(ContractMapper payrollMapper) {

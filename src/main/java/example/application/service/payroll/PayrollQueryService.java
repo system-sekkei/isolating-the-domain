@@ -4,8 +4,8 @@ import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.contract.ContractQueryService;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.WorkMonth;
-import example.domain.model.contract.Contracts;
-import example.domain.model.contract.EmploymentContract;
+import example.domain.model.contract.Contract;
+import example.domain.model.contract.ContractWages;
 import example.domain.model.payroll.Payroll;
 import example.domain.model.payroll.Payrolls;
 import example.domain.model.employee.ContractingEmployees;
@@ -40,10 +40,10 @@ public class PayrollQueryService {
      */
     public Payroll payroll(Employee employee, WorkMonth workMonth) {
         EmployeeNumber employeeNumber = employee.employeeNumber();
-        Contracts contracts = contractQueryService.getContracts(employeeNumber);
+        ContractWages contractWages = contractQueryService.getContractWages(employeeNumber);
         Attendance attendance = attendanceQueryService.findAttendance(employeeNumber, workMonth);
 
-        return new Payroll(new EmploymentContract(employee, contracts), attendance);
+        return new Payroll(new Contract(employee, contractWages), attendance);
     }
 
     PayrollQueryService(ContractQueryService contractQueryService, AttendanceQueryService attendanceQueryService) {

@@ -1,32 +1,57 @@
 package example.domain.model.contract;
 
+import example.domain.model.employee.Employee;
+import example.domain.model.employee.EmployeeNumber;
+import example.domain.model.employee.Name;
 import example.domain.type.date.Date;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+
 /**
- * 雇用契約
+ * 従業員契約
  */
 public class Contract {
-    ContractStartingDate startDate;
-    WageCondition wageCondition;
+    Employee employee;
+    ContractWages contractWages;
 
-    public Contract(ContractStartingDate startDate, WageCondition wageCondition) {
-        this.startDate = startDate;
-        this.wageCondition = wageCondition;
+    public Contract(Employee employee, ContractWages contractWages) {
+        this.employee = employee;
+        this.contractWages = contractWages;
     }
 
-    public WageCondition wageCondition() {
-        return wageCondition;
+    public EmployeeNumber employeeNumber() {
+        return employee.employeeNumber();
     }
 
-    public HourlyWage hourlyWage() {
-        return wageCondition.baseHourlyWage();
+    public Name employeeName() {
+        return employee.name();
     }
 
-    public ContractStartingDate startDate() {
-        return startDate;
+    public ContractStartingDate contractStartingDate() {
+        ArrayList<ContractWage> list = new ArrayList<>(contractWages.list());
+        if (list.isEmpty()) {
+            return ContractStartingDate.none();
+        }
+        return list.get(list.size() - 1).startDate();
     }
 
-    public boolean availableAt(Date date) {
-        return startDate.value().hasSameValue(date) || date.isAfter(startDate.value());
+    public HourlyWage todayHourlyWage() {
+        Date today = new Date(LocalDate.now());
+        if (contractStatus(today).disable()) {
+            return HourlyWage.disable();
+        }
+        return availableContractAt(today).hourlyWage();
+    }
+
+    public ContractWage availableContractAt(Date date) {
+        return contractWages.list().stream()
+                .filter(contractWage -> contractWage.availableAt(date))
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException(date.toString()));
+    }
+
+    public ContractStatus contractStatus(Date value) {
+        return contractStartingDate().isAfter(value) ? ContractStatus.契約なし : ContractStatus.契約あり;
     }
 }

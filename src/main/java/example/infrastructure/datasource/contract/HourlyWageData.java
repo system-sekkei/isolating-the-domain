@@ -1,6 +1,6 @@
 package example.infrastructure.datasource.contract;
 
-import example.domain.model.contract.Contract;
+import example.domain.model.contract.ContractWage;
 import example.domain.model.contract.ContractStartingDate;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.WageCondition;
@@ -16,8 +16,8 @@ public class HourlyWageData {
     Integer overTimeExtraRate;
     Integer midnightExtraRate;
 
-    Contract toContract() {
-        return new Contract(new ContractStartingDate(new Date(startDate)), toHourlyWageContract());
+    ContractWage toContract() {
+        return new ContractWage(new ContractStartingDate(new Date(startDate)), toHourlyWageContract());
     }
 
     WageCondition toHourlyWageContract() {

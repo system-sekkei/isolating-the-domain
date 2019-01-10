@@ -2,7 +2,7 @@ package example.presentation.controller.wage;
 
 import example.application.service.contract.ContractQueryService;
 import example.application.service.employee.EmployeeQueryService;
-import example.domain.model.contract.Contracts;
+import example.domain.model.contract.ContractWages;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import org.springframework.stereotype.Controller;
@@ -34,8 +34,8 @@ public class WageListController {
 
     @GetMapping
     public String list(Employee employee, Model model) {
-        Contracts contracts= contractQueryService.getContracts(employee.employeeNumber());
-        model.addAttribute("contracts", contracts);
+        ContractWages contractWages = contractQueryService.getContractWages(employee.employeeNumber());
+        model.addAttribute("contractWages", contractWages);
         return "wage/list";
     }
 

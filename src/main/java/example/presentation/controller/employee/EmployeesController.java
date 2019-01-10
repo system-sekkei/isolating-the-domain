@@ -2,7 +2,7 @@ package example.presentation.controller.employee;
 
 import example.application.service.contract.ContractQueryService;
 import example.application.service.employee.EmployeeQueryService;
-import example.domain.model.contract.EmploymentContracts;
+import example.domain.model.contract.Contracts;
 import example.domain.model.employee.ContractingEmployees;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +22,9 @@ public class EmployeesController {
     @GetMapping
     String employees(Model model) {
         ContractingEmployees contractingEmployees = employeeQueryService.contractingEmployees();
-        EmploymentContracts employmentContracts = contractQueryService.findEmployeeContracts(contractingEmployees);
+        Contracts contracts = contractQueryService.findContracts(contractingEmployees);
 
-        model.addAttribute("employmentContracts", employmentContracts);
+        model.addAttribute("contracts", contracts);
         return "employee/list";
     }
 

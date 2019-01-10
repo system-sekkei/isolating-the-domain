@@ -2,7 +2,7 @@ package example.domain.model.payroll;
 
 import example.domain.model.attendance.Attendance;
 import example.domain.model.contract.Contract;
-import example.domain.model.contract.EmploymentContract;
+import example.domain.model.contract.ContractWage;
 import example.domain.model.timerecord.TimeRecord;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.employee.Name;
@@ -14,29 +14,29 @@ import java.math.BigDecimal;
  */
 public class Payroll {
 
-    EmploymentContract employmentContract;
+    Contract contract;
     Attendance attendance;
 
-    public Payroll(EmploymentContract employmentContract, Attendance attendance) {
-        this.employmentContract = employmentContract;
+    public Payroll(Contract contract, Attendance attendance) {
+        this.contract = contract;
         this.attendance = attendance;
     }
 
     public EmployeeNumber employeeNumber() {
-        return employmentContract.employeeNumber();
+        return contract.employeeNumber();
     }
 
     public Name employeeName() {
-        return employmentContract.employeeName();
+        return contract.employeeName();
     }
 
     public PaymentAmount totalPaymentAmount() {
         PaymentAmount paymentAmount = new PaymentAmount(BigDecimal.ZERO);
 
         for (TimeRecord timeRecord : attendance.listAvailableWorkRecord()) {
-            Contract contract = employmentContract.availableContractAt(timeRecord.workDate().value());
+            ContractWage contractWage = contract.availableContractAt(timeRecord.workDate().value());
 
-            PaymentAmount oneDayAmount = new PaymentAmount(timeRecord.actualWorkTime(), contract.wageCondition());
+            PaymentAmount oneDayAmount = new PaymentAmount(timeRecord.actualWorkTime(), contractWage.wageCondition());
             paymentAmount = paymentAmount.add(oneDayAmount);
         }
         return paymentAmount;
@@ -46,6 +46,6 @@ public class Payroll {
         if (attendance.notWorking()) {
             return PayrollStatus.稼働登録無し;
         }
-        return PayrollStatus.from(employmentContract.contractStatus(attendance.firstWorkDate().value()));
+        return PayrollStatus.from(contract.contractStatus(attendance.firstWorkDate().value()));
     }
 }
