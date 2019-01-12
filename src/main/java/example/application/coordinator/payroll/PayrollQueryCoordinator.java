@@ -1,4 +1,4 @@
-package example.application.service.payroll;
+package example.application.coordinator.payroll;
 
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.contract.ContractQueryService;
@@ -20,7 +20,7 @@ import java.util.List;
  * 給与参照サービス
  */
 @Service
-public class PayrollQueryService {
+public class PayrollQueryCoordinator {
     ContractQueryService contractQueryService;
     AttendanceQueryService attendanceQueryService;
 
@@ -46,7 +46,7 @@ public class PayrollQueryService {
         return new Payroll(new Contract(employee, contractWages), attendance);
     }
 
-    PayrollQueryService(ContractQueryService contractQueryService, AttendanceQueryService attendanceQueryService) {
+    PayrollQueryCoordinator(ContractQueryService contractQueryService, AttendanceQueryService attendanceQueryService) {
         this.contractQueryService = contractQueryService;
         this.attendanceQueryService = attendanceQueryService;
     }
