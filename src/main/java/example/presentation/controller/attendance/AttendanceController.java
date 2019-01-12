@@ -2,7 +2,7 @@ package example.presentation.controller.attendance;
 
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.employee.EmployeeQueryService;
-import example.application.service.workrecord.WorkRecordRecordService;
+import example.application.service.timerecord.TimeRecordRecordService;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.employee.Employee;
@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AttendanceController {
 
     EmployeeQueryService employeeQueryService;
-    WorkRecordRecordService workRecordRecordService;
+    TimeRecordRecordService timeRecordRecordService;
     AttendanceQueryService attendanceQueryService;
 
-    public AttendanceController(EmployeeQueryService employeeQueryService, WorkRecordRecordService workRecordRecordService, AttendanceQueryService attendanceQueryService) {
+    public AttendanceController(EmployeeQueryService employeeQueryService, TimeRecordRecordService timeRecordRecordService, AttendanceQueryService attendanceQueryService) {
         this.employeeQueryService = employeeQueryService;
-        this.workRecordRecordService = workRecordRecordService;
+        this.timeRecordRecordService = timeRecordRecordService;
         this.attendanceQueryService = attendanceQueryService;
     }
 

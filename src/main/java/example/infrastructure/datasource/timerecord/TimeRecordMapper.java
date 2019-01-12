@@ -1,4 +1,4 @@
-package example.infrastructure.datasource.workrecord;
+package example.infrastructure.datasource.timerecord;
 
 import example.domain.model.timerecord.TimeRecord;
 import example.domain.model.timerecord.WorkDate;
@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 @Mapper
-public interface WorkRecordMapper {
+public interface TimeRecordMapper {
     Integer newWorkTimeIdentifier();
 
     void insertWorkTimeHistory(@Param("id") Integer id, @Param("employeeNumber") EmployeeNumber employeeNumber, @Param("work") TimeRecord work);

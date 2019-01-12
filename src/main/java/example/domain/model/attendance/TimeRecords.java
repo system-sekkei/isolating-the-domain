@@ -27,6 +27,6 @@ public class TimeRecords {
     }
 
     public Recorded recordedAt(WorkDate workDate) {
-        return list.stream().anyMatch(workRecord -> workRecord.isWorkedAt(workDate)) ? Recorded.記録あり : Recorded.記録なし;
+        return list.stream().anyMatch(timeRecord -> timeRecord.isWorkedAt(workDate)) ? Recorded.記録あり : Recorded.記録なし;
     }
 }

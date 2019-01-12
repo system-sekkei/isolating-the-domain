@@ -1,4 +1,4 @@
-package example.presentation.controller.workrecord;
+package example.presentation.controller.timerecord;
 
 import example.domain.model.timerecord.*;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;

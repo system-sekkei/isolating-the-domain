@@ -1,6 +1,6 @@
 package example.application.service.attendance;
 
-import example.application.repository.WorkRecordRepository;
+import example.application.repository.TimeRecordRepository;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.AttendanceStatus;
 import example.domain.model.attendance.TimeRecords;
@@ -15,13 +15,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class AttendanceQueryService {
 
-    WorkRecordRepository workRecordRepository;
+    TimeRecordRepository timeRecordRepository;
 
     /**
      * 月次勤怠取得
      */
     public Attendance findAttendance(EmployeeNumber employeeNumber, WorkMonth month) {
-        TimeRecords timeRecords = workRecordRepository.findWorkRecords(employeeNumber, month);
+        TimeRecords timeRecords = timeRecordRepository.findTimeRecords(employeeNumber, month);
         return new Attendance(employeeNumber, month, timeRecords);
     }
 
@@ -32,7 +32,7 @@ public class AttendanceQueryService {
         return findAttendance(employeeNumber, WorkMonth.from(workDate)).statusOf(workDate);
     }
 
-    AttendanceQueryService(WorkRecordRepository workRecordRepository) {
-        this.workRecordRepository = workRecordRepository;
+    AttendanceQueryService(TimeRecordRepository timeRecordRepository) {
+        this.timeRecordRepository = timeRecordRepository;
     }
 }

@@ -8,9 +8,9 @@ import example.domain.model.employee.EmployeeNumber;
 /**
  * 勤務実績リポジトリ
  */
-public interface WorkRecordRepository {
+public interface TimeRecordRepository {
 
-    void registerWorkRecord(TimeRecord timeRecord);
+    void registerTimeRecord(TimeRecord timeRecord);
 
-    TimeRecords findWorkRecords(EmployeeNumber employeeNumber, WorkMonth month);
+    TimeRecords findTimeRecords(EmployeeNumber employeeNumber, WorkMonth month);
 }
