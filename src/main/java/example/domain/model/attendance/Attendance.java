@@ -49,12 +49,12 @@ public class Attendance {
 
     public TotalWorkTime totalWorkTime() {
         return new TotalWorkTime(timeRecords.list().stream()
-                .map(workRecord -> workRecord.actualWorkTime().workTime().quarterHour())
+                .map(timeRecord -> timeRecord.actualWorkTime().workTime().quarterHour())
                 .reduce(QuarterHour::add)
                 .orElseGet(QuarterHour::new));
     }
 
-    public List<TimeRecord> listAvailableWorkRecord() {
+    public List<TimeRecord> listAvailableTimeRecord() {
         return timeRecords.list();
     }
 }

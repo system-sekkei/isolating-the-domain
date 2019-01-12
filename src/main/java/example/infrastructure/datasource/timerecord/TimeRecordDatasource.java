@@ -1,6 +1,6 @@
-package example.infrastructure.datasource.workrecord;
+package example.infrastructure.datasource.timerecord;
 
-import example.application.repository.WorkRecordRepository;
+import example.application.repository.TimeRecordRepository;
 import example.domain.model.attendance.TimeRecords;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.timerecord.TimeRecord;
@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class WorkRecordDatasource implements WorkRecordRepository {
-    WorkRecordMapper mapper;
+public class TimeRecordDatasource implements TimeRecordRepository {
+    TimeRecordMapper mapper;
 
     @Override
-    public void registerWorkRecord(TimeRecord timeRecord) {
+    public void registerTimeRecord(TimeRecord timeRecord) {
         Integer identifier = mapper.newWorkTimeIdentifier();
         mapper.insertWorkTimeHistory(identifier, timeRecord.employeeNumber(), timeRecord);
         mapper.deleteWorkTime(timeRecord.employeeNumber(), timeRecord.workDate());
@@ -22,12 +22,12 @@ public class WorkRecordDatasource implements WorkRecordRepository {
     }
 
     @Override
-    public TimeRecords findWorkRecords(EmployeeNumber employeeNumber, WorkMonth month) {
+    public TimeRecords findTimeRecords(EmployeeNumber employeeNumber, WorkMonth month) {
         List<TimeRecord> timeRecords = mapper.selectByMonth(employeeNumber, month.yyyyMM());
         return new TimeRecords(timeRecords);
     }
 
-    WorkRecordDatasource(WorkRecordMapper mapper) {
+    TimeRecordDatasource(TimeRecordMapper mapper) {
         this.mapper = mapper;
     }
 }

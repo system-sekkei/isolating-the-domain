@@ -3,7 +3,7 @@ package example.application.service;
 import example.Application;
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.employee.EmployeeQueryService;
-import example.application.service.workrecord.WorkRecordRecordService;
+import example.application.service.timerecord.TimeRecordRecordService;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.timerecord.*;
@@ -36,7 +36,7 @@ class TimeRecordRecordServiceTest {
     @Autowired
     EmployeeQueryService employeeQueryService;
     @Autowired
-    WorkRecordRecordService workRecordRecordService;
+    TimeRecordRecordService timeRecordRecordService;
     @Autowired
     AttendanceQueryService attendanceQueryService;
 
@@ -54,7 +54,7 @@ class TimeRecordRecordServiceTest {
         ActualWorkTime actualWorkTime = new ActualWorkTime(new TimeRange(new StartTime(new ClockTime("9:00")), new EndTime(new ClockTime("24:00"))), new DaytimeBreakTime(new Minute(60)), new MidnightBreakTime(new Minute("0")));
 
         TimeRecord expectTimeRecord = new TimeRecord(employeeNumber, workDate, actualWorkTime);
-        workRecordRecordService.registerWorkRecord(expectTimeRecord);
+        timeRecordRecordService.registerTimeRecord(expectTimeRecord);
 
         Attendance attendance = attendanceQueryService.findAttendance(employeeNumber, new WorkMonth(year, month));
         assertAll(

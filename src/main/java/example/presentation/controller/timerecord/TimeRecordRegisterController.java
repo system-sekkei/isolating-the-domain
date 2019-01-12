@@ -1,9 +1,9 @@
-package example.presentation.controller.workrecord;
+package example.presentation.controller.timerecord;
 
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.employee.EmployeeQueryService;
-import example.application.service.workrecord.WorkRecordQueryService;
-import example.application.service.workrecord.WorkRecordRecordService;
+import example.application.service.timerecord.TimeRecordQueryService;
+import example.application.service.timerecord.TimeRecordRecordService;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.timerecord.TimeRecord;
 import example.domain.model.timerecord.WorkDate;
@@ -20,18 +20,18 @@ import org.springframework.web.bind.annotation.*;
  * 勤務時間の登録
  */
 @Controller
-@RequestMapping("workrecord")
-public class WorkRecordRegisterController {
+@RequestMapping("timerecord")
+public class TimeRecordRegisterController {
 
     EmployeeQueryService employeeQueryService;
-    WorkRecordRecordService workRecordRecordService;
-    WorkRecordQueryService workRecordQueryService;
+    TimeRecordRecordService timeRecordRecordService;
+    TimeRecordQueryService timeRecordQueryService;
     AttendanceQueryService attendanceQueryService;
 
-    public WorkRecordRegisterController(EmployeeQueryService employeeQueryService, WorkRecordRecordService workRecordRecordService, WorkRecordQueryService workRecordQueryService, AttendanceQueryService attendanceQueryService) {
+    public TimeRecordRegisterController(EmployeeQueryService employeeQueryService, TimeRecordRecordService timeRecordRecordService, TimeRecordQueryService timeRecordQueryService, AttendanceQueryService attendanceQueryService) {
         this.employeeQueryService = employeeQueryService;
-        this.workRecordRecordService = workRecordRecordService;
-        this.workRecordQueryService = workRecordQueryService;
+        this.timeRecordRecordService = timeRecordRecordService;
+        this.timeRecordQueryService = timeRecordQueryService;
         this.attendanceQueryService = attendanceQueryService;
     }
 
@@ -59,20 +59,20 @@ public class WorkRecordRegisterController {
         }
         if (employeeNumber != null && workDate != null) {
             if (attendanceQueryService.attendanceStatus(employeeNumber, workDate).isWork()) {
-                TimeRecord timeRecord = workRecordQueryService.workRecord(employeeNumber, workDate);
+                TimeRecord timeRecord = timeRecordQueryService.timeRecord(employeeNumber, workDate);
                 attendanceForm.apply(timeRecord);
             }
         }
-        return "workrecord/form";
+        return "timerecord/form";
     }
 
     @PostMapping
     String register(@Validated @ModelAttribute("attendanceForm") AttendanceForm attendanceForm,
                     BindingResult result) {
-        if (result.hasErrors()) return "workrecord/form";
+        if (result.hasErrors()) return "timerecord/form";
         TimeRecord timeRecord = attendanceForm.toAttendance();
 
-        workRecordRecordService.registerWorkRecord(timeRecord);
+        timeRecordRecordService.registerTimeRecord(timeRecord);
 
         WorkMonth workMonth = WorkMonth.from(timeRecord.workDate());
 

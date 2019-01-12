@@ -76,7 +76,7 @@
           <td th:text="*{actualWorkTime().breakTime()}"></td>
           <td th:text="*{actualWorkTime().workTime()}"></td>
           <td class="center aligned selectable linkCell">
-            <a th:href="@{/workrecord?employeeNumber={employeeNumber}&workDate={workDate}(employeeNumber=${employee.employeeNumber()},workDate=${workDate})}">
+            <a th:href="@{/timerecord?employeeNumber={employeeNumber}&workDate={workDate}(employeeNumber=${employee.employeeNumber()},workDate=${workDate})}">
               <i class="edit icon"></i>
             </a>
           </td>
@@ -91,7 +91,7 @@
           <td></td>
           <td></td>
           <td class="center aligned selectable linkCell">
-            <a th:href="@{/workrecord?employeeNumber={employeeNumber}&workDate={workDate}(employeeNumber=${employee.employeeNumber()},workDate=${workDate})}">
+            <a th:href="@{/timerecord?employeeNumber={employeeNumber}&workDate={workDate}(employeeNumber=${employee.employeeNumber()},workDate=${workDate})}">
               <i class="edit icon"></i>
             </a>
           </td>

@@ -5,7 +5,7 @@ import example.application.service.contract.ContractRecordService;
 import example.application.service.employee.EmployeeRecordService;
 import example.application.service.payroll.PayrollQueryService;
 import example.application.service.employee.EmployeeQueryService;
-import example.application.service.workrecord.WorkRecordRecordService;
+import example.application.service.timerecord.TimeRecordRecordService;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.contract.HourlyWage;
 import example.domain.model.contract.WageCondition;
@@ -38,7 +38,7 @@ class PayrollQueryServiceTest {
     @Autowired
     EmployeeQueryService employeeQueryService;
     @Autowired
-    WorkRecordRecordService workRecordRecordService;
+    TimeRecordRecordService timeRecordRecordService;
 
     @Test
     void test() {
@@ -66,7 +66,7 @@ class PayrollQueryServiceTest {
                     employeeNumber, new WorkDate(new Date("2018-11-20")),
                     new ActualWorkTime(new TimeRange(new StartTime(new ClockTime("09:00")), new EndTime(new ClockTime("10:00"))), new DaytimeBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
             );
-            workRecordRecordService.registerWorkRecord(timeRecord);
+            timeRecordRecordService.registerTimeRecord(timeRecord);
 
             Payroll payroll = sut.payroll(employee, new WorkMonth("2018-11"));
             assertEquals("1,000円", payroll.totalPaymentAmount().toString());
@@ -77,7 +77,7 @@ class PayrollQueryServiceTest {
                     employeeNumber, new WorkDate(new Date("2018-11-25")),
                     new ActualWorkTime(new TimeRange(new StartTime(new ClockTime("22:00")), new EndTime(new ClockTime("23:00"))), new DaytimeBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
             );
-            workRecordRecordService.registerWorkRecord(timeRecord);
+            timeRecordRecordService.registerTimeRecord(timeRecord);
 
             Payroll payroll = sut.payroll(employee, new WorkMonth("2018-11"));
             assertEquals("2,350円", payroll.totalPaymentAmount().toString());
