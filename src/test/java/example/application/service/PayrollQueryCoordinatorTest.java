@@ -3,7 +3,7 @@ package example.application.service;
 import example.Application;
 import example.application.service.contract.ContractRecordService;
 import example.application.service.employee.EmployeeRecordService;
-import example.application.service.payroll.PayrollQueryService;
+import example.application.coordinator.payroll.PayrollQueryCoordinator;
 import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordRecordService;
 import example.domain.model.attendance.WorkMonth;
@@ -26,10 +26,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(classes = Application.class)
-class PayrollQueryServiceTest {
+class PayrollQueryCoordinatorTest {
 
     @Autowired
-    PayrollQueryService sut;
+    PayrollQueryCoordinator sut;
 
     @Autowired
     ContractRecordService contractRecordService;

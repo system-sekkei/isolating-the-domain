@@ -1,6 +1,6 @@
 package example.presentation.controller.payroll;
 
-import example.application.service.payroll.PayrollQueryService;
+import example.application.coordinator.payroll.PayrollQueryCoordinator;
 import example.application.service.employee.EmployeeQueryService;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.payroll.Payrolls;
@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PayrollController {
 
     EmployeeQueryService employeeQueryService;
-    PayrollQueryService payrollQueryService;
+    PayrollQueryCoordinator payrollQueryCoordinator;
 
-    public PayrollController(EmployeeQueryService employeeQueryService, PayrollQueryService payrollQueryService) {
+    public PayrollController(EmployeeQueryService employeeQueryService, PayrollQueryCoordinator payrollQueryCoordinator) {
         this.employeeQueryService = employeeQueryService;
-        this.payrollQueryService = payrollQueryService;
+        this.payrollQueryCoordinator = payrollQueryCoordinator;
     }
 
     @GetMapping
@@ -34,7 +34,7 @@ public class PayrollController {
     @GetMapping("{workMonth}")
     String employees(Model model, @PathVariable("workMonth") WorkMonth workMonth) {
         ContractingEmployees contractingEmployees = employeeQueryService.contractingEmployees();
-        Payrolls payrolls = payrollQueryService.payrolls(contractingEmployees, workMonth);
+        Payrolls payrolls = payrollQueryCoordinator.payrolls(contractingEmployees, workMonth);
         model.addAttribute("payrolls", payrolls);
         return "payroll/list";
     }
