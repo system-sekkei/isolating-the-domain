@@ -10,12 +10,22 @@
 ./gradlew clean bootRun
 ```
 
+```localhost:8080``` でダッシュボード画面を表示
+
 ## 実行可能Jarのビルドと実行
 
 ```sh
 ./gradlew clean build
 java -jar build/libs/isolating-the-domain.jar
 ```
+
+## 設計ドキュメントの自動生成
+
+```sh
+./gradlew jig
+```
+
+```build/jig``` 以下にソースコードから自動生成したクラス一覧やクラスの関連図を出力
 
 ## 設計ガイド
 [ドメインを隔離する](https://github.com/system-sekkei/isolating-the-domain/wiki)
