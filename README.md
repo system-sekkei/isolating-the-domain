@@ -22,6 +22,8 @@ java -jar build/libs/isolating-the-domain.jar
 
 [型による設計](https://github.com/masuda220/business-logic-patterns/wiki/%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3)
 
+[書籍：現場で役立つシステム設計の原則](https://gihyo.jp/book/2017/978-4-7741-9087-7)
+
 ## アーキテクチャ
 
 ![アーキテクチャ](architecture.png)
