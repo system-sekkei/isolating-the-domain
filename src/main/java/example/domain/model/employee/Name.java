@@ -1,5 +1,7 @@
 package example.domain.model.employee;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -8,9 +10,9 @@ import javax.validation.constraints.Size;
  */
 public class Name {
 
-    static final int 字数制限 = 40;
+    final int 字数制限 = 40;
     @NotBlank(message = "名前を入力してください。")
-    @Size(max = 字数制限, message = "{字数制限}文字以内で入力してください。")
+    @Size(max = 字数制限, message = "{max}文字以内で入力してください。")
     String value = "";
 
     public Name() {
