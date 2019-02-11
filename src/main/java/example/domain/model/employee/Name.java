@@ -8,8 +8,9 @@ import javax.validation.constraints.Size;
  */
 public class Name {
 
+    static final int 字数制限 = 40;
     @NotBlank(message = "名前を入力してください。")
-    @Size(max = 40, message = "40文字以内で入力してください。")
+    @Size(max = 字数制限, message = "{字数制限}文字以内で入力してください。")
     String value = "";
 
     public Name() {
