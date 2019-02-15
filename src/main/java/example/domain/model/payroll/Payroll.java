@@ -30,7 +30,7 @@ public class Payroll {
         return contract.employeeName();
     }
 
-    public PaymentAmount totalPaymentAmount() {
+    public PaymentAmount totalPayment() {
         PaymentAmount paymentAmount = new PaymentAmount(BigDecimal.ZERO);
 
         for (TimeRecord timeRecord : attendance.listAvailableTimeRecord()) {

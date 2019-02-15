@@ -55,7 +55,7 @@ class PayrollQueryCoordinatorTest {
 
         {
             Payroll payroll = sut.payroll(employee, new WorkMonth("2018-11"));
-            assertEquals("0円", payroll.totalPaymentAmount().toString());
+            assertEquals("0円", payroll.totalPayment().toString());
         }
 
         {
@@ -69,7 +69,7 @@ class PayrollQueryCoordinatorTest {
             timeRecordRecordService.registerTimeRecord(timeRecord);
 
             Payroll payroll = sut.payroll(employee, new WorkMonth("2018-11"));
-            assertEquals("1,000円", payroll.totalPaymentAmount().toString());
+            assertEquals("1,000円", payroll.totalPayment().toString());
         }
 
         {
@@ -80,7 +80,7 @@ class PayrollQueryCoordinatorTest {
             timeRecordRecordService.registerTimeRecord(timeRecord);
 
             Payroll payroll = sut.payroll(employee, new WorkMonth("2018-11"));
-            assertEquals("2,350円", payroll.totalPaymentAmount().toString());
+            assertEquals("2,350円", payroll.totalPayment().toString());
         }
 
         {
@@ -88,7 +88,7 @@ class PayrollQueryCoordinatorTest {
             contractRecordService.registerHourlyWage(employeeNumber, new Date("2018-11-25"), wageCondition);
 
             Payroll payroll = sut.payroll(employee, new WorkMonth("2018-11"));
-            assertEquals("3,700円", payroll.totalPaymentAmount().toString());
+            assertEquals("3,700円", payroll.totalPayment().toString());
         }
     }
 }
