@@ -37,7 +37,7 @@ public class WorkMonth {
     }
 
     public static WorkMonth from(WorkDate workDate) {
-        return new WorkMonth(workDate.value().year(), workDate.value().month());
+        return new WorkMonth(workDate.toDate().year(), workDate.toDate().month());
     }
 
     public List<WorkDate> days() {
