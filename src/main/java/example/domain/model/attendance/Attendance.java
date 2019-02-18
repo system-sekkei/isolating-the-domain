@@ -49,7 +49,7 @@ public class Attendance {
                 .orElseGet(QuarterHour::new));
     }
 
-    public List<TimeRecord> listAvailableTimeRecord() {
-        return timeRecords.list();
+    public TimeRecords timeRecords() {
+        return timeRecords;
     }
 }

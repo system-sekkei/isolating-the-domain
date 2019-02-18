@@ -33,7 +33,7 @@ public class Payroll {
     public PaymentAmount totalPayment() {
         PaymentAmount paymentAmount = new PaymentAmount(BigDecimal.ZERO);
 
-        for (TimeRecord timeRecord : attendance.listAvailableTimeRecord()) {
+        for (TimeRecord timeRecord : attendance.timeRecords().list()) {
             ContractWage contractWage = contract.availableContractAt(timeRecord.date());
 
             PaymentAmount oneDayAmount = new PaymentAmount(timeRecord.actualWorkTime(), contractWage.wageCondition());
