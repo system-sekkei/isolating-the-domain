@@ -19,13 +19,15 @@
 java -jar build/libs/isolating-the-domain.jar
 ```
 
-## 設計ドキュメントの自動生成
+## Jig 設計ドキュメントの自動生成
 
 ```sh
 ./gradlew jig
 ```
 
 ```build/jig``` 以下にソースコードから自動生成したクラス一覧やクラスの関連図を出力
+
+[Jig 設計ドキュメント](https://github.com/dddjava/Jig)
 
 ## 設計ガイド
 [ドメインを隔離する](https://github.com/system-sekkei/isolating-the-domain/wiki)
