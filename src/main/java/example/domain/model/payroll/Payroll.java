@@ -43,9 +43,6 @@ public class Payroll {
     }
 
     public PayrollStatus payrollStatus() {
-        if (attendance.notWorking()) {
-            return PayrollStatus.稼働登録無し;
-        }
-        return PayrollStatus.from(contract.contractStatus(attendance.firstWorkDate().value()));
+        return PayrollStatus.from(contract.contractStatus(attendance.attendDates().toDates()));
     }
 }

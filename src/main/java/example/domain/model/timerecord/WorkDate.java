@@ -42,4 +42,8 @@ public class WorkDate {
     public String toString() {
         return value.toString();
     }
+
+    public Date toDate() {
+        return value;
+    }
 }

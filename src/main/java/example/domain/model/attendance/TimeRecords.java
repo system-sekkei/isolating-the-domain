@@ -5,6 +5,8 @@ import example.domain.model.timerecord.WorkDate;
 
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
+
 /**
  * 勤務実績一覧
  */
@@ -28,5 +30,9 @@ public class TimeRecords {
 
     public Recorded recordedAt(WorkDate workDate) {
         return list.stream().anyMatch(timeRecord -> timeRecord.isWorkedAt(workDate)) ? Recorded.記録あり : Recorded.記録なし;
+    }
+
+    public AttendDates attendDates() {
+        return new AttendDates(list.stream().map(TimeRecord::workDate).collect(toList()));
     }
 }

@@ -38,13 +38,8 @@ public class Attendance {
         return AttendanceStatus.from(timeRecords.recordedAt(workDate));
     }
 
-    public boolean notWorking() {
-        return timeRecords.list().isEmpty();
-    }
-
-    public WorkDate firstWorkDate() {
-        List<TimeRecord> list = timeRecords.list();
-        return list.get(0).workDate();
+    public AttendDates attendDates() {
+        return timeRecords.attendDates();
     }
 
     public TotalWorkTime totalWorkTime() {

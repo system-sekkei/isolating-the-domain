@@ -4,6 +4,7 @@ import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.employee.Name;
 import example.domain.type.date.Date;
+import example.domain.type.date.Dates;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -51,7 +52,14 @@ public class Contract {
                 .orElseThrow(() -> new IllegalStateException(date.toString()));
     }
 
-    public ContractStatus contractStatus(Date value) {
-        return contractStartingDate().isAfter(value) ? ContractStatus.契約なし : ContractStatus.契約あり;
+    public ContractStatus contractStatus(Date date) {
+        return contractStartingDate().isAfter(date) ? ContractStatus.契約なし : ContractStatus.契約あり;
+    }
+
+    public ContractStatus contractStatus(Dates dates) {
+        if (dates.isEmpty()) {
+            return ContractStatus.判定不能;
+        }
+        return contractStatus(dates.first());
     }
 }
