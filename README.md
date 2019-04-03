@@ -30,9 +30,12 @@ java -jar build/libs/isolating-the-domain.jar
 [Jig 設計ドキュメント](https://github.com/dddjava/Jig)
 
 ## 設計ガイド
+
 [ドメインを隔離する](https://github.com/system-sekkei/isolating-the-domain/wiki)
 
-[型による設計](https://github.com/masuda220/business-logic-patterns/wiki/%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3)
+[ドメイン駆動設計本格入門](https://www.slideshare.net/masuda220/ss-137608652)
+
+[型指向のプログラミング：設計ガイドライン](https://github.com/masuda220/business-logic-patterns/wiki/%E8%A8%AD%E8%A8%88%E3%82%AC%E3%82%A4%E3%83%89%E3%83%A9%E3%82%A4%E3%83%B3)
 
 [書籍：現場で役立つシステム設計の原則](https://gihyo.jp/book/2017/978-4-7741-9087-7)
 
