@@ -4,19 +4,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="example.infrastructure.datasource.employee.EmployeeMapper">
 
-    <resultMap id="employee" type="example.domain.model.employee.Employee">
-        <id property="employeeNumber.value" column="従業員ID"/>
-        <result property="name.value" column="従業員名"/>
-        <result property="mailAddress.value" column="メールアドレス"/>
-        <result property="phoneNumber.value" column="電話番号"/>
-    </resultMap>
-
-    <select id="selectByEmployeeNumber" resultMap="employee">
+    <select id="selectByEmployeeNumber" resultType="example.domain.model.employee.Employee">
         SELECT
-        従業員.従業員ID,
-        従業員の名前.従業員名,
-        従業員のメールアドレス.メールアドレス,
-        従業員の電話番号.電話番号
+        従業員.従業員ID as "employeeNumber.value",
+        従業員の名前.従業員名 as "name.value",
+        従業員のメールアドレス.メールアドレス as "mailAddress.value",
+        従業員の電話番号.電話番号 as "phoneNumber.value"
         FROM 給与.従業員 as 従業員
         INNER JOIN 給与.従業員の名前 as 従業員の名前 on (
         従業員.従業員ID = 従業員の名前.従業員ID
@@ -30,12 +23,12 @@
         WHERE 従業員.従業員ID = #{employeeNumber.value}
     </select>
 
-    <select id="selectContracts" resultMap="employee">
+    <select id="selectContracts" resultType="example.domain.model.employee.Employee">
         SELECT
-        従業員.従業員ID,
-        従業員の名前.従業員名,
-        従業員のメールアドレス.メールアドレス,
-        従業員の電話番号.電話番号
+        従業員.従業員ID as "employeeNumber.value",
+        従業員の名前.従業員名 as "name.value",
+        従業員のメールアドレス.メールアドレス as "mailAddress.value",
+        従業員の電話番号.電話番号 as "phoneNumber.value"
         FROM 給与.従業員 as 従業員
         INNER JOIN 給与.従業員の名前 as 従業員の名前 on (
         従業員.従業員ID = 従業員の名前.従業員ID
