@@ -10,6 +10,6 @@
     "url": "git+https://github.com/irof/isolating-the-domain.git"
   },
   "devDependencies": {
-    "cypress": "^3.1.0"
+    "cypress": "^3.2.0"
   }
 }
