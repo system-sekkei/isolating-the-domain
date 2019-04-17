@@ -13,19 +13,12 @@
         #{wageCondition.midnightExtraRate.value.value.value});
     </insert>
 
-    <resultMap id="hourlyWage" type="example.infrastructure.datasource.contract.HourlyWageData">
-        <result property="startDate" column="適用開始日"/>
-        <result property="hourlyWage" column="時給"/>
-        <result property="overTimeExtraRate" column="時間外割増率"/>
-        <result property="midnightExtraRate" column="深夜割増率"/>
-    </resultMap>
-
-    <select id="selectContracts" resultMap="hourlyWage">
+    <select id="selectContracts" resultType="example.infrastructure.datasource.contract.HourlyWageData">
         SELECT
-        時給契約.適用開始日,
-        時給契約.時給,
-        時給契約.時間外割増率,
-        時給契約.深夜割増率
+        時給契約.適用開始日 as startDate,
+        時給契約.時給 as hourlyWage,
+        時給契約.時間外割増率 as overTimeExtraRate,
+        時給契約.深夜割増率 as midnightExtraRate
         FROM 給与.時給契約 as 時給契約
         WHERE 時給契約.従業員ID = #{employeeNumber.value}
     </select>
