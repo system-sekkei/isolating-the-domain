@@ -7,10 +7,10 @@
     "debug": "elm-live src/Main.elm -e node_modules/.bin/elm -d assets -o -u -- --output=assets/main.js --debug",
     "build": "elm make src/Main.elm --optimize --output=build/main.js"
   },
-  "dependencies": {
-    "elm": "^0.19.0"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "elm": "^0.19.0",
+    "elm-format": "^0.8.1",
     "elm-live": "^3.4.0"
   }
 }
