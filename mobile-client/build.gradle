@@ -20,7 +20,7 @@ task elmDebug(type: NpmTask) {
 }
 
 task clean {
-    delete 'dist'
+    delete 'assets/main.js'
 }
 
 npmInstall.dependsOn nodeSetup

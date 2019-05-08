@@ -3,6 +3,7 @@ plugins {
     id 'idea'
     id 'org.springframework.boot' version '2.1.3.RELEASE'
     id "org.dddjava.jig-gradle-plugin" version "2019.1.1"
+    id "com.github.node-gradle.node" version "1.3.0"
 }
 
 jigReports.dependsOn(clean, compileJava, processResources)
@@ -59,3 +60,15 @@ jig {
             'BooleanServiceDiagram',
             'PackageTreeDiagram']
 }
+
+node {
+    version = '11.10.1'
+    download = true
+}
+
+task cypressTest(type: NpmTask) {
+    args = ["run", "test"]
+}
+
+npmInstall.dependsOn nodeSetup
+cypressTest.dependsOn npmInstall
