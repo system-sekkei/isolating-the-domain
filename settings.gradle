@@ -1,1 +1,3 @@
-rootProject.name='isolating-the-domain'
+rootProject.name = 'isolating-the-domain'
+include 'webapp'
+include 'mobile-client'

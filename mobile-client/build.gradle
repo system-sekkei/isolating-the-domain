@@ -1,0 +1,29 @@
+plugins {
+    id "com.github.node-gradle.node" version "1.3.0"
+}
+
+node {
+    version = '11.10.1'
+    download = true
+}
+
+task elmBuild(type: NpmTask) {
+    args = ["run", "build"]
+}
+
+task elmServe(type: NpmTask) {
+    args = ["run", "serve"]
+}
+
+task elmDebug(type: NpmTask) {
+    args = ["run", "debug"]
+}
+
+task clean {
+    delete 'dist'
+}
+
+npmInstall.dependsOn nodeSetup
+elmBuild.dependsOn npmInstall
+elmServe.dependsOn npmInstall
+elmDebug.dependsOn npmInstall
