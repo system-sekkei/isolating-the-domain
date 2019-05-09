@@ -61,7 +61,7 @@
 ### PWA対応
 
 * ServiceWorkerを使わない場合は、エントリポイントになるhtmlでmanifestファイルを読み込むだけなので、特に問題はない
-* ServiceWorkerの登録はJSで。中の処理はelmのworkerかける？
+* ServiceWorkerの登録はJSで。中の処理はelmでかける？
     * refs. https://discourse.elm-lang.org/t/psa-elm-http-works-with-serviceworker/2562
     * refs. https://notes.eellson.com/2018/02/26/offline-post-requests-with-elm-and-service-worker/
 
