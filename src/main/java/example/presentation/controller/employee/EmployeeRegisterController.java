@@ -65,7 +65,7 @@ class EmployeeRegisterController {
             @ModelAttribute("newEmployee") NewEmployee newEmployee,
             SessionStatus status, RedirectAttributes attributes) {
         Name name = newEmployee.name();
-        EmployeeNumber employeeNumber = employeeRecordCoordinator.register(newEmployee, name);
+        EmployeeNumber employeeNumber = employeeRecordCoordinator.register(newEmployee.profile());
         status.setComplete();
 
         attributes.addAttribute("name", name);
