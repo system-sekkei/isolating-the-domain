@@ -7,7 +7,6 @@ import example.domain.model.timerecord.WorkTime;
 import example.domain.type.time.QuarterHour;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 /**
  * 支払い対象時間
@@ -32,7 +31,7 @@ public class PaymentWorkTime {
     }
 
     public PaymentAmount multiply(HourlyWage hourlyWage) {
-        BigDecimal hour = new BigDecimal(value.minute().value()).divide(BigDecimal.valueOf(60), 2, RoundingMode.UNNECESSARY);
+        BigDecimal hour = value.bigDecimalValue();
         return new PaymentAmount(hour.multiply(hourlyWage.value()));
     }
 }
