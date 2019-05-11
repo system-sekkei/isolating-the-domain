@@ -7,6 +7,9 @@ import example.domain.model.employee.Name;
 import example.presentation.controller.employee.NewEmployee;
 import org.springframework.stereotype.Service;
 
+/**
+ * 従業員登録コーディネーター
+ */
 @Service
 public class EmployeeRecordCoordinator {
 
@@ -16,6 +19,9 @@ public class EmployeeRecordCoordinator {
         this.employeeRecordService = employeeRecordService;
     }
 
+    /**
+     * 従業員登録
+     */
     public EmployeeNumber register(NewEmployee newEmployee, Name name) {
         EmployeeNumber employeeNumber = employeeRecordService.prepareNewContract();
         employeeRecordService.registerName(employeeNumber, name);
@@ -25,6 +31,9 @@ public class EmployeeRecordCoordinator {
         return employeeNumber;
     }
 
+    /**
+     * 従業員個人情報更新
+     */
     public void update(Employee employee) {
         employeeRecordService.registerName(employee.employeeNumber(), employee.name());
         employeeRecordService.registerMailAddress(employee.employeeNumber(), employee.mailAddress());
