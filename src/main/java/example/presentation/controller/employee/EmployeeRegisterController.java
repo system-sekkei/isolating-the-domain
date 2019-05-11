@@ -1,7 +1,6 @@
 package example.presentation.controller.employee;
 
 import example.application.coordinator.employee.EmployeeRecordCoordinator;
-import example.application.service.employee.EmployeeRecordService;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.employee.Name;
 import org.springframework.stereotype.Controller;
@@ -33,7 +32,6 @@ class EmployeeRegisterController {
         binder.setAllowedFields(accept);
     }
 
-    EmployeeRecordService employeeRecordService;
     EmployeeRecordCoordinator employeeRecordCoordinator;
 
     @GetMapping(value = "")
@@ -85,8 +83,7 @@ class EmployeeRegisterController {
         return "employee/register/result";
     }
 
-    public EmployeeRegisterController(EmployeeRecordService employeeRecordService, EmployeeRecordCoordinator employeeRecordCoordinator) {
-        this.employeeRecordService = employeeRecordService;
+    public EmployeeRegisterController(EmployeeRecordCoordinator employeeRecordCoordinator) {
         this.employeeRecordCoordinator = employeeRecordCoordinator;
     }
 }

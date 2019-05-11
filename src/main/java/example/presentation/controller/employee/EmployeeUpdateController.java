@@ -2,7 +2,6 @@ package example.presentation.controller.employee;
 
 import example.application.coordinator.employee.EmployeeRecordCoordinator;
 import example.application.service.employee.EmployeeQueryService;
-import example.application.service.employee.EmployeeRecordService;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import org.springframework.stereotype.Controller;
@@ -35,7 +34,6 @@ class EmployeeUpdateController {
     }
 
     EmployeeQueryService employeeQueryService;
-    EmployeeRecordService employeeRecordService;
     EmployeeRecordCoordinator employeeRecordCoordinator;
 
     @GetMapping("")
@@ -70,9 +68,8 @@ class EmployeeUpdateController {
         return "redirect:/employees/" + employee.employeeNumber();
     }
 
-    public EmployeeUpdateController(EmployeeQueryService employeeQueryService, EmployeeRecordService employeeRecordService, EmployeeRecordCoordinator employeeRecordCoordinator) {
+    public EmployeeUpdateController(EmployeeQueryService employeeQueryService, EmployeeRecordCoordinator employeeRecordCoordinator) {
         this.employeeQueryService = employeeQueryService;
-        this.employeeRecordService = employeeRecordService;
         this.employeeRecordCoordinator = employeeRecordCoordinator;
     }
 }
