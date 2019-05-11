@@ -25,4 +25,8 @@ jobs:
           name: Deploy to Heroku
           command: |
             git push https://heroku:$HEROKU_API_KEY@git.heroku.com/isolating-the-domain.git master
+      - run: ./gradlew jig
+      - store_artifacts:
+          path: build/jig
+          destination: example
 
