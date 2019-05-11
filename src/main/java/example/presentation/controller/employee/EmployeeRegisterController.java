@@ -1,5 +1,6 @@
 package example.presentation.controller.employee;
 
+import example.application.coordinator.employee.EmployeeRecordCoordinator;
 import example.application.service.employee.EmployeeRecordService;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.employee.Name;
@@ -33,6 +34,7 @@ class EmployeeRegisterController {
     }
 
     EmployeeRecordService employeeRecordService;
+    EmployeeRecordCoordinator employeeRecordCoordinator;
 
     @GetMapping(value = "")
     String clearSessionAtStart(SessionStatus sessionStatus) {
@@ -65,11 +67,7 @@ class EmployeeRegisterController {
             @ModelAttribute("newEmployee") NewEmployee newEmployee,
             SessionStatus status, RedirectAttributes attributes) {
         Name name = newEmployee.name();
-        EmployeeNumber employeeNumber = employeeRecordService.prepareNewContract();
-        employeeRecordService.registerName(employeeNumber, name);
-        employeeRecordService.registerMailAddress(employeeNumber, newEmployee.mailAddress());
-        employeeRecordService.registerPhoneNumber(employeeNumber, newEmployee.phoneNumber());
-        employeeRecordService.inspireContract(employeeNumber);
+        EmployeeNumber employeeNumber = employeeRecordCoordinator.register(newEmployee, name);
         status.setComplete();
 
         attributes.addAttribute("name", name);
@@ -87,7 +85,8 @@ class EmployeeRegisterController {
         return "employee/register/result";
     }
 
-    EmployeeRegisterController(EmployeeRecordService employeeRecordService) {
+    public EmployeeRegisterController(EmployeeRecordService employeeRecordService, EmployeeRecordCoordinator employeeRecordCoordinator) {
         this.employeeRecordService = employeeRecordService;
+        this.employeeRecordCoordinator = employeeRecordCoordinator;
     }
 }
