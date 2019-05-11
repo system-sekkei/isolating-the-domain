@@ -1,4 +1,4 @@
-package example.domain.model.contract;
+package example.domain.model.wage;
 
 import example.domain.model.legislation.ExtraPayRate;
 import example.domain.model.legislation.MidnightExtraRate;

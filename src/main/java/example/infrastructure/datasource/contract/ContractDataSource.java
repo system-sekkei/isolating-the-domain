@@ -4,7 +4,7 @@ import example.application.repository.ContractRepository;
 import example.domain.model.contract.ContractWages;
 import example.domain.model.contract.Contract;
 import example.domain.model.contract.Contracts;
-import example.domain.model.contract.WageCondition;
+import example.domain.model.wage.WageCondition;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;

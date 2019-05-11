@@ -3,8 +3,8 @@ package example.presentation.controller.wage;
 
 import example.application.service.contract.ContractRecordService;
 import example.application.service.employee.EmployeeQueryService;
-import example.domain.model.contract.HourlyWage;
-import example.domain.model.contract.WageCondition;
+import example.domain.model.wage.HourlyWage;
+import example.domain.model.wage.WageCondition;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.type.date.Date;

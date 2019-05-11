@@ -1,6 +1,6 @@
 package example.domain.model.payroll;
 
-import example.domain.model.contract.HourlyWage;
+import example.domain.model.wage.HourlyWage;
 import example.domain.model.timerecord.MidnightWorkTime;
 import example.domain.model.timerecord.OverWorkTime;
 import example.domain.model.timerecord.WorkTime;

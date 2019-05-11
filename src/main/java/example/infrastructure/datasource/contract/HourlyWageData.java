@@ -2,8 +2,8 @@ package example.infrastructure.datasource.contract;
 
 import example.domain.model.contract.ContractWage;
 import example.domain.model.contract.ContractStartingDate;
-import example.domain.model.contract.HourlyWage;
-import example.domain.model.contract.WageCondition;
+import example.domain.model.wage.HourlyWage;
+import example.domain.model.wage.WageCondition;
 import example.domain.model.legislation.MidnightExtraRate;
 import example.domain.model.legislation.OverTimeExtraRate;
 import example.domain.type.date.Date;
