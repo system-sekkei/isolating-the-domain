@@ -35,6 +35,7 @@
         * その他semantic-uiなどのラッパについてはメンテされていない感じがする
     5. 既存のフロントエンド開発の蓄積を使う
         * npm + webpack + scss + elm + (semantic-uiなどのCSSフレームワーク)
+    6. [Elm いろいろためしたけど、もう見た目をあらわすクラス名をつけても全然いいよね？ - Qiita](https://qiita.com/arowM/items/50f40b4e78133b7ef00f)
 * メモ
     * 基本は1で貫くが、無理な部分（css疑似クラス等）は必ずあるので4で補う？ CSSをすべて独自実装することになる？部分的に既存のCSSフレームワークを使いたい場合はどうする？
     * CSSに関しては既存のフロントエンド開発の蓄積(scssで記述してwebpackでcssに変換)を使った方がわかりやすい？
@@ -53,7 +54,7 @@
 
 * 基本はページ単位でモジュールを作るのがよさそう
 * 参考実装
-    *  [GitHub - elm/package.elm-lang.org: website for browsing packages and exploring documentation](https://github.com/elm/package.elm-lang.org)
+    * [GitHub - elm/package.elm-lang.org: website for browsing packages and exploring documentation](https://github.com/elm/package.elm-lang.org)
     * [GitHub - rtfeldman/elm-spa-example: A Single Page Application written in Elm](https://github.com/rtfeldman/elm-spa-example)
 
 ## MISC

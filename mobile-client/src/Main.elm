@@ -1,10 +1,15 @@
-module Main exposing (Model, Msg(..), init, main, subscriptions, update, view, viewLink)
+module Main exposing (Model, Msg(..), init, main, subscriptions, update, view)
 
 import Browser
 import Browser.Navigation as Nav
-import Html exposing (..)
-import Html.Attributes exposing (..)
-import Url
+import Pages.Attendance
+import Pages.Dashboard
+import Pages.NotFound
+import Pages.Payroll
+import Pages.TimeRecord
+import Route exposing (Route(..))
+import Tuple exposing (first)
+import Url exposing (Url)
 
 
 main =
@@ -24,13 +29,21 @@ main =
 
 type alias Model =
     { key : Nav.Key
-    , url : Url.Url
+    , page : Page
     }
 
 
+type Page
+    = NotFoundPage
+    | DashboardPage
+    | PayrollPage
+    | AttendancePage
+    | TimeRecordPage
+
+
 init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
-init flags url key =
-    ( Model key url, Cmd.none )
+init _ _ key =
+    ( Model key DashboardPage, Cmd.none )
 
 
 
@@ -54,9 +67,29 @@ update msg model =
                     ( model, Nav.load href )
 
         UrlChanged url ->
-            ( { model | url = url }
-            , Cmd.none
-            )
+            ( first (goto url model), Cmd.none )
+
+
+goto : Url -> Model -> ( Model, Cmd msg )
+goto url model =
+    case Route.parse url of
+        Nothing ->
+            ( { model | page = NotFoundPage }, Nav.pushUrl model.key (Url.toString url) )
+
+        Just Top ->
+            ( { model | page = DashboardPage }, Nav.pushUrl model.key (Url.toString url) )
+
+        Just DashboardRoute ->
+            ( { model | page = DashboardPage }, Nav.pushUrl model.key (Url.toString url) )
+
+        Just (PayrollRoute yearMonth) ->
+            ( { model | page = PayrollPage }, Nav.pushUrl model.key (Url.toString url) )
+
+        Just (AttendanceRoute employeeNumber yearMonth) ->
+            ( { model | page = AttendancePage }, Nav.pushUrl model.key (Url.toString url) )
+
+        Just (TimeRecordRoute employeeNumber workDate) ->
+            ( { model | page = TimeRecordPage }, Nav.pushUrl model.key (Url.toString url) )
 
 
 
@@ -74,21 +107,18 @@ subscriptions _ =
 
 view : Model -> Browser.Document Msg
 view model =
-    { title = "URL Interceptor"
-    , body =
-        [ text "The current URL is: "
-        , b [] [ text (Url.toString model.url) ]
-        , ul []
-            [ viewLink "/home"
-            , viewLink "/profile"
-            , viewLink "/reviews/the-century-of-the-self"
-            , viewLink "/reviews/public-opinion"
-            , viewLink "/reviews/shah-of-shahs"
-            ]
-        ]
-    }
+    case model.page of
+        DashboardPage ->
+            Pages.Dashboard.view
 
+        PayrollPage ->
+            Pages.Payroll.view
 
-viewLink : String -> Html msg
-viewLink path =
-    li [] [ a [ href path ] [ text path ] ]
+        AttendancePage ->
+            Pages.Attendance.view
+
+        TimeRecordPage ->
+            Pages.TimeRecord.view
+
+        NotFoundPage ->
+            Pages.NotFound.view
