@@ -49,6 +49,7 @@
 * エコシステム
     * パッケージリポジトリ: https://package.elm-lang.org/
     * `elm` コマンドはnpmでインストールできるので、[node-gradle/gradle-node-plugin](https://github.com/node-gradle/gradle-node-plugin) を使って容易にgradleのタスクに乗せることができる。開発環境/CI環境にはjavaさえ入っていれば良いという状況は作れる
+    * bundlerの選択肢としてはwebpackの他にParcelがある [Parcel でまとめる Elm と css と js のススメ - Qiita](https://qiita.com/kyasu1/items/44e67b8755f1adcfef67)
 
 ## モジュールの考え方
 

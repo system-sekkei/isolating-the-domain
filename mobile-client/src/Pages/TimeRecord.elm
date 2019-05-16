@@ -1,4 +1,4 @@
-module Pages.TimeRecord exposing (routerLink, view)
+module Pages.TimeRecord exposing (Model, routerLink, view)
 
 import Browser
 import Html exposing (..)
@@ -6,11 +6,19 @@ import Html.Attributes exposing (..)
 
 
 
+-- MODEL
+
+
+type alias Model =
+    {}
+
+
+
 -- VIEW
 
 
-view : Browser.Document msg
-view =
+view : Model -> Browser.Document msg
+view model =
     { title = "勤務時間の入力"
     , body =
         [ text "勤務時間の入力"

@@ -27,12 +27,12 @@ class PayrollGetResponse {
         List<Map<String, String>> list = new ArrayList<>();
         for (Payroll payroll : payrolls.list()) {
             Map<String, String> data = new HashMap<>();
-            data.put("従業員番号", payroll.employeeNumber().toString());
-            data.put("氏名", payroll.employeeName().toString());
+            data.put("employeeNumber", payroll.employeeNumber().toString());
+            data.put("employeeName", payroll.employeeName().toString());
             if (payroll.payrollStatus().available())
-                data.put("支払額", payroll.totalPayment().toString());
+                data.put("totalPayment", payroll.totalPayment().toString());
             else
-                data.put("備考", messageSource.getMessage(payroll.payrollStatus().messageKey(), new String[]{}, Locale.JAPAN));
+                data.put("message", messageSource.getMessage(payroll.payrollStatus().messageKey(), new String[]{}, Locale.JAPAN));
             list.add(data);
         }
         return list;

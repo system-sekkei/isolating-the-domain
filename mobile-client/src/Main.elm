@@ -5,7 +5,7 @@ import Browser.Navigation as Nav
 import Pages.Attendance
 import Pages.Dashboard
 import Pages.NotFound
-import Pages.Payroll
+import Pages.Payroll exposing (Model, PageState(..))
 import Pages.TimeRecord
 import Route exposing (Route(..))
 import Tuple exposing (first)
@@ -36,9 +36,9 @@ type alias Model =
 type Page
     = NotFoundPage
     | DashboardPage
-    | PayrollPage
-    | AttendancePage
-    | TimeRecordPage
+    | PayrollPage Pages.Payroll.Model
+    | AttendancePage Pages.Attendance.Model
+    | TimeRecordPage Pages.TimeRecord.Model
 
 
 init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
@@ -53,6 +53,7 @@ init _ _ key =
 type Msg
     = LinkClicked Browser.UrlRequest
     | UrlChanged Url.Url
+    | PayrollMsg Pages.Payroll.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -67,29 +68,45 @@ update msg model =
                     ( model, Nav.load href )
 
         UrlChanged url ->
-            ( first (goto url model), Cmd.none )
+            goto url model
+
+        PayrollMsg payrollMsg ->
+            case model.page of
+                PayrollPage payrollModel ->
+                    let
+                        ( newPayrollModel, payrollCmd ) =
+                            Pages.Payroll.update payrollMsg payrollModel
+                    in
+                    ( { model | page = PayrollPage newPayrollModel }, Cmd.map PayrollMsg payrollCmd )
+
+                _ ->
+                    ( model, Cmd.none )
 
 
-goto : Url -> Model -> ( Model, Cmd msg )
+goto : Url -> Model -> ( Model, Cmd Msg )
 goto url model =
     case Route.parse url of
         Nothing ->
-            ( { model | page = NotFoundPage }, Nav.pushUrl model.key (Url.toString url) )
+            ( { model | page = NotFoundPage }, Cmd.none )
 
         Just Top ->
-            ( { model | page = DashboardPage }, Nav.pushUrl model.key (Url.toString url) )
+            ( { model | page = DashboardPage }, Cmd.none )
 
         Just DashboardRoute ->
-            ( { model | page = DashboardPage }, Nav.pushUrl model.key (Url.toString url) )
+            ( { model | page = DashboardPage }, Cmd.none )
 
         Just (PayrollRoute yearMonth) ->
-            ( { model | page = PayrollPage }, Nav.pushUrl model.key (Url.toString url) )
+            let
+                ( payrollModel, payrollCmd ) =
+                    Pages.Payroll.init yearMonth
+            in
+            ( { model | page = PayrollPage payrollModel }, Cmd.map PayrollMsg payrollCmd )
 
         Just (AttendanceRoute employeeNumber yearMonth) ->
-            ( { model | page = AttendancePage }, Nav.pushUrl model.key (Url.toString url) )
+            ( { model | page = AttendancePage Pages.Attendance.Model }, Cmd.none )
 
         Just (TimeRecordRoute employeeNumber workDate) ->
-            ( { model | page = TimeRecordPage }, Nav.pushUrl model.key (Url.toString url) )
+            ( { model | page = TimeRecordPage Pages.TimeRecord.Model }, Cmd.none )
 
 
 
@@ -111,14 +128,14 @@ view model =
         DashboardPage ->
             Pages.Dashboard.view
 
-        PayrollPage ->
-            Pages.Payroll.view
+        PayrollPage payrollModel ->
+            Pages.Payroll.view payrollModel
 
-        AttendancePage ->
-            Pages.Attendance.view
+        AttendancePage attendanceModel ->
+            Pages.Attendance.view attendanceModel
 
-        TimeRecordPage ->
-            Pages.TimeRecord.view
+        TimeRecordPage timeRecordModel ->
+            Pages.TimeRecord.view timeRecordModel
 
         NotFoundPage ->
             Pages.NotFound.view
