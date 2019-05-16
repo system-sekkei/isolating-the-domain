@@ -100,7 +100,7 @@ payrollRow model payroll =
         , td [] [ text payroll.employeeName ]
         , td [] [ text payroll.totalPayment ]
         , td [] [ text payroll.message ]
-        , td [] [ a [ href (attendanceUrl payroll.employeeNumber model.yearMonth) ] [] ]
+        , td [] [ a [ href (attendanceUrl payroll.employeeNumber model.yearMonth) ] [ text "勤務時間の一覧へ" ] ]
         ]
 
 
