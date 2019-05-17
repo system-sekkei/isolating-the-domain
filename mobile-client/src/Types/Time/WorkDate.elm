@@ -14,3 +14,13 @@ toString workDate =
 
         EmptyWordDate ->
             ""
+
+
+next : WorkDate -> WorkDate
+next current =
+    Debug.todo "todo"
+
+
+previous : WorkDate -> WorkDate
+previous current =
+    Debug.todo "todo"

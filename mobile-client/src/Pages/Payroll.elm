@@ -4,7 +4,7 @@ import Browser
 import Html exposing (..)
 import Html.Attributes exposing (href)
 import Http
-import Json.Decode exposing (Decoder, andThen, field, list, string, succeed)
+import Json.Decode exposing (Decoder, field, list, succeed)
 import Json.Decode.Pipeline exposing (optional, required)
 import Pages.URLs
 import Types.Employee.EmployeeName as EmployeeName exposing (EmployeeName(..))
@@ -134,27 +134,7 @@ payrollsDecoder =
 payrollDecoder : Decoder Payroll
 payrollDecoder =
     succeed Payroll
-        |> required "employeeNumber" employeeNumberDecoder
-        |> required "employeeName" employeeNameDecoder
-        |> optional "totalPayment" totalPaymentDecoder EmptyTotalPayment
-        |> optional "message" payrollStatusMessageDecoder EmptyPayrollStatusMessage
-
-
-employeeNumberDecoder : Decoder EmployeeNumber
-employeeNumberDecoder =
-    string |> andThen (\str -> succeed (EmployeeNumber.parse str))
-
-
-employeeNameDecoder : Decoder EmployeeName
-employeeNameDecoder =
-    string |> andThen (\str -> succeed (EmployeeName str))
-
-
-totalPaymentDecoder : Decoder TotalPayment
-totalPaymentDecoder =
-    string |> andThen (\str -> succeed (TotalPayment str))
-
-
-payrollStatusMessageDecoder : Decoder PayrollStatusMessage
-payrollStatusMessageDecoder =
-    string |> andThen (\str -> succeed (PayrollStatusMessage str))
+        |> required "employeeNumber" EmployeeNumber.decoder
+        |> required "employeeName" EmployeeName.decoder
+        |> optional "totalPayment" TotalPayment.decoder EmptyTotalPayment
+        |> optional "message" PayrollStatusMessage.decoder EmptyPayrollStatusMessage

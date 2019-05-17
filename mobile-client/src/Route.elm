@@ -41,20 +41,14 @@ parser =
 
 yearMonth : Parser (YearMonth -> a) a
 yearMonth =
-    custom "YEAR_MONTH" <|
-        \segment ->
-            Just (YearMonth segment)
+    custom "YEAR_MONTH" <| \segment -> Just (YearMonth segment)
 
 
 workDate : Parser (WorkDate -> a) a
 workDate =
-    custom "WORK_DATE" <|
-        \segment ->
-            Just (WorkDate segment)
+    custom "WORK_DATE" <| \segment -> Just (WorkDate segment)
 
 
 employeeNumber : Parser (EmployeeNumber -> a) a
 employeeNumber =
-    custom "EMPLOYEE_NUMBER" <|
-        \segment ->
-            Just (EmployeeNumber.parse segment)
+    custom "EMPLOYEE_NUMBER" <| \segment -> Just (EmployeeNumber.parse segment)
