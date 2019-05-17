@@ -26,22 +26,12 @@ class AttendanceGetResponse {
         this.attendance = attendance;
     }
 
-    @JsonProperty("氏名")
+    @JsonProperty("employeeName")
     String employeeName() {
         return employee.name().toString();
     }
 
-    @JsonProperty("前月")
-    String previousMonth() {
-        return attendance.month().before().toString();
-    }
-
-    @JsonProperty("翌月")
-    String nextMonth() {
-        return attendance.month().after().toString();
-    }
-
-    @JsonProperty("総勤務時間")
+    @JsonProperty("totalWorkTime")
     String totalWorkTime() {
         return attendance.totalWorkTime().toString();
     }
@@ -52,13 +42,13 @@ class AttendanceGetResponse {
         for (WorkDate workDate : attendance.listWorkDates()) {
             Map<String, String> data = new HashMap<>();
             AttendanceStatus attendanceStatus = attendance.statusOf(workDate);
-            data.put("日付", String.valueOf(workDate.dayOfMonth()));
-            data.put("曜日", workDate.dayOfWeek().toString());
+            data.put("workDate", String.valueOf(workDate.dayOfMonth()));
+            data.put("dayOfWeek", workDate.dayOfWeek().toString());
             if (attendanceStatus.isWork()) {
-                data.put("開始時刻", attendance.at(workDate).actualWorkTime().timeRange().start().toString());
-                data.put("終了時刻", attendance.at(workDate).actualWorkTime().timeRange().end().toString());
-                data.put("休憩時間", attendance.at(workDate).actualWorkTime().breakTime().toString());
-                data.put("勤務時間", attendance.at(workDate).actualWorkTime().workTime().toString());
+                data.put("startTimePoint", attendance.at(workDate).actualWorkTime().timeRange().start().toString());
+                data.put("endTimePoint", attendance.at(workDate).actualWorkTime().timeRange().end().toString());
+                data.put("breakTime", attendance.at(workDate).actualWorkTime().breakTime().toString());
+                data.put("workTime", attendance.at(workDate).actualWorkTime().workTime().toString());
             }
             list.add(data);
         }

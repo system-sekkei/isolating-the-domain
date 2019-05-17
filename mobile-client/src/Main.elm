@@ -8,7 +8,6 @@ import Pages.NotFound
 import Pages.Payroll exposing (Model, PageState(..))
 import Pages.TimeRecord
 import Route exposing (Route(..))
-import Tuple exposing (first)
 import Url exposing (Url)
 
 

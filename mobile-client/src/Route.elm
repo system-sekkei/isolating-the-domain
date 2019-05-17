@@ -1,7 +1,10 @@
 module Route exposing (Route(..), parse)
 
+import Types.Employee.EmployeeNumber as EmployeeNumber exposing (EmployeeNumber)
+import Types.TIme.WorkDate exposing (WorkDate(..))
+import Types.TIme.YearMonth exposing (YearMonth(..))
 import Url exposing (Url)
-import Url.Parser exposing ((</>), Parser, int, map, oneOf, s, string, top)
+import Url.Parser exposing ((</>), Parser, custom, map, oneOf, s, top)
 
 
 
@@ -14,22 +17,6 @@ type Route
     | PayrollRoute YearMonth
     | AttendanceRoute EmployeeNumber YearMonth
     | TimeRecordRoute EmployeeNumber WorkDate
-
-
-
--- Path Variables
-
-
-type alias EmployeeNumber =
-    Int
-
-
-type alias YearMonth =
-    String
-
-
-type alias WorkDate =
-    String
 
 
 
@@ -46,7 +33,28 @@ parser =
     oneOf
         [ map Top top
         , map DashboardRoute (s "dashboard")
-        , map PayrollRoute (s "payroll" </> string)
-        , map AttendanceRoute (s "attendance" </> int </> string)
-        , map TimeRecordRoute (s "timerecord" </> int </> string)
+        , map PayrollRoute (s "payroll" </> yearMonth)
+        , map AttendanceRoute (s "attendance" </> employeeNumber </> yearMonth)
+        , map TimeRecordRoute (s "timerecord" </> employeeNumber </> workDate)
         ]
+
+
+yearMonth : Parser (YearMonth -> a) a
+yearMonth =
+    custom "YEAR_MONTH" <|
+        \segment ->
+            Just (YearMonth segment)
+
+
+workDate : Parser (WorkDate -> a) a
+workDate =
+    custom "WORK_DATE" <|
+        \segment ->
+            Just (WorkDate segment)
+
+
+employeeNumber : Parser (EmployeeNumber -> a) a
+employeeNumber =
+    custom "EMPLOYEE_NUMBER" <|
+        \segment ->
+            Just (EmployeeNumber.parse segment)

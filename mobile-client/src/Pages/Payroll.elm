@@ -4,8 +4,14 @@ import Browser
 import Html exposing (..)
 import Html.Attributes exposing (href)
 import Http
-import Json.Decode exposing (Decoder, field, int, list, string, succeed)
+import Json.Decode exposing (Decoder, andThen, field, list, string, succeed)
 import Json.Decode.Pipeline exposing (optional, required)
+import Pages.URLs
+import Types.Employee.EmployeeName as EmployeeName exposing (EmployeeName(..))
+import Types.Employee.EmployeeNumber as EmployeeNumber exposing (EmployeeNumber(..))
+import Types.Payroll.PayrollStatusMessage as PayrollStatusMessage exposing (PayrollStatusMessage(..))
+import Types.Payroll.TotalPayment as TotalPayment exposing (TotalPayment(..))
+import Types.TIme.YearMonth exposing (YearMonth(..))
 
 
 
@@ -21,10 +27,6 @@ type alias Model =
 type PageState
     = Initializing
     | Loaded (List Payroll)
-
-
-type alias YearMonth =
-    String
 
 
 init : YearMonth -> ( Model, Cmd Msg )
@@ -96,17 +98,12 @@ payrollRows model payrolls =
 payrollRow : Model -> Payroll -> Html msg
 payrollRow model payroll =
     tr []
-        [ td [] [ text payroll.employeeNumber ]
-        , td [] [ text payroll.employeeName ]
-        , td [] [ text payroll.totalPayment ]
-        , td [] [ text payroll.message ]
-        , td [] [ a [ href (attendanceUrl payroll.employeeNumber model.yearMonth) ] [ text "勤務時間の一覧へ" ] ]
+        [ td [] [ text (payroll.employeeNumber |> EmployeeNumber.toString) ]
+        , td [] [ text (payroll.employeeName |> EmployeeName.toString) ]
+        , td [] [ text (payroll.totalPayment |> TotalPayment.toString) ]
+        , td [] [ text (payroll.message |> PayrollStatusMessage.toString) ]
+        , td [] [ a [ href (Pages.URLs.attendancePageURL payroll.employeeNumber model.yearMonth) ] [ text "勤務時間の一覧へ" ] ]
         ]
-
-
-attendanceUrl : EmployeeNumber -> YearMonth -> String
-attendanceUrl employeeNumber yearMonth =
-    "/attendance/" ++ employeeNumber ++ "/" ++ yearMonth
 
 
 
@@ -117,30 +114,14 @@ type alias Payroll =
     { employeeNumber : EmployeeNumber
     , employeeName : EmployeeName
     , totalPayment : TotalPayment
-    , message : Message
+    , message : PayrollStatusMessage
     }
-
-
-type alias EmployeeNumber =
-    String
-
-
-type alias EmployeeName =
-    String
-
-
-type alias TotalPayment =
-    String
-
-
-type alias Message =
-    String
 
 
 getPayrolls : YearMonth -> Cmd Msg
 getPayrolls yearMonth =
     Http.get
-        { url = "/api/payroll/" ++ yearMonth
+        { url = Pages.URLs.payrollGetEndpoint yearMonth
         , expect = Http.expectJson GotPayrolls payrollsDecoder
         }
 
@@ -153,7 +134,27 @@ payrollsDecoder =
 payrollDecoder : Decoder Payroll
 payrollDecoder =
     succeed Payroll
-        |> required "employeeNumber" string
-        |> required "employeeName" string
-        |> optional "totalPayment" string ""
-        |> optional "message" string ""
+        |> required "employeeNumber" employeeNumberDecoder
+        |> required "employeeName" employeeNameDecoder
+        |> optional "totalPayment" totalPaymentDecoder EmptyTotalPayment
+        |> optional "message" payrollStatusMessageDecoder EmptyPayrollStatusMessage
+
+
+employeeNumberDecoder : Decoder EmployeeNumber
+employeeNumberDecoder =
+    string |> andThen (\str -> succeed (EmployeeNumber.parse str))
+
+
+employeeNameDecoder : Decoder EmployeeName
+employeeNameDecoder =
+    string |> andThen (\str -> succeed (EmployeeName str))
+
+
+totalPaymentDecoder : Decoder TotalPayment
+totalPaymentDecoder =
+    string |> andThen (\str -> succeed (TotalPayment str))
+
+
+payrollStatusMessageDecoder : Decoder PayrollStatusMessage
+payrollStatusMessageDecoder =
+    string |> andThen (\str -> succeed (PayrollStatusMessage str))

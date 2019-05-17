@@ -13,6 +13,11 @@ type alias Model =
     {}
 
 
+type PageState
+    = Initializing
+    | Loaded
+
+
 
 -- VIEW
 
@@ -35,3 +40,7 @@ view model =
 routerLink : String -> Html msg
 routerLink path =
     li [] [ a [ href path ] [ text path ] ]
+
+
+
+-- HTTP
