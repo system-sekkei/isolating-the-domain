@@ -6,12 +6,12 @@ import Html.Attributes exposing (href)
 import Http
 import Json.Decode exposing (Decoder, field, list, succeed)
 import Json.Decode.Pipeline exposing (optional, required)
-import Pages.URLs
 import Types.Employee.EmployeeName as EmployeeName exposing (EmployeeName(..))
 import Types.Employee.EmployeeNumber as EmployeeNumber exposing (EmployeeNumber(..))
 import Types.Payroll.PayrollStatusMessage as PayrollStatusMessage exposing (PayrollStatusMessage(..))
 import Types.Payroll.TotalPayment as TotalPayment exposing (TotalPayment(..))
-import Types.TIme.YearMonth exposing (YearMonth(..))
+import Types.Time.YearMonth exposing (YearMonth(..))
+import URLs
 
 
 
@@ -102,7 +102,7 @@ payrollRow model payroll =
         , td [] [ text (payroll.employeeName |> EmployeeName.toString) ]
         , td [] [ text (payroll.totalPayment |> TotalPayment.toString) ]
         , td [] [ text (payroll.message |> PayrollStatusMessage.toString) ]
-        , td [] [ a [ href (Pages.URLs.attendancePageURL payroll.employeeNumber model.yearMonth) ] [ text "勤務時間の一覧へ" ] ]
+        , td [] [ a [ href (URLs.attendancePageURL payroll.employeeNumber model.yearMonth) ] [ text "勤務時間の一覧へ" ] ]
         ]
 
 
@@ -121,7 +121,7 @@ type alias Payroll =
 getPayrolls : YearMonth -> Cmd Msg
 getPayrolls yearMonth =
     Http.get
-        { url = Pages.URLs.payrollGetEndpoint yearMonth
+        { url = URLs.payrollGetEndpoint yearMonth
         , expect = Http.expectJson GotPayrolls payrollsDecoder
         }
 

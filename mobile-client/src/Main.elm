@@ -8,6 +8,9 @@ import Pages.NotFound
 import Pages.Payroll exposing (Model, PageState(..))
 import Pages.TimeRecord
 import Route exposing (Route(..))
+import Task
+import Time
+import Types.Time.ClientTime as ClientTime exposing (ClientTime(..))
 import Url exposing (Url)
 
 
@@ -29,6 +32,7 @@ main =
 type alias Model =
     { key : Nav.Key
     , page : Page
+    , clientTime : ClientTime
     }
 
 
@@ -42,7 +46,9 @@ type Page
 
 init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
 init _ _ key =
-    ( Model key DashboardPage, Cmd.none )
+    ( Model key DashboardPage (ClientTime Time.utc (Time.millisToPosix 0))
+    , Task.perform SetClientTime <| Task.map2 Tuple.pair Time.here Time.now
+    )
 
 
 
@@ -52,6 +58,8 @@ init _ _ key =
 type Msg
     = LinkClicked Browser.UrlRequest
     | UrlChanged Url.Url
+    | SetClientTime ( Time.Zone, Time.Posix )
+    | AdjustClientTime Time.Posix
     | PayrollMsg Pages.Payroll.Msg
 
 
@@ -68,6 +76,12 @@ update msg model =
 
         UrlChanged url ->
             goto url model
+
+        SetClientTime ( zone, posix ) ->
+            ( { model | clientTime = ClientTime zone posix }, Cmd.none )
+
+        AdjustClientTime posix ->
+            ( { model | clientTime = ClientTime.updateTime model.clientTime posix }, Cmd.none )
 
         PayrollMsg payrollMsg ->
             case model.page of
@@ -114,7 +128,7 @@ goto url model =
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
-    Sub.none
+    Time.every 1000 AdjustClientTime
 
 
 
@@ -125,7 +139,7 @@ view : Model -> Browser.Document Msg
 view model =
     case model.page of
         DashboardPage ->
-            Pages.Dashboard.view
+            Pages.Dashboard.view model.clientTime
 
         PayrollPage payrollModel ->
             Pages.Payroll.view payrollModel

@@ -1,9 +1,18 @@
-module Types.TIme.WorkDate exposing (WorkDate(..), toString)
+module Types.Time.WorkDate exposing (WorkDate(..), toString)
+
+import Types.Time.ClientTime as ClientTime exposing (ClientTime)
 
 
 type WorkDate
     = EmptyWordDate
     | WorkDate String
+
+
+from : ClientTime -> WorkDate
+from clientTime =
+    ClientTime.toString clientTime
+        |> String.slice 0 9
+        |> WorkDate
 
 
 toString : WorkDate -> String
@@ -14,13 +23,3 @@ toString workDate =
 
         EmptyWordDate ->
             ""
-
-
-next : WorkDate -> WorkDate
-next current =
-    Debug.todo "todo"
-
-
-previous : WorkDate -> WorkDate
-previous current =
-    Debug.todo "todo"
