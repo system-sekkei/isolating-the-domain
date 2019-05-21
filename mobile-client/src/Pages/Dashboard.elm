@@ -38,8 +38,8 @@ view model =
             Loaded clientTime ->
                 ul []
                     [ routerLink (YearMonth.from clientTime |> URLs.payrollPageURL) "給与の一覧"
-                    , routerLink "/notfound" "Not found"
-                    , routerLink "/xxxx" "Not found"
+                    , routerLink "/xxxxx" "Not found var1"
+                    , routerLink "/32-4098-12/;;asdkl;" "Not found var2"
                     ]
         ]
     }

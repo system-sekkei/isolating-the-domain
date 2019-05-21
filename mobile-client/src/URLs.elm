@@ -1,8 +1,15 @@
-module URLs exposing (apiEndpointPrefix, attendancePageURL, dashboardPageURL, notfoundPageURL, payrollGetEndpoint, payrollPageURL, timerecordPageURL)
+module URLs exposing
+    ( attendanceGetEndpoint
+    , attendancePageURL
+    , dashboardPageURL
+    , payrollGetEndpoint
+    , payrollPageURL
+    , timerecordPageURL
+    )
 
 import Types.Employee.EmployeeNumber as EmployeeNumber exposing (EmployeeNumber)
-import Types.Time.WorkDate as WorkDate exposing (WorkDate)
 import Types.Time.YearMonth as YearMonth exposing (YearMonth)
+import Types.Timerecord.WorkDate as WorkDate exposing (WorkDate)
 import Url.Builder exposing (absolute)
 
 
@@ -30,11 +37,6 @@ timerecordPageURL employeeNumber workDate =
     absolute [ "attendance", employeeNumber |> EmployeeNumber.toString, workDate |> WorkDate.toString ] []
 
 
-notfoundPageURL : String
-notfoundPageURL =
-    absolute [ "notfound" ] []
-
-
 
 -- API endpoint URLs
 
@@ -47,3 +49,8 @@ apiEndpointPrefix =
 payrollGetEndpoint : YearMonth -> String
 payrollGetEndpoint yearMonth =
     absolute [ apiEndpointPrefix, "payroll", YearMonth.toString yearMonth ] []
+
+
+attendanceGetEndpoint : EmployeeNumber -> YearMonth -> String
+attendanceGetEndpoint employeeNumber yearMonth =
+    absolute [ apiEndpointPrefix, "attendances", EmployeeNumber.toString employeeNumber, YearMonth.toString yearMonth ] []

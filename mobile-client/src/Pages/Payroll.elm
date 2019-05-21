@@ -4,13 +4,13 @@ import Browser
 import Html exposing (..)
 import Html.Attributes exposing (href)
 import Http
-import Json.Decode exposing (Decoder, field, list, succeed)
-import Json.Decode.Pipeline exposing (optional, required)
+import Json.Decode
+import Json.Decode.Pipeline
 import Types.Employee.EmployeeName as EmployeeName exposing (EmployeeName(..))
 import Types.Employee.EmployeeNumber as EmployeeNumber exposing (EmployeeNumber(..))
 import Types.Payroll.PayrollStatusMessage as PayrollStatusMessage exposing (PayrollStatusMessage(..))
 import Types.Payroll.TotalPayment as TotalPayment exposing (TotalPayment(..))
-import Types.Time.YearMonth exposing (YearMonth(..))
+import Types.Time.YearMonth as YearMonth exposing (YearMonth(..))
 import URLs
 
 
@@ -65,12 +65,39 @@ view model =
         [ h1 [] [ text "給与の一覧" ]
         , case model.state of
             Initializing ->
-                text "Now Loading..."
+                div []
+                    [ text "Now Loading..." ]
 
             Loaded payrolls ->
-                payrollTable model payrolls
+                div []
+                    [ payrollTableTitle model
+                    , payrollTable model payrolls
+                    ]
         ]
     }
+
+
+payrollTableTitle : Model -> Html msg
+payrollTableTitle model =
+    div []
+        [ a
+            [ href
+                (model.yearMonth
+                    |> YearMonth.previous
+                    |> URLs.payrollPageURL
+                )
+            ]
+            [ text "前の月" ]
+        , h2 [] [ text (model.yearMonth |> YearMonth.toString) ]
+        , a
+            [ href
+                (model.yearMonth
+                    |> YearMonth.next
+                    |> URLs.payrollPageURL
+                )
+            ]
+            [ text "次の月" ]
+        ]
 
 
 payrollTable : Model -> List Payroll -> Html msg
@@ -126,15 +153,15 @@ getPayrolls yearMonth =
         }
 
 
-payrollsDecoder : Decoder (List Payroll)
+payrollsDecoder : Json.Decode.Decoder (List Payroll)
 payrollsDecoder =
-    field "list" (list payrollDecoder)
+    Json.Decode.field "list" (Json.Decode.list payrollDecoder)
 
 
-payrollDecoder : Decoder Payroll
+payrollDecoder : Json.Decode.Decoder Payroll
 payrollDecoder =
-    succeed Payroll
-        |> required "employeeNumber" EmployeeNumber.decoder
-        |> required "employeeName" EmployeeName.decoder
-        |> optional "totalPayment" TotalPayment.decoder EmptyTotalPayment
-        |> optional "message" PayrollStatusMessage.decoder EmptyPayrollStatusMessage
+    Json.Decode.succeed Payroll
+        |> Json.Decode.Pipeline.required "employeeNumber" EmployeeNumber.decoder
+        |> Json.Decode.Pipeline.required "employeeName" EmployeeName.decoder
+        |> Json.Decode.Pipeline.optional "totalPayment" TotalPayment.decoder EmptyTotalPayment
+        |> Json.Decode.Pipeline.optional "message" PayrollStatusMessage.decoder EmptyPayrollStatusMessage

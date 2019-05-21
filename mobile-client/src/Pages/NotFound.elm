@@ -13,5 +13,7 @@ view : Browser.Document msg
 view =
     { title = "該当のページはありません"
     , body =
-        [ text "該当のページはありません" ]
+        [ h1 [] [ text "NOT FOUND" ]
+        , text "該当のページはありません"
+        ]
     }

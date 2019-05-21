@@ -1,8 +1,8 @@
 module Route exposing (Route(..), parse)
 
 import Types.Employee.EmployeeNumber as EmployeeNumber exposing (EmployeeNumber)
-import Types.Time.WorkDate exposing (WorkDate(..))
 import Types.Time.YearMonth exposing (YearMonth(..))
+import Types.Timerecord.WorkDate exposing (WorkDate(..))
 import Url exposing (Url)
 import Url.Parser exposing ((</>), Parser, custom, map, oneOf, s, top)
 
@@ -41,12 +41,12 @@ parser =
 
 yearMonth : Parser (YearMonth -> a) a
 yearMonth =
-    custom "YEAR_MONTH" <| \segment -> Just (YearMonth segment)
+    custom "YEAR_MONTH" <| \segment -> Just (FormattedYearMonth segment)
 
 
 workDate : Parser (WorkDate -> a) a
 workDate =
-    custom "WORK_DATE" <| \segment -> Just (WorkDate segment)
+    custom "WORK_DATE" <| \segment -> Just (FormattedWorkDate segment)
 
 
 employeeNumber : Parser (EmployeeNumber -> a) a

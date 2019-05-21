@@ -5,18 +5,18 @@ import Json.Decode exposing (Decoder, andThen, string, succeed)
 
 type TotalPayment
     = EmptyTotalPayment
-    | TotalPayment String
+    | FormattedTotalPayment String
 
 
 decoder : Decoder TotalPayment
 decoder =
-    string |> andThen (\str -> succeed (TotalPayment str))
+    string |> andThen (\str -> succeed (FormattedTotalPayment str))
 
 
 toString : TotalPayment -> String
 toString totalPayment =
     case totalPayment of
-        TotalPayment value ->
+        FormattedTotalPayment value ->
             value
 
         EmptyTotalPayment ->

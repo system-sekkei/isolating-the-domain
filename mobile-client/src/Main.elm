@@ -62,6 +62,7 @@ type Msg
     | LinkClicked Browser.UrlRequest
     | UrlChanged Url.Url
     | PayrollMsg Pages.Payroll.Msg
+    | AttendanceMsg Pages.Attendance.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -100,6 +101,18 @@ update msg model =
                 _ ->
                     ( model, Cmd.none )
 
+        AttendanceMsg attendanceMsg ->
+            case model.page of
+                AttendancePage attendanceModel ->
+                    let
+                        ( newAttendanceModel, attendanceCmd ) =
+                            Pages.Attendance.update attendanceMsg attendanceModel
+                    in
+                    ( { model | page = AttendancePage newAttendanceModel }, Cmd.map AttendanceMsg attendanceCmd )
+
+                _ ->
+                    ( model, Cmd.none )
+
 
 goto : Url -> Model -> ( Model, Cmd Msg )
 goto url model =
@@ -129,7 +142,11 @@ goto url model =
             ( { model | page = PayrollPage payrollModel }, Cmd.map PayrollMsg payrollCmd )
 
         Just (AttendanceRoute employeeNumber yearMonth) ->
-            ( { model | page = AttendancePage Pages.Attendance.Model }, Cmd.none )
+            let
+                ( attendanceModel, attendanceCmd ) =
+                    Pages.Attendance.init employeeNumber yearMonth
+            in
+            ( { model | page = AttendancePage attendanceModel }, Cmd.map AttendanceMsg attendanceCmd )
 
         Just (TimeRecordRoute employeeNumber workDate) ->
             ( { model | page = TimeRecordPage Pages.TimeRecord.Model }, Cmd.none )

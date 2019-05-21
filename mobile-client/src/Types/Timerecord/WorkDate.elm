@@ -1,24 +1,30 @@
-module Types.Time.WorkDate exposing (WorkDate(..), toString)
+module Types.Timerecord.WorkDate exposing (WorkDate(..), decoder, from, toString)
 
+import Json.Decode exposing (Decoder, andThen, string, succeed)
 import Types.Time.ClientTime as ClientTime exposing (ClientTime)
 
 
 type WorkDate
     = EmptyWordDate
-    | WorkDate String
+    | FormattedWorkDate String
 
 
 from : ClientTime -> WorkDate
 from clientTime =
     ClientTime.toString clientTime
         |> String.slice 0 9
-        |> WorkDate
+        |> FormattedWorkDate
+
+
+decoder : Decoder WorkDate
+decoder =
+    string |> andThen (\str -> succeed (FormattedWorkDate str))
 
 
 toString : WorkDate -> String
 toString workDate =
     case workDate of
-        WorkDate value ->
+        FormattedWorkDate value ->
             value
 
         EmptyWordDate ->
