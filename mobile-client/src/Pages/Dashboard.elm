@@ -1,4 +1,4 @@
-module Pages.Dashboard exposing (view)
+module Pages.Dashboard exposing (Model, init, view)
 
 import Browser
 import Html exposing (..)
@@ -17,23 +17,30 @@ type alias Model =
 
 
 type PageState
-    = Initializing
-    | Loaded ClientTime
+    = Loaded ClientTime
+
+
+init : ClientTime -> ( Model, Cmd msg )
+init clientTime =
+    ( Model (Loaded clientTime), Cmd.none )
 
 
 
 -- VIEW
 
 
-view : ClientTime -> Browser.Document msg
-view clientTime =
+view : Model -> Browser.Document msg
+view model =
     { title = "ダッシュボード"
     , body =
-        [ text "ダッシュボード"
-        , ul []
-            [ routerLink (YearMonth.from clientTime |> URLs.payrollPageURL) "給与の一覧"
-            , routerLink "/notfound" "Not found"
-            ]
+        [ h1 [] [ text "ダッシュボード" ]
+        , case model.state of
+            Loaded clientTime ->
+                ul []
+                    [ routerLink (YearMonth.from clientTime |> URLs.payrollPageURL) "給与の一覧"
+                    , routerLink "/notfound" "Not found"
+                    , routerLink "/xxxx" "Not found"
+                    ]
         ]
     }
 

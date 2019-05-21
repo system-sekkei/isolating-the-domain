@@ -1,4 +1,4 @@
-module Types.Time.ClientTime exposing (ClientTime(..), nextDate, nextMonth, previousDate, previousMonth, toString, updateTime)
+module Types.Time.ClientTime exposing (ClientTime(..), nextDate, nextMonth, previousDate, previousMonth, toString)
 
 import Time exposing (Posix, Zone, toDay, toHour, toMinute, toMonth, toSecond, toYear)
 import Time.Extra exposing (Interval(..))
@@ -72,13 +72,6 @@ iso8601 zone posix =
             toSecond zone posix |> String.fromInt |> String.padLeft 2 '0'
     in
     year ++ "-" ++ month ++ "-" ++ day ++ "T" ++ hour ++ ":" ++ minutes ++ ":" ++ seconds
-
-
-updateTime : ClientTime -> Posix -> ClientTime
-updateTime original posix =
-    case original of
-        ClientTime zone _ ->
-            ClientTime zone posix
 
 
 nextDate : ClientTime -> ClientTime

@@ -1,7 +1,8 @@
 module Main exposing (Model, Msg(..), init, main, subscriptions, update, view)
 
 import Browser
-import Browser.Navigation as Nav
+import Browser.Navigation
+import Html exposing (text)
 import Pages.Attendance
 import Pages.Dashboard
 import Pages.NotFound
@@ -10,7 +11,7 @@ import Pages.TimeRecord
 import Route exposing (Route(..))
 import Task
 import Time
-import Types.Time.ClientTime as ClientTime exposing (ClientTime(..))
+import Types.Time.ClientTime exposing (ClientTime(..))
 import Url exposing (Url)
 
 
@@ -30,7 +31,7 @@ main =
 
 
 type alias Model =
-    { key : Nav.Key
+    { key : Browser.Navigation.Key
     , page : Page
     , clientTime : ClientTime
     }
@@ -38,16 +39,17 @@ type alias Model =
 
 type Page
     = NotFoundPage
-    | DashboardPage
+    | InitializingPage
+    | DashboardPage Pages.Dashboard.Model
     | PayrollPage Pages.Payroll.Model
     | AttendancePage Pages.Attendance.Model
     | TimeRecordPage Pages.TimeRecord.Model
 
 
-init : () -> Url.Url -> Nav.Key -> ( Model, Cmd Msg )
+init : () -> Url.Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
 init _ _ key =
-    ( Model key DashboardPage (ClientTime Time.utc (Time.millisToPosix 0))
-    , Task.perform SetClientTime <| Task.map2 Tuple.pair Time.here Time.now
+    ( Model key InitializingPage (ClientTime Time.utc (Time.millisToPosix 0))
+    , Task.perform Initialize <| Task.map2 Tuple.pair Time.here Time.now
     )
 
 
@@ -56,32 +58,35 @@ init _ _ key =
 
 
 type Msg
-    = LinkClicked Browser.UrlRequest
+    = Initialize ( Time.Zone, Time.Posix )
+    | LinkClicked Browser.UrlRequest
     | UrlChanged Url.Url
-    | SetClientTime ( Time.Zone, Time.Posix )
-    | AdjustClientTime Time.Posix
     | PayrollMsg Pages.Payroll.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        Initialize ( zone, posix ) ->
+            let
+                initClientTime =
+                    ClientTime zone posix
+
+                ( dashboardModel, _ ) =
+                    Pages.Dashboard.init initClientTime
+            in
+            ( { model | clientTime = initClientTime, page = DashboardPage dashboardModel }, Cmd.none )
+
         LinkClicked urlRequest ->
             case urlRequest of
                 Browser.Internal url ->
-                    ( model, Nav.pushUrl model.key (Url.toString url) )
+                    ( model, Browser.Navigation.pushUrl model.key (Url.toString url) )
 
                 Browser.External href ->
-                    ( model, Nav.load href )
+                    ( model, Browser.Navigation.load href )
 
         UrlChanged url ->
             goto url model
-
-        SetClientTime ( zone, posix ) ->
-            ( { model | clientTime = ClientTime zone posix }, Cmd.none )
-
-        AdjustClientTime posix ->
-            ( { model | clientTime = ClientTime.updateTime model.clientTime posix }, Cmd.none )
 
         PayrollMsg payrollMsg ->
             case model.page of
@@ -103,10 +108,18 @@ goto url model =
             ( { model | page = NotFoundPage }, Cmd.none )
 
         Just Top ->
-            ( { model | page = DashboardPage }, Cmd.none )
+            let
+                ( dashboardModel, _ ) =
+                    Pages.Dashboard.init model.clientTime
+            in
+            ( { model | page = DashboardPage dashboardModel }, Cmd.none )
 
         Just DashboardRoute ->
-            ( { model | page = DashboardPage }, Cmd.none )
+            let
+                ( dashboardModel, _ ) =
+                    Pages.Dashboard.init model.clientTime
+            in
+            ( { model | page = DashboardPage dashboardModel }, Cmd.none )
 
         Just (PayrollRoute yearMonth) ->
             let
@@ -128,7 +141,7 @@ goto url model =
 
 subscriptions : Model -> Sub Msg
 subscriptions _ =
-    Time.every 1000 AdjustClientTime
+    Sub.none
 
 
 
@@ -138,8 +151,15 @@ subscriptions _ =
 view : Model -> Browser.Document Msg
 view model =
     case model.page of
-        DashboardPage ->
-            Pages.Dashboard.view model.clientTime
+        InitializingPage ->
+            { title = "Initializing"
+            , body =
+                [ text "Now Initializing..."
+                ]
+            }
+
+        DashboardPage dashboardModel ->
+            Pages.Dashboard.view dashboardModel
 
         PayrollPage payrollModel ->
             Pages.Payroll.view payrollModel
