@@ -42,8 +42,7 @@ class AttendanceGetResponse {
         for (WorkDate workDate : attendance.listWorkDates()) {
             Map<String, String> data = new HashMap<>();
             AttendanceStatus attendanceStatus = attendance.statusOf(workDate);
-            data.put("workDate", String.valueOf(workDate.dayOfMonth()));
-            data.put("dayOfWeek", workDate.dayOfWeek().toString());
+            data.put("workDate", workDate.toString());
             if (attendanceStatus.isWork()) {
                 data.put("startTimePoint", attendance.at(workDate).actualWorkTime().timeRange().start().toString());
                 data.put("endTimePoint", attendance.at(workDate).actualWorkTime().timeRange().end().toString());

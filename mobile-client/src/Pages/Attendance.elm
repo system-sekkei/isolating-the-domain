@@ -9,7 +9,6 @@ import Json.Decode.Pipeline
 import Types.Attendance.TotalWorkTime as TotalWorkTime exposing (TotalWorkTime(..))
 import Types.Employee.EmployeeName as EmployeeName exposing (EmployeeName(..))
 import Types.Employee.EmployeeNumber exposing (EmployeeNumber(..))
-import Types.Time.DayOfWeek as DayOfWeek exposing (DayOfWeek(..))
 import Types.Time.YearMonth as YearMonth exposing (YearMonth(..))
 import Types.Timerecord.BreakTime as BreakTime exposing (BreakTime(..))
 import Types.Timerecord.EndTimePoint as EndTimePoint exposing (EndTimePoint(..))
@@ -143,8 +142,8 @@ timerecordRows model attendance =
 timerecordRow : Model -> TimeRecord -> Html msg
 timerecordRow model timeRecord =
     tr []
-        [ td [] [ text (timeRecord.workDate |> WorkDate.toString) ]
-        , td [] [ text (timeRecord.dayOfWeek |> DayOfWeek.toString) ]
+        [ td [] [ text (timeRecord.workDate |> WorkDate.toDayOfMonth) ]
+        , td [] [ text (timeRecord.workDate |> WorkDate.toDayOfWeek) ]
         , td [] [ text (timeRecord.startTimePoint |> StartTimePoint.toString) ]
         , td [] [ text (timeRecord.endTimePoint |> EndTimePoint.toString) ]
         , td [] [ text (timeRecord.breakTime |> BreakTime.toString) ]
@@ -166,7 +165,6 @@ type alias Attendance =
 
 type alias TimeRecord =
     { workDate : WorkDate
-    , dayOfWeek : DayOfWeek
     , startTimePoint : StartTimePoint
     , endTimePoint : EndTimePoint
     , breakTime : BreakTime
@@ -194,7 +192,6 @@ timeRecordDecoder : Json.Decode.Decoder TimeRecord
 timeRecordDecoder =
     Json.Decode.succeed TimeRecord
         |> Json.Decode.Pipeline.required "workDate" WorkDate.decoder
-        |> Json.Decode.Pipeline.required "dayOfWeek" DayOfWeek.decoder
         |> Json.Decode.Pipeline.optional "startTimePoint" StartTimePoint.decoder EmptyStartTimePoint
         |> Json.Decode.Pipeline.optional "endTimePoint" EndTimePoint.decoder EmptyEndTimePoint
         |> Json.Decode.Pipeline.optional "breakTime" BreakTime.decoder EmptyBreakTime

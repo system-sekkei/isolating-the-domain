@@ -34,7 +34,7 @@ attendancePageURL employeeNumber yearMonth =
 
 timerecordPageURL : EmployeeNumber -> WorkDate -> String
 timerecordPageURL employeeNumber workDate =
-    absolute [ "attendance", employeeNumber |> EmployeeNumber.toString, workDate |> WorkDate.toString ] []
+    absolute [ "timerecord", employeeNumber |> EmployeeNumber.toString, workDate |> WorkDate.toString ] []
 
 
 
