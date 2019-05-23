@@ -18,21 +18,21 @@ import java.time.LocalDate;
 class TimeRecordPostRequest {
     @JsonProperty("employeeNumber")
     String employeeNumber;
-    @JsonProperty("勤務日")
+    @JsonProperty("workDate")
     String workDate;
 
-    @JsonProperty("開始時刻_時")
+    @JsonProperty("startHour")
     String startHour;
-    @JsonProperty("開始時刻_分")
+    @JsonProperty("startMinute")
     String startMinute;
-    @JsonProperty("終了時刻_時")
+    @JsonProperty("endHour")
     String endHour;
-    @JsonProperty("終了時刻_分")
+    @JsonProperty("endMinute")
     String endMinute;
 
-    @JsonProperty("休憩時間")
+    @JsonProperty("daytimeBreakTime")
     String daytimeBreakTime;
-    @JsonProperty("休憩時間_深夜")
+    @JsonProperty("midnightBreakTime")
     String midnightBreakTime;
 
     static TimeRecordPostRequest prepare() {
@@ -75,14 +75,10 @@ class TimeRecordPostRequest {
         this.midnightBreakTime = timeRecord.actualWorkTime().midnightBreakTime().toString();
     }
 
-    boolean workDateComplete;
-
     @AssertTrue(message = "勤務日を入力してください")
     boolean isWorkDateComplete() {
         return !workDate.isEmpty();
     }
-
-    boolean workDateValid;
 
     @AssertTrue(message = "勤務日が不正です")
     boolean isWorkDateValid() {
@@ -95,15 +91,11 @@ class TimeRecordPostRequest {
         return true;
     }
 
-    boolean startTimeComplete;
-
     @AssertTrue(message = "開始時刻を入力してください")
     boolean isStartTimeComplete() {
         if (startHour.isEmpty() || startMinute.isEmpty()) return false;
         return true;
     }
-
-    boolean startTimeValid;
 
     @AssertTrue(message = "開始時刻が不正です")
     public boolean isStartTimeValid() {
@@ -118,15 +110,11 @@ class TimeRecordPostRequest {
         return true;
     }
 
-    boolean endTimeComplete;
-
     @AssertTrue(message = "終了時刻を入力してください")
     boolean isEndTimeComplete() {
         if (endHour.isEmpty() || endMinute.isEmpty()) return false;
         return true;
     }
-
-    boolean endTimeValid;
 
     @AssertTrue(message = "終了時刻が不正です")
     public boolean isEndTimeValid() {
@@ -140,8 +128,6 @@ class TimeRecordPostRequest {
 
         return true;
     }
-
-    boolean workTimeValid;
 
     @AssertTrue(message = "終了時刻には開始時刻よりあとの時刻を入力してください")
     public boolean isWorkTimeValid() {
@@ -166,8 +152,6 @@ class TimeRecordPostRequest {
         return new EndTime(clockTime);
     }
 
-    boolean daytimeBreakTimeValid;
-
     @AssertTrue(message = "休憩時間が不正です")
     public boolean isDaytimeBreakTimeValid() {
         if (daytimeBreakTime.isEmpty()) return true;
@@ -185,8 +169,6 @@ class TimeRecordPostRequest {
         }
         return true;
     }
-
-    boolean midnightBreakTimeValid;
 
     @AssertTrue(message = "休憩時間（深夜）が不正です")
     public boolean isMidnightBreakTimeValid() {

@@ -1,4 +1,4 @@
-module Types.Timerecord.WorkDate exposing (WorkDate(..), decoder, from, toDayOfMonth, toDayOfWeek, toString)
+module Types.Time.WorkDate exposing (WorkDate(..), decoder, from, toDayOfMonth, toDayOfWeek, toString)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
 import Time exposing (Posix, Zone, utc)

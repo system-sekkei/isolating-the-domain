@@ -1,8 +1,8 @@
 module Route exposing (Route(..), parse)
 
 import Types.Employee.EmployeeNumber as EmployeeNumber exposing (EmployeeNumber)
+import Types.Time.WorkDate exposing (WorkDate(..))
 import Types.Time.YearMonth exposing (YearMonth(..))
-import Types.Timerecord.WorkDate exposing (WorkDate(..))
 import Url exposing (Url)
 import Url.Parser exposing ((</>), Parser, custom, map, oneOf, s, top)
 

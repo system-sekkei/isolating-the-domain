@@ -6,15 +6,15 @@ import Html.Attributes exposing (..)
 import Http
 import Json.Decode
 import Json.Decode.Pipeline
-import Types.Attendance.TotalWorkTime as TotalWorkTime exposing (TotalWorkTime(..))
+import Pages.Attendance.Types.BreakTime as BreakTime exposing (BreakTime(..))
+import Pages.Attendance.Types.EndTimePoint as EndTimePoint exposing (EndTimePoint(..))
+import Pages.Attendance.Types.StartTimePoint as StartTimePoint exposing (StartTimePoint(..))
+import Pages.Attendance.Types.TotalWorkTime as TotalWorkTime exposing (TotalWorkTime(..))
+import Pages.Attendance.Types.WorkTime as WorkTime exposing (WorkTime(..))
 import Types.Employee.EmployeeName as EmployeeName exposing (EmployeeName(..))
 import Types.Employee.EmployeeNumber exposing (EmployeeNumber(..))
+import Types.Time.WorkDate as WorkDate exposing (WorkDate(..))
 import Types.Time.YearMonth as YearMonth exposing (YearMonth(..))
-import Types.Timerecord.BreakTime as BreakTime exposing (BreakTime(..))
-import Types.Timerecord.EndTimePoint as EndTimePoint exposing (EndTimePoint(..))
-import Types.Timerecord.StartTimePoint as StartTimePoint exposing (StartTimePoint(..))
-import Types.Timerecord.WorkDate as WorkDate exposing (WorkDate(..))
-import Types.Timerecord.WorkTime as WorkTime exposing (WorkTime(..))
 import URLs
 
 

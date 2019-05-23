@@ -63,6 +63,7 @@ type Msg
     | UrlChanged Url.Url
     | PayrollMsg Pages.Payroll.Msg
     | AttendanceMsg Pages.Attendance.Msg
+    | TimeRecordMsg Pages.TimeRecord.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -113,6 +114,18 @@ update msg model =
                 _ ->
                     ( model, Cmd.none )
 
+        TimeRecordMsg timeRecordMsg ->
+            case model.page of
+                TimeRecordPage timeRecordModel ->
+                    let
+                        ( newTimeRecordModel, timeRecordCmd ) =
+                            Pages.TimeRecord.update timeRecordMsg timeRecordModel
+                    in
+                    ( { model | page = TimeRecordPage newTimeRecordModel }, Cmd.map TimeRecordMsg timeRecordCmd )
+
+                _ ->
+                    ( model, Cmd.none )
+
 
 goto : Url -> Model -> ( Model, Cmd Msg )
 goto url model =
@@ -149,7 +162,11 @@ goto url model =
             ( { model | page = AttendancePage attendanceModel }, Cmd.map AttendanceMsg attendanceCmd )
 
         Just (TimeRecordRoute employeeNumber workDate) ->
-            ( { model | page = TimeRecordPage Pages.TimeRecord.Model }, Cmd.none )
+            let
+                ( timeRecordModel, timeRecordCmd ) =
+                    Pages.TimeRecord.init employeeNumber workDate
+            in
+            ( { model | page = TimeRecordPage timeRecordModel }, Cmd.map TimeRecordMsg timeRecordCmd )
 
 
 

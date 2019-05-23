@@ -1,4 +1,4 @@
-module Types.Timerecord.BreakTime exposing (BreakTime(..), decoder, toString)
+module Pages.Attendance.Types.BreakTime exposing (BreakTime(..), decoder, toString)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
 

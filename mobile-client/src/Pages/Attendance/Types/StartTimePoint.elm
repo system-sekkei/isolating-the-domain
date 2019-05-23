@@ -1,4 +1,4 @@
-module Types.Timerecord.StartTimePoint exposing (StartTimePoint(..), decoder, toString)
+module Pages.Attendance.Types.StartTimePoint exposing (StartTimePoint(..), decoder, toString)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
 

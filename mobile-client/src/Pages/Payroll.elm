@@ -6,10 +6,10 @@ import Html.Attributes exposing (href)
 import Http
 import Json.Decode
 import Json.Decode.Pipeline
+import Pages.Payroll.Types.PayrollStatusMessage as PayrollStatusMessage exposing (PayrollStatusMessage(..))
+import Pages.Payroll.Types.TotalPayment as TotalPayment exposing (TotalPayment(..))
 import Types.Employee.EmployeeName as EmployeeName exposing (EmployeeName(..))
 import Types.Employee.EmployeeNumber as EmployeeNumber exposing (EmployeeNumber(..))
-import Types.Payroll.PayrollStatusMessage as PayrollStatusMessage exposing (PayrollStatusMessage(..))
-import Types.Payroll.TotalPayment as TotalPayment exposing (TotalPayment(..))
 import Types.Time.YearMonth as YearMonth exposing (YearMonth(..))
 import URLs
 

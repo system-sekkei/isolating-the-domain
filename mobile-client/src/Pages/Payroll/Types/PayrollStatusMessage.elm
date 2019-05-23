@@ -1,4 +1,4 @@
-module Types.Payroll.PayrollStatusMessage exposing (PayrollStatusMessage(..), decoder, toString)
+module Pages.Payroll.Types.PayrollStatusMessage exposing (PayrollStatusMessage(..), decoder, toString)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
 

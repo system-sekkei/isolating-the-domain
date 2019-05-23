@@ -1,4 +1,4 @@
-module Types.Attendance.TotalWorkTime exposing (TotalWorkTime(..), decoder, toString)
+module Pages.Attendance.Types.TotalWorkTime exposing (TotalWorkTime(..), decoder, toString)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
 

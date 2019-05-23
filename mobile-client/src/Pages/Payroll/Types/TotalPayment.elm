@@ -1,4 +1,4 @@
-module Types.Payroll.TotalPayment exposing (TotalPayment(..), decoder, toString)
+module Pages.Payroll.Types.TotalPayment exposing (TotalPayment(..), decoder, toString)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
 
