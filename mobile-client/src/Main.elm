@@ -188,21 +188,38 @@ view model =
         InitializingPage ->
             { title = "Initializing"
             , body =
-                [ text "Now Initializing..."
-                ]
+                [ text "Now Initializing..." ]
             }
 
         DashboardPage dashboardModel ->
-            Pages.Dashboard.view dashboardModel
+            { title = "ダッシュボード"
+            , body =
+                [ Pages.Dashboard.view dashboardModel ]
+            }
 
         PayrollPage payrollModel ->
-            Pages.Payroll.view payrollModel
+            { title = "給与の一覧"
+            , body =
+                [ Pages.Payroll.view payrollModel
+                    |> Html.map PayrollMsg
+                ]
+            }
 
         AttendancePage attendanceModel ->
-            Pages.Attendance.view attendanceModel
+            { title = "勤務時間の一覧"
+            , body =
+                [ Pages.Attendance.view attendanceModel
+                    |> Html.map AttendanceMsg
+                ]
+            }
 
         TimeRecordPage timeRecordModel ->
-            Pages.TimeRecord.view timeRecordModel
+            { title = "勤務時間の入力"
+            , body =
+                [ Pages.TimeRecord.view timeRecordModel
+                    |> Html.map TimeRecordMsg
+                ]
+            }
 
         NotFoundPage ->
             Pages.NotFound.view

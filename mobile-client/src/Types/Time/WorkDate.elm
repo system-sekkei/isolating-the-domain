@@ -1,8 +1,9 @@
-module Types.Time.WorkDate exposing (WorkDate(..), decoder, from, toDayOfMonth, toDayOfWeek, toString)
+module Types.Time.WorkDate exposing (WorkDate(..), decoder, from, toDayOfMonth, toDayOfWeek, toString, validate)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
 import Time exposing (Posix, Zone, utc)
 import Time.Extra exposing (Parts, partsToPosix)
+import Types.Message exposing (Message(..))
 import Types.Time.ClientTime as ClientTime exposing (ClientTime)
 
 
@@ -14,6 +15,8 @@ type WorkDate
     = EmptyWordDate
     | PosixWorkDate Zone Posix
     | FormattedWorkDate String
+    | DirtyWorkDate String
+    | InvalidWorkDate Message String
 
 
 from : ClientTime -> WorkDate
@@ -31,14 +34,12 @@ toDayOfMonth workDate =
                 ( zone, posix ) =
                     toPosix workDate
             in
-            PosixWorkDate zone posix
-                |> toDayOfMonth
+            PosixWorkDate zone posix |> toDayOfMonth
 
         PosixWorkDate zone posix ->
-            Time.toDay zone posix
-                |> String.fromInt
+            Time.toDay zone posix |> String.fromInt
 
-        EmptyWordDate ->
+        _ ->
             ""
 
 
@@ -76,7 +77,7 @@ toDayOfWeek workDate =
                 Time.Sun ->
                     "日"
 
-        EmptyWordDate ->
+        _ ->
             ""
 
 
@@ -139,8 +140,33 @@ toString workDate =
             in
             yyyy ++ "-" ++ mm ++ "-" ++ dd
 
-        EmptyWordDate ->
+        DirtyWorkDate value ->
+            value
+
+        _ ->
             ""
+
+
+mandatory : Message
+mandatory =
+    ErrorMessage "勤務日を入力してください"
+
+
+validate : WorkDate -> WorkDate
+validate startMinute =
+    case startMinute of
+        DirtyWorkDate value ->
+            if value == "" then
+                InvalidWorkDate mandatory value
+
+            else
+                FormattedWorkDate value
+
+        EmptyWordDate ->
+            InvalidWorkDate mandatory ""
+
+        _ ->
+            startMinute
 
 
 
@@ -208,5 +234,8 @@ toPosix workDate =
         PosixWorkDate zone posix ->
             ( zone, posix )
 
-        EmptyWordDate ->
+        DirtyWorkDate value ->
+            FormattedWorkDate value |> toPosix
+
+        _ ->
             ( utc, partsToPosix utc (Parts 1970 Time.Jan 1 0 0 0 0) )

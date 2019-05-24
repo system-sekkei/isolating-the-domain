@@ -53,7 +53,7 @@ public class TimeRecordPostRestController {
     }
 
     @PostMapping
-    TimeRecordPostResponse post(@Validated @ModelAttribute("attendanceForm") TimeRecordPostRequest request,
+    TimeRecordPostResponse post(@Validated @ModelAttribute("form") TimeRecordPostRequest request,
                                 BindingResult result) {
         if (result.hasErrors()) return TimeRecordPostResponse.ng(result);
         TimeRecord timeRecord = request.toAttendance();

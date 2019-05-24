@@ -38,13 +38,11 @@ class TimeRecordPostResponse {
     }
 
     @JsonProperty("errors")
-    List<Map<String, String>> errors() {
+    List<String> errors() {
         if (!bindingResult.hasErrors()) return Collections.emptyList();
-        List<Map<String, String>> list = new ArrayList<>();
+        List<String> list = new ArrayList<>();
         for (FieldError fieldError : bindingResult.getFieldErrors()) {
-            Map<String, String> error = new HashMap<>();
-            error.put(fieldError.getField(), fieldError.getDefaultMessage());
-            list.add(error);
+            list.add(fieldError.getDefaultMessage());
         }
         return list;
     }
@@ -55,7 +53,6 @@ class TimeRecordPostResponse {
         Map<String, String> data = new HashMap<>();
         data.put("employeeNumber", timeRecord.employeeNumber().toString());
         data.put("workDate", timeRecord.workDate().toString());
-        data.put("workMonth", WorkMonth.from(timeRecord.workDate()).toString());
         return data;
     }
 }

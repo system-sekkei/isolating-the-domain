@@ -1,6 +1,5 @@
 module Pages.Dashboard exposing (Model, init, view)
 
-import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Types.Time.ClientTime exposing (ClientTime)
@@ -29,10 +28,9 @@ init clientTime =
 -- VIEW
 
 
-view : Model -> Browser.Document msg
+view : Model -> Html msg
 view model =
-    { title = "ダッシュボード"
-    , body =
+    div []
         [ h1 [] [ text "ダッシュボード" ]
         , case model.state of
             Loaded clientTime ->
@@ -42,7 +40,6 @@ view model =
                     , routerLink "/32-4098-12/;;asdkl;" "Not found var2"
                     ]
         ]
-    }
 
 
 routerLink : String -> String -> Html msg

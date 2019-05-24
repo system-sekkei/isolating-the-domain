@@ -1,6 +1,5 @@
 module Pages.Attendance exposing (Model, Msg, init, update, view)
 
-import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http
@@ -63,10 +62,9 @@ update msg model =
 -- VIEW
 
 
-view : Model -> Browser.Document msg
+view : Model -> Html msg
 view model =
-    { title = "勤務時間の一覧"
-    , body =
+    div []
         [ h1 [] [ text "勤務時間の一覧" ]
         , case model.state of
             Initializing ->
@@ -80,7 +78,6 @@ view model =
                     , attendanceTable model attendance
                     ]
         ]
-    }
 
 
 attendanceSummary : Attendance -> Html msg

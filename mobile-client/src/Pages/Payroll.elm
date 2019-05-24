@@ -1,6 +1,5 @@
 module Pages.Payroll exposing (Model, Msg(..), PageState(..), init, update, view)
 
-import Browser
 import Html exposing (..)
 import Html.Attributes exposing (href)
 import Http
@@ -58,10 +57,9 @@ update msg model =
 -- VIEW
 
 
-view : Model -> Browser.Document msg
+view : Model -> Html msg
 view model =
-    { title = "給与の一覧"
-    , body =
+    div []
         [ h1 [] [ text "給与の一覧" ]
         , case model.state of
             Initializing ->
@@ -74,7 +72,6 @@ view model =
                     , payrollTable model payrolls
                     ]
         ]
-    }
 
 
 payrollTableTitle : Model -> Html msg
