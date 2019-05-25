@@ -1,4 +1,4 @@
-# ドメインを隔離する Isolating the Domain
+# ドメインを独立させる Isolating the Domain
 - Spring Boot
 - Spring MVC (direct field access)
 - Thymeleaf
@@ -31,7 +31,7 @@ java -jar build/libs/isolating-the-domain.jar
 
 ## 設計ガイド
 
-[ドメインを隔離する](https://github.com/system-sekkei/isolating-the-domain/wiki)
+[ドメインを独立させる](https://github.com/system-sekkei/isolating-the-domain/wiki)
 
 [ドメイン駆動設計本格入門](https://www.slideshare.net/masuda220/ss-137608652)
 
