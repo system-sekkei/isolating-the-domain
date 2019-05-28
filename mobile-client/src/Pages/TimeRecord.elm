@@ -72,7 +72,7 @@ update msg model =
 
                 Err error ->
                     -- TODO サーバエラー時のハンドリング
-                    Debug.todo (Debug.toString error)
+                    ( model, Cmd.none )
 
         EditForm newEditingForm ->
             case model.state of
@@ -142,7 +142,7 @@ update msg model =
 
                 Err error ->
                     -- TODO サーバエラー時のハンドリング
-                    Debug.todo (Debug.toString error)
+                    ( model, Cmd.none )
 
 
 gotoAttendancePage : Model -> TimeRecordForm -> Cmd msg

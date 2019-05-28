@@ -1,2 +1,6 @@
+# elm
 elm-stuff/
-assets/main.js
+
+# percel
+dist/
+.cache/

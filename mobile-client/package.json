@@ -3,9 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "serve": "elm-live src/Main.elm -e node_modules/.bin/elm -d assets -o -u -x /api -y http://localhost:8080 -- --output=assets/main.js",
-    "debug": "elm-live src/Main.elm -e node_modules/.bin/elm -d assets -o -u -x /api -y http://localhost:8080 -- --output=assets/main.js --debug",
-    "build": "elm make src/Main.elm --optimize --output=build/main.js"
+    "serve": "node dev.js",
+    "build": "parcel build src/index.html"
   },
   "dependencies": {
     "bulma": "^0.7.4"
@@ -13,6 +12,11 @@
   "devDependencies": {
     "elm": "^0.19.0",
     "elm-format": "^0.8.1",
-    "elm-live": "^3.4.0"
+    "elm-hot": "^1.0.1",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^0.19.1",
+    "node-elm-compiler": "^5.0.3",
+    "parcel-bundler": "^1.12.3",
+    "postcss-modules": "^1.4.1"
   }
 }

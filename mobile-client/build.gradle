@@ -15,15 +15,11 @@ task elmServe(type: NpmTask) {
     args = ["run", "serve"]
 }
 
-task elmDebug(type: NpmTask) {
-    args = ["run", "debug"]
-}
-
 task clean {
-    delete 'assets/main.js'
+    delete 'dist'
+    delete '.cache'
 }
 
 npmInstall.dependsOn nodeSetup
 elmBuild.dependsOn npmInstall
 elmServe.dependsOn npmInstall
-elmDebug.dependsOn npmInstall

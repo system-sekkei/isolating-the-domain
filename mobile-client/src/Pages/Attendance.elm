@@ -55,7 +55,7 @@ update msg model =
                     ( { model | state = Loaded attendance }, Cmd.none )
 
                 Err error ->
-                    Debug.todo (Debug.toString error)
+                    ( model, Cmd.none )
 
 
 

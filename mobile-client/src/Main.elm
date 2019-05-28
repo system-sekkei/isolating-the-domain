@@ -1,4 +1,4 @@
-module Main exposing (Model, Msg(..), init, main, subscriptions, update, view)
+module Main exposing (main)
 
 import Browser
 import Browser.Navigation
