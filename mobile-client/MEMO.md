@@ -63,6 +63,8 @@
 
 ### PWA対応
 
+* マニフェストファイルの作成支援 refs. https://app-manifest.firebaseapp.com/
+* iOSの場合は設定が手間なのでgoogleが公開しているPWACompatというツールを使うと楽 refs. https://developers.google.com/web/updates/2018/07/pwacompat
 * ServiceWorkerを使わない場合は、エントリポイントになるhtmlでmanifestファイルを読み込むだけなので、特に問題はない
 * ServiceWorkerの登録はJSで。中の処理はelmでかける？
     * refs. https://discourse.elm-lang.org/t/psa-elm-http-works-with-serviceworker/2562
