@@ -1,4 +1,4 @@
-module Types.Time.WorkDate exposing (WorkDate(..), decoder, encode, from, isValid, toDayOfMonth, toDayOfWeek, toString, validate)
+module Types.Time.WorkDate exposing (WorkDate(..), decoder, encode, from, isValid, toDayOfMonth, toDayOfWeek, toString, toYearMonth, validate)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
 import Json.Encode
@@ -6,6 +6,7 @@ import Time exposing (Posix, Zone, utc)
 import Time.Extra exposing (Parts, partsToPosix)
 import Types.Message exposing (Message(..))
 import Types.Time.ClientTime as ClientTime exposing (ClientTime)
+import Types.Time.YearMonth exposing (YearMonth(..))
 
 
 
@@ -25,6 +26,15 @@ from clientTime =
     ClientTime.toString clientTime
         |> String.slice 0 10
         |> FormattedWorkDate
+
+
+toYearMonth : WorkDate -> YearMonth
+toYearMonth workDate =
+    let
+        ( zone, posix ) =
+            toPosix workDate
+    in
+    PosixYearMonth zone posix
 
 
 toDayOfMonth : WorkDate -> String

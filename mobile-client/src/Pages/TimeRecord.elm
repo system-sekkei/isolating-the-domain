@@ -1,5 +1,6 @@
 module Pages.TimeRecord exposing (Model, Msg, init, update, view)
 
+import Browser.Navigation
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
@@ -28,7 +29,9 @@ import URLs
 
 
 type alias Model =
-    { employeeNumber : EmployeeNumber
+    -- TODO 登録後のリダイレクトのためにkeyを持ち回るのはちょっといやな感じ。。。親子でメッセージやコマンドのやりとりが複雑になるよりいいか？
+    { key : Browser.Navigation.Key
+    , employeeNumber : EmployeeNumber
     , workDate : WorkDate
     , state : PageState
     }
@@ -43,9 +46,9 @@ type alias ErrorMessages =
     List Message
 
 
-init : EmployeeNumber -> WorkDate -> ( Model, Cmd Msg )
-init employeeNumber workDate =
-    ( Model employeeNumber workDate Initializing, getPreparedTimeRecordForm employeeNumber workDate )
+init : Browser.Navigation.Key -> EmployeeNumber -> WorkDate -> ( Model, Cmd Msg )
+init key employeeNumber workDate =
+    ( Model key employeeNumber workDate Initializing, getPreparedTimeRecordForm employeeNumber workDate )
 
 
 
@@ -86,7 +89,7 @@ update msg model =
                                 (DaytimeBreakMinute.validate newEditingForm.daytimeBreakTime)
                                 (MidnightBreakMinute.validate newEditingForm.midnightBreakTime)
 
-                        newErrorMessages =
+                        correlationCheckErrors =
                             List.filter (\err -> Message.isNotEmpty err)
                                 [ WorkingTimeRangeRule
                                     validatedForm.startHour
@@ -104,7 +107,7 @@ update msg model =
                                     |> BreakTimeCapRule.validate
                                 ]
                     in
-                    ( { model | state = Editing prepared validatedForm newErrorMessages }, Cmd.none )
+                    ( { model | state = Editing prepared validatedForm correlationCheckErrors }, Cmd.none )
 
                 _ ->
                     ( model, Cmd.none )
@@ -125,9 +128,14 @@ update msg model =
             case result of
                 Ok response ->
                     case model.state of
-                        Editing prepared editing _ ->
-                            -- TODO 一覧画面への遷移をどうするか、Browser.Navigation.Keyを持ち回りたくない
-                            ( { model | state = Editing prepared editing response.errors }, Cmd.none )
+                        Editing prepared postedForm _ ->
+                            ( { model | state = Editing prepared postedForm response.errors }
+                            , if List.isEmpty response.errors then
+                                gotoAttendancePage model postedForm
+
+                              else
+                                Cmd.none
+                            )
 
                         _ ->
                             ( model, Cmd.none )
@@ -135,6 +143,18 @@ update msg model =
                 Err error ->
                     -- TODO サーバエラー時のハンドリング
                     Debug.todo (Debug.toString error)
+
+
+gotoAttendancePage : Model -> TimeRecordForm -> Cmd msg
+gotoAttendancePage model postedForm =
+    let
+        yearMonth =
+            WorkDate.toYearMonth postedForm.workDate
+
+        url =
+            URLs.attendancePageURL postedForm.employeeNumber yearMonth
+    in
+    Browser.Navigation.pushUrl model.key url
 
 
 

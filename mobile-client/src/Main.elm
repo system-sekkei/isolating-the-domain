@@ -164,7 +164,7 @@ goto url model =
         Just (TimeRecordRoute employeeNumber workDate) ->
             let
                 ( timeRecordModel, timeRecordCmd ) =
-                    Pages.TimeRecord.init employeeNumber workDate
+                    Pages.TimeRecord.init model.key employeeNumber workDate
             in
             ( { model | page = TimeRecordPage timeRecordModel }, Cmd.map TimeRecordMsg timeRecordCmd )
 
