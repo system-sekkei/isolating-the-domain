@@ -10,7 +10,6 @@ import example.domain.type.time.Minute;
 
 import javax.validation.constraints.AssertTrue;
 import java.time.DateTimeException;
-import java.time.LocalDate;
 
 /**
  * 勤務時間の登録リクエスト
@@ -35,15 +34,29 @@ class TimeRecordPostRequest {
     @JsonProperty("midnightBreakTime")
     String midnightBreakTime;
 
-    static TimeRecordPostRequest prepare() {
+    static TimeRecordPostRequest prepare(EmployeeNumber employeeNumber, WorkDate workDate) {
         TimeRecordPostRequest request = new TimeRecordPostRequest();
-        request.workDate = LocalDate.now().toString();
+        request.employeeNumber = employeeNumber.toString();
+        request.workDate = workDate.toString();
         request.startHour = "9";
         request.startMinute = "0";
         request.endHour = "17";
         request.endMinute = "30";
         request.daytimeBreakTime = "60";
         request.midnightBreakTime = "0";
+        return request;
+    }
+
+    static TimeRecordPostRequest apply(TimeRecord timeRecord) {
+        TimeRecordPostRequest request = new TimeRecordPostRequest();
+        request.employeeNumber = timeRecord.employeeNumber().toString();
+        request.workDate = timeRecord.workDate().toString();
+        request.startHour = timeRecord.actualWorkTime().timeRange().start().clockTime().hour().toString();
+        request.startMinute = timeRecord.actualWorkTime().timeRange().start().clockTime().minute().toString();
+        request.endHour = timeRecord.actualWorkTime().timeRange().end().clockTime().hour().toString();
+        request.endMinute = timeRecord.actualWorkTime().timeRange().end().clockTime().minute().toString();
+        request.daytimeBreakTime = timeRecord.actualWorkTime().daytimeBreakTime().toString();
+        request.midnightBreakTime = timeRecord.actualWorkTime().midnightBreakTime().toString();
         return request;
     }
 
@@ -59,20 +72,6 @@ class TimeRecordPostRequest {
                 new DaytimeBreakTime(minute),
                 new MidnightBreakTime(midnightMinute));
         return new TimeRecord(employeeNumber, workDate, actualWorkTime);
-    }
-
-    void apply(TimeRecord timeRecord) {
-        this.employeeNumber = timeRecord.employeeNumber().toString();
-        this.workDate = timeRecord.workDate().toString();
-
-        this.startHour = timeRecord.actualWorkTime().timeRange().start().clockTime().hour().toString();
-        this.startMinute = timeRecord.actualWorkTime().timeRange().start().clockTime().minute().toString();
-
-        this.endHour = timeRecord.actualWorkTime().timeRange().end().clockTime().hour().toString();
-        this.endMinute = timeRecord.actualWorkTime().timeRange().end().clockTime().minute().toString();
-
-        this.daytimeBreakTime = timeRecord.actualWorkTime().daytimeBreakTime().toString();
-        this.midnightBreakTime = timeRecord.actualWorkTime().midnightBreakTime().toString();
     }
 
     @AssertTrue(message = "勤務日を入力してください")

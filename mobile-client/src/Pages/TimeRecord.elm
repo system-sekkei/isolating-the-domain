@@ -6,13 +6,14 @@ import Html.Events exposing (onInput)
 import Http
 import Json.Decode
 import Json.Decode.Pipeline
+import Json.Encode
 import Pages.TimeRecord.Rules.BreakTimeCapRule as BreakTimeCapRule exposing (BreakTimeCapRule(..))
 import Pages.TimeRecord.Rules.WorkTimeRangeRule as WorkingTimeRangeRule exposing (WorkTimeRangeRule(..))
 import Pages.TimeRecord.Types.DaytimeBreakMinute as DaytimeBreakMinute exposing (DaytimeBreakMinute(..))
 import Pages.TimeRecord.Types.EndHour as EndHour exposing (EndHour(..))
 import Pages.TimeRecord.Types.EndMinute as EndMinute exposing (EndMinute(..))
 import Pages.TimeRecord.Types.MidnightBreakMinute as MidnightBreakMinute exposing (MidnightBreakMinute(..))
-import Pages.TimeRecord.Types.PostedStatus exposing (PostedStatus)
+import Pages.TimeRecord.Types.PostedStatus as PostedStatus exposing (PostedStatus(..))
 import Pages.TimeRecord.Types.StartHour as StartHour exposing (StartHour(..))
 import Pages.TimeRecord.Types.StartMinute as StartMinute exposing (StartMinute(..))
 import Types.Employee.EmployeeName as EmployeeName exposing (EmployeeName(..))
@@ -55,6 +56,7 @@ type Msg
     = PrepareForm (Result Http.Error PreparedTimeRecordForm)
     | EditForm TimeRecordForm
     | PostForm
+    | PostedForm (Result Http.Error TimeRecordPostResponse)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -66,6 +68,7 @@ update msg model =
                     ( { model | state = Editing prepared prepared.preparedRequest [] }, Cmd.none )
 
                 Err error ->
+                    -- TODO サーバエラー時のハンドリング
                     Debug.todo (Debug.toString error)
 
         EditForm newEditingForm ->
@@ -109,13 +112,29 @@ update msg model =
         PostForm ->
             case model.state of
                 Editing _ editing _ ->
-                    --                    TODO dirty check
-                    --                    TODO post request
-                    --                    TODO server error handling
-                    Debug.todo (Debug.toString editing)
+                    if isInvalid editing then
+                        ( model, Cmd.none )
+
+                    else
+                        ( model, postTimeRecordForm editing )
 
                 _ ->
                     ( model, Cmd.none )
+
+        PostedForm result ->
+            case result of
+                Ok response ->
+                    case model.state of
+                        Editing prepared editing _ ->
+                            -- TODO 一覧画面への遷移をどうするか、Browser.Navigation.Keyを持ち回りたくない
+                            ( { model | state = Editing prepared editing response.errors }, Cmd.none )
+
+                        _ ->
+                            ( model, Cmd.none )
+
+                Err error ->
+                    -- TODO サーバエラー時のハンドリング
+                    Debug.todo (Debug.toString error)
 
 
 
@@ -311,6 +330,19 @@ type alias TimeRecordForm =
     }
 
 
+isInvalid : TimeRecordForm -> Bool
+isInvalid form =
+    not
+        (WorkDate.isValid form.workDate
+            && StartHour.isValid form.startHour
+            && StartMinute.isValid form.startMinute
+            && EndHour.isValid form.endHour
+            && EndMinute.isValid form.endMinute
+            && DaytimeBreakMinute.isValid form.daytimeBreakTime
+            && MidnightBreakMinute.isValid form.midnightBreakTime
+        )
+
+
 preparedTimeRecordFormDecoder : Json.Decode.Decoder PreparedTimeRecordForm
 preparedTimeRecordFormDecoder =
     Json.Decode.succeed PreparedTimeRecordForm
@@ -346,6 +378,20 @@ getPreparedTimeRecordForm employeeNumber workDate =
         }
 
 
+encodeTimeRecordForm : TimeRecordForm -> Json.Encode.Value
+encodeTimeRecordForm form =
+    Json.Encode.object
+        [ ( "employeeNumber", EmployeeNumber.encode form.employeeNumber )
+        , ( "workDate", WorkDate.encode form.workDate )
+        , ( "startHour", StartHour.encode form.startHour )
+        , ( "startMinute", StartMinute.encode form.startMinute )
+        , ( "endHour", EndHour.encode form.endHour )
+        , ( "endMinute", EndMinute.encode form.endMinute )
+        , ( "daytimeBreakTime", DaytimeBreakMinute.encode form.daytimeBreakTime )
+        , ( "midnightBreakTime", MidnightBreakMinute.encode form.midnightBreakTime )
+        ]
+
+
 type alias TimeRecordPostResponse =
     { status : PostedStatus
     , errors : List Message
@@ -357,3 +403,27 @@ type alias RegisteredData =
     { employeeNumber : EmployeeNumber
     , workDate : WorkDate
     }
+
+
+timeRecordPostResponseDecoder : Json.Decode.Decoder TimeRecordPostResponse
+timeRecordPostResponseDecoder =
+    Json.Decode.succeed TimeRecordPostResponse
+        |> Json.Decode.Pipeline.required "status" PostedStatus.decoder
+        |> Json.Decode.Pipeline.optional "errors" (Json.Decode.list Message.errorMessagedecoder) []
+        |> Json.Decode.Pipeline.optional "succeeded" registeredDataDecoder (RegisteredData EmptyEmployeeNumber EmptyWordDate)
+
+
+registeredDataDecoder : Json.Decode.Decoder RegisteredData
+registeredDataDecoder =
+    Json.Decode.succeed RegisteredData
+        |> Json.Decode.Pipeline.required "employeeNumber" EmployeeNumber.decoder
+        |> Json.Decode.Pipeline.required "workDate" WorkDate.decoder
+
+
+postTimeRecordForm : TimeRecordForm -> Cmd Msg
+postTimeRecordForm form =
+    Http.post
+        { url = URLs.timerecordPostEndpoint
+        , body = Http.jsonBody (encodeTimeRecordForm form)
+        , expect = Http.expectJson PostedForm timeRecordPostResponseDecoder
+        }

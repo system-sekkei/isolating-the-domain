@@ -1,6 +1,7 @@
-module Types.Employee.EmployeeNumber exposing (EmployeeNumber(..), decoder, parse, toString)
+module Types.Employee.EmployeeNumber exposing (EmployeeNumber(..), decoder, encode, parse, toString)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
+import Json.Encode
 
 
 type EmployeeNumber
@@ -28,3 +29,8 @@ toString employeeNumber =
 
         EmptyEmployeeNumber ->
             ""
+
+
+encode : EmployeeNumber -> Json.Encode.Value
+encode employeeNumber =
+    Json.Encode.string (toString employeeNumber)

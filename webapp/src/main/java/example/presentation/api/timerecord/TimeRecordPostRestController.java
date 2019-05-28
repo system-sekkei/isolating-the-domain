@@ -31,29 +31,24 @@ public class TimeRecordPostRestController {
         this.attendanceQueryService = attendanceQueryService;
     }
 
-    @GetMapping("prepare")
-    TimeRecordPreparedPostResponse prepareNew() {
-        ContractingEmployees contractingEmployees = employeeQueryService.contractingEmployees();
-        TimeRecordPostRequest prepare = TimeRecordPostRequest.prepare();
-        return new TimeRecordPreparedPostResponse(contractingEmployees, prepare);
-    }
-
     @GetMapping("prepare/{employeeNumber}/{workDate}")
-    TimeRecordPreparedPostResponse prepareEdit(@PathVariable("employeeNumber") EmployeeNumber employeeNumber,
+    TimeRecordPreparedPostResponse prepare(@PathVariable("employeeNumber") EmployeeNumber employeeNumber,
                                                @PathVariable("workDate") WorkDate workDate) {
         ContractingEmployees contractingEmployees = employeeQueryService.contractingEmployees();
-        TimeRecordPostRequest prepare = TimeRecordPostRequest.prepare();
-
         AttendanceStatus attendanceStatus = attendanceQueryService.attendanceStatus(employeeNumber, workDate);
-        if (!attendanceStatus.isWork()) return new TimeRecordPreparedPostResponse(contractingEmployees, prepare);
+
+        if (!attendanceStatus.isWork()) {
+            TimeRecordPostRequest newPrepare = TimeRecordPostRequest.prepare(employeeNumber, workDate);
+            return new TimeRecordPreparedPostResponse(contractingEmployees, newPrepare);
+        }
 
         TimeRecord timeRecord = timeRecordQueryService.timeRecord(employeeNumber, workDate);
-        prepare.apply(timeRecord);
-        return new TimeRecordPreparedPostResponse(contractingEmployees, prepare);
+        TimeRecordPostRequest editPrepare = TimeRecordPostRequest.apply(timeRecord);
+        return new TimeRecordPreparedPostResponse(contractingEmployees, editPrepare);
     }
 
     @PostMapping
-    TimeRecordPostResponse post(@Validated @ModelAttribute("form") TimeRecordPostRequest request,
+    TimeRecordPostResponse post(@Validated @RequestBody TimeRecordPostRequest request,
                                 BindingResult result) {
         if (result.hasErrors()) return TimeRecordPostResponse.ng(result);
         TimeRecord timeRecord = request.toAttendance();

@@ -1,6 +1,7 @@
-module Pages.TimeRecord.Types.StartMinute exposing (StartMinute(..), decoder, isValid, toInt, toString, validate)
+module Pages.TimeRecord.Types.StartMinute exposing (StartMinute(..), decoder, encode, isValid, toInt, toString, validate)
 
 import Json.Decode exposing (Decoder, andThen, int, string, succeed)
+import Json.Encode
 import Types.Message exposing (Message(..))
 
 
@@ -21,6 +22,11 @@ parse string =
 decoder : Decoder StartMinute
 decoder =
     string |> andThen (\str -> succeed (parse str))
+
+
+encode : StartMinute -> Json.Encode.Value
+encode startMinute =
+    Json.Encode.string (toString startMinute)
 
 
 toString : StartMinute -> String

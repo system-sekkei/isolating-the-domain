@@ -1,6 +1,7 @@
-module Types.Time.WorkDate exposing (WorkDate(..), decoder, from, toDayOfMonth, toDayOfWeek, toString, validate)
+module Types.Time.WorkDate exposing (WorkDate(..), decoder, encode, from, isValid, toDayOfMonth, toDayOfWeek, toString, validate)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
+import Json.Encode
 import Time exposing (Posix, Zone, utc)
 import Time.Extra exposing (Parts, partsToPosix)
 import Types.Message exposing (Message(..))
@@ -86,6 +87,11 @@ decoder =
     string |> andThen (\str -> succeed (FormattedWorkDate str))
 
 
+encode : WorkDate -> Json.Encode.Value
+encode workDate =
+    Json.Encode.string (toString workDate)
+
+
 toString : WorkDate -> String
 toString workDate =
     case workDate of
@@ -153,8 +159,8 @@ mandatory =
 
 
 validate : WorkDate -> WorkDate
-validate startMinute =
-    case startMinute of
+validate workDate =
+    case workDate of
         DirtyWorkDate value ->
             if value == "" then
                 InvalidWorkDate mandatory value
@@ -166,7 +172,17 @@ validate startMinute =
             InvalidWorkDate mandatory ""
 
         _ ->
-            startMinute
+            workDate
+
+
+isValid : WorkDate -> Bool
+isValid workDate =
+    case workDate of
+        InvalidWorkDate _ _ ->
+            False
+
+        _ ->
+            True
 
 
 

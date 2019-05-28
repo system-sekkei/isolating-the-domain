@@ -1,6 +1,7 @@
-module Pages.TimeRecord.Types.DaytimeBreakMinute exposing (DaytimeBreakMinute(..), decoder, isValid, toInt, toString, validate)
+module Pages.TimeRecord.Types.DaytimeBreakMinute exposing (DaytimeBreakMinute(..), decoder, encode, isValid, toInt, toString, validate)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
+import Json.Encode
 import Types.Message exposing (Message(..))
 
 
@@ -21,6 +22,11 @@ parse string =
 decoder : Decoder DaytimeBreakMinute
 decoder =
     string |> andThen (\str -> succeed (parse str))
+
+
+encode : DaytimeBreakMinute -> Json.Encode.Value
+encode daytimeBreakMinute =
+    Json.Encode.string (toString daytimeBreakMinute)
 
 
 toString : DaytimeBreakMinute -> String

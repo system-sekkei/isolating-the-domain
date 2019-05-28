@@ -69,6 +69,6 @@ timerecordPreparedFormGetEndpoint employeeNumber workDate =
     absolute [ apiEndpointPrefix, "timerecord", "prepare", EmployeeNumber.toString employeeNumber, WorkDate.toString workDate ] []
 
 
-timerecordPostEndpoint : EmployeeNumber -> WorkDate -> String
-timerecordPostEndpoint employeeNumber workDate =
-    absolute [ apiEndpointPrefix, "timerecord", EmployeeNumber.toString employeeNumber, WorkDate.toString workDate ] []
+timerecordPostEndpoint : String
+timerecordPostEndpoint =
+    absolute [ apiEndpointPrefix, "timerecord" ] []

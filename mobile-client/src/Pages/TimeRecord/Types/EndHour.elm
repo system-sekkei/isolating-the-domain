@@ -1,6 +1,7 @@
-module Pages.TimeRecord.Types.EndHour exposing (EndHour(..), decoder, isValid, toInt, toString, validate)
+module Pages.TimeRecord.Types.EndHour exposing (EndHour(..), decoder, encode, isValid, toInt, toString, validate)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
+import Json.Encode
 import Types.Message exposing (Message(..))
 
 
@@ -21,6 +22,11 @@ parse string =
 decoder : Decoder EndHour
 decoder =
     string |> andThen (\str -> succeed (parse str))
+
+
+encode : EndHour -> Json.Encode.Value
+encode endHour =
+    Json.Encode.string (toString endHour)
 
 
 toString : EndHour -> String

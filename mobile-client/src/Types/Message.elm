@@ -1,4 +1,6 @@
-module Types.Message exposing (Message(..), isNotEmpty, toString)
+module Types.Message exposing (Message(..), errorMessagedecoder, isNotEmpty, toString)
+
+import Json.Decode exposing (Decoder, andThen, string, succeed)
 
 
 type Message
@@ -6,6 +8,11 @@ type Message
     | InfoMessage String
     | WarningMessage String
     | ErrorMessage String
+
+
+errorMessagedecoder : Decoder Message
+errorMessagedecoder =
+    string |> andThen (\str -> succeed (ErrorMessage str))
 
 
 isNotEmpty : Message -> Bool
