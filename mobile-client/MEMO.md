@@ -7,7 +7,7 @@
     * chat(slack): http://elmlang.herokuapp.com/
     * フォーラム: https://discourse.elm-lang.org/
 * 日本コミュニティ: https://elm-lang.jp/
-    * offical導入ガイド日本語訳: https://guide.elm-lang.jp/
+    * official導入ガイド日本語訳: https://guide.elm-lang.jp/
     * chat(discord): https://discordapp.com/invite/4j2MxCg
 * 本
     * 基礎からわかる Elm（v0.19対応）: http://www.c-r.com/book/detail/1299
@@ -54,10 +54,23 @@
 
 ## モジュールの考え方
 
-* 基本はページ単位でモジュールを作るのがよさそう
+* 基本は各Page単位でモジュールを作り、Mainモジュールを親にして、URLによって各ページへ処理を振り分ける構成がベストプラクティスになっているらしい
 * 参考実装
     * [GitHub - elm/package.elm-lang.org: website for browsing packages and exploring documentation](https://github.com/elm/package.elm-lang.org)
     * [GitHub - rtfeldman/elm-spa-example: A Single Page Application written in Elm](https://github.com/rtfeldman/elm-spa-example)
+* CustomTypeの使い方に関しては
+    * 参考になる実装は見つけられず
+    * ひとまずは極端に、ページごとに1field=1typeで、全ページから共通して使う型は最小限にする、という方針で実装してみる
+    * 集約的なtypeを作るのは取り回しがかなり晦渋な感じ（階層が深くなって、親から子への値の引き渡しや親への結果の戻しが逆に辛い）
+    * value object的な1つの値を表現する型をpageモジュール内で組み合わせるのが、階層も浅くて済んでよさそう
+    * 一覧系など表示だけのページのfieldにtypeを定義するのは冗長な感じはあるが、各関数のシグニチャは明確になるので好みではある
+    * FormのFieldはユーザビリティ向上のためのvalidationロジックをまとめられるのですっきり感がある
+* Page間で共有すべき値の取り回し
+    * elm/package.elm-lang.orgでは `session` というtype aliasに共有データを突っ込んで各ページを引き回す感じ
+    * vuex的な「どのモジュールからもアクセスできるデータストア」の仕組み/ライブラリは無さそう
+    * 共有データは認証トークンやページ間のナビゲーションのためのkeyぐらいに留めて、必要なデータは都度サーバに問い合わせるのがシンプルではある
+    * セッションが切れたあとに永続化したい場合（ex. 1ヶ月ぐらいは認証トークンを保持してログインのステップを飛ばすとか）portの仕組みを使ってJS側から/へ状態を取得/保存する形になりそう
+        * refs. [複数のElmアプリで小さなデータを共有する - Local storage - Qiita](https://qiita.com/sand/items/3767d263f98b3dad264e)
 
 ## MISC
 
@@ -69,7 +82,3 @@
 * ServiceWorkerの登録はJSで。中の処理はelmでかける？
     * refs. https://discourse.elm-lang.org/t/psa-elm-http-works-with-serviceworker/2562
     * refs. https://notes.eellson.com/2018/02/26/offline-post-requests-with-elm-and-service-worker/
-
-### localstrage
-
-* refs. [複数のElmアプリで小さなデータを共有する - Local storage - Qiita](https://qiita.com/sand/items/3767d263f98b3dad264e)
