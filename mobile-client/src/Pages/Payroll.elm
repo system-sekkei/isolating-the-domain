@@ -1,7 +1,7 @@
 module Pages.Payroll exposing (Model, Msg(..), PageState(..), init, update, view)
 
 import Html exposing (..)
-import Html.Attributes exposing (href)
+import Html.Attributes exposing (class, href)
 import Http
 import Json.Decode
 import Json.Decode.Pipeline
@@ -18,9 +18,14 @@ import URLs
 
 
 type alias Model =
-    { yearMonth : YearMonth
+    { pageName : PageName
+    , yearMonth : YearMonth
     , state : PageState
     }
+
+
+type alias PageName =
+    String
 
 
 type PageState
@@ -30,7 +35,7 @@ type PageState
 
 init : YearMonth -> ( Model, Cmd Msg )
 init yearMonth =
-    ( Model yearMonth Initializing, getPayrolls yearMonth )
+    ( Model "給与の一覧" yearMonth Initializing, getPayrolls yearMonth )
 
 
 
@@ -59,18 +64,19 @@ update msg model =
 
 view : Model -> Html msg
 view model =
-    div []
-        [ h1 [] [ text "給与の一覧" ]
-        , case model.state of
-            Initializing ->
-                div []
-                    [ text "Now Loading..." ]
+    Html.main_ []
+        [ section [ class "section" ]
+            [ case model.state of
+                Initializing ->
+                    div []
+                        [ text "Now Loading..." ]
 
-            Loaded payrolls ->
-                div []
-                    [ payrollTableTitle model
-                    , payrollTable model payrolls
-                    ]
+                Loaded payrolls ->
+                    div []
+                        [ payrollTableTitle model
+                        , payrollTable model payrolls
+                        ]
+            ]
         ]
 
 

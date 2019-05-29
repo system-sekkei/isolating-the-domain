@@ -22,10 +22,15 @@ import URLs
 
 
 type alias Model =
-    { employeeNumber : EmployeeNumber
+    { pageName : PageName
+    , employeeNumber : EmployeeNumber
     , yearMonth : YearMonth
     , state : PageState
     }
+
+
+type alias PageName =
+    String
 
 
 type PageState
@@ -35,7 +40,7 @@ type PageState
 
 init : EmployeeNumber -> YearMonth -> ( Model, Cmd Msg )
 init employeeNumber yearMonth =
-    ( Model employeeNumber yearMonth Initializing, getAttendance employeeNumber yearMonth )
+    ( Model "勤務時間の一覧" employeeNumber yearMonth Initializing, getAttendance employeeNumber yearMonth )
 
 
 
@@ -64,19 +69,20 @@ update msg model =
 
 view : Model -> Html msg
 view model =
-    div []
-        [ h1 [] [ text "勤務時間の一覧" ]
-        , case model.state of
-            Initializing ->
-                div []
-                    [ text "Now Loading..." ]
+    Html.main_ []
+        [ section [ class "section" ]
+            [ case model.state of
+                Initializing ->
+                    div []
+                        [ text "Now Loading..." ]
 
-            Loaded attendance ->
-                div []
-                    [ attendanceSummary attendance
-                    , attendanceTableTitle model
-                    , attendanceTable model attendance
-                    ]
+                Loaded attendance ->
+                    div []
+                        [ attendanceSummary attendance
+                        , attendanceTableTitle model
+                        , attendanceTable model attendance
+                        ]
+            ]
         ]
 
 
@@ -145,7 +151,7 @@ timerecordRow model timeRecord =
         , td [] [ text (timeRecord.endTimePoint |> EndTimePoint.toString) ]
         , td [] [ text (timeRecord.breakTime |> BreakTime.toString) ]
         , td [] [ text (timeRecord.workTime |> WorkTime.toString) ]
-        , td [] [ a [ href (URLs.timerecordPageURL model.employeeNumber timeRecord.workDate) ] [ text "勤務時間編集へ" ] ]
+        , td [] [ a [ href (URLs.timeRecordPageURL model.employeeNumber timeRecord.workDate) ] [ text "勤務時間編集へ" ] ]
         ]
 
 

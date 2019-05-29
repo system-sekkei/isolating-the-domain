@@ -1,0 +1,8 @@
+@charset "utf-8";
+@import "../../../node_modules/bulma/sass/utilities/initial-variables";
+@import "../../../node_modules/bulma/sass/utilities/functions";
+
+// variables override
+$section-padding : 1.5rem 1.5rem;
+
+@import "../../../node_modules/bulma/bulma";

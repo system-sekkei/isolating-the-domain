@@ -14,7 +14,13 @@ import URLs
 
 
 type alias Model =
-    { state : PageState }
+    { pageName : PageName
+    , state : PageState
+    }
+
+
+type alias PageName =
+    String
 
 
 type PageState
@@ -23,7 +29,7 @@ type PageState
 
 init : ClientTime -> ( Model, Cmd msg )
 init clientTime =
-    ( Model (Loaded clientTime), Cmd.none )
+    ( Model "ダッシュボード" (Loaded clientTime), Cmd.none )
 
 
 
@@ -32,16 +38,17 @@ init clientTime =
 
 view : Model -> Html msg
 view model =
-    div []
-        [ h1 [] [ text "ダッシュボード" ]
-        , case model.state of
-            Loaded clientTime ->
-                ul []
-                    [ routerLink (URLs.payrollPageURL (YearMonth.from clientTime)) "給与の一覧"
-                    , routerLink (URLs.timerecordPageURL (EmployeeNumber 1) (WorkDate.from clientTime)) "勤務時間の入力"
-                    , routerLink "/xxxxx" "Not found var1"
-                    , routerLink "/32-4098-12/;;asdkl;" "Not found var2"
-                    ]
+    Html.main_ []
+        [ section [ class "section" ]
+            [ case model.state of
+                Loaded clientTime ->
+                    ul []
+                        [ routerLink (URLs.payrollPageURL (YearMonth.from clientTime)) "給与の一覧"
+                        , routerLink (URLs.timeRecordPageURL (EmployeeNumber 1) (WorkDate.from clientTime)) "勤務時間の入力"
+                        , routerLink "/xxxxx" "Not found var1"
+                        , routerLink "/32-4098-12/;;asdkl;" "Not found var2"
+                        ]
+            ]
         ]
 
 

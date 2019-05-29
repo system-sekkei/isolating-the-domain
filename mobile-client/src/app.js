@@ -1,4 +1,4 @@
-require('bulma/bulma.sass');
+require('./assets/css/bluma-customize.scss');
 
 const {Elm} = require('./Main.elm');
 

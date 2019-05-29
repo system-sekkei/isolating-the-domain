@@ -30,11 +30,16 @@ import URLs
 
 type alias Model =
     -- TODO 登録後のリダイレクトのためにkeyを持ち回るのはちょっといやな感じ。。。親子でメッセージやコマンドのやりとりが複雑になるよりいいか？
-    { key : Browser.Navigation.Key
+    { pageName : PageName
+    , key : Browser.Navigation.Key
     , employeeNumber : EmployeeNumber
     , workDate : WorkDate
     , state : PageState
     }
+
+
+type alias PageName =
+    String
 
 
 type PageState
@@ -48,7 +53,7 @@ type alias ErrorMessages =
 
 init : Browser.Navigation.Key -> EmployeeNumber -> WorkDate -> ( Model, Cmd Msg )
 init key employeeNumber workDate =
-    ( Model key employeeNumber workDate Initializing, getPreparedTimeRecordForm employeeNumber workDate )
+    ( Model "勤務時間の入力" key employeeNumber workDate Initializing, getPreparedTimeRecordForm employeeNumber workDate )
 
 
 
@@ -163,18 +168,19 @@ gotoAttendancePage model postedForm =
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ h1 [] [ text "勤務時間の入力" ]
-        , case model.state of
-            Initializing ->
-                div []
-                    [ text "Now Loading..." ]
+    Html.main_ []
+        [ section [ class "section" ]
+            [ case model.state of
+                Initializing ->
+                    div []
+                        [ text "Now Loading..." ]
 
-            Editing prepared editing errorMessages ->
-                div []
-                    [ errorMessageArea errorMessages
-                    , timeRecordForm prepared editing
-                    ]
+                Editing prepared editing errorMessages ->
+                    div []
+                        [ errorMessageArea errorMessages
+                        , timeRecordForm prepared editing
+                        ]
+            ]
         ]
 
 
@@ -393,7 +399,7 @@ timeRecordFormDecoder =
 getPreparedTimeRecordForm : EmployeeNumber -> WorkDate -> Cmd Msg
 getPreparedTimeRecordForm employeeNumber workDate =
     Http.get
-        { url = URLs.timerecordPreparedFormGetEndpoint employeeNumber workDate
+        { url = URLs.timeRecordPreparedFormGetEndpoint employeeNumber workDate
         , expect = Http.expectJson PrepareForm preparedTimeRecordFormDecoder
         }
 
@@ -443,7 +449,7 @@ registeredDataDecoder =
 postTimeRecordForm : TimeRecordForm -> Cmd Msg
 postTimeRecordForm form =
     Http.post
-        { url = URLs.timerecordPostEndpoint
+        { url = URLs.timeRecordPostEndpoint
         , body = Http.jsonBody (encodeTimeRecordForm form)
         , expect = Http.expectJson PostedForm timeRecordPostResponseDecoder
         }

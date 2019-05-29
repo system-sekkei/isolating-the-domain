@@ -4,10 +4,9 @@ module URLs exposing
     , dashboardPageURL
     , payrollGetEndpoint
     , payrollPageURL
-    , timerecordPageURL
-    , timerecordPostEndpoint
-    , timerecordPreparedFormGetEndpoint
-    , timerecordPreparedNewFormGetEndpoint
+    , timeRecordPageURL
+    , timeRecordPostEndpoint
+    , timeRecordPreparedFormGetEndpoint
     )
 
 import Types.Employee.EmployeeNumber as EmployeeNumber exposing (EmployeeNumber)
@@ -35,8 +34,8 @@ attendancePageURL employeeNumber yearMonth =
     absolute [ "attendance", employeeNumber |> EmployeeNumber.toString, yearMonth |> YearMonth.toString ] []
 
 
-timerecordPageURL : EmployeeNumber -> WorkDate -> String
-timerecordPageURL employeeNumber workDate =
+timeRecordPageURL : EmployeeNumber -> WorkDate -> String
+timeRecordPageURL employeeNumber workDate =
     absolute [ "timerecord", employeeNumber |> EmployeeNumber.toString, workDate |> WorkDate.toString ] []
 
 
@@ -59,16 +58,11 @@ attendanceGetEndpoint employeeNumber yearMonth =
     absolute [ apiEndpointPrefix, "attendances", EmployeeNumber.toString employeeNumber, YearMonth.toString yearMonth ] []
 
 
-timerecordPreparedNewFormGetEndpoint : String
-timerecordPreparedNewFormGetEndpoint =
-    absolute [ apiEndpointPrefix, "timerecord", "prepare" ] []
-
-
-timerecordPreparedFormGetEndpoint : EmployeeNumber -> WorkDate -> String
-timerecordPreparedFormGetEndpoint employeeNumber workDate =
+timeRecordPreparedFormGetEndpoint : EmployeeNumber -> WorkDate -> String
+timeRecordPreparedFormGetEndpoint employeeNumber workDate =
     absolute [ apiEndpointPrefix, "timerecord", "prepare", EmployeeNumber.toString employeeNumber, WorkDate.toString workDate ] []
 
 
-timerecordPostEndpoint : String
-timerecordPostEndpoint =
+timeRecordPostEndpoint : String
+timeRecordPostEndpoint =
     absolute [ apiEndpointPrefix, "timerecord" ] []
