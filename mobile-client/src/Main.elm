@@ -247,7 +247,16 @@ view model =
             }
 
         NotFoundPage ->
-            Pages.NotFound.view
+            { title = "NOT FOUND"
+            , body =
+                [ appNavbar (AppNavbar.init model.navbarState model.page model.clientTime)
+                    |> Html.map NavbarMsg
+                , Pages.NotFound.view
+                    |> appContainer
+                    |> Html.map TimeRecordMsg
+                , appFooter
+                ]
+            }
 
 
 appContainer : Html msg -> Html msg

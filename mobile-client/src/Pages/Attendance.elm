@@ -1,5 +1,6 @@
 module Pages.Attendance exposing (Model, Msg, init, update, view)
 
+import Components.AppHtmlUtils exposing (nextLine, space)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http
@@ -88,47 +89,67 @@ view model =
 
 attendanceSummary : Attendance -> Html msg
 attendanceSummary attendance =
-    dl []
-        [ dt [] [ text "氏名" ]
-        , dd [] [ text (attendance.employeeName |> EmployeeName.toString) ]
-        , dt [] [ text "総勤務時間" ]
-        , dd [] [ text (attendance.totalWorkTime |> TotalWorkTime.toString) ]
+    div [ class "level is-mobile" ]
+        [ div [ class "level-item has-text-centered" ]
+            [ div []
+                [ p [ class "heading" ] [ text "氏名" ]
+                , p [ class "title" ] [ text (attendance.employeeName |> EmployeeName.toString) ]
+                ]
+            ]
+        , div [ class "level-item has-text-centered" ]
+            [ div []
+                [ p [ class "heading" ] [ text "総勤務時間" ]
+                , p [ class "title" ] [ text (attendance.totalWorkTime |> TotalWorkTime.toString) ]
+                ]
+            ]
         ]
 
 
 attendanceTableTitle : Model -> Html msg
 attendanceTableTitle model =
-    div []
-        [ a
-            [ href
-                (model.yearMonth
-                    |> YearMonth.previous
-                    |> URLs.attendancePageURL model.employeeNumber
-                )
+    nav [ class "level is-mobile" ]
+        [ span [ class "level-item has-text-centered" ]
+            [ a
+                [ href
+                    (model.yearMonth
+                        |> YearMonth.previous
+                        |> URLs.attendancePageURL model.employeeNumber
+                    )
+                ]
+                [ span [ class "mdi mdi-chevron-left" ] []
+                , text "前の月"
+                ]
             ]
-            [ text "前の月" ]
-        , h2 [] [ text (model.yearMonth |> YearMonth.toString) ]
-        , a
-            [ href
-                (model.yearMonth
-                    |> YearMonth.next
-                    |> URLs.attendancePageURL model.employeeNumber
-                )
+        , span [ class "level-item has-text-centered" ]
+            [ h2 [ class "title" ] [ text (model.yearMonth |> YearMonth.toString) ] ]
+        , span [ class "level-item has-text-centered" ]
+            [ a
+                [ href
+                    (model.yearMonth
+                        |> YearMonth.next
+                        |> URLs.attendancePageURL model.employeeNumber
+                    )
+                ]
+                [ text "次の月"
+                , span [ class "mdi mdi-chevron-right" ] []
+                ]
             ]
-            [ text "次の月" ]
         ]
 
 
 attendanceTable : Model -> Attendance -> Html msg
 attendanceTable model attendance =
-    table []
+    table [ class "table is-fullwidth" ]
         [ thead []
             [ tr []
-                [ td [ colspan 2 ] [ text "日付" ]
-                , td [] [ text "開始時刻" ]
-                , td [] [ text "終了時刻" ]
-                , td [] [ text "休憩時間" ]
-                , td [] [ text "勤務時間" ]
+                [ td [] [ text "日付" ]
+                , td []
+                    [ text "開始 - 終了時刻"
+                    , nextLine
+                    , indentText "勤務時間"
+                    , nextLine
+                    , indentText "(休憩時間)"
+                    ]
                 , td [] [ text "編集" ]
                 ]
             ]
@@ -144,15 +165,58 @@ timerecordRows model attendance =
 
 timerecordRow : Model -> TimeRecord -> Html msg
 timerecordRow model timeRecord =
-    tr []
-        [ td [] [ text (timeRecord.workDate |> WorkDate.toDayOfMonth) ]
-        , td [] [ text (timeRecord.workDate |> WorkDate.toDayOfWeek) ]
-        , td [] [ text (timeRecord.startTimePoint |> StartTimePoint.toString) ]
-        , td [] [ text (timeRecord.endTimePoint |> EndTimePoint.toString) ]
-        , td [] [ text (timeRecord.breakTime |> BreakTime.toString) ]
-        , td [] [ text (timeRecord.workTime |> WorkTime.toString) ]
-        , td [] [ a [ href (URLs.timeRecordPageURL model.employeeNumber timeRecord.workDate) ] [ text "勤務時間編集へ" ] ]
+    tr [ rowStyle timeRecord ]
+        [ td [] [ text (timeRecord.workDate |> WorkDate.toDayText) ]
+        , td [] (timeRecordContent timeRecord)
+        , td []
+            [ a
+                [ class "button"
+                , href (URLs.timeRecordPageURL model.employeeNumber timeRecord.workDate)
+                ]
+                [ editIcon ]
+            ]
         ]
+
+
+timeRecordContent : TimeRecord -> List (Html msg)
+timeRecordContent timeRecord =
+    if timeRecord.startTimePoint |> StartTimePoint.isEmpty then
+        [ text "" ]
+
+    else
+        [ text
+            ((timeRecord.startTimePoint |> StartTimePoint.toString)
+                ++ " - "
+                ++ (timeRecord.endTimePoint |> EndTimePoint.toString)
+            )
+        , nextLine
+        , indentText (timeRecord.workTime |> WorkTime.toString)
+        , nextLine
+        , indentText
+            ("(" ++ (timeRecord.breakTime |> BreakTime.toString) ++ ")")
+        ]
+
+
+indentText : String -> Html msg
+indentText string =
+    text (space ++ space ++ string)
+
+
+editIcon : Html msg
+editIcon =
+    span [ class "mdi mdi-pencil" ] []
+
+
+rowStyle : TimeRecord -> Attribute msg
+rowStyle timeRecord =
+    if timeRecord.workDate |> WorkDate.isSaturday then
+        style "background-color" "rgb(255, 246, 246)"
+
+    else if timeRecord.workDate |> WorkDate.isSunday then
+        style "background-color" "rgb(248, 255, 255)"
+
+    else
+        class ""
 
 
 

@@ -1,7 +1,7 @@
 module Pages.TimeRecord exposing (Model, Msg, init, update, view)
 
 import Browser.Navigation
-import Components.AppHtmlEvents exposing (onChange)
+import Components.AppHtmlUtils exposing (onChange)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
@@ -188,126 +188,101 @@ view model =
 errorMessageArea : ErrorMessages -> Html Msg
 errorMessageArea errorMessages =
     section []
-        [ ul []
-            (List.map messageLine errorMessages)
-        ]
+        (List.map messageLine errorMessages)
 
 
 messageLine : Message -> Html Msg
 messageLine message =
-    li [] [ text (message |> Message.toString) ]
+    p [] [ text (message |> Message.toString) ]
 
 
 timeRecordForm : PreparedTimeRecordForm -> TimeRecordForm -> Html Msg
 timeRecordForm prepared editing =
     section []
-        [ div []
-            [ label [] [ text "氏名" ]
-            , select
-                [ onChange (\str -> EditForm { editing | employeeNumber = EmployeeNumber.parse str }) ]
-                (List.map (employeeOption editing) prepared.contractingEmployees)
+        [ div [ class "field" ]
+            [ label [ class "label" ] [ text "氏名" ]
+            , div [ class "control is-expanded" ]
+                [ div [ class "select is-fullwidth" ]
+                    [ employeeSelectBox prepared editing ]
+                ]
             ]
-        , div []
-            [ label [] [ text "勤務日" ]
-            , input
-                [ type_ "date"
-                , value (editing.workDate |> WorkDate.toString)
-                , onInput (\str -> EditForm { editing | workDate = DirtyWorkDate str })
-                ]
-                []
-            , case editing.workDate of
-                InvalidWorkDate err _ ->
-                    text (err |> Message.toString)
-
-                _ ->
-                    text ""
+        , div [ class "field" ]
+            [ label [ class "label" ] [ text "勤務日" ]
+            , div [ class "control" ]
+                [ workDateInput editing ]
+            , workDateInputErrorMessage editing
             ]
-        , div []
-            [ label [] [ text "開始時刻" ]
-            , input
-                [ type_ "number"
-                , value (editing.startHour |> StartHour.toString)
-                , onInput (\str -> EditForm { editing | startHour = DirtyStartHour str })
+        , div [ class "field is-horizontal" ]
+            [ div [ class "field-label" ]
+                [ label [ class "label" ] [ text "開始時刻" ] ]
+            , div [ class "field-body is-flex" ]
+                [ div [ class "field has-addons" ]
+                    [ div [ class "control is-expanded" ]
+                        [ startHourInput editing ]
+                    , div [ class "control" ]
+                        [ span [ class "button" ] [ text "時" ] ]
+                    ]
+                , div [ class "field has-addons" ]
+                    [ div [ class "control is-expanded" ]
+                        [ startMinuteInput editing ]
+                    , div [ class "control" ]
+                        [ span [ class "button" ] [ text "分" ] ]
+                    ]
                 ]
-                []
-            , case editing.startHour of
-                InvalidStartHour err _ ->
-                    text (err |> Message.toString)
-
-                _ ->
-                    text ""
-            , input
-                [ type_ "number"
-                , value (editing.startMinute |> StartMinute.toString)
-                , onInput (\str -> EditForm { editing | startMinute = DirtyStartMinute str })
-                ]
-                []
-            , case editing.startMinute of
-                InvalidStartMinute err _ ->
-                    text (err |> Message.toString)
-
-                _ ->
-                    text ""
+            , startHourInputErrorMessage editing
+            , startMinuteInputErrorMessage editing
             ]
-        , div []
-            [ label [] [ text "終了時刻" ]
-            , input
-                [ type_ "number"
-                , value (editing.endHour |> EndHour.toString)
-                , onInput (\str -> EditForm { editing | endHour = DirtyEndHour str })
+        , div [ class "field is-horizontal" ]
+            [ div [ class "field-label" ]
+                [ label [ class "label" ] [ text "終了時刻" ] ]
+            , div [ class "field-body is-flex" ]
+                [ div [ class "field has-addons" ]
+                    [ div [ class "control is-expanded" ]
+                        [ endHourInput editing ]
+                    , div [ class "control" ]
+                        [ span [ class "button" ] [ text "時" ] ]
+                    ]
+                , div [ class "field has-addons" ]
+                    [ div [ class "control is-expanded" ]
+                        [ endMinuteInput editing ]
+                    , div [ class "control" ]
+                        [ span [ class "button" ] [ text "分" ] ]
+                    ]
                 ]
-                []
-            , case editing.endHour of
-                InvalidEndHour err _ ->
-                    text (err |> Message.toString)
-
-                _ ->
-                    text ""
-            , input
-                [ type_ "number"
-                , value (editing.endMinute |> EndMinute.toString)
-                , onInput (\str -> EditForm { editing | endMinute = DirtyEndMinute str })
-                ]
-                []
-            , case editing.endMinute of
-                InvalidEndMinute err _ ->
-                    text (err |> Message.toString)
-
-                _ ->
-                    text ""
+            , endHourInputErrorMessage editing
+            , endMinuteInputErrorMessage editing
             ]
-        , div []
-            [ label [] [ text "休憩時間" ]
-            , input
-                [ type_ "number"
-                , value (editing.daytimeBreakTime |> DaytimeBreakMinute.toString)
-                , onInput (\str -> EditForm { editing | daytimeBreakTime = DirtyDaytimeBreakMinute str })
+        , div [ class "field" ]
+            [ label [ class "label" ] [ text "休憩時間" ]
+            , div [ class "control" ]
+                [ daytimeBreakMinuteInput editing
                 ]
-                []
-            , case editing.daytimeBreakTime of
-                InvalidDaytimeBreakMinute err _ ->
-                    text (err |> Message.toString)
-
-                _ ->
-                    text ""
+            , daytimeBreakMinuteInputErrorMessage editing
             ]
-        , div []
-            [ label [] [ text "休憩時間（深夜）" ]
-            , input
-                [ type_ "number"
-                , value (editing.midnightBreakTime |> MidnightBreakMinute.toString)
-                , onInput (\str -> EditForm { editing | midnightBreakTime = DirtyMidnightBreakMinute str })
+        , div [ class "field" ]
+            [ label [ class "label" ] [ text "休憩時間（深夜）" ]
+            , div [ class "control" ]
+                [ midnightBreakMinuteInput editing
                 ]
-                []
-            , case editing.midnightBreakTime of
-                InvalidMidnightBreakMinute err _ ->
-                    text (err |> Message.toString)
-
-                _ ->
-                    text ""
+            , midnightBreakMinuteInputErrorMessage editing
             ]
-        , button [ onClick PostForm ] [ text "登録" ]
+        , div [ class "field" ]
+            [ div [ class "control" ]
+                [ button
+                    [ class "button is-primary is-fullwidth"
+                    , onClick PostForm
+                    ]
+                    [ text "登録" ]
+                ]
+            ]
         ]
+
+
+employeeSelectBox : PreparedTimeRecordForm -> TimeRecordForm -> Html Msg
+employeeSelectBox prepared editing =
+    select
+        [ onChange (\str -> EditForm { editing | employeeNumber = EmployeeNumber.parse str }) ]
+        (List.map (employeeOption editing) prepared.contractingEmployees)
 
 
 employeeOption : TimeRecordForm -> Employee -> Html msg
@@ -317,6 +292,153 @@ employeeOption editing employee =
         , selected (employee.employeeNumber == editing.employeeNumber)
         ]
         [ text (employee.employeeName |> EmployeeName.toString) ]
+
+
+workDateInput : TimeRecordForm -> Html Msg
+workDateInput editing =
+    input
+        [ type_ "date"
+        , class "input"
+        , value (editing.workDate |> WorkDate.toString)
+        , onInput (\str -> EditForm { editing | workDate = DirtyWorkDate str })
+        ]
+        []
+
+
+workDateInputErrorMessage : TimeRecordForm -> Html Msg
+workDateInputErrorMessage editing =
+    case editing.workDate of
+        InvalidWorkDate err _ ->
+            text (err |> Message.toString)
+
+        _ ->
+            text ""
+
+
+startHourInput : TimeRecordForm -> Html Msg
+startHourInput editing =
+    input
+        [ type_ "number"
+        , class "input"
+        , value (editing.startHour |> StartHour.toString)
+        , onInput (\str -> EditForm { editing | startHour = DirtyStartHour str })
+        ]
+        []
+
+
+startHourInputErrorMessage : TimeRecordForm -> Html Msg
+startHourInputErrorMessage editing =
+    case editing.startHour of
+        InvalidStartHour err _ ->
+            text (err |> Message.toString)
+
+        _ ->
+            text ""
+
+
+startMinuteInput : TimeRecordForm -> Html Msg
+startMinuteInput editing =
+    input
+        [ type_ "number"
+        , class "input"
+        , value (editing.startMinute |> StartMinute.toString)
+        , onInput (\str -> EditForm { editing | startMinute = DirtyStartMinute str })
+        ]
+        []
+
+
+startMinuteInputErrorMessage : TimeRecordForm -> Html Msg
+startMinuteInputErrorMessage editing =
+    case editing.startMinute of
+        InvalidStartMinute err _ ->
+            text (err |> Message.toString)
+
+        _ ->
+            text ""
+
+
+endHourInput : TimeRecordForm -> Html Msg
+endHourInput editing =
+    input
+        [ type_ "number"
+        , class "input"
+        , value (editing.endHour |> EndHour.toString)
+        , onInput (\str -> EditForm { editing | endHour = DirtyEndHour str })
+        ]
+        []
+
+
+endHourInputErrorMessage : TimeRecordForm -> Html Msg
+endHourInputErrorMessage editing =
+    case editing.endHour of
+        InvalidEndHour err _ ->
+            text (err |> Message.toString)
+
+        _ ->
+            text ""
+
+
+endMinuteInput : TimeRecordForm -> Html Msg
+endMinuteInput editing =
+    input
+        [ type_ "number"
+        , class "input"
+        , value (editing.endMinute |> EndMinute.toString)
+        , onInput (\str -> EditForm { editing | endMinute = DirtyEndMinute str })
+        ]
+        []
+
+
+endMinuteInputErrorMessage : TimeRecordForm -> Html Msg
+endMinuteInputErrorMessage editing =
+    case editing.endMinute of
+        InvalidEndMinute err _ ->
+            text (err |> Message.toString)
+
+        _ ->
+            text ""
+
+
+daytimeBreakMinuteInput : TimeRecordForm -> Html Msg
+daytimeBreakMinuteInput editing =
+    input
+        [ type_ "number"
+        , class "input"
+        , value (editing.daytimeBreakTime |> DaytimeBreakMinute.toString)
+        , onInput (\str -> EditForm { editing | daytimeBreakTime = DirtyDaytimeBreakMinute str })
+        ]
+        []
+
+
+daytimeBreakMinuteInputErrorMessage : TimeRecordForm -> Html Msg
+daytimeBreakMinuteInputErrorMessage editing =
+    case editing.daytimeBreakTime of
+        InvalidDaytimeBreakMinute err _ ->
+            text (err |> Message.toString)
+
+        _ ->
+            text ""
+
+
+midnightBreakMinuteInput : TimeRecordForm -> Html Msg
+midnightBreakMinuteInput editing =
+    input
+        [ type_ "number"
+        , class "input"
+        , value (editing.midnightBreakTime |> MidnightBreakMinute.toString)
+        , onInput (\str -> EditForm { editing | midnightBreakTime = DirtyMidnightBreakMinute str })
+        ]
+        []
+
+
+midnightBreakMinuteInputErrorMessage : TimeRecordForm -> Html Msg
+midnightBreakMinuteInputErrorMessage editing =
+    case editing.midnightBreakTime of
+        InvalidMidnightBreakMinute err _ ->
+            text (err |> Message.toString)
+
+        _ ->
+            text ""
 
 
 

@@ -1,4 +1,4 @@
-module Pages.Attendance.Types.StartTimePoint exposing (StartTimePoint(..), decoder, toString)
+module Pages.Attendance.Types.StartTimePoint exposing (StartTimePoint(..), decoder, isEmpty, toString)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
 
@@ -21,3 +21,13 @@ toString startTimePoint =
 
         EmptyStartTimePoint ->
             ""
+
+
+isEmpty : StartTimePoint -> Bool
+isEmpty startTimePoint =
+    case startTimePoint of
+        EmptyStartTimePoint ->
+            True
+
+        _ ->
+            False

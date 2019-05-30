@@ -1,4 +1,4 @@
-module Types.Time.WorkDate exposing (WorkDate(..), decoder, encode, from, isValid, toDayOfMonth, toDayOfWeek, toString, toYearMonth, validate)
+module Types.Time.WorkDate exposing (WorkDate(..), decoder, encode, from, isSaturday, isSunday, isValid, toDayOfMonth, toDayOfWeek, toDayText, toString, toYearMonth, validate)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
 import Json.Encode
@@ -35,6 +35,18 @@ toYearMonth workDate =
             toPosix workDate
     in
     PosixYearMonth zone posix
+
+
+toDayText : WorkDate -> String
+toDayText workDate =
+    let
+        dayOfMonth =
+            toDayOfMonth workDate
+
+        dayOfWeek =
+            toDayOfWeek workDate
+    in
+    dayOfMonth ++ "(" ++ dayOfWeek ++ ")"
 
 
 toDayOfMonth : WorkDate -> String
@@ -193,6 +205,16 @@ isValid workDate =
 
         _ ->
             True
+
+
+isSaturday : WorkDate -> Bool
+isSaturday workDate =
+    toDayOfWeek workDate == "土"
+
+
+isSunday : WorkDate -> Bool
+isSunday workDate =
+    toDayOfWeek workDate == "日"
 
 
 

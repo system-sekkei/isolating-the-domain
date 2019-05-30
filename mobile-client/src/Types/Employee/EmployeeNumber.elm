@@ -1,4 +1,4 @@
-module Types.Employee.EmployeeNumber exposing (EmployeeNumber(..), decoder, encode, parse, toString)
+module Types.Employee.EmployeeNumber exposing (EmployeeNumber(..), decoder, encode, parse, toPrefixnize, toString)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
 import Json.Encode
@@ -26,6 +26,16 @@ toString employeeNumber =
     case employeeNumber of
         EmployeeNumber value ->
             String.fromInt value
+
+        EmptyEmployeeNumber ->
+            ""
+
+
+toPrefixnize : EmployeeNumber -> String
+toPrefixnize employeeNumber =
+    case employeeNumber of
+        EmployeeNumber value ->
+            String.fromInt value ++ ". "
 
         EmptyEmployeeNumber ->
             ""

@@ -1,7 +1,8 @@
 module Pages.Payroll exposing (Model, Msg(..), PageState(..), init, update, view)
 
+import Components.AppHtmlUtils exposing (nextLine, space)
 import Html exposing (..)
-import Html.Attributes exposing (class, href)
+import Html.Attributes exposing (..)
 import Http
 import Json.Decode
 import Json.Decode.Pipeline
@@ -82,36 +83,48 @@ view model =
 
 payrollTableTitle : Model -> Html msg
 payrollTableTitle model =
-    div []
-        [ a
-            [ href
-                (model.yearMonth
-                    |> YearMonth.previous
-                    |> URLs.payrollPageURL
-                )
+    nav [ class "level is-mobile" ]
+        [ span [ class "level-item has-text-centered" ]
+            [ a
+                [ href
+                    (model.yearMonth
+                        |> YearMonth.previous
+                        |> URLs.payrollPageURL
+                    )
+                ]
+                [ span [ class "mdi mdi-chevron-left" ] []
+                , text "前の月"
+                ]
             ]
-            [ text "前の月" ]
-        , h2 [] [ text (model.yearMonth |> YearMonth.toString) ]
-        , a
-            [ href
-                (model.yearMonth
-                    |> YearMonth.next
-                    |> URLs.payrollPageURL
-                )
+        , span [ class "level-item has-text-centered" ]
+            [ h2 [ class "title" ] [ text (model.yearMonth |> YearMonth.toString) ] ]
+        , span [ class "level-item has-text-centered" ]
+            [ a
+                [ href
+                    (model.yearMonth
+                        |> YearMonth.next
+                        |> URLs.payrollPageURL
+                    )
+                ]
+                [ text "次の月"
+                , span [ class "mdi mdi-chevron-right" ] []
+                ]
             ]
-            [ text "次の月" ]
         ]
 
 
 payrollTable : Model -> List Payroll -> Html msg
 payrollTable model payrolls =
-    table []
+    table [ class "table is-striped is-fullwidth" ]
         [ thead []
             [ tr []
-                [ td [] [ text "従業員番号" ]
-                , td [] [ text "氏名" ]
-                , td [] [ text "支払額" ]
-                , td [] [ text "備考" ]
+                [ td []
+                    [ text "従業員番号 / 氏名"
+                    , nextLine
+                    , indentText "支払額"
+                    , nextLine
+                    , indentText "備考"
+                    ]
                 , td [] []
                 ]
             ]
@@ -128,12 +141,23 @@ payrollRows model payrolls =
 payrollRow : Model -> Payroll -> Html msg
 payrollRow model payroll =
     tr []
-        [ td [] [ text (payroll.employeeNumber |> EmployeeNumber.toString) ]
-        , td [] [ text (payroll.employeeName |> EmployeeName.toString) ]
-        , td [] [ text (payroll.totalPayment |> TotalPayment.toString) ]
-        , td [] [ text (payroll.message |> PayrollStatusMessage.toString) ]
+        [ td []
+            [ text
+                ((payroll.employeeNumber |> EmployeeNumber.toPrefixnize)
+                    ++ (payroll.employeeName |> EmployeeName.toString)
+                )
+            , nextLine
+            , indentText (payroll.totalPayment |> TotalPayment.toString)
+            , nextLine
+            , indentText (payroll.message |> PayrollStatusMessage.toString)
+            ]
         , td [] [ a [ href (URLs.attendancePageURL payroll.employeeNumber model.yearMonth) ] [ text "勤務時間の一覧へ" ] ]
         ]
+
+
+indentText : String -> Html msg
+indentText string =
+    text (space ++ space ++ string)
 
 
 

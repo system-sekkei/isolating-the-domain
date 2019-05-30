@@ -69,7 +69,7 @@ appNavbar : Model -> Html Msg
 appNavbar model =
     nav [ class "navbar is-light" ]
         [ div [ class "navbar-brand" ]
-            [ span [ class "navbar-item" ] [ navbarTitle model ]
+            [ span [ class "navbar-item" ] (navbarTitle model)
             , span
                 [ navbarBurgerStyle model
                 , onClick ClickNavBurger
@@ -82,25 +82,25 @@ appNavbar model =
                 , href URLs.dashboardPageURL
                 , onClick ClickNavItem
                 ]
-                [ text "ダッシュボード" ]
+                [ dashboardIcon, text "ダッシュボード" ]
             , a
                 [ timeRecordNavItemStyle model
                 , href (URLs.timeRecordPageURL defaultEmployeeNumber (WorkDate.from model.clientTime))
                 , onClick ClickNavItem
                 ]
-                [ text "勤務時間の入力" ]
+                [ timeRecordIcon, text "勤務時間の入力" ]
             , a
                 [ payrollNavItemStyle model
                 , href (URLs.payrollPageURL (YearMonth.from model.clientTime))
                 , onClick ClickNavItem
                 ]
-                [ text "給与の一覧" ]
+                [ payrollIcon, text "給与の一覧" ]
             , a
                 [ class "navbar-item"
-                , href "#"
+                , href ""
                 , onClick ClickNavItem
                 ]
-                [ text "従業員の一覧" ]
+                [ employeeIcon, text "従業員の一覧" ]
             ]
         ]
 
@@ -110,23 +110,46 @@ defaultEmployeeNumber =
     EmployeeNumber 1
 
 
-navbarTitle : Model -> Html msg
+navbarTitle : Model -> List (Html msg)
 navbarTitle model =
     case model.currentPage of
         DashboardPage dashboardModel ->
-            text dashboardModel.pageName
+            [ dashboardIcon, text dashboardModel.pageName ]
 
         PayrollPage payrollModel ->
-            text payrollModel.pageName
+            [ payrollIcon, text payrollModel.pageName ]
 
         AttendancePage attendanceModel ->
-            text attendanceModel.pageName
+            [ timeRecordIcon, text attendanceModel.pageName ]
 
-        TimeRecordPage attendanceModel ->
-            text attendanceModel.pageName
+        TimeRecordPage timeRecordModel ->
+            [ timeRecordIcon, text timeRecordModel.pageName ]
+
+        NotFoundPage ->
+            [ span [ class "mdi mdi-alert-circle-outline" ] [], text "NOT FOUND" ]
 
         _ ->
-            text ""
+            [ text "" ]
+
+
+dashboardIcon : Html msg
+dashboardIcon =
+    span [ class "mdi mdi-speedometer" ] []
+
+
+payrollIcon : Html msg
+payrollIcon =
+    span [ class "mdi mdi-currency-jpy" ] []
+
+
+timeRecordIcon : Html msg
+timeRecordIcon =
+    span [ class "mdi mdi-clock-outline" ] []
+
+
+employeeIcon : Html msg
+employeeIcon =
+    span [ class "mdi mdi-account" ] []
 
 
 navbarBurgerStyle : Model -> Attribute msg

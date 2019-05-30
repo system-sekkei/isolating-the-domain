@@ -20,4 +20,4 @@ toString totalPayment =
             value
 
         EmptyTotalPayment ->
-            ""
+            "-"
