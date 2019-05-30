@@ -2,23 +2,19 @@ module Main exposing (main)
 
 import Browser
 import Browser.Navigation
-import Html exposing (Attribute, Html, a, div, footer, nav, p, span, text)
+import Components.AppFooter exposing (appFooter)
+import Components.AppNavbar as AppNavbar exposing (appNavbar)
+import Html exposing (..)
 import Html.Attributes exposing (class, href)
-import Html.Events
-import Json.Decode
+import Pages exposing (Page(..))
 import Pages.Attendance
 import Pages.Dashboard
 import Pages.NotFound
 import Pages.Payroll exposing (Model, PageState(..))
 import Pages.TimeRecord
-import Route exposing (Route(..))
 import Task
 import Time
-import Types.Employee.EmployeeNumber exposing (EmployeeNumber(..))
 import Types.Time.ClientTime exposing (ClientTime(..))
-import Types.Time.WorkDate as WorkDate
-import Types.Time.YearMonth as YearMonth
-import URLs
 import Url exposing (Url)
 
 
@@ -39,34 +35,16 @@ main =
 
 type alias Model =
     { key : Browser.Navigation.Key
-    , navState : NavState
+    , navbarState : AppNavbar.State
     , page : Page
     , clientTime : ClientTime
     }
 
 
-type Page
-    = NotFoundPage
-    | InitializingPage
-    | DashboardPage Pages.Dashboard.Model
-    | PayrollPage Pages.Payroll.Model
-    | AttendancePage Pages.Attendance.Model
-    | TimeRecordPage Pages.TimeRecord.Model
-
-
-type NavState
-    = BurgerClosed
-    | BurgerOpened
-
-
-type alias PageName =
-    String
-
-
 init : () -> Url.Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
-init _ _ key =
-    ( Model key BurgerClosed InitializingPage (ClientTime Time.utc (Time.millisToPosix 0))
-    , Task.perform Initialize <| Task.map2 Tuple.pair Time.here Time.now
+init _ url key =
+    ( Model key AppNavbar.BurgerClosed InitializingPage (ClientTime Time.utc (Time.millisToPosix 0))
+    , Task.perform (Initialize url) (Task.map2 Tuple.pair Time.here Time.now)
     )
 
 
@@ -75,11 +53,10 @@ init _ _ key =
 
 
 type Msg
-    = Initialize ( Time.Zone, Time.Posix )
+    = Initialize Url.Url ( Time.Zone, Time.Posix )
     | LinkClicked Browser.UrlRequest
     | UrlChanged Url.Url
-    | ClickNavBurger
-    | ClickNavItem
+    | NavbarMsg AppNavbar.Msg
     | PayrollMsg Pages.Payroll.Msg
     | AttendanceMsg Pages.Attendance.Msg
     | TimeRecordMsg Pages.TimeRecord.Msg
@@ -88,15 +65,15 @@ type Msg
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Initialize ( zone, posix ) ->
+        Initialize url ( zone, posix ) ->
             let
                 initClientTime =
                     ClientTime zone posix
 
-                ( dashboardModel, _ ) =
-                    Pages.Dashboard.init initClientTime
+                initializedModel =
+                    { model | clientTime = initClientTime }
             in
-            ( { model | clientTime = initClientTime, page = DashboardPage dashboardModel }, Cmd.none )
+            goto url initializedModel
 
         LinkClicked urlRequest ->
             case urlRequest of
@@ -109,21 +86,15 @@ update msg model =
         UrlChanged url ->
             goto url model
 
-        ClickNavBurger ->
-            case model.navState of
-                BurgerClosed ->
-                    ( { model | navState = BurgerOpened }, Cmd.none )
+        NavbarMsg navbarMsg ->
+            let
+                navbarModel =
+                    AppNavbar.init model.navbarState model.page model.clientTime
 
-                BurgerOpened ->
-                    ( { model | navState = BurgerClosed }, Cmd.none )
-
-        ClickNavItem ->
-            case model.navState of
-                BurgerOpened ->
-                    ( { model | navState = BurgerClosed }, Cmd.none )
-
-                _ ->
-                    ( model, Cmd.none )
+                ( newNavbarModel, navbarCmd ) =
+                    AppNavbar.update navbarMsg navbarModel
+            in
+            ( { model | navbarState = newNavbarModel.state }, Cmd.map NavbarMsg navbarCmd )
 
         PayrollMsg payrollMsg ->
             case model.page of
@@ -164,39 +135,39 @@ update msg model =
 
 goto : Url -> Model -> ( Model, Cmd Msg )
 goto url model =
-    case Route.parse url of
+    case Pages.urlParse url of
         Nothing ->
             ( { model | page = NotFoundPage }, Cmd.none )
 
-        Just Top ->
+        Just Pages.Top ->
             let
                 ( dashboardModel, _ ) =
                     Pages.Dashboard.init model.clientTime
             in
             ( { model | page = DashboardPage dashboardModel }, Cmd.none )
 
-        Just DashboardRoute ->
+        Just Pages.DashboardRoute ->
             let
                 ( dashboardModel, _ ) =
                     Pages.Dashboard.init model.clientTime
             in
             ( { model | page = DashboardPage dashboardModel }, Cmd.none )
 
-        Just (PayrollRoute yearMonth) ->
+        Just (Pages.PayrollRoute yearMonth) ->
             let
                 ( payrollModel, payrollCmd ) =
                     Pages.Payroll.init yearMonth
             in
             ( { model | page = PayrollPage payrollModel }, Cmd.map PayrollMsg payrollCmd )
 
-        Just (AttendanceRoute employeeNumber yearMonth) ->
+        Just (Pages.AttendanceRoute employeeNumber yearMonth) ->
             let
                 ( attendanceModel, attendanceCmd ) =
                     Pages.Attendance.init employeeNumber yearMonth
             in
             ( { model | page = AttendancePage attendanceModel }, Cmd.map AttendanceMsg attendanceCmd )
 
-        Just (TimeRecordRoute employeeNumber workDate) ->
+        Just (Pages.TimeRecordRoute employeeNumber workDate) ->
             let
                 ( timeRecordModel, timeRecordCmd ) =
                     Pages.TimeRecord.init model.key employeeNumber workDate
@@ -231,7 +202,8 @@ view model =
         DashboardPage dashboardModel ->
             { title = dashboardModel.pageName
             , body =
-                [ appNavbar model
+                [ appNavbar (AppNavbar.init model.navbarState model.page model.clientTime)
+                    |> Html.map NavbarMsg
                 , Pages.Dashboard.view dashboardModel
                     |> appContainer
                 , appFooter
@@ -241,7 +213,8 @@ view model =
         PayrollPage payrollModel ->
             { title = payrollModel.pageName
             , body =
-                [ appNavbar model
+                [ appNavbar (AppNavbar.init model.navbarState model.page model.clientTime)
+                    |> Html.map NavbarMsg
                 , Pages.Payroll.view payrollModel
                     |> appContainer
                     |> Html.map PayrollMsg
@@ -252,7 +225,8 @@ view model =
         AttendancePage attendanceModel ->
             { title = attendanceModel.pageName
             , body =
-                [ appNavbar model
+                [ appNavbar (AppNavbar.init model.navbarState model.page model.clientTime)
+                    |> Html.map NavbarMsg
                 , Pages.Attendance.view attendanceModel
                     |> appContainer
                     |> Html.map AttendanceMsg
@@ -263,7 +237,8 @@ view model =
         TimeRecordPage timeRecordModel ->
             { title = timeRecordModel.pageName
             , body =
-                [ appNavbar model
+                [ appNavbar (AppNavbar.init model.navbarState model.page model.clientTime)
+                    |> Html.map NavbarMsg
                 , Pages.TimeRecord.view timeRecordModel
                     |> appContainer
                     |> Html.map TimeRecordMsg
@@ -278,131 +253,3 @@ view model =
 appContainer : Html msg -> Html msg
 appContainer element =
     div [ class "container" ] [ element ]
-
-
-appNavbar : Model -> Html Msg
-appNavbar model =
-    nav [ class "navbar is-light" ]
-        [ div [ class "navbar-brand" ]
-            [ span [ class "navbar-item" ] [ navbarTitle model ]
-            , span
-                [ navbarBurgerStyle model
-                , onClick ClickNavBurger
-                ]
-                [ span [] [], span [] [], span [] [] ]
-            ]
-        , div [ navbarMenuStyle model ]
-            [ a
-                [ dashboardNavItemStyle model
-                , href URLs.dashboardPageURL
-                , onClick ClickNavItem
-                ]
-                [ text "ダッシュボード" ]
-            , a
-                [ timeRecordNavItemStyle model
-                , href (URLs.timeRecordPageURL defaultEmployeeNumber (WorkDate.from model.clientTime))
-                , onClick ClickNavItem
-                ]
-                [ text "勤務時間の入力" ]
-            , a
-                [ payrollNavItemStyle model
-                , href (URLs.payrollPageURL (YearMonth.from model.clientTime))
-                , onClick ClickNavItem
-                ]
-                [ text "給与の一覧" ]
-            , a
-                [ class "navbar-item"
-                , href "#"
-                , onClick ClickNavItem
-                ]
-                [ text "従業員の一覧" ]
-            ]
-        ]
-
-
-defaultEmployeeNumber : EmployeeNumber
-defaultEmployeeNumber =
-    EmployeeNumber 1
-
-
-navbarTitle : Model -> Html msg
-navbarTitle model =
-    case model.page of
-        DashboardPage dashboardModel ->
-            text dashboardModel.pageName
-
-        PayrollPage payrollModel ->
-            text payrollModel.pageName
-
-        AttendancePage attendanceModel ->
-            text attendanceModel.pageName
-
-        TimeRecordPage attendanceModel ->
-            text attendanceModel.pageName
-
-        _ ->
-            text ""
-
-
-navbarBurgerStyle : Model -> Attribute msg
-navbarBurgerStyle model =
-    case model.navState of
-        BurgerOpened ->
-            class "navbar-burger burger is-active"
-
-        BurgerClosed ->
-            class "navbar-burger burger"
-
-
-navbarMenuStyle : Model -> Attribute msg
-navbarMenuStyle model =
-    case model.navState of
-        BurgerOpened ->
-            class "navbar-menu is-active"
-
-        BurgerClosed ->
-            class "navbar-menu burger"
-
-
-dashboardNavItemStyle : Model -> Attribute msg
-dashboardNavItemStyle model =
-    case model.page of
-        DashboardPage _ ->
-            class "navbar-item is-active"
-
-        _ ->
-            class "navbar-item"
-
-
-timeRecordNavItemStyle : Model -> Attribute msg
-timeRecordNavItemStyle model =
-    case model.page of
-        TimeRecordPage _ ->
-            class "navbar-item is-active"
-
-        _ ->
-            class "navbar-item"
-
-
-payrollNavItemStyle : Model -> Attribute msg
-payrollNavItemStyle model =
-    case model.page of
-        PayrollPage _ ->
-            class "navbar-item is-active"
-
-        _ ->
-            class "navbar-item"
-
-
-appFooter : Html msg
-appFooter =
-    footer [ class "footer" ]
-        [ div [ class "content has-text-centered" ] []
-        , p []
-            [ a [ href "https://github.com/system-sekkei/isolating-the-domain" ] [ text "isolating-the-domain" ] ]
-        ]
-
-
-onClick : msg -> Attribute msg
-onClick msg =
-    Html.Events.on "click" (Json.Decode.succeed msg)

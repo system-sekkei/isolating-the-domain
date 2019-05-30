@@ -1,9 +1,10 @@
 module Pages.TimeRecord exposing (Model, Msg, init, update, view)
 
 import Browser.Navigation
+import Components.AppHtmlEvents exposing (onChange)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onInput)
+import Html.Events exposing (onClick, onInput)
 import Http
 import Json.Decode
 import Json.Decode.Pipeline
@@ -316,16 +317,6 @@ employeeOption editing employee =
         , selected (employee.employeeNumber == editing.employeeNumber)
         ]
         [ text (employee.employeeName |> EmployeeName.toString) ]
-
-
-onChange : (String -> msg) -> Attribute msg
-onChange handler =
-    Html.Events.on "change" (Json.Decode.map handler Html.Events.targetValue)
-
-
-onClick : msg -> Attribute msg
-onClick msg =
-    Html.Events.on "click" (Json.Decode.succeed msg)
 
 
 
