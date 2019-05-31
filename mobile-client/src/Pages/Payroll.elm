@@ -1,9 +1,9 @@
 module Pages.Payroll exposing (Model, Msg(..), PageState(..), init, update, view)
 
-import Components.AppHtmlUtils exposing (nextLine, space)
+import Components.AppHtmlUtils exposing (httpErrorText, nextLine, space)
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Http
+import Http exposing (Error(..))
 import Json.Decode
 import Json.Decode.Pipeline
 import Pages.Payroll.Types.PayrollStatusMessage as PayrollStatusMessage exposing (PayrollStatusMessage(..))
@@ -31,6 +31,7 @@ type alias PageName =
 
 type PageState
     = Initializing
+    | SystemError Http.Error
     | Loaded (List Payroll)
 
 
@@ -56,7 +57,7 @@ update msg model =
                     ( { model | state = Loaded payrolls }, Cmd.none )
 
                 Err error ->
-                    ( model, Cmd.none )
+                    ( { model | state = SystemError error }, Cmd.none )
 
 
 
@@ -71,6 +72,12 @@ view model =
                 Initializing ->
                     div []
                         [ text "Now Loading..." ]
+
+                SystemError error ->
+                    div []
+                        [ h2 [] [ text "System Error" ]
+                        , p [] [ httpErrorText error ]
+                        ]
 
                 Loaded payrolls ->
                     div []

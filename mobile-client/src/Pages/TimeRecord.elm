@@ -1,7 +1,7 @@
 module Pages.TimeRecord exposing (Model, Msg, init, update, view)
 
 import Browser.Navigation
-import Components.AppHtmlUtils exposing (fieldErrorMessage, inputStyle, onChange)
+import Components.AppHtmlUtils exposing (fieldErrorMessage, httpErrorText, inputStyle, onChange)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
@@ -45,6 +45,7 @@ type alias PageName =
 
 type PageState
     = Initializing
+    | SystemError Http.Error
     | Editing PreparedTimeRecordForm TimeRecordForm ServerErrorMessages
 
 
@@ -77,8 +78,7 @@ update msg model =
                     ( { model | state = Editing prepared prepared.preparedRequest [] }, Cmd.none )
 
                 Err error ->
-                    -- TODO サーバエラー時のハンドリング
-                    ( model, Cmd.none )
+                    ( { model | state = SystemError error }, Cmd.none )
 
         EditForm newEditingForm ->
             case model.state of
@@ -121,8 +121,7 @@ update msg model =
                             ( model, Cmd.none )
 
                 Err error ->
-                    -- TODO サーバエラー時のハンドリング
-                    ( model, Cmd.none )
+                    ( { model | state = SystemError error }, Cmd.none )
 
 
 gotoAttendancePage : Model -> TimeRecordForm -> Cmd msg
@@ -150,32 +149,21 @@ view model =
                     div []
                         [ text "Now Loading..." ]
 
+                SystemError error ->
+                    div []
+                        [ h2 [] [ text "System Error" ]
+                        , p [] [ httpErrorText error ]
+                        ]
+
                 Editing prepared editing errorMessages ->
                     div []
-                        [ errorMessageArea errorMessages
-                        , timeRecordForm prepared editing
-                        ]
+                        [ timeRecordForm prepared editing errorMessages ]
             ]
         ]
 
 
-errorMessageArea : ServerErrorMessages -> Html Msg
-errorMessageArea errorMessages =
-    if List.isEmpty errorMessages then
-        text ""
-
-    else
-        section [ class "box" ]
-            (List.map messageLine errorMessages)
-
-
-messageLine : Message -> Html Msg
-messageLine message =
-    p [ class "help is-danger" ] [ text (message |> Message.toString) ]
-
-
-timeRecordForm : PreparedTimeRecordForm -> TimeRecordForm -> Html Msg
-timeRecordForm prepared editing =
+timeRecordForm : PreparedTimeRecordForm -> TimeRecordForm -> ServerErrorMessages -> Html Msg
+timeRecordForm prepared editing serverErrorMessage =
     section []
         [ div [ class "field" ]
             [ label [ class "label" ] [ text "氏名" ]
@@ -246,6 +234,7 @@ timeRecordForm prepared editing =
             , midnightBreakMinuteInputErrorMessage editing
             , breakTimeCapRuleErrorMessage editing
             ]
+        , errorMessageArea serverErrorMessage
         , div [ class "field" ]
             [ div [ class "control" ]
                 [ button
@@ -256,6 +245,23 @@ timeRecordForm prepared editing =
                 ]
             ]
         ]
+
+
+errorMessageArea : ServerErrorMessages -> Html Msg
+errorMessageArea errorMessages =
+    if List.isEmpty errorMessages then
+        text ""
+
+    else
+        article [ class "message is-danger" ]
+            [ div [ class "message-header" ] [ text "Error" ]
+            , div [ class "message-body" ] (List.map messageLine errorMessages)
+            ]
+
+
+messageLine : Message -> Html Msg
+messageLine message =
+    p [ class "help is-danger" ] [ text (message |> Message.toString) ]
 
 
 employeeSelectBox : PreparedTimeRecordForm -> TimeRecordForm -> Html Msg

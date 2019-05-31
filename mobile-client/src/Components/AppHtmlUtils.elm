@@ -1,8 +1,9 @@
-module Components.AppHtmlUtils exposing (IsValid, fieldErrorMessage, inputStyle, nextLine, onChange, space)
+module Components.AppHtmlUtils exposing (IsValid, fieldErrorMessage, httpErrorText, inputStyle, nextLine, onChange, space)
 
 import Html exposing (Attribute, Html, br, p, text)
 import Html.Attributes exposing (class)
 import Html.Events
+import Http exposing (Error(..))
 import Json.Decode
 import Types.Message as Message exposing (Message)
 
@@ -54,3 +55,26 @@ fieldErrorMessage err =
 
     else
         text ""
+
+
+
+-- Error
+
+
+httpErrorText : Http.Error -> Html msg
+httpErrorText error =
+    case error of
+        BadUrl url ->
+            text ("BadUrl:" ++ url)
+
+        Timeout ->
+            text "Timeout"
+
+        NetworkError ->
+            text "NetworkError"
+
+        BadStatus status ->
+            text ("BadStatus:" ++ String.fromInt status)
+
+        BadBody body ->
+            text ("BadBody:" ++ body)

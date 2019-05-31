@@ -1,6 +1,6 @@
 module Pages.Attendance exposing (Model, Msg, init, update, view)
 
-import Components.AppHtmlUtils exposing (nextLine, space)
+import Components.AppHtmlUtils exposing (httpErrorText, nextLine, space)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Http
@@ -36,6 +36,7 @@ type alias PageName =
 
 type PageState
     = Initializing
+    | SystemError Http.Error
     | Loaded Attendance
 
 
@@ -61,7 +62,7 @@ update msg model =
                     ( { model | state = Loaded attendance }, Cmd.none )
 
                 Err error ->
-                    ( model, Cmd.none )
+                    ( { model | state = SystemError error }, Cmd.none )
 
 
 
@@ -76,6 +77,12 @@ view model =
                 Initializing ->
                     div []
                         [ text "Now Loading..." ]
+
+                SystemError error ->
+                    div []
+                        [ h2 [] [ text "System Error" ]
+                        , p [] [ httpErrorText error ]
+                        ]
 
                 Loaded attendance ->
                     div []
