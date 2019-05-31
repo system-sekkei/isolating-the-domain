@@ -57,11 +57,11 @@ isValid workTimeRangeRule =
             False
 
 
-errorMessage : WorkTimeRangeRule -> String
+errorMessage : WorkTimeRangeRule -> Message
 errorMessage workTimeRangeRule =
     case workTimeRangeRule of
         InvalidWorkTimeRange message ->
-            Message.toString message
+            message
 
         _ ->
-            ""
+            EmptyMessage

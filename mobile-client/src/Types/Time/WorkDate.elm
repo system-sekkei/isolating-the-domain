@@ -207,14 +207,14 @@ isValid workDate =
             True
 
 
-errorMessage : WorkDate -> String
+errorMessage : WorkDate -> Message
 errorMessage workDate =
     case workDate of
         InvalidWorkDate message _ ->
-            Message.toString message
+            message
 
         _ ->
-            ""
+            EmptyMessage
 
 
 isSaturday : WorkDate -> Bool

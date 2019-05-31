@@ -1,4 +1,4 @@
-module Types.Message exposing (Message(..), errorMessageDecoder, isNotEmpty, toString)
+module Types.Message exposing (Message(..), errorMessageDecoder, isError, toString)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
 
@@ -15,14 +15,14 @@ errorMessageDecoder =
     string |> andThen (\str -> succeed (ErrorMessage str))
 
 
-isNotEmpty : Message -> Bool
-isNotEmpty message =
+isError : Message -> Bool
+isError message =
     case message of
-        EmptyMessage ->
-            False
+        ErrorMessage _ ->
+            True
 
         _ ->
-            True
+            False
 
 
 toString : Message -> String

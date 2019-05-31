@@ -1,9 +1,10 @@
-module Components.AppHtmlUtils exposing (FieldErrorMessage, IsValid, fieldErrorMessage, inputStyle, nextLine, onChange, space)
+module Components.AppHtmlUtils exposing (IsValid, fieldErrorMessage, inputStyle, nextLine, onChange, space)
 
 import Html exposing (Attribute, Html, br, p, text)
 import Html.Attributes exposing (class)
 import Html.Events
 import Json.Decode
+import Types.Message as Message exposing (Message)
 
 
 
@@ -46,14 +47,10 @@ inputStyle isValid =
         class "input is-danger"
 
 
-type alias FieldErrorMessage =
-    String
-
-
-fieldErrorMessage : FieldErrorMessage -> Html msg
+fieldErrorMessage : Message -> Html msg
 fieldErrorMessage err =
-    if String.isEmpty err then
-        text ""
+    if Message.isError err then
+        p [ class "help is-danger" ] [ text (err |> Message.toString) ]
 
     else
-        p [ class "help is-danger" ] [ text err ]
+        text ""

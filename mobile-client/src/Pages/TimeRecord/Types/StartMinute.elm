@@ -112,11 +112,11 @@ isValid startMinute =
             False
 
 
-errorMessage : StartMinute -> String
+errorMessage : StartMinute -> Message
 errorMessage startMinute =
     case startMinute of
         InvalidStartMinute message _ ->
-            Message.toString message
+            message
 
         _ ->
-            ""
+            EmptyMessage

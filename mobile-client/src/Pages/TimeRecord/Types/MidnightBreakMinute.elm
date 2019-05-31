@@ -98,11 +98,11 @@ isValid breakMinute =
             False
 
 
-errorMessage : MidnightBreakMinute -> String
+errorMessage : MidnightBreakMinute -> Message
 errorMessage midnightBreakMinute =
     case midnightBreakMinute of
         InvalidMidnightBreakMinute message _ ->
-            Message.toString message
+            message
 
         _ ->
-            ""
+            EmptyMessage

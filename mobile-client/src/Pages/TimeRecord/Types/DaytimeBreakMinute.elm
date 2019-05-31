@@ -98,11 +98,11 @@ isValid breakMinute =
             False
 
 
-errorMessage : DaytimeBreakMinute -> String
+errorMessage : DaytimeBreakMinute -> Message
 errorMessage daytimeBreakMinute =
     case daytimeBreakMinute of
         InvalidDaytimeBreakMinute message _ ->
-            Message.toString message
+            message
 
         _ ->
-            ""
+            EmptyMessage

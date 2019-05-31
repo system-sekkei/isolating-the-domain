@@ -112,11 +112,11 @@ isValid startHour =
             False
 
 
-errorMessage : StartHour -> String
+errorMessage : StartHour -> Message
 errorMessage workDate =
     case workDate of
         InvalidStartHour message _ ->
-            Message.toString message
+            message
 
         _ ->
-            ""
+            EmptyMessage

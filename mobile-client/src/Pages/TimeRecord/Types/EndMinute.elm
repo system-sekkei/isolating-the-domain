@@ -112,11 +112,11 @@ isValid endMinute =
             False
 
 
-errorMessage : EndMinute -> String
+errorMessage : EndMinute -> Message
 errorMessage endMinute =
     case endMinute of
         InvalidEndMinute message _ ->
-            Message.toString message
+            message
 
         _ ->
-            ""
+            EmptyMessage

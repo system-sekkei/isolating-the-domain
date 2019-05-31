@@ -68,11 +68,11 @@ isValid breakTimeCapRule =
             False
 
 
-errorMessage : BreakTimeCapRule -> String
+errorMessage : BreakTimeCapRule -> Message
 errorMessage breakTimeCapRule =
     case breakTimeCapRule of
         InvalidBreakTimeCapRule message ->
-            Message.toString message
+            message
 
         _ ->
-            ""
+            EmptyMessage
