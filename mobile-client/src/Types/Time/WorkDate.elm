@@ -1,10 +1,10 @@
-module Types.Time.WorkDate exposing (WorkDate(..), decoder, encode, from, isSaturday, isSunday, isValid, toDayOfMonth, toDayOfWeek, toDayText, toString, toYearMonth, validate)
+module Types.Time.WorkDate exposing (WorkDate(..), decoder, encode, errorMessage, from, isSaturday, isSunday, isValid, toDayOfMonth, toDayOfWeek, toDayText, toString, toYearMonth, validate)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
 import Json.Encode
 import Time exposing (Posix, Zone, utc)
 import Time.Extra exposing (Parts, partsToPosix)
-import Types.Message exposing (Message(..))
+import Types.Message as Message exposing (Message(..))
 import Types.Time.ClientTime as ClientTime exposing (ClientTime)
 import Types.Time.YearMonth exposing (YearMonth(..))
 
@@ -205,6 +205,16 @@ isValid workDate =
 
         _ ->
             True
+
+
+errorMessage : WorkDate -> String
+errorMessage workDate =
+    case workDate of
+        InvalidWorkDate message _ ->
+            Message.toString message
+
+        _ ->
+            ""
 
 
 isSaturday : WorkDate -> Bool

@@ -45,7 +45,6 @@ view model =
                     div [ class "tile is-ancestor" ]
                         [ pageLink "mdi mdi-48px mdi-clock-outline" "勤務時間の入力" (URLs.timeRecordPageURL (EmployeeNumber 1) (WorkDate.from clientTime))
                         , pageLink "mdi mdi-48px mdi-currency-jpy" "給与の一覧" (URLs.payrollPageURL (YearMonth.from clientTime))
-                        , pageLink "mdi mdi-48px mdi-account" "従業員の一覧" ""
                         ]
             ]
         ]

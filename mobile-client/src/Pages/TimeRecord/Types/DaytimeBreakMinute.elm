@@ -1,8 +1,8 @@
-module Pages.TimeRecord.Types.DaytimeBreakMinute exposing (DaytimeBreakMinute(..), decoder, encode, isValid, toInt, toString, validate)
+module Pages.TimeRecord.Types.DaytimeBreakMinute exposing (DaytimeBreakMinute(..), decoder, encode, errorMessage, isValid, toInt, toString, validate)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
 import Json.Encode
-import Types.Message exposing (Message(..))
+import Types.Message as Message exposing (Message(..))
 
 
 type DaytimeBreakMinute
@@ -96,3 +96,13 @@ isValid breakMinute =
 
         _ ->
             False
+
+
+errorMessage : DaytimeBreakMinute -> String
+errorMessage daytimeBreakMinute =
+    case daytimeBreakMinute of
+        InvalidDaytimeBreakMinute message _ ->
+            Message.toString message
+
+        _ ->
+            ""

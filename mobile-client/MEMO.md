@@ -82,3 +82,8 @@
 * ServiceWorkerの登録はJSで。中の処理はelmでかける？
     * refs. https://discourse.elm-lang.org/t/psa-elm-http-works-with-serviceworker/2562
     * refs. https://notes.eellson.com/2018/02/26/offline-post-requests-with-elm-and-service-worker/
+
+### Formの実装について
+
+* Elmの仕組みだけだと１つ１つの入力値に対して個別にupdate関数を用意する必要があるなど結構たいへん
+  * form-decoding という考え方で実装しているライブラリがある https://qiita.com/arowM/items/6c32db1f9e4b92445f3b

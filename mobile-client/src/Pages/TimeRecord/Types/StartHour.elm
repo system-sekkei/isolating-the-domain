@@ -1,8 +1,8 @@
-module Pages.TimeRecord.Types.StartHour exposing (StartHour(..), decoder, encode, isValid, toInt, toString, validate)
+module Pages.TimeRecord.Types.StartHour exposing (StartHour(..), decoder, encode, errorMessage, isValid, toInt, toString, validate)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
 import Json.Encode
-import Types.Message exposing (Message(..))
+import Types.Message as Message exposing (Message(..))
 
 
 type StartHour
@@ -110,3 +110,13 @@ isValid startHour =
 
         _ ->
             False
+
+
+errorMessage : StartHour -> String
+errorMessage workDate =
+    case workDate of
+        InvalidStartHour message _ ->
+            Message.toString message
+
+        _ ->
+            ""

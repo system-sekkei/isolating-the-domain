@@ -95,12 +95,6 @@ appNavbar model =
                 , onClick ClickNavItem
                 ]
                 [ payrollIcon, text "給与の一覧" ]
-            , a
-                [ class "navbar-item"
-                , href ""
-                , onClick ClickNavItem
-                ]
-                [ employeeIcon, text "従業員の一覧" ]
             ]
         ]
 
@@ -145,11 +139,6 @@ payrollIcon =
 timeRecordIcon : Html msg
 timeRecordIcon =
     span [ class "mdi mdi-clock-outline" ] []
-
-
-employeeIcon : Html msg
-employeeIcon =
-    span [ class "mdi mdi-account" ] []
 
 
 navbarBurgerStyle : Model -> Attribute msg

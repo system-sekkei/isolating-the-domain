@@ -1,8 +1,8 @@
-module Pages.TimeRecord.Types.StartMinute exposing (StartMinute(..), decoder, encode, isValid, toInt, toString, validate)
+module Pages.TimeRecord.Types.StartMinute exposing (StartMinute(..), decoder, encode, errorMessage, isValid, toInt, toString, validate)
 
 import Json.Decode exposing (Decoder, andThen, int, string, succeed)
 import Json.Encode
-import Types.Message exposing (Message(..))
+import Types.Message as Message exposing (Message(..))
 
 
 type StartMinute
@@ -110,3 +110,13 @@ isValid startMinute =
 
         _ ->
             False
+
+
+errorMessage : StartMinute -> String
+errorMessage startMinute =
+    case startMinute of
+        InvalidStartMinute message _ ->
+            Message.toString message
+
+        _ ->
+            ""

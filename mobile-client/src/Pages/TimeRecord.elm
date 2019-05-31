@@ -1,16 +1,16 @@
 module Pages.TimeRecord exposing (Model, Msg, init, update, view)
 
 import Browser.Navigation
-import Components.AppHtmlUtils exposing (onChange)
+import Components.AppHtmlUtils exposing (fieldErrorMessage, inputStyle, onChange)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
 import Http
 import Json.Decode
 import Json.Decode.Pipeline
-import Json.Encode
-import Pages.TimeRecord.Rules.BreakTimeCapRule as BreakTimeCapRule exposing (BreakTimeCapRule(..))
-import Pages.TimeRecord.Rules.WorkTimeRangeRule as WorkingTimeRangeRule exposing (WorkTimeRangeRule(..))
+import Pages.TimeRecord.Rules.BreakTimeCapRule as BreakTimeCapRule
+import Pages.TimeRecord.Rules.WorkTimeRangeRule as WorkTimeRangeRule exposing (WorkTimeRangeRule)
+import Pages.TimeRecord.TimeRecordForm as TimeRecordForm exposing (TimeRecordForm)
 import Pages.TimeRecord.Types.DaytimeBreakMinute as DaytimeBreakMinute exposing (DaytimeBreakMinute(..))
 import Pages.TimeRecord.Types.EndHour as EndHour exposing (EndHour(..))
 import Pages.TimeRecord.Types.EndMinute as EndMinute exposing (EndMinute(..))
@@ -45,10 +45,10 @@ type alias PageName =
 
 type PageState
     = Initializing
-    | Editing PreparedTimeRecordForm TimeRecordForm ErrorMessages
+    | Editing PreparedTimeRecordForm TimeRecordForm ServerErrorMessages
 
 
-type alias ErrorMessages =
+type alias ServerErrorMessages =
     List Message
 
 
@@ -82,38 +82,12 @@ update msg model =
 
         EditForm newEditingForm ->
             case model.state of
-                Editing prepared _ _ ->
+                Editing prepared _ serverErrorMessages ->
                     let
                         validatedForm =
-                            TimeRecordForm
-                                newEditingForm.employeeNumber
-                                (WorkDate.validate newEditingForm.workDate)
-                                (StartHour.validate newEditingForm.startHour)
-                                (StartMinute.validate newEditingForm.startMinute)
-                                (EndHour.validate newEditingForm.endHour)
-                                (EndMinute.validate newEditingForm.endMinute)
-                                (DaytimeBreakMinute.validate newEditingForm.daytimeBreakTime)
-                                (MidnightBreakMinute.validate newEditingForm.midnightBreakTime)
-
-                        correlationCheckErrors =
-                            List.filter (\err -> Message.isNotEmpty err)
-                                [ WorkingTimeRangeRule
-                                    validatedForm.startHour
-                                    validatedForm.startMinute
-                                    validatedForm.endHour
-                                    validatedForm.endMinute
-                                    |> WorkingTimeRangeRule.validate
-                                , BreakTimeCapRule
-                                    validatedForm.startHour
-                                    validatedForm.startMinute
-                                    validatedForm.endHour
-                                    validatedForm.endMinute
-                                    validatedForm.daytimeBreakTime
-                                    validatedForm.midnightBreakTime
-                                    |> BreakTimeCapRule.validate
-                                ]
+                            TimeRecordForm.validate newEditingForm
                     in
-                    ( { model | state = Editing prepared validatedForm correlationCheckErrors }, Cmd.none )
+                    ( { model | state = Editing prepared validatedForm serverErrorMessages }, Cmd.none )
 
                 _ ->
                     ( model, Cmd.none )
@@ -121,7 +95,7 @@ update msg model =
         PostForm ->
             case model.state of
                 Editing _ editing _ ->
-                    if isInvalid editing then
+                    if TimeRecordForm.isInvalid editing then
                         ( model, Cmd.none )
 
                     else
@@ -185,15 +159,19 @@ view model =
         ]
 
 
-errorMessageArea : ErrorMessages -> Html Msg
+errorMessageArea : ServerErrorMessages -> Html Msg
 errorMessageArea errorMessages =
-    section []
-        (List.map messageLine errorMessages)
+    if List.isEmpty errorMessages then
+        text ""
+
+    else
+        section [ class "box" ]
+            (List.map messageLine errorMessages)
 
 
 messageLine : Message -> Html Msg
 messageLine message =
-    p [] [ text (message |> Message.toString) ]
+    p [ class "help is-danger" ] [ text (message |> Message.toString) ]
 
 
 timeRecordForm : PreparedTimeRecordForm -> TimeRecordForm -> Html Msg
@@ -251,6 +229,7 @@ timeRecordForm prepared editing =
                 ]
             , endHourInputErrorMessage editing
             , endMinuteInputErrorMessage editing
+            , workTimeRangeRuleErrorMessage editing
             ]
         , div [ class "field" ]
             [ label [ class "label" ] [ text "休憩時間" ]
@@ -265,6 +244,7 @@ timeRecordForm prepared editing =
                 [ midnightBreakMinuteInput editing
                 ]
             , midnightBreakMinuteInputErrorMessage editing
+            , breakTimeCapRuleErrorMessage editing
             ]
         , div [ class "field" ]
             [ div [ class "control" ]
@@ -298,147 +278,158 @@ workDateInput : TimeRecordForm -> Html Msg
 workDateInput editing =
     input
         [ type_ "date"
-        , class "input"
+        , inputStyle (editing.workDate |> WorkDate.isValid)
         , value (editing.workDate |> WorkDate.toString)
         , onInput (\str -> EditForm { editing | workDate = DirtyWorkDate str })
         ]
         []
 
 
-workDateInputErrorMessage : TimeRecordForm -> Html Msg
+workDateInputErrorMessage : TimeRecordForm -> Html msg
 workDateInputErrorMessage editing =
-    case editing.workDate of
-        InvalidWorkDate err _ ->
-            text (err |> Message.toString)
-
-        _ ->
-            text ""
+    editing.workDate
+        |> WorkDate.errorMessage
+        |> fieldErrorMessage
 
 
 startHourInput : TimeRecordForm -> Html Msg
 startHourInput editing =
     input
         [ type_ "number"
-        , class "input"
+        , inputStyle
+            (StartHour.isValid editing.startHour
+                && WorkTimeRangeRule.isValid editing.workTimeRangeRule
+            )
         , value (editing.startHour |> StartHour.toString)
         , onInput (\str -> EditForm { editing | startHour = DirtyStartHour str })
         ]
         []
 
 
-startHourInputErrorMessage : TimeRecordForm -> Html Msg
+startHourInputErrorMessage : TimeRecordForm -> Html msg
 startHourInputErrorMessage editing =
-    case editing.startHour of
-        InvalidStartHour err _ ->
-            text (err |> Message.toString)
-
-        _ ->
-            text ""
+    editing.startHour
+        |> StartHour.errorMessage
+        |> fieldErrorMessage
 
 
 startMinuteInput : TimeRecordForm -> Html Msg
 startMinuteInput editing =
     input
         [ type_ "number"
-        , class "input"
+        , inputStyle
+            (StartMinute.isValid editing.startMinute
+                && WorkTimeRangeRule.isValid editing.workTimeRangeRule
+            )
         , value (editing.startMinute |> StartMinute.toString)
         , onInput (\str -> EditForm { editing | startMinute = DirtyStartMinute str })
         ]
         []
 
 
-startMinuteInputErrorMessage : TimeRecordForm -> Html Msg
+startMinuteInputErrorMessage : TimeRecordForm -> Html msg
 startMinuteInputErrorMessage editing =
-    case editing.startMinute of
-        InvalidStartMinute err _ ->
-            text (err |> Message.toString)
-
-        _ ->
-            text ""
+    editing.startMinute
+        |> StartMinute.errorMessage
+        |> fieldErrorMessage
 
 
 endHourInput : TimeRecordForm -> Html Msg
 endHourInput editing =
     input
         [ type_ "number"
-        , class "input"
+        , inputStyle
+            (EndHour.isValid editing.endHour
+                && WorkTimeRangeRule.isValid editing.workTimeRangeRule
+            )
         , value (editing.endHour |> EndHour.toString)
         , onInput (\str -> EditForm { editing | endHour = DirtyEndHour str })
         ]
         []
 
 
-endHourInputErrorMessage : TimeRecordForm -> Html Msg
+endHourInputErrorMessage : TimeRecordForm -> Html msg
 endHourInputErrorMessage editing =
-    case editing.endHour of
-        InvalidEndHour err _ ->
-            text (err |> Message.toString)
-
-        _ ->
-            text ""
+    editing.endHour
+        |> EndHour.errorMessage
+        |> fieldErrorMessage
 
 
 endMinuteInput : TimeRecordForm -> Html Msg
 endMinuteInput editing =
     input
         [ type_ "number"
-        , class "input"
+        , inputStyle
+            (EndMinute.isValid editing.endMinute
+                && WorkTimeRangeRule.isValid editing.workTimeRangeRule
+            )
         , value (editing.endMinute |> EndMinute.toString)
         , onInput (\str -> EditForm { editing | endMinute = DirtyEndMinute str })
         ]
         []
 
 
-endMinuteInputErrorMessage : TimeRecordForm -> Html Msg
+endMinuteInputErrorMessage : TimeRecordForm -> Html msg
 endMinuteInputErrorMessage editing =
-    case editing.endMinute of
-        InvalidEndMinute err _ ->
-            text (err |> Message.toString)
-
-        _ ->
-            text ""
+    editing.endMinute
+        |> EndMinute.errorMessage
+        |> fieldErrorMessage
 
 
 daytimeBreakMinuteInput : TimeRecordForm -> Html Msg
 daytimeBreakMinuteInput editing =
     input
         [ type_ "number"
-        , class "input"
+        , inputStyle
+            (DaytimeBreakMinute.isValid editing.daytimeBreakTime
+                && BreakTimeCapRule.isValid editing.breakTimeCapRule
+            )
         , value (editing.daytimeBreakTime |> DaytimeBreakMinute.toString)
         , onInput (\str -> EditForm { editing | daytimeBreakTime = DirtyDaytimeBreakMinute str })
         ]
         []
 
 
-daytimeBreakMinuteInputErrorMessage : TimeRecordForm -> Html Msg
+daytimeBreakMinuteInputErrorMessage : TimeRecordForm -> Html msg
 daytimeBreakMinuteInputErrorMessage editing =
-    case editing.daytimeBreakTime of
-        InvalidDaytimeBreakMinute err _ ->
-            text (err |> Message.toString)
-
-        _ ->
-            text ""
+    editing.daytimeBreakTime
+        |> DaytimeBreakMinute.errorMessage
+        |> fieldErrorMessage
 
 
 midnightBreakMinuteInput : TimeRecordForm -> Html Msg
 midnightBreakMinuteInput editing =
     input
         [ type_ "number"
-        , class "input"
+        , inputStyle
+            (MidnightBreakMinute.isValid editing.midnightBreakTime
+                && BreakTimeCapRule.isValid editing.breakTimeCapRule
+            )
         , value (editing.midnightBreakTime |> MidnightBreakMinute.toString)
         , onInput (\str -> EditForm { editing | midnightBreakTime = DirtyMidnightBreakMinute str })
         ]
         []
 
 
-midnightBreakMinuteInputErrorMessage : TimeRecordForm -> Html Msg
+midnightBreakMinuteInputErrorMessage : TimeRecordForm -> Html msg
 midnightBreakMinuteInputErrorMessage editing =
-    case editing.midnightBreakTime of
-        InvalidMidnightBreakMinute err _ ->
-            text (err |> Message.toString)
+    editing.midnightBreakTime
+        |> MidnightBreakMinute.errorMessage
+        |> fieldErrorMessage
 
-        _ ->
-            text ""
+
+workTimeRangeRuleErrorMessage : TimeRecordForm -> Html msg
+workTimeRangeRuleErrorMessage editing =
+    editing.workTimeRangeRule
+        |> WorkTimeRangeRule.errorMessage
+        |> fieldErrorMessage
+
+
+breakTimeCapRuleErrorMessage : TimeRecordForm -> Html msg
+breakTimeCapRuleErrorMessage editing =
+    editing.breakTimeCapRule
+        |> BreakTimeCapRule.errorMessage
+        |> fieldErrorMessage
 
 
 
@@ -457,36 +448,11 @@ type alias Employee =
     }
 
 
-type alias TimeRecordForm =
-    { employeeNumber : EmployeeNumber
-    , workDate : WorkDate
-    , startHour : StartHour
-    , startMinute : StartMinute
-    , endHour : EndHour
-    , endMinute : EndMinute
-    , daytimeBreakTime : DaytimeBreakMinute
-    , midnightBreakTime : MidnightBreakMinute
-    }
-
-
-isInvalid : TimeRecordForm -> Bool
-isInvalid form =
-    not
-        (WorkDate.isValid form.workDate
-            && StartHour.isValid form.startHour
-            && StartMinute.isValid form.startMinute
-            && EndHour.isValid form.endHour
-            && EndMinute.isValid form.endMinute
-            && DaytimeBreakMinute.isValid form.daytimeBreakTime
-            && MidnightBreakMinute.isValid form.midnightBreakTime
-        )
-
-
 preparedTimeRecordFormDecoder : Json.Decode.Decoder PreparedTimeRecordForm
 preparedTimeRecordFormDecoder =
     Json.Decode.succeed PreparedTimeRecordForm
         |> Json.Decode.Pipeline.required "contractingEmployees" (Json.Decode.list employeeDecoder)
-        |> Json.Decode.Pipeline.required "preparedRequest" timeRecordFormDecoder
+        |> Json.Decode.Pipeline.required "preparedRequest" TimeRecordForm.decoder
 
 
 employeeDecoder : Json.Decode.Decoder Employee
@@ -496,39 +462,12 @@ employeeDecoder =
         |> Json.Decode.Pipeline.required "employeeName" EmployeeName.decoder
 
 
-timeRecordFormDecoder : Json.Decode.Decoder TimeRecordForm
-timeRecordFormDecoder =
-    Json.Decode.succeed TimeRecordForm
-        |> Json.Decode.Pipeline.required "employeeNumber" EmployeeNumber.decoder
-        |> Json.Decode.Pipeline.required "workDate" WorkDate.decoder
-        |> Json.Decode.Pipeline.required "startHour" StartHour.decoder
-        |> Json.Decode.Pipeline.required "startMinute" StartMinute.decoder
-        |> Json.Decode.Pipeline.required "endHour" EndHour.decoder
-        |> Json.Decode.Pipeline.required "endMinute" EndMinute.decoder
-        |> Json.Decode.Pipeline.required "daytimeBreakTime" DaytimeBreakMinute.decoder
-        |> Json.Decode.Pipeline.required "midnightBreakTime" MidnightBreakMinute.decoder
-
-
 getPreparedTimeRecordForm : EmployeeNumber -> WorkDate -> Cmd Msg
 getPreparedTimeRecordForm employeeNumber workDate =
     Http.get
         { url = URLs.timeRecordPreparedFormGetEndpoint employeeNumber workDate
         , expect = Http.expectJson PrepareForm preparedTimeRecordFormDecoder
         }
-
-
-encodeTimeRecordForm : TimeRecordForm -> Json.Encode.Value
-encodeTimeRecordForm form =
-    Json.Encode.object
-        [ ( "employeeNumber", EmployeeNumber.encode form.employeeNumber )
-        , ( "workDate", WorkDate.encode form.workDate )
-        , ( "startHour", StartHour.encode form.startHour )
-        , ( "startMinute", StartMinute.encode form.startMinute )
-        , ( "endHour", EndHour.encode form.endHour )
-        , ( "endMinute", EndMinute.encode form.endMinute )
-        , ( "daytimeBreakTime", DaytimeBreakMinute.encode form.daytimeBreakTime )
-        , ( "midnightBreakTime", MidnightBreakMinute.encode form.midnightBreakTime )
-        ]
 
 
 type alias TimeRecordPostResponse =
@@ -548,7 +487,7 @@ timeRecordPostResponseDecoder : Json.Decode.Decoder TimeRecordPostResponse
 timeRecordPostResponseDecoder =
     Json.Decode.succeed TimeRecordPostResponse
         |> Json.Decode.Pipeline.required "status" PostedStatus.decoder
-        |> Json.Decode.Pipeline.optional "errors" (Json.Decode.list Message.errorMessagedecoder) []
+        |> Json.Decode.Pipeline.optional "errors" (Json.Decode.list Message.errorMessageDecoder) []
         |> Json.Decode.Pipeline.optional "succeeded" registeredDataDecoder (RegisteredData EmptyEmployeeNumber EmptyWordDate)
 
 
@@ -563,6 +502,6 @@ postTimeRecordForm : TimeRecordForm -> Cmd Msg
 postTimeRecordForm form =
     Http.post
         { url = URLs.timeRecordPostEndpoint
-        , body = Http.jsonBody (encodeTimeRecordForm form)
+        , body = Http.jsonBody (TimeRecordForm.encode form)
         , expect = Http.expectJson PostedForm timeRecordPostResponseDecoder
         }
