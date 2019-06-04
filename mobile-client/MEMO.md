@@ -1,4 +1,4 @@
-# mobile SPA client (by Elm)
+# Elm調査/備忘メモ
 
 ## 情報源
 
@@ -15,9 +15,9 @@
     * [@jinjor](https://twitter.com/jinjor)  日本語Elm本著者
         * [ジンジャー研究室](http://jinjor-labo.hatenablog.com/)
         * [jinjor - Qiita](https://qiita.com/jinjor)
-     * [@arowM_](https://twitter.com/arowM_)
+    * [@arowM_](https://twitter.com/arowM_)
         * [arowM - Qiita](https://qiita.com/arowM)
-    *  [@miyamo_madoka](https://twitter.com/miyamo_madoka) 
+    * [@miyamo_madoka](https://twitter.com/miyamo_madoka) 
         * [miyamo_madoka - Qiita](https://qiita.com/miyamo_madoka)
 
 ## CSSの取り扱い

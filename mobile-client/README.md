@@ -1,5 +1,7 @@
 # mobile SPA client (by Elm)
 
+Elmによるmobile向けSPAクライアント
+
 ## 起動方法
 
 開発時
