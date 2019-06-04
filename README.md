@@ -16,7 +16,7 @@
 
 ```sh
 ./gradlew clean webapp:build
-java -jar build/libs/isolating-the-domain.jar
+java -jar webapp/build/libs/webapp.jar
 ```
 
 ## Jig 設計ドキュメントの自動生成
@@ -25,7 +25,7 @@ java -jar build/libs/isolating-the-domain.jar
 ./gradlew webapp:jig
 ```
 
-```build/jig``` 以下にソースコードから自動生成したクラス一覧やクラスの関連図を出力
+```webapp/build/jig``` 以下にソースコードから自動生成したクラス一覧やクラスの関連図を出力
 
 [Jig 設計ドキュメント](https://github.com/dddjava/Jig)
 

@@ -7,7 +7,8 @@
 ./gradlew mobile-client:elmServe
 ```
 
-```localhost:1234``` でダッシュボード画面を表示
+```localhost:1234``` でダッシュボード画面を表示  
+開発環境にはJDKがインストールされていれば動かせます。
 
 ## ビルド方法
 
