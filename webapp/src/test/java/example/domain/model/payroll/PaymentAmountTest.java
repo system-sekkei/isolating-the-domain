@@ -1,7 +1,7 @@
 package example.domain.model.payroll;
 
-import example.domain.model.contract.HourlyWage;
-import example.domain.model.contract.WageCondition;
+import example.domain.model.wage.HourlyWage;
+import example.domain.model.wage.WageCondition;
 import example.domain.model.timerecord.ActualWorkTime;
 import example.domain.model.timerecord.EndTime;
 import example.domain.model.timerecord.StartTime;

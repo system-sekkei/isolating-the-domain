@@ -1,5 +1,6 @@
 package example.domain.type.time;
 
+import java.math.BigDecimal;
 import java.time.DateTimeException;
 
 /**
@@ -40,12 +41,6 @@ public class Minute {
         return String.format("%d", value);
     }
 
-    // TODO かくにん
-    @Deprecated // なくせる？
-    public int value() {
-        return value;
-    }
-
     public QuarterHour quarterHourRoundUp() {
         return new QuarterHour((value % 15 == 0) ? this : new Minute((value / 15 + 1) * 15));
     }
@@ -56,5 +51,9 @@ public class Minute {
 
     public boolean lessThan(Minute value) {
         return this.value < value.value;
+    }
+
+    public BigDecimal bigDecimalValue() {
+        return BigDecimal.valueOf(value);
     }
 }

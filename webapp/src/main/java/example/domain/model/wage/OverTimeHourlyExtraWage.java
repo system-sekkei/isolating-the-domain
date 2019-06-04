@@ -1,12 +1,12 @@
-package example.domain.model.contract;
+package example.domain.model.wage;
 
 /**
  * 深夜時給割増額
  */
-public class MidnightHourlyExtraWage {
+public class OverTimeHourlyExtraWage {
     HourlyWage value;
 
-    public MidnightHourlyExtraWage(HourlyWage value) {
+    public OverTimeHourlyExtraWage(HourlyWage value) {
         this.value = value;
     }
 

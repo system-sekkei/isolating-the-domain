@@ -1,6 +1,6 @@
 package example.domain.model.payroll;
 
-import example.domain.model.contract.WageCondition;
+import example.domain.model.wage.WageCondition;
 import example.domain.model.timerecord.ActualWorkTime;
 import example.domain.type.amount.Amount;
 

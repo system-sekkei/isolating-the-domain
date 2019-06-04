@@ -1,5 +1,7 @@
 package example.domain.model.contract;
 
+import example.domain.model.wage.HourlyWage;
+import example.domain.model.wage.WageCondition;
 import example.domain.type.date.Date;
 
 /**
