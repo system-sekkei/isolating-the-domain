@@ -7,10 +7,7 @@
 ./gradlew mobile-client:elmServe
 ```
 
-デバッグモード
-```sh
-`./gradlew mobile-client:elmDebug`
-```
+```localhost:1234``` でダッシュボード画面を表示
 
 ## ビルド方法
 
@@ -18,4 +15,8 @@
 ./gradlew mobile-client:elmBuild
 ```
 
-`mobile-client/assets/` 配下のファイル一式をWebサーバで公開する
+`mobile-client/dist/` 配下のファイル一式をWebサーバで公開する
+
+## PWA対応
+
+iOS/Androidともに `ホーム画面に追加` からPWAアプリとしてインストールできる
