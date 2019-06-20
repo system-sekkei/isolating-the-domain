@@ -5,8 +5,7 @@
   <title>ダッシュボード</title>
 </head>
 <body>
-  <div th:replace="fragments/menuHead::menuHead('ダッシュボード')">
-</div>
+<div th:replace="fragments/menuHead::menuHead('ダッシュボード')"></div>
 <section class="hero">
   <div class="hero-body">
     <div class="container has-text-centered">
@@ -17,67 +16,35 @@
   </div>
 </section>
 
+<div class="container">
   <div class="columns">
 
     <div class="column">
-      <div class="box">
-
-
-      <i class="far fa-clock dashboardIcon"></i>
-
-      </div>    
-    </div>
-
-    <div class="column">
-      <div class="box">
-
-      <i class="fas fa-yen-sign dashboardIcon"></i>
-      
-      </div>
-    </div>
-
-    <div class="column">
-      <div class="box">
-
-
-      <i class="fas fa-user dashboardIcon"></i>
-      </div>
-    </div>
-
-<!--     <div class="column is-one-four box dashboardLink">
-
+      <div class="box button dashboardLink">
         <a th:href="@{/workrecord}">
           <i class="far fa-clock dashboardIcon"></i>
           <span class="title is-5">勤務時間の入力</span>
         </a>
-
+      </div>    
     </div>
 
-
-
-    <div class="column is-one-four box dashboardLink">
-
+    <div class="column">
+      <div class="box button dashboardLink">
         <a th:href="@{/payroll}">
           <i class="fas fa-yen-sign dashboardIcon"></i>            
           <span class="title is-5">給与の一覧</span>
         </a>
-
+      </div>
     </div>
 
-
-
-
-    <div class="column is-one-four box dashboardLink">
-
+    <div class="column">
+      <div class="box button dashboardLink">
         <a th:href="@{/workers}">
           <i class="fas fa-user dashboardIcon"></i>
           <span class="title is-5">従業員の一覧</span>
         </a>
-
-    </div> -->
-
-
-
+      </div>
+    </div>
 
   </div>
 </div>

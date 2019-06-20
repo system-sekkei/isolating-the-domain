@@ -129,7 +129,26 @@
 
 /*ダッシュボード*/
 .dashboardIcon {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  font-size: 5em;
+  padding: 0.5em 0 0.1em; 
 }
 
+.dashboardLink {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  margin: 15px auto;
+}
+
+.dashboardLink a {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.dashboardLink span {
+  display: block;
+}
