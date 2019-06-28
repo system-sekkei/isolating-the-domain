@@ -3,6 +3,9 @@ jobs:
   build:
     docker:
       - image: circleci/openjdk:8-jdk
+    branches:
+      only:
+        - master
     working_directory: ~/repo
     environment:
       JVM_OPTS: -Xmx3200m
