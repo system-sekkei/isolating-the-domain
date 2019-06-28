@@ -46,16 +46,3 @@ test {
     useJUnitPlatform()
 }
 
-jig {
-    documentTypes = [
-            'ServiceMethodCallHierarchyDiagram',
-            'PackageRelationDiagram',
-            'BusinessRuleRelationDiagram',
-            'ApplicationList',
-            'BusinessRuleList',
-            'BranchList',
-            'CategoryUsageDiagram',
-            'CategoryDiagram',
-            'BooleanServiceDiagram',
-            'PackageTreeDiagram']
-}
