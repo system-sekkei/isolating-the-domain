@@ -23,6 +23,10 @@
   width:160px;
 }
 
+.table td {
+  vertical-align: middle;
+}
+
 /*給与 payroll*/
 .payrollList {
   max-width: 960px;
