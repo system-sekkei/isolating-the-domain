@@ -3,6 +3,9 @@ jobs:
   build:
     docker:
       - image: circleci/openjdk:8-jdk
+    branches:
+      only:
+        - master
     working_directory: ~/repo
     environment:
       JVM_OPTS: -Xmx3200m
@@ -24,7 +27,7 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/isolating-the-domain.git master
+            git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/isolating-the-domain.git master
       - run: sudo apt-get update && sudo apt-get install -y graphviz fonts-ipafont
       - run: ./gradlew jig
       - store_artifacts:
