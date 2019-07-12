@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * 勤務時間一覧の取得API
- */
 @RestController
 @RequestMapping("/api/attendances/{employeeNumber}/{yearMonth}")
 public class AttendanceAPI {

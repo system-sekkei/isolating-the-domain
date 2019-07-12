@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 給与一覧の取得API
  */
 @RestController
-@RequestMapping("api/payroll")
+@RequestMapping("/api/payroll")
 public class PayrollAPI {
     MessageSource messageSource;
     EmployeeQueryService employeeQueryService;

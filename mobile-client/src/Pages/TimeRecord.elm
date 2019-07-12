@@ -15,7 +15,6 @@ import Pages.TimeRecord.Types.DaytimeBreakMinute as DaytimeBreakMinute exposing 
 import Pages.TimeRecord.Types.EndHour as EndHour exposing (EndHour(..))
 import Pages.TimeRecord.Types.EndMinute as EndMinute exposing (EndMinute(..))
 import Pages.TimeRecord.Types.MidnightBreakMinute as MidnightBreakMinute exposing (MidnightBreakMinute(..))
-import Pages.TimeRecord.Types.PostedStatus as PostedStatus exposing (PostedStatus(..))
 import Pages.TimeRecord.Types.StartHour as StartHour exposing (StartHour(..))
 import Pages.TimeRecord.Types.StartMinute as StartMinute exposing (StartMinute(..))
 import Types.Employee.EmployeeName as EmployeeName exposing (EmployeeName(..))
@@ -66,7 +65,7 @@ type Msg
     = PrepareForm (Result Http.Error PreparedTimeRecordForm)
     | EditForm TimeRecordForm
     | PostForm
-    | PostedForm (Result Http.Error TimeRecordPostResponse)
+    | PostedForm (Result Http.Error RegisteredData)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -75,7 +74,7 @@ update msg model =
         PrepareForm result ->
             case result of
                 Ok prepared ->
-                    ( { model | state = Editing prepared prepared.preparedRequest [] }, Cmd.none )
+                    ( { model | state = Editing prepared prepared.preparedForm [] }, Cmd.none )
 
                 Err error ->
                     ( { model | state = SystemError error }, Cmd.none )
@@ -106,15 +105,11 @@ update msg model =
 
         PostedForm result ->
             case result of
-                Ok response ->
+                Ok registeredData ->
                     case model.state of
                         Editing prepared postedForm _ ->
-                            ( { model | state = Editing prepared postedForm response.errors }
-                            , if List.isEmpty response.errors then
-                                gotoAttendancePage model postedForm
-
-                              else
-                                Cmd.none
+                            ( { model | state = Editing prepared postedForm [] }
+                            , gotoAttendancePage model registeredData
                             )
 
                         _ ->
@@ -124,14 +119,14 @@ update msg model =
                     ( { model | state = SystemError error }, Cmd.none )
 
 
-gotoAttendancePage : Model -> TimeRecordForm -> Cmd msg
-gotoAttendancePage model postedForm =
+gotoAttendancePage : Model -> RegisteredData -> Cmd msg
+gotoAttendancePage model registeredData =
     let
         yearMonth =
-            WorkDate.toYearMonth postedForm.workDate
+            WorkDate.toYearMonth registeredData.workDate
 
         url =
-            URLs.attendancePageURL postedForm.employeeNumber yearMonth
+            URLs.attendancePageURL registeredData.employeeNumber yearMonth
     in
     Browser.Navigation.pushUrl model.key url
 
@@ -444,7 +439,7 @@ breakTimeCapRuleErrorMessage editing =
 
 type alias PreparedTimeRecordForm =
     { contractingEmployees : List Employee
-    , preparedRequest : TimeRecordForm
+    , preparedForm : TimeRecordForm
     }
 
 
@@ -458,7 +453,7 @@ preparedTimeRecordFormDecoder : Json.Decode.Decoder PreparedTimeRecordForm
 preparedTimeRecordFormDecoder =
     Json.Decode.succeed PreparedTimeRecordForm
         |> Json.Decode.Pipeline.required "contractingEmployees" (Json.Decode.list employeeDecoder)
-        |> Json.Decode.Pipeline.required "preparedRequest" TimeRecordForm.decoder
+        |> Json.Decode.Pipeline.required "preparedForm" TimeRecordForm.decoder
 
 
 employeeDecoder : Json.Decode.Decoder Employee
@@ -476,25 +471,10 @@ getPreparedTimeRecordForm employeeNumber workDate =
         }
 
 
-type alias TimeRecordPostResponse =
-    { status : PostedStatus
-    , errors : List Message
-    , succeeded : RegisteredData
-    }
-
-
 type alias RegisteredData =
     { employeeNumber : EmployeeNumber
     , workDate : WorkDate
     }
-
-
-timeRecordPostResponseDecoder : Json.Decode.Decoder TimeRecordPostResponse
-timeRecordPostResponseDecoder =
-    Json.Decode.succeed TimeRecordPostResponse
-        |> Json.Decode.Pipeline.required "status" PostedStatus.decoder
-        |> Json.Decode.Pipeline.optional "errors" (Json.Decode.list Message.errorMessageDecoder) []
-        |> Json.Decode.Pipeline.optional "succeeded" registeredDataDecoder (RegisteredData EmptyEmployeeNumber EmptyWordDate)
 
 
 registeredDataDecoder : Json.Decode.Decoder RegisteredData
@@ -509,5 +489,5 @@ postTimeRecordForm form =
     Http.post
         { url = URLs.timeRecordPostEndpoint
         , body = Http.jsonBody (TimeRecordForm.encode form)
-        , expect = Http.expectJson PostedForm timeRecordPostResponseDecoder
+        , expect = Http.expectJson PostedForm registeredDataDecoder
         }
