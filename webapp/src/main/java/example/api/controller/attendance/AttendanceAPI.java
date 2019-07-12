@@ -1,5 +1,6 @@
-package example.presentation.api.attendance;
+package example.api.controller.attendance;
 
+import example.api.view.attendance.AttendanceListView;
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordRecordService;
@@ -16,24 +17,24 @@ import org.springframework.web.bind.annotation.RestController;
  * 勤務時間一覧の取得API
  */
 @RestController
-@RequestMapping("api/attendances/{employeeNumber}/{yearMonth}")
-public class AttendanceGetRestController {
+@RequestMapping("/api/attendances/{employeeNumber}/{yearMonth}")
+public class AttendanceAPI {
 
     EmployeeQueryService employeeQueryService;
     TimeRecordRecordService timeRecordRecordService;
     AttendanceQueryService attendanceQueryService;
 
-    public AttendanceGetRestController(EmployeeQueryService employeeQueryService, TimeRecordRecordService timeRecordRecordService, AttendanceQueryService attendanceQueryService) {
+    public AttendanceAPI(EmployeeQueryService employeeQueryService, TimeRecordRecordService timeRecordRecordService, AttendanceQueryService attendanceQueryService) {
         this.employeeQueryService = employeeQueryService;
         this.timeRecordRecordService = timeRecordRecordService;
         this.attendanceQueryService = attendanceQueryService;
     }
 
     @GetMapping
-    AttendanceGetResponse get(@PathVariable("employeeNumber") EmployeeNumber employeeNumber,
-                              @PathVariable("yearMonth") WorkMonth workMonth) {
+    AttendanceListView get(@PathVariable("employeeNumber") EmployeeNumber employeeNumber,
+                           @PathVariable("yearMonth") WorkMonth workMonth) {
         Employee employee = employeeQueryService.choose(employeeNumber);
         Attendance attendance = attendanceQueryService.findAttendance(employee.employeeNumber(), workMonth);
-        return new AttendanceGetResponse(employee, attendance);
+        return new AttendanceListView(employee, attendance);
     }
 }

@@ -1,4 +1,4 @@
-package example.presentation.api.attendance;
+package example.api.view.attendance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,16 +12,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 勤務時間一覧の取得レスポンス
- */
-class AttendanceGetResponse {
+public class AttendanceListView {
     @JsonIgnore
     Employee employee;
     @JsonIgnore
     Attendance attendance;
 
-    AttendanceGetResponse(Employee employee, Attendance attendance) {
+    public AttendanceListView(Employee employee, Attendance attendance) {
         this.employee = employee;
         this.attendance = attendance;
     }

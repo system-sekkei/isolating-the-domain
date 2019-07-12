@@ -5,7 +5,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.InitBinder;
 
-@ControllerAdvice
+@ControllerAdvice(basePackageClasses = BaseControllerAdvice.class)
 public class BaseControllerAdvice {
 
     private static final String[] allowFields;

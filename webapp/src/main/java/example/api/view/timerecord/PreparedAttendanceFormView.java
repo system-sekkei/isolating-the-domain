@@ -1,27 +1,25 @@
-package example.presentation.api.timerecord;
+package example.api.view.timerecord;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.Employee;
+import example.presentation.controller.timerecord.AttendanceForm;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * 勤務時間の登録準備レスポンス
- */
-class TimeRecordPreparedPostResponse {
+public class PreparedAttendanceFormView {
     @JsonIgnore
     ContractingEmployees contractingEmployees;
     @JsonIgnore
-    TimeRecordPostRequest preparedRequest;
+    AttendanceForm preparedForm;
 
-    TimeRecordPreparedPostResponse(ContractingEmployees contractingEmployees, TimeRecordPostRequest preparedRequest) {
+    public PreparedAttendanceFormView(ContractingEmployees contractingEmployees, AttendanceForm preparedForm) {
         this.contractingEmployees = contractingEmployees;
-        this.preparedRequest = preparedRequest;
+        this.preparedForm = preparedForm;
     }
 
     @JsonProperty("contractingEmployees")
@@ -36,8 +34,8 @@ class TimeRecordPreparedPostResponse {
         return list;
     }
 
-    @JsonProperty("preparedRequest")
-    TimeRecordPostRequest preparedRequest() {
-        return preparedRequest;
+    @JsonProperty("preparedForm")
+    AttendanceForm preparedForm() {
+        return preparedForm;
     }
 }

@@ -1,9 +1,9 @@
 package example.presentation.controller.timerecord;
 
+import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.*;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
 import example.domain.model.timerecord.breaktime.MidnightBreakTime;
-import example.domain.model.employee.EmployeeNumber;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 
@@ -32,6 +32,19 @@ public class AttendanceForm {
         this.endMinute = "30";
         this.daytimeBreakTime = "60";
         this.midnightBreakTime = "0";
+    }
+
+    public static AttendanceForm of(EmployeeNumber employeeNumber, WorkDate workDate) {
+        AttendanceForm form = new AttendanceForm();
+        form.employeeNumber = employeeNumber;
+        form.workDate = workDate.toString();
+        return form;
+    }
+
+    public static AttendanceForm of(TimeRecord timeRecord) {
+        AttendanceForm form = new AttendanceForm();
+        form.apply(timeRecord);
+        return form;
     }
 
     public TimeRecord toAttendance() {

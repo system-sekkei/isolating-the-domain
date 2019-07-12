@@ -1,5 +1,6 @@
-package example.presentation.api.payroll;
+package example.api.controller.payroll;
 
+import example.api.view.payroll.PayrollListView;
 import example.application.coordinator.payroll.PayrollQueryCoordinator;
 import example.application.service.employee.EmployeeQueryService;
 import example.domain.model.attendance.WorkMonth;
@@ -16,26 +17,26 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("api/payroll")
-public class PayrollGetRestController {
+public class PayrollAPI {
     MessageSource messageSource;
     EmployeeQueryService employeeQueryService;
     PayrollQueryCoordinator payrollQueryCoordinator;
 
-    public PayrollGetRestController(MessageSource messageSource, EmployeeQueryService employeeQueryService, PayrollQueryCoordinator payrollQueryCoordinator) {
+    public PayrollAPI(MessageSource messageSource, EmployeeQueryService employeeQueryService, PayrollQueryCoordinator payrollQueryCoordinator) {
         this.messageSource = messageSource;
         this.employeeQueryService = employeeQueryService;
         this.payrollQueryCoordinator = payrollQueryCoordinator;
     }
 
     @GetMapping
-    PayrollGetResponse get() {
+    PayrollListView get() {
         return get(new WorkMonth());
     }
 
     @GetMapping("{workMonth}")
-    PayrollGetResponse get(@PathVariable("workMonth") WorkMonth workMonth) {
+    PayrollListView get(@PathVariable("workMonth") WorkMonth workMonth) {
         ContractingEmployees contractingEmployees = employeeQueryService.contractingEmployees();
         Payrolls payrolls = payrollQueryCoordinator.payrolls(contractingEmployees, workMonth);
-        return new PayrollGetResponse(payrolls, messageSource);
+        return new PayrollListView(payrolls, messageSource);
     }
 }

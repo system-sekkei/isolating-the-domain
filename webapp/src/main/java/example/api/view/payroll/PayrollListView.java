@@ -1,4 +1,4 @@
-package example.presentation.api.payroll;
+package example.api.view.payroll;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -8,16 +8,13 @@ import org.springframework.context.MessageSource;
 
 import java.util.*;
 
-/**
- * 給与一覧の取得レスポンス
- */
-class PayrollGetResponse {
+public class PayrollListView {
     @JsonIgnore
     Payrolls payrolls;
     @JsonIgnore
     MessageSource messageSource;
 
-    PayrollGetResponse(Payrolls payrolls, MessageSource messageSource) {
+    public PayrollListView(Payrolls payrolls, MessageSource messageSource) {
         this.payrolls = payrolls;
         this.messageSource = messageSource;
     }
