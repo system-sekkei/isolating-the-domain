@@ -39,3 +39,7 @@ temp
 
 # For npm
 node_modules/
+
+# For Cypress
+cypress/videos
+cypress/screenshots

@@ -46,7 +46,7 @@ java -jar webapp/build/libs/webapp.jar
 ## 動作検証
 
 ```sh
-./gradlew webapp:cypressTest
+cypressTest
 ```
 
 Cypressのヘッドレスブラウザでテストします。

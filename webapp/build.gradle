@@ -2,14 +2,14 @@ plugins {
     id 'java'
     id 'idea'
     id 'org.springframework.boot' version '2.1.6.RELEASE'
-    id "org.dddjava.jig-gradle-plugin" version "2019.6.4.1"
+    id "org.dddjava.jig-gradle-plugin" version "2019.7.3"
 }
 
 jigReports.dependsOn(clean, compileJava, processResources)
 
 description 'ドメイン駆動設計によるアプリケーションテンプレート'
 
-sourceCompatibility = '1.8'
+sourceCompatibility = '1.11'
 
 sourceSets {
     main {
