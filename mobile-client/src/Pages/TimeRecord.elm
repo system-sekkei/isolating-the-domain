@@ -77,12 +77,12 @@ update msg model =
 
         EditForm newEditingForm ->
             case model.state of
-                Editing prepared _ error ->
+                Editing prepared _ _ ->
                     let
                         validatedForm =
                             TimeRecordForm.validate newEditingForm
                     in
-                    ( { model | state = Editing prepared validatedForm error }, Cmd.none )
+                    ( { model | state = Editing prepared validatedForm AppHttp.NoError }, Cmd.none )
 
                 _ ->
                     ( model, Cmd.none )
@@ -254,9 +254,11 @@ errorMessageArea error =
         AppHttp.ApplicationError serverErrorMessage ->
             article [ class "message is-danger" ]
                 [ div [ class "message-header" ]
-                    [ text (serverErrorMessage.type_ ++ "(code: " ++ serverErrorMessage.code ++ ")") ]
+                    [ text serverErrorMessage.type_ ]
                 , div [ class "message-body" ]
-                    [ p [ class "help is-danger" ] [ text serverErrorMessage.message ] ]
+                    [ p [ class "help is-danger" ]
+                        [ errorMessages serverErrorMessage.messages ]
+                    ]
                 ]
 
         _ ->
@@ -267,6 +269,15 @@ errorMessageArea error =
                     [ p [ class "help is-danger" ] [ text "システムエラーです" ]
                     ]
                 ]
+
+
+errorMessages : List String -> Html Msg
+errorMessages messages =
+    ul []
+        (List.map
+            (\message -> li [] [ text message ])
+            messages
+        )
 
 
 employeeSelectBox : PreparedTimeRecordForm -> TimeRecordForm -> Html Msg

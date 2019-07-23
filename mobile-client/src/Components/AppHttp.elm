@@ -17,8 +17,7 @@ type Error
 
 type alias ServerErrorMessage =
     { type_ : String
-    , code : String
-    , message : String
+    , messages : List String
     }
 
 
@@ -26,8 +25,7 @@ serverErrorDecoder : Json.Decode.Decoder ServerErrorMessage
 serverErrorDecoder =
     Json.Decode.succeed ServerErrorMessage
         |> Json.Decode.Pipeline.required "type" string
-        |> Json.Decode.Pipeline.required "code" string
-        |> Json.Decode.Pipeline.required "message" string
+        |> Json.Decode.Pipeline.required "messages" (Json.Decode.list string)
 
 
 expectJson : (Result Error a -> msg) -> Json.Decode.Decoder a -> Expect msg

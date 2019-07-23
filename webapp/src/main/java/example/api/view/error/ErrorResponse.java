@@ -2,17 +2,22 @@ package example.api.view.error;
 
 import org.springframework.http.ResponseEntity;
 
-public class ErrorResponse {
+import java.util.ArrayList;
+import java.util.List;
 
-    public ErrorResponse(ErrorType type, String code, String message) {
+public class ErrorResponse {
+    ErrorType type;
+    List<String> messages;
+
+
+    public ErrorResponse(ErrorType type) {
         this.type = type;
-        this.code = code;
-        this.message = message;
+        this.messages = new ArrayList<>();
     }
 
-    ErrorType type;
-    String code;
-    String message;
+    public void add(String message) {
+        messages.add(message);
+    }
 
     public ResponseEntity<ErrorResponse> toEntity() {
         return ResponseEntity.status(type.httpStatus).body(this);
