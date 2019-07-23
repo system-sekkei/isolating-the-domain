@@ -56,10 +56,11 @@ public class RestControllerExceptionHandlerAdvice {
     }
 
     ResponseEntity<ErrorResponse> errorResponse(String exceptionClassName, Object... args) {
+        String type = resource.getString(exceptionClassName + ".type");
+        String code = resource.getString(exceptionClassName + ".code");
         String message = resource.getString(exceptionClassName + ".message");
         ErrorResponse errorResponse = new ErrorResponse(
-                ErrorType.valueOf(resource.getString(exceptionClassName + ".type")),
-                resource.getString(exceptionClassName + ".code"),
+                ErrorType.valueOf(type), code,
                 MessageFormat.format(message, args)
         );
         return errorResponse.toEntity();

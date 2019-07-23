@@ -1,7 +1,8 @@
 module Pages.TimeRecord exposing (Model, Msg, init, update, view)
 
 import Browser.Navigation
-import Components.AppHtmlUtils exposing (fieldErrorMessage, httpErrorText, inputStyle, onChange)
+import Components.AppHtmlUtils as AppHtmlUtils exposing (fieldErrorMessage, inputStyle, onChange)
+import Components.AppHttp as AppHttp
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onClick, onInput)
@@ -19,7 +20,6 @@ import Pages.TimeRecord.Types.StartHour as StartHour exposing (StartHour(..))
 import Pages.TimeRecord.Types.StartMinute as StartMinute exposing (StartMinute(..))
 import Types.Employee.EmployeeName as EmployeeName exposing (EmployeeName(..))
 import Types.Employee.EmployeeNumber as EmployeeNumber exposing (EmployeeNumber(..))
-import Types.Message as Message exposing (Message(..))
 import Types.Time.WorkDate as WorkDate exposing (WorkDate(..))
 import URLs
 
@@ -45,11 +45,7 @@ type alias PageName =
 type PageState
     = Initializing
     | SystemError Http.Error
-    | Editing PreparedTimeRecordForm TimeRecordForm ServerErrorMessages
-
-
-type alias ServerErrorMessages =
-    List Message
+    | Editing PreparedTimeRecordForm TimeRecordForm AppHttp.Error
 
 
 init : Browser.Navigation.Key -> EmployeeNumber -> WorkDate -> ( Model, Cmd Msg )
@@ -65,7 +61,7 @@ type Msg
     = PrepareForm (Result Http.Error PreparedTimeRecordForm)
     | EditForm TimeRecordForm
     | PostForm
-    | PostedForm (Result Http.Error RegisteredData)
+    | PostedForm (Result AppHttp.Error RegisteredData)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -74,19 +70,19 @@ update msg model =
         PrepareForm result ->
             case result of
                 Ok prepared ->
-                    ( { model | state = Editing prepared prepared.preparedForm [] }, Cmd.none )
+                    ( { model | state = Editing prepared prepared.preparedForm AppHttp.NoError }, Cmd.none )
 
                 Err error ->
                     ( { model | state = SystemError error }, Cmd.none )
 
         EditForm newEditingForm ->
             case model.state of
-                Editing prepared _ serverErrorMessages ->
+                Editing prepared _ error ->
                     let
                         validatedForm =
                             TimeRecordForm.validate newEditingForm
                     in
-                    ( { model | state = Editing prepared validatedForm serverErrorMessages }, Cmd.none )
+                    ( { model | state = Editing prepared validatedForm error }, Cmd.none )
 
                 _ ->
                     ( model, Cmd.none )
@@ -108,7 +104,7 @@ update msg model =
                 Ok registeredData ->
                     case model.state of
                         Editing prepared postedForm _ ->
-                            ( { model | state = Editing prepared postedForm [] }
+                            ( { model | state = Editing prepared postedForm AppHttp.NoError }
                             , gotoAttendancePage model registeredData
                             )
 
@@ -116,7 +112,14 @@ update msg model =
                             ( model, Cmd.none )
 
                 Err error ->
-                    ( { model | state = SystemError error }, Cmd.none )
+                    case model.state of
+                        Editing prepared postedForm _ ->
+                            ( { model | state = Editing prepared postedForm error }
+                            , Cmd.none
+                            )
+
+                        _ ->
+                            ( model, Cmd.none )
 
 
 gotoAttendancePage : Model -> RegisteredData -> Cmd msg
@@ -147,18 +150,18 @@ view model =
                 SystemError error ->
                     div []
                         [ h2 [] [ text "System Error" ]
-                        , p [] [ httpErrorText error ]
+                        , p [] [ AppHtmlUtils.httpErrorText error ]
                         ]
 
-                Editing prepared editing errorMessages ->
+                Editing prepared editing error ->
                     div []
-                        [ timeRecordForm prepared editing errorMessages ]
+                        [ timeRecordForm prepared editing error ]
             ]
         ]
 
 
-timeRecordForm : PreparedTimeRecordForm -> TimeRecordForm -> ServerErrorMessages -> Html Msg
-timeRecordForm prepared editing serverErrorMessage =
+timeRecordForm : PreparedTimeRecordForm -> TimeRecordForm -> AppHttp.Error -> Html Msg
+timeRecordForm prepared editing error =
     section []
         [ div [ class "field" ]
             [ label [ class "label" ] [ text "氏名" ]
@@ -229,7 +232,7 @@ timeRecordForm prepared editing serverErrorMessage =
             , midnightBreakMinuteInputErrorMessage editing
             , breakTimeCapRuleErrorMessage editing
             ]
-        , errorMessageArea serverErrorMessage
+        , errorMessageArea error
         , div [ class "field" ]
             [ div [ class "control" ]
                 [ button
@@ -242,21 +245,28 @@ timeRecordForm prepared editing serverErrorMessage =
         ]
 
 
-errorMessageArea : ServerErrorMessages -> Html Msg
-errorMessageArea errorMessages =
-    if List.isEmpty errorMessages then
-        text ""
+errorMessageArea : AppHttp.Error -> Html Msg
+errorMessageArea error =
+    case error of
+        AppHttp.NoError ->
+            text ""
 
-    else
-        article [ class "message is-danger" ]
-            [ div [ class "message-header" ] [ text "Error" ]
-            , div [ class "message-body" ] (List.map messageLine errorMessages)
-            ]
+        AppHttp.ApplicationError serverErrorMessage ->
+            article [ class "message is-danger" ]
+                [ div [ class "message-header" ]
+                    [ text (serverErrorMessage.type_ ++ "(code: " ++ serverErrorMessage.code ++ ")") ]
+                , div [ class "message-body" ]
+                    [ p [ class "help is-danger" ] [ text serverErrorMessage.message ] ]
+                ]
 
-
-messageLine : Message -> Html Msg
-messageLine message =
-    p [ class "help is-danger" ] [ text (message |> Message.toString) ]
+        _ ->
+            article [ class "message is-danger" ]
+                [ div [ class "message-header" ]
+                    [ text "Error" ]
+                , div [ class "message-body" ]
+                    [ p [ class "help is-danger" ] [ text "システムエラーです" ]
+                    ]
+                ]
 
 
 employeeSelectBox : PreparedTimeRecordForm -> TimeRecordForm -> Html Msg
@@ -489,5 +499,5 @@ postTimeRecordForm form =
     Http.post
         { url = URLs.timeRecordPostEndpoint
         , body = Http.jsonBody (TimeRecordForm.encode form)
-        , expect = Http.expectJson PostedForm registeredDataDecoder
+        , expect = AppHttp.expectJson PostedForm registeredDataDecoder
         }
