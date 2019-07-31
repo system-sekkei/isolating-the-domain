@@ -7,7 +7,7 @@
 ## 起動方法
 
 ```sh
-./gradlew clean webapp:bootRun
+./gradlew webapp:clean webapp:bootRun
 ```
 
 ```localhost:8080``` でダッシュボード画面を表示
@@ -15,7 +15,7 @@
 ## 実行可能Jarのビルドと実行
 
 ```sh
-./gradlew clean webapp:build
+./gradlew webapp:clean webapp:build
 java -jar webapp/build/libs/webapp.jar
 ```
 
@@ -46,7 +46,8 @@ java -jar webapp/build/libs/webapp.jar
 ## 動作検証
 
 ```sh
-cypressTest
+npm install
+npm test
 ```
 
 Cypressのヘッドレスブラウザでテストします。
