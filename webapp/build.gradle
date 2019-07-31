@@ -6,6 +6,7 @@ plugins {
 }
 
 jigReports.dependsOn(clean, compileJava, processResources)
+bootRun.mustRunAfter(clean)
 
 description 'ドメイン駆動設計によるアプリケーションテンプレート'
 

@@ -6,3 +6,6 @@ task stage(type: Copy) {
 }
 stage.dependsOn(buildBootJar)
 
+
+task bootRun(dependsOn: [':webapp:clean', ':webapp:bootRun'])
+
