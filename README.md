@@ -7,7 +7,7 @@
 ## 起動方法
 
 ```sh
-./gradlew clean bootRun
+./gradlew webapp:clean webapp:bootRun
 ```
 
 ```localhost:8080``` でダッシュボード画面を表示
@@ -15,17 +15,17 @@
 ## 実行可能Jarのビルドと実行
 
 ```sh
-./gradlew clean build
-java -jar build/libs/isolating-the-domain.jar
+./gradlew webapp:clean webapp:build
+java -jar webapp/build/libs/webapp.jar
 ```
 
 ## Jig 設計ドキュメントの自動生成
 
 ```sh
-./gradlew jig
+./gradlew webapp:jig
 ```
 
-```build/jig``` 以下にソースコードから自動生成したクラス一覧やクラスの関連図を出力
+```webapp/build/jig``` 以下にソースコードから自動生成したクラス一覧やクラスの関連図を出力
 
 [Jig 設計ドキュメント](https://github.com/dddjava/Jig)
 
@@ -51,4 +51,3 @@ npm test
 ```
 
 Cypressのヘッドレスブラウザでテストします。
-

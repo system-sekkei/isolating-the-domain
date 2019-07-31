@@ -1,0 +1,47 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'org.springframework.boot' version '2.1.6.RELEASE'
+    id "org.dddjava.jig-gradle-plugin" version "2019.6.4.1"
+}
+
+jigReports.dependsOn(clean, compileJava, processResources)
+
+description 'ドメイン駆動設計によるアプリケーションテンプレート'
+
+sourceCompatibility = '1.8'
+
+sourceSets {
+    main {
+        // mybatis SQL map XML ファイルを java 以下でも検知する
+        resources.srcDirs = ["src/main/java", "src/main/resources"]
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    implementation platform('org.springframework.boot:spring-boot-dependencies:2.1.6.RELEASE')
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1")
+
+    runtimeOnly("com.h2database:h2")
+
+    testImplementation("org.springframework.boot:spring-boot-starter-test") {
+        exclude(group: 'junit')
+    }
+
+    testImplementation platform("org.junit:junit-bom:5.4.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("org.junit.jupiter:junit-jupiter-params")
+    testRuntimeClasspath("org.junit.platform:junit-platform-launcher")
+    testRuntimeClasspath("org.junit.jupiter:junit-jupiter-engine")
+}
+
+test {
+    useJUnitPlatform()
+}

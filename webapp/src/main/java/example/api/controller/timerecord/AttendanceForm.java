@@ -1,21 +1,18 @@
-package example.presentation.controller.timerecord;
+package example.api.controller.timerecord;
 
+import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.*;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
 import example.domain.model.timerecord.breaktime.MidnightBreakTime;
-import example.domain.model.employee.EmployeeNumber;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 
 import javax.validation.constraints.AssertTrue;
 import java.time.DateTimeException;
-import java.time.LocalDate;
 
-public class AttendanceForm {
-
-    EmployeeNumber employeeNumber;
+class AttendanceForm {
+    String employeeNumber;
     String workDate;
-
     String startHour;
     String startMinute;
     String endHour;
@@ -24,17 +21,34 @@ public class AttendanceForm {
     String daytimeBreakTime;
     String midnightBreakTime;
 
-    public AttendanceForm() {
-        this.workDate = LocalDate.now().toString();
-        this.startHour = "9";
-        this.startMinute = "0";
-        this.endHour = "17";
-        this.endMinute = "30";
-        this.daytimeBreakTime = "60";
-        this.midnightBreakTime = "0";
+    static AttendanceForm of(EmployeeNumber employeeNumber, WorkDate workDate) {
+        AttendanceForm request = new AttendanceForm();
+        request.employeeNumber = employeeNumber.toString();
+        request.workDate = workDate.toString();
+        request.startHour = "9";
+        request.startMinute = "0";
+        request.endHour = "17";
+        request.endMinute = "30";
+        request.daytimeBreakTime = "60";
+        request.midnightBreakTime = "0";
+        return request;
     }
 
-    public TimeRecord toAttendance() {
+    static AttendanceForm of(TimeRecord timeRecord) {
+        AttendanceForm request = new AttendanceForm();
+        request.employeeNumber = timeRecord.employeeNumber().toString();
+        request.workDate = timeRecord.workDate().toString();
+        request.startHour = timeRecord.actualWorkTime().timeRange().start().clockTime().hour().toString();
+        request.startMinute = timeRecord.actualWorkTime().timeRange().start().clockTime().minute().toString();
+        request.endHour = timeRecord.actualWorkTime().timeRange().end().clockTime().hour().toString();
+        request.endMinute = timeRecord.actualWorkTime().timeRange().end().clockTime().minute().toString();
+        request.daytimeBreakTime = timeRecord.actualWorkTime().daytimeBreakTime().toString();
+        request.midnightBreakTime = timeRecord.actualWorkTime().midnightBreakTime().toString();
+        return request;
+    }
+
+    TimeRecord toAttendance() {
+        EmployeeNumber employeeNumber = new EmployeeNumber(this.employeeNumber);
         WorkDate workDate = new WorkDate(this.workDate);
         ClockTime startTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
         ClockTime endTime = new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
@@ -47,28 +61,10 @@ public class AttendanceForm {
         return new TimeRecord(employeeNumber, workDate, actualWorkTime);
     }
 
-    public void apply(TimeRecord timeRecord) {
-        this.employeeNumber = timeRecord.employeeNumber();
-        this.workDate = timeRecord.workDate().toString();
-
-        this.startHour = timeRecord.actualWorkTime().timeRange().start().clockTime().hour().toString();
-        this.startMinute = timeRecord.actualWorkTime().timeRange().start().clockTime().minute().toString();
-
-        this.endHour = timeRecord.actualWorkTime().timeRange().end().clockTime().hour().toString();
-        this.endMinute = timeRecord.actualWorkTime().timeRange().end().clockTime().minute().toString();
-
-        this.daytimeBreakTime = timeRecord.actualWorkTime().daytimeBreakTime().toString();
-        this.midnightBreakTime = timeRecord.actualWorkTime().midnightBreakTime().toString();
-    }
-
-    boolean workDateComplete;
-
     @AssertTrue(message = "勤務日を入力してください")
     boolean isWorkDateComplete() {
         return !workDate.isEmpty();
     }
-
-    boolean workDateValid;
 
     @AssertTrue(message = "勤務日が不正です")
     boolean isWorkDateValid() {
@@ -81,18 +77,14 @@ public class AttendanceForm {
         return true;
     }
 
-    boolean startTimeComplete;
-
     @AssertTrue(message = "開始時刻を入力してください")
     boolean isStartTimeComplete() {
         if (startHour.isEmpty() || startMinute.isEmpty()) return false;
         return true;
     }
 
-    boolean startTimeValid;
-
     @AssertTrue(message = "開始時刻が不正です")
-    public boolean isStartTimeValid() {
+    boolean isStartTimeValid() {
         if (!isStartTimeComplete()) return true;
 
         try {
@@ -104,18 +96,14 @@ public class AttendanceForm {
         return true;
     }
 
-    boolean endTimeComplete;
-
     @AssertTrue(message = "終了時刻を入力してください")
     boolean isEndTimeComplete() {
         if (endHour.isEmpty() || endMinute.isEmpty()) return false;
         return true;
     }
 
-    boolean endTimeValid;
-
     @AssertTrue(message = "終了時刻が不正です")
-    public boolean isEndTimeValid() {
+    boolean isEndTimeValid() {
         if (!isEndTimeComplete()) return true;
 
         try {
@@ -127,10 +115,8 @@ public class AttendanceForm {
         return true;
     }
 
-    boolean workTimeValid;
-
     @AssertTrue(message = "終了時刻には開始時刻よりあとの時刻を入力してください")
-    public boolean isWorkTimeValid() {
+    boolean isWorkTimeValid() {
         if (!isStartTimeComplete()) return true;
         if (!isEndTimeComplete()) return true;
         if (!isStartTimeValid() || !isEndTimeValid()) return true;
@@ -152,10 +138,8 @@ public class AttendanceForm {
         return new EndTime(clockTime);
     }
 
-    boolean daytimeBreakTimeValid;
-
     @AssertTrue(message = "休憩時間が不正です")
-    public boolean isDaytimeBreakTimeValid() {
+    boolean isDaytimeBreakTimeValid() {
         if (daytimeBreakTime.isEmpty()) return true;
 
         try {
@@ -172,10 +156,8 @@ public class AttendanceForm {
         return true;
     }
 
-    boolean midnightBreakTimeValid;
-
     @AssertTrue(message = "休憩時間（深夜）が不正です")
-    public boolean isMidnightBreakTimeValid() {
+    boolean isMidnightBreakTimeValid() {
         if (midnightBreakTime.isEmpty()) return true;
 
         try {
