@@ -1,0 +1,8 @@
+task buildBootJar(dependsOn: [':webapp:bootJar'])
+task stage(type: Copy) {
+  from "webapp/build/libs"
+  into "build/libs"
+  include "*.jar"
+}
+stage.dependsOn(buildBootJar)
+
