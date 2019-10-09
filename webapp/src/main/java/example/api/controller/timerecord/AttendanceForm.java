@@ -3,7 +3,7 @@ package example.api.controller.timerecord;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.*;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
-import example.domain.model.timerecord.breaktime.MidnightBreakTime;
+import example.domain.model.timerecord.breaktime.NightBreakTime;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 
@@ -19,7 +19,7 @@ class AttendanceForm {
     String endMinute;
 
     String daytimeBreakTime;
-    String midnightBreakTime;
+    String nightBreakTime;
 
     static AttendanceForm of(EmployeeNumber employeeNumber, WorkDate workDate) {
         AttendanceForm request = new AttendanceForm();
@@ -30,7 +30,7 @@ class AttendanceForm {
         request.endHour = "17";
         request.endMinute = "30";
         request.daytimeBreakTime = "60";
-        request.midnightBreakTime = "0";
+        request.nightBreakTime = "0";
         return request;
     }
 
@@ -43,7 +43,7 @@ class AttendanceForm {
         request.endHour = timeRecord.actualWorkTime().timeRange().end().clockTime().hour().toString();
         request.endMinute = timeRecord.actualWorkTime().timeRange().end().clockTime().minute().toString();
         request.daytimeBreakTime = timeRecord.actualWorkTime().daytimeBreakTime().toString();
-        request.midnightBreakTime = timeRecord.actualWorkTime().midnightBreakTime().toString();
+        request.nightBreakTime = timeRecord.actualWorkTime().nightBreakTime().toString();
         return request;
     }
 
@@ -52,12 +52,12 @@ class AttendanceForm {
         WorkDate workDate = new WorkDate(this.workDate);
         ClockTime startTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
         ClockTime endTime = new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
-        Minute minute = new Minute(daytimeBreakTime);
-        Minute midnightMinute = new Minute(midnightBreakTime);
+        Minute daytimeBreakMinute = new Minute(daytimeBreakTime);
+        Minute nightBreakTime = new Minute(this.nightBreakTime);
         ActualWorkTime actualWorkTime = new ActualWorkTime(
                 new TimeRange(new StartTime(startTime), new EndTime(endTime)),
-                new DaytimeBreakTime(minute),
-                new MidnightBreakTime(midnightMinute));
+                new DaytimeBreakTime(daytimeBreakMinute),
+                new NightBreakTime(nightBreakTime));
         return new TimeRecord(employeeNumber, workDate, actualWorkTime);
     }
 
@@ -157,15 +157,15 @@ class AttendanceForm {
     }
 
     @AssertTrue(message = "休憩時間（深夜）が不正です")
-    boolean isMidnightBreakTimeValid() {
-        if (midnightBreakTime.isEmpty()) return true;
+    boolean isNightBreakTimeValid() {
+        if (nightBreakTime.isEmpty()) return true;
 
         try {
-            MidnightBreakTime midnightBreakTime = new MidnightBreakTime(new Minute(this.midnightBreakTime));
+            NightBreakTime nightBreakTime = new NightBreakTime(new Minute(this.nightBreakTime));
 
             TimeRecord timeRecord = toAttendance();
-            Minute midnightBindingMinute = timeRecord.actualWorkTime().timeRange().midnightBindingTime().quarterHour().minute();
-            if (midnightBindingMinute.lessThan(midnightBreakTime.minute())) {
+            Minute nightBindingMinute = timeRecord.actualWorkTime().timeRange().nightBindingTime().quarterHour().minute();
+            if (nightBindingMinute.lessThan(nightBreakTime.minute())) {
                 return false;
             }
         } catch (NumberFormatException | DateTimeException ex) {

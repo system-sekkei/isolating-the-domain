@@ -7,42 +7,42 @@ import example.domain.type.time.Minute;
 /**
  * 深夜
  */
-public class Midnight {
+public class Night {
 
-    ClockTime midnightStartTime;
-    ClockTime midnightFinishTime;
+    ClockTime nightStartTime;
+    ClockTime nightFinishTime;
 
-    public Midnight(ClockTime midnightStartTime, ClockTime midnightFinishTime) {
-        this.midnightStartTime = midnightStartTime;
-        this.midnightFinishTime = midnightFinishTime;
+    public Night(ClockTime nightStartTime, ClockTime nightFinishTime) {
+        this.nightStartTime = nightStartTime;
+        this.nightFinishTime = nightFinishTime;
     }
 
-    public static Midnight legal() {
+    public static Night legal() {
         // 第三十七条第四項で定められている深夜
-        return new Midnight(new ClockTime("22:00"), new ClockTime("05:00"));
+        return new Night(new ClockTime("22:00"), new ClockTime("05:00"));
     }
 
-    public Minute midnightMinute(ClockTimeRange range) {
+    public Minute nightMinute(ClockTimeRange range) {
         return startTimeToMidnightMinute(range).add(midnightToFinishTimeMinute(range));
     }
 
     private Minute startTimeToMidnightMinute(ClockTimeRange range) {
-        if (range.end().isBefore(midnightStartTime)) {
+        if (range.end().isBefore(nightStartTime)) {
             return new Minute(0);
         }
-        if (range.begin().isBefore(midnightStartTime)) {
-            return new ClockTimeRange(midnightStartTime, range.end()).between();
+        if (range.begin().isBefore(nightStartTime)) {
+            return new ClockTimeRange(nightStartTime, range.end()).between();
         }
         // 開始終了とも深夜
         return new ClockTimeRange(range.begin(), range.end()).between();
     }
 
     private Minute midnightToFinishTimeMinute(ClockTimeRange range) {
-        if (range.begin().isAfter(midnightFinishTime)) {
+        if (range.begin().isAfter(nightFinishTime)) {
             return new Minute(0);
         }
-        if (range.end().isAfter(midnightFinishTime)) {
-            return new ClockTimeRange(range.begin(), midnightFinishTime).between();
+        if (range.end().isAfter(nightFinishTime)) {
+            return new ClockTimeRange(range.begin(), nightFinishTime).between();
         }
         // 開始終了とも深夜（早朝）
         return new ClockTimeRange(range.begin(), range.end()).between();

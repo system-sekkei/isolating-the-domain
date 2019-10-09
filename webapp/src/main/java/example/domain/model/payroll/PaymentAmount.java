@@ -25,8 +25,8 @@ public class PaymentAmount {
     public PaymentAmount(ActualWorkTime actualWorkTime, WageCondition wageCondition) {
         PaymentAmount workTimeAmount = new PaymentWorkTime(actualWorkTime.workTime()).multiply(wageCondition.baseHourlyWage());
         PaymentAmount overTimeExtraAmount = new PaymentWorkTime(actualWorkTime.overWorkTime()).multiply(wageCondition.overTimeHourlyExtraWage().value());
-        PaymentAmount midnightExtraAmount = new PaymentWorkTime(actualWorkTime.midnightWorkTime()).multiply(wageCondition.midnightHourlyExtraWage().value());
-        this.value = workTimeAmount.value.add(overTimeExtraAmount.value).add(midnightExtraAmount.value);
+        PaymentAmount nightExtraAmount = new PaymentWorkTime(actualWorkTime.nightWorkTime()).multiply(wageCondition.nightHourlyExtraWage().value());
+        this.value = workTimeAmount.value.add(overTimeExtraAmount.value).add(nightExtraAmount.value);
     }
 
     PaymentAmount add(PaymentAmount paymentAmount) {

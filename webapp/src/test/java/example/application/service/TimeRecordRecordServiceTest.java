@@ -8,7 +8,7 @@ import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.timerecord.*;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
-import example.domain.model.timerecord.breaktime.MidnightBreakTime;
+import example.domain.model.timerecord.breaktime.NightBreakTime;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
@@ -51,7 +51,7 @@ class TimeRecordRecordServiceTest {
         int month = 10;
         int day = 20;
         WorkDate workDate = new WorkDate(new Date(LocalDate.of(year, month, day)));
-        ActualWorkTime actualWorkTime = new ActualWorkTime(new TimeRange(new StartTime(new ClockTime("9:00")), new EndTime(new ClockTime("24:00"))), new DaytimeBreakTime(new Minute(60)), new MidnightBreakTime(new Minute("0")));
+        ActualWorkTime actualWorkTime = new ActualWorkTime(new TimeRange(new StartTime(new ClockTime("9:00")), new EndTime(new ClockTime("24:00"))), new DaytimeBreakTime(new Minute(60)), new NightBreakTime(new Minute("0")));
 
         TimeRecord expectTimeRecord = new TimeRecord(employeeNumber, workDate, actualWorkTime);
         timeRecordRecordService.registerTimeRecord(expectTimeRecord);

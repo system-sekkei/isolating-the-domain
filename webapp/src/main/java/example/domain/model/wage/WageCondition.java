@@ -1,6 +1,6 @@
 package example.domain.model.wage;
 
-import example.domain.model.legislation.MidnightExtraRate;
+import example.domain.model.legislation.NightExtraRate;
 import example.domain.model.legislation.OverTimeExtraRate;
 
 /**
@@ -9,16 +9,16 @@ import example.domain.model.legislation.OverTimeExtraRate;
 public class WageCondition {
     HourlyWage baseHourlyWage;
     OverTimeExtraRate overTimeExtraRate;
-    MidnightExtraRate midnightExtraRate;
+    NightExtraRate nightExtraRate;
 
-    public WageCondition(HourlyWage baseHourlyWage, OverTimeExtraRate overTimeExtraRate, MidnightExtraRate midnightExtraRate) {
+    public WageCondition(HourlyWage baseHourlyWage, OverTimeExtraRate overTimeExtraRate, NightExtraRate nightExtraRate) {
         this.baseHourlyWage = baseHourlyWage;
         this.overTimeExtraRate = overTimeExtraRate;
-        this.midnightExtraRate = midnightExtraRate;
+        this.nightExtraRate = nightExtraRate;
     }
 
     public WageCondition(HourlyWage baseHourlyWage) {
-        this(baseHourlyWage, OverTimeExtraRate.legal(), MidnightExtraRate.legal());
+        this(baseHourlyWage, OverTimeExtraRate.legal(), NightExtraRate.legal());
     }
 
     public HourlyWage baseHourlyWage() {
@@ -29,7 +29,7 @@ public class WageCondition {
         return baseHourlyWage.overTimeHourlyExtraWage(overTimeExtraRate);
     }
 
-    public MidnightHourlyExtraWage midnightHourlyExtraWage() {
-        return baseHourlyWage.midnightHourlyExtraWage(midnightExtraRate);
+    public NightHourlyExtraWage nightHourlyExtraWage() {
+        return baseHourlyWage.nightHourlyExtraWage(nightExtraRate);
     }
 }

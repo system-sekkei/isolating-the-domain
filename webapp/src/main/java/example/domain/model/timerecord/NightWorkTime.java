@@ -1,17 +1,17 @@
 package example.domain.model.timerecord;
 
-import example.domain.model.timerecord.breaktime.MidnightBreakTime;
+import example.domain.model.timerecord.breaktime.NightBreakTime;
 import example.domain.type.time.QuarterHour;
 
 /**
  * 深夜勤務時間
  */
-public class MidnightWorkTime {
+public class NightWorkTime {
 
     QuarterHour value;
 
-    public MidnightWorkTime(TimeRange timeRange, MidnightBreakTime midnightBreakTime) {
-        this.value = midnightBreakTime.subtractFrom(timeRange.midnightBindingTime());
+    public NightWorkTime(TimeRange timeRange, NightBreakTime nightBreakTime) {
+        this.value = nightBreakTime.subtractFrom(timeRange.nightBindingTime());
     }
 
     public QuarterHour quarterHour() {

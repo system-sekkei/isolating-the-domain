@@ -2,7 +2,7 @@ package example.domain.model.timerecord;
 
 import example.domain.model.timerecord.breaktime.BreakTime;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
-import example.domain.model.timerecord.breaktime.MidnightBreakTime;
+import example.domain.model.timerecord.breaktime.NightBreakTime;
 
 /**
  * 勤務時間実績
@@ -11,16 +11,16 @@ public class ActualWorkTime {
 
     TimeRange timeRange;
     DaytimeBreakTime daytimeBreakTime;
-    MidnightBreakTime midnightBreakTime;
+    NightBreakTime nightBreakTime;
 
     @Deprecated
     public ActualWorkTime() {
     }
 
-    public ActualWorkTime(TimeRange timeRange, DaytimeBreakTime daytimeBreakTime, MidnightBreakTime midnightBreakTime) {
+    public ActualWorkTime(TimeRange timeRange, DaytimeBreakTime daytimeBreakTime, NightBreakTime nightBreakTime) {
         this.timeRange = timeRange;
         this.daytimeBreakTime = daytimeBreakTime;
-        this.midnightBreakTime = midnightBreakTime;
+        this.nightBreakTime = nightBreakTime;
     }
 
     public TimeRange timeRange() {
@@ -31,24 +31,24 @@ public class ActualWorkTime {
         return daytimeBreakTime;
     }
 
-    public MidnightBreakTime midnightBreakTime() {
-        return midnightBreakTime;
+    public NightBreakTime nightBreakTime() {
+        return nightBreakTime;
     }
 
     public WorkTime workTime() {
-        return new WorkTime(daytimeWorkTime(), midnightWorkTime());
+        return new WorkTime(daytimeWorkTime(), nightWorkTime());
     }
 
     public BreakTime breakTime() {
-        return new BreakTime(daytimeBreakTime, midnightBreakTime);
+        return new BreakTime(daytimeBreakTime, nightBreakTime);
     }
 
     public DaytimeWorkTime daytimeWorkTime() {
         return new DaytimeWorkTime(timeRange, daytimeBreakTime);
     }
 
-    public MidnightWorkTime midnightWorkTime() {
-        return new MidnightWorkTime(timeRange, midnightBreakTime);
+    public NightWorkTime nightWorkTime() {
+        return new NightWorkTime(timeRange, nightBreakTime);
     }
 
     public OverWorkTime overWorkTime() {

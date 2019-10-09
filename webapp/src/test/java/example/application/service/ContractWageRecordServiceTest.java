@@ -5,9 +5,9 @@ import example.application.service.contract.ContractQueryService;
 import example.application.service.contract.ContractRecordService;
 import example.application.service.employee.EmployeeRecordService;
 import example.domain.model.contract.ContractWages;
+import example.domain.model.legislation.NightExtraRate;
 import example.domain.model.wage.HourlyWage;
 import example.domain.model.wage.WageCondition;
-import example.domain.model.legislation.MidnightExtraRate;
 import example.domain.model.legislation.OverTimeExtraRate;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.type.date.Date;
@@ -80,6 +80,6 @@ public class ContractWageRecordServiceTest {
     }
 
     private void updateHourlyWageContract(EmployeeNumber employeeNumber, Date applyDate, HourlyWage hourlyWage) {
-        sutRecord.registerHourlyWage(employeeNumber, applyDate, new WageCondition(hourlyWage, new OverTimeExtraRate(25), new MidnightExtraRate(35)));
+        sutRecord.registerHourlyWage(employeeNumber, applyDate, new WageCondition(hourlyWage, new OverTimeExtraRate(25), new NightExtraRate(35)));
     }
 }

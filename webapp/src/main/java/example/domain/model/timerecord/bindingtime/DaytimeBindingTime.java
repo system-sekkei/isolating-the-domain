@@ -9,8 +9,8 @@ public class DaytimeBindingTime {
 
     QuarterHour value;
 
-    public DaytimeBindingTime(BindingTime bindingTime, MidnightBindingTime midnightBindingTime) {
-        this.value = bindingTime.quarterHour().subtract(midnightBindingTime.quarterHour());
+    public DaytimeBindingTime(BindingTime bindingTime, NightBindingTime nightBindingTime) {
+        this.value = bindingTime.quarterHour().subtract(nightBindingTime.quarterHour());
     }
 
     public QuarterHour quarterHour() {

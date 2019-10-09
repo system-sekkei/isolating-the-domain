@@ -89,7 +89,7 @@ public class TimeRecordRegisterController {
                 "endHour",
                 "endMinute",
                 "daytimeBreakTime",
-                "midnightBreakTime"
+                "nightBreakTime"
         );
     }
 }

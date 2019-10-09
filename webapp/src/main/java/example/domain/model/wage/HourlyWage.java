@@ -1,7 +1,7 @@
 package example.domain.model.wage;
 
 import example.domain.model.legislation.ExtraPayRate;
-import example.domain.model.legislation.MidnightExtraRate;
+import example.domain.model.legislation.NightExtraRate;
 import example.domain.model.legislation.OverTimeExtraRate;
 import example.domain.type.amount.Amount;
 import example.domain.type.amount.RoundingMode;
@@ -47,8 +47,8 @@ public class HourlyWage {
         return new OverTimeHourlyExtraWage(withExtraPayRate(overTimeExtraRate.value()));
     }
 
-    public MidnightHourlyExtraWage midnightHourlyExtraWage(MidnightExtraRate midnightExtraRate) {
-        return new MidnightHourlyExtraWage(withExtraPayRate(midnightExtraRate.value()));
+    public NightHourlyExtraWage nightHourlyExtraWage(NightExtraRate nightExtraRate) {
+        return new NightHourlyExtraWage(withExtraPayRate(nightExtraRate.value()));
     }
 
     HourlyWage withExtraPayRate(ExtraPayRate extraPayRate) {

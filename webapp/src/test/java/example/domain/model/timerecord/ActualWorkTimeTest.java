@@ -1,7 +1,7 @@
 package example.domain.model.timerecord;
 
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
-import example.domain.model.timerecord.breaktime.MidnightBreakTime;
+import example.domain.model.timerecord.breaktime.NightBreakTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,7 +37,7 @@ class ActualWorkTimeTest {
         ActualWorkTime sut = new ActualWorkTime(
                 new TimeRange(new StartTime(begin), new EndTime(end)),
                 new DaytimeBreakTime(new Minute(breaks)),
-                new MidnightBreakTime(new Minute("0")));
+                new NightBreakTime(new Minute("0")));
         assertEquals(expected, sut.daytimeWorkTime().toString());
     }
 
@@ -47,12 +47,12 @@ class ActualWorkTimeTest {
             "18:00, 27:00, 60, 4時間0分",
             "8:00, 17:00, 0, 0時間0分"
     })
-    void midnightWorkTime(String begin, String end, int breaks, String expected) {
+    void nightWorkTime(String begin, String end, int breaks, String expected) {
         ActualWorkTime sut = new ActualWorkTime(
                 new TimeRange(new StartTime(begin), new EndTime(end)),
                 new DaytimeBreakTime(new Minute(0)),
-                new MidnightBreakTime(new Minute(breaks)));
-        assertEquals(expected, sut.midnightWorkTime().toString());
+                new NightBreakTime(new Minute(breaks)));
+        assertEquals(expected, sut.nightWorkTime().toString());
     }
 
     @DisplayName("時間外作業時間を正しく返却できること")
@@ -63,7 +63,7 @@ class ActualWorkTimeTest {
     void overWorkTime(String begin, String end, int breaks, String expected) {
         ActualWorkTime sut = new ActualWorkTime(
                 new TimeRange(new StartTime(begin), new EndTime(end)),
-                new DaytimeBreakTime(new Minute(breaks)), new MidnightBreakTime(new Minute("0")));
+                new DaytimeBreakTime(new Minute(breaks)), new NightBreakTime(new Minute("0")));
         assertEquals(expected, sut.overWorkTime().toString());
     }
 
@@ -73,11 +73,11 @@ class ActualWorkTimeTest {
         ActualWorkTime sut = new ActualWorkTime(
                 new TimeRange(new StartTime("8:00"), new EndTime("24:00")),
                 new DaytimeBreakTime(new Minute(120)),
-                new MidnightBreakTime(new Minute("30")));
+                new NightBreakTime(new Minute("30")));
         assertAll(
                 () -> assertEquals("12時間0分", sut.daytimeWorkTime().toString())
                 , () -> assertEquals("5時間30分", sut.overWorkTime().toString())
-                , () -> assertEquals("1時間30分", sut.midnightWorkTime().toString())
+                , () -> assertEquals("1時間30分", sut.nightWorkTime().toString())
         );
     }
 }

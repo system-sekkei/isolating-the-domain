@@ -15,7 +15,7 @@ import Pages.TimeRecord.TimeRecordForm as TimeRecordForm exposing (TimeRecordFor
 import Pages.TimeRecord.Types.DaytimeBreakMinute as DaytimeBreakMinute exposing (DaytimeBreakMinute(..))
 import Pages.TimeRecord.Types.EndHour as EndHour exposing (EndHour(..))
 import Pages.TimeRecord.Types.EndMinute as EndMinute exposing (EndMinute(..))
-import Pages.TimeRecord.Types.MidnightBreakMinute as MidnightBreakMinute exposing (MidnightBreakMinute(..))
+import Pages.TimeRecord.Types.NightBreakMinute as NightBreakMinute exposing (NightBreakMinute(..))
 import Pages.TimeRecord.Types.StartHour as StartHour exposing (StartHour(..))
 import Pages.TimeRecord.Types.StartMinute as StartMinute exposing (StartMinute(..))
 import Types.Employee.EmployeeName as EmployeeName exposing (EmployeeName(..))
@@ -227,9 +227,9 @@ timeRecordForm prepared editing error =
         , div [ class "field" ]
             [ label [ class "label" ] [ text "休憩時間（深夜）" ]
             , div [ class "control" ]
-                [ midnightBreakMinuteInput editing
+                [ nightBreakMinuteInput editing
                 ]
-            , midnightBreakMinuteInputErrorMessage editing
+            , nightBreakMinuteInputErrorMessage editing
             , breakTimeCapRuleErrorMessage editing
             ]
         , errorMessageArea error
@@ -419,24 +419,24 @@ daytimeBreakMinuteInputErrorMessage editing =
         |> fieldErrorMessage
 
 
-midnightBreakMinuteInput : TimeRecordForm -> Html Msg
-midnightBreakMinuteInput editing =
+nightBreakMinuteInput : TimeRecordForm -> Html Msg
+nightBreakMinuteInput editing =
     input
         [ type_ "number"
         , inputStyle
-            (MidnightBreakMinute.isValid editing.midnightBreakTime
+            (NightBreakMinute.isValid editing.nightBreakTime
                 && BreakTimeCapRule.isValid editing.breakTimeCapRule
             )
-        , value (editing.midnightBreakTime |> MidnightBreakMinute.toString)
-        , onInput (\str -> EditForm { editing | midnightBreakTime = DirtyMidnightBreakMinute str })
+        , value (editing.nightBreakTime |> NightBreakMinute.toString)
+        , onInput (\str -> EditForm { editing | nightBreakTime = DirtyNightBreakMinute str })
         ]
         []
 
 
-midnightBreakMinuteInputErrorMessage : TimeRecordForm -> Html msg
-midnightBreakMinuteInputErrorMessage editing =
-    editing.midnightBreakTime
-        |> MidnightBreakMinute.errorMessage
+nightBreakMinuteInputErrorMessage : TimeRecordForm -> Html msg
+nightBreakMinuteInputErrorMessage editing =
+    editing.nightBreakTime
+        |> NightBreakMinute.errorMessage
         |> fieldErrorMessage
 
 

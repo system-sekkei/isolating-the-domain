@@ -3,15 +3,15 @@ package example.domain.model.legislation;
 /**
  * 深夜割増率
  */
-public class MidnightExtraRate {
+public class NightExtraRate {
     ExtraPayRate value;
 
-    public MidnightExtraRate(Integer value) {
+    public NightExtraRate(Integer value) {
         this.value = new ExtraPayRate(value);
     }
 
-    public static MidnightExtraRate legal() {
-        return new MidnightExtraRate(35);
+    public static NightExtraRate legal() {
+        return new NightExtraRate(35);
     }
 
     public ExtraPayRate value() {

@@ -1,25 +1,25 @@
 package example.domain.model.timerecord.breaktime;
 
-import example.domain.model.timerecord.bindingtime.MidnightBindingTime;
+import example.domain.model.timerecord.bindingtime.NightBindingTime;
 import example.domain.type.time.Minute;
 import example.domain.type.time.QuarterHour;
 
 /**
  * 休憩時間（深夜）
  */
-public class MidnightBreakTime {
+public class NightBreakTime {
     Minute value;
 
     @Deprecated
-    MidnightBreakTime() {
+    NightBreakTime() {
     }
 
-    public MidnightBreakTime(Minute value) {
+    public NightBreakTime(Minute value) {
         this.value = value;
     }
 
-    public QuarterHour subtractFrom(MidnightBindingTime midnightBindingTime) {
-        return midnightBindingTime.quarterHour().subtract(value.quarterHourRoundUp());
+    public QuarterHour subtractFrom(NightBindingTime nightBindingTime) {
+        return nightBindingTime.quarterHour().subtract(value.quarterHourRoundUp());
     }
 
     public Minute minute() {

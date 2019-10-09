@@ -8,7 +8,7 @@ import Pages.TimeRecord.Rules.WorkTimeRangeRule as WorkingTimeRangeRule exposing
 import Pages.TimeRecord.Types.DaytimeBreakMinute as DaytimeBreakMinute exposing (DaytimeBreakMinute)
 import Pages.TimeRecord.Types.EndHour as EndHour exposing (EndHour)
 import Pages.TimeRecord.Types.EndMinute as EndMinute exposing (EndMinute)
-import Pages.TimeRecord.Types.MidnightBreakMinute as MidnightBreakMinute exposing (MidnightBreakMinute)
+import Pages.TimeRecord.Types.NightBreakMinute as NightBreakMinute exposing (NightBreakMinute)
 import Pages.TimeRecord.Types.StartHour as StartHour exposing (StartHour)
 import Pages.TimeRecord.Types.StartMinute as StartMinute exposing (StartMinute)
 import Types.Employee.EmployeeNumber as EmployeeNumber exposing (EmployeeNumber)
@@ -25,7 +25,7 @@ type alias TimeRecordForm =
     , endHour : EndHour
     , endMinute : EndMinute
     , daytimeBreakTime : DaytimeBreakMinute
-    , midnightBreakTime : MidnightBreakMinute
+    , nightBreakTime : NightBreakMinute
     }
 
 
@@ -39,7 +39,7 @@ decoder =
         |> Json.Decode.Pipeline.required "endHour" EndHour.decoder
         |> Json.Decode.Pipeline.required "endMinute" EndMinute.decoder
         |> Json.Decode.Pipeline.required "daytimeBreakTime" DaytimeBreakMinute.decoder
-        |> Json.Decode.Pipeline.required "midnightBreakTime" MidnightBreakMinute.decoder
+        |> Json.Decode.Pipeline.required "nightBreakTime" NightBreakMinute.decoder
 
 
 encode : TimeRecordForm -> Json.Encode.Value
@@ -52,7 +52,7 @@ encode form =
         , ( "endHour", EndHour.encode form.endHour )
         , ( "endMinute", EndMinute.encode form.endMinute )
         , ( "daytimeBreakTime", DaytimeBreakMinute.encode form.daytimeBreakTime )
-        , ( "midnightBreakTime", MidnightBreakMinute.encode form.midnightBreakTime )
+        , ( "nightBreakTime", NightBreakMinute.encode form.nightBreakTime )
         ]
 
 
@@ -70,7 +70,7 @@ validate form =
                 (EndHour.validate form.endHour)
                 (EndMinute.validate form.endMinute)
                 (DaytimeBreakMinute.validate form.daytimeBreakTime)
-                (MidnightBreakMinute.validate form.midnightBreakTime)
+                (NightBreakMinute.validate form.nightBreakTime)
 
         validatedWorkingTimeRangeRule =
             WorkingTimeRangeRule.validate
@@ -86,7 +86,7 @@ validate form =
                 singleFieldValidated.endHour
                 singleFieldValidated.endMinute
                 singleFieldValidated.daytimeBreakTime
-                singleFieldValidated.midnightBreakTime
+                singleFieldValidated.nightBreakTime
     in
     { singleFieldValidated
         | workTimeRangeRule = validatedWorkingTimeRangeRule
@@ -103,7 +103,7 @@ isInvalid form =
             && EndHour.isValid form.endHour
             && EndMinute.isValid form.endMinute
             && DaytimeBreakMinute.isValid form.daytimeBreakTime
-            && MidnightBreakMinute.isValid form.midnightBreakTime
+            && NightBreakMinute.isValid form.nightBreakTime
             && WorkingTimeRangeRule.isValid form.workTimeRangeRule
             && BreakTimeCapRule.isValid form.breakTimeCapRule
         )

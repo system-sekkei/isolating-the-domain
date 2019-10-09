@@ -123,14 +123,14 @@
         <div class="two fields">
           <div class="ui right labeled small input field">
             <input class="short-input" type="text" placeholder="15"
-                   th:field="*{midnightBreakTime}"
+                   th:field="*{nightBreakTime}"
             />
             <div class="ui basic label">分</div>
           </div>
         </div>
         <div class="ui pointing red basic label"
-             th:if="${#fields.hasErrors('midnightBreakTimeValid')}">
-          <span th:errors="*{midnightBreakTimeValid}">休憩時間（深夜）が不正です</span>
+             th:if="${#fields.hasErrors('nightBreakTimeValid')}">
+          <span th:errors="*{nightBreakTimeValid}">休憩時間（深夜）が不正です</span>
         </div>
       </div>
 

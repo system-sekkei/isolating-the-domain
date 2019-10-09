@@ -1,7 +1,7 @@
 package example.domain.model.payroll;
 
 import example.domain.model.wage.HourlyWage;
-import example.domain.model.timerecord.MidnightWorkTime;
+import example.domain.model.timerecord.NightWorkTime;
 import example.domain.model.timerecord.OverWorkTime;
 import example.domain.model.timerecord.WorkTime;
 import example.domain.type.time.QuarterHour;
@@ -14,8 +14,8 @@ import java.math.BigDecimal;
 public class PaymentWorkTime {
     QuarterHour value;
 
-    PaymentWorkTime(MidnightWorkTime midnightWorkTime) {
-        this(midnightWorkTime.quarterHour());
+    PaymentWorkTime(NightWorkTime nightWorkTime) {
+        this(nightWorkTime.quarterHour());
     }
 
     PaymentWorkTime(OverWorkTime overWorkTime) {

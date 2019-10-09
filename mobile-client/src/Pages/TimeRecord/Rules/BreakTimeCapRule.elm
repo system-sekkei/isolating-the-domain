@@ -3,7 +3,7 @@ module Pages.TimeRecord.Rules.BreakTimeCapRule exposing (BreakTimeCapRule(..), e
 import Pages.TimeRecord.Types.DaytimeBreakMinute as DaytimeBreakMinute exposing (DaytimeBreakMinute)
 import Pages.TimeRecord.Types.EndHour as EndHour exposing (EndHour)
 import Pages.TimeRecord.Types.EndMinute as EndMinute exposing (EndMinute)
-import Pages.TimeRecord.Types.MidnightBreakMinute as MidnightBreakMinute exposing (MidnightBreakMinute)
+import Pages.TimeRecord.Types.NightBreakMinute as NightBreakMinute exposing (NightBreakMinute)
 import Pages.TimeRecord.Types.StartHour as StartHour exposing (StartHour)
 import Pages.TimeRecord.Types.StartMinute as StartMinute exposing (StartMinute)
 import Types.Message as Message exposing (Message(..))
@@ -20,15 +20,15 @@ overCap =
     ErrorMessage "休憩時間の合計が勤務時間を超えています"
 
 
-validate : StartHour -> StartMinute -> EndHour -> EndMinute -> DaytimeBreakMinute -> MidnightBreakMinute -> BreakTimeCapRule
-validate startHour startMinute endHour endMinute daytimeBreakMinute midnightBreakMinute =
+validate : StartHour -> StartMinute -> EndHour -> EndMinute -> DaytimeBreakMinute -> NightBreakMinute -> BreakTimeCapRule
+validate startHour startMinute endHour endMinute daytimeBreakMinute nightBreakMinute =
     if
         not (StartHour.isValid startHour)
             || not (StartMinute.isValid startMinute)
             || not (EndHour.isValid endHour)
             || not (EndMinute.isValid endMinute)
             || not (DaytimeBreakMinute.isValid daytimeBreakMinute)
-            || not (MidnightBreakMinute.isValid midnightBreakMinute)
+            || not (NightBreakMinute.isValid nightBreakMinute)
     then
         ValidBreakTimeCapRule
 
@@ -49,7 +49,7 @@ validate startHour startMinute endHour endMinute daytimeBreakMinute midnightBrea
 
             totalBreakTimeMinute =
                 DaytimeBreakMinute.toInt daytimeBreakMinute
-                    + MidnightBreakMinute.toInt midnightBreakMinute
+                    + NightBreakMinute.toInt nightBreakMinute
         in
         if totalBreakTimeMinute >= totalWorkMinute then
             InvalidBreakTimeCapRule overCap

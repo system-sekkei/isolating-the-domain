@@ -1,63 +1,63 @@
-module Pages.TimeRecord.Types.MidnightBreakMinute exposing (MidnightBreakMinute(..), decoder, encode, errorMessage, isValid, toInt, toString, validate)
+module Pages.TimeRecord.Types.NightBreakMinute exposing (NightBreakMinute(..), decoder, encode, errorMessage, isValid, toInt, toString, validate)
 
 import Json.Decode exposing (Decoder, andThen, string, succeed)
 import Json.Encode
 import Types.Message as Message exposing (Message(..))
 
 
-type MidnightBreakMinute
-    = EmptyMidnightBreakMinute
-    | MidnightBreakMinute Int
-    | DirtyMidnightBreakMinute String
-    | InvalidMidnightBreakMinute Message String
+type NightBreakMinute
+    = EmptyNightBreakMinute
+    | NightBreakMinute Int
+    | DirtyNightBreakMinute String
+    | InvalidNightBreakMinute Message String
 
 
-parse : String -> MidnightBreakMinute
+parse : String -> NightBreakMinute
 parse string =
     String.toInt string
-        |> Maybe.map MidnightBreakMinute
-        |> Maybe.withDefault EmptyMidnightBreakMinute
+        |> Maybe.map NightBreakMinute
+        |> Maybe.withDefault EmptyNightBreakMinute
 
 
-decoder : Decoder MidnightBreakMinute
+decoder : Decoder NightBreakMinute
 decoder =
     string |> andThen (\str -> succeed (parse str))
 
 
-encode : MidnightBreakMinute -> Json.Encode.Value
-encode midnightBreakMinute =
-    Json.Encode.string (toString midnightBreakMinute)
+encode : NightBreakMinute -> Json.Encode.Value
+encode nightBreakMinute =
+    Json.Encode.string (toString nightBreakMinute)
 
 
-toString : MidnightBreakMinute -> String
+toString : NightBreakMinute -> String
 toString breakTime =
     case breakTime of
-        MidnightBreakMinute value ->
+        NightBreakMinute value ->
             String.fromInt value
 
-        DirtyMidnightBreakMinute value ->
+        DirtyNightBreakMinute value ->
             value
 
-        InvalidMidnightBreakMinute _ value ->
+        InvalidNightBreakMinute _ value ->
             value
 
-        EmptyMidnightBreakMinute ->
+        EmptyNightBreakMinute ->
             ""
 
 
-toInt : MidnightBreakMinute -> Int
+toInt : NightBreakMinute -> Int
 toInt breakTime =
     case breakTime of
-        MidnightBreakMinute value ->
+        NightBreakMinute value ->
             value
 
-        DirtyMidnightBreakMinute value ->
+        DirtyNightBreakMinute value ->
             parse value |> toInt
 
-        InvalidMidnightBreakMinute _ value ->
+        InvalidNightBreakMinute _ value ->
             parse value |> toInt
 
-        EmptyMidnightBreakMinute ->
+        EmptyNightBreakMinute ->
             0
 
 
@@ -66,42 +66,42 @@ typeMismatch =
     ErrorMessage "休憩時間（深夜）は数値（分単位）で入力してください"
 
 
-validate : MidnightBreakMinute -> MidnightBreakMinute
+validate : NightBreakMinute -> NightBreakMinute
 validate breakTime =
     case breakTime of
-        DirtyMidnightBreakMinute value ->
+        DirtyNightBreakMinute value ->
             case String.toInt value of
                 Just intVal ->
-                    MidnightBreakMinute intVal
+                    NightBreakMinute intVal
 
                 Nothing ->
                     if value == "" then
-                        MidnightBreakMinute 0
+                        NightBreakMinute 0
 
                     else
-                        InvalidMidnightBreakMinute typeMismatch value
+                        InvalidNightBreakMinute typeMismatch value
 
-        EmptyMidnightBreakMinute ->
-            MidnightBreakMinute 0
+        EmptyNightBreakMinute ->
+            NightBreakMinute 0
 
         _ ->
             breakTime
 
 
-isValid : MidnightBreakMinute -> Bool
+isValid : NightBreakMinute -> Bool
 isValid breakMinute =
     case breakMinute of
-        MidnightBreakMinute _ ->
+        NightBreakMinute _ ->
             True
 
         _ ->
             False
 
 
-errorMessage : MidnightBreakMinute -> Message
-errorMessage midnightBreakMinute =
-    case midnightBreakMinute of
-        InvalidMidnightBreakMinute message _ ->
+errorMessage : NightBreakMinute -> Message
+errorMessage nightBreakMinute =
+    case nightBreakMinute of
+        InvalidNightBreakMinute message _ ->
             message
 
         _ ->

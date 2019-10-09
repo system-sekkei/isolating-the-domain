@@ -10,8 +10,8 @@ public class BreakTime {
 
     Minute value;
 
-    public BreakTime(DaytimeBreakTime daytimeBreakTime, MidnightBreakTime midnightBreakTime) {
-        value = daytimeBreakTime.minute().add(midnightBreakTime.minute());
+    public BreakTime(DaytimeBreakTime daytimeBreakTime, NightBreakTime nightBreakTime) {
+        value = daytimeBreakTime.minute().add(nightBreakTime.minute());
     }
 
     @Override

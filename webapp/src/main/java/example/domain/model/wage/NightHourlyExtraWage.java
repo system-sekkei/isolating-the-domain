@@ -3,10 +3,10 @@ package example.domain.model.wage;
 /**
  * 深夜時給割増額
  */
-public class MidnightHourlyExtraWage {
+public class NightHourlyExtraWage {
     HourlyWage value;
 
-    public MidnightHourlyExtraWage(HourlyWage value) {
+    public NightHourlyExtraWage(HourlyWage value) {
         this.value = value;
     }
 

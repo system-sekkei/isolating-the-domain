@@ -1,5 +1,6 @@
 package example.domain.model.payroll;
 
+import example.domain.model.timerecord.breaktime.NightBreakTime;
 import example.domain.model.wage.HourlyWage;
 import example.domain.model.wage.WageCondition;
 import example.domain.model.timerecord.ActualWorkTime;
@@ -7,7 +8,6 @@ import example.domain.model.timerecord.EndTime;
 import example.domain.model.timerecord.StartTime;
 import example.domain.model.timerecord.TimeRange;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
-import example.domain.model.timerecord.breaktime.MidnightBreakTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -34,11 +34,11 @@ class PaymentAmountTest {
             // 通常17時間＋深夜7時間（超過16時間）
             "0:00, 24:00, 0, 0, 1000, 30450"
     })
-    void wage(String begin, String end, int breakMinute, int midnightBreakMinute, int hourlyWage, int expected) {
+    void wage(String begin, String end, int breakMinute, int nightBreakMinute, int hourlyWage, int expected) {
         ActualWorkTime actualWorkTime = new ActualWorkTime(
                 new TimeRange(new StartTime(begin), new EndTime(end)),
                 new DaytimeBreakTime(new Minute(breakMinute)),
-                new MidnightBreakTime(new Minute(midnightBreakMinute)));
+                new NightBreakTime(new Minute(nightBreakMinute)));
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));
 
         PaymentAmount paymentAmount = new PaymentAmount(actualWorkTime, wageCondition);

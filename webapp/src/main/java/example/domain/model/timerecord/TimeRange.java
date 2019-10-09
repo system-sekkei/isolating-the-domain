@@ -2,7 +2,7 @@ package example.domain.model.timerecord;
 
 import example.domain.model.timerecord.bindingtime.BindingTime;
 import example.domain.model.timerecord.bindingtime.DaytimeBindingTime;
-import example.domain.model.timerecord.bindingtime.MidnightBindingTime;
+import example.domain.model.timerecord.bindingtime.NightBindingTime;
 import example.domain.type.time.QuarterRoundClockTimeRange;
 
 /**
@@ -39,10 +39,10 @@ public class TimeRange {
     }
 
     public DaytimeBindingTime daytimeBindingTime() {
-        return new DaytimeBindingTime(bindingTime(), midnightBindingTime());
+        return new DaytimeBindingTime(bindingTime(), nightBindingTime());
     }
 
-    public MidnightBindingTime midnightBindingTime() {
-        return new MidnightBindingTime(quarterRoundClockTimeRange());
+    public NightBindingTime nightBindingTime() {
+        return new NightBindingTime(quarterRoundClockTimeRange());
     }
 }

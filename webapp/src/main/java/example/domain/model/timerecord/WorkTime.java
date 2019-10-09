@@ -9,8 +9,8 @@ public class WorkTime {
 
     QuarterHour value;
 
-    public WorkTime(DaytimeWorkTime daytimeWorkTime, MidnightWorkTime midnightWorkTime) {
-        this.value = daytimeWorkTime.quarterHour().add(midnightWorkTime.quarterHour());
+    public WorkTime(DaytimeWorkTime daytimeWorkTime, NightWorkTime nightWorkTime) {
+        this.value = daytimeWorkTime.quarterHour().add(nightWorkTime.quarterHour());
     }
 
     public QuarterHour quarterHour() {

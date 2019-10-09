@@ -7,14 +7,14 @@ import example.application.coordinator.payroll.PayrollQueryCoordinator;
 import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordRecordService;
 import example.domain.model.attendance.WorkMonth;
+import example.domain.model.timerecord.breaktime.NightBreakTime;
 import example.domain.model.wage.HourlyWage;
 import example.domain.model.wage.WageCondition;
-import example.domain.model.legislation.MidnightExtraRate;
+import example.domain.model.legislation.NightExtraRate;
 import example.domain.model.legislation.OverTimeExtraRate;
 import example.domain.model.payroll.Payroll;
 import example.domain.model.timerecord.*;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
-import example.domain.model.timerecord.breaktime.MidnightBreakTime;
 import example.domain.model.employee.*;
 import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
@@ -59,12 +59,12 @@ class PayrollQueryCoordinatorTest {
         }
 
         {
-            WageCondition wageCondition = new WageCondition(new HourlyWage(1000), OverTimeExtraRate.legal(), MidnightExtraRate.legal());
+            WageCondition wageCondition = new WageCondition(new HourlyWage(1000), OverTimeExtraRate.legal(), NightExtraRate.legal());
             contractRecordService.registerHourlyWage(employeeNumber, new Date("2018-11-20"), wageCondition);
 
             TimeRecord timeRecord = new TimeRecord(
                     employeeNumber, new WorkDate(new Date("2018-11-20")),
-                    new ActualWorkTime(new TimeRange(new StartTime(new ClockTime("09:00")), new EndTime(new ClockTime("10:00"))), new DaytimeBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
+                    new ActualWorkTime(new TimeRange(new StartTime(new ClockTime("09:00")), new EndTime(new ClockTime("10:00"))), new DaytimeBreakTime(new Minute("0")), new NightBreakTime(new Minute("0")))
             );
             timeRecordRecordService.registerTimeRecord(timeRecord);
 
@@ -75,7 +75,7 @@ class PayrollQueryCoordinatorTest {
         {
             TimeRecord timeRecord = new TimeRecord(
                     employeeNumber, new WorkDate(new Date("2018-11-25")),
-                    new ActualWorkTime(new TimeRange(new StartTime(new ClockTime("22:00")), new EndTime(new ClockTime("23:00"))), new DaytimeBreakTime(new Minute("0")), new MidnightBreakTime(new Minute("0")))
+                    new ActualWorkTime(new TimeRange(new StartTime(new ClockTime("22:00")), new EndTime(new ClockTime("23:00"))), new DaytimeBreakTime(new Minute("0")), new NightBreakTime(new Minute("0")))
             );
             timeRecordRecordService.registerTimeRecord(timeRecord);
 
@@ -84,7 +84,7 @@ class PayrollQueryCoordinatorTest {
         }
 
         {
-            WageCondition wageCondition = new WageCondition(new HourlyWage(2000), OverTimeExtraRate.legal(), MidnightExtraRate.legal());
+            WageCondition wageCondition = new WageCondition(new HourlyWage(2000), OverTimeExtraRate.legal(), NightExtraRate.legal());
             contractRecordService.registerHourlyWage(employeeNumber, new Date("2018-11-25"), wageCondition);
 
             Payroll payroll = sut.payroll(employee, new WorkMonth("2018-11"));
