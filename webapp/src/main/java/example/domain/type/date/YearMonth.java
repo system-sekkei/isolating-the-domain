@@ -33,8 +33,8 @@ public class YearMonth {
         }
     }
 
-    public YearMonth(java.time.YearMonth month) {
-        value = month;
+    public YearMonth(java.time.YearMonth value) {
+        this.value = value;
     }
 
     public Year year() {
