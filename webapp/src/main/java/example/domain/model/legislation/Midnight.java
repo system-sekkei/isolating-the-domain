@@ -9,17 +9,17 @@ import example.domain.type.time.Minute;
  */
 public class Midnight {
 
-    ClockTime midnightFinishTime;
     ClockTime midnightStartTime;
+    ClockTime midnightFinishTime;
 
-    public Midnight(ClockTime midnightFinishTime, ClockTime midnightStartTime) {
-        this.midnightFinishTime = midnightFinishTime;
+    public Midnight(ClockTime midnightStartTime, ClockTime midnightFinishTime) {
         this.midnightStartTime = midnightStartTime;
+        this.midnightFinishTime = midnightFinishTime;
     }
 
     public static Midnight legal() {
         // 第三十七条第四項で定められている深夜
-        return new Midnight(new ClockTime("05:00"), new ClockTime("22:00"));
+        return new Midnight(new ClockTime("22:00"), new ClockTime("05:00"));
     }
 
     public Minute midnightMinute(ClockTimeRange range) {
