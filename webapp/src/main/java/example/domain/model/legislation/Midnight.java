@@ -23,11 +23,10 @@ public class Midnight {
     }
 
     public Minute midnightMinute(ClockTimeRange range) {
-        return calculate1(range).add(calculate2(range));
+        return startTimeToMidnightMinute(range).add(midnightToFinishTimeMinute(range));
     }
 
-    private Minute calculate1(ClockTimeRange range) {
-        // 深夜開始から24時までの分を計算
+    private Minute startTimeToMidnightMinute(ClockTimeRange range) {
         if (range.end().isBefore(midnightStartTime)) {
             return new Minute(0);
         }
@@ -38,8 +37,7 @@ public class Midnight {
         return new ClockTimeRange(range.begin(), range.end()).between();
     }
 
-    private Minute calculate2(ClockTimeRange range) {
-        // 0時から深夜終了までの分を計算
+    private Minute midnightToFinishTimeMinute(ClockTimeRange range) {
         if (range.begin().isAfter(midnightFinishTime)) {
             return new Minute(0);
         }
