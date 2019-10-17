@@ -51,9 +51,9 @@ class TimeRecordRecordServiceTest {
         int month = 10;
         int day = 20;
         WorkDate workDate = new WorkDate(new Date(LocalDate.of(year, month, day)));
-        ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(new WorkRange(new StartTime(new ClockTime("9:00")), new EndTime(new ClockTime("24:00"))), new DaytimeBreakTime(new Minute(60)), new NightBreakTime(new Minute("0")));
+        ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(new WorkRange(workDate, new StartTime(new ClockTime("9:00")), new EndTime(new ClockTime("24:00"))), new DaytimeBreakTime(new Minute(60)), new NightBreakTime(new Minute("0")));
 
-        TimeRecord expectTimeRecord = new TimeRecord(employeeNumber, workDate, actualWorkDateTime);
+        TimeRecord expectTimeRecord = new TimeRecord(employeeNumber, actualWorkDateTime);
         timeRecordRecordService.registerTimeRecord(expectTimeRecord);
 
         Attendance attendance = attendanceQueryService.findAttendance(employeeNumber, new WorkMonth(year, month));

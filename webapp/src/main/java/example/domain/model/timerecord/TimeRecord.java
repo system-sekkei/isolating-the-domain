@@ -15,8 +15,7 @@ public class TimeRecord {
     TimeRecord() {
     }
 
-    // TODO: あとで workDate を消す
-    public TimeRecord(EmployeeNumber employeeNumber, WorkDate workDate, ActualWorkDateTime actualWorkDateTime) {
+    public TimeRecord(EmployeeNumber employeeNumber, ActualWorkDateTime actualWorkDateTime) {
         this.employeeNumber = employeeNumber;
         this.actualWorkDateTime = actualWorkDateTime;
     }

@@ -20,9 +20,10 @@ public class WorkRange {
     WorkRange() {
     }
 
-    // TODO: あとでStartDateとEndDateを追加
-    public WorkRange(StartTime startTime, EndTime endTime) {
+    public WorkRange(WorkDate workDate, StartTime startTime, EndTime endTime) {
+        this.startDate = new StartDate(workDate);
         this.startTime = startTime;
+        this.endDate = new EndDate(workDate, endTime);
         this.endTime = endTime;
     }
 
