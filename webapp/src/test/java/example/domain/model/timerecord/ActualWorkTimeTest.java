@@ -33,6 +33,9 @@ class ActualWorkTimeTest {
             // 組み合わせ
             "9:16, 18:00, 76, 7時間0分",
             "9:01, 18:01, 59, 7時間45分",
+            // 同じ時間は1日
+            "0:00, 24:00, 60, 16時間0分",
+            "9:00, 33:00, 60, 16時間0分",
     })
     void workTime(String begin, String end, int breaks, String expected) {
         ActualWorkDateTime sut = new ActualWorkDateTime(
@@ -49,6 +52,7 @@ class ActualWorkTimeTest {
             "22:00, 23:00, 0, 1時間0分",
             "18:00, 27:00, 60, 4時間0分",
             "8:00, 17:00, 0, 0時間0分",
+            "0:00, 24:00, 0, 7時間0分",
     })
     void nightWorkTime(String begin, String end, int breaks, String expected) {
         ActualWorkDateTime sut = new ActualWorkDateTime(

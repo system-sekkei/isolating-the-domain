@@ -19,7 +19,14 @@ public class ClockTimeRange {
         return begin.isAfter(end);
     }
 
+    public boolean wholeDay() {
+        return begin.sameTime(end);
+    }
+
     public Minute minute() {
+        if (wholeDay()) {
+            return new Minute((int) Duration.ofDays(1).toMinutes());
+        }
         Minute minute = begin.betweenMinute(end);
         if (across2days()) {
             return minute.add(new Minute((int) Duration.ofDays(1).toMinutes()));

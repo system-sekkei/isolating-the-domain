@@ -75,4 +75,8 @@ public class ClockTime {
         Duration duration = Duration.between(this.value, other.value);
         return new Minute((int) duration.toMinutes());
     }
+
+    public boolean sameTime(ClockTime other) {
+        return this.value.equals(other.value);
+    }
 }
