@@ -31,10 +31,10 @@ public class Night {
             return new Minute(0);
         }
         if (range.begin().isBefore(nightStartTime)) {
-            return new ClockTimeRange(nightStartTime, range.end()).between();
+            return new ClockTimeRange(nightStartTime, range.end()).minute();
         }
         // 開始終了とも深夜
-        return new ClockTimeRange(range.begin(), range.end()).between();
+        return new ClockTimeRange(range.begin(), range.end()).minute();
     }
 
     private Minute midnightToFinishTimeMinute(ClockTimeRange range) {
@@ -42,9 +42,9 @@ public class Night {
             return new Minute(0);
         }
         if (range.end().isAfter(nightFinishTime)) {
-            return new ClockTimeRange(range.begin(), nightFinishTime).between();
+            return new ClockTimeRange(range.begin(), nightFinishTime).minute();
         }
         // 開始終了とも深夜（早朝）
-        return new ClockTimeRange(range.begin(), range.end()).between();
+        return new ClockTimeRange(range.begin(), range.end()).minute();
     }
 }
