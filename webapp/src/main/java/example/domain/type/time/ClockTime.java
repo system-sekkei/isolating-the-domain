@@ -1,6 +1,8 @@
 package example.domain.type.time;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 /**
  * 時刻を時分単位で表す
@@ -14,10 +16,7 @@ public class ClockTime {
     }
 
     public ClockTime(String value) {
-        if (!value.matches("\\d{1,2}:\\d{2}(:\\d{2})?")) throw new IllegalArgumentException(value);
-        String[] split = value.split(":");
-        // TODO: これでちゃんとパースできるかあとで確認
-        this.value = LocalTime.parse(String.format("%d:%02d", Integer.valueOf(split[0]), Integer.valueOf(split[1])));
+        this.value = LocalTime.parse(value, DateTimeFormatter.ofPattern("H:mm").withResolverStyle(ResolverStyle.LENIENT));
     }
 
     public ClockTime(Integer hour, Integer minute) {
