@@ -1,11 +1,13 @@
 package example.domain.type.time;
 
+import java.time.LocalTime;
+
 /**
  * 時刻を時分単位で表す
  */
 public class ClockTime {
 
-    String value;
+    LocalTime value;
 
     @Deprecated
     ClockTime() {
@@ -14,11 +16,12 @@ public class ClockTime {
     public ClockTime(String value) {
         if (!value.matches("\\d{1,2}:\\d{2}(:\\d{2})?")) throw new IllegalArgumentException(value);
         String[] split = value.split(":");
-        this.value = String.format("%d:%02d", Integer.valueOf(split[0]), Integer.valueOf(split[1]));
+        // TODO: これでちゃんとパースできるかあとで確認
+        this.value = LocalTime.parse(String.format("%d:%02d", Integer.valueOf(split[0]), Integer.valueOf(split[1])));
     }
 
     public ClockTime(Integer hour, Integer minute) {
-        this.value = String.format("%d:%02d", hour, minute);
+        this.value = LocalTime.of(hour, minute);
     }
 
     public ClockTime(Hour hour, Minute minute) {
@@ -27,7 +30,7 @@ public class ClockTime {
 
     @Override
     public String toString() {
-        return value;
+        return String.format("%d:%02d", this.value.getHour(), this.value.getMinute());
     }
 
     public QuarterRoundClockTime quarterRoundDown() {
@@ -53,11 +56,11 @@ public class ClockTime {
     }
 
     public Hour hour() {
-        return new Hour(Integer.valueOf(value.split(":")[0]));
+        return new Hour(this.value.getHour());
     }
 
     public Minute minute() {
-        return new Minute(Integer.valueOf(value.split(":")[1]));
+        return new Minute(this.value.getMinute());
     }
 
     public Minute betweenMinute(ClockTime other) {
