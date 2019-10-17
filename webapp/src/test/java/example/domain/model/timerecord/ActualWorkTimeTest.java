@@ -35,7 +35,7 @@ class ActualWorkTimeTest {
     })
     void workTime(String begin, String end, int breaks, String expected) {
         ActualWorkTime sut = new ActualWorkTime(
-                new TimeRange(new StartTime(begin), new EndTime(end)),
+                new WorkRange(new StartTime(begin), new EndTime(end)),
                 new DaytimeBreakTime(new Minute(breaks)),
                 new NightBreakTime(new Minute("0")));
         assertEquals(expected, sut.daytimeWorkTime().toString());
@@ -49,7 +49,7 @@ class ActualWorkTimeTest {
     })
     void nightWorkTime(String begin, String end, int breaks, String expected) {
         ActualWorkTime sut = new ActualWorkTime(
-                new TimeRange(new StartTime(begin), new EndTime(end)),
+                new WorkRange(new StartTime(begin), new EndTime(end)),
                 new DaytimeBreakTime(new Minute(0)),
                 new NightBreakTime(new Minute(breaks)));
         assertEquals(expected, sut.nightWorkTime().toString());
@@ -62,7 +62,7 @@ class ActualWorkTimeTest {
             "09:00, 22:00, 60, 4時間0分"})
     void overWorkTime(String begin, String end, int breaks, String expected) {
         ActualWorkTime sut = new ActualWorkTime(
-                new TimeRange(new StartTime(begin), new EndTime(end)),
+                new WorkRange(new StartTime(begin), new EndTime(end)),
                 new DaytimeBreakTime(new Minute(breaks)), new NightBreakTime(new Minute("0")));
         assertEquals(expected, sut.overWorkTime().toString());
     }
@@ -71,7 +71,7 @@ class ActualWorkTimeTest {
     @Test
     void 時間の仕様() {
         ActualWorkTime sut = new ActualWorkTime(
-                new TimeRange(new StartTime("8:00"), new EndTime("24:00")),
+                new WorkRange(new StartTime("8:00"), new EndTime("24:00")),
                 new DaytimeBreakTime(new Minute(120)),
                 new NightBreakTime(new Minute("30")));
         assertAll(

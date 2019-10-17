@@ -8,19 +8,26 @@ import example.domain.type.time.QuarterRoundClockTimeRange;
 /**
  * 勤務の開始と終了
  */
-public class TimeRange {
+public class WorkRange {
 
+    // TODO: StartDateTimeとEndDateTimeをつくるべきかどうかかんがえる
+    StartDate startDate;
     StartTime startTime;
+    EndDate endDate;
     EndTime endTime;
 
     @Deprecated
-    TimeRange() {
+    WorkRange() {
     }
 
-    public TimeRange(StartTime startTime, EndTime endTime) {
+    // TODO: あとでStartDateとEndDateを追加
+    public WorkRange(StartTime startTime, EndTime endTime) {
         this.startTime = startTime;
         this.endTime = endTime;
     }
+
+    // TODO: 2暦日にわたるかどうかの判断ロジック
+    // TODO: 就業日を返すメソッド実装
 
     QuarterRoundClockTimeRange quarterRoundClockTimeRange() {
         return new QuarterRoundClockTimeRange(startTime.normalizedClockTime(), endTime.normalizedClockTime());

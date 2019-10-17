@@ -1,12 +1,12 @@
 package example.domain.model.payroll;
 
+import example.domain.model.timerecord.WorkRange;
 import example.domain.model.timerecord.breaktime.NightBreakTime;
 import example.domain.model.wage.HourlyWage;
 import example.domain.model.wage.WageCondition;
 import example.domain.model.timerecord.ActualWorkTime;
 import example.domain.model.timerecord.EndTime;
 import example.domain.model.timerecord.StartTime;
-import example.domain.model.timerecord.TimeRange;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.DisplayName;
@@ -36,7 +36,7 @@ class PaymentAmountTest {
     })
     void wage(String begin, String end, int breakMinute, int nightBreakMinute, int hourlyWage, int expected) {
         ActualWorkTime actualWorkTime = new ActualWorkTime(
-                new TimeRange(new StartTime(begin), new EndTime(end)),
+                new WorkRange(new StartTime(begin), new EndTime(end)),
                 new DaytimeBreakTime(new Minute(breakMinute)),
                 new NightBreakTime(new Minute(nightBreakMinute)));
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));
