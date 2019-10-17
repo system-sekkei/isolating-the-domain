@@ -11,24 +11,24 @@ public class TimeRecord {
     EmployeeNumber employeeNumber;
     // TODO:これはactualWorkTimeから返すようにすること
     WorkDate workDate;
-    ActualWorkTime actualWorkTime;
+    ActualWorkDateTime actualWorkDateTime;
 
     @Deprecated
     TimeRecord() {
     }
 
-    public TimeRecord(EmployeeNumber employeeNumber, WorkDate workDate, ActualWorkTime actualWorkTime) {
+    public TimeRecord(EmployeeNumber employeeNumber, WorkDate workDate, ActualWorkDateTime actualWorkDateTime) {
         this.employeeNumber = employeeNumber;
         this.workDate = workDate;
-        this.actualWorkTime = actualWorkTime;
+        this.actualWorkDateTime = actualWorkDateTime;
     }
 
     public WorkDate workDate() {
         return workDate;
     }
 
-    public ActualWorkTime actualWorkTime() {
-        return actualWorkTime;
+    public ActualWorkDateTime actualWorkTime() {
+        return actualWorkDateTime;
     }
 
     public EmployeeNumber employeeNumber() {

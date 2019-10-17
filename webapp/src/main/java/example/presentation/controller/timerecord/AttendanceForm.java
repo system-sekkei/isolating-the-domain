@@ -40,11 +40,11 @@ public class AttendanceForm {
         ClockTime endTime = new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
         Minute minute = new Minute(daytimeBreakTime);
         Minute nightMinute = new Minute(nightBreakTime);
-        ActualWorkTime actualWorkTime = new ActualWorkTime(
+        ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
                 new WorkRange(new StartTime(startTime), new EndTime(endTime)),
                 new DaytimeBreakTime(minute),
                 new NightBreakTime(nightMinute));
-        return new TimeRecord(employeeNumber, workDate, actualWorkTime);
+        return new TimeRecord(employeeNumber, workDate, actualWorkDateTime);
     }
 
     public void apply(TimeRecord timeRecord) {

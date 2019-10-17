@@ -4,7 +4,7 @@ import example.domain.model.timerecord.WorkRange;
 import example.domain.model.timerecord.breaktime.NightBreakTime;
 import example.domain.model.wage.HourlyWage;
 import example.domain.model.wage.WageCondition;
-import example.domain.model.timerecord.ActualWorkTime;
+import example.domain.model.timerecord.ActualWorkDateTime;
 import example.domain.model.timerecord.EndTime;
 import example.domain.model.timerecord.StartTime;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
@@ -35,13 +35,13 @@ class PaymentAmountTest {
             "0:00, 24:00, 0, 0, 1000, 30450"
     })
     void wage(String begin, String end, int breakMinute, int nightBreakMinute, int hourlyWage, int expected) {
-        ActualWorkTime actualWorkTime = new ActualWorkTime(
+        ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
                 new WorkRange(new StartTime(begin), new EndTime(end)),
                 new DaytimeBreakTime(new Minute(breakMinute)),
                 new NightBreakTime(new Minute(nightBreakMinute)));
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));
 
-        PaymentAmount paymentAmount = new PaymentAmount(actualWorkTime, wageCondition);
+        PaymentAmount paymentAmount = new PaymentAmount(actualWorkDateTime, wageCondition);
 
         assertEquals(expected, paymentAmount.value.value().intValue());
     }

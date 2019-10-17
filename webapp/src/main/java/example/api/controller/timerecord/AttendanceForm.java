@@ -54,11 +54,11 @@ class AttendanceForm {
         ClockTime endTime = new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
         Minute daytimeBreakMinute = new Minute(daytimeBreakTime);
         Minute nightBreakTime = new Minute(this.nightBreakTime);
-        ActualWorkTime actualWorkTime = new ActualWorkTime(
+        ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
                 new WorkRange(new StartTime(startTime), new EndTime(endTime)),
                 new DaytimeBreakTime(daytimeBreakMinute),
                 new NightBreakTime(nightBreakTime));
-        return new TimeRecord(employeeNumber, workDate, actualWorkTime);
+        return new TimeRecord(employeeNumber, workDate, actualWorkDateTime);
     }
 
     @AssertTrue(message = "勤務日を入力してください")

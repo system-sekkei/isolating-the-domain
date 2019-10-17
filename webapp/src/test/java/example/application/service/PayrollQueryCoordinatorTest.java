@@ -64,7 +64,7 @@ class PayrollQueryCoordinatorTest {
 
             TimeRecord timeRecord = new TimeRecord(
                     employeeNumber, new WorkDate(new Date("2018-11-20")),
-                    new ActualWorkTime(new WorkRange(new StartTime(new ClockTime("09:00")), new EndTime(new ClockTime("10:00"))), new DaytimeBreakTime(new Minute("0")), new NightBreakTime(new Minute("0")))
+                    new ActualWorkDateTime(new WorkRange(new StartTime(new ClockTime("09:00")), new EndTime(new ClockTime("10:00"))), new DaytimeBreakTime(new Minute("0")), new NightBreakTime(new Minute("0")))
             );
             timeRecordRecordService.registerTimeRecord(timeRecord);
 
@@ -75,7 +75,7 @@ class PayrollQueryCoordinatorTest {
         {
             TimeRecord timeRecord = new TimeRecord(
                     employeeNumber, new WorkDate(new Date("2018-11-25")),
-                    new ActualWorkTime(new WorkRange(new StartTime(new ClockTime("22:00")), new EndTime(new ClockTime("23:00"))), new DaytimeBreakTime(new Minute("0")), new NightBreakTime(new Minute("0")))
+                    new ActualWorkDateTime(new WorkRange(new StartTime(new ClockTime("22:00")), new EndTime(new ClockTime("23:00"))), new DaytimeBreakTime(new Minute("0")), new NightBreakTime(new Minute("0")))
             );
             timeRecordRecordService.registerTimeRecord(timeRecord);
 
