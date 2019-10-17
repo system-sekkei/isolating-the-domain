@@ -9,7 +9,7 @@ import example.domain.model.timerecord.breaktime.NightBreakTime;
  */
 public class ActualWorkTime {
 
-    TimeRange timeRange;
+    WorkRange workRange;
     DaytimeBreakTime daytimeBreakTime;
     NightBreakTime nightBreakTime;
 
@@ -17,14 +17,14 @@ public class ActualWorkTime {
     public ActualWorkTime() {
     }
 
-    public ActualWorkTime(TimeRange timeRange, DaytimeBreakTime daytimeBreakTime, NightBreakTime nightBreakTime) {
-        this.timeRange = timeRange;
+    public ActualWorkTime(WorkRange workRange, DaytimeBreakTime daytimeBreakTime, NightBreakTime nightBreakTime) {
+        this.workRange = workRange;
         this.daytimeBreakTime = daytimeBreakTime;
         this.nightBreakTime = nightBreakTime;
     }
 
-    public TimeRange timeRange() {
-        return timeRange;
+    public WorkRange workRange() {
+        return workRange;
     }
 
     public DaytimeBreakTime daytimeBreakTime() {
@@ -44,11 +44,11 @@ public class ActualWorkTime {
     }
 
     public DaytimeWorkTime daytimeWorkTime() {
-        return new DaytimeWorkTime(timeRange, daytimeBreakTime);
+        return new DaytimeWorkTime(workRange, daytimeBreakTime);
     }
 
     public NightWorkTime nightWorkTime() {
-        return new NightWorkTime(timeRange, nightBreakTime);
+        return new NightWorkTime(workRange, nightBreakTime);
     }
 
     public OverWorkTime overWorkTime() {

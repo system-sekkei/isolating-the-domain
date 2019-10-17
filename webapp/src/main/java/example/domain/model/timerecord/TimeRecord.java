@@ -9,6 +9,7 @@ import example.domain.type.date.Date;
 public class TimeRecord {
 
     EmployeeNumber employeeNumber;
+    // TODO:これはactualWorkTimeから返すようにすること
     WorkDate workDate;
     ActualWorkTime actualWorkTime;
 
