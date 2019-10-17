@@ -5,19 +5,20 @@ import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
 import example.domain.model.timerecord.breaktime.NightBreakTime;
 
 /**
- * 勤務時間実績
+ * 勤務日時実績
  */
-public class ActualWorkTime {
+public class ActualWorkDateTime {
 
+    // TODO: WorkDateTimeRangeとかDateTimeRangeとかの方が妥当？
     WorkRange workRange;
     DaytimeBreakTime daytimeBreakTime;
     NightBreakTime nightBreakTime;
 
     @Deprecated
-    public ActualWorkTime() {
+    public ActualWorkDateTime() {
     }
 
-    public ActualWorkTime(WorkRange workRange, DaytimeBreakTime daytimeBreakTime, NightBreakTime nightBreakTime) {
+    public ActualWorkDateTime(WorkRange workRange, DaytimeBreakTime daytimeBreakTime, NightBreakTime nightBreakTime) {
         this.workRange = workRange;
         this.daytimeBreakTime = daytimeBreakTime;
         this.nightBreakTime = nightBreakTime;

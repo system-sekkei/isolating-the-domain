@@ -8,13 +8,13 @@
     </select>
     <insert id="insertWorkTimeHistory">
         INSERT INTO 給与.就業時間履歴 (就業時間ID, 従業員ID, 就業日, 開始時刻, 終了時刻, 休憩時間, 深夜休憩時間)
-        VALUES (#{id}, #{employeeNumber.value}, #{work.workDate.value.value}, #{work.actualWorkTime.workRange.startTime.value.value}, #{work.actualWorkTime.workRange.endTime.value.value},
-        #{work.actualWorkTime.daytimeBreakTime.value.value}, #{work.actualWorkTime.nightBreakTime.value.value});
+        VALUES (#{id}, #{employeeNumber.value}, #{work.workDate.value.value}, #{work.actualWorkDateTime.workRange.startTime.value.value}, #{work.actualWorkDateTime.workRange.endTime.value.value},
+        #{work.actualWorkDateTime.daytimeBreakTime.value.value}, #{work.actualWorkDateTime.nightBreakTime.value.value});
     </insert>
     <insert id="insertWorkTime">
         INSERT INTO 給与.就業時間 (従業員ID, 就業時間ID, 就業日, 開始時刻, 終了時刻, 休憩時間, 深夜休憩時間)
-        VALUES (#{employeeNumber.value}, #{workTimeId}, #{work.workDate.value.value}, #{work.actualWorkTime.workRange.startTime.value.value}, #{work.actualWorkTime.workRange.endTime.value.value},
-        #{work.actualWorkTime.daytimeBreakTime.value.value}, #{work.actualWorkTime.nightBreakTime.value.value});
+        VALUES (#{employeeNumber.value}, #{workTimeId}, #{work.workDate.value.value}, #{work.actualWorkDateTime.workRange.startTime.value.value}, #{work.actualWorkDateTime.workRange.endTime.value.value},
+        #{work.actualWorkDateTime.daytimeBreakTime.value.value}, #{work.actualWorkDateTime.nightBreakTime.value.value});
     </insert>
     <delete id="deleteWorkTime">
         DELETE FROM 給与.就業時間 WHERE 従業員ID = #{employeeNumber.value} and 就業日 = #{workDate.value.value}
@@ -24,10 +24,10 @@
         SELECT
         就業時間.従業員ID as "employeeNumber.value",
         就業時間.就業日 as "workDate.value.value",
-        就業時間.開始時刻 as "actualWorkTime.workRange.startTime.value.value",
-        就業時間.終了時刻 as "actualWorkTime.workRange.endTime.value.value",
-        就業時間.休憩時間 as "actualWorkTime.daytimeBreakTime.value.value",
-        就業時間.深夜休憩時間 as "actualWorkTime.nightBreakTime.value.value"
+        就業時間.開始時刻 as "actualWorkDateTime.workRange.startTime.value.value",
+        就業時間.終了時刻 as "actualWorkDateTime.workRange.endTime.value.value",
+        就業時間.休憩時間 as "actualWorkDateTime.daytimeBreakTime.value.value",
+        就業時間.深夜休憩時間 as "actualWorkDateTime.nightBreakTime.value.value"
         FROM 給与.就業時間 as 就業時間
         WHERE 就業時間.従業員ID = #{employeeNumber.value}
         AND to_char(就業時間.就業日,'yyyymm') = #{yearMonth}
