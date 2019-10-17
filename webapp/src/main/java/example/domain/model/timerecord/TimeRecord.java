@@ -24,7 +24,7 @@ public class TimeRecord {
         return actualWorkDateTime.workDate();
     }
 
-    public ActualWorkDateTime actualWorkTime() {
+    public ActualWorkDateTime actualWorkDateTime() {
         return actualWorkDateTime;
     }
 

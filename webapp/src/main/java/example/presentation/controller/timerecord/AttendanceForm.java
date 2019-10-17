@@ -51,14 +51,14 @@ public class AttendanceForm {
         this.employeeNumber = timeRecord.employeeNumber();
         this.workDate = timeRecord.workDate().toString();
 
-        this.startHour = timeRecord.actualWorkTime().workRange().start().clockTime().hour().toString();
-        this.startMinute = timeRecord.actualWorkTime().workRange().start().clockTime().minute().toString();
+        this.startHour = timeRecord.actualWorkDateTime().workRange().start().clockTime().hour().toString();
+        this.startMinute = timeRecord.actualWorkDateTime().workRange().start().clockTime().minute().toString();
 
-        this.endHour = timeRecord.actualWorkTime().workRange().end().clockTime().hour().toString();
-        this.endMinute = timeRecord.actualWorkTime().workRange().end().clockTime().minute().toString();
+        this.endHour = timeRecord.actualWorkDateTime().workRange().end().clockTime().hour().toString();
+        this.endMinute = timeRecord.actualWorkDateTime().workRange().end().clockTime().minute().toString();
 
-        this.daytimeBreakTime = timeRecord.actualWorkTime().daytimeBreakTime().toString();
-        this.nightBreakTime = timeRecord.actualWorkTime().nightBreakTime().toString();
+        this.daytimeBreakTime = timeRecord.actualWorkDateTime().daytimeBreakTime().toString();
+        this.nightBreakTime = timeRecord.actualWorkDateTime().nightBreakTime().toString();
     }
 
     boolean workDateComplete;
@@ -162,7 +162,7 @@ public class AttendanceForm {
             DaytimeBreakTime daytimeBreakTime = new DaytimeBreakTime(new Minute(this.daytimeBreakTime));
 
             TimeRecord timeRecord = toAttendance();
-            Minute daytimeBindingMinute = timeRecord.actualWorkTime().workRange().daytimeBindingTime().quarterHour().minute();
+            Minute daytimeBindingMinute = timeRecord.actualWorkDateTime().workRange().daytimeBindingTime().quarterHour().minute();
             if (daytimeBindingMinute.lessThan(daytimeBreakTime.minute())) {
                 return false;
             }
@@ -182,7 +182,7 @@ public class AttendanceForm {
             NightBreakTime nightBreakTime = new NightBreakTime(new Minute(this.nightBreakTime));
 
             TimeRecord timeRecord = toAttendance();
-            Minute nightBindingMinute = timeRecord.actualWorkTime().workRange().nightBindingTime().quarterHour().minute();
+            Minute nightBindingMinute = timeRecord.actualWorkDateTime().workRange().nightBindingTime().quarterHour().minute();
             if (nightBindingMinute.lessThan(nightBreakTime.minute())) {
                 return false;
             }
