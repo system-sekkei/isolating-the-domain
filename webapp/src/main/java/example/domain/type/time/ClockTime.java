@@ -1,5 +1,6 @@
 package example.domain.type.time;
 
+import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
@@ -63,12 +64,7 @@ public class ClockTime {
     }
 
     public Minute betweenMinute(ClockTime other) {
-        Minute thisMinute = hour().toMinute().add(minute());
-        Minute otherMinute = other.hour().toMinute().add(other.minute());
-
-        if (thisMinute.lessThan(otherMinute)) {
-            return otherMinute.subtract(thisMinute);
-        }
-        return thisMinute.subtract(otherMinute);
+        Duration duration = Duration.between(this.value, other.value);
+        return new Minute((int) duration.toMinutes());
     }
 }
