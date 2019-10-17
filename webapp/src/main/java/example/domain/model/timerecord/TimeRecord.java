@@ -9,22 +9,20 @@ import example.domain.type.date.Date;
 public class TimeRecord {
 
     EmployeeNumber employeeNumber;
-    // TODO:これはactualWorkTimeから返すようにすること
-    WorkDate workDate;
     ActualWorkDateTime actualWorkDateTime;
 
     @Deprecated
     TimeRecord() {
     }
 
+    // TODO: あとで workDate を消す
     public TimeRecord(EmployeeNumber employeeNumber, WorkDate workDate, ActualWorkDateTime actualWorkDateTime) {
         this.employeeNumber = employeeNumber;
-        this.workDate = workDate;
         this.actualWorkDateTime = actualWorkDateTime;
     }
 
     public WorkDate workDate() {
-        return workDate;
+        return actualWorkDateTime.workDate();
     }
 
     public ActualWorkDateTime actualWorkTime() {
@@ -36,10 +34,10 @@ public class TimeRecord {
     }
 
     public boolean isWorkedAt(WorkDate other) {
-        return this.workDate.hasSameValue(other);
+        return this.actualWorkDateTime.workDate().hasSameValue(other);
     }
 
     public Date date() {
-        return workDate.toDate();
+        return actualWorkDateTime.workDate().toDate();
     }
 }
