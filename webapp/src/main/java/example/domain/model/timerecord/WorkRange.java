@@ -27,7 +27,6 @@ public class WorkRange {
     }
 
     // TODO: 2暦日にわたるかどうかの判断ロジック
-    // TODO: 就業日を返すメソッド実装
 
     QuarterRoundClockTimeRange quarterRoundClockTimeRange() {
         return new QuarterRoundClockTimeRange(startTime.normalizedClockTime(), endTime.normalizedClockTime());
@@ -39,6 +38,10 @@ public class WorkRange {
 
     public EndTime end() {
         return endTime;
+    }
+
+    public WorkDate workDate() {
+        return new WorkDate(startDate.value);
     }
 
     public BindingTime bindingTime() {

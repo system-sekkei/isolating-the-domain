@@ -36,6 +36,10 @@ public class ActualWorkDateTime {
         return nightBreakTime;
     }
 
+    public WorkDate workDate() {
+        return workRange.workDate();
+    }
+
     public WorkTime workTime() {
         return new WorkTime(daytimeWorkTime(), nightWorkTime());
     }
