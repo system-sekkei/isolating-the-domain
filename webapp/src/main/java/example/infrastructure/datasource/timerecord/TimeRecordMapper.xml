@@ -7,13 +7,15 @@
         select nextval('給与.就業時間ID')
     </select>
     <insert id="insertWorkTimeHistory">
+        <bind name="workDate" value="work.workDate().value.value"/>
         INSERT INTO 給与.就業時間履歴 (就業時間ID, 従業員ID, 就業日, 開始時刻, 終了時刻, 休憩時間, 深夜休憩時間)
-        VALUES (#{id}, #{employeeNumber.value}, #{work.workDate.value.value}, #{work.actualWorkDateTime.workRange.startTime.value.value}, #{work.actualWorkDateTime.workRange.endTime.value.value},
+        VALUES (#{id}, #{employeeNumber.value}, #{workDate}, #{work.actualWorkDateTime.workRange.startTime.value.value}, #{work.actualWorkDateTime.workRange.endTime.value.value},
         #{work.actualWorkDateTime.daytimeBreakTime.value.value}, #{work.actualWorkDateTime.nightBreakTime.value.value});
     </insert>
     <insert id="insertWorkTime">
+        <bind name="workDate" value="work.workDate().value.value"/>
         INSERT INTO 給与.就業時間 (従業員ID, 就業時間ID, 就業日, 開始時刻, 終了時刻, 休憩時間, 深夜休憩時間)
-        VALUES (#{employeeNumber.value}, #{workTimeId}, #{work.workDate.value.value}, #{work.actualWorkDateTime.workRange.startTime.value.value}, #{work.actualWorkDateTime.workRange.endTime.value.value},
+        VALUES (#{employeeNumber.value}, #{workTimeId}, #{workDate}, #{work.actualWorkDateTime.workRange.startTime.value.value}, #{work.actualWorkDateTime.workRange.endTime.value.value},
         #{work.actualWorkDateTime.daytimeBreakTime.value.value}, #{work.actualWorkDateTime.nightBreakTime.value.value});
     </insert>
     <delete id="deleteWorkTime">
@@ -23,7 +25,7 @@
     <select id="selectByMonth" resultType="example.domain.model.timerecord.TimeRecord">
         SELECT
         就業時間.従業員ID as "employeeNumber.value",
-        就業時間.就業日 as "workDate.value.value",
+        就業時間.就業日 as "actualWorkDateTime.workRange.startDate.value.value",
         就業時間.開始時刻 as "actualWorkDateTime.workRange.startTime.value.value",
         就業時間.終了時刻 as "actualWorkDateTime.workRange.endTime.value.value",
         就業時間.休憩時間 as "actualWorkDateTime.daytimeBreakTime.value.value",
