@@ -21,7 +21,7 @@ class ClockTimeRangeTest {
         ClockTime to = new ClockTime(toTime);
 
         ClockTimeRange range = new ClockTimeRange(from, to);
-        Minute result = range.between();
+        Minute result = range.minute();
 
         assertEquals(rangeTime, result.toString());
     }

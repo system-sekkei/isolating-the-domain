@@ -13,7 +13,7 @@ public class ClockTimeRange {
         this.end = end;
     }
 
-    public Minute between() {
+    public Minute minute() {
         return begin.betweenMinute(end);
     }
 
