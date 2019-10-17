@@ -15,7 +15,7 @@ public class ClockTimeRange {
         this.end = end;
     }
 
-    boolean across2days() {
+    public boolean across2days() {
         return begin.isAfter(end);
     }
 

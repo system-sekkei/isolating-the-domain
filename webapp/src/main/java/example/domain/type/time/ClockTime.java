@@ -28,6 +28,14 @@ public class ClockTime {
         this(hour.value, minute.value);
     }
 
+    public static ClockTime later(ClockTime a, ClockTime b) {
+        return a.isAfter(b) ? a : b;
+    }
+
+    public static ClockTime faster(ClockTime a, ClockTime b) {
+        return a.isBefore(b) ? a : b;
+    }
+
     @Override
     public String toString() {
         return String.format("%d:%02d", this.value.getHour(), this.value.getMinute());

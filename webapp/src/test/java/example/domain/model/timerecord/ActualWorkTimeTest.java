@@ -45,8 +45,10 @@ class ActualWorkTimeTest {
     @DisplayName("深夜時間帯の作業時間を正しく返却できること")
     @ParameterizedTest
     @CsvSource({
+            "1:00, 2:00, 0, 1時間0分",
+            "22:00, 23:00, 0, 1時間0分",
             "18:00, 27:00, 60, 4時間0分",
-            "8:00, 17:00, 0, 0時間0分"
+            "8:00, 17:00, 0, 0時間0分",
     })
     void nightWorkTime(String begin, String end, int breaks, String expected) {
         ActualWorkDateTime sut = new ActualWorkDateTime(
