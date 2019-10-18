@@ -17,16 +17,15 @@ public class ClockTime {
     }
 
     public ClockTime(String value) {
-        this.value = LocalTime.parse(value, DateTimeFormatter.ofPattern("H:m").withResolverStyle(ResolverStyle.LENIENT));
+        this(LocalTime.parse(value, DateTimeFormatter.ofPattern("H:m").withResolverStyle(ResolverStyle.LENIENT)));
+    }
+
+    private ClockTime(LocalTime value) {
+        this.value = value;
     }
 
     public ClockTime(Integer hour, Integer minute) {
         this.value = LocalTime.of(hour, minute);
-    }
-
-    // FIXME 時刻のClockTimeが時間のHourやMinuteを受け取るのはおかしい
-    public ClockTime(Hour hour, Minute minute) {
-        this(hour.value, minute.value);
     }
 
     public static ClockTime later(ClockTime a, ClockTime b) {
@@ -43,13 +42,34 @@ public class ClockTime {
     }
 
     public QuarterRoundClockTime quarterRoundDown() {
-        QuarterHour quarterHour = minute().quarterHourRoundDown();
-        return new QuarterRoundClockTime(new ClockTime(hour(), quarterHour.minute()));
+        int minute = value.getMinute();
+        if (minute < 15) {
+            return new QuarterRoundClockTime(new ClockTime(value.withMinute(0)));
+        }
+        if (minute < 30) {
+            return new QuarterRoundClockTime(new ClockTime(value.withMinute(15)));
+        }
+        if (minute < 45) {
+            return new QuarterRoundClockTime(new ClockTime(value.withMinute(30)));
+        }
+        return new QuarterRoundClockTime(new ClockTime(value.withMinute(45)));
     }
 
     public QuarterRoundClockTime quarterRoundUp() {
-        QuarterHour quarterHour = minute().quarterHourRoundUp();
-        return new QuarterRoundClockTime(new ClockTime(hour(), quarterHour.minute()));
+        int minute = value.getMinute();
+        if (minute == 0) {
+            return new QuarterRoundClockTime(new ClockTime(value));
+        }
+        if (minute <= 15) {
+            return new QuarterRoundClockTime(new ClockTime(value.withMinute(15)));
+        }
+        if (minute <= 30) {
+            return new QuarterRoundClockTime(new ClockTime(value.withMinute(30)));
+        }
+        if (minute <= 45) {
+            return new QuarterRoundClockTime(new ClockTime(value.withMinute(45)));
+        }
+        return new QuarterRoundClockTime(new ClockTime(value.plusHours(1).withMinute(0)));
     }
 
     public boolean isAfter(ClockTime other) {

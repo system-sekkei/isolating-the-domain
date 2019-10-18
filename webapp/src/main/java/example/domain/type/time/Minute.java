@@ -45,10 +45,6 @@ public class Minute {
         return new QuarterHour((value % 15 == 0) ? this : new Minute((value / 15 + 1) * 15));
     }
 
-    public QuarterHour quarterHourRoundDown() {
-        return new QuarterHour((value % 15 == 0) ? this : new Minute((value / 15) * 15));
-    }
-
     public boolean lessThan(Minute value) {
         return this.value < value.value;
     }
