@@ -135,9 +135,11 @@ public class AttendanceForm {
         if (!isEndTimeComplete()) return true;
         if (!isStartTimeValid() || !isEndTimeValid()) return true;
 
-        StartTime startTime = workStartTime();
-        EndTime endTime = workEndTime();
-        if (startTime.isAfter(endTime)) return false;
+        // FIXME 日跨ぎを判定して大小比較したいがとりあえず文字列比較で動作を満たしておく
+        String startTime = String.format("%02d:%02d", Integer.parseInt(startHour), Integer.parseInt(startMinute));
+        String endTime = String.format("%02d:%02d", Integer.parseInt(endHour), Integer.parseInt(endMinute));
+
+        if (startTime.compareTo(endTime) > 0) return false;
 
         return true;
     }
