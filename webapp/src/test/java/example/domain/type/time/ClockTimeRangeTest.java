@@ -12,7 +12,7 @@ class ClockTimeRangeTest {
     @ParameterizedTest
     @CsvSource({
             "9:00, 17:00, 480",
-            "17:00, 9:00, 480",
+            "17:00, 9:00, 960",
             "9:00, 9:30, 30",
             "9:30, 10:00, 30",
             "20:00, 26:00, 360"})
@@ -21,7 +21,7 @@ class ClockTimeRangeTest {
         ClockTime to = new ClockTime(toTime);
 
         ClockTimeRange range = new ClockTimeRange(from, to);
-        Minute result = range.between();
+        Minute result = range.minute();
 
         assertEquals(rangeTime, result.toString());
     }

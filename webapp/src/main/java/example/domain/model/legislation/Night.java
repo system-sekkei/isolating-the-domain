@@ -23,28 +23,26 @@ public class Night {
     }
 
     public Minute nightMinute(ClockTimeRange range) {
-        return startTimeToMidnightMinute(range).add(midnightToFinishTimeMinute(range));
-    }
+        if (range.wholeDay()) {
+            return new ClockTimeRange(nightStartTime, nightFinishTime).minute();
+        }
 
-    private Minute startTimeToMidnightMinute(ClockTimeRange range) {
-        if (range.end().isBefore(nightStartTime)) {
-            return new Minute(0);
+        if (range.across2days()) {
+            return new ClockTimeRange(
+                    ClockTime.later(range.begin(), nightStartTime),
+                    ClockTime.faster(range.end(), nightFinishTime)
+            ).minute();
         }
-        if (range.begin().isBefore(nightStartTime)) {
-            return new ClockTimeRange(nightStartTime, range.end()).between();
-        }
-        // 開始終了とも深夜
-        return new ClockTimeRange(range.begin(), range.end()).between();
-    }
 
-    private Minute midnightToFinishTimeMinute(ClockTimeRange range) {
-        if (range.begin().isAfter(nightFinishTime)) {
-            return new Minute(0);
+        Minute minute = new Minute(0);
+        // 早朝
+        if (range.begin().isBefore(nightFinishTime)) {
+            minute = minute.add(new ClockTimeRange(range.begin(), ClockTime.faster(range.end(), nightFinishTime)).minute());
         }
-        if (range.end().isAfter(nightFinishTime)) {
-            return new ClockTimeRange(range.begin(), nightFinishTime).between();
+        // 残業
+        if (range.end().isAfter(nightStartTime)) {
+            minute = minute.add(new ClockTimeRange(nightStartTime, range.end()).minute());
         }
-        // 開始終了とも深夜（早朝）
-        return new ClockTimeRange(range.begin(), range.end()).between();
+        return minute;
     }
 }

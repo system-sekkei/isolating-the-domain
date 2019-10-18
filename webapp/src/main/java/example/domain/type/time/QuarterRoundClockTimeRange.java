@@ -12,7 +12,7 @@ public class QuarterRoundClockTimeRange {
     }
 
     public QuarterHour between() {
-        return new QuarterHour(value.between());
+        return new QuarterHour(value.minute());
     }
 
     public ClockTimeRange clockTimeRange() {
