@@ -73,15 +73,11 @@ public class ClockTime {
     }
 
     public boolean isAfter(ClockTime other) {
-        Minute thisMinute = hour().toMinute().add(minute());
-        Minute otherMinute = other.hour().toMinute().add(other.minute());
-        return otherMinute.lessThan(thisMinute);
+        return value.isAfter(other.value);
     }
 
     public boolean isBefore(ClockTime other) {
-        Minute thisMinute = hour().toMinute().add(minute());
-        Minute otherMinute = other.hour().toMinute().add(other.minute());
-        return thisMinute.lessThan(otherMinute);
+        return value.isBefore(other.value);
     }
 
     public Hour hour() {
