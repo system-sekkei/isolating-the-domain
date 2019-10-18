@@ -1,6 +1,6 @@
-package example.api.controller.payroll;
+package example._experimental.spa.controller.payroll;
 
-import example.api.view.payroll.PayrollListView;
+import example._experimental.spa.view.payroll.PayrollListView;
 import example.application.coordinator.payroll.PayrollQueryCoordinator;
 import example.application.service.employee.EmployeeQueryService;
 import example.domain.model.attendance.WorkMonth;

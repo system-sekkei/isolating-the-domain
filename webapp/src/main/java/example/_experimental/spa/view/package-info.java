@@ -6,4 +6,4 @@
  * View Helper
  * etc.
  */
-package example.api.view;
+package example._experimental.spa.view;

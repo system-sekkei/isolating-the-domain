@@ -1,4 +1,4 @@
-package example.api.controller.timerecord;
+package example._experimental.spa.controller.timerecord;
 
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.*;

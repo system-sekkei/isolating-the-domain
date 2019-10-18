@@ -1,4 +1,4 @@
-package example.api.view.attendance;
+package example._experimental.spa.view.attendance;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

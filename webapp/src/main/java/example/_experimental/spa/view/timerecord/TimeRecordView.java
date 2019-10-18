@@ -1,4 +1,4 @@
-package example.api.view.timerecord;
+package example._experimental.spa.view.timerecord;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

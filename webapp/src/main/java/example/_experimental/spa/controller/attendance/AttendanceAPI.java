@@ -1,6 +1,6 @@
-package example.api.controller.attendance;
+package example._experimental.spa.controller.attendance;
 
-import example.api.view.attendance.AttendanceListView;
+import example._experimental.spa.view.attendance.AttendanceListView;
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordRecordService;

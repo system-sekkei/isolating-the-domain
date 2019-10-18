@@ -1,6 +1,6 @@
-package example.api.controller.timerecord;
+package example._experimental.spa.controller.timerecord;
 
-import example.api.view.timerecord.TimeRecordView;
+import example._experimental.spa.view.timerecord.TimeRecordView;
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordQueryService;

@@ -1,4 +1,4 @@
-package example.api.view;
+package example._experimental.spa.view;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

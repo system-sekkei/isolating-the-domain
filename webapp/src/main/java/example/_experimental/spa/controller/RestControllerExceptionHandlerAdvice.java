@@ -1,7 +1,7 @@
-package example.api.controller;
+package example._experimental.spa.controller;
 
-import example.api.view.error.ErrorResponse;
-import example.api.view.error.ErrorType;
+import example._experimental.spa.view.error.ErrorResponse;
+import example._experimental.spa.view.error.ErrorType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;

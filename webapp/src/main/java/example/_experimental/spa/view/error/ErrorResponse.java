@@ -1,4 +1,4 @@
-package example.api.view.error;
+package example._experimental.spa.view.error;
 
 import org.springframework.http.ResponseEntity;
 

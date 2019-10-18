@@ -1,4 +1,4 @@
-package example.api.view.payroll;
+package example._experimental.spa.view.payroll;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
