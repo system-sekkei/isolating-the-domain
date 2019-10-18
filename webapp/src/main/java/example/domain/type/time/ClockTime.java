@@ -24,6 +24,7 @@ public class ClockTime {
         this.value = LocalTime.of(hour, minute);
     }
 
+    // FIXME 時刻のClockTimeが時間のHourやMinuteを受け取るのはおかしい
     public ClockTime(Hour hour, Minute minute) {
         this(hour.value, minute.value);
     }
