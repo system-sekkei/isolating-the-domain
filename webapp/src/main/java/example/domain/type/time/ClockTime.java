@@ -38,7 +38,7 @@ public class ClockTime {
 
     @Override
     public String toString() {
-        return String.format("%d:%02d", this.value.getHour(), this.value.getMinute());
+        return DateTimeFormatter.ofPattern("HH:mm").format(value);
     }
 
     public QuarterRoundClockTime quarterRoundDown() {
