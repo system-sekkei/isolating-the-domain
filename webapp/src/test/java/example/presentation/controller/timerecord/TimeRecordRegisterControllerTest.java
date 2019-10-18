@@ -1,0 +1,51 @@
+package example.presentation.controller.timerecord;
+
+import example.application.service.timerecord.TimeRecordRecordService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.web.servlet.MockMvc;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+class TimeRecordRegisterControllerTest {
+
+    @Autowired
+    MockMvc mockMvc;
+
+    @MockBean
+    TimeRecordRecordService timeRecordRecordService;
+
+    @Test
+    void 登録画面が表示できる() throws Exception {
+        mockMvc.perform(get("/timerecord"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("timerecord/form"));
+    }
+
+    @Test
+    void 登録できる() throws Exception {
+        doNothing().when(timeRecordRecordService).registerTimeRecord(any());
+
+        mockMvc.perform(post("/timerecord")
+                .param("employeeNumber", "1"))
+                .andExpect(redirectedUrlPattern("/attendances/1/*"));
+    }
+
+    @Test
+    void 登録バリデーションエラー() throws Exception {
+        mockMvc.perform(post("/timerecord")
+                .param("employeeNumber", "1")
+                .param("endHour", "25"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("timerecord/form"));
+    }
+}
