@@ -26,7 +26,6 @@ public class Night {
         if (range.wholeDay()) {
             return new ClockTimeRange(nightStartTime, nightFinishTime).minute();
         }
-
         if (range.across2days()) {
             return new ClockTimeRange(
                     ClockTime.later(range.begin(), nightStartTime),
