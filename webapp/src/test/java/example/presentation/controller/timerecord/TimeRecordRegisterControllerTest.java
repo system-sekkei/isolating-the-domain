@@ -36,7 +36,9 @@ class TimeRecordRegisterControllerTest {
         doNothing().when(timeRecordRecordService).registerTimeRecord(any());
 
         mockMvc.perform(post("/timerecord")
-                .param("employeeNumber", "1"))
+                .param("employeeNumber", "1")
+                .param("startHour", "9")
+                .param("endHour", "17"))
                 .andExpect(redirectedUrlPattern("/attendances/1/*"));
     }
 
@@ -44,8 +46,20 @@ class TimeRecordRegisterControllerTest {
     void 登録バリデーションエラー() throws Exception {
         mockMvc.perform(post("/timerecord")
                 .param("employeeNumber", "1")
-                .param("endHour", "25"))
+                .param("startHour", "20")
+                .param("endHour", "17"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("timerecord/form"));
+    }
+
+    @Test
+    void 日跨ぎ() throws Exception {
+        doNothing().when(timeRecordRecordService).registerTimeRecord(any());
+
+        mockMvc.perform(post("/timerecord")
+                .param("employeeNumber", "1")
+                .param("startHour", "9")
+                .param("endHour", "26"))
+                .andExpect(redirectedUrlPattern("/attendances/1/*"));
     }
 }
