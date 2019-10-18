@@ -80,14 +80,6 @@ public class ClockTime {
         return value.isBefore(other.value);
     }
 
-    public Hour hour() {
-        return new Hour(this.value.getHour());
-    }
-
-    public Minute minute() {
-        return new Minute(this.value.getMinute());
-    }
-
     public Minute betweenMinute(ClockTime other) {
         Duration duration = Duration.between(this.value, other.value);
         return new Minute((int) duration.toMinutes());

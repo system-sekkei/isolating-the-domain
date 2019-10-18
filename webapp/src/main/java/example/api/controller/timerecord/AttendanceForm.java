@@ -38,10 +38,14 @@ class AttendanceForm {
         AttendanceForm request = new AttendanceForm();
         request.employeeNumber = timeRecord.employeeNumber().toString();
         request.workDate = timeRecord.workDate().toString();
-        request.startHour = timeRecord.actualWorkDateTime().workRange().start().clockTime().hour().toString();
-        request.startMinute = timeRecord.actualWorkDateTime().workRange().start().clockTime().minute().toString();
-        request.endHour = timeRecord.actualWorkDateTime().workRange().end().clockTime().hour().toString();
-        request.endMinute = timeRecord.actualWorkDateTime().workRange().end().clockTime().minute().toString();
+
+        String[] startClockTime = timeRecord.actualWorkDateTime().workRange().start().clockTime().toString().split(":");
+        request.startHour = startClockTime[0];
+        request.startMinute = startClockTime[1];
+        String[] endClockTime = timeRecord.actualWorkDateTime().workRange().end().clockTime().toString().split(":");
+        request.endHour = endClockTime[0];
+        request.endMinute = endClockTime[1];
+
         request.daytimeBreakTime = timeRecord.actualWorkDateTime().daytimeBreakTime().toString();
         request.nightBreakTime = timeRecord.actualWorkDateTime().nightBreakTime().toString();
         return request;

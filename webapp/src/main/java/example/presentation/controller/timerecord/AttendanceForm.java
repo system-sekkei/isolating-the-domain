@@ -51,11 +51,13 @@ public class AttendanceForm {
         this.employeeNumber = timeRecord.employeeNumber();
         this.workDate = timeRecord.workDate().toString();
 
-        this.startHour = timeRecord.actualWorkDateTime().workRange().start().clockTime().hour().toString();
-        this.startMinute = timeRecord.actualWorkDateTime().workRange().start().clockTime().minute().toString();
+        String[] startClockTime = timeRecord.actualWorkDateTime().workRange().start().clockTime().toString().split(":");
+        this.startHour = startClockTime[0];
+        this.startMinute = startClockTime[1];
 
-        this.endHour = timeRecord.actualWorkDateTime().workRange().end().clockTime().hour().toString();
-        this.endMinute = timeRecord.actualWorkDateTime().workRange().end().clockTime().minute().toString();
+        String[] endClockTime = timeRecord.actualWorkDateTime().workRange().end().clockTime().toString().split(":");
+        this.endHour = endClockTime[0];
+        this.endMinute = endClockTime[1];
 
         this.daytimeBreakTime = timeRecord.actualWorkDateTime().daytimeBreakTime().toString();
         this.nightBreakTime = timeRecord.actualWorkDateTime().nightBreakTime().toString();
