@@ -9,25 +9,23 @@ import example.domain.type.date.Date;
 public class TimeRecord {
 
     EmployeeNumber employeeNumber;
-    WorkDate workDate;
-    ActualWorkTime actualWorkTime;
+    ActualWorkDateTime actualWorkDateTime;
 
     @Deprecated
     TimeRecord() {
     }
 
-    public TimeRecord(EmployeeNumber employeeNumber, WorkDate workDate, ActualWorkTime actualWorkTime) {
+    public TimeRecord(EmployeeNumber employeeNumber, ActualWorkDateTime actualWorkDateTime) {
         this.employeeNumber = employeeNumber;
-        this.workDate = workDate;
-        this.actualWorkTime = actualWorkTime;
+        this.actualWorkDateTime = actualWorkDateTime;
     }
 
     public WorkDate workDate() {
-        return workDate;
+        return actualWorkDateTime.workDate();
     }
 
-    public ActualWorkTime actualWorkTime() {
-        return actualWorkTime;
+    public ActualWorkDateTime actualWorkDateTime() {
+        return actualWorkDateTime;
     }
 
     public EmployeeNumber employeeNumber() {
@@ -35,10 +33,10 @@ public class TimeRecord {
     }
 
     public boolean isWorkedAt(WorkDate other) {
-        return this.workDate.hasSameValue(other);
+        return this.actualWorkDateTime.workDate().hasSameValue(other);
     }
 
     public Date date() {
-        return workDate.toDate();
+        return actualWorkDateTime.workDate().toDate();
     }
 }

@@ -41,10 +41,10 @@ public class AttendanceListView {
             AttendanceStatus attendanceStatus = attendance.statusOf(workDate);
             data.put("workDate", workDate.toString());
             if (attendanceStatus.isWork()) {
-                data.put("startTimePoint", attendance.at(workDate).actualWorkTime().timeRange().start().toString());
-                data.put("endTimePoint", attendance.at(workDate).actualWorkTime().timeRange().end().toString());
-                data.put("breakTime", attendance.at(workDate).actualWorkTime().breakTime().toString());
-                data.put("workTime", attendance.at(workDate).actualWorkTime().workTime().toString());
+                data.put("startTimePoint", attendance.at(workDate).actualWorkDateTime().workRange().start().toString());
+                data.put("endTimePoint", attendance.at(workDate).actualWorkDateTime().workRange().end().toString());
+                data.put("breakTime", attendance.at(workDate).actualWorkDateTime().breakTime().toString());
+                data.put("workTime", attendance.at(workDate).actualWorkDateTime().workTime().toString());
             }
             list.add(data);
         }

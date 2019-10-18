@@ -5,26 +5,27 @@ import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
 import example.domain.model.timerecord.breaktime.NightBreakTime;
 
 /**
- * 勤務時間実績
+ * 勤務日時実績
  */
-public class ActualWorkTime {
+public class ActualWorkDateTime {
 
-    TimeRange timeRange;
+    // TODO: WorkDateTimeRangeとかDateTimeRangeとかの方が妥当？
+    WorkRange workRange;
     DaytimeBreakTime daytimeBreakTime;
     NightBreakTime nightBreakTime;
 
     @Deprecated
-    public ActualWorkTime() {
+    public ActualWorkDateTime() {
     }
 
-    public ActualWorkTime(TimeRange timeRange, DaytimeBreakTime daytimeBreakTime, NightBreakTime nightBreakTime) {
-        this.timeRange = timeRange;
+    public ActualWorkDateTime(WorkRange workRange, DaytimeBreakTime daytimeBreakTime, NightBreakTime nightBreakTime) {
+        this.workRange = workRange;
         this.daytimeBreakTime = daytimeBreakTime;
         this.nightBreakTime = nightBreakTime;
     }
 
-    public TimeRange timeRange() {
-        return timeRange;
+    public WorkRange workRange() {
+        return workRange;
     }
 
     public DaytimeBreakTime daytimeBreakTime() {
@@ -33,6 +34,10 @@ public class ActualWorkTime {
 
     public NightBreakTime nightBreakTime() {
         return nightBreakTime;
+    }
+
+    public WorkDate workDate() {
+        return workRange.workDate();
     }
 
     public WorkTime workTime() {
@@ -44,11 +49,11 @@ public class ActualWorkTime {
     }
 
     public DaytimeWorkTime daytimeWorkTime() {
-        return new DaytimeWorkTime(timeRange, daytimeBreakTime);
+        return new DaytimeWorkTime(workRange, daytimeBreakTime);
     }
 
     public NightWorkTime nightWorkTime() {
-        return new NightWorkTime(timeRange, nightBreakTime);
+        return new NightWorkTime(workRange, nightBreakTime);
     }
 
     public OverWorkTime overWorkTime() {

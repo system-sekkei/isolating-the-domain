@@ -1,13 +1,11 @@
 package example.domain.model.payroll;
 
+import example.domain.model.timerecord.*;
 import example.domain.model.timerecord.breaktime.NightBreakTime;
 import example.domain.model.wage.HourlyWage;
 import example.domain.model.wage.WageCondition;
-import example.domain.model.timerecord.ActualWorkTime;
-import example.domain.model.timerecord.EndTime;
-import example.domain.model.timerecord.StartTime;
-import example.domain.model.timerecord.TimeRange;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
+import example.domain.type.date.Date;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -35,13 +33,13 @@ class PaymentAmountTest {
             "0:00, 24:00, 0, 0, 1000, 30450"
     })
     void wage(String begin, String end, int breakMinute, int nightBreakMinute, int hourlyWage, int expected) {
-        ActualWorkTime actualWorkTime = new ActualWorkTime(
-                new TimeRange(new StartTime(begin), new EndTime(end)),
+        ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
+                new WorkRange(new WorkDate(new Date("2018-11-25")), new StartTime(begin), new EndTime(end)),
                 new DaytimeBreakTime(new Minute(breakMinute)),
                 new NightBreakTime(new Minute(nightBreakMinute)));
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));
 
-        PaymentAmount paymentAmount = new PaymentAmount(actualWorkTime, wageCondition);
+        PaymentAmount paymentAmount = new PaymentAmount(actualWorkDateTime, wageCondition);
 
         assertEquals(expected, paymentAmount.value.value().intValue());
     }
