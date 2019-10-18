@@ -10,39 +10,34 @@ import example.domain.type.time.QuarterRoundClockTimeRange;
  */
 public class WorkRange {
 
-    // TODO: StartDateTimeとEndDateTimeをつくるべきかどうかかんがえる
-    StartDate startDate;
-    StartTime startTime;
-    EndDate endDate;
-    EndTime endTime;
+    StartDateTime startDateTime;
+    EndDateTime endDateTime;
 
     @Deprecated
     WorkRange() {
     }
 
     public WorkRange(WorkDate workDate, StartTime startTime, EndTime endTime) {
-        this.startDate = new StartDate(workDate);
-        this.startTime = startTime;
-        this.endDate = new EndDate(workDate, endTime);
-        this.endTime = endTime;
+        this.startDateTime = new StartDateTime(new StartDate(workDate), startTime);
+        this.endDateTime = new EndDateTime(new EndDate(workDate, endTime), endTime);
     }
 
     // TODO: 2暦日にわたるかどうかの判断ロジック
 
     QuarterRoundClockTimeRange quarterRoundClockTimeRange() {
-        return new QuarterRoundClockTimeRange(startTime.normalizedClockTime(), endTime.normalizedClockTime());
+        return new QuarterRoundClockTimeRange(startDateTime.startTime.normalizedClockTime(), endDateTime.endTime.normalizedClockTime());
     }
 
     public StartTime start() {
-        return startTime;
+        return startDateTime.startTime;
     }
 
     public EndTime end() {
-        return endTime;
+        return endDateTime.endTime;
     }
 
     public WorkDate workDate() {
-        return new WorkDate(startDate.value);
+        return new WorkDate(startDateTime.startDate.value);
     }
 
     public BindingTime bindingTime() {
