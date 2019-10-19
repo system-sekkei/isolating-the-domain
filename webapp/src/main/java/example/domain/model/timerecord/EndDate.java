@@ -10,10 +10,6 @@ public class EndDate {
 
     Date value;
 
-    @Deprecated
-    public EndDate() {
-    }
-
     public EndDate(Date date) {
         value = date;
     }
