@@ -6,12 +6,12 @@ import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordRecordService;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.WorkMonth;
-import example.domain.model.timerecord.*;
-import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
-import example.domain.model.timerecord.breaktime.NightBreakTime;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
+import example.domain.model.timerecord.*;
+import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
+import example.domain.model.timerecord.breaktime.NightBreakTime;
 import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
@@ -51,7 +51,12 @@ class TimeRecordRecordServiceTest {
         int month = 10;
         int day = 20;
         WorkDate workDate = new WorkDate(new Date(LocalDate.of(year, month, day)));
-        ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(new WorkRange(new StartDateTime(workDate, new StartTime(new ClockTime("9:00"))), new EndDateTime(workDate, 24, 0)), new DaytimeBreakTime(new Minute(60)), new NightBreakTime(new Minute("0")));
+        ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
+                new WorkRange(
+                        new StartDateTime(workDate, new StartTime(new ClockTime("9:00"))),
+                        new EndDateTime(workDate, 24, 0)),
+                new DaytimeBreakTime(new Minute(60)),
+                new NightBreakTime(new Minute(0)));
 
         TimeRecord expectTimeRecord = new TimeRecord(employeeNumber, actualWorkDateTime);
         timeRecordRecordService.registerTimeRecord(expectTimeRecord);
