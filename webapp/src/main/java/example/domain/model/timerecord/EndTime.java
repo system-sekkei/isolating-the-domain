@@ -18,16 +18,8 @@ public class EndTime {
         this.value = value;
     }
 
-    public EndTime(String value) {
-        this(new ClockTime(value));
-    }
-
     QuarterRoundClockTime normalizedClockTime() {
         return value.quarterRoundDown();
-    }
-
-    public ClockTime clockTime() {
-        return value;
     }
 
     @Override

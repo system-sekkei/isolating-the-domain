@@ -57,7 +57,7 @@ public class AttendanceForm {
         this.startHour = startClockTime[0];
         this.startMinute = startClockTime[1];
 
-        String[] endClockTime = timeRecord.actualWorkDateTime().workRange().end().clockTime().toString().split(":");
+        String[] endClockTime = timeRecord.actualWorkDateTime().workRange().end().toString().split(":");
         this.endHour = endClockTime[0];
         this.endMinute = endClockTime[1];
 
@@ -131,6 +131,13 @@ public class AttendanceForm {
         return true;
     }
 
+    private EndTime workEndTime() {
+        int endHour = Integer.parseInt(this.endHour) % 24;
+        int endMinute = Integer.parseInt(this.endMinute);
+        ClockTime clockTime = new ClockTime(endHour, endMinute);
+        return new EndTime(clockTime);
+    }
+
     boolean workTimeValid;
 
     @AssertTrue(message = "終了時刻には開始時刻よりあとの時刻を入力してください")
@@ -151,10 +158,6 @@ public class AttendanceForm {
     private StartTime workStartTime() {
         ClockTime clockTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
         return new StartTime(clockTime);
-    }
-
-    private EndTime workEndTime() {
-        return new EndTime(endHour + ":" + endMinute);
     }
 
     boolean daytimeBreakTimeValid;

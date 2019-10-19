@@ -42,7 +42,7 @@ class AttendanceForm {
         String[] startClockTime = timeRecord.actualWorkDateTime().workRange().start().clockTime().toString().split(":");
         request.startHour = startClockTime[0];
         request.startMinute = startClockTime[1];
-        String[] endClockTime = timeRecord.actualWorkDateTime().workRange().end().clockTime().toString().split(":");
+        String[] endClockTime = timeRecord.actualWorkDateTime().workRange().end().toString().split(":");
         request.endHour = endClockTime[0];
         request.endMinute = endClockTime[1];
 
