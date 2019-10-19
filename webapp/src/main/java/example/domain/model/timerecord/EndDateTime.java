@@ -16,7 +16,7 @@ public class EndDateTime {
 
     public EndDateTime(WorkDate workDate, Integer endHour, Integer endMinute) {
         this.endDate = endHour > 23 ? new EndDate(workDate.value.nextDay()) : new EndDate(workDate.value);
-        this.endTime = new EndTime(new ClockTime(endHour, endMinute));
+        this.endTime = new EndTime(new ClockTime(endHour % 24, endMinute));
     }
 
     @Override

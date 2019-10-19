@@ -24,7 +24,7 @@ public class ClockTime {
     }
 
     public ClockTime(Integer hour, Integer minute) {
-        this.value = LocalTime.of(hour % 24, minute);
+        this(LocalTime.of(hour, minute));
     }
 
     public static ClockTime later(ClockTime a, ClockTime b) {
