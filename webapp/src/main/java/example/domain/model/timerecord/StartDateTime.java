@@ -13,8 +13,8 @@ public class StartDateTime {
     StartDateTime() {
     }
 
-    public StartDateTime(StartDate startDate, StartTime startTime) {
-        this.startDate = startDate;
+    public StartDateTime(WorkDate workDate, StartTime startTime) {
+        this.startDate = new StartDate(workDate.value);
         this.startTime = startTime;
     }
 

@@ -66,6 +66,10 @@ public class Date {
         return value.format(DateTimeFormatter.ISO_DATE);
     }
 
+    public Date nextDay() {
+        return new Date(value.plusDays(1));
+    }
+
     public Date previousDay() {
         return new Date(value.minusDays(1));
     }

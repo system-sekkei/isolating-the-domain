@@ -54,12 +54,14 @@ class AttendanceForm {
     TimeRecord toAttendance() {
         EmployeeNumber employeeNumber = new EmployeeNumber(this.employeeNumber);
         WorkDate workDate = new WorkDate(this.workDate);
-        ClockTime startTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
-        ClockTime endTime = new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
+        StartTime startTime = new StartTime(new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute)));
+        StartDateTime startDateTime = new StartDateTime(workDate, startTime);
+        EndDateTime endDateTime = new EndDateTime(workDate, Integer.valueOf(endHour), Integer.valueOf(endMinute));
+
         Minute daytimeBreakMinute = new Minute(daytimeBreakTime);
         Minute nightBreakTime = new Minute(this.nightBreakTime);
         ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
-                new WorkRange(workDate, new StartTime(startTime), new EndTime(endTime)),
+                new WorkRange(startDateTime, endDateTime),
                 new DaytimeBreakTime(daytimeBreakMinute),
                 new NightBreakTime(nightBreakTime));
         return new TimeRecord(employeeNumber, actualWorkDateTime);

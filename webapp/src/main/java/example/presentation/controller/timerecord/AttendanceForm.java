@@ -37,11 +37,13 @@ public class AttendanceForm {
     public TimeRecord toAttendance() {
         WorkDate workDate = new WorkDate(this.workDate);
         ClockTime startTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
-        ClockTime endTime = new ClockTime(endHour + ":" + endMinute);
+
+        StartDateTime startDateTime = new StartDateTime(workDate, new StartTime(startTime));
+        EndDateTime endDateTime = new EndDateTime(workDate, Integer.valueOf(endHour), Integer.valueOf(endMinute));
         Minute minute = new Minute(daytimeBreakTime);
         Minute nightMinute = new Minute(nightBreakTime);
         ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
-                new WorkRange(workDate, new StartTime(startTime), new EndTime(endTime)),
+                new WorkRange(startDateTime, endDateTime),
                 new DaytimeBreakTime(minute),
                 new NightBreakTime(nightMinute));
         return new TimeRecord(employeeNumber, actualWorkDateTime);

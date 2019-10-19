@@ -38,8 +38,12 @@ class ActualWorkTimeTest {
             "9:00, 33:00, 60, 16時間0分",
     })
     void workTime(String begin, String end, int breaks, String expected) {
+        String[] split = end.split(":");
+        Integer endHour = Integer.valueOf(split[0]);
+        Integer endMinute = Integer.valueOf(split[1]);
+        WorkDate workDate = new WorkDate(new Date("2018-11-25"));
         ActualWorkDateTime sut = new ActualWorkDateTime(
-                new WorkRange(new WorkDate(new Date("2018-11-25")), new StartTime(begin), new EndTime(end)),
+                new WorkRange(new StartDateTime(workDate, new StartTime(begin)), new EndDateTime(workDate, endHour, endMinute)),
                 new DaytimeBreakTime(new Minute(breaks)),
                 new NightBreakTime(new Minute("0")));
         assertEquals(expected, sut.daytimeWorkTime().toString());
@@ -55,8 +59,12 @@ class ActualWorkTimeTest {
             "0:00, 24:00, 0, 7時間0分",
     })
     void nightWorkTime(String begin, String end, int breaks, String expected) {
+        String[] split = end.split(":");
+        Integer endHour = Integer.valueOf(split[0]);
+        Integer endMinute = Integer.valueOf(split[1]);
+        WorkDate workDate = new WorkDate(new Date("2018-11-25"));
         ActualWorkDateTime sut = new ActualWorkDateTime(
-                new WorkRange(new WorkDate(new Date("2018-11-25")), new StartTime(begin), new EndTime(end)),
+                new WorkRange(new StartDateTime(workDate, new StartTime(begin)), new EndDateTime(workDate, endHour, endMinute)),
                 new DaytimeBreakTime(new Minute(0)),
                 new NightBreakTime(new Minute(breaks)));
         assertEquals(expected, sut.nightWorkTime().toString());
@@ -68,8 +76,12 @@ class ActualWorkTimeTest {
             "9:00, 17:00, 60, 0時間0分",
             "09:00, 22:00, 60, 4時間0分"})
     void overWorkTime(String begin, String end, int breaks, String expected) {
+        String[] split = end.split(":");
+        Integer endHour = Integer.valueOf(split[0]);
+        Integer endMinute = Integer.valueOf(split[1]);
+        WorkDate workDate = new WorkDate(new Date("2018-11-25"));
         ActualWorkDateTime sut = new ActualWorkDateTime(
-                new WorkRange(new WorkDate(new Date("2018-11-25")), new StartTime(begin), new EndTime(end)),
+                new WorkRange(new StartDateTime(workDate, new StartTime(begin)), new EndDateTime(workDate, endHour, endMinute)),
                 new DaytimeBreakTime(new Minute(breaks)), new NightBreakTime(new Minute("0")));
         assertEquals(expected, sut.overWorkTime().toString());
     }
@@ -77,8 +89,9 @@ class ActualWorkTimeTest {
     @DisplayName("就業時間/時間外就業時間/深夜作業時間/休憩時間の相関")
     @Test
     void 時間の仕様() {
+        WorkDate workDate = new WorkDate(new Date("2018-11-25"));
         ActualWorkDateTime sut = new ActualWorkDateTime(
-                new WorkRange(new WorkDate(new Date("2018-11-25")), new StartTime("8:00"), new EndTime("24:00")),
+                new WorkRange(new StartDateTime(workDate, new StartTime("8:00")), new EndDateTime(workDate, 24, 0)),
                 new DaytimeBreakTime(new Minute(120)),
                 new NightBreakTime(new Minute("30")));
         assertAll(

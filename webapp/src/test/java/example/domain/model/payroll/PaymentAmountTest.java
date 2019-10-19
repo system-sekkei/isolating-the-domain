@@ -33,8 +33,12 @@ class PaymentAmountTest {
             "0:00, 24:00, 0, 0, 1000, 30450"
     })
     void wage(String begin, String end, int breakMinute, int nightBreakMinute, int hourlyWage, int expected) {
+        String[] split = end.split(":");
+        Integer endHour = Integer.valueOf(split[0]);
+        Integer endMinute = Integer.valueOf(split[1]);
+        WorkDate workDate = new WorkDate(new Date("2018-11-25"));
         ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
-                new WorkRange(new WorkDate(new Date("2018-11-25")), new StartTime(begin), new EndTime(end)),
+                new WorkRange(new StartDateTime(workDate, new StartTime(begin)), new EndDateTime(workDate, endHour, endMinute)),
                 new DaytimeBreakTime(new Minute(breakMinute)),
                 new NightBreakTime(new Minute(nightBreakMinute)));
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));
