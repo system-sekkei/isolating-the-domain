@@ -101,7 +101,7 @@ public class AttendanceForm {
 
         try {
             workStartTime();
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException | DateTimeException ex) {
             return false;
         }
 
