@@ -18,11 +18,6 @@ public class EndDate {
         this(new Date(value));
     }
 
-    public EndDate(WorkDate workDate, EndTime endTime) {
-        // TODO: endTimeを元に算出する必要がある。
-        value = workDate.value;
-    }
-
     public Date value() {
         return value;
     }

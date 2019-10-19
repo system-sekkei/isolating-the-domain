@@ -19,7 +19,7 @@ public class WorkRange {
 
     public WorkRange(WorkDate workDate, StartTime startTime, EndTime endTime) {
         this.startDateTime = new StartDateTime(new StartDate(workDate), startTime);
-        this.endDateTime = new EndDateTime(new EndDate(workDate, endTime), endTime);
+        this.endDateTime = new EndDateTime(new EndDate(workDate.value), endTime);
     }
 
     // TODO: 2暦日にわたるかどうかの判断ロジック
