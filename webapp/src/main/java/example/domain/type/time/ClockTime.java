@@ -3,7 +3,6 @@ package example.domain.type.time;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.ResolverStyle;
 
 /**
  * 時刻を時分単位で表す
@@ -17,7 +16,7 @@ public class ClockTime {
     }
 
     public ClockTime(String value) {
-        this(LocalTime.parse(value, DateTimeFormatter.ofPattern("H:m").withResolverStyle(ResolverStyle.LENIENT)));
+        this(LocalTime.parse(value, DateTimeFormatter.ofPattern("H:m")));
     }
 
     private ClockTime(LocalTime value) {
