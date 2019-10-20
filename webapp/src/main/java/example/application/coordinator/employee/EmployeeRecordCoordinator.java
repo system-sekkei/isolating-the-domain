@@ -34,8 +34,9 @@ public class EmployeeRecordCoordinator {
      * 従業員個人情報更新
      */
     public void update(Employee employee) {
-        employeeRecordService.registerName(employee.employeeNumber(), employee.name());
-        employeeRecordService.registerMailAddress(employee.employeeNumber(), employee.mailAddress());
-        employeeRecordService.registerPhoneNumber(employee.employeeNumber(), employee.phoneNumber());
+    	EmployeeNumber employeeNumber = employee.employeeNumber();
+        employeeRecordService.registerName(employeeNumber, employee.name());
+        employeeRecordService.registerMailAddress(employeeNumber, employee.mailAddress());
+        employeeRecordService.registerPhoneNumber(employeeNumber, employee.phoneNumber());
     }
 }
