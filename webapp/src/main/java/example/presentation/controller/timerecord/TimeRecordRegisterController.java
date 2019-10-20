@@ -72,7 +72,7 @@ public class TimeRecordRegisterController {
     String register(@Validated @ModelAttribute("attendanceForm") AttendanceForm attendanceForm,
                     BindingResult result) {
         if (result.hasErrors()) return "timerecord/form";
-        TimeRecord timeRecord = attendanceForm.toAttendance();
+        TimeRecord timeRecord = attendanceForm.toTimeRecord();
 
         timeRecordRecordService.registerTimeRecord(timeRecord);
 

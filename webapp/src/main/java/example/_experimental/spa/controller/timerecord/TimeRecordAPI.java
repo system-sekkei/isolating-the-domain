@@ -48,7 +48,7 @@ public class TimeRecordAPI {
 
     @PostMapping
     TimeRecordView post(@Validated @RequestBody AttendanceForm form) {
-        TimeRecord timeRecord = form.toAttendance();
+        TimeRecord timeRecord = form.toTimeRecord();
         timeRecordRecordService.registerTimeRecord(timeRecord);
         return new TimeRecordView(timeRecord);
     }
