@@ -31,7 +31,7 @@ public class AttendanceAPI {
     AttendanceListView get(@PathVariable("employeeNumber") EmployeeNumber employeeNumber,
                            @PathVariable("yearMonth") WorkMonth workMonth) {
         Employee employee = employeeQueryService.choose(employeeNumber);
-        Attendance attendance = attendanceQueryService.findAttendance(employee.employeeNumber(), workMonth);
+        Attendance attendance = attendanceQueryService.findAttendance(employee, workMonth);
         return new AttendanceListView(employee, attendance);
     }
 }

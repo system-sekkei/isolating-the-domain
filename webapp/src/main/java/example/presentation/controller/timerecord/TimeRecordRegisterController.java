@@ -5,6 +5,7 @@ import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordQueryService;
 import example.application.service.timerecord.TimeRecordRecordService;
 import example.domain.model.attendance.WorkMonth;
+import example.domain.model.employee.Employee;
 import example.domain.model.timerecord.TimeRecord;
 import example.domain.model.timerecord.WorkDate;
 import example.domain.model.employee.ContractingEmployees;
@@ -58,7 +59,8 @@ public class TimeRecordRegisterController {
             attendanceForm.workDate = workDate.toString();
         }
         if (employeeNumber != null && workDate != null) {
-            if (attendanceQueryService.attendanceStatus(employeeNumber, workDate).isWork()) {
+            Employee employee = employeeQueryService.choose(employeeNumber);
+            if (attendanceQueryService.attendanceStatus(employee, workDate).isWork()) {
                 TimeRecord timeRecord = timeRecordQueryService.timeRecord(employeeNumber, workDate);
                 attendanceForm.apply(timeRecord);
             }

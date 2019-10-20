@@ -7,6 +7,7 @@ import example.application.service.timerecord.TimeRecordQueryService;
 import example.application.service.timerecord.TimeRecordRecordService;
 import example.domain.model.attendance.AttendanceStatus;
 import example.domain.model.employee.ContractingEmployees;
+import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.TimeRecord;
 import example.domain.model.timerecord.WorkDate;
@@ -32,7 +33,8 @@ public class TimeRecordAPI {
     PreparedAttendanceForm prepare(@PathVariable("employeeNumber") EmployeeNumber employeeNumber,
                                    @PathVariable("workDate") WorkDate workDate) {
         ContractingEmployees contractingEmployees = employeeQueryService.contractingEmployees();
-        AttendanceStatus attendanceStatus = attendanceQueryService.attendanceStatus(employeeNumber, workDate);
+        Employee employee = employeeQueryService.choose(employeeNumber);
+        AttendanceStatus attendanceStatus = attendanceQueryService.attendanceStatus(employee, workDate);
 
         if (!attendanceStatus.isWork()) {
             AttendanceForm form = AttendanceForm.of(employeeNumber, workDate);

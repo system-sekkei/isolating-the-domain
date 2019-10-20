@@ -48,7 +48,7 @@ public class AttendanceController {
         Employee employee = employeeQueryService.choose(employeeNumber);
         model.addAttribute("employee", employee);
 
-        Attendance attendance = attendanceQueryService.findAttendance(employee.employeeNumber(), workMonth);
+        Attendance attendance = attendanceQueryService.findAttendance(employee, workMonth);
         model.addAttribute("attendance", attendance);
         return "attendance/list";
     }
