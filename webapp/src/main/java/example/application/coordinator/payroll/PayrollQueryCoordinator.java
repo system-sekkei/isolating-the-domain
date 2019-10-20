@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 給与参照サービス
+ * 給与参照コーディネーター
  */
 @Service
 public class PayrollQueryCoordinator {
