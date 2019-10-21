@@ -9,32 +9,24 @@ import example.domain.type.time.Minute;
 
 import javax.validation.constraints.AssertTrue;
 import java.time.DateTimeException;
-import java.time.LocalDate;
 
 public class AttendanceForm {
 
     EmployeeNumber employeeNumber;
-    String workDate;
+    String workDate = "";
 
-    String startHour;
-    String startMinute;
-    String endHour;
-    String endMinute;
+    String startHour = "";
+    String startMinute = "";
+    String endHour = "";
+    String endMinute = "";
 
-    String daytimeBreakTime;
-    String nightBreakTime;
+    String daytimeBreakTime = "";
+    String nightBreakTime = "";
 
     public AttendanceForm() {
-        this.workDate = LocalDate.now().toString();
-        this.startHour = "9";
-        this.startMinute = "0";
-        this.endHour = "17";
-        this.endMinute = "30";
-        this.daytimeBreakTime = "60";
-        this.nightBreakTime = "0";
     }
 
-    public TimeRecord toAttendance() {
+    public TimeRecord toTimeRecord() {
         WorkDate workDate = new WorkDate(this.workDate);
         ClockTime startTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
 
@@ -169,7 +161,7 @@ public class AttendanceForm {
         try {
             DaytimeBreakTime daytimeBreakTime = new DaytimeBreakTime(new Minute(this.daytimeBreakTime));
 
-            TimeRecord timeRecord = toAttendance();
+            TimeRecord timeRecord = toTimeRecord();
             Minute daytimeBindingMinute = timeRecord.actualWorkDateTime().workRange().daytimeBindingTime().quarterHour().minute();
             if (daytimeBindingMinute.lessThan(daytimeBreakTime.minute())) {
                 return false;
@@ -189,7 +181,7 @@ public class AttendanceForm {
         try {
             NightBreakTime nightBreakTime = new NightBreakTime(new Minute(this.nightBreakTime));
 
-            TimeRecord timeRecord = toAttendance();
+            TimeRecord timeRecord = toTimeRecord();
             Minute nightBindingMinute = timeRecord.actualWorkDateTime().workRange().nightBindingTime().quarterHour().minute();
             if (nightBindingMinute.lessThan(nightBreakTime.minute())) {
                 return false;

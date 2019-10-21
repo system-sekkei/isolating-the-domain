@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 給与参照サービス
+ * 給与参照コーディネーター
  */
 @Service
 public class PayrollQueryCoordinator {
@@ -41,7 +41,7 @@ public class PayrollQueryCoordinator {
     public Payroll payroll(Employee employee, WorkMonth workMonth) {
         EmployeeNumber employeeNumber = employee.employeeNumber();
         ContractWages contractWages = contractQueryService.getContractWages(employeeNumber);
-        Attendance attendance = attendanceQueryService.findAttendance(employeeNumber, workMonth);
+        Attendance attendance = attendanceQueryService.findAttendance(employee, workMonth);
 
         return new Payroll(new Contract(employee, contractWages), attendance);
     }

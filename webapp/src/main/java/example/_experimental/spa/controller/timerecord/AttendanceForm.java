@@ -51,7 +51,7 @@ class AttendanceForm {
         return request;
     }
 
-    TimeRecord toAttendance() {
+    TimeRecord toTimeRecord() {
         EmployeeNumber employeeNumber = new EmployeeNumber(this.employeeNumber);
         WorkDate workDate = new WorkDate(this.workDate);
         StartTime startTime = new StartTime(new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute)));
@@ -151,7 +151,7 @@ class AttendanceForm {
         try {
             DaytimeBreakTime daytimeBreakTime = new DaytimeBreakTime(new Minute(this.daytimeBreakTime));
 
-            TimeRecord timeRecord = toAttendance();
+            TimeRecord timeRecord = toTimeRecord();
             Minute daytimeBindingMinute = timeRecord.actualWorkDateTime().workRange().daytimeBindingTime().quarterHour().minute();
             if (daytimeBindingMinute.lessThan(daytimeBreakTime.minute())) {
                 return false;
@@ -169,7 +169,7 @@ class AttendanceForm {
         try {
             NightBreakTime nightBreakTime = new NightBreakTime(new Minute(this.nightBreakTime));
 
-            TimeRecord timeRecord = toAttendance();
+            TimeRecord timeRecord = toTimeRecord();
             Minute nightBindingMinute = timeRecord.actualWorkDateTime().workRange().nightBindingTime().quarterHour().minute();
             if (nightBindingMinute.lessThan(nightBreakTime.minute())) {
                 return false;

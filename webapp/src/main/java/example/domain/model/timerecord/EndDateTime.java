@@ -19,6 +19,11 @@ public class EndDateTime {
         this.endTime = new EndTime(new ClockTime(endHour % 24, endMinute));
     }
 
+    public EndDateTime(EndDate endDate, EndTime endTime) {
+        this.endDate = endDate;
+        this.endTime = endTime;
+    }
+
     @Override
     public String toString() {
         return endDate.toString() + " " + endTime.toString();

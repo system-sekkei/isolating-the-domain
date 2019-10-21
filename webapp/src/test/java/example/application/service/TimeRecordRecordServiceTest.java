@@ -61,7 +61,7 @@ class TimeRecordRecordServiceTest {
         TimeRecord expectTimeRecord = new TimeRecord(employeeNumber, actualWorkDateTime);
         timeRecordRecordService.registerTimeRecord(expectTimeRecord);
 
-        Attendance attendance = attendanceQueryService.findAttendance(employeeNumber, new WorkMonth(year, month));
+        Attendance attendance = attendanceQueryService.findAttendance(employee, new WorkMonth(year, month));
         assertAll(
                 () -> assertEquals(attendance.month().toStringWithUnit(), year + "年" + month + "月"),
                 () -> assertEquals(attendance.listWorkDates().size(), 31),

@@ -1,20 +1,22 @@
 package example.presentation.controller.timerecord;
 
-import example.application.service.attendance.AttendanceQueryService;
+import example.application.coordinator.timerecord.TimeRecordQueryCoordinator;
 import example.application.service.employee.EmployeeQueryService;
-import example.application.service.timerecord.TimeRecordQueryService;
 import example.application.service.timerecord.TimeRecordRecordService;
 import example.domain.model.attendance.WorkMonth;
-import example.domain.model.timerecord.TimeRecord;
-import example.domain.model.timerecord.WorkDate;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.EmployeeNumber;
+import example.domain.model.timerecord.TimeRecord;
+import example.domain.model.timerecord.WorkDate;
+import example.domain.type.date.Date;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 
 /**
  * 勤務時間の登録
@@ -25,14 +27,12 @@ public class TimeRecordRegisterController {
 
     EmployeeQueryService employeeQueryService;
     TimeRecordRecordService timeRecordRecordService;
-    TimeRecordQueryService timeRecordQueryService;
-    AttendanceQueryService attendanceQueryService;
+    TimeRecordQueryCoordinator timeRecordQueryCoordinator;
 
-    public TimeRecordRegisterController(EmployeeQueryService employeeQueryService, TimeRecordRecordService timeRecordRecordService, TimeRecordQueryService timeRecordQueryService, AttendanceQueryService attendanceQueryService) {
+    public TimeRecordRegisterController(EmployeeQueryService employeeQueryService, TimeRecordRecordService timeRecordRecordService, TimeRecordQueryCoordinator timeRecordQueryCoordinator) {
         this.employeeQueryService = employeeQueryService;
         this.timeRecordRecordService = timeRecordRecordService;
-        this.timeRecordQueryService = timeRecordQueryService;
-        this.attendanceQueryService = attendanceQueryService;
+        this.timeRecordQueryCoordinator = timeRecordQueryCoordinator;
     }
 
     @ModelAttribute("employees")
@@ -58,10 +58,11 @@ public class TimeRecordRegisterController {
             attendanceForm.workDate = workDate.toString();
         }
         if (employeeNumber != null && workDate != null) {
-            if (attendanceQueryService.attendanceStatus(employeeNumber, workDate).isWork()) {
-                TimeRecord timeRecord = timeRecordQueryService.timeRecord(employeeNumber, workDate);
-                attendanceForm.apply(timeRecord);
-            }
+            TimeRecord timeRecord = timeRecordQueryCoordinator.timeRecord(employeeNumber, workDate);
+            attendanceForm.apply(timeRecord);
+        } else {
+            TimeRecord timeRecord = timeRecordQueryCoordinator.defaultTimeRecord(new WorkDate(new Date(LocalDate.now())));
+            attendanceForm.apply(timeRecord);
         }
         return "timerecord/form";
     }
@@ -70,7 +71,7 @@ public class TimeRecordRegisterController {
     String register(@Validated @ModelAttribute("attendanceForm") AttendanceForm attendanceForm,
                     BindingResult result) {
         if (result.hasErrors()) return "timerecord/form";
-        TimeRecord timeRecord = attendanceForm.toAttendance();
+        TimeRecord timeRecord = attendanceForm.toTimeRecord();
 
         timeRecordRecordService.registerTimeRecord(timeRecord);
 
