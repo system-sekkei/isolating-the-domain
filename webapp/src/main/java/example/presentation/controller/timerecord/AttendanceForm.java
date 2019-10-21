@@ -9,29 +9,21 @@ import example.domain.type.time.Minute;
 
 import javax.validation.constraints.AssertTrue;
 import java.time.DateTimeException;
-import java.time.LocalDate;
 
 public class AttendanceForm {
 
     EmployeeNumber employeeNumber;
-    String workDate;
+    String workDate = "";
 
-    String startHour;
-    String startMinute;
-    String endHour;
-    String endMinute;
+    String startHour = "";
+    String startMinute = "";
+    String endHour = "";
+    String endMinute = "";
 
-    String daytimeBreakTime;
-    String nightBreakTime;
+    String daytimeBreakTime = "";
+    String nightBreakTime = "";
 
     public AttendanceForm() {
-        this.workDate = LocalDate.now().toString();
-        this.startHour = "9";
-        this.startMinute = "0";
-        this.endHour = "17";
-        this.endMinute = "30";
-        this.daytimeBreakTime = "60";
-        this.nightBreakTime = "0";
     }
 
     public TimeRecord toTimeRecord() {
