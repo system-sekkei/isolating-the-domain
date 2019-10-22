@@ -1,6 +1,5 @@
 package example.application.service;
 
-import example.Application;
 import example.application.coordinator.payroll.PayrollQueryCoordinator;
 import example.application.service.contract.ContractRecordService;
 import example.application.service.employee.EmployeeQueryService;
@@ -23,7 +22,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest(classes = Application.class)
+@SpringBootTest
 class PayrollQueryCoordinatorTest {
 
     @Autowired

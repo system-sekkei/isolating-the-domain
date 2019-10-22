@@ -1,28 +1,24 @@
 package example.application.service;
 
-import example.Application;
 import example.application.service.contract.ContractQueryService;
 import example.application.service.contract.ContractRecordService;
 import example.application.service.employee.EmployeeRecordService;
 import example.domain.model.contract.ContractWages;
+import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.legislation.NightExtraRate;
+import example.domain.model.legislation.OverTimeExtraRate;
 import example.domain.model.wage.HourlyWage;
 import example.domain.model.wage.WageCondition;
-import example.domain.model.legislation.OverTimeExtraRate;
-import example.domain.model.employee.EmployeeNumber;
 import example.domain.type.date.Date;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class)
+@SpringBootTest
 public class ContractWageRecordServiceTest {
     @Autowired
     EmployeeRecordService employeeRecordService;

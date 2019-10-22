@@ -1,20 +1,16 @@
 package example.application.service;
 
-import example.Application;
 import example.application.service.employee.EmployeeQueryService;
 import example.application.service.employee.EmployeeRecordService;
 import example.domain.model.employee.*;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class)
+@SpringBootTest
 class EmployeeRecordServiceTest {
     @Autowired
     EmployeeRecordService sut;
