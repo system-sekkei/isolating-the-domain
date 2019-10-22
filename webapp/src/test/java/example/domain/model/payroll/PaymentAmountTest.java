@@ -41,7 +41,7 @@ class PaymentAmountTest {
 
         WorkDate workDate = new WorkDate(new Date("2018-11-25"));
         ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
-                new WorkRange(new StartDateTime(workDate, startTime), new EndDateTime(workDate, endTime)),
+                new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
                 new DaytimeBreakTime(new Minute(breakMinute)),
                 new NightBreakTime(new Minute(nightBreakMinute)));
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));

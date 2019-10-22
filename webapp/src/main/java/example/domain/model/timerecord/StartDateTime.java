@@ -15,9 +15,15 @@ public class StartDateTime {
     StartDateTime() {
     }
 
-    public StartDateTime(WorkDate workDate, InputTime startTime) {
-        this.startDate = new StartDate(workDate.value);
-        this.startTime = new StartTime(startTime.toClockTime());
+    StartDateTime(StartDate startDate, StartTime startTime) {
+        this.startDate = startDate;
+        this.startTime = startTime;
+    }
+
+    public static StartDateTime from(WorkDate workDate, InputTime inputTime) {
+        StartDate startDate = new StartDate(workDate.value);
+        StartTime startTime = new StartTime(inputTime.toClockTime());
+        return new StartDateTime(startDate, startTime);
     }
 
     @Override

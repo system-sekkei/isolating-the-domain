@@ -14,9 +14,15 @@ public class EndDateTime {
     EndDateTime() {
     }
 
-    public EndDateTime(WorkDate workDate, InputTime endTime) {
-        this.endDate = endTime.isOverFlow() ? new EndDate(workDate.value.nextDay()) : new EndDate(workDate.value);
-        this.endTime = new EndTime(endTime.toClockTime());
+    EndDateTime(EndDate endDate, EndTime endTime) {
+        this.endDate = endDate;
+        this.endTime = endTime;
+    }
+
+    public static EndDateTime from(WorkDate workDate, InputTime inputTime) {
+        EndDate endDate = inputTime.isOverFlow() ? new EndDate(workDate.value.nextDay()) : new EndDate(workDate.value);
+        EndTime endTime = new EndTime(inputTime.toClockTime());
+        return new EndDateTime(endDate, endTime);
     }
 
     @Override

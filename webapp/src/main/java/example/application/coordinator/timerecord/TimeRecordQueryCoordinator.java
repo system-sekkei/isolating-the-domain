@@ -40,7 +40,7 @@ public class TimeRecordQueryCoordinator {
         InputTime endTime = new InputTime(18, 0);
         return new TimeRecord(employeeNumber,
                 new ActualWorkDateTime(
-                        new WorkRange(new StartDateTime(workDate, startTime), new EndDateTime(workDate, endTime)),
+                        new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
                         new DaytimeBreakTime(new Minute(60)),
                         new NightBreakTime(new Minute(0))
                 ));

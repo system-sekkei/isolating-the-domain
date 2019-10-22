@@ -35,7 +35,7 @@ public class AttendanceForm {
         Minute minute = new Minute(daytimeBreakTime);
         Minute nightMinute = new Minute(nightBreakTime);
         ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
-                new WorkRange(new StartDateTime(workDate, startTime), new EndDateTime(workDate, endTime)),
+                new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
                 new DaytimeBreakTime(minute),
                 new NightBreakTime(nightMinute));
         return new TimeRecord(employeeNumber, actualWorkDateTime);

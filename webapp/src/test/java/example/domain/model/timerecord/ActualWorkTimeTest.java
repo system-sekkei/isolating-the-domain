@@ -46,7 +46,7 @@ class ActualWorkTimeTest {
 
         WorkDate workDate = new WorkDate(new Date("2018-11-25"));
         ActualWorkDateTime sut = new ActualWorkDateTime(
-                new WorkRange(new StartDateTime(workDate, startTime), new EndDateTime(workDate, endTime)),
+                new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
                 new DaytimeBreakTime(new Minute(breaks)),
                 new NightBreakTime(new Minute("0")));
         assertEquals(expected, sut.daytimeWorkTime().toString());
@@ -68,7 +68,7 @@ class ActualWorkTimeTest {
         InputTime endTime = new InputTime(Integer.valueOf(splitEnd[0]), Integer.valueOf(splitEnd[1]));
         WorkDate workDate = new WorkDate(new Date("2018-11-25"));
         ActualWorkDateTime sut = new ActualWorkDateTime(
-                new WorkRange(new StartDateTime(workDate, startTime), new EndDateTime(workDate, endTime)),
+                new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
                 new DaytimeBreakTime(new Minute(0)),
                 new NightBreakTime(new Minute(breaks)));
         assertEquals(expected, sut.nightWorkTime().toString());
@@ -86,7 +86,7 @@ class ActualWorkTimeTest {
         InputTime endTime = new InputTime(Integer.valueOf(splitEnd[0]), Integer.valueOf(splitEnd[1]));
         WorkDate workDate = new WorkDate(new Date("2018-11-25"));
         ActualWorkDateTime sut = new ActualWorkDateTime(
-                new WorkRange(new StartDateTime(workDate, startTime), new EndDateTime(workDate, endTime)),
+                new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
                 new DaytimeBreakTime(new Minute(breaks)), new NightBreakTime(new Minute("0")));
         assertEquals(expected, sut.overWorkTime().toString());
     }
@@ -98,7 +98,7 @@ class ActualWorkTimeTest {
         InputTime startTime = new InputTime(8, 0);
         InputTime endTime = new InputTime(24, 0);
         ActualWorkDateTime sut = new ActualWorkDateTime(
-                new WorkRange(new StartDateTime(workDate, startTime), new EndDateTime(workDate, endTime)),
+                new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
                 new DaytimeBreakTime(new Minute(120)),
                 new NightBreakTime(new Minute("30")));
         assertAll(

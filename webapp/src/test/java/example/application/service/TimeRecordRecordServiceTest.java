@@ -54,7 +54,7 @@ class TimeRecordRecordServiceTest {
         InputTime startTime = new InputTime(9, 0);
         InputTime endTime = new InputTime(24, 0);
         ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
-                new WorkRange(new StartDateTime(workDate, startTime), new EndDateTime(workDate, endTime)),
+                new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
                 new DaytimeBreakTime(new Minute(60)),
                 new NightBreakTime(new Minute(0)));
 
