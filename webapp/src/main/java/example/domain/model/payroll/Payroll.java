@@ -33,10 +33,10 @@ public class Payroll {
     public PaymentAmount totalPayment() {
         PaymentAmount paymentAmount = new PaymentAmount(BigDecimal.ZERO);
 
-        for (PayableWork payableWork: attendance.listPayableWork()) {
+        for (PayableWork payableWork : attendance.listPayableWork()) {
             ContractWage contractWage = contract.availableContractAt(payableWork.date());
 
-            PaymentAmount oneDayAmount = new PaymentAmount(payableWork, contractWage.wageCondition());
+            PaymentAmount oneDayAmount = PaymentAmount.calculate(payableWork, contractWage.wageCondition());
             paymentAmount = paymentAmount.add(oneDayAmount);
         }
         return paymentAmount;

@@ -1,5 +1,6 @@
 package example.domain.model.payroll;
 
+import example.domain.model.attendance.PayableWork;
 import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
 import example.domain.model.wage.HourlyWage;
 import example.domain.model.wage.WageCondition;
@@ -30,9 +31,10 @@ class PaymentAmountTest {
     })
     void 割増含めた賃金計算ができる(String begin, String end, String breakMinute, String nightBreakMinute, int hourlyWage, int expected) {
         ActualWorkDateTime actualWorkDateTime = AttendanceForm.toActualWorkDateTime("2018-11-25", begin, end, breakMinute, nightBreakMinute);
+        PayableWork payableWork = new PayableWork(actualWorkDateTime);
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));
 
-        PaymentAmount paymentAmount = new PaymentAmount(actualWorkDateTime, wageCondition);
+        PaymentAmount paymentAmount = PaymentAmount.calculate(payableWork, wageCondition);
 
         assertEquals(expected, paymentAmount.value.value().intValue());
     }
