@@ -14,7 +14,6 @@ import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.model.wage.HourlyWage;
 import example.domain.model.wage.WageCondition;
 import example.domain.type.date.Date;
-import example.domain.type.time.InputTime;
 import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,9 +69,6 @@ class PayrollQueryCoordinatorTest {
         }
 
         {
-            Date date = new Date("2018-11-25");
-            InputTime startTime = new InputTime(22, 0);
-            InputTime endTime = new InputTime(23, 0);
             TimeRecord timeRecord = new TimeRecord(
                     employeeNumber,
                     AttendanceForm.toActualWorkDateTime("2018-11-25", "22:00", "23:00", "0", "0")
