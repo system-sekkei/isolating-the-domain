@@ -1,7 +1,7 @@
 package example.application.service.timerecord;
 
 import example.application.repository.TimeRecordRepository;
-import example.domain.model.timerecord.TimeRecord;
+import example.domain.model.timerecord.evaluation.TimeRecord;
 import org.springframework.stereotype.Service;
 
 /**

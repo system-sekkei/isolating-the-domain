@@ -2,7 +2,7 @@ package example.application.repository;
 
 import example.domain.model.attendance.TimeRecords;
 import example.domain.model.attendance.WorkMonth;
-import example.domain.model.timerecord.TimeRecord;
+import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.model.employee.EmployeeNumber;
 
 /**

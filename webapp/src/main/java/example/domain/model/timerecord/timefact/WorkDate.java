@@ -1,20 +1,24 @@
-package example.domain.model.timerecord;
+package example.domain.model.timerecord.timefact;
 
 import example.domain.type.date.Date;
 import example.domain.type.date.DayOfWeek;
 
 /**
- * 勤務終了日付
+ * 勤務日付
  */
-public class EndDate {
+public class WorkDate {
 
     Date value;
 
-    public EndDate(Date date) {
+    @Deprecated
+    public WorkDate() {
+    }
+
+    public WorkDate(Date date) {
         value = date;
     }
 
-    public EndDate(String value) {
+    public WorkDate(String value) {
         this(new Date(value));
     }
 
@@ -30,7 +34,7 @@ public class EndDate {
         return value.dayOfWeek();
     }
 
-    public boolean hasSameValue(EndDate other) {
+    public boolean hasSameValue(WorkDate other) {
         return value.hasSameValue(other.value);
     }
 

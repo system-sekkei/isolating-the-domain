@@ -1,29 +1,29 @@
-package example.domain.model.timerecord;
+package example.domain.model.timerecord.timefact;
 
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.QuarterRoundClockTime;
 
 /**
- * 勤務開始時刻
+ * 勤務終了時刻
  */
-public class StartTime {
+public class EndTime {
 
     ClockTime value;
 
     @Deprecated
-    StartTime() {
+    EndTime() {
     }
 
-    public StartTime(ClockTime value) {
+    public EndTime(ClockTime value) {
         this.value = value;
     }
 
     QuarterRoundClockTime normalizedClockTime() {
-        return value.quarterRoundUp();
+        return value.quarterRoundDown();
     }
 
-    public ClockTime clockTime() {
-        return value;
+    public boolean isAfter(StartTime startTime) {
+        return value.isAfter(startTime.value);
     }
 
     @Override

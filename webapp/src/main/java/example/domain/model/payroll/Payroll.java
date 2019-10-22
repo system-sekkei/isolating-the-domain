@@ -3,7 +3,7 @@ package example.domain.model.payroll;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.contract.Contract;
 import example.domain.model.contract.ContractWage;
-import example.domain.model.timerecord.TimeRecord;
+import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.employee.Name;
 

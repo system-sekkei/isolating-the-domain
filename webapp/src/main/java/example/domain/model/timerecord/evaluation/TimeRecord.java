@@ -1,6 +1,7 @@
-package example.domain.model.timerecord;
+package example.domain.model.timerecord.evaluation;
 
 import example.domain.model.employee.EmployeeNumber;
+import example.domain.model.timerecord.timefact.WorkDate;
 import example.domain.type.date.Date;
 
 /**

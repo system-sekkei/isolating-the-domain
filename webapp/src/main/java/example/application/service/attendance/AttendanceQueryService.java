@@ -6,7 +6,7 @@ import example.domain.model.attendance.AttendanceStatus;
 import example.domain.model.attendance.TimeRecords;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.employee.Employee;
-import example.domain.model.timerecord.WorkDate;
+import example.domain.model.timerecord.timefact.WorkDate;
 import org.springframework.stereotype.Service;
 
 /**

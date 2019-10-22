@@ -1,4 +1,4 @@
-package example.domain.model.timerecord;
+package example.domain.model.timerecord.timefact;
 
 import example.domain.model.timerecord.bindingtime.BindingTime;
 import example.domain.model.timerecord.bindingtime.DaytimeBindingTime;

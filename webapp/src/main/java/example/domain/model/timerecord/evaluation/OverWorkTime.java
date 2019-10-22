@@ -1,4 +1,4 @@
-package example.domain.model.timerecord;
+package example.domain.model.timerecord.evaluation;
 
 import example.domain.model.legislation.DailyOvertimeWork;
 import example.domain.type.time.QuarterHour;

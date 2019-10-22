@@ -22,7 +22,7 @@
         DELETE FROM 給与.就業時間 WHERE 従業員ID = #{employeeNumber.value} and 就業日 = #{workDate.value.value}
     </delete>
 
-    <select id="selectByMonth" resultType="example.domain.model.timerecord.TimeRecord">
+    <select id="selectByMonth" resultType="example.domain.model.timerecord.evaluation.TimeRecord">
         SELECT
         就業時間.従業員ID as "employeeNumber.value",
         就業時間.就業日 as "actualWorkDateTime.workRange.startDateTime.startDate.value.value",

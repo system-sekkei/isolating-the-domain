@@ -1,6 +1,6 @@
 package example.domain.model.attendance;
 
-import example.domain.model.timerecord.WorkDate;
+import example.domain.model.timerecord.timefact.WorkDate;
 import example.domain.type.date.Date;
 import example.domain.type.date.Month;
 import example.domain.type.date.Year;

@@ -2,7 +2,7 @@ package example._experimental.spa.view.timerecord;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import example.domain.model.timerecord.TimeRecord;
+import example.domain.model.timerecord.evaluation.TimeRecord;
 
 public class TimeRecordView {
     @JsonIgnore

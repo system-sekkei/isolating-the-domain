@@ -1,8 +1,10 @@
-package example.domain.model.timerecord;
+package example.domain.model.timerecord.evaluation;
 
 import example.domain.model.timerecord.breaktime.BreakTime;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
 import example.domain.model.timerecord.breaktime.NightBreakTime;
+import example.domain.model.timerecord.timefact.WorkDate;
+import example.domain.model.timerecord.timefact.WorkRange;
 
 /**
  * 勤務日時実績
