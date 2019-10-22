@@ -2,7 +2,6 @@ package example.domain.model.timerecord;
 
 import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
 import example.presentation.controller.timerecord.AttendanceForm;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -12,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ActualWorkTimeTest {
 
-    @DisplayName("就業時間の計算を正しく行えること")
     @ParameterizedTest
     @CsvSource({
             "9:00, 18:00, 60, 8時間0分",
@@ -31,16 +29,14 @@ class ActualWorkTimeTest {
             // 組み合わせ
             "9:16, 18:00, 76, 7時間0分",
             "9:01, 18:01, 59, 7時間45分",
-            // 同じ時間は1日
             "0:00, 24:00, 60, 16時間0分",
             "9:00, 33:00, 60, 16時間0分",
     })
-    void workTime(String begin, String end, String breaks, String expected) {
+    void 日中作業時間が計算できる(String begin, String end, String breaks, String expected) {
         ActualWorkDateTime sut = AttendanceForm.toActualWorkDateTime("2018-11-25", begin, end, breaks, "0");
         assertEquals(expected, sut.daytimeWorkTime().toString());
     }
 
-    @DisplayName("深夜時間帯の作業時間を正しく返却できること")
     @ParameterizedTest
     @CsvSource({
             "1:00, 2:00, 0, 1時間0分",
@@ -49,24 +45,22 @@ class ActualWorkTimeTest {
             "8:00, 17:00, 0, 0時間0分",
             "0:00, 24:00, 0, 7時間0分",
     })
-    void nightWorkTime(String begin, String end, String breaks, String expected) {
+    void 深夜作業時間が計算できる(String begin, String end, String breaks, String expected) {
         ActualWorkDateTime sut = AttendanceForm.toActualWorkDateTime("2018-11-25", begin, end, "0", breaks);
         assertEquals(expected, sut.nightWorkTime().toString());
     }
 
-    @DisplayName("時間外作業時間を正しく返却できること")
     @ParameterizedTest
     @CsvSource({
             "9:00, 17:00, 60, 0時間0分",
             "09:00, 22:00, 60, 4時間0分"})
-    void overWorkTime(String begin, String end, String breaks, String expected) {
+    void 時間外作業時間が計算できる(String begin, String end, String breaks, String expected) {
         ActualWorkDateTime sut = AttendanceForm.toActualWorkDateTime("2018-11-25", begin, end, breaks, "0");
         assertEquals(expected, sut.overWorkTime().toString());
     }
 
-    @DisplayName("就業時間/時間外就業時間/深夜作業時間/休憩時間の相関")
     @Test
-    void 時間の仕様() {
+    void 作業時間が計算できる() {
         ActualWorkDateTime sut = AttendanceForm.toActualWorkDateTime("2018-11-25", "8:00", "24:00", "120", "30");
         assertAll(
                 () -> assertEquals("12時間0分", sut.daytimeWorkTime().toString())

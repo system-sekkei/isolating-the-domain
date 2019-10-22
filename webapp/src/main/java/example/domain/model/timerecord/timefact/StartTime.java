@@ -18,6 +18,10 @@ public class StartTime {
         this.value = value;
     }
 
+    public StartTime(String value) {
+        this(new ClockTime(value));
+    }
+
     QuarterRoundClockTime normalizedClockTime() {
         return value.quarterRoundUp();
     }

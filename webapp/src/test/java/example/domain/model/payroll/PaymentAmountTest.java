@@ -4,14 +4,13 @@ import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
 import example.domain.model.wage.HourlyWage;
 import example.domain.model.wage.WageCondition;
 import example.presentation.controller.timerecord.AttendanceForm;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PaymentAmountTest {
-    @DisplayName("作業時間と時給で賃金計算が行えること")
+
     @ParameterizedTest
     @CsvSource({
             // 通常
@@ -29,7 +28,7 @@ class PaymentAmountTest {
             // 通常17時間＋深夜7時間（超過16時間）
             "0:00, 24:00, 0, 0, 1000, 30450"
     })
-    void wage(String begin, String end, String breakMinute, String nightBreakMinute, int hourlyWage, int expected) {
+    void 割増含めた賃金計算ができる(String begin, String end, String breakMinute, String nightBreakMinute, int hourlyWage, int expected) {
         ActualWorkDateTime actualWorkDateTime = AttendanceForm.toActualWorkDateTime("2018-11-25", begin, end, breakMinute, nightBreakMinute);
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));
 

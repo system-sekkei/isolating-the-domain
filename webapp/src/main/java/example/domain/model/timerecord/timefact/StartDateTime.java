@@ -16,7 +16,7 @@ public class StartDateTime {
     StartDateTime() {
     }
 
-    StartDateTime(StartDate startDate, StartTime startTime) {
+    public StartDateTime(StartDate startDate, StartTime startTime) {
         this.startDate = startDate;
         this.startTime = startTime;
     }
