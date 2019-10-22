@@ -5,6 +5,7 @@ import example.domain.model.timerecord.evaluation.WorkDate;
 import example.domain.type.time.QuarterHour;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 勤怠
@@ -46,7 +47,9 @@ public class Attendance {
                 .orElseGet(QuarterHour::new));
     }
 
-    public TimeRecords timeRecords() {
-        return timeRecords;
+    public List<PayableWork> listPayableWork() {
+        return timeRecords.list().stream()
+                .map(timeRecord -> new PayableWork(timeRecord.actualWorkDateTime()))
+                .collect(Collectors.toList());
     }
 }

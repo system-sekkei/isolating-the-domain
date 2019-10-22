@@ -1,9 +1,9 @@
 package example.domain.model.payroll;
 
 import example.domain.model.attendance.Attendance;
+import example.domain.model.attendance.PayableWork;
 import example.domain.model.contract.Contract;
 import example.domain.model.contract.ContractWage;
-import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.employee.Name;
 
@@ -33,10 +33,10 @@ public class Payroll {
     public PaymentAmount totalPayment() {
         PaymentAmount paymentAmount = new PaymentAmount(BigDecimal.ZERO);
 
-        for (TimeRecord timeRecord : attendance.timeRecords().list()) {
-            ContractWage contractWage = contract.availableContractAt(timeRecord.date());
+        for (PayableWork payableWork: attendance.listPayableWork()) {
+            ContractWage contractWage = contract.availableContractAt(payableWork.date());
 
-            PaymentAmount oneDayAmount = new PaymentAmount(timeRecord.actualWorkDateTime(), contractWage.wageCondition());
+            PaymentAmount oneDayAmount = new PaymentAmount(payableWork, contractWage.wageCondition());
             paymentAmount = paymentAmount.add(oneDayAmount);
         }
         return paymentAmount;

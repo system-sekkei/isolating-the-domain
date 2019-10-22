@@ -1,6 +1,6 @@
 package example.domain.model.payroll;
 
-import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
+import example.domain.model.attendance.PayableWork;
 import example.domain.model.wage.WageCondition;
 import example.domain.type.amount.Amount;
 
@@ -22,10 +22,10 @@ public class PaymentAmount {
     }
 
 
-    public PaymentAmount(ActualWorkDateTime actualWorkDateTime, WageCondition wageCondition) {
-        PaymentAmount workTimeAmount = new PaymentWorkTime(actualWorkDateTime.workTime()).multiply(wageCondition.baseHourlyWage());
-        PaymentAmount overTimeExtraAmount = new PaymentWorkTime(actualWorkDateTime.overWorkTime()).multiply(wageCondition.overTimeHourlyExtraWage().value());
-        PaymentAmount nightExtraAmount = new PaymentWorkTime(actualWorkDateTime.nightWorkTime()).multiply(wageCondition.nightHourlyExtraWage().value());
+    public PaymentAmount(PayableWork payableWork, WageCondition wageCondition) {
+        PaymentAmount workTimeAmount = new PaymentWorkTime(payableWork.workTime()).multiply(wageCondition.baseHourlyWage());
+        PaymentAmount overTimeExtraAmount = new PaymentWorkTime(payableWork.overWorkTime()).multiply(wageCondition.overTimeHourlyExtraWage().value());
+        PaymentAmount nightExtraAmount = new PaymentWorkTime(payableWork.nightWorkTime()).multiply(wageCondition.nightHourlyExtraWage().value());
         this.value = workTimeAmount.value.add(overTimeExtraAmount.value).add(nightExtraAmount.value);
     }
 
