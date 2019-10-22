@@ -6,4 +6,7 @@
     <settings>
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
+    <typeAliases>
+		<typeAlias type="example.domain.model.employee.Employee" alias="Employee"/>
+    </typeAliases>
 </configuration>

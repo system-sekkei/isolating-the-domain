@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="example.infrastructure.datasource.employee.EmployeeMapper">
 
-    <select id="selectByEmployeeNumber" resultType="example.domain.model.employee.Employee">
+    <select id="selectByEmployeeNumber" resultType="Employee">
         SELECT
         従業員.従業員ID as "employeeNumber.value",
         従業員の名前.従業員名 as "name.value",
@@ -23,7 +23,7 @@
         WHERE 従業員.従業員ID = #{employeeNumber.value}
     </select>
 
-    <select id="selectContracts" resultType="example.domain.model.employee.Employee">
+    <select id="selectContracts" resultType="Employee">
         SELECT
         従業員.従業員ID as "employeeNumber.value",
         従業員の名前.従業員名 as "name.value",
