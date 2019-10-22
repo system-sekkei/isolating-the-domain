@@ -1,5 +1,6 @@
 package example.domain.model.timerecord.bindingtime;
 
+import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.time.QuarterHour;
 
 /**
@@ -7,18 +8,18 @@ import example.domain.type.time.QuarterHour;
  */
 public class BindingTime {
 
-    QuarterHour value;
+    WorkRange workRange;
 
-    public BindingTime(QuarterHour value) {
-        this.value = value;
+    public BindingTime(WorkRange workRange) {
+        this.workRange = workRange;
     }
 
     public QuarterHour quarterHour() {
-        return value;
+        return workRange.quarterRoundClockTimeRange().between();
     }
 
     @Override
     public String toString() {
-        return value.toString();
+        return quarterHour().toString();
     }
 }

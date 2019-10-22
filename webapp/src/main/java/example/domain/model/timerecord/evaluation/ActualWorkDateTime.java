@@ -61,13 +61,13 @@ public class ActualWorkDateTime {
     }
 
     public DaytimeBindingTime daytimeBindingTime() {
-        BindingTime bindingTime = new BindingTime(workRange.quarterRoundClockTimeRange().between());
+        BindingTime bindingTime = new BindingTime(workRange);
         NightBindingTime nightBindingTime = nightBindingTime();
         return new DaytimeBindingTime(bindingTime, nightBindingTime);
     }
 
     public NightBindingTime nightBindingTime() {
-        return new NightBindingTime(workRange.quarterRoundClockTimeRange());
+        return new NightBindingTime(workRange);
     }
 
     public NightWorkTime nightWorkTime() {

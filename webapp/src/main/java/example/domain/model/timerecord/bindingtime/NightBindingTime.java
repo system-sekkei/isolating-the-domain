@@ -1,6 +1,7 @@
 package example.domain.model.timerecord.bindingtime;
 
 import example.domain.model.legislation.Night;
+import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.time.QuarterHour;
 import example.domain.type.time.QuarterRoundClockTimeRange;
 
@@ -15,8 +16,8 @@ public class NightBindingTime {
         this.value = value;
     }
 
-    public NightBindingTime(QuarterRoundClockTimeRange quarterRoundClockTimeRange) {
-        this(quarterRoundClockTimeRange, Night.legal());
+    public NightBindingTime(WorkRange workRange) {
+        this(workRange.quarterRoundClockTimeRange(), Night.legal());
     }
 
     public NightBindingTime(QuarterRoundClockTimeRange clockTimeRange, Night night) {
