@@ -1,29 +1,22 @@
 package example.application.service;
 
 import example.Application;
-import example.application.service.contract.ContractRecordService;
-import example.application.service.employee.EmployeeRecordService;
 import example.application.coordinator.payroll.PayrollQueryCoordinator;
+import example.application.service.contract.ContractRecordService;
 import example.application.service.employee.EmployeeQueryService;
+import example.application.service.employee.EmployeeRecordService;
 import example.application.service.timerecord.TimeRecordRecordService;
 import example.domain.model.attendance.WorkMonth;
-import example.domain.model.timerecord.evaluation.NightBreakTime;
-import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
-import example.domain.model.timerecord.evaluation.TimeRecord;
-import example.domain.model.timerecord.timefact.EndDateTime;
-import example.domain.model.timerecord.timefact.StartDateTime;
-import example.domain.model.timerecord.evaluation.WorkDate;
-import example.domain.model.timerecord.timefact.WorkRange;
-import example.domain.model.wage.HourlyWage;
-import example.domain.model.wage.WageCondition;
+import example.domain.model.employee.*;
 import example.domain.model.legislation.NightExtraRate;
 import example.domain.model.legislation.OverTimeExtraRate;
 import example.domain.model.payroll.Payroll;
-import example.domain.model.timerecord.evaluation.DaytimeBreakTime;
-import example.domain.model.employee.*;
+import example.domain.model.timerecord.evaluation.TimeRecord;
+import example.domain.model.wage.HourlyWage;
+import example.domain.model.wage.WageCondition;
 import example.domain.type.date.Date;
 import example.domain.type.time.InputTime;
-import example.domain.type.time.Minute;
+import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -67,13 +60,9 @@ class PayrollQueryCoordinatorTest {
             WageCondition wageCondition = new WageCondition(new HourlyWage(1000), OverTimeExtraRate.legal(), NightExtraRate.legal());
             contractRecordService.registerHourlyWage(employeeNumber, new Date("2018-11-20"), wageCondition);
 
-            Date date = new Date("2018-11-20");
-            InputTime startTime = new InputTime(9, 0);
-            InputTime endTime = new InputTime(10, 0);
-
             TimeRecord timeRecord = new TimeRecord(
                     employeeNumber,
-                    new ActualWorkDateTime(new WorkRange(StartDateTime.from(date, startTime), EndDateTime.from(date, endTime)), new DaytimeBreakTime(new Minute("0")), new NightBreakTime(new Minute("0")))
+                    AttendanceForm.toActualWorkDateTime("2018-11-20", "9:00", "10:00", "0", "0")
             );
             timeRecordRecordService.registerTimeRecord(timeRecord);
 
@@ -87,7 +76,7 @@ class PayrollQueryCoordinatorTest {
             InputTime endTime = new InputTime(23, 0);
             TimeRecord timeRecord = new TimeRecord(
                     employeeNumber,
-                    new ActualWorkDateTime(new WorkRange(StartDateTime.from(date, startTime), EndDateTime.from(date, endTime)), new DaytimeBreakTime(new Minute("0")), new NightBreakTime(new Minute("0")))
+                    AttendanceForm.toActualWorkDateTime("2018-11-25", "22:00", "23:00", "0", "0")
             );
             timeRecordRecordService.registerTimeRecord(timeRecord);
 

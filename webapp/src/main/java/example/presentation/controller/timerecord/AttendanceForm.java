@@ -39,10 +39,21 @@ public class AttendanceForm {
 
         Minute minute = new Minute(daytimeBreakTime);
         Minute nightMinute = new Minute(nightBreakTime);
+        return toActualWorkDateTime(workDate, startTime, endTime, minute, nightMinute);
+    }
+
+    private static ActualWorkDateTime toActualWorkDateTime(Date startDate, InputTime startTime, InputTime endTime, Minute minute, Minute nightMinute) {
         return new ActualWorkDateTime(
-                new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
+                new WorkRange(StartDateTime.from(startDate, startTime), EndDateTime.from(startDate, endTime)),
                 new DaytimeBreakTime(minute),
                 new NightBreakTime(nightMinute));
+    }
+
+    // テストへの流出がキツイので一旦ここに集める。最終domainに持っていきたい。
+    @Deprecated
+    public static ActualWorkDateTime toActualWorkDateTime(String startDate, String startTime, String endTime, String daytimeBreak, String nightBreak) {
+        Date date = new Date(startDate);
+        return toActualWorkDateTime(date, new InputTime(startTime), new InputTime(endTime), new Minute(daytimeBreak), new Minute(nightBreak));
     }
 
     public void apply(TimeRecord timeRecord) {

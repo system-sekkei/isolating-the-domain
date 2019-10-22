@@ -1,16 +1,9 @@
 package example.domain.model.payroll;
 
 import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
-import example.domain.model.timerecord.evaluation.DaytimeBreakTime;
-import example.domain.model.timerecord.evaluation.NightBreakTime;
-import example.domain.model.timerecord.timefact.EndDateTime;
-import example.domain.model.timerecord.timefact.StartDateTime;
-import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.model.wage.HourlyWage;
 import example.domain.model.wage.WageCondition;
-import example.domain.type.date.Date;
-import example.domain.type.time.InputTime;
-import example.domain.type.time.Minute;
+import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -36,17 +29,8 @@ class PaymentAmountTest {
             // 通常17時間＋深夜7時間（超過16時間）
             "0:00, 24:00, 0, 0, 1000, 30450"
     })
-    void wage(String begin, String end, int breakMinute, int nightBreakMinute, int hourlyWage, int expected) {
-        String[] splitBegin = begin.split(":");
-        InputTime startTime = new InputTime(Integer.valueOf(splitBegin[0]), Integer.valueOf(splitBegin[1]));
-        String[] splitEnd = end.split(":");
-        InputTime endTime = new InputTime(Integer.valueOf(splitEnd[0]), Integer.valueOf(splitEnd[1]));
-
-        Date date = new Date("2018-11-25");
-        ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
-                new WorkRange(StartDateTime.from(date, startTime), EndDateTime.from(date, endTime)),
-                new DaytimeBreakTime(new Minute(breakMinute)),
-                new NightBreakTime(new Minute(nightBreakMinute)));
+    void wage(String begin, String end, String breakMinute, String nightBreakMinute, int hourlyWage, int expected) {
+        ActualWorkDateTime actualWorkDateTime = AttendanceForm.toActualWorkDateTime("2018-11-25", begin, end, breakMinute, nightBreakMinute);
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));
 
         PaymentAmount paymentAmount = new PaymentAmount(actualWorkDateTime, wageCondition);

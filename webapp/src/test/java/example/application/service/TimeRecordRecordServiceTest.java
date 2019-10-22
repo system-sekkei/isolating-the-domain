@@ -9,25 +9,16 @@ import example.domain.model.attendance.WorkMonth;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
-import example.domain.model.timerecord.evaluation.DaytimeBreakTime;
-import example.domain.model.timerecord.evaluation.NightBreakTime;
 import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
 import example.domain.model.timerecord.evaluation.TimeRecord;
-import example.domain.model.timerecord.timefact.EndDateTime;
-import example.domain.model.timerecord.timefact.StartDateTime;
 import example.domain.model.timerecord.evaluation.WorkDate;
-import example.domain.model.timerecord.timefact.WorkRange;
-import example.domain.type.date.Date;
-import example.domain.type.time.InputTime;
-import example.domain.type.time.Minute;
+import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -52,25 +43,16 @@ class TimeRecordRecordServiceTest {
         Employee employee = employees.list().get(0);
         EmployeeNumber employeeNumber = employee.employeeNumber();
 
-        int year = 2017;
-        int month = 10;
-        int day = 20;
-        Date date = new Date(LocalDate.of(year, month, day));
-        InputTime startTime = new InputTime(9, 0);
-        InputTime endTime = new InputTime(24, 0);
-        ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
-                new WorkRange(StartDateTime.from(date, startTime), EndDateTime.from(date, endTime)),
-                new DaytimeBreakTime(new Minute(60)),
-                new NightBreakTime(new Minute(0)));
+        ActualWorkDateTime actualWorkDateTime = AttendanceForm.toActualWorkDateTime("2017-10-20", "9:00", "24:00", "60", "0");
 
         TimeRecord expectTimeRecord = new TimeRecord(employeeNumber, actualWorkDateTime);
         timeRecordRecordService.registerTimeRecord(expectTimeRecord);
 
-        Attendance attendance = attendanceQueryService.findAttendance(employee, new WorkMonth(year, month));
+        Attendance attendance = attendanceQueryService.findAttendance(employee, new WorkMonth("2017-10"));
         assertAll(
-                () -> assertEquals(attendance.month().toStringWithUnit(), year + "年" + month + "月"),
+                () -> assertEquals(attendance.month().toStringWithUnit(), "2017年10月"),
                 () -> assertEquals(attendance.listWorkDates().size(), 31),
-                () -> assertTrue(attendance.statusOf(new WorkDate(date)).isWork())
+                () -> assertTrue(attendance.statusOf(new WorkDate("2017-10-20")).isWork())
         );
     }
 }

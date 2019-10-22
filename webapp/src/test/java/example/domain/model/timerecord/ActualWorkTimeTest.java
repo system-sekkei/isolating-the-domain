@@ -1,15 +1,7 @@
 package example.domain.model.timerecord;
 
-import example.domain.model.timerecord.evaluation.DaytimeBreakTime;
-import example.domain.model.timerecord.evaluation.NightBreakTime;
 import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
-import example.domain.model.timerecord.timefact.EndDateTime;
-import example.domain.model.timerecord.timefact.StartDateTime;
-import example.domain.model.timerecord.evaluation.WorkDate;
-import example.domain.model.timerecord.timefact.WorkRange;
-import example.domain.type.date.Date;
-import example.domain.type.time.InputTime;
-import example.domain.type.time.Minute;
+import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -43,17 +35,8 @@ class ActualWorkTimeTest {
             "0:00, 24:00, 60, 16時間0分",
             "9:00, 33:00, 60, 16時間0分",
     })
-    void workTime(String begin, String end, int breaks, String expected) {
-        String[] splitBegin = begin.split(":");
-        InputTime startTime = new InputTime(Integer.valueOf(splitBegin[0]), Integer.valueOf(splitBegin[1]));
-        String[] splitEnd = end.split(":");
-        InputTime endTime = new InputTime(Integer.valueOf(splitEnd[0]), Integer.valueOf(splitEnd[1]));
-
-        Date date = new Date("2018-11-25");
-        ActualWorkDateTime sut = new ActualWorkDateTime(
-                new WorkRange(StartDateTime.from(date, startTime), EndDateTime.from(date, endTime)),
-                new DaytimeBreakTime(new Minute(breaks)),
-                new NightBreakTime(new Minute("0")));
+    void workTime(String begin, String end, String breaks, String expected) {
+        ActualWorkDateTime sut = AttendanceForm.toActualWorkDateTime("2018-11-25", begin, end, breaks, "0");
         assertEquals(expected, sut.daytimeWorkTime().toString());
     }
 
@@ -66,16 +49,8 @@ class ActualWorkTimeTest {
             "8:00, 17:00, 0, 0時間0分",
             "0:00, 24:00, 0, 7時間0分",
     })
-    void nightWorkTime(String begin, String end, int breaks, String expected) {
-        String[] splitBegin = begin.split(":");
-        InputTime startTime = new InputTime(Integer.valueOf(splitBegin[0]), Integer.valueOf(splitBegin[1]));
-        String[] splitEnd = end.split(":");
-        InputTime endTime = new InputTime(Integer.valueOf(splitEnd[0]), Integer.valueOf(splitEnd[1]));
-        Date date = new Date("2018-11-25");
-        ActualWorkDateTime sut = new ActualWorkDateTime(
-                new WorkRange(StartDateTime.from(date, startTime), EndDateTime.from(date, endTime)),
-                new DaytimeBreakTime(new Minute(0)),
-                new NightBreakTime(new Minute(breaks)));
+    void nightWorkTime(String begin, String end, String breaks, String expected) {
+        ActualWorkDateTime sut = AttendanceForm.toActualWorkDateTime("2018-11-25", begin, end, "0", breaks);
         assertEquals(expected, sut.nightWorkTime().toString());
     }
 
@@ -84,28 +59,15 @@ class ActualWorkTimeTest {
     @CsvSource({
             "9:00, 17:00, 60, 0時間0分",
             "09:00, 22:00, 60, 4時間0分"})
-    void overWorkTime(String begin, String end, int breaks, String expected) {
-        String[] splitBegin = begin.split(":");
-        InputTime startTime = new InputTime(Integer.valueOf(splitBegin[0]), Integer.valueOf(splitBegin[1]));
-        String[] splitEnd = end.split(":");
-        InputTime endTime = new InputTime(Integer.valueOf(splitEnd[0]), Integer.valueOf(splitEnd[1]));
-        Date date = new Date("2018-11-25");
-        ActualWorkDateTime sut = new ActualWorkDateTime(
-                new WorkRange(StartDateTime.from(date, startTime), EndDateTime.from(date, endTime)),
-                new DaytimeBreakTime(new Minute(breaks)), new NightBreakTime(new Minute("0")));
+    void overWorkTime(String begin, String end, String breaks, String expected) {
+        ActualWorkDateTime sut = AttendanceForm.toActualWorkDateTime("2018-11-25", begin, end, breaks, "0");
         assertEquals(expected, sut.overWorkTime().toString());
     }
 
     @DisplayName("就業時間/時間外就業時間/深夜作業時間/休憩時間の相関")
     @Test
     void 時間の仕様() {
-        Date date = new Date("2018-11-25");
-        InputTime startTime = new InputTime(8, 0);
-        InputTime endTime = new InputTime(24, 0);
-        ActualWorkDateTime sut = new ActualWorkDateTime(
-                new WorkRange(StartDateTime.from(date, startTime), EndDateTime.from(date, endTime)),
-                new DaytimeBreakTime(new Minute(120)),
-                new NightBreakTime(new Minute("30")));
+        ActualWorkDateTime sut = AttendanceForm.toActualWorkDateTime("2018-11-25", "8:00", "24:00", "120", "30");
         assertAll(
                 () -> assertEquals("12時間0分", sut.daytimeWorkTime().toString())
                 , () -> assertEquals("5時間30分", sut.overWorkTime().toString())

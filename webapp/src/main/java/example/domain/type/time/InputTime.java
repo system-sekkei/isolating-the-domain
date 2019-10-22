@@ -17,6 +17,12 @@ public class InputTime {
         this.minute = minute;
     }
 
+    public InputTime(String time) {
+        String[] s = time.split(":");
+        this.hour = Integer.parseInt(s[0]);
+        this.minute = Integer.parseInt(s[1]);
+    }
+
     public ClockTime toClockTime() {
         return new ClockTime(hour % 24, minute);
     }
