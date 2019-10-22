@@ -1,6 +1,6 @@
-package example.domain.model.timerecord.breaktime;
+package example.domain.model.timerecord.evaluation;
 
-import example.domain.model.timerecord.bindingtime.DaytimeBindingTime;
+import example.domain.model.timerecord.evaluation.DaytimeBindingTime;
 import example.domain.type.time.Minute;
 import example.domain.type.time.QuarterHour;
 

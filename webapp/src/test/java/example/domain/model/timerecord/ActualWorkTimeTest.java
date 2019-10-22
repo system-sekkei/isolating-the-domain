@@ -1,7 +1,7 @@
 package example.domain.model.timerecord;
 
-import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
-import example.domain.model.timerecord.breaktime.NightBreakTime;
+import example.domain.model.timerecord.evaluation.DaytimeBreakTime;
+import example.domain.model.timerecord.evaluation.NightBreakTime;
 import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
 import example.domain.model.timerecord.timefact.EndDateTime;
 import example.domain.model.timerecord.timefact.StartDateTime;

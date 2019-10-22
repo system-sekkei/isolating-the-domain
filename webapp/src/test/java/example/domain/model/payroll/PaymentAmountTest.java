@@ -1,6 +1,6 @@
 package example.domain.model.payroll;
 
-import example.domain.model.timerecord.breaktime.NightBreakTime;
+import example.domain.model.timerecord.evaluation.NightBreakTime;
 import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
 import example.domain.model.timerecord.timefact.EndDateTime;
 import example.domain.model.timerecord.timefact.StartDateTime;
@@ -8,7 +8,7 @@ import example.domain.model.timerecord.timefact.WorkDate;
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.model.wage.HourlyWage;
 import example.domain.model.wage.WageCondition;
-import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
+import example.domain.model.timerecord.evaluation.DaytimeBreakTime;
 import example.domain.type.date.Date;
 import example.domain.type.time.InputTime;
 import example.domain.type.time.Minute;

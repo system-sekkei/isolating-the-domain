@@ -1,4 +1,4 @@
-package example.domain.model.timerecord.bindingtime;
+package example.domain.model.timerecord.evaluation;
 
 import example.domain.model.legislation.Night;
 import example.domain.model.timerecord.timefact.WorkRange;

@@ -1,11 +1,5 @@
 package example.domain.model.timerecord.evaluation;
 
-import example.domain.model.timerecord.bindingtime.BindingTime;
-import example.domain.model.timerecord.bindingtime.DaytimeBindingTime;
-import example.domain.model.timerecord.bindingtime.NightBindingTime;
-import example.domain.model.timerecord.breaktime.BreakTime;
-import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
-import example.domain.model.timerecord.breaktime.NightBreakTime;
 import example.domain.model.timerecord.timefact.WorkDate;
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.time.QuarterHour;
