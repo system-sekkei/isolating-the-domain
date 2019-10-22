@@ -22,10 +22,6 @@ public class StartTime {
         return value.quarterRoundUp();
     }
 
-    public boolean isAfter(EndTime endTime) {
-        return value.isAfter(endTime.value);
-    }
-
     public ClockTime clockTime() {
         return value;
     }

@@ -129,9 +129,9 @@ class AttendanceForm {
 
         StartTime startTime = workStartTime();
         EndTime endTime = workEndTime();
-        if (startTime.isAfter(endTime)) return false;
+        if (endTime.isAfter(startTime)) return true;
 
-        return true;
+        return false;
     }
 
     private StartTime workStartTime() {

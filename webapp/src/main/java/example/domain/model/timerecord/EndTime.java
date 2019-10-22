@@ -22,6 +22,10 @@ public class EndTime {
         return value.quarterRoundDown();
     }
 
+    public boolean isAfter(StartTime startTime) {
+        return value.isAfter(startTime.value);
+    }
+
     @Override
     public String toString() {
         return value.toString();
