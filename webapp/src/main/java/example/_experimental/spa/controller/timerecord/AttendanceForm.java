@@ -56,17 +56,20 @@ class AttendanceForm {
 
     TimeRecord toTimeRecord() {
         EmployeeNumber employeeNumber = new EmployeeNumber(this.employeeNumber);
+        return new TimeRecord(employeeNumber, toActualWorkDateTime());
+    }
+
+    private ActualWorkDateTime toActualWorkDateTime() {
         WorkDate workDate = new WorkDate(this.workDate);
         InputTime startTime = new InputTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
         InputTime endTime = new InputTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
 
         Minute daytimeBreakMinute = new Minute(daytimeBreakTime);
         Minute nightBreakTime = new Minute(this.nightBreakTime);
-        ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
+        return new ActualWorkDateTime(
                 new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
                 new DaytimeBreakTime(daytimeBreakMinute),
                 new NightBreakTime(nightBreakTime));
-        return new TimeRecord(employeeNumber, actualWorkDateTime);
     }
 
     @AssertTrue(message = "勤務日を入力してください")
@@ -153,8 +156,8 @@ class AttendanceForm {
         try {
             DaytimeBreakTime daytimeBreakTime = new DaytimeBreakTime(new Minute(this.daytimeBreakTime));
 
-            TimeRecord timeRecord = toTimeRecord();
-            Minute daytimeBindingMinute = timeRecord.actualWorkDateTime().workRange().daytimeBindingTime().quarterHour().minute();
+            ActualWorkDateTime actualWorkDateTime = toActualWorkDateTime();
+            Minute daytimeBindingMinute = actualWorkDateTime.daytimeBindingTime().quarterHour().minute();
             if (daytimeBindingMinute.lessThan(daytimeBreakTime.minute())) {
                 return false;
             }
@@ -171,8 +174,8 @@ class AttendanceForm {
         try {
             NightBreakTime nightBreakTime = new NightBreakTime(new Minute(this.nightBreakTime));
 
-            TimeRecord timeRecord = toTimeRecord();
-            Minute nightBindingMinute = timeRecord.actualWorkDateTime().workRange().nightBindingTime().quarterHour().minute();
+            ActualWorkDateTime actualWorkDateTime = toActualWorkDateTime();
+            Minute nightBindingMinute = actualWorkDateTime.nightBindingTime().quarterHour().minute();
             if (nightBindingMinute.lessThan(nightBreakTime.minute())) {
                 return false;
             }

@@ -1,7 +1,5 @@
 package example.domain.model.timerecord.evaluation;
 
-import example.domain.model.timerecord.breaktime.NightBreakTime;
-import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.time.QuarterHour;
 
 /**
@@ -11,8 +9,8 @@ public class NightWorkTime {
 
     QuarterHour value;
 
-    public NightWorkTime(WorkRange workRange, NightBreakTime nightBreakTime) {
-        this.value = nightBreakTime.subtractFrom(workRange.nightBindingTime());
+    public NightWorkTime(QuarterHour value) {
+        this.value = value;
     }
 
     public QuarterHour quarterHour() {

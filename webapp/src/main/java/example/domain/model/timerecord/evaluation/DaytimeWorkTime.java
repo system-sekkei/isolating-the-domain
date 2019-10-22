@@ -1,7 +1,5 @@
 package example.domain.model.timerecord.evaluation;
 
-import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
-import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.time.QuarterHour;
 
 /**
@@ -11,8 +9,8 @@ public class DaytimeWorkTime {
 
     QuarterHour value;
 
-    public DaytimeWorkTime(WorkRange workRange, DaytimeBreakTime daytimeBreakTime) {
-        value = daytimeBreakTime.subtractFrom(workRange.daytimeBindingTime());
+    public DaytimeWorkTime(QuarterHour value) {
+        this.value = value;
     }
 
     public QuarterHour quarterHour() {

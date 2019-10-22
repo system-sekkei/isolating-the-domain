@@ -30,17 +30,21 @@ public class AttendanceForm {
     }
 
     public TimeRecord toTimeRecord() {
+        ActualWorkDateTime actualWorkDateTime = toActualWorkDateTime();
+        return new TimeRecord(employeeNumber, actualWorkDateTime);
+    }
+
+    private ActualWorkDateTime toActualWorkDateTime() {
         WorkDate workDate = new WorkDate(this.workDate);
         InputTime startTime = new InputTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
         InputTime endTime = new InputTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
 
         Minute minute = new Minute(daytimeBreakTime);
         Minute nightMinute = new Minute(nightBreakTime);
-        ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
+        return new ActualWorkDateTime(
                 new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
                 new DaytimeBreakTime(minute),
                 new NightBreakTime(nightMinute));
-        return new TimeRecord(employeeNumber, actualWorkDateTime);
     }
 
     public void apply(TimeRecord timeRecord) {
@@ -163,8 +167,7 @@ public class AttendanceForm {
         try {
             DaytimeBreakTime daytimeBreakTime = new DaytimeBreakTime(new Minute(this.daytimeBreakTime));
 
-            TimeRecord timeRecord = toTimeRecord();
-            Minute daytimeBindingMinute = timeRecord.actualWorkDateTime().workRange().daytimeBindingTime().quarterHour().minute();
+            Minute daytimeBindingMinute = toActualWorkDateTime().daytimeBindingTime().quarterHour().minute();
             if (daytimeBindingMinute.lessThan(daytimeBreakTime.minute())) {
                 return false;
             }
@@ -183,8 +186,7 @@ public class AttendanceForm {
         try {
             NightBreakTime nightBreakTime = new NightBreakTime(new Minute(this.nightBreakTime));
 
-            TimeRecord timeRecord = toTimeRecord();
-            Minute nightBindingMinute = timeRecord.actualWorkDateTime().workRange().nightBindingTime().quarterHour().minute();
+            Minute nightBindingMinute = toActualWorkDateTime().nightBindingTime().quarterHour().minute();
             if (nightBindingMinute.lessThan(nightBreakTime.minute())) {
                 return false;
             }

@@ -1,10 +1,14 @@
 package example.domain.model.timerecord.evaluation;
 
+import example.domain.model.timerecord.bindingtime.BindingTime;
+import example.domain.model.timerecord.bindingtime.DaytimeBindingTime;
+import example.domain.model.timerecord.bindingtime.NightBindingTime;
 import example.domain.model.timerecord.breaktime.BreakTime;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
 import example.domain.model.timerecord.breaktime.NightBreakTime;
 import example.domain.model.timerecord.timefact.WorkDate;
 import example.domain.model.timerecord.timefact.WorkRange;
+import example.domain.type.time.QuarterHour;
 
 /**
  * 勤務日時実績
@@ -51,11 +55,24 @@ public class ActualWorkDateTime {
     }
 
     public DaytimeWorkTime daytimeWorkTime() {
-        return new DaytimeWorkTime(workRange, daytimeBreakTime);
+        DaytimeBindingTime daytimeBindingTime = daytimeBindingTime();
+        QuarterHour quarterHour = daytimeBreakTime.subtractFrom(daytimeBindingTime);
+        return new DaytimeWorkTime(quarterHour);
+    }
+
+    public DaytimeBindingTime daytimeBindingTime() {
+        BindingTime bindingTime = new BindingTime(workRange.quarterRoundClockTimeRange().between());
+        NightBindingTime nightBindingTime = nightBindingTime();
+        return new DaytimeBindingTime(bindingTime, nightBindingTime);
+    }
+
+    public NightBindingTime nightBindingTime() {
+        return new NightBindingTime(workRange.quarterRoundClockTimeRange());
     }
 
     public NightWorkTime nightWorkTime() {
-        return new NightWorkTime(workRange, nightBreakTime);
+        QuarterHour quarterHour = nightBreakTime.subtractFrom(nightBindingTime());
+        return new NightWorkTime(quarterHour);
     }
 
     public OverWorkTime overWorkTime() {

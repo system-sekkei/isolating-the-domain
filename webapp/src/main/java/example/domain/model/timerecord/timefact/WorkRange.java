@@ -1,8 +1,5 @@
 package example.domain.model.timerecord.timefact;
 
-import example.domain.model.timerecord.bindingtime.BindingTime;
-import example.domain.model.timerecord.bindingtime.DaytimeBindingTime;
-import example.domain.model.timerecord.bindingtime.NightBindingTime;
 import example.domain.type.time.QuarterRoundClockTimeRange;
 
 /**
@@ -22,7 +19,7 @@ public class WorkRange {
         this.endDateTime = endDateTime;
     }
 
-    QuarterRoundClockTimeRange quarterRoundClockTimeRange() {
+    public QuarterRoundClockTimeRange quarterRoundClockTimeRange() {
         return new QuarterRoundClockTimeRange(startDateTime.startTime.normalizedClockTime(), endDateTime.endTime.normalizedClockTime());
     }
 
@@ -36,17 +33,5 @@ public class WorkRange {
 
     public WorkDate workDate() {
         return new WorkDate(startDateTime.startDate.value);
-    }
-
-    public BindingTime bindingTime() {
-        return new BindingTime(quarterRoundClockTimeRange().between());
-    }
-
-    public DaytimeBindingTime daytimeBindingTime() {
-        return new DaytimeBindingTime(bindingTime(), nightBindingTime());
-    }
-
-    public NightBindingTime nightBindingTime() {
-        return new NightBindingTime(quarterRoundClockTimeRange());
     }
 }
