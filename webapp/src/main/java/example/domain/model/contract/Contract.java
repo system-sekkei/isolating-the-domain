@@ -4,6 +4,7 @@ import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.employee.Name;
 import example.domain.model.wage.HourlyWage;
+import example.domain.model.wage.WageCondition;
 import example.domain.type.date.Date;
 import example.domain.type.date.Dates;
 
@@ -62,5 +63,10 @@ public class Contract {
             return ContractStatus.判定不能;
         }
         return contractStatus(dates.first());
+    }
+
+    public WageCondition wageConditionAt(Date date) {
+        ContractWage contractWage = availableContractAt(date);
+        return contractWage.wageCondition();
     }
 }

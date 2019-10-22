@@ -8,6 +8,8 @@ import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PaymentAmountTest {
@@ -34,7 +36,8 @@ class PaymentAmountTest {
         PayableWork payableWork = new PayableWork(actualWorkDateTime);
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));
 
-        PaymentAmount paymentAmount = PaymentAmount.calculate(payableWork, wageCondition);
+        PaymentAmount paymentAmount = new PaymentAmount(BigDecimal.ZERO)
+                .addConsiderationAmount(payableWork, wageCondition);
 
         assertEquals(expected, paymentAmount.value.value().intValue());
     }

@@ -3,9 +3,9 @@ package example.domain.model.payroll;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.PayableWork;
 import example.domain.model.contract.Contract;
-import example.domain.model.contract.ContractWage;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.employee.Name;
+import example.domain.model.wage.WageCondition;
 
 import java.math.BigDecimal;
 
@@ -34,10 +34,8 @@ public class Payroll {
         PaymentAmount paymentAmount = new PaymentAmount(BigDecimal.ZERO);
 
         for (PayableWork payableWork : attendance.listPayableWork()) {
-            ContractWage contractWage = contract.availableContractAt(payableWork.date());
-
-            PaymentAmount oneDayAmount = PaymentAmount.calculate(payableWork, contractWage.wageCondition());
-            paymentAmount = paymentAmount.add(oneDayAmount);
+            WageCondition wageCondition = contract.wageConditionAt(payableWork.date());
+            paymentAmount = paymentAmount.addConsiderationAmount(payableWork, wageCondition);
         }
         return paymentAmount;
     }

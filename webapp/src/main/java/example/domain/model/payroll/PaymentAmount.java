@@ -21,12 +21,6 @@ public class PaymentAmount {
         this.value = value;
     }
 
-    public static PaymentAmount calculate(PayableWork payableWork, WageCondition wageCondition) {
-        return new PaymentWorkTime(payableWork.workTime()).multiply(wageCondition.baseHourlyWage())
-                .add(new PaymentWorkTime(payableWork.overWorkTime()).multiply(wageCondition.overTimeHourlyExtraWage().value()))
-                .add(new PaymentWorkTime(payableWork.nightWorkTime()).multiply(wageCondition.nightHourlyExtraWage().value()));
-    }
-
     PaymentAmount add(PaymentAmount paymentAmount) {
         return new PaymentAmount(this.value.add(paymentAmount.value));
     }
@@ -34,5 +28,11 @@ public class PaymentAmount {
     @Override
     public String toString() {
         return value.toString();
+    }
+
+    public PaymentAmount addConsiderationAmount(PayableWork payableWork, WageCondition wageCondition) {
+        return this.add(new PaymentWorkTime(payableWork.workTime()).multiply(wageCondition.baseHourlyWage()))
+                .add(new PaymentWorkTime(payableWork.overWorkTime()).multiply(wageCondition.overTimeHourlyExtraWage().value()))
+                .add(new PaymentWorkTime(payableWork.nightWorkTime()).multiply(wageCondition.nightHourlyExtraWage().value()));
     }
 }
