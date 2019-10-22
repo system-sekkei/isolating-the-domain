@@ -13,7 +13,7 @@ import example.domain.model.timerecord.*;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
 import example.domain.model.timerecord.breaktime.NightBreakTime;
 import example.domain.type.date.Date;
-import example.domain.type.time.ClockTime;
+import example.domain.type.time.InputTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -51,10 +51,10 @@ class TimeRecordRecordServiceTest {
         int month = 10;
         int day = 20;
         WorkDate workDate = new WorkDate(new Date(LocalDate.of(year, month, day)));
+        InputTime startTime = new InputTime(9, 0);
+        InputTime endTime = new InputTime(24, 0);
         ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
-                new WorkRange(
-                        new StartDateTime(workDate, new StartTime(new ClockTime("9:00"))),
-                        new EndDateTime(workDate, 24, 0)),
+                new WorkRange(new StartDateTime(workDate, startTime), new EndDateTime(workDate, endTime)),
                 new DaytimeBreakTime(new Minute(60)),
                 new NightBreakTime(new Minute(0)));
 

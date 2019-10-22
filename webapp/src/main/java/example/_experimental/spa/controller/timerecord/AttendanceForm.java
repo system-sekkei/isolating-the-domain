@@ -5,6 +5,7 @@ import example.domain.model.timerecord.*;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
 import example.domain.model.timerecord.breaktime.NightBreakTime;
 import example.domain.type.time.ClockTime;
+import example.domain.type.time.InputTime;
 import example.domain.type.time.Minute;
 
 import javax.validation.constraints.AssertTrue;
@@ -54,14 +55,13 @@ class AttendanceForm {
     TimeRecord toTimeRecord() {
         EmployeeNumber employeeNumber = new EmployeeNumber(this.employeeNumber);
         WorkDate workDate = new WorkDate(this.workDate);
-        StartTime startTime = new StartTime(new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute)));
-        StartDateTime startDateTime = new StartDateTime(workDate, startTime);
-        EndDateTime endDateTime = new EndDateTime(workDate, Integer.valueOf(endHour), Integer.valueOf(endMinute));
+        InputTime startTime = new InputTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
+        InputTime endTime = new InputTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
 
         Minute daytimeBreakMinute = new Minute(daytimeBreakTime);
         Minute nightBreakTime = new Minute(this.nightBreakTime);
         ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
-                new WorkRange(startDateTime, endDateTime),
+                new WorkRange(new StartDateTime(workDate, startTime), new EndDateTime(workDate, endTime)),
                 new DaytimeBreakTime(daytimeBreakMinute),
                 new NightBreakTime(nightBreakTime));
         return new TimeRecord(employeeNumber, actualWorkDateTime);

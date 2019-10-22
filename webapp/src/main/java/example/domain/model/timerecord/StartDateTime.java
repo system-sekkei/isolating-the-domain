@@ -1,6 +1,8 @@
 package example.domain.model.timerecord;
 
 
+import example.domain.type.time.InputTime;
+
 /**
  * 勤務開始日時
  */
@@ -13,9 +15,9 @@ public class StartDateTime {
     StartDateTime() {
     }
 
-    public StartDateTime(WorkDate workDate, StartTime startTime) {
+    public StartDateTime(WorkDate workDate, InputTime startTime) {
         this.startDate = new StartDate(workDate.value);
-        this.startTime = startTime;
+        this.startTime = new StartTime(startTime.toClockTime());
     }
 
     @Override

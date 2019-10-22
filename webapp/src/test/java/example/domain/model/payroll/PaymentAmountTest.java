@@ -6,6 +6,7 @@ import example.domain.model.wage.HourlyWage;
 import example.domain.model.wage.WageCondition;
 import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
 import example.domain.type.date.Date;
+import example.domain.type.time.InputTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -33,12 +34,14 @@ class PaymentAmountTest {
             "0:00, 24:00, 0, 0, 1000, 30450"
     })
     void wage(String begin, String end, int breakMinute, int nightBreakMinute, int hourlyWage, int expected) {
-        String[] split = end.split(":");
-        Integer endHour = Integer.valueOf(split[0]);
-        Integer endMinute = Integer.valueOf(split[1]);
+        String[] splitBegin = begin.split(":");
+        InputTime startTime = new InputTime(Integer.valueOf(splitBegin[0]), Integer.valueOf(splitBegin[1]));
+        String[] splitEnd = end.split(":");
+        InputTime endTime = new InputTime(Integer.valueOf(splitEnd[0]), Integer.valueOf(splitEnd[1]));
+
         WorkDate workDate = new WorkDate(new Date("2018-11-25"));
         ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
-                new WorkRange(new StartDateTime(workDate, new StartTime(begin)), new EndDateTime(workDate, endHour, endMinute)),
+                new WorkRange(new StartDateTime(workDate, startTime), new EndDateTime(workDate, endTime)),
                 new DaytimeBreakTime(new Minute(breakMinute)),
                 new NightBreakTime(new Minute(nightBreakMinute)));
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));
