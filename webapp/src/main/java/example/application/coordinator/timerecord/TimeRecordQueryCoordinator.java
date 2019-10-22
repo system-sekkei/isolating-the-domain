@@ -5,13 +5,9 @@ import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordQueryService;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
-import example.domain.model.timerecord.evaluation.DaytimeBreakTime;
-import example.domain.model.timerecord.evaluation.NightBreakTime;
-import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
-import example.domain.model.timerecord.evaluation.TimeRecord;
+import example.domain.model.timerecord.evaluation.*;
 import example.domain.model.timerecord.timefact.EndDateTime;
 import example.domain.model.timerecord.timefact.StartDateTime;
-import example.domain.model.timerecord.timefact.WorkDate;
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.time.InputTime;
 import example.domain.type.time.Minute;
@@ -45,7 +41,7 @@ public class TimeRecordQueryCoordinator {
         InputTime endTime = new InputTime(18, 0);
         return new TimeRecord(employeeNumber,
                 new ActualWorkDateTime(
-                        new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
+                        new WorkRange(StartDateTime.from(workDate.value(), startTime), EndDateTime.from(workDate.value(), endTime)),
                         new DaytimeBreakTime(new Minute(60)),
                         new NightBreakTime(new Minute(0))
                 ));

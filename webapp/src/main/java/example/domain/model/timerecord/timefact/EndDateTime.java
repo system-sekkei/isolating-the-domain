@@ -1,5 +1,6 @@
 package example.domain.model.timerecord.timefact;
 
+import example.domain.type.date.Date;
 import example.domain.type.time.InputTime;
 
 /**
@@ -19,8 +20,8 @@ public class EndDateTime {
         this.endTime = endTime;
     }
 
-    public static EndDateTime from(WorkDate workDate, InputTime inputTime) {
-        EndDate endDate = inputTime.isOverFlow() ? new EndDate(workDate.value.nextDay()) : new EndDate(workDate.value);
+    public static EndDateTime from(Date date, InputTime inputTime) {
+        EndDate endDate = inputTime.isOverFlow() ? new EndDate(date.nextDay()) : new EndDate(date);
         EndTime endTime = new EndTime(inputTime.toClockTime());
         return new EndDateTime(endDate, endTime);
     }

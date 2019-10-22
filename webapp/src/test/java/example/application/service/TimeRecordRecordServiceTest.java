@@ -15,7 +15,7 @@ import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
 import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.model.timerecord.timefact.EndDateTime;
 import example.domain.model.timerecord.timefact.StartDateTime;
-import example.domain.model.timerecord.timefact.WorkDate;
+import example.domain.model.timerecord.evaluation.WorkDate;
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.date.Date;
 import example.domain.type.time.InputTime;
@@ -55,11 +55,11 @@ class TimeRecordRecordServiceTest {
         int year = 2017;
         int month = 10;
         int day = 20;
-        WorkDate workDate = new WorkDate(new Date(LocalDate.of(year, month, day)));
+        Date date = new Date(LocalDate.of(year, month, day));
         InputTime startTime = new InputTime(9, 0);
         InputTime endTime = new InputTime(24, 0);
         ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
-                new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
+                new WorkRange(StartDateTime.from(date, startTime), EndDateTime.from(date, endTime)),
                 new DaytimeBreakTime(new Minute(60)),
                 new NightBreakTime(new Minute(0)));
 
@@ -70,7 +70,7 @@ class TimeRecordRecordServiceTest {
         assertAll(
                 () -> assertEquals(attendance.month().toStringWithUnit(), year + "年" + month + "月"),
                 () -> assertEquals(attendance.listWorkDates().size(), 31),
-                () -> assertTrue(attendance.statusOf(workDate).isWork())
+                () -> assertTrue(attendance.statusOf(new WorkDate(date)).isWork())
         );
     }
 }

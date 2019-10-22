@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.AttendanceStatus;
 import example.domain.model.employee.Employee;
-import example.domain.model.timerecord.timefact.WorkDate;
+import example.domain.model.timerecord.evaluation.WorkDate;
 
 import java.util.ArrayList;
 import java.util.HashMap;

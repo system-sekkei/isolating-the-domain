@@ -1,6 +1,5 @@
 package example.domain.model.timerecord.evaluation;
 
-import example.domain.model.timerecord.timefact.WorkDate;
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.time.QuarterHour;
 
@@ -37,7 +36,7 @@ public class ActualWorkDateTime {
     }
 
     public WorkDate workDate() {
-        return workRange.workDate();
+        return new WorkDate(workRange.startDate().value());
     }
 
     public WorkTime workTime() {

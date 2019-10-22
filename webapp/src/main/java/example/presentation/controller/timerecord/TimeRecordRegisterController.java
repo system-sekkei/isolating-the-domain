@@ -7,7 +7,7 @@ import example.domain.model.attendance.WorkMonth;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.TimeRecord;
-import example.domain.model.timerecord.timefact.WorkDate;
+import example.domain.model.timerecord.evaluation.WorkDate;
 import example.domain.type.date.Date;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

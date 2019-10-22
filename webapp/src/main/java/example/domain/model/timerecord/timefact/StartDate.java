@@ -22,10 +22,6 @@ public class StartDate {
         this(new Date(value));
     }
 
-    public StartDate(WorkDate workDate) {
-        value = workDate.value;
-    }
-
     public Date value() {
         return value;
     }

@@ -31,7 +31,7 @@ public class WorkRange {
         return endDateTime.endTime;
     }
 
-    public WorkDate workDate() {
-        return new WorkDate(startDateTime.startDate.value);
+    public StartDate startDate() {
+        return startDateTime.startDate;
     }
 }

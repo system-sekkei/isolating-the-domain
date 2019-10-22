@@ -1,4 +1,4 @@
-package example.domain.model.timerecord.timefact;
+package example.domain.model.timerecord.evaluation;
 
 import example.domain.type.date.Date;
 import example.domain.type.date.DayOfWeek;

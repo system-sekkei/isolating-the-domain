@@ -12,7 +12,7 @@ import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
 import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.model.timerecord.timefact.EndDateTime;
 import example.domain.model.timerecord.timefact.StartDateTime;
-import example.domain.model.timerecord.timefact.WorkDate;
+import example.domain.model.timerecord.evaluation.WorkDate;
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.model.wage.HourlyWage;
 import example.domain.model.wage.WageCondition;
@@ -67,13 +67,13 @@ class PayrollQueryCoordinatorTest {
             WageCondition wageCondition = new WageCondition(new HourlyWage(1000), OverTimeExtraRate.legal(), NightExtraRate.legal());
             contractRecordService.registerHourlyWage(employeeNumber, new Date("2018-11-20"), wageCondition);
 
-            WorkDate workDate = new WorkDate(new Date("2018-11-20"));
+            Date date = new Date("2018-11-20");
             InputTime startTime = new InputTime(9, 0);
             InputTime endTime = new InputTime(10, 0);
 
             TimeRecord timeRecord = new TimeRecord(
                     employeeNumber,
-                    new ActualWorkDateTime(new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)), new DaytimeBreakTime(new Minute("0")), new NightBreakTime(new Minute("0")))
+                    new ActualWorkDateTime(new WorkRange(StartDateTime.from(date, startTime), EndDateTime.from(date, endTime)), new DaytimeBreakTime(new Minute("0")), new NightBreakTime(new Minute("0")))
             );
             timeRecordRecordService.registerTimeRecord(timeRecord);
 
@@ -82,12 +82,12 @@ class PayrollQueryCoordinatorTest {
         }
 
         {
-            WorkDate workDate = new WorkDate(new Date("2018-11-25"));
+            Date date = new Date("2018-11-25");
             InputTime startTime = new InputTime(22, 0);
             InputTime endTime = new InputTime(23, 0);
             TimeRecord timeRecord = new TimeRecord(
                     employeeNumber,
-                    new ActualWorkDateTime(new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)), new DaytimeBreakTime(new Minute("0")), new NightBreakTime(new Minute("0")))
+                    new ActualWorkDateTime(new WorkRange(StartDateTime.from(date, startTime), EndDateTime.from(date, endTime)), new DaytimeBreakTime(new Minute("0")), new NightBreakTime(new Minute("0")))
             );
             timeRecordRecordService.registerTimeRecord(timeRecord);
 

@@ -5,7 +5,7 @@ import example.domain.model.timerecord.evaluation.NightBreakTime;
 import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
 import example.domain.model.timerecord.timefact.EndDateTime;
 import example.domain.model.timerecord.timefact.StartDateTime;
-import example.domain.model.timerecord.timefact.WorkDate;
+import example.domain.model.timerecord.evaluation.WorkDate;
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.date.Date;
 import example.domain.type.time.InputTime;
@@ -49,9 +49,9 @@ class ActualWorkTimeTest {
         String[] splitEnd = end.split(":");
         InputTime endTime = new InputTime(Integer.valueOf(splitEnd[0]), Integer.valueOf(splitEnd[1]));
 
-        WorkDate workDate = new WorkDate(new Date("2018-11-25"));
+        Date date = new Date("2018-11-25");
         ActualWorkDateTime sut = new ActualWorkDateTime(
-                new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
+                new WorkRange(StartDateTime.from(date, startTime), EndDateTime.from(date, endTime)),
                 new DaytimeBreakTime(new Minute(breaks)),
                 new NightBreakTime(new Minute("0")));
         assertEquals(expected, sut.daytimeWorkTime().toString());
@@ -71,9 +71,9 @@ class ActualWorkTimeTest {
         InputTime startTime = new InputTime(Integer.valueOf(splitBegin[0]), Integer.valueOf(splitBegin[1]));
         String[] splitEnd = end.split(":");
         InputTime endTime = new InputTime(Integer.valueOf(splitEnd[0]), Integer.valueOf(splitEnd[1]));
-        WorkDate workDate = new WorkDate(new Date("2018-11-25"));
+        Date date = new Date("2018-11-25");
         ActualWorkDateTime sut = new ActualWorkDateTime(
-                new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
+                new WorkRange(StartDateTime.from(date, startTime), EndDateTime.from(date, endTime)),
                 new DaytimeBreakTime(new Minute(0)),
                 new NightBreakTime(new Minute(breaks)));
         assertEquals(expected, sut.nightWorkTime().toString());
@@ -89,9 +89,9 @@ class ActualWorkTimeTest {
         InputTime startTime = new InputTime(Integer.valueOf(splitBegin[0]), Integer.valueOf(splitBegin[1]));
         String[] splitEnd = end.split(":");
         InputTime endTime = new InputTime(Integer.valueOf(splitEnd[0]), Integer.valueOf(splitEnd[1]));
-        WorkDate workDate = new WorkDate(new Date("2018-11-25"));
+        Date date = new Date("2018-11-25");
         ActualWorkDateTime sut = new ActualWorkDateTime(
-                new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
+                new WorkRange(StartDateTime.from(date, startTime), EndDateTime.from(date, endTime)),
                 new DaytimeBreakTime(new Minute(breaks)), new NightBreakTime(new Minute("0")));
         assertEquals(expected, sut.overWorkTime().toString());
     }
@@ -99,11 +99,11 @@ class ActualWorkTimeTest {
     @DisplayName("就業時間/時間外就業時間/深夜作業時間/休憩時間の相関")
     @Test
     void 時間の仕様() {
-        WorkDate workDate = new WorkDate(new Date("2018-11-25"));
+        Date date = new Date("2018-11-25");
         InputTime startTime = new InputTime(8, 0);
         InputTime endTime = new InputTime(24, 0);
         ActualWorkDateTime sut = new ActualWorkDateTime(
-                new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
+                new WorkRange(StartDateTime.from(date, startTime), EndDateTime.from(date, endTime)),
                 new DaytimeBreakTime(new Minute(120)),
                 new NightBreakTime(new Minute("30")));
         assertAll(

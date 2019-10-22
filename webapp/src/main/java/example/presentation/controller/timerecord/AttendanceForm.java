@@ -1,11 +1,9 @@
 package example.presentation.controller.timerecord;
 
 import example.domain.model.employee.EmployeeNumber;
-import example.domain.model.timerecord.evaluation.DaytimeBreakTime;
-import example.domain.model.timerecord.evaluation.NightBreakTime;
-import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
-import example.domain.model.timerecord.evaluation.TimeRecord;
+import example.domain.model.timerecord.evaluation.*;
 import example.domain.model.timerecord.timefact.*;
+import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.InputTime;
 import example.domain.type.time.Minute;
@@ -35,7 +33,7 @@ public class AttendanceForm {
     }
 
     private ActualWorkDateTime toActualWorkDateTime() {
-        WorkDate workDate = new WorkDate(this.workDate);
+        Date workDate = new Date(this.workDate);
         InputTime startTime = new InputTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
         InputTime endTime = new InputTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
 

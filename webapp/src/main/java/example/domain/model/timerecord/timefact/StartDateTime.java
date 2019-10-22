@@ -1,6 +1,7 @@
 package example.domain.model.timerecord.timefact;
 
 
+import example.domain.type.date.Date;
 import example.domain.type.time.InputTime;
 
 /**
@@ -20,10 +21,10 @@ public class StartDateTime {
         this.startTime = startTime;
     }
 
-    public static StartDateTime from(WorkDate workDate, InputTime inputTime) {
-        StartDate startDate = new StartDate(workDate.value);
-        StartTime startTime = new StartTime(inputTime.toClockTime());
-        return new StartDateTime(startDate, startTime);
+    public static StartDateTime from(Date startDate, InputTime inputTime) {
+        return new StartDateTime(
+                new StartDate(startDate),
+                new StartTime(inputTime.toClockTime()));
     }
 
     @Override

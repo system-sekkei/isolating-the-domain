@@ -1,6 +1,6 @@
 package example.domain.model.attendance;
 
-import example.domain.model.timerecord.timefact.WorkDate;
+import example.domain.model.timerecord.evaluation.WorkDate;
 import example.domain.type.date.Dates;
 
 import java.util.List;

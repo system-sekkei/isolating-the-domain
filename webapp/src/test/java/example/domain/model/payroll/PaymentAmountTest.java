@@ -1,14 +1,13 @@
 package example.domain.model.payroll;
 
-import example.domain.model.timerecord.evaluation.NightBreakTime;
 import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
+import example.domain.model.timerecord.evaluation.DaytimeBreakTime;
+import example.domain.model.timerecord.evaluation.NightBreakTime;
 import example.domain.model.timerecord.timefact.EndDateTime;
 import example.domain.model.timerecord.timefact.StartDateTime;
-import example.domain.model.timerecord.timefact.WorkDate;
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.model.wage.HourlyWage;
 import example.domain.model.wage.WageCondition;
-import example.domain.model.timerecord.evaluation.DaytimeBreakTime;
 import example.domain.type.date.Date;
 import example.domain.type.time.InputTime;
 import example.domain.type.time.Minute;
@@ -43,9 +42,9 @@ class PaymentAmountTest {
         String[] splitEnd = end.split(":");
         InputTime endTime = new InputTime(Integer.valueOf(splitEnd[0]), Integer.valueOf(splitEnd[1]));
 
-        WorkDate workDate = new WorkDate(new Date("2018-11-25"));
+        Date date = new Date("2018-11-25");
         ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
-                new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
+                new WorkRange(StartDateTime.from(date, startTime), EndDateTime.from(date, endTime)),
                 new DaytimeBreakTime(new Minute(breakMinute)),
                 new NightBreakTime(new Minute(nightBreakMinute)));
         WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));
