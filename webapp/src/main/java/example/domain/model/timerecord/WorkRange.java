@@ -22,8 +22,6 @@ public class WorkRange {
         this.endDateTime = endDateTime;
     }
 
-    // TODO: 2暦日にわたるかどうかの判断ロジック
-
     QuarterRoundClockTimeRange quarterRoundClockTimeRange() {
         return new QuarterRoundClockTimeRange(startDateTime.startTime.normalizedClockTime(), endDateTime.endTime.normalizedClockTime());
     }
