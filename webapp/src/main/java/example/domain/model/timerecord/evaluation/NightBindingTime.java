@@ -27,4 +27,9 @@ public class NightBindingTime {
     public QuarterHour quarterHour() {
         return value;
     }
+
+    public NightWorkTime subtract(NightBreakTime nightBreakTime) {
+        QuarterHour quarterHour = quarterHour().subtract(nightBreakTime.quarterHourRoundUp());
+        return new NightWorkTime(quarterHour);
+    }
 }

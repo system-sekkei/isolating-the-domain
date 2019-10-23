@@ -63,8 +63,7 @@ public class ActualWorkDateTime {
     }
 
     public NightWorkTime nightWorkTime() {
-        QuarterHour quarterHour = nightBreakTime.subtractFrom(nightBindingTime());
-        return new NightWorkTime(quarterHour);
+        return nightBindingTime().subtract(nightBreakTime);
     }
 
     public OverWorkTime overWorkTime() {

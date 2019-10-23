@@ -17,10 +17,6 @@ public class NightBreakTime {
         this.value = value;
     }
 
-    public QuarterHour subtractFrom(NightBindingTime nightBindingTime) {
-        return nightBindingTime.quarterHour().subtract(value.quarterHourRoundUp());
-    }
-
     public Minute minute() {
         return value;
     }
@@ -28,5 +24,9 @@ public class NightBreakTime {
     @Override
     public String toString() {
         return value.toString();
+    }
+
+    public QuarterHour quarterHourRoundUp() {
+        return value.quarterHourRoundUp();
     }
 }
