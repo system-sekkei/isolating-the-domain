@@ -27,7 +27,7 @@
         #{work.actualWorkDateTime.nightBreakTime.value.value});
     </insert>
     <delete id="deleteWorkTime">
-        DELETE FROM 給与.就業時間 WHERE 従業員ID = #{employeeNumber.value} and 開始日 = #{workDate.value.value}
+        DELETE FROM 給与.就業時間 WHERE 従業員ID = #{employeeNumber.value} and 開始日 = #{startDate.value.value}
     </delete>
 
     <select id="selectByMonth" resultType="example.domain.model.timerecord.evaluation.TimeRecord">
