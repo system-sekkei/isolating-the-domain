@@ -31,10 +31,10 @@ public class Contract {
         return employee.name();
     }
 
-    public ContractStartingDate contractStartingDate() {
+    public ContractEffectiveDate contractStartingDate() {
         ArrayList<ContractWage> list = new ArrayList<>(contractWages.list());
         if (list.isEmpty()) {
-            return ContractStartingDate.none();
+            return ContractEffectiveDate.none();
         }
         return list.get(list.size() - 1).effectiveDate();
     }

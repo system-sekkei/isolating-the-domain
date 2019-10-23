@@ -7,20 +7,20 @@ import java.time.format.DateTimeFormatter;
 /**
  * 契約開始日
  */
-public class ContractStartingDate {
+public class ContractEffectiveDate {
 
     Date value;
 
-    public ContractStartingDate(String value) {
+    public ContractEffectiveDate(String value) {
         this(new Date(value));
     }
 
-    public ContractStartingDate(Date value) {
+    public ContractEffectiveDate(Date value) {
         this.value = value;
     }
 
-    public static ContractStartingDate none() {
-        return new ContractStartingDate(Date.distantFuture());
+    public static ContractEffectiveDate none() {
+        return new ContractEffectiveDate(Date.distantFuture());
     }
 
     @Override

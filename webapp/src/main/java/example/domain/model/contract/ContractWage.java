@@ -8,10 +8,10 @@ import example.domain.type.date.Date;
  * 契約給与
  */
 public class ContractWage {
-    ContractStartingDate effectiveDate;
+    ContractEffectiveDate effectiveDate;
     WageCondition wageCondition;
 
-    public ContractWage(ContractStartingDate effectiveDate, WageCondition wageCondition) {
+    public ContractWage(ContractEffectiveDate effectiveDate, WageCondition wageCondition) {
         this.effectiveDate = effectiveDate;
         this.wageCondition = wageCondition;
     }
@@ -24,7 +24,7 @@ public class ContractWage {
         return wageCondition.baseHourlyWage();
     }
 
-    public ContractStartingDate effectiveDate() {
+    public ContractEffectiveDate effectiveDate() {
         return effectiveDate;
     }
 
