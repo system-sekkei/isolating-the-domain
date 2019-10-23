@@ -3,6 +3,8 @@ package example.domain.model.timerecord.timefact;
 import example.domain.type.date.Date;
 import example.domain.type.time.InputTime;
 
+import java.time.Period;
+
 /**
  * 勤務終了日時
  */
@@ -31,4 +33,8 @@ public class EndDateTime {
         return endDate.toString() + " " + endTime.toString();
     }
 
+    public String endTimeTextWith(StartDate startDate) {
+        Period period = startDate.value().value().until(endDate.value().value());
+        return endTime.clockTimeTextOverDays(period.getDays());
+    }
 }

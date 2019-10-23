@@ -34,4 +34,8 @@ public class WorkRange {
     public StartDate startDate() {
         return startDateTime.startDate;
     }
+
+    public String endTimeText() {
+        return endDateTime.endTimeTextWith(startDateTime.startDate);
+    }
 }

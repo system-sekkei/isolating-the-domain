@@ -64,7 +64,7 @@ public class AttendanceForm {
         this.startHour = startClockTime[0];
         this.startMinute = startClockTime[1];
 
-        String[] endClockTime = timeRecord.actualWorkDateTime().workRange().end().toString().split(":");
+        String[] endClockTime = timeRecord.actualWorkDateTime().workRange().endTimeText().split(":");
         this.endHour = endClockTime[0];
         this.endMinute = endClockTime[1];
 

@@ -87,4 +87,8 @@ public class ClockTime {
     public boolean sameTime(ClockTime other) {
         return this.value.equals(other.value);
     }
+
+    public LocalTime value() {
+        return value;
+    }
 }
