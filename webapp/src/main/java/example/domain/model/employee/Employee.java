@@ -20,10 +20,14 @@ public class Employee {
 
     @Deprecated
     public Employee() {
-        employeeNumber = new EmployeeNumber();
-        name = new Name();
-        mailAddress = new MailAddress();
-        phoneNumber = new PhoneNumber();
+        this(new EmployeeNumber(), new Name(), new MailAddress(), new PhoneNumber());
+    }
+
+    public Employee(EmployeeNumber employeeNumber, Name name, MailAddress mailAddress, PhoneNumber phoneNumber) {
+        this.employeeNumber = employeeNumber;
+        this.name = name;
+        this.mailAddress = mailAddress;
+        this.phoneNumber = phoneNumber;
     }
 
     public EmployeeNumber employeeNumber() {

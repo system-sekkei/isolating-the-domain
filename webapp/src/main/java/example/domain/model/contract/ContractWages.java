@@ -15,7 +15,7 @@ public class ContractWages {
 
     public List<ContractWage> list() {
         return list.stream()
-                .sorted((c1, c2) -> c2.startDate().value().compareTo(c1.startDate().value()))
+                .sorted((c1, c2) -> c2.effectiveDate().value().compareTo(c1.effectiveDate().value()))
                 .collect(Collectors.toList());
     }
 }

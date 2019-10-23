@@ -20,7 +20,7 @@ public class ContractRecordService {
     /**
      * 時給登録
      */
-    public void registerHourlyWage(EmployeeNumber employeeNumber, Date startDate, WageCondition wageCondition) {
-        contractRepository.registerHourlyWage(employeeNumber, startDate, wageCondition);
+    public void registerHourlyWage(EmployeeNumber employeeNumber, Date effectiveDate, WageCondition wageCondition) {
+        contractRepository.registerHourlyWage(employeeNumber, effectiveDate, wageCondition);
     }
 }

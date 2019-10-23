@@ -1,6 +1,6 @@
 package example.presentation.controller.timerecord;
 
-import example.application.service.timerecord.TimeRecordRecordService;
+import example.application.repository.TimeRecordRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,7 +22,7 @@ class TimeRecordRegisterControllerTest {
     MockMvc mockMvc;
 
     @MockBean
-    TimeRecordRecordService timeRecordRecordService;
+    TimeRecordRepository timeRecordRepository;
 
     @Test
     void 登録画面が表示できる() throws Exception {
@@ -33,7 +33,7 @@ class TimeRecordRegisterControllerTest {
 
     @Test
     void 登録できる() throws Exception {
-        doNothing().when(timeRecordRecordService).registerTimeRecord(any());
+        doNothing().when(timeRecordRepository).registerTimeRecord(any());
 
         mockMvc.perform(post("/timerecord")
                 .param("employeeNumber", "1")
@@ -66,7 +66,7 @@ class TimeRecordRegisterControllerTest {
 
     @Test
     void 日跨ぎ() throws Exception {
-        doNothing().when(timeRecordRecordService).registerTimeRecord(any());
+        doNothing().when(timeRecordRepository).registerTimeRecord(any());
 
         mockMvc.perform(post("/timerecord")
                 .param("employeeNumber", "1")

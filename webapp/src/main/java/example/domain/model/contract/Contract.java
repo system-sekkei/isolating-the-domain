@@ -36,7 +36,7 @@ public class Contract {
         if (list.isEmpty()) {
             return ContractStartingDate.none();
         }
-        return list.get(list.size() - 1).startDate();
+        return list.get(list.size() - 1).effectiveDate();
     }
 
     public HourlyWage todayHourlyWage() {

@@ -13,14 +13,14 @@ public interface ContractMapper {
     Integer newHourlyWageIdentifier();
 
     void insertContractHistory(@Param("employeeNumber") EmployeeNumber employeeNumber, @Param("id") Integer hourlyWageId,
-                               @Param("applyDate") Date applyDate,
+                               @Param("effectiveDate") Date effectiveDate,
                                @Param("wageCondition") WageCondition wageCondition);
 
     List<HourlyWageData> selectContracts(@Param("employeeNumber") EmployeeNumber employeeNumber);
 
     void insertContract(@Param("employeeNumber") EmployeeNumber employeeNumber,
-                        @Param("startDate") Date applyDate,
+                        @Param("effectiveDate") Date effectiveDate,
                         @Param("wageCondition") WageCondition wageCondition);
 
-    void deleteContractData(@Param("employeeNumber") EmployeeNumber employeeNumber, @Param("startDate") Date startDate);
+    void deleteContractData(@Param("employeeNumber") EmployeeNumber employeeNumber, @Param("effectiveDate") Date effectiveDate);
 }
