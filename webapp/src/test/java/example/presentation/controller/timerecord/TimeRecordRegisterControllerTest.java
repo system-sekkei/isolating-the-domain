@@ -49,7 +49,7 @@ class TimeRecordRegisterControllerTest {
     }
 
     @Test
-    void 登録バリデーションエラー() throws Exception {
+    void バリデーションエラー() throws Exception {
         mockMvc.perform(post("/timerecord")
                 .param("employeeNumber", "1")
                 .param("workDate", "2018-01-01")
@@ -65,7 +65,7 @@ class TimeRecordRegisterControllerTest {
     }
 
     @Test
-    void 日跨ぎ() throws Exception {
+    void 日跨ぎが登録できる() throws Exception {
         doNothing().when(timeRecordRepository).registerTimeRecord(any());
 
         mockMvc.perform(post("/timerecord")
