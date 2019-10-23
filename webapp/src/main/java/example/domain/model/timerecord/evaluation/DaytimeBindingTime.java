@@ -16,4 +16,9 @@ public class DaytimeBindingTime {
     public QuarterHour quarterHour() {
         return value;
     }
+
+    DaytimeWorkTime subtract(DaytimeBreakTime daytimeBreakTime) {
+        QuarterHour quarterHour = quarterHour().subtract(daytimeBreakTime.quarterHourRoundUp());
+        return new DaytimeWorkTime(quarterHour);
+    }
 }

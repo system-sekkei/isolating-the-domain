@@ -1,6 +1,5 @@
 package example.domain.model.timerecord.evaluation;
 
-import example.domain.model.timerecord.evaluation.DaytimeBindingTime;
 import example.domain.type.time.Minute;
 import example.domain.type.time.QuarterHour;
 
@@ -18,10 +17,6 @@ public class DaytimeBreakTime {
         this.value = value;
     }
 
-    public QuarterHour subtractFrom(DaytimeBindingTime daytimeBindingTime) {
-        return daytimeBindingTime.quarterHour().subtract(value.quarterHourRoundUp());
-    }
-
     public Minute minute() {
         return value;
     }
@@ -29,5 +24,9 @@ public class DaytimeBreakTime {
     @Override
     public String toString() {
         return value.toString();
+    }
+
+    public QuarterHour quarterHourRoundUp() {
+        return value.quarterHourRoundUp();
     }
 }

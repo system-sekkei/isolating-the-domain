@@ -49,8 +49,7 @@ public class ActualWorkDateTime {
 
     public DaytimeWorkTime daytimeWorkTime() {
         DaytimeBindingTime daytimeBindingTime = daytimeBindingTime();
-        QuarterHour quarterHour = daytimeBreakTime.subtractFrom(daytimeBindingTime);
-        return new DaytimeWorkTime(quarterHour);
+        return daytimeBindingTime.subtract(daytimeBreakTime);
     }
 
     public DaytimeBindingTime daytimeBindingTime() {
