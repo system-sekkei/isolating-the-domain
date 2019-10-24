@@ -131,9 +131,9 @@ class AttendanceForm {
         if (!isEndTimeComplete()) return true;
         if (!isStartTimeValid() || !isEndTimeValid()) return true;
 
-        StartTime startTime = workStartTime();
-        EndTime endTime = workEndTime();
-        if (endTime.isAfter(startTime)) return true;
+        StartDateTime startDateTime = workStartDateTime();
+        EndDateTime endDateTime = workEndDateTime();
+        if (endDateTime.isAfter(startDateTime)) return true;
 
         return false;
     }
@@ -146,6 +146,15 @@ class AttendanceForm {
     private EndTime workEndTime() {
         ClockTime clockTime = new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
         return new EndTime(clockTime);
+    }
+
+    private StartDateTime workStartDateTime() {
+        ClockTime clockTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
+        return new StartDateTime(new StartDate(workDate), new StartTime(clockTime));
+    }
+
+    private EndDateTime workEndDateTime() {
+        return EndDateTime.from(new Date(workDate), Integer.valueOf(endHour), Integer.valueOf(endMinute));
     }
 
     @AssertTrue(message = "休憩時間が不正です")

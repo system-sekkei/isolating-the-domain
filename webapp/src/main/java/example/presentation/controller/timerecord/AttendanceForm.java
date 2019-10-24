@@ -154,18 +154,25 @@ public class AttendanceForm {
         if (!isEndTimeComplete()) return true;
         if (!isStartTimeValid() || !isEndTimeValid()) return true;
 
-        // FIXME 日跨ぎを判定して大小比較したいがとりあえず文字列比較で動作を満たしておく
-        String startTime = String.format("%02d:%02d", Integer.parseInt(startHour), Integer.parseInt(startMinute));
-        String endTime = String.format("%02d:%02d", Integer.parseInt(endHour), Integer.parseInt(endMinute));
+        StartDateTime startDateTime = workStartDateTime();
+        EndDateTime endDateTime = workEndDateTime();
+        if (endDateTime.isAfter(startDateTime)) return true;
 
-        if (startTime.compareTo(endTime) > 0) return false;
-
-        return true;
+        return false;
     }
 
     private StartTime workStartTime() {
         ClockTime clockTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
         return new StartTime(clockTime);
+    }
+
+    private StartDateTime workStartDateTime() {
+        ClockTime clockTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
+        return new StartDateTime(new StartDate(workDate), new StartTime(clockTime));
+    }
+
+    private EndDateTime workEndDateTime() {
+        return EndDateTime.from(new Date(workDate), Integer.valueOf(endHour), Integer.valueOf(endMinute));
     }
 
     boolean daytimeBreakTimeValid;

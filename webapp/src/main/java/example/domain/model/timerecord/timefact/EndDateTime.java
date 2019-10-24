@@ -35,6 +35,12 @@ public class EndDateTime {
         return from(date, hour, minute);
     }
 
+    public boolean isAfter(StartDateTime startDateTime) {
+        if (endDate.isAfter(startDateTime.startDate)) return true;
+
+        return endTime.isAfter(startDateTime.startTime);
+    }
+
     @Override
     public String toString() {
         return endDate.toString() + " " + endTime.toString();
