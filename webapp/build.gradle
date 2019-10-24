@@ -28,7 +28,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
-    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1")
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0")
 
     runtimeOnly("com.h2database:h2")
 

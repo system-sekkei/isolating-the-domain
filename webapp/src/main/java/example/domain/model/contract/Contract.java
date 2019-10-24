@@ -4,6 +4,7 @@ import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.employee.Name;
 import example.domain.model.wage.HourlyWage;
+import example.domain.model.wage.WageCondition;
 import example.domain.type.date.Date;
 import example.domain.type.date.Dates;
 
@@ -30,12 +31,12 @@ public class Contract {
         return employee.name();
     }
 
-    public ContractStartingDate contractStartingDate() {
+    public ContractEffectiveDate contractStartingDate() {
         ArrayList<ContractWage> list = new ArrayList<>(contractWages.list());
         if (list.isEmpty()) {
-            return ContractStartingDate.none();
+            return ContractEffectiveDate.none();
         }
-        return list.get(list.size() - 1).startDate();
+        return list.get(list.size() - 1).effectiveDate();
     }
 
     public HourlyWage todayHourlyWage() {
@@ -62,5 +63,10 @@ public class Contract {
             return ContractStatus.判定不能;
         }
         return contractStatus(dates.first());
+    }
+
+    public WageCondition wageConditionAt(Date date) {
+        ContractWage contractWage = availableContractAt(date);
+        return contractWage.wageCondition();
     }
 }

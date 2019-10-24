@@ -1,10 +1,11 @@
 package example._experimental.spa.controller.timerecord;
 
 import example.domain.model.employee.EmployeeNumber;
-import example.domain.model.timerecord.*;
-import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
-import example.domain.model.timerecord.breaktime.NightBreakTime;
+import example.domain.model.timerecord.evaluation.*;
+import example.domain.model.timerecord.timefact.*;
+import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
+import example.domain.type.time.InputTime;
 import example.domain.type.time.Minute;
 
 import javax.validation.constraints.AssertTrue;
@@ -53,18 +54,20 @@ class AttendanceForm {
 
     TimeRecord toTimeRecord() {
         EmployeeNumber employeeNumber = new EmployeeNumber(this.employeeNumber);
-        WorkDate workDate = new WorkDate(this.workDate);
-        StartTime startTime = new StartTime(new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute)));
-        StartDateTime startDateTime = new StartDateTime(workDate, startTime);
-        EndDateTime endDateTime = new EndDateTime(workDate, Integer.valueOf(endHour), Integer.valueOf(endMinute));
+        return new TimeRecord(employeeNumber, toActualWorkDateTime());
+    }
+
+    private ActualWorkDateTime toActualWorkDateTime() {
+        Date workDate = new Date(this.workDate);
+        InputTime startTime = new InputTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
+        InputTime endTime = new InputTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
 
         Minute daytimeBreakMinute = new Minute(daytimeBreakTime);
         Minute nightBreakTime = new Minute(this.nightBreakTime);
-        ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
-                new WorkRange(startDateTime, endDateTime),
+        return new ActualWorkDateTime(
+                new WorkRange(StartDateTime.from(workDate, startTime), EndDateTime.from(workDate, endTime)),
                 new DaytimeBreakTime(daytimeBreakMinute),
                 new NightBreakTime(nightBreakTime));
-        return new TimeRecord(employeeNumber, actualWorkDateTime);
     }
 
     @AssertTrue(message = "勤務日を入力してください")
@@ -76,7 +79,7 @@ class AttendanceForm {
     boolean isWorkDateValid() {
         if (!isWorkDateComplete()) return true;
         try {
-            new WorkDate(this.workDate);
+            new Date(this.workDate);
         } catch (DateTimeException ex) {
             return false;
         }
@@ -129,9 +132,9 @@ class AttendanceForm {
 
         StartTime startTime = workStartTime();
         EndTime endTime = workEndTime();
-        if (startTime.isAfter(endTime)) return false;
+        if (endTime.isAfter(startTime)) return true;
 
-        return true;
+        return false;
     }
 
     private StartTime workStartTime() {
@@ -151,8 +154,8 @@ class AttendanceForm {
         try {
             DaytimeBreakTime daytimeBreakTime = new DaytimeBreakTime(new Minute(this.daytimeBreakTime));
 
-            TimeRecord timeRecord = toTimeRecord();
-            Minute daytimeBindingMinute = timeRecord.actualWorkDateTime().workRange().daytimeBindingTime().quarterHour().minute();
+            ActualWorkDateTime actualWorkDateTime = toActualWorkDateTime();
+            Minute daytimeBindingMinute = actualWorkDateTime.daytimeBindingTime().quarterHour().minute();
             if (daytimeBindingMinute.lessThan(daytimeBreakTime.minute())) {
                 return false;
             }
@@ -169,8 +172,8 @@ class AttendanceForm {
         try {
             NightBreakTime nightBreakTime = new NightBreakTime(new Minute(this.nightBreakTime));
 
-            TimeRecord timeRecord = toTimeRecord();
-            Minute nightBindingMinute = timeRecord.actualWorkDateTime().workRange().nightBindingTime().quarterHour().minute();
+            ActualWorkDateTime actualWorkDateTime = toActualWorkDateTime();
+            Minute nightBindingMinute = actualWorkDateTime.nightBindingTime().quarterHour().minute();
             if (nightBindingMinute.lessThan(nightBreakTime.minute())) {
                 return false;
             }

@@ -1,7 +1,7 @@
 package example.domain.model.attendance;
 
-import example.domain.model.timerecord.TimeRecord;
-import example.domain.model.timerecord.WorkDate;
+import example.domain.model.timerecord.evaluation.TimeRecord;
+import example.domain.model.timerecord.evaluation.WorkDate;
 
 import java.util.List;
 

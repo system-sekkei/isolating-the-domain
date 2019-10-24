@@ -20,12 +20,12 @@ public class ContractDataSource implements ContractRepository {
     ContractMapper mapper;
 
     @Override
-    public void registerHourlyWage(EmployeeNumber employeeNumber, Date applyDate, WageCondition wageCondition) {
-        mapper.deleteContractData(employeeNumber, applyDate);
+    public void registerHourlyWage(EmployeeNumber employeeNumber, Date effectiveDate, WageCondition wageCondition) {
+        mapper.deleteContractData(employeeNumber, effectiveDate);
 
         Integer hourlyWageId = mapper.newHourlyWageIdentifier();
-        mapper.insertContractHistory(employeeNumber, hourlyWageId, applyDate, wageCondition);
-        mapper.insertContract(employeeNumber, applyDate, wageCondition);
+        mapper.insertContractHistory(employeeNumber, hourlyWageId, effectiveDate, wageCondition);
+        mapper.insertContract(employeeNumber, effectiveDate, wageCondition);
     }
 
     @Override

@@ -8,11 +8,11 @@ import example.domain.type.date.Date;
  * 契約給与
  */
 public class ContractWage {
-    ContractStartingDate startDate;
+    ContractEffectiveDate effectiveDate;
     WageCondition wageCondition;
 
-    public ContractWage(ContractStartingDate startDate, WageCondition wageCondition) {
-        this.startDate = startDate;
+    public ContractWage(ContractEffectiveDate effectiveDate, WageCondition wageCondition) {
+        this.effectiveDate = effectiveDate;
         this.wageCondition = wageCondition;
     }
 
@@ -24,11 +24,11 @@ public class ContractWage {
         return wageCondition.baseHourlyWage();
     }
 
-    public ContractStartingDate startDate() {
-        return startDate;
+    public ContractEffectiveDate effectiveDate() {
+        return effectiveDate;
     }
 
     public boolean availableAt(Date date) {
-        return startDate.value().hasSameValue(date) || date.isAfter(startDate.value());
+        return effectiveDate.value().hasSameValue(date) || date.isAfter(effectiveDate.value());
     }
 }

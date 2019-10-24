@@ -1,31 +1,27 @@
 package example.application.service;
 
-import example.Application;
-import example.application.service.contract.ContractRecordService;
-import example.application.service.employee.EmployeeRecordService;
 import example.application.coordinator.payroll.PayrollQueryCoordinator;
+import example.application.service.contract.ContractRecordService;
 import example.application.service.employee.EmployeeQueryService;
+import example.application.service.employee.EmployeeRecordService;
 import example.application.service.timerecord.TimeRecordRecordService;
 import example.domain.model.attendance.WorkMonth;
-import example.domain.model.timerecord.breaktime.NightBreakTime;
-import example.domain.model.wage.HourlyWage;
-import example.domain.model.wage.WageCondition;
+import example.domain.model.employee.*;
 import example.domain.model.legislation.NightExtraRate;
 import example.domain.model.legislation.OverTimeExtraRate;
 import example.domain.model.payroll.Payroll;
-import example.domain.model.timerecord.*;
-import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
-import example.domain.model.employee.*;
+import example.domain.model.timerecord.evaluation.TimeRecord;
+import example.domain.model.wage.HourlyWage;
+import example.domain.model.wage.WageCondition;
 import example.domain.type.date.Date;
-import example.domain.type.time.ClockTime;
-import example.domain.type.time.Minute;
+import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest(classes = Application.class)
+@SpringBootTest
 class PayrollQueryCoordinatorTest {
 
     @Autowired
@@ -62,10 +58,9 @@ class PayrollQueryCoordinatorTest {
             WageCondition wageCondition = new WageCondition(new HourlyWage(1000), OverTimeExtraRate.legal(), NightExtraRate.legal());
             contractRecordService.registerHourlyWage(employeeNumber, new Date("2018-11-20"), wageCondition);
 
-            WorkDate workDate = new WorkDate(new Date("2018-11-20"));
             TimeRecord timeRecord = new TimeRecord(
                     employeeNumber,
-                    new ActualWorkDateTime(new WorkRange(new StartDateTime(workDate, new StartTime(new ClockTime("09:00"))), new EndDateTime(workDate, 10, 0)), new DaytimeBreakTime(new Minute("0")), new NightBreakTime(new Minute("0")))
+                    AttendanceForm.toActualWorkDateTime("2018-11-20", "9:00", "10:00", "0", "0")
             );
             timeRecordRecordService.registerTimeRecord(timeRecord);
 
@@ -74,10 +69,9 @@ class PayrollQueryCoordinatorTest {
         }
 
         {
-            WorkDate workDate = new WorkDate(new Date("2018-11-25"));
             TimeRecord timeRecord = new TimeRecord(
                     employeeNumber,
-                    new ActualWorkDateTime(new WorkRange(new StartDateTime(workDate, new StartTime(new ClockTime("22:00"))), new EndDateTime(workDate, 23, 0)), new DaytimeBreakTime(new Minute("0")), new NightBreakTime(new Minute("0")))
+                    AttendanceForm.toActualWorkDateTime("2018-11-25", "22:00", "23:00", "0", "0")
             );
             timeRecordRecordService.registerTimeRecord(timeRecord);
 

@@ -1,11 +1,11 @@
 package example.domain.model.payroll;
 
 import example.domain.model.attendance.Attendance;
+import example.domain.model.attendance.PayableWork;
 import example.domain.model.contract.Contract;
-import example.domain.model.contract.ContractWage;
-import example.domain.model.timerecord.TimeRecord;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.employee.Name;
+import example.domain.model.wage.WageCondition;
 
 import java.math.BigDecimal;
 
@@ -33,11 +33,9 @@ public class Payroll {
     public PaymentAmount totalPayment() {
         PaymentAmount paymentAmount = new PaymentAmount(BigDecimal.ZERO);
 
-        for (TimeRecord timeRecord : attendance.timeRecords().list()) {
-            ContractWage contractWage = contract.availableContractAt(timeRecord.date());
-
-            PaymentAmount oneDayAmount = new PaymentAmount(timeRecord.actualWorkDateTime(), contractWage.wageCondition());
-            paymentAmount = paymentAmount.add(oneDayAmount);
+        for (PayableWork payableWork : attendance.listPayableWork()) {
+            WageCondition wageCondition = contract.wageConditionAt(payableWork.date());
+            paymentAmount = paymentAmount.addConsiderationAmount(payableWork, wageCondition);
         }
         return paymentAmount;
     }

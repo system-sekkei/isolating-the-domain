@@ -3,10 +3,10 @@ package example.presentation.controller.wage;
 
 import example.application.service.contract.ContractRecordService;
 import example.application.service.employee.EmployeeQueryService;
-import example.domain.model.wage.HourlyWage;
-import example.domain.model.wage.WageCondition;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
+import example.domain.model.wage.HourlyWage;
+import example.domain.model.wage.WageCondition;
 import example.domain.type.date.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -45,30 +45,30 @@ class WageRegisterController {
 
     @PostMapping(value = "confirm")
     public String confirm(Employee employee,
-                          @RequestParam("startDate") Date startDate,
+                          @RequestParam("effectiveDate") Date effectiveDate,
                           @RequestParam("hourlyWage") HourlyWage hourlyWage,
                           Model model) {
-        model.addAttribute("startDate", startDate);
+        model.addAttribute("effectiveDate", effectiveDate);
         model.addAttribute("hourlyWage", hourlyWage);
         return "wage/confirm";
     }
 
     @PostMapping(value = "again")
     public String again(Employee employee,
-                        @RequestParam("startDate") Date startDate,
+                        @RequestParam("effectiveDate") Date effectiveDate,
                         @RequestParam("hourlyWage") HourlyWage hourlyWage,
                         Model model) {
-        model.addAttribute("startDate", startDate);
+        model.addAttribute("effectiveDate", effectiveDate);
         model.addAttribute("hourlyWage", hourlyWage);
         return "wage/form";
     }
 
     @PostMapping(value = "register")
     public String register(Employee employee,
-                           @RequestParam("startDate") Date startDate,
+                           @RequestParam("effectiveDate") Date effectiveDate,
                            @RequestParam("hourlyWage") HourlyWage hourlyWage) {
         WageCondition wageCondition = new WageCondition(hourlyWage);
-        contractRecordService.registerHourlyWage(employee.employeeNumber(), startDate, wageCondition);
+        contractRecordService.registerHourlyWage(employee.employeeNumber(), effectiveDate, wageCondition);
         return String.format("redirect:/wages/%d/register/completed", employee.employeeNumber().value());
     }
 

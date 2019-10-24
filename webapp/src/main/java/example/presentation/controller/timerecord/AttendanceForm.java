@@ -1,10 +1,11 @@
 package example.presentation.controller.timerecord;
 
 import example.domain.model.employee.EmployeeNumber;
-import example.domain.model.timerecord.*;
-import example.domain.model.timerecord.breaktime.DaytimeBreakTime;
-import example.domain.model.timerecord.breaktime.NightBreakTime;
+import example.domain.model.timerecord.evaluation.*;
+import example.domain.model.timerecord.timefact.*;
+import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
+import example.domain.type.time.InputTime;
 import example.domain.type.time.Minute;
 
 import javax.validation.constraints.AssertTrue;
@@ -27,18 +28,32 @@ public class AttendanceForm {
     }
 
     public TimeRecord toTimeRecord() {
-        WorkDate workDate = new WorkDate(this.workDate);
-        ClockTime startTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
+        ActualWorkDateTime actualWorkDateTime = toActualWorkDateTime();
+        return new TimeRecord(employeeNumber, actualWorkDateTime);
+    }
 
-        StartDateTime startDateTime = new StartDateTime(workDate, new StartTime(startTime));
-        EndDateTime endDateTime = new EndDateTime(workDate, Integer.valueOf(endHour), Integer.valueOf(endMinute));
+    private ActualWorkDateTime toActualWorkDateTime() {
+        Date workDate = new Date(this.workDate);
+        InputTime startTime = new InputTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
+        InputTime endTime = new InputTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
+
         Minute minute = new Minute(daytimeBreakTime);
         Minute nightMinute = new Minute(nightBreakTime);
-        ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
-                new WorkRange(startDateTime, endDateTime),
+        return toActualWorkDateTime(workDate, startTime, endTime, minute, nightMinute);
+    }
+
+    private static ActualWorkDateTime toActualWorkDateTime(Date startDate, InputTime startTime, InputTime endTime, Minute minute, Minute nightMinute) {
+        return new ActualWorkDateTime(
+                new WorkRange(StartDateTime.from(startDate, startTime), EndDateTime.from(startDate, endTime)),
                 new DaytimeBreakTime(minute),
                 new NightBreakTime(nightMinute));
-        return new TimeRecord(employeeNumber, actualWorkDateTime);
+    }
+
+    // テストへの流出がキツイので一旦ここに集める。最終domainに持っていきたい。
+    @Deprecated
+    public static ActualWorkDateTime toActualWorkDateTime(String startDate, String startTime, String endTime, String daytimeBreak, String nightBreak) {
+        Date date = new Date(startDate);
+        return toActualWorkDateTime(date, new InputTime(startTime), new InputTime(endTime), new Minute(daytimeBreak), new Minute(nightBreak));
     }
 
     public void apply(TimeRecord timeRecord) {
@@ -49,7 +64,7 @@ public class AttendanceForm {
         this.startHour = startClockTime[0];
         this.startMinute = startClockTime[1];
 
-        String[] endClockTime = timeRecord.actualWorkDateTime().workRange().end().toString().split(":");
+        String[] endClockTime = timeRecord.actualWorkDateTime().workRange().endTimeText().split(":");
         this.endHour = endClockTime[0];
         this.endMinute = endClockTime[1];
 
@@ -161,8 +176,7 @@ public class AttendanceForm {
         try {
             DaytimeBreakTime daytimeBreakTime = new DaytimeBreakTime(new Minute(this.daytimeBreakTime));
 
-            TimeRecord timeRecord = toTimeRecord();
-            Minute daytimeBindingMinute = timeRecord.actualWorkDateTime().workRange().daytimeBindingTime().quarterHour().minute();
+            Minute daytimeBindingMinute = toActualWorkDateTime().daytimeBindingTime().quarterHour().minute();
             if (daytimeBindingMinute.lessThan(daytimeBreakTime.minute())) {
                 return false;
             }
@@ -181,8 +195,7 @@ public class AttendanceForm {
         try {
             NightBreakTime nightBreakTime = new NightBreakTime(new Minute(this.nightBreakTime));
 
-            TimeRecord timeRecord = toTimeRecord();
-            Minute nightBindingMinute = timeRecord.actualWorkDateTime().workRange().nightBindingTime().quarterHour().minute();
+            Minute nightBindingMinute = toActualWorkDateTime().nightBindingTime().quarterHour().minute();
             if (nightBindingMinute.lessThan(nightBreakTime.minute())) {
                 return false;
             }

@@ -9,8 +9,8 @@ import example.domain.model.attendance.AttendanceStatus;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
-import example.domain.model.timerecord.TimeRecord;
-import example.domain.model.timerecord.WorkDate;
+import example.domain.model.timerecord.evaluation.TimeRecord;
+import example.domain.model.timerecord.evaluation.WorkDate;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
