@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class TimeRecordDatasource implements TimeRecordRepository {
+public class TimeRecordDataSource implements TimeRecordRepository {
     TimeRecordMapper mapper;
 
     @Override
@@ -27,7 +27,7 @@ public class TimeRecordDatasource implements TimeRecordRepository {
         return new TimeRecords(timeRecords);
     }
 
-    TimeRecordDatasource(TimeRecordMapper mapper) {
+    TimeRecordDataSource(TimeRecordMapper mapper) {
         this.mapper = mapper;
     }
 }

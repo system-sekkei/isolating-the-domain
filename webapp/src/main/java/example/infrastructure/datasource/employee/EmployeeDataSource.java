@@ -5,7 +5,7 @@ import example.domain.model.employee.*;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class EmployeeDatasource implements EmployeeRepository {
+public class EmployeeDataSource implements EmployeeRepository {
     EmployeeMapper mapper;
 
     @Override
@@ -60,7 +60,7 @@ public class EmployeeDatasource implements EmployeeRepository {
         mapper.insertExpireContract(employee.employeeNumber());
     }
 
-    public EmployeeDatasource(EmployeeMapper mapper) {
+    public EmployeeDataSource(EmployeeMapper mapper) {
         this.mapper = mapper;
     }
 }
