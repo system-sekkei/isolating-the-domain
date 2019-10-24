@@ -1,7 +1,7 @@
 package example.domain.model.timerecord.timefact;
 
 import example.domain.type.date.Date;
-import example.domain.type.time.InputTime;
+import example.domain.type.time.ClockTime;
 
 import java.time.Period;
 
@@ -22,10 +22,17 @@ public class EndDateTime {
         this.endTime = endTime;
     }
 
-    public static EndDateTime from(Date date, InputTime inputTime) {
-        EndDate endDate = inputTime.isOverFlow() ? new EndDate(date.nextDay()) : new EndDate(date);
-        EndTime endTime = new EndTime(inputTime.toClockTime());
+    public static EndDateTime from(Date date, Integer hour, Integer minute) {
+        EndDate endDate = new EndDate(date.plusDays(hour / 24));
+        EndTime endTime = new EndTime(new ClockTime(hour % 24, minute));
         return new EndDateTime(endDate, endTime);
+    }
+
+    public static EndDateTime from(Date date, String time) {
+        String[] s = time.split(":");
+        Integer hour = Integer.parseInt(s[0]);
+        Integer minute = Integer.parseInt(s[1]);
+        return from(date, hour, minute);
     }
 
     @Override

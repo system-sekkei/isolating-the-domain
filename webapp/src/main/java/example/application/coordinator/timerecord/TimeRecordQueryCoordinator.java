@@ -6,10 +6,8 @@ import example.application.service.timerecord.TimeRecordQueryService;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.*;
-import example.domain.model.timerecord.timefact.EndDateTime;
-import example.domain.model.timerecord.timefact.StartDateTime;
-import example.domain.model.timerecord.timefact.WorkRange;
-import example.domain.type.time.InputTime;
+import example.domain.model.timerecord.timefact.*;
+import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 import org.springframework.stereotype.Service;
 
@@ -37,11 +35,13 @@ public class TimeRecordQueryCoordinator {
 
     // TODO 雇用契約から取得する #117
     public TimeRecord standardTimeRecord(EmployeeNumber employeeNumber, WorkDate workDate) {
-        InputTime startTime = new InputTime(9, 30);
-        InputTime endTime = new InputTime(18, 0);
+        StartTime startTime = new StartTime(new ClockTime(9, 30));
         return new TimeRecord(employeeNumber,
                 new ActualWorkDateTime(
-                        new WorkRange(StartDateTime.from(workDate.value(), startTime), EndDateTime.from(workDate.value(), endTime)),
+                        new WorkRange(
+                            new StartDateTime(new StartDate(workDate.value()), startTime),
+                            EndDateTime.from(workDate.value(), 18, 0)
+                        ),
                         new DaytimeBreakTime(new Minute(60)),
                         new NightBreakTime(new Minute(0))
                 ));
