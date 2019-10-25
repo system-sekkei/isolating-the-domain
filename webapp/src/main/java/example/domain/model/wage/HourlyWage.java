@@ -15,6 +15,10 @@ public class HourlyWage {
 
     Amount value;
 
+    @Deprecated
+    public HourlyWage() {
+    }
+
     public HourlyWage(Integer value) {
         this(new Amount(value));
     }

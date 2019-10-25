@@ -1,6 +1,7 @@
 package example.infrastructure.datasource.contract;
 
 import example.domain.model.wage.WageCondition;
+import example.domain.model.contract.ContractWage;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.type.date.Date;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,7 +17,7 @@ public interface ContractMapper {
                                @Param("effectiveDate") Date effectiveDate,
                                @Param("wageCondition") WageCondition wageCondition);
 
-    List<HourlyWageData> selectContracts(@Param("employeeNumber") EmployeeNumber employeeNumber);
+    List<ContractWage> selectContracts(@Param("employeeNumber") EmployeeNumber employeeNumber);
 
     void insertContract(@Param("employeeNumber") EmployeeNumber employeeNumber,
                         @Param("effectiveDate") Date effectiveDate,

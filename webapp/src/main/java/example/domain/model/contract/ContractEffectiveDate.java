@@ -11,6 +11,10 @@ public class ContractEffectiveDate {
 
     Date value;
 
+    @Deprecated
+    public ContractEffectiveDate() {
+    }
+
     public ContractEffectiveDate(String value) {
         this(new Date(value));
     }

@@ -3,6 +3,7 @@ package example.infrastructure.datasource.contract;
 import example.application.repository.ContractRepository;
 import example.domain.model.contract.ContractWages;
 import example.domain.model.contract.Contract;
+import example.domain.model.contract.ContractWage;
 import example.domain.model.contract.Contracts;
 import example.domain.model.wage.WageCondition;
 import example.domain.model.employee.ContractingEmployees;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class ContractDataSource implements ContractRepository {
@@ -30,10 +30,8 @@ public class ContractDataSource implements ContractRepository {
 
     @Override
     public ContractWages getContractWages(EmployeeNumber employeeNumber) {
-        List<HourlyWageData> list = mapper.selectContracts(employeeNumber);
-        return new ContractWages(list.stream()
-                .map(HourlyWageData::toContract)
-                .collect(Collectors.toList()));
+        List<ContractWage> list = mapper.selectContracts(employeeNumber);
+        return new ContractWages(list);
     }
 
     @Override
