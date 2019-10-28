@@ -5,7 +5,6 @@ import example.domain.model.timerecord.evaluation.*;
 import example.domain.model.timerecord.timefact.*;
 import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
-import example.domain.type.time.InputTime;
 import example.domain.type.time.Minute;
 
 import javax.validation.constraints.AssertTrue;
@@ -34,17 +33,18 @@ public class AttendanceForm {
 
     private ActualWorkDateTime toActualWorkDateTime() {
         Date workDate = new Date(this.workDate);
-        InputTime startTime = new InputTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
-        InputTime endTime = new InputTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
+        StartTime startTime = new StartTime(new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute)));
+        StartDateTime startDateTime = new StartDateTime(new StartDate(workDate), startTime);
+        EndDateTime endDateTime = EndDateTime.from(workDate, Integer.valueOf(endHour), Integer.valueOf(endMinute));
 
         Minute minute = new Minute(daytimeBreakTime);
         Minute nightMinute = new Minute(nightBreakTime);
-        return toActualWorkDateTime(workDate, startTime, endTime, minute, nightMinute);
+        return toActualWorkDateTime(startDateTime, endDateTime, minute, nightMinute);
     }
 
-    private static ActualWorkDateTime toActualWorkDateTime(Date startDate, InputTime startTime, InputTime endTime, Minute minute, Minute nightMinute) {
+    private static ActualWorkDateTime toActualWorkDateTime(StartDateTime startDateTime, EndDateTime endDateTime, Minute minute, Minute nightMinute) {
         return new ActualWorkDateTime(
-                new WorkRange(StartDateTime.from(startDate, startTime), EndDateTime.from(startDate, endTime)),
+                new WorkRange(startDateTime, endDateTime),
                 new DaytimeBreakTime(minute),
                 new NightBreakTime(nightMinute));
     }
@@ -52,8 +52,9 @@ public class AttendanceForm {
     // テストへの流出がキツイので一旦ここに集める。最終domainに持っていきたい。
     @Deprecated
     public static ActualWorkDateTime toActualWorkDateTime(String startDate, String startTime, String endTime, String daytimeBreak, String nightBreak) {
-        Date date = new Date(startDate);
-        return toActualWorkDateTime(date, new InputTime(startTime), new InputTime(endTime), new Minute(daytimeBreak), new Minute(nightBreak));
+        StartDateTime startDateTime = new StartDateTime(new StartDate(startDate), new StartTime(startTime));
+        EndDateTime endDateTime = EndDateTime.from(new Date(startDate), endTime);
+        return toActualWorkDateTime(startDateTime, endDateTime, new Minute(daytimeBreak), new Minute(nightBreak));
     }
 
     public void apply(TimeRecord timeRecord) {
@@ -153,18 +154,25 @@ public class AttendanceForm {
         if (!isEndTimeComplete()) return true;
         if (!isStartTimeValid() || !isEndTimeValid()) return true;
 
-        // FIXME 日跨ぎを判定して大小比較したいがとりあえず文字列比較で動作を満たしておく
-        String startTime = String.format("%02d:%02d", Integer.parseInt(startHour), Integer.parseInt(startMinute));
-        String endTime = String.format("%02d:%02d", Integer.parseInt(endHour), Integer.parseInt(endMinute));
+        StartDateTime startDateTime = workStartDateTime();
+        EndDateTime endDateTime = workEndDateTime();
+        if (endDateTime.isAfter(startDateTime)) return true;
 
-        if (startTime.compareTo(endTime) > 0) return false;
-
-        return true;
+        return false;
     }
 
     private StartTime workStartTime() {
         ClockTime clockTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
         return new StartTime(clockTime);
+    }
+
+    private StartDateTime workStartDateTime() {
+        ClockTime clockTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
+        return new StartDateTime(new StartDate(workDate), new StartTime(clockTime));
+    }
+
+    private EndDateTime workEndDateTime() {
+        return EndDateTime.from(new Date(workDate), Integer.valueOf(endHour), Integer.valueOf(endMinute));
     }
 
     boolean daytimeBreakTimeValid;

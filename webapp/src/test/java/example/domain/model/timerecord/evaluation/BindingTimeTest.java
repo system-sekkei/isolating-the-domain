@@ -3,7 +3,6 @@ package example.domain.model.timerecord.evaluation;
 import example.domain.model.timerecord.timefact.*;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.ClockTimeRange;
-import example.domain.type.time.InputTime;
 import example.domain.type.time.Minute;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -23,7 +22,7 @@ class BindingTimeTest {
         StartDate startDate = new StartDate("2000-01-01");
         new BindingTime(new WorkRange(
                 new StartDateTime(startDate, new StartTime(fromTime)),
-                EndDateTime.from(startDate.value(), new InputTime(toTime))
+                EndDateTime.from(startDate.value(), toTime)
         ));
         ClockTime from = new ClockTime(fromTime);
         ClockTime to = new ClockTime(toTime);

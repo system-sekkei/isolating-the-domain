@@ -66,8 +66,8 @@ public class Date {
         return value.format(DateTimeFormatter.ISO_DATE);
     }
 
-    public Date nextDay() {
-        return new Date(value.plusDays(1));
+    public Date plusDays(int days) {
+        return new Date(value.plusDays(days));
     }
 
     public Date previousDay() {
