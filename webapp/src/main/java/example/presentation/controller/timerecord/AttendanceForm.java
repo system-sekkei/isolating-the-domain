@@ -6,6 +6,7 @@ import example.domain.model.timerecord.timefact.*;
 import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
+import example.domain.type.time.ThirtyHourFormatTime;
 
 import javax.validation.constraints.AssertTrue;
 import java.time.DateTimeException;
@@ -35,7 +36,7 @@ public class AttendanceForm {
         Date workDate = new Date(this.workDate);
         StartTime startTime = new StartTime(new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute)));
         StartDateTime startDateTime = new StartDateTime(new StartDate(workDate), startTime);
-        EndDateTime endDateTime = EndDateTime.from(workDate, Integer.valueOf(endHour), Integer.valueOf(endMinute));
+        EndDateTime endDateTime = EndDateTime.from(workDate, ThirtyHourFormatTime.from(Integer.valueOf(endHour), Integer.valueOf(endMinute)));
 
         Minute minute = new Minute(daytimeBreakTime);
         Minute nightMinute = new Minute(nightBreakTime);
@@ -172,7 +173,9 @@ public class AttendanceForm {
     }
 
     private EndDateTime workEndDateTime() {
-        return EndDateTime.from(new Date(workDate), Integer.valueOf(endHour), Integer.valueOf(endMinute));
+        return EndDateTime.from(
+            new Date(workDate),
+            ThirtyHourFormatTime.from(Integer.valueOf(endHour), Integer.valueOf(endMinute)));
     }
 
     boolean daytimeBreakTimeValid;
