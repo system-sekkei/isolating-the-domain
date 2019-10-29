@@ -9,6 +9,7 @@ import example.domain.model.timerecord.evaluation.*;
 import example.domain.model.timerecord.timefact.*;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
+import example.domain.type.time.ThirtyHourFormatTime;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -40,7 +41,7 @@ public class TimeRecordQueryCoordinator {
                 new ActualWorkDateTime(
                         new WorkRange(
                             new StartDateTime(new StartDate(workDate.value()), startTime),
-                            EndDateTime.from(workDate.value(), 18, 0)
+                            EndDateTime.from(workDate.value(), ThirtyHourFormatTime.from(18, 0))
                         ),
                         new DaytimeBreakTime(new Minute(60)),
                         new NightBreakTime(new Minute(0))
