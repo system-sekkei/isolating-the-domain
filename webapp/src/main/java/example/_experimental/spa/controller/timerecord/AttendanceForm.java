@@ -6,6 +6,7 @@ import example.domain.model.timerecord.timefact.*;
 import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
+import example.domain.type.time.ThirtyHourFormatTime;
 
 import javax.validation.constraints.AssertTrue;
 import java.time.DateTimeException;
@@ -65,7 +66,7 @@ class AttendanceForm {
         return new ActualWorkDateTime(
                 new WorkRange(
                     new StartDateTime(new StartDate(workDate), startTime),
-                    EndDateTime.from(workDate, Integer.valueOf(endHour), Integer.valueOf(endMinute))
+                    EndDateTime.from(workDate, ThirtyHourFormatTime.from(Integer.valueOf(endHour), Integer.valueOf(endMinute)))
                 ),
                 new DaytimeBreakTime(daytimeBreakMinute),
                 new NightBreakTime(nightBreakTime));
@@ -154,7 +155,9 @@ class AttendanceForm {
     }
 
     private EndDateTime workEndDateTime() {
-        return EndDateTime.from(new Date(workDate), Integer.valueOf(endHour), Integer.valueOf(endMinute));
+        return EndDateTime.from(
+            new Date(workDate),
+            ThirtyHourFormatTime.from(Integer.valueOf(endHour), Integer.valueOf(endMinute)));
     }
 
     @AssertTrue(message = "休憩時間が不正です")
