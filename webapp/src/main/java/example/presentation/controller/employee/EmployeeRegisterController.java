@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @SessionAttributes({"newEmployee"})
 class EmployeeRegisterController {
 
-    private static final String[] accept =
+    private static final String[] allowFields =
             {
                     "name.value",
                     "mailAddress.value",
@@ -29,7 +29,7 @@ class EmployeeRegisterController {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        binder.setAllowedFields(accept);
+        binder.setAllowedFields(allowFields);
     }
 
     EmployeeRecordCoordinator employeeRecordCoordinator;
