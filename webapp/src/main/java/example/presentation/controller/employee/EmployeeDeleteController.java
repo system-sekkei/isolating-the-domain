@@ -19,7 +19,7 @@ public class EmployeeDeleteController {
     EmployeeRecordService employeeRecordService;
     EmployeeQueryService employeeQueryService;
 
-    @GetMapping(value = "")
+    @GetMapping
     String deleteThenRedirect(@PathVariable(value = "employeeNumber") EmployeeNumber employeeNumber) {
         Employee employee = employeeQueryService.choose(employeeNumber);
         employeeRecordService.expireContract(employee);
