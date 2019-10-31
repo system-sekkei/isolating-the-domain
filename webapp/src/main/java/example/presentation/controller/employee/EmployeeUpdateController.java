@@ -36,14 +36,14 @@ class EmployeeUpdateController {
     EmployeeQueryService employeeQueryService;
     EmployeeRecordCoordinator employeeRecordCoordinator;
 
-    @GetMapping("")
+    @GetMapping
     String clearSessionAtStart(@PathVariable(value = "employeeNumber") EmployeeNumber employeeNumber,
                                SessionStatus status) {
         status.setComplete();
         return "forward:/employees/" + employeeNumber + "/update/input";
     }
 
-    @GetMapping(value = "input")
+    @GetMapping("input")
     String formToEdit(@PathVariable(value = "employeeNumber") EmployeeNumber employeeNumber,
                       Model model) {
         Employee employee = employeeQueryService.choose(employeeNumber);
@@ -52,7 +52,7 @@ class EmployeeUpdateController {
     }
 
 
-    @PostMapping(value = "register")
+    @PostMapping("register")
     String registerThenRedirect(@Validated @ModelAttribute Employee employee,
                                 BindingResult result,
                                 SessionStatus status,

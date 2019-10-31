@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @SessionAttributes({"newEmployee"})
 class EmployeeRegisterController {
 
-    private static final String[] accept =
+    private static final String[] allowFields =
             {
                     "name.value",
                     "mailAddress.value",
@@ -29,25 +29,25 @@ class EmployeeRegisterController {
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
-        binder.setAllowedFields(accept);
+        binder.setAllowedFields(allowFields);
     }
 
     EmployeeRecordCoordinator employeeRecordCoordinator;
 
-    @GetMapping(value = "")
+    @GetMapping
     String clearSessionAtStart(SessionStatus sessionStatus) {
         sessionStatus.setComplete();
         return "forward:/employees/register/input";
     }
 
-    @GetMapping(value = "input")
+    @GetMapping("input")
     String showForm(Model model) {
         NewEmployee newEmployee = new NewEmployee();
         model.addAttribute("newEmployee", newEmployee);
         return "employee/register/form";
     }
 
-    @GetMapping(value = "input/again")
+    @GetMapping("input/again")
     String showFormToModify() {
         return "employee/register/form";
     }
@@ -60,7 +60,7 @@ class EmployeeRegisterController {
         return "employee/register/confirm";
     }
 
-    @GetMapping(value = "register")
+    @GetMapping("register")
     String registerThenRedirectAndClearSession(
             @ModelAttribute("newEmployee") NewEmployee newEmployee,
             SessionStatus status, RedirectAttributes attributes) {
