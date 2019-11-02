@@ -10,10 +10,10 @@ import example.domain.type.time.ClockTime;
  * 勤務終了日時
  */
 public class InputEndTime {
-    Integer hour;
-    Integer minute;
+    int hour;
+    int minute;
 
-    InputEndTime(Integer hour, Integer minute) {
+    InputEndTime(int hour, int minute) {
         this.hour = hour;
         this.minute = minute;
     }
