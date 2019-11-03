@@ -20,7 +20,8 @@ public class ContractDataSource implements ContractRepository {
     ContractMapper mapper;
 
     @Override
-    public void registerHourlyWage(EmployeeNumber employeeNumber, Date effectiveDate, WageCondition wageCondition) {
+    public void registerHourlyWage(Employee employee, Date effectiveDate, WageCondition wageCondition) {
+    	EmployeeNumber employeeNumber = employee.employeeNumber();
         mapper.deleteContractData(employeeNumber, effectiveDate);
 
         Integer hourlyWageId = mapper.newHourlyWageIdentifier();
@@ -29,8 +30,8 @@ public class ContractDataSource implements ContractRepository {
     }
 
     @Override
-    public ContractWages getContractWages(EmployeeNumber employeeNumber) {
-        List<HourlyWageData> list = mapper.selectContracts(employeeNumber);
+    public ContractWages getContractWages(Employee employee) {
+        List<HourlyWageData> list = mapper.selectContracts(employee.employeeNumber());
         return new ContractWages(list.stream()
                 .map(HourlyWageData::toContract)
                 .collect(Collectors.toList()));
@@ -40,7 +41,7 @@ public class ContractDataSource implements ContractRepository {
     public Contracts findContracts(ContractingEmployees contractingEmployees) {
         List<Contract> list = new ArrayList<>();
         for (Employee employee : contractingEmployees.list()) {
-            list.add(new Contract(employee, getContractWages(employee.employeeNumber())));
+            list.add(new Contract(employee, getContractWages(employee)));
         }
         return new Contracts(list);
     }
