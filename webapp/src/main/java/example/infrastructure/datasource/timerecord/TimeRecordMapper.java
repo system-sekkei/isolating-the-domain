@@ -2,7 +2,7 @@ package example.infrastructure.datasource.timerecord;
 
 import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.model.employee.EmployeeNumber;
-import example.domain.model.timerecord.timefact.StartDate;
+import example.domain.model.timerecord.timefact.StartDateTime;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -16,7 +16,7 @@ public interface TimeRecordMapper {
 
     void insertWorkTime(@Param("employeeNumber") EmployeeNumber employeeNumber, @Param("workTimeId") Integer workTimeId, @Param("work") TimeRecord work);
 
-    void deleteWorkTime(@Param("employeeNumber") EmployeeNumber employeeNumber, @Param("startDate") StartDate startDate);
+    void deleteWorkTime(@Param("employeeNumber") EmployeeNumber employeeNumber, @Param("startDateTime") StartDateTime startDateTime);
 
     List<TimeRecord> selectByMonth(@Param("employeeNumber") EmployeeNumber employeeNumber, @Param("yearMonth") String yearMonth);
 }

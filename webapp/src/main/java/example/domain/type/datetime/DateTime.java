@@ -13,9 +13,26 @@ public class DateTime {
     Date date;
     ClockTime time;
 
-    DateTime(Date date, ClockTime time) {
+    @Deprecated
+    DateTime() {
+    }
+
+    public DateTime(Date date, ClockTime time) {
         this.date = date;
         this.time = time;
+    }
+
+    public DateTime(String date, String time) {
+        this.date = new Date(date);
+        this.time = new ClockTime(time);
+    }
+
+    public Date date() {
+        return date;
+    }
+
+    public ClockTime time() {
+        return time;
     }
 
     @Override

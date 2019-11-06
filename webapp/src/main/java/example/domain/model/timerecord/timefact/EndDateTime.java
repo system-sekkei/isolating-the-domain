@@ -20,9 +20,9 @@ public class EndDateTime {
     }
 
     public boolean isAfter(StartDateTime startDateTime) {
-        if (endDate.isAfter(startDateTime.startDate)) return true;
+        if (endDate.toDate().isAfter(startDateTime.value.date())) return true;
 
-        return endTime.isAfter(startDateTime.startTime);
+        return endTime.value.isAfter(startDateTime.value.time());
     }
 
     @Override
@@ -30,8 +30,8 @@ public class EndDateTime {
         return endDate.toString() + " " + endTime.toString();
     }
 
-    public String endTimeTextWith(StartDate startDate) {
-        Period period = startDate.value().value().until(endDate.value().value());
+    public String endTimeTextWith(StartDateTime startDateTime) {
+        Period period = startDateTime.value.date().value().until(endDate.value().value());
         return endTime.clockTimeTextOverDays(period.getDays());
     }
 }

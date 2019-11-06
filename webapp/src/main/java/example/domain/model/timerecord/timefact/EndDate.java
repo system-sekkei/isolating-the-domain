@@ -46,8 +46,4 @@ public class EndDate {
     public Date toDate() {
         return value;
     }
-
-    public boolean isAfter(StartDate startDate) {
-        return value.isAfter(startDate.value);
-    }
 }

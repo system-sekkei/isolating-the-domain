@@ -4,6 +4,7 @@ import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.*;
 import example.domain.model.timerecord.timefact.*;
 import example.domain.type.date.Date;
+import example.domain.type.datetime.DateTime;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 
@@ -33,8 +34,8 @@ public class AttendanceForm {
 
     private ActualWorkDateTime toActualWorkDateTime() {
         Date workDate = new Date(this.workDate);
-        StartTime startTime = new StartTime(new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute)));
-        StartDateTime startDateTime = new StartDateTime(new StartDate(workDate), startTime);
+        ClockTime startTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
+        StartDateTime startDateTime = new StartDateTime(new DateTime(workDate, startTime));
         EndDateTime endDateTime = (new InputEndTime(Integer.valueOf(endHour), Integer.valueOf(endMinute))).endDateTime(workDate);
 
         Minute minute = new Minute(daytimeBreakTime);
@@ -52,7 +53,7 @@ public class AttendanceForm {
     // テストへの流出がキツイので一旦ここに集める。最終domainに持っていきたい。
     @Deprecated
     public static ActualWorkDateTime toActualWorkDateTime(String startDate, String startTime, String endTime, String daytimeBreak, String nightBreak) {
-        StartDateTime startDateTime = new StartDateTime(new StartDate(startDate), new StartTime(startTime));
+        StartDateTime startDateTime = new StartDateTime(new DateTime(startDate, startTime));
         EndDateTime endDateTime = InputEndTime.from(endTime).endDateTime(new Date(startDate));
         return toActualWorkDateTime(startDateTime, endDateTime, new Minute(daytimeBreak), new Minute(nightBreak));
     }
@@ -61,7 +62,7 @@ public class AttendanceForm {
         this.employeeNumber = timeRecord.employeeNumber();
         this.workDate = timeRecord.workDate().toString();
 
-        String[] startClockTime = timeRecord.actualWorkDateTime().workRange().start().clockTime().toString().split(":");
+        String[] startClockTime = timeRecord.actualWorkDateTime().workRange().start().toString().split(" ")[1].split(":");
         this.startHour = startClockTime[0];
         this.startMinute = startClockTime[1];
 
@@ -161,14 +162,13 @@ public class AttendanceForm {
         return false;
     }
 
-    private StartTime workStartTime() {
-        ClockTime clockTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
-        return new StartTime(clockTime);
+    private ClockTime workStartTime() {
+        return new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
     }
 
     private StartDateTime workStartDateTime() {
         ClockTime clockTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
-        return new StartDateTime(new StartDate(workDate), new StartTime(clockTime));
+        return new StartDateTime(new DateTime(new Date(workDate), clockTime));
     }
 
     private EndDateTime workEndDateTime() {

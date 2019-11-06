@@ -71,7 +71,7 @@
               th:text="${workDate.dayOfMonth()}"></td>
           <td class="center aligned"
               th:text="${workDate.dayOfWeek()}"></td>
-          <td th:text="*{actualWorkDateTime().workRange().start()}"></td>
+          <td th:text="*{actualWorkDateTime().workRange().start().time()}"></td>
           <td th:text="*{actualWorkDateTime().workRange().endTimeText()}"></td>
           <td th:text="*{actualWorkDateTime().breakTime()}"></td>
           <td th:text="*{actualWorkDateTime().workTime()}"></td>

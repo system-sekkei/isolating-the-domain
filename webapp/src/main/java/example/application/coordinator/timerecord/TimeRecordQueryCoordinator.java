@@ -7,6 +7,7 @@ import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.*;
 import example.domain.model.timerecord.timefact.*;
+import example.domain.type.datetime.DateTime;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 import org.springframework.stereotype.Service;
@@ -35,12 +36,12 @@ public class TimeRecordQueryCoordinator {
 
     // TODO 雇用契約から取得する #117
     public TimeRecord standardTimeRecord(EmployeeNumber employeeNumber, WorkDate workDate) {
-        StartTime startTime = new StartTime(new ClockTime(9, 30));
+        ClockTime startTime = new ClockTime(9, 30);
         EndTime endTime = new EndTime(new ClockTime(18, 0));
         return new TimeRecord(employeeNumber,
                 new ActualWorkDateTime(
                         new WorkRange(
-                            new StartDateTime(new StartDate(workDate.value()), startTime),
+                            new StartDateTime(new DateTime(workDate.value(), startTime)),
                             new EndDateTime(new EndDate(workDate.value()), endTime)
                         ),
                         new DaytimeBreakTime(new Minute(60)),
