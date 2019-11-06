@@ -11,6 +11,10 @@ public class WageCondition {
     OverTimeExtraRate overTimeExtraRate;
     NightExtraRate nightExtraRate;
 
+    @Deprecated
+    public WageCondition() {
+    }
+
     public WageCondition(HourlyWage baseHourlyWage, OverTimeExtraRate overTimeExtraRate, NightExtraRate nightExtraRate) {
         this.baseHourlyWage = baseHourlyWage;
         this.overTimeExtraRate = overTimeExtraRate;

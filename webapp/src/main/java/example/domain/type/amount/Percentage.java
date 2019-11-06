@@ -9,6 +9,10 @@ public class Percentage {
 
     Integer value;
 
+    @Deprecated
+    public Percentage() {
+    }
+
     public Percentage(Integer value) {
         this.value = value;
     }
