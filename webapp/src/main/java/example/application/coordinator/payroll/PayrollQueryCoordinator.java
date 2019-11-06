@@ -39,8 +39,7 @@ public class PayrollQueryCoordinator {
      * 従業員別月次給与取得
      */
     public Payroll payroll(Employee employee, WorkMonth workMonth) {
-        EmployeeNumber employeeNumber = employee.employeeNumber();
-        ContractWages contractWages = contractQueryService.getContractWages(employeeNumber);
+        ContractWages contractWages = contractQueryService.getContractWages(employee);
         Attendance attendance = attendanceQueryService.findAttendance(employee, workMonth);
 
         return new Payroll(new Contract(employee, contractWages), attendance);
