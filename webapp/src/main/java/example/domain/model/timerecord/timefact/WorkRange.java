@@ -20,15 +20,15 @@ public class WorkRange {
     }
 
     public QuarterRoundClockTimeRange quarterRoundClockTimeRange() {
-        return new QuarterRoundClockTimeRange(startDateTime.normalizedClockTime(), endDateTime.endTime.normalizedClockTime());
+        return new QuarterRoundClockTimeRange(startDateTime.normalizedClockTime(), endDateTime.normalizedClockTime());
     }
 
     public StartDateTime start() {
         return startDateTime;
     }
 
-    public EndTime end() {
-        return endDateTime.endTime;
+    public EndDateTime end() {
+        return endDateTime;
     }
 
     public String endTimeText() {

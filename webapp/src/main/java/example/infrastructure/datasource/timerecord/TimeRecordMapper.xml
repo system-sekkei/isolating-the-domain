@@ -11,8 +11,8 @@
         VALUES (#{id}, #{employeeNumber.value},
         #{work.actualWorkDateTime.workRange.startDateTime.value.date.value},
         #{work.actualWorkDateTime.workRange.startDateTime.value.time.value},
-        #{work.actualWorkDateTime.workRange.endDateTime.endDate.value.value},
-        #{work.actualWorkDateTime.workRange.endDateTime.endTime.value.value},
+        #{work.actualWorkDateTime.workRange.endDateTime.value.date.value},
+        #{work.actualWorkDateTime.workRange.endDateTime.value.time.value},
         #{work.actualWorkDateTime.daytimeBreakTime.value.value},
         #{work.actualWorkDateTime.nightBreakTime.value.value});
     </insert>
@@ -21,8 +21,8 @@
         VALUES (#{employeeNumber.value}, #{workTimeId},
         #{work.actualWorkDateTime.workRange.startDateTime.value.date.value},
         #{work.actualWorkDateTime.workRange.startDateTime.value.time.value},
-        #{work.actualWorkDateTime.workRange.endDateTime.endDate.value.value},
-        #{work.actualWorkDateTime.workRange.endDateTime.endTime.value.value},
+        #{work.actualWorkDateTime.workRange.endDateTime.value.date.value},
+        #{work.actualWorkDateTime.workRange.endDateTime.value.time.value},
         #{work.actualWorkDateTime.daytimeBreakTime.value.value},
         #{work.actualWorkDateTime.nightBreakTime.value.value});
     </insert>
@@ -35,8 +35,8 @@
         就業時間.従業員ID as "employeeNumber.value",
         就業時間.開始日 as "actualWorkDateTime.workRange.startDateTime.value.date.value",
         就業時間.開始時刻 as "actualWorkDateTime.workRange.startDateTime.value.time.value",
-        就業時間.終了日 as "actualWorkDateTime.workRange.endDateTime.endDate.value.value",
-        就業時間.終了時刻 as "actualWorkDateTime.workRange.endDateTime.endTime.value.value",
+        就業時間.終了日 as "actualWorkDateTime.workRange.endDateTime.value.date.value",
+        就業時間.終了時刻 as "actualWorkDateTime.workRange.endDateTime.value.time.value",
         就業時間.休憩時間 as "actualWorkDateTime.daytimeBreakTime.value.value",
         就業時間.深夜休憩時間 as "actualWorkDateTime.nightBreakTime.value.value"
         FROM 給与.就業時間 as 就業時間

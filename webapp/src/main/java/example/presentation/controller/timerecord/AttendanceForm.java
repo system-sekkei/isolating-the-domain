@@ -140,11 +140,10 @@ public class AttendanceForm {
         return true;
     }
 
-    private EndTime workEndTime() {
+    private ClockTime workEndTime() {
         int endHour = Integer.parseInt(this.endHour) % 24;
         int endMinute = Integer.parseInt(this.endMinute);
-        ClockTime clockTime = new ClockTime(endHour, endMinute);
-        return new EndTime(clockTime);
+        return new ClockTime(endHour, endMinute);
     }
 
     boolean workTimeValid;

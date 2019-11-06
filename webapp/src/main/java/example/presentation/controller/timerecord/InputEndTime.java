@@ -1,9 +1,8 @@
 package example.presentation.controller.timerecord;
 
-import example.domain.model.timerecord.timefact.EndDate;
 import example.domain.model.timerecord.timefact.EndDateTime;
-import example.domain.model.timerecord.timefact.EndTime;
 import example.domain.type.date.Date;
+import example.domain.type.datetime.DateTime;
 import example.domain.type.time.ClockTime;
 
 /**
@@ -24,9 +23,9 @@ public class InputEndTime {
     }
 
     public EndDateTime endDateTime(Date date) {
-        EndDate endDate = isOverFlow() ? new EndDate(date.plusDays(1)) : new EndDate(date);
-        EndTime endTime = new EndTime(new ClockTime(hour % 24, minute));
-        return new EndDateTime(endDate, endTime);
+        Date endDate = isOverFlow() ? date.plusDays(1) : date;
+        ClockTime endTime = new ClockTime(hour % 24, minute);
+        return new EndDateTime(new DateTime(endDate, endTime));
     }
 
     boolean isOverFlow() {

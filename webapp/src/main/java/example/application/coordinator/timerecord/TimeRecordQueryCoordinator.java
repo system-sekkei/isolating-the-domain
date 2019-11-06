@@ -37,12 +37,12 @@ public class TimeRecordQueryCoordinator {
     // TODO 雇用契約から取得する #117
     public TimeRecord standardTimeRecord(EmployeeNumber employeeNumber, WorkDate workDate) {
         ClockTime startTime = new ClockTime(9, 30);
-        EndTime endTime = new EndTime(new ClockTime(18, 0));
+        ClockTime endTime = new ClockTime(18, 0);
         return new TimeRecord(employeeNumber,
                 new ActualWorkDateTime(
                         new WorkRange(
                             new StartDateTime(new DateTime(workDate.value(), startTime)),
-                            new EndDateTime(new EndDate(workDate.value()), endTime)
+                            new EndDateTime(new DateTime(workDate.value(), endTime))
                         ),
                         new DaytimeBreakTime(new Minute(60)),
                         new NightBreakTime(new Minute(0))

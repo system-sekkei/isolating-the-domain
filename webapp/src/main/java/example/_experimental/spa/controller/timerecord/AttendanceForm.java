@@ -43,7 +43,7 @@ class AttendanceForm {
         String[] startClockTime = timeRecord.actualWorkDateTime().workRange().start().toString().split(" ")[1].split(":");
         request.startHour = startClockTime[0];
         request.startMinute = startClockTime[1];
-        String[] endClockTime = timeRecord.actualWorkDateTime().workRange().end().toString().split(":");
+        String[] endClockTime = timeRecord.actualWorkDateTime().workRange().end().toString().split(" ")[1].split(":");
         request.endHour = endClockTime[0];
         request.endMinute = endClockTime[1];
 
@@ -144,9 +144,8 @@ class AttendanceForm {
         return new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
     }
 
-    private EndTime workEndTime() {
-        ClockTime clockTime = new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
-        return new EndTime(clockTime);
+    private ClockTime workEndTime() {
+        return new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
     }
 
     private StartDateTime workStartDateTime() {
