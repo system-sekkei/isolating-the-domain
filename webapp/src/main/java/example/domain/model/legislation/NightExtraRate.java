@@ -6,6 +6,10 @@ package example.domain.model.legislation;
 public class NightExtraRate {
     ExtraPayRate value;
 
+    @Deprecated
+    public NightExtraRate() {
+    }
+
     public NightExtraRate(Integer value) {
         this.value = new ExtraPayRate(value);
     }

@@ -8,6 +8,10 @@ import example.domain.type.amount.Percentage;
 public class ExtraPayRate {
     Percentage value;
 
+    @Deprecated
+    public ExtraPayRate() {
+    }
+
     public ExtraPayRate(Integer value) {
         this.value = new Percentage(value);
     }

@@ -11,6 +11,10 @@ public class ContractWage {
     ContractEffectiveDate effectiveDate;
     WageCondition wageCondition;
 
+    @Deprecated
+    public ContractWage() {
+    }
+
     public ContractWage(ContractEffectiveDate effectiveDate, WageCondition wageCondition) {
         this.effectiveDate = effectiveDate;
         this.wageCondition = wageCondition;
