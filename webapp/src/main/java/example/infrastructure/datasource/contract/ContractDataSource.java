@@ -31,7 +31,7 @@ public class ContractDataSource implements ContractRepository {
 
     @Override
     public ContractWages getContractWages(Employee employee) {
-        List<ContractWage> list = mapper.selectContracts(employeeNumber.employeeNumber());
+        List<ContractWage> list = mapper.selectContracts(employee.employeeNumber());
         return new ContractWages(list);
     }
 
