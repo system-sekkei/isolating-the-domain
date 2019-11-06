@@ -1,9 +1,9 @@
 package example.application.service;
 
+import example.application.coordinator.employee.EmployeeRecordCoordinator;
 import example.application.coordinator.payroll.PayrollQueryCoordinator;
 import example.application.service.contract.ContractRecordService;
 import example.application.service.employee.EmployeeQueryService;
-import example.application.service.employee.EmployeeRecordService;
 import example.application.service.timerecord.TimeRecordRecordService;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.employee.*;
@@ -30,7 +30,7 @@ class PayrollQueryCoordinatorTest {
     @Autowired
     ContractRecordService contractRecordService;
     @Autowired
-    EmployeeRecordService employeeRecordService;
+    EmployeeRecordCoordinator employeeRecordCoordinator;
     @Autowired
     EmployeeQueryService employeeQueryService;
     @Autowired
@@ -38,15 +38,8 @@ class PayrollQueryCoordinatorTest {
 
     @Test
     void test() {
-        EmployeeNumber employeeNumber = employeeRecordService.prepareNewContract();
-        // この時点で呼んだらエラーにしなきゃならない。このテストのスコープからは外れるが。
-        // employeeRecordService.inspireContract(employeeNumber);
-
-        employeeRecordService.registerMailAddress(employeeNumber, new MailAddress(""));
-        employeeRecordService.registerName(employeeNumber, new Name(""));
-        employeeRecordService.registerPhoneNumber(employeeNumber, new PhoneNumber(""));
-        employeeRecordService.inspireContract(employeeNumber);
-
+        EmployeeNumber employeeNumber = employeeRecordCoordinator.register(
+                new Profile(new Name("any"), new MailAddress("any"), new PhoneNumber("any")));
         Employee employee = employeeQueryService.choose(employeeNumber);
 
         {

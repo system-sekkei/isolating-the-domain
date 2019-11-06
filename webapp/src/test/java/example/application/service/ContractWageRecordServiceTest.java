@@ -1,15 +1,11 @@
 package example.application.service;
 
+import example.application.coordinator.employee.EmployeeRecordCoordinator;
 import example.application.service.contract.ContractQueryService;
 import example.application.service.contract.ContractRecordService;
 import example.application.service.employee.EmployeeQueryService;
-import example.application.service.employee.EmployeeRecordService;
 import example.domain.model.contract.ContractWages;
-import example.domain.model.employee.Employee;
-import example.domain.model.employee.EmployeeNumber;
-import example.domain.model.employee.MailAddress;
-import example.domain.model.employee.Name;
-import example.domain.model.employee.PhoneNumber;
+import example.domain.model.employee.*;
 import example.domain.model.legislation.NightExtraRate;
 import example.domain.model.legislation.OverTimeExtraRate;
 import example.domain.model.wage.HourlyWage;
@@ -26,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 public class ContractWageRecordServiceTest {
     @Autowired
-    EmployeeRecordService employeeRecordService;
+    EmployeeRecordCoordinator employeeRecordCoordinator;
     @Autowired
     EmployeeQueryService employeeQueryService;
     @Autowired
@@ -37,13 +33,8 @@ public class ContractWageRecordServiceTest {
     @DisplayName("時給の登録参照が正しく出来ること")
     @Test
     void hourlyWage_io() {
-        EmployeeNumber employeeNumber = employeeRecordService.prepareNewContract();
-
-        employeeRecordService.registerMailAddress(employeeNumber, new MailAddress(""));
-        employeeRecordService.registerName(employeeNumber, new Name(""));
-        employeeRecordService.registerPhoneNumber(employeeNumber, new PhoneNumber(""));
-        employeeRecordService.inspireContract(employeeNumber);
-
+        EmployeeNumber employeeNumber = employeeRecordCoordinator.register(
+                new Profile(new Name("any"), new MailAddress("any"), new PhoneNumber("any")));
         Employee employee = employeeQueryService.choose(employeeNumber);
 
         //一発目
