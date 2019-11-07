@@ -10,6 +10,8 @@ import example.domain.type.time.Minute;
 
 import javax.validation.constraints.AssertTrue;
 import java.time.DateTimeException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class AttendanceForm {
 
@@ -34,8 +36,8 @@ public class AttendanceForm {
 
     private ActualWorkDateTime toActualWorkDateTime() {
         Date workDate = new Date(this.workDate);
-        ClockTime startTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
-        StartDateTime startDateTime = new StartDateTime(new DateTime(workDate, startTime));
+        LocalDateTime startLocalDateTime = LocalDateTime.of(workDate.value(), LocalTime.of(Integer.valueOf(startHour), Integer.valueOf(startMinute)));
+        StartDateTime startDateTime = new StartDateTime(new DateTime(startLocalDateTime));
         EndDateTime endDateTime = (new InputEndTime(Integer.valueOf(endHour), Integer.valueOf(endMinute))).endDateTime(workDate);
 
         Minute minute = new Minute(daytimeBreakTime);
@@ -53,7 +55,7 @@ public class AttendanceForm {
     // テストへの流出がキツイので一旦ここに集める。最終domainに持っていきたい。
     @Deprecated
     public static ActualWorkDateTime toActualWorkDateTime(String startDate, String startTime, String endTime, String daytimeBreak, String nightBreak) {
-        StartDateTime startDateTime = new StartDateTime(new DateTime(startDate, startTime));
+        StartDateTime startDateTime = new StartDateTime(DateTime.parse(startDate, startTime));
         EndDateTime endDateTime = InputEndTime.from(endTime).endDateTime(new Date(startDate));
         return toActualWorkDateTime(startDateTime, endDateTime, new Minute(daytimeBreak), new Minute(nightBreak));
     }
@@ -166,8 +168,7 @@ public class AttendanceForm {
     }
 
     private StartDateTime workStartDateTime() {
-        ClockTime clockTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
-        return new StartDateTime(new DateTime(new Date(workDate), clockTime));
+        return new StartDateTime(DateTime.parse(workDate, startHour, startMinute));
     }
 
     private EndDateTime workEndDateTime() {

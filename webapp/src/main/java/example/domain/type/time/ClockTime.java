@@ -19,7 +19,7 @@ public class ClockTime {
         this(LocalTime.parse(value, DateTimeFormatter.ofPattern("H:m")));
     }
 
-    private ClockTime(LocalTime value) {
+    public ClockTime(LocalTime value) {
         this.value = value;
     }
 

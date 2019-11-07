@@ -59,14 +59,13 @@ class AttendanceForm {
 
     private ActualWorkDateTime toActualWorkDateTime() {
         Date workDate = new Date(this.workDate);
-        ClockTime startTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute));
 
         Minute daytimeBreakMinute = new Minute(daytimeBreakTime);
         Minute nightBreakTime = new Minute(this.nightBreakTime);
         InputEndTime inputEndTime = new InputEndTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
         return new ActualWorkDateTime(
                 new WorkRange(
-                    new StartDateTime(new DateTime(workDate, startTime)),
+                    new StartDateTime(DateTime.parse(this.workDate, startHour, startMinute)),
                     inputEndTime.endDateTime(workDate)
                 ),
                 new DaytimeBreakTime(daytimeBreakMinute),
@@ -149,8 +148,7 @@ class AttendanceForm {
     }
 
     private StartDateTime workStartDateTime() {
-        ClockTime clockTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
-        return new StartDateTime(new DateTime(new Date(workDate), clockTime));
+        return new StartDateTime(DateTime.parse(workDate, startHour, startMinute));
     }
 
     private EndDateTime workEndDateTime() {

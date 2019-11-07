@@ -3,7 +3,9 @@ package example._experimental.spa.controller.timerecord;
 import example.domain.model.timerecord.timefact.EndDateTime;
 import example.domain.type.date.Date;
 import example.domain.type.datetime.DateTime;
-import example.domain.type.time.ClockTime;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  * 勤務終了日時
@@ -24,8 +26,8 @@ public class InputEndTime {
 
     public EndDateTime endDateTime(Date date) {
         Date endDate = isOverFlow() ? date.plusDays(1) : date;
-        ClockTime endTime = new ClockTime(hour % 24, minute);
-        return new EndDateTime(new DateTime(endDate, endTime));
+        LocalTime endTime = LocalTime.of(hour % 24, minute);
+        return new EndDateTime(new DateTime(LocalDateTime.of(endDate.value(), endTime)));
     }
 
     boolean isOverFlow() {

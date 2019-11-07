@@ -3,41 +3,48 @@ package example.domain.type.datetime;
 import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 
 /**
  * 日時
  */
 public class DateTime {
 
-    // TODO: LocalDateTimeにする
-    Date date;
-    ClockTime time;
+    LocalDateTime value;
 
     @Deprecated
     DateTime() {
     }
 
-    public DateTime(Date date, ClockTime time) {
-        this.date = date;
-        this.time = time;
+    public DateTime(LocalDateTime value) {
+        this.value = value;
     }
 
-    public DateTime(String date, String time) {
-        this.date = new Date(date);
-        this.time = new ClockTime(time);
+    public static DateTime parse(String date, String time) {
+        LocalDate d = LocalDate.parse(date, DateTimeFormatter.ISO_DATE);
+        LocalTime t = LocalTime.parse(time, DateTimeFormatter.ofPattern("H:m"));
+        return new DateTime(LocalDateTime.of(d, t));
+    }
+
+    public static DateTime parse(String date, String hour, String minute) {
+        return parse(date, hour + ":" + minute);
     }
 
     public Date date() {
-        return date;
+        return new Date(value.toLocalDate());
     }
 
     public ClockTime time() {
-        return time;
+        return new ClockTime(value.toLocalTime());
     }
 
     @Override
     public String toString() {
-        return this.date.toString() + " " + this.time.toString();
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(value);
     }
 
 }

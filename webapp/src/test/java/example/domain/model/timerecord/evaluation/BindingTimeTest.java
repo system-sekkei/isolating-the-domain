@@ -21,7 +21,7 @@ class BindingTimeTest {
             "9:30, 10:00, 30",
             "20:00, 02:00, 360"})
     void 時刻間の時間が分で取得できる(String fromTime, String toTime, String rangeTime) {
-        DateTime startDateTime = new DateTime("2000-01-01", fromTime);
+        DateTime startDateTime = DateTime.parse("2000-01-01", fromTime);
         new BindingTime(new WorkRange(
                 new StartDateTime(startDateTime),
                 InputEndTime.from(toTime).endDateTime(startDateTime.date())
