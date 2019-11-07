@@ -2,7 +2,7 @@ package example.application.service.contract;
 
 import example.application.repository.ContractRepository;
 import example.domain.model.wage.WageCondition;
-import example.domain.model.employee.EmployeeNumber;
+import example.domain.model.employee.Employee;
 import example.domain.type.date.Date;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public class ContractRecordService {
     /**
      * 時給登録
      */
-    public void registerHourlyWage(EmployeeNumber employeeNumber, Date effectiveDate, WageCondition wageCondition) {
-        contractRepository.registerHourlyWage(employeeNumber, effectiveDate, wageCondition);
+    public void registerHourlyWage(Employee employee, Date effectiveDate, WageCondition wageCondition) {
+        contractRepository.registerHourlyWage(employee, effectiveDate, wageCondition);
     }
 }

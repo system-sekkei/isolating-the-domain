@@ -1,25 +1,39 @@
 package example.domain.model.timerecord.timefact;
 
+import example.domain.type.date.Date;
+import example.domain.type.datetime.DateTime;
+import example.domain.type.time.ClockTime;
+import example.domain.type.time.QuarterRoundClockTime;
+
 /**
  * 勤務開始日時
  */
 public class StartDateTime {
 
-    StartDate startDate;
-    StartTime startTime;
+    DateTime value;
 
     @Deprecated
     StartDateTime() {
     }
 
-    public StartDateTime(StartDate startDate, StartTime startTime) {
-        this.startDate = startDate;
-        this.startTime = startTime;
+    public StartDateTime(DateTime value) {
+        this.value = value;
     }
 
     @Override
     public String toString() {
-        return startDate.toString() + " " + startTime.toString();
+        return value.toString();
     }
 
+    QuarterRoundClockTime normalizedClockTime() {
+        return value.time().quarterRoundUp();
+    }
+
+    public Date date() {
+        return value.date();
+    }
+
+    public ClockTime time() {
+        return value.time();
+    }
 }

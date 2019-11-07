@@ -1,5 +1,10 @@
 package example.domain.model.timerecord.timefact;
 
+import example.domain.type.datetime.DateTime;
+import example.domain.type.time.QuarterRoundClockTime;
+
+import java.time.Duration;
+import java.time.LocalTime;
 import java.time.Period;
 
 /**
@@ -7,31 +12,46 @@ import java.time.Period;
  */
 public class EndDateTime {
 
-    EndDate endDate;
-    EndTime endTime;
+    DateTime value;
 
     @Deprecated
     EndDateTime() {
     }
 
-    public EndDateTime(EndDate endDate, EndTime endTime) {
-        this.endDate = endDate;
-        this.endTime = endTime;
+    public EndDateTime(DateTime value) {
+        this.value = value;
     }
 
     public boolean isAfter(StartDateTime startDateTime) {
-        if (endDate.isAfter(startDateTime.startDate)) return true;
+        if (value.date().isAfter(startDateTime.value.date())) return true;
 
-        return endTime.isAfter(startDateTime.startTime);
+        return value.time().isAfter(startDateTime.value.time());
     }
 
     @Override
     public String toString() {
-        return endDate.toString() + " " + endTime.toString();
+        return value.toString();
     }
 
-    public String endTimeTextWith(StartDate startDate) {
-        Period period = startDate.value().value().until(endDate.value().value());
-        return endTime.clockTimeTextOverDays(period.getDays());
+    public String endTimeTextWith(StartDateTime startDateTime) {
+        Period period = startDateTime.value.date().value().until(value.date().value());
+        return clockTimeTextOverDays(period.getDays());
+    }
+
+    String clockTimeTextOverDays(int days) {
+        LocalTime value = this.value.time().value();
+        Duration duration = Duration.ofDays(days)
+                .plusHours(value.getHour())
+                .plusMinutes(value.getMinute());
+
+        return String.format("%02d:%02d",
+                duration.toHours(),
+                // duration.toMinutesPart() はJava9から
+                duration.toMinutes() % 60
+        );
+    }
+
+    QuarterRoundClockTime normalizedClockTime() {
+        return value.time().quarterRoundDown();
     }
 }

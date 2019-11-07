@@ -13,12 +13,12 @@
         #{wageCondition.nightExtraRate.value.value.value});
     </insert>
 
-    <select id="selectContracts" resultType="example.infrastructure.datasource.contract.HourlyWageData">
+    <select id="selectContracts" resultType="example.domain.model.contract.ContractWage">
         SELECT
-        時給契約.適用開始日 as startDate,
-        時給契約.時給 as hourlyWage,
-        時給契約.時間外割増率 as overTimeExtraRate,
-        時給契約.深夜割増率 as nightExtraRate
+        時給契約.適用開始日 as "effectiveDate.value.value",
+        時給契約.時給 as "wageCondition.baseHourlyWage.value.value",
+        時給契約.時間外割増率 as "wageCondition.overTimeExtraRate.value.value.value",
+        時給契約.深夜割増率 as "wageCondition.nightExtraRate.value.value.value"
         FROM 給与.時給契約 as 時給契約
         WHERE 時給契約.従業員ID = #{employeeNumber.value}
     </select>

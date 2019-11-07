@@ -4,6 +4,7 @@ import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.*;
 import example.domain.model.timerecord.timefact.*;
 import example.domain.type.date.Date;
+import example.domain.type.datetime.DateTime;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 
@@ -39,10 +40,10 @@ class AttendanceForm {
         request.employeeNumber = timeRecord.employeeNumber().toString();
         request.workDate = timeRecord.workDate().toString();
 
-        String[] startClockTime = timeRecord.actualWorkDateTime().workRange().start().clockTime().toString().split(":");
+        String[] startClockTime = timeRecord.actualWorkDateTime().workRange().start().toString().split(" ")[1].split(":");
         request.startHour = startClockTime[0];
         request.startMinute = startClockTime[1];
-        String[] endClockTime = timeRecord.actualWorkDateTime().workRange().end().toString().split(":");
+        String[] endClockTime = timeRecord.actualWorkDateTime().workRange().end().toString().split(" ")[1].split(":");
         request.endHour = endClockTime[0];
         request.endMinute = endClockTime[1];
 
@@ -58,14 +59,13 @@ class AttendanceForm {
 
     private ActualWorkDateTime toActualWorkDateTime() {
         Date workDate = new Date(this.workDate);
-        StartTime startTime = new StartTime(new ClockTime(Integer.valueOf(startHour), Integer.valueOf(startMinute)));
 
         Minute daytimeBreakMinute = new Minute(daytimeBreakTime);
         Minute nightBreakTime = new Minute(this.nightBreakTime);
         InputEndTime inputEndTime = new InputEndTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
         return new ActualWorkDateTime(
                 new WorkRange(
-                    new StartDateTime(new StartDate(workDate), startTime),
+                    new StartDateTime(DateTime.parse(this.workDate, startHour, startMinute)),
                     inputEndTime.endDateTime(workDate)
                 ),
                 new DaytimeBreakTime(daytimeBreakMinute),
@@ -139,19 +139,16 @@ class AttendanceForm {
         return false;
     }
 
-    private StartTime workStartTime() {
-        ClockTime clockTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
-        return new StartTime(clockTime);
+    private ClockTime workStartTime() {
+        return new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
     }
 
-    private EndTime workEndTime() {
-        ClockTime clockTime = new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
-        return new EndTime(clockTime);
+    private ClockTime workEndTime() {
+        return new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
     }
 
     private StartDateTime workStartDateTime() {
-        ClockTime clockTime = new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
-        return new StartDateTime(new StartDate(workDate), new StartTime(clockTime));
+        return new StartDateTime(DateTime.parse(workDate, startHour, startMinute));
     }
 
     private EndDateTime workEndDateTime() {

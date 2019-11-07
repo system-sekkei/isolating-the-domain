@@ -1,6 +1,7 @@
 package example.domain.model.timerecord.evaluation;
 
 import example.domain.model.timerecord.timefact.*;
+import example.domain.type.datetime.DateTime;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.ClockTimeRange;
 import example.domain.type.time.Minute;
@@ -20,10 +21,10 @@ class BindingTimeTest {
             "9:30, 10:00, 30",
             "20:00, 02:00, 360"})
     void 時刻間の時間が分で取得できる(String fromTime, String toTime, String rangeTime) {
-        StartDate startDate = new StartDate("2000-01-01");
+        DateTime startDateTime = DateTime.parse("2000-01-01", fromTime);
         new BindingTime(new WorkRange(
-                new StartDateTime(startDate, new StartTime(fromTime)),
-                InputEndTime.from(toTime).endDateTime(startDate.value())
+                new StartDateTime(startDateTime),
+                InputEndTime.from(toTime).endDateTime(startDateTime.date())
         ));
         ClockTime from = new ClockTime(fromTime);
         ClockTime to = new ClockTime(toTime);

@@ -36,7 +36,7 @@ public class ActualWorkDateTime {
     }
 
     public WorkDate workDate() {
-        return new WorkDate(workRange.startDate().value());
+        return new WorkDate(workRange.start().date());
     }
 
     public WorkTime workTime() {

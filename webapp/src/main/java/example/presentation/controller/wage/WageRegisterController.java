@@ -68,7 +68,7 @@ class WageRegisterController {
                            @RequestParam("effectiveDate") Date effectiveDate,
                            @RequestParam("hourlyWage") HourlyWage hourlyWage) {
         WageCondition wageCondition = new WageCondition(hourlyWage);
-        contractRecordService.registerHourlyWage(employee.employeeNumber(), effectiveDate, wageCondition);
+        contractRecordService.registerHourlyWage(employee, effectiveDate, wageCondition);
         return String.format("redirect:/wages/%d/register/completed", employee.employeeNumber().value());
     }
 

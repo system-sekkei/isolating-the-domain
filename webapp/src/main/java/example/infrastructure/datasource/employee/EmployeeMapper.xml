@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="example.infrastructure.datasource.employee.EmployeeMapper">
 
-    <select id="selectByEmployeeNumber" resultType="example.domain.model.employee.Employee">
+	<sql id="selectEmployee">
         SELECT
         従業員.従業員ID as "employeeNumber.value",
         従業員の名前.従業員名 as "name.value",
@@ -20,25 +20,15 @@
         ) INNER JOIN 給与.契約中 as 契約中 on (
         従業員.従業員ID = 契約中.従業員ID
         )
+	</sql>
+
+    <select id="selectByEmployeeNumber" resultType="example.domain.model.employee.Employee">
+    	<include refid="selectEmployee"/>
         WHERE 従業員.従業員ID = #{employeeNumber.value}
     </select>
 
     <select id="selectContracts" resultType="example.domain.model.employee.Employee">
-        SELECT
-        従業員.従業員ID as "employeeNumber.value",
-        従業員の名前.従業員名 as "name.value",
-        従業員のメールアドレス.メールアドレス as "mailAddress.value",
-        従業員の電話番号.電話番号 as "phoneNumber.value"
-        FROM 給与.従業員 as 従業員
-        INNER JOIN 給与.従業員の名前 as 従業員の名前 on (
-        従業員.従業員ID = 従業員の名前.従業員ID
-        ) INNER JOIN 給与.従業員の電話番号 as 従業員の電話番号 on (
-        従業員.従業員ID = 従業員の電話番号.従業員ID
-        ) INNER JOIN 給与.従業員のメールアドレス as 従業員のメールアドレス on (
-        従業員.従業員ID = 従業員のメールアドレス.従業員ID
-        ) INNER JOIN 給与.契約中 as 契約中 on (
-        従業員.従業員ID = 契約中.従業員ID
-        )
+    	<include refid="selectEmployee"/>
         ORDER BY 従業員.従業員ID;
     </select>
 

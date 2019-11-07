@@ -11,6 +11,10 @@ public class Amount {
 
     BigDecimal value;
 
+    @Deprecated
+    public Amount() {
+    }
+
     public Amount(BigDecimal value) {
         this.value = value;
     }

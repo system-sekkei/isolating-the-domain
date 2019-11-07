@@ -4,7 +4,7 @@ import example.application.repository.ContractRepository;
 import example.domain.model.contract.ContractWages;
 import example.domain.model.contract.Contracts;
 import example.domain.model.employee.ContractingEmployees;
-import example.domain.model.employee.EmployeeNumber;
+import example.domain.model.employee.Employee;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,8 +17,8 @@ public class ContractQueryService {
     /**
      * 契約取得
      */
-    public ContractWages getContractWages(EmployeeNumber employeeNumber) {
-        return contractRepository.getContractWages(employeeNumber);
+    public ContractWages getContractWages(Employee employee) {
+        return contractRepository.getContractWages(employee);
     }
 
     /**
