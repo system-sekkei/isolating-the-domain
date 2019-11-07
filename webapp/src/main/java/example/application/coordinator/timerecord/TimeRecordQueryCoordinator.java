@@ -31,7 +31,7 @@ public class TimeRecordQueryCoordinator {
     public TimeRecord timeRecord(EmployeeNumber employeeNumber, WorkDate workDate) {
         Employee employee = employeeQueryService.choose(employeeNumber);
         if (attendanceQueryService.attendanceStatus(employee, workDate).isWork()) {
-            return timeRecordQueryService.timeRecord(employeeNumber, workDate);
+            return timeRecordQueryService.timeRecord(employee, workDate);
         }
 
         return standardTimeRecord(employeeNumber, workDate);

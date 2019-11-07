@@ -4,7 +4,7 @@ import example.application.repository.TimeRecordRepository;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.model.timerecord.evaluation.WorkDate;
-import example.domain.model.employee.EmployeeNumber;
+import example.domain.model.employee.Employee;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,8 +18,8 @@ public class TimeRecordQueryService {
     /**
      * 日次勤務実績取得
      */
-    public TimeRecord timeRecord(EmployeeNumber employeeNumber, WorkDate workDate) {
-        return timeRecordRepository.findTimeRecords(employeeNumber, WorkMonth.from(workDate)).at(workDate);
+    public TimeRecord timeRecord(Employee employee, WorkDate workDate) {
+        return timeRecordRepository.findTimeRecords(employee, WorkMonth.from(workDate)).at(workDate);
     }
 
     TimeRecordQueryService(TimeRecordRepository timeRecordRepository) {
