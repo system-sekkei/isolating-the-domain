@@ -2,7 +2,6 @@ package example.domain.model.timerecord.timefact;
 
 import example.domain.type.datetime.DateTime;
 import example.domain.type.datetime.QuarterRoundDateTime;
-import example.domain.type.time.QuarterRoundClockTime;
 
 import java.time.Duration;
 import java.time.LocalTime;
@@ -50,10 +49,6 @@ public class EndDateTime {
                 // duration.toMinutesPart() はJava9から
                 duration.toMinutes() % 60
         );
-    }
-
-    QuarterRoundClockTime normalizedClockTime() {
-        return value.time().quarterRoundDown();
     }
 
     public QuarterRoundDateTime normalized() {

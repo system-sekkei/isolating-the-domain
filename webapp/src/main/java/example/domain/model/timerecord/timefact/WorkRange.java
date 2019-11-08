@@ -1,6 +1,8 @@
 package example.domain.model.timerecord.timefact;
 
-import example.domain.type.time.QuarterRoundClockTimeRange;
+import example.domain.type.datetime.QuarterRoundDateTime;
+import example.domain.type.time.Minute;
+import example.domain.type.time.QuarterHour;
 
 /**
  * 勤務の開始と終了
@@ -19,8 +21,9 @@ public class WorkRange {
         this.endDateTime = endDateTime;
     }
 
-    public QuarterRoundClockTimeRange quarterRoundClockTimeRange() {
-        return new QuarterRoundClockTimeRange(startDateTime.normalizedClockTime(), endDateTime.normalizedClockTime());
+    public QuarterHour quarterHour() {
+        Minute duration = QuarterRoundDateTime.between(startDateTime.normalized(), endDateTime.normalized());
+        return new QuarterHour(duration);
     }
 
     public StartDateTime start() {

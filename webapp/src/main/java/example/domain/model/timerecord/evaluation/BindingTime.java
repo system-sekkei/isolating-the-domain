@@ -15,7 +15,7 @@ public class BindingTime {
     }
 
     public QuarterHour quarterHour() {
-        return workRange.quarterRoundClockTimeRange().between();
+        return workRange.quarterHour();
     }
 
     @Override

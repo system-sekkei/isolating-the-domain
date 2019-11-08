@@ -33,12 +33,4 @@ public class ClockTimeRange {
         }
         return minute;
     }
-
-    public ClockTime begin() {
-        return begin;
-    }
-
-    public ClockTime end() {
-        return end;
-    }
 }
