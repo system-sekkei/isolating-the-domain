@@ -2,7 +2,9 @@ package example.domain.type.datetime;
 
 import example.domain.type.date.Date;
 import example.domain.type.time.ClockTime;
+import example.domain.type.time.Minute;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -47,4 +49,8 @@ public class DateTime {
         return DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(value);
     }
 
+    public static Minute between(DateTime start, DateTime end) {
+        Duration duration = Duration.between(start.value, end.value);
+        return new Minute((int) duration.toMinutes());
+    }
 }
