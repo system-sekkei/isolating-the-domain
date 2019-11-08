@@ -24,7 +24,19 @@ public class QuarterRoundDateTime {
         return DateTime.between(start.value, end.value);
     }
 
+    public static Minute between(QuarterRoundDateTime start, DateTime end) {
+        return DateTime.between(start.value, end);
+    }
+
     public DateTime value() {
         return value;
+    }
+
+    public boolean isAfter(DateTime other) {
+        return value.isAfter(other);
+    }
+
+    public boolean isBefore(DateTime other) {
+        return value.isBefore(other);
     }
 }

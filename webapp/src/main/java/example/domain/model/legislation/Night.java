@@ -2,6 +2,7 @@ package example.domain.model.legislation;
 
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.datetime.DateTime;
+import example.domain.type.datetime.QuarterRoundDateTime;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 
@@ -26,31 +27,46 @@ public class Night {
     }
 
     public Minute nightMinute(WorkRange range) {
-        DateTime earlyMorningFinishDateTime = new DateTime(LocalDateTime.of(range.start().date().value(), nightFinishTime.value()));
-        DateTime nightStartDateTime = new DateTime(LocalDateTime.of(range.start().date().value(), nightStartTime.value()));
-        DateTime nightFinishDateTime = new DateTime(LocalDateTime.of(range.start().date().plusDays(1).value(), nightFinishTime.value()));
+        Minute earlyMorning = earlyMorning(range.start().normalized(), range.end().normalized());
+        Minute midnight = midnight(range.start().normalized(), range.end().normalized());
+        return earlyMorning.add(midnight);
+    }
 
-        Minute minute = new Minute(0);
-        // 早朝
-        if (range.start().value().isBefore(earlyMorningFinishDateTime)) {
-            if (range.end().value().isBefore(earlyMorningFinishDateTime)) {
-                return DateTime.between(range.start().normalized().value(), range.end().normalized().value());
-            }
+    private Minute earlyMorning(QuarterRoundDateTime startDateTime, QuarterRoundDateTime endDateTime) {
+        DateTime earlyMorningFinishDateTime = new DateTime(LocalDateTime.of(startDateTime.value().date().value(), nightFinishTime.value()));
 
-            minute = minute.add(DateTime.between(range.start().normalized().value(), earlyMorningFinishDateTime));
+        if (startDateTime.isBefore(earlyMorningFinishDateTime)
+            && endDateTime.isAfter(earlyMorningFinishDateTime)) {
+            return QuarterRoundDateTime.between(startDateTime, earlyMorningFinishDateTime);
         }
-        // 残業
-        if (range.end().value().isAfter(nightStartDateTime)) {
-            if (range.end().value().isBefore(nightFinishDateTime)) {
-                if (range.start().value().isAfter(nightStartDateTime)) {
-                    minute = minute.add(DateTime.between(range.start().normalized().value(), range.end().normalized().value()));
-                } else {
-                    minute = minute.add(DateTime.between(nightStartDateTime, range.end().normalized().value()));
-                }
-            } else {
-                minute = minute.add(DateTime.between(nightStartDateTime, nightFinishDateTime));
-            }
+
+        if (startDateTime.isBefore(earlyMorningFinishDateTime)
+            && endDateTime.isBefore(earlyMorningFinishDateTime)) {
+            return QuarterRoundDateTime.between(startDateTime, endDateTime);
         }
-        return minute;
+
+        return new Minute(0);
+    }
+
+    private Minute midnight(QuarterRoundDateTime startDateTime, QuarterRoundDateTime endDateTime) {
+        DateTime nightStartDateTime = new DateTime(LocalDateTime.of(startDateTime.value().date().value(), nightStartTime.value()));
+        DateTime nightFinishDateTime = new DateTime(LocalDateTime.of(startDateTime.value().date().plusDays(1).value(), nightFinishTime.value()));
+
+        if (endDateTime.isAfter(nightStartDateTime)
+            && endDateTime.isBefore(nightFinishDateTime)
+            && startDateTime.isAfter(nightStartDateTime)) {
+            return QuarterRoundDateTime.between(startDateTime, endDateTime);
+        }
+
+        if (endDateTime.isAfter(nightStartDateTime)
+            && endDateTime.isBefore(nightFinishDateTime)) {
+            return DateTime.between(nightStartDateTime, endDateTime);
+        }
+
+        if (endDateTime.isAfter(nightStartDateTime)) {
+            return DateTime.between(nightStartDateTime, nightFinishDateTime);
+        }
+
+        return new Minute(0);
     }
 }

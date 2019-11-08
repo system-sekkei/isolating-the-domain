@@ -54,6 +54,10 @@ public class DateTime {
         return new Minute((int) duration.toMinutes());
     }
 
+    public static Minute between(DateTime start, QuarterRoundDateTime end) {
+        return between(start, end.value);
+    }
+
     public QuarterRoundDateTime quarterRoundDown() {
         int minute = value.getMinute();
         if (minute < 15) {
