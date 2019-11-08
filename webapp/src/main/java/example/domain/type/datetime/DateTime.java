@@ -53,4 +53,43 @@ public class DateTime {
         Duration duration = Duration.between(start.value, end.value);
         return new Minute((int) duration.toMinutes());
     }
+
+    public QuarterRoundDateTime quarterRoundDown() {
+        int minute = value.getMinute();
+        if (minute < 15) {
+            return new QuarterRoundDateTime(new DateTime(value.withMinute(0)));
+        }
+        if (minute < 30) {
+            return new QuarterRoundDateTime(new DateTime(value.withMinute(15)));
+        }
+        if (minute < 45) {
+            return new QuarterRoundDateTime(new DateTime(value.withMinute(30)));
+        }
+        return new QuarterRoundDateTime(new DateTime(value.withMinute(45)));
+    }
+
+    public QuarterRoundDateTime quarterRoundUp() {
+        int minute = value.getMinute();
+        if (minute == 0) {
+            return new QuarterRoundDateTime(new DateTime(value));
+        }
+        if (minute <= 15) {
+            return new QuarterRoundDateTime(new DateTime(value.withMinute(15)));
+        }
+        if (minute <= 30) {
+            return new QuarterRoundDateTime(new DateTime(value.withMinute(30)));
+        }
+        if (minute <= 45) {
+            return new QuarterRoundDateTime(new DateTime(value.withMinute(45)));
+        }
+        return new QuarterRoundDateTime(new DateTime(value.plusHours(1).withMinute(0)));
+    }
+
+    public boolean isAfter(DateTime other) {
+        return value.isAfter(other.value);
+    }
+
+    public boolean isBefore(DateTime other) {
+        return value.isBefore(other.value);
+    }
 }

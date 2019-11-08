@@ -44,6 +44,7 @@ class ActualWorkTimeTest {
             "18:00, 27:00, 60, 4時間0分",
             "8:00, 17:00, 0, 0時間0分",
             "0:00, 24:00, 0, 7時間0分",
+            "23:00, 24:00, 0, 1時間0分",
     })
     void 深夜作業時間が計算できる(String begin, String end, String breaks, String expected) {
         ActualWorkDateTime sut = AttendanceForm.toActualWorkDateTime("2018-11-25", begin, end, "0", breaks);

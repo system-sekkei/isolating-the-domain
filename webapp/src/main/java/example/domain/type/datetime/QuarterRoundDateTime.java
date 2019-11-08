@@ -23,4 +23,8 @@ public class QuarterRoundDateTime {
     public static Minute between(QuarterRoundDateTime start, QuarterRoundDateTime end) {
         return DateTime.between(start.value, end.value);
     }
+
+    public DateTime value() {
+        return value;
+    }
 }
