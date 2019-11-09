@@ -41,7 +41,7 @@ public class TimeRecordAPI {
             return new PreparedAttendanceForm(contractingEmployees, form);
         }
 
-        TimeRecord timeRecord = timeRecordQueryService.timeRecord(employeeNumber, workDate);
+        TimeRecord timeRecord = timeRecordQueryService.timeRecord(employee, workDate);
         AttendanceForm form = AttendanceForm.of(timeRecord);
         return new PreparedAttendanceForm(contractingEmployees, form);
     }
