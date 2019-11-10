@@ -1,6 +1,7 @@
 package example.presentation.controller.timerecord;
 
 import example.domain.model.timerecord.timefact.EndDateTime;
+import example.domain.model.timerecord.timefact.StartDateTime;
 import example.domain.type.date.Date;
 import example.domain.type.datetime.DateTime;
 
@@ -24,7 +25,9 @@ public class InputEndTime {
         return new InputEndTime(Integer.parseInt(s[0]), Integer.parseInt(s[1]));
     }
 
-    public EndDateTime endDateTime(Date date) {
+    public EndDateTime endDateTime(StartDateTime startDateTime) {
+        Date date = startDateTime.date();
+        // TODO 1日を超える扱い
         Date endDate = isOverFlow() ? date.plusDays(1) : date;
         LocalTime endTime = LocalTime.of(hour % 24, minute);
         return new EndDateTime(new DateTime(LocalDateTime.of(endDate.value(), endTime)));

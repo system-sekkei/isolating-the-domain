@@ -5,7 +5,6 @@ import example.domain.model.timerecord.evaluation.*;
 import example.domain.model.timerecord.timefact.EndDateTime;
 import example.domain.model.timerecord.timefact.StartDateTime;
 import example.domain.model.timerecord.timefact.WorkRange;
-import example.domain.type.date.Date;
 import example.domain.type.datetime.DateTime;
 import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
@@ -49,7 +48,7 @@ public class AttendanceForm {
     @Deprecated
     public static ActualWorkDateTime toActualWorkDateTime(String startDate, String startTime, String endTime, String daytimeBreak, String nightBreak) {
         StartDateTime startDateTime = new StartDateTime(DateTime.parse(startDate, startTime));
-        EndDateTime endDateTime = InputEndTime.from(endTime).endDateTime(new Date(startDate));
+        EndDateTime endDateTime = InputEndTime.from(endTime).endDateTime(startDateTime);
         return toActualWorkDateTime(startDateTime, endDateTime, new DaytimeBreakTime(daytimeBreak), new NightBreakTime(nightBreak));
     }
 
@@ -83,7 +82,7 @@ public class AttendanceForm {
 
     private EndDateTime workEndDateTime() {
         InputEndTime time = inputEndTime();
-        return time.endDateTime(new Date(workDate));
+        return time.endDateTime(workStartDateTime());
     }
 
     boolean workDateComplete;
