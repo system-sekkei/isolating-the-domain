@@ -152,16 +152,19 @@ public class AttendanceForm {
 
     @AssertTrue(message = "終了時刻には開始時刻よりあとの時刻を入力してください")
     public boolean isWorkTimeValid() {
-        if (!isStartTimeComplete()) return true;
-        if (!isEndTimeComplete()) return true;
-        if (!isStartTimeValid() || !isEndTimeValid()) return true;
-        if (!isWorkDateComplete() || !isWorkDateValid()) return true;
+        if (unnecessaryCalculate()) return true;
 
         StartDateTime startDateTime = workStartDateTime();
         EndDateTime endDateTime = workEndDateTime();
         if (endDateTime.isAfter(startDateTime)) return true;
 
         return false;
+    }
+
+    private boolean unnecessaryCalculate() {
+        return !isStartTimeComplete() || !isStartTimeValid()
+                || !isEndTimeComplete() || !isEndTimeValid()
+                || !isWorkDateComplete() || !isWorkDateValid();
     }
 
     private ClockTime workStartTime() {
@@ -182,6 +185,7 @@ public class AttendanceForm {
     @AssertTrue(message = "休憩時間が不正です")
     public boolean isDaytimeBreakTimeValid() {
         if (daytimeBreakTime == null) return false;
+        if (unnecessaryCalculate() || !isWorkTimeValid()) return true;
 
         try {
             Minute daytimeBindingMinute = toActualWorkDateTime().daytimeBindingTime().quarterHour().minute();
@@ -199,6 +203,7 @@ public class AttendanceForm {
     @AssertTrue(message = "休憩時間（深夜）が不正です")
     public boolean isNightBreakTimeValid() {
         if (nightBreakTime == null) return false;
+        if (unnecessaryCalculate() || !isWorkTimeValid()) return true;
 
         try {
             Minute nightBindingMinute = toActualWorkDateTime().nightBindingTime().quarterHour().minute();
