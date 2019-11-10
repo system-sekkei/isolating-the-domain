@@ -72,13 +72,22 @@ class TimeRecordRegisterControllerTest {
                 .andExpect(redirectedUrlPattern("/attendances/1/*"));
     }
 
-    @CsvSource({
-            //"          , 10,00, 17,30,  0,  0, workDateValid",
-            "2019-01-01, 20,00, 17,30,  0,  0, workTimeValid",
-            "2019-01-01, 10,00, 17,30,   ,  0, daytimeBreakTimeValid",
-            "2019-01-01, 10,00, 10,30, 90,  0, daytimeBreakTimeValid",
-            "2019-01-01, 10,00, 23,30,  0,   , nightBreakTimeValid",
-            "2019-01-01, 10,00, 13,30,  0, 90, nightBreakTimeValid",
+    @CsvSource(value = {
+            //"        '', 10,00, 17,30,  0,  0, workDateComplete",
+            //"xxxx-01-01, 10,00, 17,30,  0,  0, workDateValid",
+            "2019-01-01, '',00, 17,30,  0,  0, startTimeComplete",
+            "2019-01-01, 10,'', 17,30,  0,  0, startTimeComplete",
+            "2019-01-01,  x,00, 17,30,  0,  0, startTimeValid",
+            "2019-01-01, 10, x, 17,30,  0,  0, startTimeValid",
+            "2019-01-01, 10,00, '',30,  0,  0, endTimeComplete",
+            "2019-01-01, 10,00, 17,'',  0,  0, endTimeComplete",
+            "2019-01-01, 10,00,  x,30,  0,  0, endTimeValid",
+            "2019-01-01, 10,00, 17, x,  0,  0, endTimeValid",
+            "2019-01-01, 20,00, 17,30,  0,  0, workTimeValid", // 開始 > 終了
+            "2019-01-01, 10,00, 17,30,  x,  0, daytimeBreakTimeValid",
+            "2019-01-01, 10,00, 10,30, 90,  0, daytimeBreakTimeValid", // over
+            "2019-01-01, 10,00, 23,30,  0,  x, nightBreakTimeValid",
+            "2019-01-01, 10,00, 13,30,  0, 90, nightBreakTimeValid", // over
     })
     @ParameterizedTest
     void validation(String workDate, String startHour, String startMinute, String endHour, String endMinute, String daytimeBreakTime, String nightBreakTime, String errorField) throws Exception {
