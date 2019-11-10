@@ -1,16 +1,15 @@
 package example.presentation.controller.employee;
 
-import example.application.coordinator.employee.EmployeeRecordCoordinator;
 import example.application.service.employee.EmployeeQueryService;
+import example.application.service.employee.EmployeeRecordService;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
+import example.domain.model.employee.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -18,58 +17,36 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 @Controller
 @RequestMapping("employees/{employeeNumber}/update")
-@SessionAttributes({"employee"})
 class EmployeeUpdateController {
 
-    private static final String[] allowFields =
-            {
-                    "name.value",
-                    "mailAddress.value",
-                    "phoneNumber.value",
-            };
-
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        binder.setAllowedFields(allowFields);
-    }
-
     EmployeeQueryService employeeQueryService;
-    EmployeeRecordCoordinator employeeRecordCoordinator;
+    EmployeeRecordService employeeRecordService;
 
     @GetMapping
-    String clearSessionAtStart(@PathVariable(value = "employeeNumber") EmployeeNumber employeeNumber,
-                               SessionStatus status) {
-        status.setComplete();
-        return "forward:/employees/" + employeeNumber + "/update/input";
-    }
-
-    @GetMapping("input")
-    String formToEdit(@PathVariable(value = "employeeNumber") EmployeeNumber employeeNumber,
-                      Model model) {
+    String open(@PathVariable(value = "employeeNumber") EmployeeNumber employeeNumber,
+                Model model) {
         Employee employee = employeeQueryService.choose(employeeNumber);
-        model.addAttribute("employee", employee);
+        model.addAttribute("profile", employee.profile());
         return "employee/update/form";
     }
 
-
     @PostMapping("register")
-    String registerThenRedirect(@Validated @ModelAttribute Employee employee,
-                                BindingResult result,
-                                SessionStatus status,
+    String registerThenRedirect(@PathVariable(value = "employeeNumber") EmployeeNumber employeeNumber,
+                                @Validated @ModelAttribute("profile") Profile profile, BindingResult result,
                                 RedirectAttributes attributes) {
         if (result.hasErrors()) return "employee/update/form";
 
-        employeeRecordCoordinator.update(employee);
-
-        status.setComplete();
+        employeeRecordService.registerName(profile.updateName(employeeNumber));
+        employeeRecordService.registerMailAddress(profile.updateMailAddress(employeeNumber));
+        employeeRecordService.registerPhoneNumber(profile.updatePhoneNumber(employeeNumber));
 
         attributes.addAttribute("updateResult", "completed");
 
-        return "redirect:/employees/" + employee.employeeNumber();
+        return "redirect:/employees/" + employeeNumber;
     }
 
-    public EmployeeUpdateController(EmployeeQueryService employeeQueryService, EmployeeRecordCoordinator employeeRecordCoordinator) {
+    public EmployeeUpdateController(EmployeeQueryService employeeQueryService, EmployeeRecordService employeeRecordService) {
         this.employeeQueryService = employeeQueryService;
-        this.employeeRecordCoordinator = employeeRecordCoordinator;
+        this.employeeRecordService = employeeRecordService;
     }
 }

@@ -1,7 +1,7 @@
 package example.application.service;
 
+import example.application.coordinator.employee.EmployeeRecordCoordinator;
 import example.application.service.employee.EmployeeQueryService;
-import example.application.service.employee.EmployeeRecordService;
 import example.domain.model.employee.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class EmployeeRecordServiceTest {
     @Autowired
-    EmployeeRecordService sut;
+    EmployeeRecordCoordinator sut;
     @Autowired
     EmployeeQueryService query;
 
@@ -42,11 +42,7 @@ class EmployeeRecordServiceTest {
         PhoneNumber phoneNumber = new PhoneNumber("090-6559-1234");
         MailAddress mailAddress = new MailAddress("hogehoge_hogeo@example.com");
 
-        EmployeeNumber employeeNumber = sut.prepareNewContract();
-        sut.registerName(employeeNumber, name);
-        sut.registerPhoneNumber(employeeNumber, phoneNumber);
-        sut.registerMailAddress(employeeNumber, mailAddress);
-        sut.inspireContract(employeeNumber);
+        EmployeeNumber employeeNumber = sut.register(new Profile(name, mailAddress, phoneNumber));
 
         Employee foundEmployee = query.choose(employeeNumber);
         assertAll(
@@ -54,6 +50,5 @@ class EmployeeRecordServiceTest {
                 () -> assertEquals(foundEmployee.phoneNumber().toString(), phoneNumber.toString()),
                 () -> assertEquals(foundEmployee.mailAddress().toString(), mailAddress.toString())
         );
-        sut.expireContract(foundEmployee);
     }
 }

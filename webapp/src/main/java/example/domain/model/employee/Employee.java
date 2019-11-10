@@ -46,6 +46,10 @@ public class Employee {
         return mailAddress;
     }
 
+    public Profile profile() {
+        return new Profile(name, mailAddress, phoneNumber);
+    }
+
     @Override
     public String toString() {
         return "Employee{" +

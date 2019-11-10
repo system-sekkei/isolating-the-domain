@@ -14,14 +14,14 @@
   
     <form id="custom-form" class="ui form" name="body" 
           method="post" action="#"
-          th:object="${employee}"
-          th:action="@{/employees/{employeeNumber}/update/register(employeeNumber=${employee.employeeNumber()})}">
-      
+          th:object="${profile}"
+          th:action="@{/employees/{employeeNumber}/update/register(employeeNumber=${employeeNumber})}">
+
       <div class="employeeInfo">
         <table class="ui celled center aligned definition table">
           <tr>
             <td class="six wide center aligned tableHeader">従業員番号</td>
-            <td class="ten wide" th:text="${employee.employeeNumber()}">9999</td>
+            <td class="ten wide" th:text="${employeeNumber}">9999</td>
           </tr>
         </table>
       </div>
@@ -31,19 +31,19 @@
       <div class="employeeInput">
         <div class="ui basic segment">
           <div class="field"
-               th:replace="fragments/input::macro('name.value','氏名','名前')">
+               th:replace="fragments/input::macro('name','氏名','名前')">
             <label>氏名</label>
             <input type="text">
           </div>
 
           <div class="field"
-               th:replace="fragments/input::macro('mailAddress.value','メールアドレス','someone@example.com')">
+               th:replace="fragments/input::macro('mailAddress','メールアドレス','someone@example.com')">
             <label>メールアドレス</label>
             <input type="text">
           </div>
 
           <div class="field"
-               th:replace="fragments/input::macro('phoneNumber.value','電話番号','03-1234-5678')">
+               th:replace="fragments/input::macro('phoneNumber','電話番号','03-1234-5678')">
             <label>電話番号</label>
             <input type="text">
           </div>
@@ -52,7 +52,7 @@
             
         <div class="ui center aligned basic segment">
           <a class="ui grey button" 
-             th:href="@{/employees/{employeeNumber}(employeeNumber=${employee.employeeNumber()})}">詳細に戻る</a>
+             th:href="@{/employees/{employeeNumber}(employeeNumber=${employeeNumber})}">詳細に戻る</a>
           <button class="ui positive button">保存</button>
         </div>
       </div>      

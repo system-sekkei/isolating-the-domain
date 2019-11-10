@@ -1,9 +1,23 @@
 package example.domain.model.employee;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+/**
+ * 従業員プロフィール
+ */
 public class Profile {
 
+    @NotNull
+    @Valid
     Name name;
+
+    @NotNull
+    @Valid
     MailAddress mailAddress;
+
+    @NotNull
+    @Valid
     PhoneNumber phoneNumber;
 
     public Profile(Name name, MailAddress mailAddress, PhoneNumber phoneNumber) {
@@ -22,5 +36,17 @@ public class Profile {
 
     public PhoneNumber phoneNumber() {
         return phoneNumber;
+    }
+
+    public UpdateName updateName(EmployeeNumber employeeNumber) {
+        return new UpdateName(employeeNumber, name());
+    }
+
+    public UpdatePhoneNumber updatePhoneNumber(EmployeeNumber employeeNumber) {
+        return new UpdatePhoneNumber(employeeNumber, phoneNumber());
+    }
+
+    public UpdateMailAddress updateMailAddress(EmployeeNumber employeeNumber) {
+        return new UpdateMailAddress(employeeNumber, mailAddress());
     }
 }
