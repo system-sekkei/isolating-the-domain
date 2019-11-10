@@ -12,8 +12,6 @@ import example.domain.type.time.Minute;
 
 import javax.validation.constraints.AssertTrue;
 import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class AttendanceForm {
 
@@ -37,12 +35,7 @@ public class AttendanceForm {
     }
 
     private ActualWorkDateTime toActualWorkDateTime() {
-        Date workDate = new Date(this.workDate);
-        LocalDateTime startLocalDateTime = LocalDateTime.of(workDate.value(), LocalTime.of(Integer.valueOf(startHour), Integer.valueOf(startMinute)));
-        StartDateTime startDateTime = new StartDateTime(new DateTime(startLocalDateTime));
-        EndDateTime endDateTime = (new InputEndTime(Integer.valueOf(endHour), Integer.valueOf(endMinute))).endDateTime(workDate);
-
-        return toActualWorkDateTime(startDateTime, endDateTime, daytimeBreakTime, nightBreakTime);
+        return toActualWorkDateTime(workStartDateTime(), workEndDateTime(), daytimeBreakTime, nightBreakTime);
     }
 
     private static ActualWorkDateTime toActualWorkDateTime(StartDateTime startDateTime, EndDateTime endDateTime, DaytimeBreakTime daytimeBreakTime, NightBreakTime nightBreakTime) {
@@ -74,6 +67,23 @@ public class AttendanceForm {
 
         this.daytimeBreakTime = timeRecord.actualWorkDateTime().daytimeBreakTime();
         this.nightBreakTime = timeRecord.actualWorkDateTime().nightBreakTime();
+    }
+
+    private ClockTime workStartTime() {
+        return new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
+    }
+
+    private InputEndTime inputEndTime() {
+        return new InputEndTime(Integer.parseInt(endHour), Integer.parseInt(endMinute));
+    }
+
+    private StartDateTime workStartDateTime() {
+        return new StartDateTime(DateTime.parse(workDate, startHour, startMinute));
+    }
+
+    private EndDateTime workEndDateTime() {
+        InputEndTime time = inputEndTime();
+        return time.endDateTime(new Date(workDate));
     }
 
     boolean workDateComplete;
@@ -134,7 +144,7 @@ public class AttendanceForm {
         if (!isEndTimeComplete()) return true;
 
         try {
-            workEndTime();
+            inputEndTime();
         } catch (NumberFormatException ex) {
             return false;
         }
@@ -142,10 +152,10 @@ public class AttendanceForm {
         return true;
     }
 
-    private ClockTime workEndTime() {
-        int endHour = Integer.parseInt(this.endHour) % 24;
-        int endMinute = Integer.parseInt(this.endMinute);
-        return new ClockTime(endHour, endMinute);
+    private boolean unnecessaryCalculate() {
+        return !isStartTimeComplete() || !isStartTimeValid()
+                || !isEndTimeComplete() || !isEndTimeValid()
+                || !isWorkDateComplete() || !isWorkDateValid();
     }
 
     boolean workTimeValid;
@@ -159,25 +169,6 @@ public class AttendanceForm {
         if (endDateTime.isAfter(startDateTime)) return true;
 
         return false;
-    }
-
-    private boolean unnecessaryCalculate() {
-        return !isStartTimeComplete() || !isStartTimeValid()
-                || !isEndTimeComplete() || !isEndTimeValid()
-                || !isWorkDateComplete() || !isWorkDateValid();
-    }
-
-    private ClockTime workStartTime() {
-        return new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
-    }
-
-    private StartDateTime workStartDateTime() {
-        return new StartDateTime(DateTime.parse(workDate, startHour, startMinute));
-    }
-
-    private EndDateTime workEndDateTime() {
-        InputEndTime time = new InputEndTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
-        return time.endDateTime(new Date(workDate));
     }
 
     boolean daytimeBreakTimeValid;
