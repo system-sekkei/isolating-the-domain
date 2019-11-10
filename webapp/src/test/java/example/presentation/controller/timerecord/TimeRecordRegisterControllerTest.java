@@ -9,6 +9,8 @@ import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.TimeRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -70,20 +72,29 @@ class TimeRecordRegisterControllerTest {
                 .andExpect(redirectedUrlPattern("/attendances/1/*"));
     }
 
-    @Test
-    void バリデーションエラー() throws Exception {
+    @CsvSource({
+            //"          , 10,00, 17,30,  0,  0, workDateValid",
+            "2019-01-01, 20,00, 17,30,  0,  0, workTimeValid",
+            "2019-01-01, 10,00, 17,30,   ,  0, daytimeBreakTimeValid",
+            "2019-01-01, 10,00, 10,30, 90,  0, daytimeBreakTimeValid",
+            "2019-01-01, 10,00, 23,30,  0,   , nightBreakTimeValid",
+            "2019-01-01, 10,00, 13,30,  0, 90, nightBreakTimeValid",
+    })
+    @ParameterizedTest
+    void validation(String workDate, String startHour, String startMinute, String endHour, String endMinute, String daytimeBreakTime, String nightBreakTime, String errorField) throws Exception {
         mockMvc.perform(post("/timerecord")
                 .param("employeeNumber", "1")
-                .param("workDate", "2018-01-01")
-                .param("startHour", "20")
-                .param("startMinute", "00")
-                .param("endHour", "17")
-                .param("endMinute", "30")
-                .param("daytimeBreakTime", "0")
-                .param("nightBreakTime", "0")
+                .param("workDate", workDate)
+                .param("startHour", startHour)
+                .param("startMinute", startMinute)
+                .param("endHour", endHour)
+                .param("endMinute", endMinute)
+                .param("daytimeBreakTime", daytimeBreakTime)
+                .param("nightBreakTime", nightBreakTime)
         )
                 .andExpect(status().isOk())
-                .andExpect(view().name("timerecord/form"));
+                .andExpect(view().name("timerecord/form"))
+                .andExpect(model().attributeHasFieldErrors("attendanceForm", errorField));
     }
 
     @Test
