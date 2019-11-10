@@ -13,6 +13,10 @@ public class NightBreakTime {
     NightBreakTime() {
     }
 
+    public NightBreakTime(String value) {
+        this(new Minute(value));
+    }
+
     public NightBreakTime(Minute value) {
         this.value = value;
     }

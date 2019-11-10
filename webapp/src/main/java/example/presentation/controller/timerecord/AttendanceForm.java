@@ -2,7 +2,9 @@ package example.presentation.controller.timerecord;
 
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.*;
-import example.domain.model.timerecord.timefact.*;
+import example.domain.model.timerecord.timefact.EndDateTime;
+import example.domain.model.timerecord.timefact.StartDateTime;
+import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.date.Date;
 import example.domain.type.datetime.DateTime;
 import example.domain.type.time.ClockTime;
@@ -23,8 +25,8 @@ public class AttendanceForm {
     String endHour = "";
     String endMinute = "";
 
-    String daytimeBreakTime = "";
-    String nightBreakTime = "";
+    DaytimeBreakTime daytimeBreakTime;
+    NightBreakTime nightBreakTime;
 
     public AttendanceForm() {
     }
@@ -40,16 +42,14 @@ public class AttendanceForm {
         StartDateTime startDateTime = new StartDateTime(new DateTime(startLocalDateTime));
         EndDateTime endDateTime = (new InputEndTime(Integer.valueOf(endHour), Integer.valueOf(endMinute))).endDateTime(workDate);
 
-        Minute minute = new Minute(daytimeBreakTime);
-        Minute nightMinute = new Minute(nightBreakTime);
-        return toActualWorkDateTime(startDateTime, endDateTime, minute, nightMinute);
+        return toActualWorkDateTime(startDateTime, endDateTime, daytimeBreakTime, nightBreakTime);
     }
 
-    private static ActualWorkDateTime toActualWorkDateTime(StartDateTime startDateTime, EndDateTime endDateTime, Minute minute, Minute nightMinute) {
+    private static ActualWorkDateTime toActualWorkDateTime(StartDateTime startDateTime, EndDateTime endDateTime, DaytimeBreakTime daytimeBreakTime, NightBreakTime nightBreakTime) {
         return new ActualWorkDateTime(
                 new WorkRange(startDateTime, endDateTime),
-                new DaytimeBreakTime(minute),
-                new NightBreakTime(nightMinute));
+                daytimeBreakTime,
+                nightBreakTime);
     }
 
     // テストへの流出がキツイので一旦ここに集める。最終domainに持っていきたい。
@@ -57,7 +57,7 @@ public class AttendanceForm {
     public static ActualWorkDateTime toActualWorkDateTime(String startDate, String startTime, String endTime, String daytimeBreak, String nightBreak) {
         StartDateTime startDateTime = new StartDateTime(DateTime.parse(startDate, startTime));
         EndDateTime endDateTime = InputEndTime.from(endTime).endDateTime(new Date(startDate));
-        return toActualWorkDateTime(startDateTime, endDateTime, new Minute(daytimeBreak), new Minute(nightBreak));
+        return toActualWorkDateTime(startDateTime, endDateTime, new DaytimeBreakTime(daytimeBreak), new NightBreakTime(nightBreak));
     }
 
     public void apply(TimeRecord timeRecord) {
@@ -72,8 +72,8 @@ public class AttendanceForm {
         this.endHour = endClockTime[0];
         this.endMinute = endClockTime[1];
 
-        this.daytimeBreakTime = timeRecord.actualWorkDateTime().daytimeBreakTime().toString();
-        this.nightBreakTime = timeRecord.actualWorkDateTime().nightBreakTime().toString();
+        this.daytimeBreakTime = timeRecord.actualWorkDateTime().daytimeBreakTime();
+        this.nightBreakTime = timeRecord.actualWorkDateTime().nightBreakTime();
     }
 
     boolean workDateComplete;
@@ -180,11 +180,9 @@ public class AttendanceForm {
 
     @AssertTrue(message = "休憩時間が不正です")
     public boolean isDaytimeBreakTimeValid() {
-        if (daytimeBreakTime.isEmpty()) return true;
+        if (daytimeBreakTime == null) return false;
 
         try {
-            DaytimeBreakTime daytimeBreakTime = new DaytimeBreakTime(new Minute(this.daytimeBreakTime));
-
             Minute daytimeBindingMinute = toActualWorkDateTime().daytimeBindingTime().quarterHour().minute();
             if (daytimeBindingMinute.lessThan(daytimeBreakTime.minute())) {
                 return false;
@@ -199,11 +197,9 @@ public class AttendanceForm {
 
     @AssertTrue(message = "休憩時間（深夜）が不正です")
     public boolean isNightBreakTimeValid() {
-        if (nightBreakTime.isEmpty()) return true;
+        if (nightBreakTime == null) return false;
 
         try {
-            NightBreakTime nightBreakTime = new NightBreakTime(new Minute(this.nightBreakTime));
-
             Minute nightBindingMinute = toActualWorkDateTime().nightBindingTime().quarterHour().minute();
             if (nightBindingMinute.lessThan(nightBreakTime.minute())) {
                 return false;

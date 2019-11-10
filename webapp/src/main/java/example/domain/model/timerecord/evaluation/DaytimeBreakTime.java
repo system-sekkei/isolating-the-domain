@@ -13,6 +13,10 @@ public class DaytimeBreakTime {
     DaytimeBreakTime() {
     }
 
+    public DaytimeBreakTime(String value) {
+        this(new Minute(value));
+    }
+
     public DaytimeBreakTime(Minute value) {
         this.value = value;
     }
