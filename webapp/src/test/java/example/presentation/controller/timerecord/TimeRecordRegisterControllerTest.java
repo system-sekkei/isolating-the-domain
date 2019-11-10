@@ -73,8 +73,8 @@ class TimeRecordRegisterControllerTest {
     }
 
     @CsvSource(value = {
-            //"        '', 10,00, 17,30,  0,  0, workDateComplete",
-            //"xxxx-01-01, 10,00, 17,30,  0,  0, workDateValid",
+            "        '', 10,00, 17,30,  0,  0, workDateComplete",
+            "xxxx-01-01, 10,00, 17,30,  0,  0, workDateValid",
             "2019-01-01, '',00, 17,30,  0,  0, startTimeComplete",
             "2019-01-01, 10,'', 17,30,  0,  0, startTimeComplete",
             "2019-01-01,  x,00, 17,30,  0,  0, startTimeValid",

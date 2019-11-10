@@ -155,6 +155,7 @@ public class AttendanceForm {
         if (!isStartTimeComplete()) return true;
         if (!isEndTimeComplete()) return true;
         if (!isStartTimeValid() || !isEndTimeValid()) return true;
+        if (!isWorkDateComplete() || !isWorkDateValid()) return true;
 
         StartDateTime startDateTime = workStartDateTime();
         EndDateTime endDateTime = workEndDateTime();
