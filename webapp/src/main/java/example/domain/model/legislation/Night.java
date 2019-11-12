@@ -1,6 +1,5 @@
 package example.domain.model.legislation;
 
-import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.datetime.DateTime;
 import example.domain.type.datetime.QuarterRoundDateTime;
 import example.domain.type.time.ClockTime;
@@ -26,9 +25,9 @@ public class Night {
         return new Night(new ClockTime("22:00"), new ClockTime("05:00"));
     }
 
-    public Minute nightMinute(WorkRange range) {
-        Minute earlyMorning = earlyMorning(range.start().normalized(), range.end().normalized());
-        Minute midnight = midnight(range.start().normalized(), range.end().normalized());
+    public Minute nightMinute(QuarterRoundDateTime startDateTime, QuarterRoundDateTime endDateTime) {
+        Minute earlyMorning = earlyMorning(startDateTime, endDateTime);
+        Minute midnight = midnight(startDateTime, endDateTime);
         return earlyMorning.add(midnight);
     }
 

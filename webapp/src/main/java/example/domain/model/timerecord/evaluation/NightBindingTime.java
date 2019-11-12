@@ -20,7 +20,7 @@ public class NightBindingTime {
     }
 
     public NightBindingTime(WorkRange workRange, Night night) {
-        this(new QuarterHour(night.nightMinute(workRange)));
+        this(new QuarterHour(night.nightMinute(workRange.start().normalized(), workRange.end().normalized())));
     }
 
     public QuarterHour quarterHour() {
