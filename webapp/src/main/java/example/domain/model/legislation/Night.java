@@ -26,12 +26,12 @@ public class Night {
     }
 
     public Minute nightMinute(QuarterRoundDateTime startDateTime, QuarterRoundDateTime endDateTime) {
-        Minute earlyMorning = earlyMorning(startDateTime, endDateTime);
-        Minute midnight = midnight(startDateTime, endDateTime);
-        return earlyMorning.add(midnight);
+        Minute before = before(startDateTime, endDateTime);
+        Minute after = after(startDateTime, endDateTime);
+        return before.add(after);
     }
 
-    private Minute earlyMorning(QuarterRoundDateTime startDateTime, QuarterRoundDateTime endDateTime) {
+    private Minute before(QuarterRoundDateTime startDateTime, QuarterRoundDateTime endDateTime) {
         DateTime earlyMorningFinishDateTime = new DateTime(LocalDateTime.of(startDateTime.value().date().value(), nightFinishTime.value()));
 
         if (startDateTime.isBefore(earlyMorningFinishDateTime)
@@ -47,7 +47,7 @@ public class Night {
         return new Minute(0);
     }
 
-    private Minute midnight(QuarterRoundDateTime startDateTime, QuarterRoundDateTime endDateTime) {
+    private Minute after(QuarterRoundDateTime startDateTime, QuarterRoundDateTime endDateTime) {
         DateTime nightStartDateTime = new DateTime(LocalDateTime.of(startDateTime.value().date().value(), nightStartTime.value()));
         DateTime nightFinishDateTime = new DateTime(LocalDateTime.of(startDateTime.value().date().plusDays(1).value(), nightFinishTime.value()));
 
