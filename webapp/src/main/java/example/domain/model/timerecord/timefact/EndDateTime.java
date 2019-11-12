@@ -23,9 +23,7 @@ public class EndDateTime {
     }
 
     public boolean isAfter(StartDateTime startDateTime) {
-        if (value.date().isAfter(startDateTime.value.date())) return true;
-
-        return value.time().isAfter(startDateTime.value.time());
+        return value.isAfter(startDateTime.value);
     }
 
     @Override
