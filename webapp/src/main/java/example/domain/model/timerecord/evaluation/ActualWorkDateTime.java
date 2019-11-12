@@ -7,7 +7,6 @@ import example.domain.model.timerecord.timefact.WorkRange;
  */
 public class ActualWorkDateTime {
 
-    // TODO: WorkDateTimeRangeとかDateTimeRangeとかの方が妥当？
     WorkRange workRange;
     DaytimeBreakTime daytimeBreakTime;
     NightBreakTime nightBreakTime;
