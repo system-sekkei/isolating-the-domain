@@ -1,7 +1,6 @@
 package example.domain.model.timerecord.evaluation;
 
 import example.domain.model.timerecord.timefact.WorkRange;
-import example.domain.type.time.QuarterHour;
 
 /**
  * 勤務日時実績
