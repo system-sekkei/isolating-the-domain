@@ -6,7 +6,7 @@ import example.domain.model.timerecord.timefact.EndDateTime;
 import example.domain.model.timerecord.timefact.StartDateTime;
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.datetime.DateTime;
-import example.domain.type.time.ClockTime;
+import example.domain.type.time.Time;
 import example.domain.type.time.Minute;
 
 import javax.validation.constraints.AssertTrue;
@@ -68,8 +68,8 @@ public class AttendanceForm {
         this.nightBreakTime = timeRecord.actualWorkDateTime().nightBreakTime();
     }
 
-    private ClockTime workStartTime() {
-        return new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
+    private Time workStartTime() {
+        return new Time(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
     }
 
     private InputEndTime inputEndTime() {

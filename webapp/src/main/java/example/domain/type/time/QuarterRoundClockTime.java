@@ -5,9 +5,9 @@ package example.domain.type.time;
  */
 public class QuarterRoundClockTime {
 
-    ClockTime value;
+    Time value;
 
-    public QuarterRoundClockTime(ClockTime value) {
+    public QuarterRoundClockTime(Time value) {
         this.value = value;
     }
 

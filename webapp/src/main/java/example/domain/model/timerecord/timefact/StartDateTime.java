@@ -3,7 +3,7 @@ package example.domain.model.timerecord.timefact;
 import example.domain.type.date.Date;
 import example.domain.type.datetime.DateTime;
 import example.domain.type.datetime.QuarterRoundDateTime;
-import example.domain.type.time.ClockTime;
+import example.domain.type.time.Time;
 
 /**
  * 勤務開始日時
@@ -33,7 +33,7 @@ public class StartDateTime {
         return value.date();
     }
 
-    public ClockTime time() {
+    public Time time() {
         return value.time();
     }
 

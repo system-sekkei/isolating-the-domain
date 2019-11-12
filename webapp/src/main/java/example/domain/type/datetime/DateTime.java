@@ -1,7 +1,7 @@
 package example.domain.type.datetime;
 
 import example.domain.type.date.Date;
-import example.domain.type.time.ClockTime;
+import example.domain.type.time.Time;
 import example.domain.type.time.Minute;
 
 import java.time.Duration;
@@ -40,8 +40,8 @@ public class DateTime {
         return new Date(value.toLocalDate());
     }
 
-    public ClockTime time() {
-        return new ClockTime(value.toLocalTime());
+    public Time time() {
+        return new Time(value.toLocalTime());
     }
 
     @Override

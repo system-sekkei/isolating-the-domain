@@ -5,7 +5,7 @@ import example.domain.model.timerecord.evaluation.*;
 import example.domain.model.timerecord.timefact.*;
 import example.domain.type.date.Date;
 import example.domain.type.datetime.DateTime;
-import example.domain.type.time.ClockTime;
+import example.domain.type.time.Time;
 import example.domain.type.time.Minute;
 
 import javax.validation.constraints.AssertTrue;
@@ -139,12 +139,12 @@ class AttendanceForm {
         return false;
     }
 
-    private ClockTime workStartTime() {
-        return new ClockTime(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
+    private Time workStartTime() {
+        return new Time(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
     }
 
-    private ClockTime workEndTime() {
-        return new ClockTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
+    private Time workEndTime() {
+        return new Time(Integer.valueOf(endHour), Integer.valueOf(endMinute));
     }
 
     private StartDateTime workStartDateTime() {

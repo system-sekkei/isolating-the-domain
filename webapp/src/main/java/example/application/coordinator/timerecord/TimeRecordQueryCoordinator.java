@@ -8,7 +8,6 @@ import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.*;
 import example.domain.model.timerecord.timefact.*;
 import example.domain.type.datetime.DateTime;
-import example.domain.type.time.ClockTime;
 import example.domain.type.time.Minute;
 import org.springframework.stereotype.Service;
 

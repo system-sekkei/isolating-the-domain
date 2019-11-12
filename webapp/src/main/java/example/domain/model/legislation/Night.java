@@ -2,7 +2,7 @@ package example.domain.model.legislation;
 
 import example.domain.type.datetime.DateTime;
 import example.domain.type.datetime.QuarterRoundDateTime;
-import example.domain.type.time.ClockTime;
+import example.domain.type.time.Time;
 import example.domain.type.time.Minute;
 
 import java.time.LocalDateTime;
@@ -12,17 +12,17 @@ import java.time.LocalDateTime;
  */
 public class Night {
 
-    ClockTime nightStartTime;
-    ClockTime nightFinishTime;
+    Time nightStartTime;
+    Time nightFinishTime;
 
-    public Night(ClockTime nightStartTime, ClockTime nightFinishTime) {
+    public Night(Time nightStartTime, Time nightFinishTime) {
         this.nightStartTime = nightStartTime;
         this.nightFinishTime = nightFinishTime;
     }
 
     public static Night legal() {
         // 第三十七条第四項で定められている深夜
-        return new Night(new ClockTime("22:00"), new ClockTime("05:00"));
+        return new Night(new Time("22:00"), new Time("05:00"));
     }
 
     public Minute nightMinute(QuarterRoundDateTime startDateTime, QuarterRoundDateTime endDateTime) {
