@@ -11,14 +11,16 @@ import example.domain.model.legislation.OverTimeExtraRate;
 import example.domain.model.wage.HourlyWage;
 import example.domain.model.wage.WageCondition;
 import example.domain.type.date.Date;
-import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest
 public class ContractWageRecordServiceTest {
     @Autowired
@@ -30,53 +32,85 @@ public class ContractWageRecordServiceTest {
     @Autowired
     ContractQueryService sutQuery;
 
-    @DisplayName("時給の登録参照が正しく出来ること")
     @Test
-    void hourlyWage_io() {
+    @Order(0)
+    void 登録直後の従業員は時給を持たない() {
         EmployeeNumber employeeNumber = employeeRecordCoordinator.register(
                 new Profile(new Name("any"), new MailAddress("any"), new PhoneNumber("any")));
-        Employee employee = employeeQueryService.choose(employeeNumber);
+        // data.sql のシーケンス初期値に依存
+        assertEquals(100, employeeNumber.value());
 
-        //一発目
-        String baseDate = "2018-12-12";
-        Date effectiveDate1 = new Date(baseDate);
-        HourlyWage wage1 = new HourlyWage(800);
-        updateHourlyWageContract(employee, effectiveDate1, wage1);
+        Employee employee = employeeQueryService.choose(employeeNumber);
+        ContractWages history = sutQuery.getContractWages(employee);
+        assertTrue(history.list().isEmpty());
+    }
+
+    @Test
+    @Order(1)
+    void 時給が登録できる() {
+        Employee employee = employeeQueryService.choose(new EmployeeNumber(100));
+
+        Date effectiveDate1 = new Date("2018-12-12");
+        updateHourlyWageContract(employee, effectiveDate1, new HourlyWage(800));
+
         ContractWages history1 = sutQuery.getContractWages(employee);
         assertEquals(1, history1.list().size());
         assertAll(
                 () -> assertEquals(effectiveDate1.value(), history1.list().get(0).effectiveDate().value().value()),
                 () -> assertEquals(800, history1.list().get(0).hourlyWage().value().intValue())
         );
+    }
 
-        //2発目
+    @Test
+    @Order(2)
+    void 指定日以降の時給を登録できる() {
+        Employee employee = employeeQueryService.choose(new EmployeeNumber(100));
+
         Date effectiveDate2 = new Date("2018-12-22");
-        HourlyWage wage2 = new HourlyWage(850);
-        updateHourlyWageContract(employee, effectiveDate2, wage2);
+        updateHourlyWageContract(employee, effectiveDate2, new HourlyWage(850));
         ContractWages history2 = sutQuery.getContractWages(employee);
         assertEquals(2, history2.list().size());
         assertAll(
                 () -> assertEquals(effectiveDate2.value(), history2.list().get(0).effectiveDate().value().value()),
                 () -> assertEquals(850, history2.list().get(0).hourlyWage().value().intValue()),
-                () -> assertEquals(effectiveDate1.value(), history2.list().get(1).effectiveDate().value().value()),
                 () -> assertEquals(800, history2.list().get(1).hourlyWage().value().intValue())
         );
+    }
+
+    @Test
+    @Order(3)
+    void 指定日以降次の指定があるまでの時給を登録できる() {
+        Employee employee = employeeQueryService.choose(new EmployeeNumber(100));
 
         //3発目（2件目よりも過去）
         Date effectiveDate3 = new Date("2018-12-17");
-        HourlyWage wage3 = new HourlyWage(830);
-        updateHourlyWageContract(employee, effectiveDate3, wage3);
+        updateHourlyWageContract(employee, effectiveDate3, new HourlyWage(830));
         ContractWages history3 = sutQuery.getContractWages(employee);
         assertEquals(3, history3.list().size());
         assertAll(
-                () -> assertEquals(effectiveDate2.value(), history3.list().get(0).effectiveDate().value().value()),
                 () -> assertEquals(850, history3.list().get(0).hourlyWage().value().intValue()),
 
                 () -> assertEquals(effectiveDate3.value(), history3.list().get(1).effectiveDate().value().value()),
                 () -> assertEquals(830, history3.list().get(1).hourlyWage().value().intValue()),
 
-                () -> assertEquals(effectiveDate1.value(), history3.list().get(2).effectiveDate().value().value()),
                 () -> assertEquals(800, history3.list().get(2).hourlyWage().value().intValue())
+        );
+    }
+
+    @Test
+    @Order(4)
+    void 同じ指定日の時給を上書きできる() {
+        Employee employee = employeeQueryService.choose(new EmployeeNumber(100));
+
+        Date effectiveDate1 = new Date("2018-12-12");
+        updateHourlyWageContract(employee, effectiveDate1, new HourlyWage(1000));
+
+        ContractWages history = sutQuery.getContractWages(employee);
+        assertEquals(3, history.list().size());
+        assertAll(
+                () -> assertEquals(850, history.list().get(0).hourlyWage().value().intValue()),
+                () -> assertEquals(830, history.list().get(1).hourlyWage().value().intValue()),
+                () -> assertEquals(1000, history.list().get(2).hourlyWage().value().intValue())
         );
     }
 
