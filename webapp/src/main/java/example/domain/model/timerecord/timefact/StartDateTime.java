@@ -44,4 +44,12 @@ public class StartDateTime {
     public boolean isBefore(DateTime other) {
         return value.isBefore(other);
     }
+
+    boolean isAfter(StartDateTime other) {
+        return value.isAfter(other.value);
+    }
+
+    boolean isAfter(EndDateTime other) {
+        return value.isAfter(other.value);
+    }
 }

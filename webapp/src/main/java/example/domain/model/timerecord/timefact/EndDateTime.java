@@ -60,4 +60,12 @@ public class EndDateTime {
     public boolean isBefore(DateTime other) {
         return value.isBefore(other);
     }
+
+    boolean isBefore(StartDateTime other) {
+        return value.isBefore(other.value);
+    }
+
+    boolean isBefore(EndDateTime other) {
+        return value.isBefore(other.value);
+    }
 }

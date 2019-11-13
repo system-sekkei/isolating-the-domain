@@ -37,4 +37,13 @@ public class WorkRange {
     public String endTimeText() {
         return endDateTime.endTimeTextWith(startDateTime);
     }
+
+    boolean isOverlap(WorkRange other) {
+        return !notOverlap(other);
+    }
+
+    boolean notOverlap(WorkRange other) {
+        return (startDateTime.isAfter(other.startDateTime) && startDateTime.isAfter(other.endDateTime))
+         || (endDateTime.isBefore(other.startDateTime) && endDateTime.isBefore(other.endDateTime));
+    }
 }
