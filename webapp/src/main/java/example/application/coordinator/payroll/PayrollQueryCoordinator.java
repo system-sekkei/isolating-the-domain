@@ -6,11 +6,10 @@ import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.contract.Contract;
 import example.domain.model.contract.ContractWages;
-import example.domain.model.payroll.Payroll;
-import example.domain.model.payroll.Payrolls;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.Employee;
-import example.domain.model.employee.EmployeeNumber;
+import example.domain.model.payroll.Payroll;
+import example.domain.model.payroll.Payrolls;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
