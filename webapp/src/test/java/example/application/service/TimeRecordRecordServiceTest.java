@@ -63,6 +63,6 @@ class TimeRecordRecordServiceTest {
         TimeRecord timeRecord = attendance.at(new WorkDate("2000-10-20"));
         ActualWorkDateTime actualWorkDateTime = timeRecord.actualWorkDateTime();
 
-        assertEquals("13時間00分", actualWorkDateTime.workTime().toString());
+        assertEquals("13時間0分", actualWorkDateTime.workTime().toString());
     }
 }

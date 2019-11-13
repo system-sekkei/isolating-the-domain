@@ -77,4 +77,8 @@ public class Date {
     public boolean isAfter(Date date) {
         return value.isAfter(date.value);
     }
+
+    public String yyyyMMdd() {
+        return value.format(DateTimeFormatter.ofPattern("uuuuMMdd"));
+    }
 }
