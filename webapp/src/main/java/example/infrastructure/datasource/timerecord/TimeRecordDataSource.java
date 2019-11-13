@@ -18,9 +18,9 @@ public class TimeRecordDataSource implements TimeRecordRepository {
     public void registerTimeRecord(TimeRecord timeRecord) {
         Integer identifier = mapper.newWorkTimeIdentifier();
         EmployeeNumber employeeNumber = timeRecord.employeeNumber();
-        mapper.insertWorkTimeHistory(identifier, employeeNumber, timeRecord);
-        mapper.deleteWorkTime(employeeNumber, timeRecord.actualWorkDateTime().workRange().start().date().yyyyMMdd());
-        mapper.insertWorkTime(employeeNumber, identifier, timeRecord);
+        mapper.insertWorkTimeHistory(identifier, employeeNumber, timeRecord, timeRecord.workDate());
+        mapper.deleteWorkTime(employeeNumber, timeRecord.workDate());
+        mapper.insertWorkTime(employeeNumber, identifier, timeRecord, timeRecord.workDate());
     }
 
     @Override
