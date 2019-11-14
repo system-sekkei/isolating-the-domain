@@ -3,9 +3,7 @@ package example.presentation.controller.timerecord;
 import example.application.repository.EmployeeRepository;
 import example.application.repository.TimeRecordRepository;
 import example.domain.model.attendance.TimeRecords;
-import example.domain.model.employee.ContractingEmployees;
-import example.domain.model.employee.Employee;
-import example.domain.model.employee.EmployeeNumber;
+import example.domain.model.employee.*;
 import example.domain.model.timerecord.evaluation.TimeRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,6 +18,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -43,9 +42,12 @@ class TimeRecordRegisterControllerTest {
 
     @BeforeEach
     void setup() {
+        Employee employee = new Employee(new EmployeeNumber(1), null, null, null);
         when(employeeRepository.findUnderContracts())
-                .thenReturn(new ContractingEmployees(Arrays.asList(
-                        new Employee(new EmployeeNumber(1), null, null, null))));
+                .thenReturn(new ContractingEmployees(Arrays.asList(employee)));
+
+        when(employeeRepository.choose(new EmployeeNumber(1)))
+                .thenReturn(employee);
     }
 
     @Test
@@ -57,6 +59,8 @@ class TimeRecordRegisterControllerTest {
 
     @Test
     void 登録できる() throws Exception {
+        when(timeRecordRepository.findTimeRecords(any(), any()))
+            .thenReturn(new TimeRecords(Collections.emptyList()));
         doNothing().when(timeRecordRepository).registerTimeRecord(any());
 
         mockMvc.perform(post("/timerecord")
@@ -88,9 +92,20 @@ class TimeRecordRegisterControllerTest {
             "2019-01-01, 10,00, 10,30, 90,  0, daytimeBreakTimeValid", // over
             "2019-01-01, 10,00, 23,30,  0,  x, nightBreakTimeValid",
             "2019-01-01, 10,00, 13,30,  0, 90, nightBreakTimeValid", // over
+            "2019-01-02, 8,59, 21,00,  0, 0, overlapWithPreviousWorkRange",
+            "2019-01-02, 10,00, 33,01,  0, 0, overlapWithNextWorkRange",
     })
     @ParameterizedTest
     void validation(String workDate, String startHour, String startMinute, String endHour, String endMinute, String daytimeBreakTime, String nightBreakTime, String errorField) throws Exception {
+        when(timeRecordRepository.findTimeRecords(any(), any()))
+                .thenReturn(new TimeRecords(Arrays.asList(
+                        new TimeRecord(
+                                new EmployeeNumber(1),
+                                AttendanceForm.toActualWorkDateTime("2019-01-01", "9:00", "33:00", "0", "0")),
+                        new TimeRecord(
+                                new EmployeeNumber(1),
+                                AttendanceForm.toActualWorkDateTime("2019-01-03", "9:00", "21:00", "0", "0")))));
+
         mockMvc.perform(post("/timerecord")
                 .param("employeeNumber", "1")
                 .param("workDate", workDate)
@@ -109,6 +124,8 @@ class TimeRecordRegisterControllerTest {
     @Test
     void 日跨ぎが登録できる() throws Exception {
         doNothing().when(timeRecordRepository).registerTimeRecord(any());
+        when(timeRecordRepository.findTimeRecords(any(), any()))
+                .thenReturn(new TimeRecords(Collections.emptyList()));
 
         mockMvc.perform(post("/timerecord")
                 .param("employeeNumber", "1")

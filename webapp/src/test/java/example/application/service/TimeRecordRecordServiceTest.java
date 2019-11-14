@@ -1,5 +1,6 @@
 package example.application.service;
 
+import example.application.coordinator.timerecord.TimeRecordCoordinator;
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordRecordService;
@@ -31,6 +32,8 @@ class TimeRecordRecordServiceTest {
     TimeRecordRecordService timeRecordRecordService;
     @Autowired
     AttendanceQueryService attendanceQueryService;
+    @Autowired
+    TimeRecordCoordinator timeRecordCoordinator;
 
     @Test
     void 登録した勤怠情報を取得できる() {
@@ -64,5 +67,29 @@ class TimeRecordRecordServiceTest {
         ActualWorkDateTime actualWorkDateTime = timeRecord.actualWorkDateTime();
 
         assertEquals("13時間0分", actualWorkDateTime.workTime().toString());
+    }
+
+    @Test
+    void 前の勤務日と勤務時刻が重複するかチェックできる() {
+        EmployeeNumber employeeNumber = new EmployeeNumber(1);
+
+        timeRecordRecordService.registerTimeRecord(
+                new TimeRecord(employeeNumber, AttendanceForm.toActualWorkDateTime("2000-10-19", "8:30", "33:00", "60", "30")));
+
+        TimeRecord timeRecord = new TimeRecord(employeeNumber, AttendanceForm.toActualWorkDateTime("2000-10-20", "8:59", "25:00", "60", "30"));
+
+        assertEquals(true, timeRecordCoordinator.isOverlapWithPreviousWorkRange(timeRecord));
+    }
+
+    @Test
+    void 次の勤務日と勤務時刻が重複するかチェックできる() {
+        EmployeeNumber employeeNumber = new EmployeeNumber(1);
+
+        timeRecordRecordService.registerTimeRecord(
+                new TimeRecord(employeeNumber, AttendanceForm.toActualWorkDateTime("2000-10-21", "8:30", "18:00", "60", "30")));
+
+        TimeRecord timeRecord = new TimeRecord(employeeNumber, AttendanceForm.toActualWorkDateTime("2000-10-20", "8:00", "33:00", "60", "30"));
+
+        assertEquals(true, timeRecordCoordinator.isOverlapWithNextWorkRange(timeRecord));
     }
 }

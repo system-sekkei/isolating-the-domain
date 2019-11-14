@@ -1,5 +1,6 @@
 package example.presentation.controller.timerecord;
 
+import example.application.coordinator.timerecord.TimeRecordCoordinator;
 import example.application.coordinator.timerecord.TimeRecordQueryCoordinator;
 import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordRecordService;
@@ -27,11 +28,13 @@ public class TimeRecordRegisterController {
 
     EmployeeQueryService employeeQueryService;
     TimeRecordRecordService timeRecordRecordService;
+    TimeRecordCoordinator timeRecordCoordinator;
     TimeRecordQueryCoordinator timeRecordQueryCoordinator;
 
-    public TimeRecordRegisterController(EmployeeQueryService employeeQueryService, TimeRecordRecordService timeRecordRecordService, TimeRecordQueryCoordinator timeRecordQueryCoordinator) {
+    public TimeRecordRegisterController(EmployeeQueryService employeeQueryService, TimeRecordRecordService timeRecordRecordService, TimeRecordCoordinator timeRecordCoordinator, TimeRecordQueryCoordinator timeRecordQueryCoordinator) {
         this.employeeQueryService = employeeQueryService;
         this.timeRecordRecordService = timeRecordRecordService;
+        this.timeRecordCoordinator = timeRecordCoordinator;
         this.timeRecordQueryCoordinator = timeRecordQueryCoordinator;
     }
 
@@ -72,6 +75,16 @@ public class TimeRecordRegisterController {
                     BindingResult result) {
         if (result.hasErrors()) return "timerecord/form";
         TimeRecord timeRecord = attendanceForm.toTimeRecord();
+
+        if(timeRecordCoordinator.isOverlapWithPreviousWorkRange(timeRecord)) {
+            result.rejectValue("overlapWithPreviousWorkRange", "", "前日の勤務時刻と重複しています");
+        }
+
+        if(timeRecordCoordinator.isOverlapWithNextWorkRange(timeRecord)) {
+            result.rejectValue("overlapWithNextWorkRange", "", "翌日の勤務時刻と重複しています");
+        }
+
+        if (result.hasErrors()) return "timerecord/form";
 
         timeRecordRecordService.registerTimeRecord(timeRecord);
 

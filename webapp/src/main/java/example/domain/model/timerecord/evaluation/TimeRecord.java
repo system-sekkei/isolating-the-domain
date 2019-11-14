@@ -34,4 +34,8 @@ public class TimeRecord {
     public boolean isWorkedAt(WorkDate other) {
         return this.actualWorkDateTime.workDate().hasSameValue(other);
     }
+
+    public boolean isOverlap(TimeRecord other) {
+        return this.actualWorkDateTime.workRange.isOverlap(other.actualWorkDateTime.workRange);
+    }
 }

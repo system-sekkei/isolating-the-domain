@@ -69,6 +69,10 @@
              th:if="${#fields.hasErrors('startTimeValid')}">
           <span th:errors="*{startTimeValid}">開始時刻が不正です</span>
         </div>
+        <div class="ui pointing red basic label"
+             th:if="${#fields.hasErrors('overlapWithPreviousWorkRange')}">
+          <span th:errors="*{overlapWithPreviousWorkRange}">前日の勤務時刻と重複しています</span>
+        </div>
       </div>
 
       <div class="field">
@@ -99,6 +103,10 @@
         <div class="ui pointing red basic label"
              th:if="${#fields.hasErrors('workTimeValid')}">
           <span th:errors="*{workTimeValid}">終了時刻には開始時刻よりあとの時刻を入力してください</span>
+        </div>
+        <div class="ui pointing red basic label"
+             th:if="${#fields.hasErrors('overlapWithNextWorkRange')}">
+          <span th:errors="*{overlapWithNextWorkRange}">翌日の勤務時刻と重複しています</span>
         </div>
       </div>
 

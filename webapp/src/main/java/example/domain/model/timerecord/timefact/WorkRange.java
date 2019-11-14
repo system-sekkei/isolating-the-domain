@@ -38,7 +38,7 @@ public class WorkRange {
         return endDateTime.endTimeTextWith(startDateTime);
     }
 
-    boolean isOverlap(WorkRange other) {
+    public boolean isOverlap(WorkRange other) {
         return !notOverlap(other);
     }
 

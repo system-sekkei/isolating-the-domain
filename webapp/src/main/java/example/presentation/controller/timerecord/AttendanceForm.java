@@ -25,6 +25,9 @@ public class AttendanceForm {
     DaytimeBreakTime daytimeBreakTime;
     NightBreakTime nightBreakTime;
 
+    boolean overlapWithPreviousWorkRange;
+    boolean overlapWithNextWorkRange;
+
     public AttendanceForm() {
     }
 
