@@ -12,7 +12,6 @@ import example.domain.model.wage.HourlyWage;
 import example.domain.model.wage.WageCondition;
 import example.domain.type.date.Date;
 import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,22 +32,25 @@ public class ContractWageRecordServiceTest {
     ContractQueryService sutQuery;
 
     @Test
-    @Order(0)
-    void 登録直後の従業員は時給を持たない() {
+    void test() {
         EmployeeNumber employeeNumber = employeeRecordCoordinator.register(
                 new Profile(new Name("any"), new MailAddress("any"), new PhoneNumber("any")));
-        // data.sql のシーケンス初期値に依存
-        assertEquals(100, employeeNumber.value());
 
+        登録直後の従業員は時給を持たない(employeeNumber);
+        時給が登録できる(employeeNumber);
+        指定日以降の時給を登録できる(employeeNumber);
+        指定日以降次の指定があるまでの時給を登録できる(employeeNumber);
+        同じ指定日の時給を上書きできる(employeeNumber);
+    }
+
+    void 登録直後の従業員は時給を持たない(EmployeeNumber employeeNumber) {
         Employee employee = employeeQueryService.choose(employeeNumber);
         ContractWages history = sutQuery.getContractWages(employee);
         assertTrue(history.list().isEmpty());
     }
 
-    @Test
-    @Order(1)
-    void 時給が登録できる() {
-        Employee employee = employeeQueryService.choose(new EmployeeNumber(100));
+    void 時給が登録できる(EmployeeNumber employeeNumber) {
+        Employee employee = employeeQueryService.choose(employeeNumber);
 
         Date effectiveDate1 = new Date("2018-12-12");
         updateHourlyWageContract(employee, effectiveDate1, new HourlyWage(800));
@@ -61,10 +63,8 @@ public class ContractWageRecordServiceTest {
         );
     }
 
-    @Test
-    @Order(2)
-    void 指定日以降の時給を登録できる() {
-        Employee employee = employeeQueryService.choose(new EmployeeNumber(100));
+    void 指定日以降の時給を登録できる(EmployeeNumber employeeNumber) {
+        Employee employee = employeeQueryService.choose(employeeNumber);
 
         Date effectiveDate2 = new Date("2018-12-22");
         updateHourlyWageContract(employee, effectiveDate2, new HourlyWage(850));
@@ -77,12 +77,9 @@ public class ContractWageRecordServiceTest {
         );
     }
 
-    @Test
-    @Order(3)
-    void 指定日以降次の指定があるまでの時給を登録できる() {
-        Employee employee = employeeQueryService.choose(new EmployeeNumber(100));
+    void 指定日以降次の指定があるまでの時給を登録できる(EmployeeNumber employeeNumber) {
+        Employee employee = employeeQueryService.choose(employeeNumber);
 
-        //3発目（2件目よりも過去）
         Date effectiveDate3 = new Date("2018-12-17");
         updateHourlyWageContract(employee, effectiveDate3, new HourlyWage(830));
         ContractWages history3 = sutQuery.getContractWages(employee);
@@ -97,10 +94,8 @@ public class ContractWageRecordServiceTest {
         );
     }
 
-    @Test
-    @Order(4)
-    void 同じ指定日の時給を上書きできる() {
-        Employee employee = employeeQueryService.choose(new EmployeeNumber(100));
+    void 同じ指定日の時給を上書きできる(EmployeeNumber employeeNumber) {
+        Employee employee = employeeQueryService.choose(employeeNumber);
 
         Date effectiveDate1 = new Date("2018-12-12");
         updateHourlyWageContract(employee, effectiveDate1, new HourlyWage(1000));
