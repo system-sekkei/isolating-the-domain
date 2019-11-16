@@ -1,6 +1,9 @@
 package example.domain.model.timerecord.evaluation;
 
 import example.domain.model.timerecord.timefact.WorkRange;
+import example.domain.type.time.Minute;
+
+import javax.validation.constraints.AssertTrue;
 
 /**
  * 勤務日時実績
@@ -66,5 +69,14 @@ public class ActualWorkDateTime {
 
     public OverWorkTime overWorkTime() {
         return new OverWorkTime(workTime());
+    }
+
+    @AssertTrue(message = "休憩時間が不正です")
+    public boolean isDaytimeBreakTimeValid() {
+        Minute daytimeBindingMinute = daytimeBindingTime().quarterHour().minute();
+        if (daytimeBindingMinute.lessThan(daytimeBreakTime.minute())) {
+            return false;
+        }
+        return true;
     }
 }

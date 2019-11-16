@@ -173,24 +173,6 @@ public class AttendanceForm {
         return false;
     }
 
-    boolean daytimeBreakTimeValid;
-
-    @AssertTrue(message = "休憩時間が不正です")
-    public boolean isDaytimeBreakTimeValid() {
-        if (daytimeBreakTime == null) return false;
-        if (unnecessaryCalculate() || !isWorkTimeValid()) return true;
-
-        try {
-            Minute daytimeBindingMinute = toActualWorkDateTime().daytimeBindingTime().quarterHour().minute();
-            if (daytimeBindingMinute.lessThan(daytimeBreakTime.minute())) {
-                return false;
-            }
-        } catch (NumberFormatException | DateTimeException ex) {
-            return false;
-        }
-        return true;
-    }
-
     boolean nightBreakTimeValid;
 
     @AssertTrue(message = "休憩時間（深夜）が不正です")

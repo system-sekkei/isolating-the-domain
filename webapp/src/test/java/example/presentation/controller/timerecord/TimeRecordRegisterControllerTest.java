@@ -88,8 +88,8 @@ class TimeRecordRegisterControllerTest {
             "2019-01-01, 10,00,  x,30,  0,  0, endTimeValid",
             "2019-01-01, 10,00, 17, x,  0,  0, endTimeValid",
             "2019-01-01, 20,00, 17,30,  0,  0, workTimeValid", // 開始 > 終了
-            "2019-01-01, 10,00, 17,30,  x,  0, daytimeBreakTimeValid",
-            "2019-01-01, 10,00, 10,30, 90,  0, daytimeBreakTimeValid", // over
+            "2019-01-01, 10,00, 17,30,  x,  0, daytimeBreakTime",
+            "2019-01-01, 10,00, 10,30, 90,  0, daytimeBreakTime", // over
             "2019-01-01, 10,00, 23,30,  0,  x, nightBreakTimeValid",
             "2019-01-01, 10,00, 13,30,  0, 90, nightBreakTimeValid", // over
             "2019-01-02, 8,59, 21,00,  0, 0, overlapWithPreviousWorkRange",

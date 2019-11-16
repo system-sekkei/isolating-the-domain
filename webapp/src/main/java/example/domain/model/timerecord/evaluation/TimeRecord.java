@@ -2,12 +2,16 @@ package example.domain.model.timerecord.evaluation;
 
 import example.domain.model.employee.EmployeeNumber;
 
+import javax.validation.Valid;
+
 /**
  * 勤務実績
  */
 public class TimeRecord {
 
     EmployeeNumber employeeNumber;
+
+    @Valid
     ActualWorkDateTime actualWorkDateTime;
 
     @Deprecated
