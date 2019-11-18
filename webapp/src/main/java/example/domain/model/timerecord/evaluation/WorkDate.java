@@ -2,6 +2,7 @@ package example.domain.model.timerecord.evaluation;
 
 import example.domain.type.date.Date;
 import example.domain.type.date.DayOfWeek;
+import example.domain.type.date.WeekOfMonth;
 
 /**
  * 勤務日付
@@ -32,6 +33,10 @@ public class WorkDate {
 
     public DayOfWeek dayOfWeek() {
         return value.dayOfWeek();
+    }
+
+    public WeekOfMonth weekOfMonth() {
+        return value.weekOfMonth();
     }
 
     public boolean hasSameValue(WorkDate other) {
