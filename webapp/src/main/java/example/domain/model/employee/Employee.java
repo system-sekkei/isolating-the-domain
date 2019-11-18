@@ -10,13 +10,7 @@ public class Employee {
     EmployeeNumber employeeNumber;
 
     @Valid
-    Name name;
-
-    @Valid
-    MailAddress mailAddress;
-
-    @Valid
-    PhoneNumber phoneNumber;
+    Profile profile;
 
     @Deprecated
     public Employee() {
@@ -25,9 +19,12 @@ public class Employee {
 
     public Employee(EmployeeNumber employeeNumber, Name name, MailAddress mailAddress, PhoneNumber phoneNumber) {
         this.employeeNumber = employeeNumber;
-        this.name = name;
-        this.mailAddress = mailAddress;
-        this.phoneNumber = phoneNumber;
+        this.profile = new Profile(name, mailAddress, phoneNumber);
+    }
+
+    public Employee(EmployeeNumber employeeNumber, Profile profile) {
+        this.employeeNumber = employeeNumber;
+        this.profile = profile;
     }
 
     public EmployeeNumber employeeNumber() {
@@ -35,28 +32,28 @@ public class Employee {
     }
 
     public Name name() {
-        return name;
+        return profile.name;
     }
 
     public PhoneNumber phoneNumber() {
-        return phoneNumber;
+        return profile.phoneNumber;
     }
 
     public MailAddress mailAddress() {
-        return mailAddress;
+        return profile.mailAddress;
     }
 
     public Profile profile() {
-        return new Profile(name, mailAddress, phoneNumber);
+        return profile;
     }
 
     @Override
     public String toString() {
         return "Employee{" +
                 "employeeNumber=" + employeeNumber +
-                ", name=" + name +
-                ", phoneNumber=" + phoneNumber +
-                ", mailAddress=" + mailAddress +
+                ", name=" +profile.name +
+                ", phoneNumber=" + profile.phoneNumber +
+                ", mailAddress=" + profile.mailAddress +
                 '}';
     }
 }

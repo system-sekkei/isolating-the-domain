@@ -1,6 +1,7 @@
 package example.application.coordinator.employee;
 
 import example.application.service.employee.EmployeeRecordService;
+import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.employee.Profile;
 import org.springframework.stereotype.Service;
@@ -22,10 +23,11 @@ public class EmployeeRecordCoordinator {
      */
     public EmployeeNumber register(Profile profile) {
         EmployeeNumber employeeNumber = employeeRecordService.prepareNewContract();
-        employeeRecordService.registerName(profile.updateName(employeeNumber));
-        employeeRecordService.registerMailAddress(profile.updateMailAddress(employeeNumber));
-        employeeRecordService.registerPhoneNumber(profile.updatePhoneNumber(employeeNumber));
-        employeeRecordService.inspireContract(employeeNumber);
+        Employee employee = new Employee(employeeNumber, profile);
+        employeeRecordService.registerName(employee);
+        employeeRecordService.registerMailAddress(employee);
+        employeeRecordService.registerPhoneNumber(employee);
+        employeeRecordService.inspireContract(employee);
         return employeeNumber;
     }
 }

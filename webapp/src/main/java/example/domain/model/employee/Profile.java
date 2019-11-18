@@ -37,16 +37,4 @@ public class Profile {
     public PhoneNumber phoneNumber() {
         return phoneNumber;
     }
-
-    public UpdateName updateName(EmployeeNumber employeeNumber) {
-        return new UpdateName(employeeNumber, name());
-    }
-
-    public UpdatePhoneNumber updatePhoneNumber(EmployeeNumber employeeNumber) {
-        return new UpdatePhoneNumber(employeeNumber, phoneNumber());
-    }
-
-    public UpdateMailAddress updateMailAddress(EmployeeNumber employeeNumber) {
-        return new UpdateMailAddress(employeeNumber, mailAddress());
-    }
 }

@@ -26,32 +26,38 @@ public class EmployeeDataSource implements EmployeeRepository {
     }
 
     @Override
-    public void registerName(EmployeeNumber employeeNumber, Name name) {
+    public void registerName(Employee employee) {
         Integer nameId = mapper.newEmployeeNameIdentifier();
+        EmployeeNumber employeeNumber = employee.employeeNumber();
+        Name name = employee.name();
         mapper.insertEmployeeNameHistory(nameId, employeeNumber, name);
         mapper.deleteEmployeeName(employeeNumber);
         mapper.insertEmployeeName(employeeNumber, nameId, name);
     }
 
     @Override
-    public void registerMailAddress(EmployeeNumber employeeNumber, MailAddress mailAddress) {
+    public void registerMailAddress(Employee employee) {
         Integer mailAddressId = mapper.newEmployeeMailAddressIdentifier();
+        EmployeeNumber employeeNumber = employee.employeeNumber();
+        MailAddress mailAddress = employee.mailAddress();
         mapper.insertEmployeeMailAddressHistory(mailAddressId, employeeNumber, mailAddress);
         mapper.deleteEmployeeMailAddress(employeeNumber);
         mapper.insertEmployeeMailAddress(employeeNumber, mailAddressId, mailAddress);
     }
 
     @Override
-    public void registerPhoneNumber(EmployeeNumber employeeNumber, PhoneNumber phoneNumber) {
+    public void registerPhoneNumber(Employee employee) {
         Integer phoneNumberId = mapper.newEmployeePhoneNumberIdentifier();
+        EmployeeNumber employeeNumber = employee.employeeNumber();
+        PhoneNumber phoneNumber = employee.phoneNumber();
         mapper.insertEmployeePhoneNumberHistory(phoneNumberId, employeeNumber, phoneNumber);
         mapper.deleteEmployeePhoneNumber(employeeNumber);
         mapper.insertEmployeePhoneNumber(employeeNumber, phoneNumberId, phoneNumber);
     }
 
     @Override
-    public void registerInspireContract(EmployeeNumber employeeNumber) {
-        mapper.insertInspireContract(employeeNumber);
+    public void registerInspireContract(Employee employee) {
+        mapper.insertInspireContract(employee.employeeNumber());
     }
 
     @Override

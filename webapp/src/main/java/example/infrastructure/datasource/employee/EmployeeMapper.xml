@@ -7,9 +7,9 @@
 	<sql id="selectEmployee">
         SELECT
         従業員.従業員ID as "employeeNumber.value",
-        従業員の名前.従業員名 as "name.value",
-        従業員のメールアドレス.メールアドレス as "mailAddress.value",
-        従業員の電話番号.電話番号 as "phoneNumber.value"
+        従業員の名前.従業員名 as "profile.name.value",
+        従業員のメールアドレス.メールアドレス as "profile.mailAddress.value",
+        従業員の電話番号.電話番号 as "profile.phoneNumber.value"
         FROM 給与.従業員 as 従業員
         INNER JOIN 給与.従業員の名前 as 従業員の名前 on (
         従業員.従業員ID = 従業員の名前.従業員ID

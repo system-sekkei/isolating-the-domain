@@ -22,29 +22,29 @@ public class EmployeeRecordService {
     /**
      * 従業員名登録
      */
-    public void registerName(UpdateName name) {
-        employeeRepository.registerName(name.employeeNumber(), name.name());
+    public void registerName(Employee employee) {
+        employeeRepository.registerName(employee);
     }
 
     /**
      * 従業員メールアドレス登録
      */
-    public void registerMailAddress(UpdateMailAddress mail) {
-        employeeRepository.registerMailAddress(mail.employeeNumber(), mail.mailAddress());
+    public void registerMailAddress(Employee employee) {
+        employeeRepository.registerMailAddress(employee);
     }
 
     /**
      * 従業員電話番号登録
      */
-    public void registerPhoneNumber(UpdatePhoneNumber phone) {
-        employeeRepository.registerPhoneNumber(phone.employeeNumber(), phone.phoneNumber());
+    public void registerPhoneNumber(Employee employee) {
+        employeeRepository.registerPhoneNumber(employee);
     }
 
     /**
      * 従業員契約開始
      */
-    public void inspireContract(EmployeeNumber employeeNumber) {
-        employeeRepository.registerInspireContract(employeeNumber);
+    public void inspireContract(Employee employee) {
+        employeeRepository.registerInspireContract(employee);
     }
 
     /**

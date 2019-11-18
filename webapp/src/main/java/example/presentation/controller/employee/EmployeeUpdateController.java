@@ -36,9 +36,10 @@ class EmployeeUpdateController {
                                 RedirectAttributes attributes) {
         if (result.hasErrors()) return "employee/update/form";
 
-        employeeRecordService.registerName(profile.updateName(employeeNumber));
-        employeeRecordService.registerMailAddress(profile.updateMailAddress(employeeNumber));
-        employeeRecordService.registerPhoneNumber(profile.updatePhoneNumber(employeeNumber));
+        Employee employee = new Employee(employeeNumber, profile);
+        employeeRecordService.registerName(employee);
+        employeeRecordService.registerMailAddress(employee);
+        employeeRecordService.registerPhoneNumber(employee);
 
         attributes.addAttribute("updateResult", "completed");
 
