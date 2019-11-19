@@ -8,6 +8,9 @@ import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.model.timerecord.evaluation.WorkDate;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 勤務実績登録コーディネーター
  */
@@ -23,10 +26,23 @@ public class TimeRecordCoordinator {
         this.employeeQueryService = employeeQueryService;
     }
 
+    public List<TimeRecordValidError> isValid(TimeRecord timeRecord) {
+        List<TimeRecordValidError> result = new ArrayList<>();
+        if(isOverlapWithPreviousWorkRange(timeRecord)) {
+            result.add(TimeRecordValidError.前日の勤務時刻と重複);
+        }
+
+        if(isOverlapWithNextWorkRange(timeRecord)) {
+            result.add(TimeRecordValidError.翌日の勤務時刻と重複);
+        }
+
+        return result;
+    }
+
     /**
      * 前の勤務日と勤務時刻が重複していないかどうか
      */
-    public boolean isOverlapWithPreviousWorkRange(TimeRecord timeRecord) {
+    private boolean isOverlapWithPreviousWorkRange(TimeRecord timeRecord) {
         Employee employee = employeeQueryService.choose(timeRecord.employeeNumber());
 
         // TODO: 現在、2日以上またいでの勤務は考慮していないのであり得る場合は対応する。
@@ -43,7 +59,7 @@ public class TimeRecordCoordinator {
     /**
      * 次の勤務日と勤務時刻が重複していないかどうか
      */
-    public boolean isOverlapWithNextWorkRange(TimeRecord timeRecord) {
+    private boolean isOverlapWithNextWorkRange(TimeRecord timeRecord) {
         Employee employee = employeeQueryService.choose(timeRecord.employeeNumber());
 
         // TODO: 現在、2日以上またいでの勤務は考慮していないのであり得る場合は対応する。

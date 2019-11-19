@@ -1,6 +1,7 @@
 package example.application.service;
 
 import example.application.coordinator.timerecord.TimeRecordCoordinator;
+import example.application.coordinator.timerecord.TimeRecordValidError;
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordRecordService;
@@ -78,7 +79,7 @@ class TimeRecordRecordServiceTest {
 
         TimeRecord timeRecord = new TimeRecord(employeeNumber, AttendanceForm.toActualWorkDateTime("2000-10-20", "8:59", "25:00", "60", "30"));
 
-        assertEquals(true, timeRecordCoordinator.isOverlapWithPreviousWorkRange(timeRecord));
+        assertEquals(TimeRecordValidError.前日の勤務時刻と重複, timeRecordCoordinator.isValid(timeRecord).get(0));
     }
 
     @Test
@@ -90,6 +91,6 @@ class TimeRecordRecordServiceTest {
 
         TimeRecord timeRecord = new TimeRecord(employeeNumber, AttendanceForm.toActualWorkDateTime("2000-10-20", "8:00", "33:00", "60", "30"));
 
-        assertEquals(true, timeRecordCoordinator.isOverlapWithNextWorkRange(timeRecord));
+        assertEquals(TimeRecordValidError.翌日の勤務時刻と重複, timeRecordCoordinator.isValid(timeRecord).get(0));
     }
 }

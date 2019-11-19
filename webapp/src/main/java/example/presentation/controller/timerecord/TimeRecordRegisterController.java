@@ -93,13 +93,9 @@ public class TimeRecordRegisterController {
             result.rejectValue("daytimeBreakTime", "", violation.getMessage());
         });
 
-        if(timeRecordCoordinator.isOverlapWithPreviousWorkRange(timeRecord)) {
-            result.rejectValue("overlapWithPreviousWorkRange", "", "前日の勤務時刻と重複しています");
-        }
-
-        if(timeRecordCoordinator.isOverlapWithNextWorkRange(timeRecord)) {
-            result.rejectValue("overlapWithNextWorkRange", "", "翌日の勤務時刻と重複しています");
-        }
+        timeRecordCoordinator.isValid(timeRecord).forEach( error -> {
+            result.rejectValue(error.field(), "", error.message());
+        });
 
         if (result.hasErrors()) return "timerecord/form";
 
