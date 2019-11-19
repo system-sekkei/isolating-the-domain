@@ -45,7 +45,6 @@ public class TimeRecordCoordinator {
     private boolean isOverlapWithPreviousWorkRange(TimeRecord timeRecord) {
         Employee employee = employeeQueryService.choose(timeRecord.employeeNumber());
 
-        // TODO: 現在、2日以上またいでの勤務は考慮していないのであり得る場合は対応する。
         WorkDate previousDate = new WorkDate(timeRecord.workDate().value().previousDay());
 
         if (attendanceQueryService.attendanceStatus(employee, previousDate).isWork()) {
@@ -62,7 +61,6 @@ public class TimeRecordCoordinator {
     private boolean isOverlapWithNextWorkRange(TimeRecord timeRecord) {
         Employee employee = employeeQueryService.choose(timeRecord.employeeNumber());
 
-        // TODO: 現在、2日以上またいでの勤務は考慮していないのであり得る場合は対応する。
         WorkDate nextDate = new WorkDate(timeRecord.workDate().value().nextDay());
 
         if (attendanceQueryService.attendanceStatus(employee, nextDate).isWork()) {
