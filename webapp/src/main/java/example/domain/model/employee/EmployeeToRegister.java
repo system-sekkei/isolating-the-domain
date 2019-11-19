@@ -4,9 +4,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
- * 従業員プロフィール
+ * 従業員登録
  */
-public class Profile {
+public class EmployeeToRegister {
 
     @NotNull
     @Valid
@@ -20,10 +20,14 @@ public class Profile {
     @Valid
     PhoneNumber phoneNumber;
 
-    public Profile(Name name, MailAddress mailAddress, PhoneNumber phoneNumber) {
+    public EmployeeToRegister(Name name, MailAddress mailAddress, PhoneNumber phoneNumber) {
         this.name = name;
         this.mailAddress = mailAddress;
         this.phoneNumber = phoneNumber;
+    }
+
+    public static EmployeeToRegister blank() {
+        return new EmployeeToRegister(new Name(), new MailAddress(), new PhoneNumber());
     }
 
     public Name name() {
@@ -36,17 +40,5 @@ public class Profile {
 
     public PhoneNumber phoneNumber() {
         return phoneNumber;
-    }
-
-    public NameToChange updateName(EmployeeNumber employeeNumber) {
-        return new NameToChange(employeeNumber, name());
-    }
-
-    public PhoneNumberToChange updatePhoneNumber(EmployeeNumber employeeNumber) {
-        return new PhoneNumberToChange(employeeNumber, phoneNumber());
-    }
-
-    public MailAddressToChange updateMailAddress(EmployeeNumber employeeNumber) {
-        return new MailAddressToChange(employeeNumber, mailAddress());
     }
 }

@@ -4,7 +4,6 @@ import example.application.service.employee.EmployeeQueryService;
 import example.application.service.employee.EmployeeRecordService;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
-import example.domain.model.employee.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,19 +25,19 @@ class EmployeeUpdateController {
     String open(@PathVariable(value = "employeeNumber") EmployeeNumber employeeNumber,
                 Model model) {
         Employee employee = employeeQueryService.choose(employeeNumber);
-        model.addAttribute("profile", employee.profile());
+        model.addAttribute("bulkProfileUpdateForm", BulkProfileUpdateForm.from(employee));
         return "employee/update/form";
     }
 
     @PostMapping("register")
     String registerThenRedirect(@PathVariable(value = "employeeNumber") EmployeeNumber employeeNumber,
-                                @Validated @ModelAttribute("profile") Profile profile, BindingResult result,
+                                @Validated @ModelAttribute("bulkProfileUpdateForm") BulkProfileUpdateForm bulkProfileUpdateForm, BindingResult result,
                                 RedirectAttributes attributes) {
         if (result.hasErrors()) return "employee/update/form";
 
-        employeeRecordService.registerName(profile.updateName(employeeNumber));
-        employeeRecordService.registerMailAddress(profile.updateMailAddress(employeeNumber));
-        employeeRecordService.registerPhoneNumber(profile.updatePhoneNumber(employeeNumber));
+        employeeRecordService.registerName(bulkProfileUpdateForm.updateName(employeeNumber));
+        employeeRecordService.registerMailAddress(bulkProfileUpdateForm.updateMailAddress(employeeNumber));
+        employeeRecordService.registerPhoneNumber(bulkProfileUpdateForm.updatePhoneNumber(employeeNumber));
 
         attributes.addAttribute("updateResult", "completed");
 

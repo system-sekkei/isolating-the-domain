@@ -39,7 +39,7 @@ class PayrollQueryCoordinatorTest {
     @Test
     void test() {
         EmployeeNumber employeeNumber = employeeRecordCoordinator.register(
-                new Profile(new Name("any"), new MailAddress("any"), new PhoneNumber("any")));
+                new EmployeeToRegister(new Name("any"), new MailAddress("any"), new PhoneNumber("any")));
         Employee employee = employeeQueryService.choose(employeeNumber);
 
         {

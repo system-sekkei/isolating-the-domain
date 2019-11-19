@@ -42,7 +42,7 @@ class EmployeeRecordServiceTest {
         PhoneNumber phoneNumber = new PhoneNumber("090-6559-1234");
         MailAddress mailAddress = new MailAddress("hogehoge_hogeo@example.com");
 
-        EmployeeNumber employeeNumber = sut.register(new Profile(name, mailAddress, phoneNumber));
+        EmployeeNumber employeeNumber = sut.register(new EmployeeToRegister(name, mailAddress, phoneNumber));
 
         Employee foundEmployee = query.choose(employeeNumber);
         assertAll(

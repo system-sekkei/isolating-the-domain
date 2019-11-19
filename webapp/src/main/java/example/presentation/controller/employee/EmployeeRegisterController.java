@@ -2,7 +2,7 @@ package example.presentation.controller.employee;
 
 import example.application.coordinator.employee.EmployeeRecordCoordinator;
 import example.domain.model.employee.EmployeeNumber;
-import example.domain.model.employee.Name;
+import example.domain.model.employee.EmployeeToRegister;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  */
 @Controller
 @RequestMapping("employees/register")
-@SessionAttributes({"newEmployee"})
+@SessionAttributes({"employeeToRegister"})
 class EmployeeRegisterController {
 
     private static final String[] allowFields =
@@ -42,8 +42,7 @@ class EmployeeRegisterController {
 
     @GetMapping("input")
     String showForm(Model model) {
-        NewEmployee newEmployee = new NewEmployee();
-        model.addAttribute("newEmployee", newEmployee);
+        model.addAttribute("employeeToRegister", EmployeeToRegister.blank());
         return "employee/register/form";
     }
 
@@ -52,8 +51,8 @@ class EmployeeRegisterController {
         return "employee/register/form";
     }
 
-    @PostMapping(value = "confirm")
-    String validate(@Validated @ModelAttribute("newEmployee") NewEmployee newEmployee,
+    @PostMapping("confirm")
+    String validate(@Validated @ModelAttribute("employeeToRegister") EmployeeToRegister employeeToRegister,
                     BindingResult result) {
         if (result.hasErrors()) return "employee/register/form";
 
@@ -62,19 +61,18 @@ class EmployeeRegisterController {
 
     @GetMapping("register")
     String registerThenRedirectAndClearSession(
-            @ModelAttribute("newEmployee") NewEmployee newEmployee,
+            @ModelAttribute("employeeToRegister") EmployeeToRegister employeeToRegister,
             SessionStatus status, RedirectAttributes attributes) {
-        Name name = newEmployee.name();
-        EmployeeNumber employeeNumber = employeeRecordCoordinator.register(newEmployee.profile());
+        EmployeeNumber employeeNumber = employeeRecordCoordinator.register(employeeToRegister);
         status.setComplete();
 
-        attributes.addAttribute("name", name);
+        attributes.addAttribute("name", employeeToRegister.name());
         attributes.addAttribute("employeeNumber", employeeNumber);
 
         return "redirect:/employees/register/completed";
     }
 
-    @GetMapping(value = "completed")
+    @GetMapping("completed")
     String showResult(Model model,
                       @RequestParam("name") String name,
                       @RequestParam("employeeNumber") String employeeNumber) {

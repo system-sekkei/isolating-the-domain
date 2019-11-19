@@ -31,7 +31,7 @@ public class ContractWageRecordServiceTest {
     @Test
     void test() {
         EmployeeNumber employeeNumber = employeeRecordCoordinator.register(
-                new Profile(new Name("any"), new MailAddress("any"), new PhoneNumber("any")));
+                new EmployeeToRegister(new Name("any"), new MailAddress("any"), new PhoneNumber("any")));
 
         登録直後の従業員は時給を持たない(employeeNumber);
         時給が登録できる(employeeNumber);

@@ -14,7 +14,7 @@
   
     <form id="custom-form" class="ui form" name="body" 
           method="post" action="#"
-          th:object="${profile}"
+          th:object="${bulkProfileUpdateForm}"
           th:action="@{/employees/{employeeNumber}/update/register(employeeNumber=${employeeNumber})}">
 
       <div class="employeeInfo">
