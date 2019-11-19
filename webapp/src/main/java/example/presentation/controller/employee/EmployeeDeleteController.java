@@ -1,8 +1,6 @@
 package example.presentation.controller.employee;
 
-import example.application.service.employee.EmployeeQueryService;
 import example.application.service.employee.EmployeeRecordService;
-import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,17 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class EmployeeDeleteController {
 
     EmployeeRecordService employeeRecordService;
-    EmployeeQueryService employeeQueryService;
 
     @GetMapping
     String deleteThenRedirect(@PathVariable(value = "employeeNumber") EmployeeNumber employeeNumber) {
-        Employee employee = employeeQueryService.choose(employeeNumber);
-        employeeRecordService.expireContract(employee);
+        employeeRecordService.expireContract(employeeNumber);
         return "redirect:/employees";
     }
 
-    EmployeeDeleteController(EmployeeRecordService employeeRecordService, EmployeeQueryService employeeQueryService) {
+    EmployeeDeleteController(EmployeeRecordService employeeRecordService) {
         this.employeeRecordService = employeeRecordService;
-        this.employeeQueryService = employeeQueryService;
     }
 }

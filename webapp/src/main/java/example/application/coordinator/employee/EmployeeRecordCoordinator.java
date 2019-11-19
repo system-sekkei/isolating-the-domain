@@ -23,11 +23,18 @@ public class EmployeeRecordCoordinator {
      */
     public EmployeeNumber register(Profile profile) {
         EmployeeNumber employeeNumber = employeeRecordService.prepareNewContract();
-        Employee employee = new Employee(employeeNumber, profile);
-        employeeRecordService.registerName(employee);
-        employeeRecordService.registerMailAddress(employee);
-        employeeRecordService.registerPhoneNumber(employee);
-        employeeRecordService.inspireContract(employee);
+        updateProfile(employeeNumber, profile);
+        employeeRecordService.inspireContract(employeeNumber);
         return employeeNumber;
+    }
+
+    /**
+     * プロフィール更新
+     */
+    public void updateProfile(EmployeeNumber employeeNumber, Profile profile) {
+        Employee employee = new Employee(employeeNumber, profile);
+        employeeRecordService.registerName(employee.employeeName());
+        employeeRecordService.registerMailAddress(employee.employeeMailAddress());
+        employeeRecordService.registerPhoneNumber(employee.employeePhoneNumber());
     }
 }

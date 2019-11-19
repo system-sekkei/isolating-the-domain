@@ -10,15 +10,15 @@ public interface EmployeeRepository {
 
     ContractingEmployees findUnderContracts();
 
-    void registerName(Employee employee);
+    void registerName(EmployeeName employeeName);
 
-    void registerMailAddress(Employee employee);
+    void registerMailAddress(EmployeeMailAddress employeeMailAddress);
 
-    void registerPhoneNumber(Employee employee);
+    void registerPhoneNumber(EmployeePhoneNumber employeePhoneNumber);
 
-    void registerInspireContract(Employee employee);
+    void registerInspireContract(EmployeeNumber employeeNumber);
 
-    void registerExpireContract(Employee employee);
+    void registerExpireContract(EmployeeNumber employeeNumber);
 
     EmployeeNumber registerNew();
 }

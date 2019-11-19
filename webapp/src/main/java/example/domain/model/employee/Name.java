@@ -1,7 +1,5 @@
 package example.domain.model.employee;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 

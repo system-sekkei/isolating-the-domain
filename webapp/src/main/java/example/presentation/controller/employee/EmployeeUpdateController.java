@@ -1,5 +1,6 @@
 package example.presentation.controller.employee;
 
+import example.application.coordinator.employee.EmployeeRecordCoordinator;
 import example.application.service.employee.EmployeeQueryService;
 import example.application.service.employee.EmployeeRecordService;
 import example.domain.model.employee.Employee;
@@ -21,6 +22,7 @@ class EmployeeUpdateController {
 
     EmployeeQueryService employeeQueryService;
     EmployeeRecordService employeeRecordService;
+    EmployeeRecordCoordinator employeeRecordCoordinator;
 
     @GetMapping
     String open(@PathVariable(value = "employeeNumber") EmployeeNumber employeeNumber,
@@ -36,18 +38,18 @@ class EmployeeUpdateController {
                                 RedirectAttributes attributes) {
         if (result.hasErrors()) return "employee/update/form";
 
-        Employee employee = new Employee(employeeNumber, profile);
-        employeeRecordService.registerName(employee);
-        employeeRecordService.registerMailAddress(employee);
-        employeeRecordService.registerPhoneNumber(employee);
-
+        employeeRecordCoordinator.updateProfile(employeeNumber, profile);
+        
         attributes.addAttribute("updateResult", "completed");
 
         return "redirect:/employees/" + employeeNumber;
     }
 
-    public EmployeeUpdateController(EmployeeQueryService employeeQueryService, EmployeeRecordService employeeRecordService) {
+    public EmployeeUpdateController(EmployeeQueryService employeeQueryService,
+    		EmployeeRecordService employeeRecordService,
+    		EmployeeRecordCoordinator employeeRecordCoordinator) {
         this.employeeQueryService = employeeQueryService;
         this.employeeRecordService = employeeRecordService;
+        this.employeeRecordCoordinator = employeeRecordCoordinator;
     }
 }

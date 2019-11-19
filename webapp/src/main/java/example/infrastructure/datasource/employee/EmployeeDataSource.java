@@ -26,44 +26,44 @@ public class EmployeeDataSource implements EmployeeRepository {
     }
 
     @Override
-    public void registerName(Employee employee) {
+    public void registerName(EmployeeName employeeName) {
         Integer nameId = mapper.newEmployeeNameIdentifier();
-        EmployeeNumber employeeNumber = employee.employeeNumber();
-        Name name = employee.name();
+        EmployeeNumber employeeNumber = employeeName.employeeNumber();
+        Name name = employeeName.name();
         mapper.insertEmployeeNameHistory(nameId, employeeNumber, name);
         mapper.deleteEmployeeName(employeeNumber);
         mapper.insertEmployeeName(employeeNumber, nameId, name);
     }
 
     @Override
-    public void registerMailAddress(Employee employee) {
+    public void registerMailAddress(EmployeeMailAddress employeeMailAddress) {
         Integer mailAddressId = mapper.newEmployeeMailAddressIdentifier();
-        EmployeeNumber employeeNumber = employee.employeeNumber();
-        MailAddress mailAddress = employee.mailAddress();
+        EmployeeNumber employeeNumber = employeeMailAddress.employeeNumber();
+        MailAddress mailAddress = employeeMailAddress.mailAddress();
         mapper.insertEmployeeMailAddressHistory(mailAddressId, employeeNumber, mailAddress);
         mapper.deleteEmployeeMailAddress(employeeNumber);
         mapper.insertEmployeeMailAddress(employeeNumber, mailAddressId, mailAddress);
     }
 
     @Override
-    public void registerPhoneNumber(Employee employee) {
+    public void registerPhoneNumber(EmployeePhoneNumber employeePhoneNumber) {
         Integer phoneNumberId = mapper.newEmployeePhoneNumberIdentifier();
-        EmployeeNumber employeeNumber = employee.employeeNumber();
-        PhoneNumber phoneNumber = employee.phoneNumber();
+        EmployeeNumber employeeNumber = employeePhoneNumber.employeeNumber();
+        PhoneNumber phoneNumber = employeePhoneNumber.phoneNumber();
         mapper.insertEmployeePhoneNumberHistory(phoneNumberId, employeeNumber, phoneNumber);
         mapper.deleteEmployeePhoneNumber(employeeNumber);
         mapper.insertEmployeePhoneNumber(employeeNumber, phoneNumberId, phoneNumber);
     }
 
     @Override
-    public void registerInspireContract(Employee employee) {
-        mapper.insertInspireContract(employee.employeeNumber());
+    public void registerInspireContract(EmployeeNumber employeeNumber) {
+        mapper.insertInspireContract(employeeNumber);
     }
 
     @Override
-    public void registerExpireContract(Employee employee) {
-        mapper.deleteInspireContract(employee.employeeNumber());
-        mapper.insertExpireContract(employee.employeeNumber());
+    public void registerExpireContract(EmployeeNumber employeeNumber) {
+        mapper.deleteInspireContract(employeeNumber);
+        mapper.insertExpireContract(employeeNumber);
     }
 
     public EmployeeDataSource(EmployeeMapper mapper) {

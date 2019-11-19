@@ -22,38 +22,37 @@ public class EmployeeRecordService {
     /**
      * 従業員名登録
      */
-    public void registerName(Employee employee) {
-        employeeRepository.registerName(employee);
+    public void registerName(EmployeeName employeeName) {
+        employeeRepository.registerName(employeeName);
     }
 
     /**
      * 従業員メールアドレス登録
      */
-    public void registerMailAddress(Employee employee) {
-        employeeRepository.registerMailAddress(employee);
+    public void registerMailAddress(EmployeeMailAddress employeeMailAddress) {
+        employeeRepository.registerMailAddress(employeeMailAddress);
     }
 
     /**
      * 従業員電話番号登録
      */
-    public void registerPhoneNumber(Employee employee) {
-        employeeRepository.registerPhoneNumber(employee);
+    public void registerPhoneNumber(EmployeePhoneNumber employeePhoneNumber) {
+        employeeRepository.registerPhoneNumber(employeePhoneNumber);
     }
 
     /**
      * 従業員契約開始
      */
-    public void inspireContract(Employee employee) {
-        employeeRepository.registerInspireContract(employee);
+    public void inspireContract(EmployeeNumber employeeNumber) {
+        employeeRepository.registerInspireContract(employeeNumber);
     }
 
     /**
      * 従業員契約終了
      */
-    public void expireContract(Employee employee) {
-        employeeRepository.registerExpireContract(employee);
+    public void expireContract(EmployeeNumber employeeNumber) {
+        employeeRepository.registerExpireContract(employeeNumber);
     }
-
 
     EmployeeRecordService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;

@@ -35,25 +35,37 @@ public class Employee {
         return profile.name;
     }
 
-    public PhoneNumber phoneNumber() {
-        return profile.phoneNumber;
-    }
-
     public MailAddress mailAddress() {
         return profile.mailAddress;
+    }
+
+    public PhoneNumber phoneNumber() {
+        return profile.phoneNumber;
     }
 
     public Profile profile() {
         return profile;
     }
 
+    public EmployeeName employeeName() {
+    	return new EmployeeName(employeeNumber, name());
+    }
+
+    public EmployeeMailAddress employeeMailAddress() {
+    	return new EmployeeMailAddress(employeeNumber, mailAddress());
+    }
+
+    public EmployeePhoneNumber employeePhoneNumber() {
+    	return new EmployeePhoneNumber(employeeNumber, phoneNumber());
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
                 "employeeNumber=" + employeeNumber +
-                ", name=" +profile.name +
-                ", phoneNumber=" + profile.phoneNumber +
-                ", mailAddress=" + profile.mailAddress +
+                ", name=" + name() +
+                ", mailAddress=" + mailAddress() +
+                ", phoneNumber=" + phoneNumber() +
                 '}';
     }
 }
