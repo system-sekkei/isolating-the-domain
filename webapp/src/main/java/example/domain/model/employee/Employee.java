@@ -1,21 +1,12 @@
 package example.domain.model.employee;
 
-import javax.validation.Valid;
-
 /**
  * 従業員
  */
 public class Employee {
-    @Valid
     EmployeeNumber employeeNumber;
-
-    @Valid
     Name name;
-
-    @Valid
     MailAddress mailAddress;
-
-    @Valid
     PhoneNumber phoneNumber;
 
     @Deprecated
