@@ -3,13 +3,13 @@ package example.domain.model.employee;
 /**
  * 電話番号の変更
  */
-public class UpdatePhoneNumber {
+public class PhoneNumberToChange {
 
     EmployeeNumber employeeNumber;
 
     PhoneNumber phoneNumber;
 
-    public UpdatePhoneNumber(EmployeeNumber employeeNumber, PhoneNumber phoneNumber) {
+    public PhoneNumberToChange(EmployeeNumber employeeNumber, PhoneNumber phoneNumber) {
         this.employeeNumber = employeeNumber;
         this.phoneNumber = phoneNumber;
     }

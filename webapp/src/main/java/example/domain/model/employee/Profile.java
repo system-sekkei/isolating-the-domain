@@ -38,15 +38,15 @@ public class Profile {
         return phoneNumber;
     }
 
-    public UpdateName updateName(EmployeeNumber employeeNumber) {
-        return new UpdateName(employeeNumber, name());
+    public NameToChange updateName(EmployeeNumber employeeNumber) {
+        return new NameToChange(employeeNumber, name());
     }
 
-    public UpdatePhoneNumber updatePhoneNumber(EmployeeNumber employeeNumber) {
-        return new UpdatePhoneNumber(employeeNumber, phoneNumber());
+    public PhoneNumberToChange updatePhoneNumber(EmployeeNumber employeeNumber) {
+        return new PhoneNumberToChange(employeeNumber, phoneNumber());
     }
 
-    public UpdateMailAddress updateMailAddress(EmployeeNumber employeeNumber) {
-        return new UpdateMailAddress(employeeNumber, mailAddress());
+    public MailAddressToChange updateMailAddress(EmployeeNumber employeeNumber) {
+        return new MailAddressToChange(employeeNumber, mailAddress());
     }
 }

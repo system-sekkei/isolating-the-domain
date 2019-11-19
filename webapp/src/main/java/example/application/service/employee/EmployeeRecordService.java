@@ -22,21 +22,21 @@ public class EmployeeRecordService {
     /**
      * 従業員名登録
      */
-    public void registerName(UpdateName name) {
+    public void registerName(NameToChange name) {
         employeeRepository.registerName(name.employeeNumber(), name.name());
     }
 
     /**
      * 従業員メールアドレス登録
      */
-    public void registerMailAddress(UpdateMailAddress mail) {
+    public void registerMailAddress(MailAddressToChange mail) {
         employeeRepository.registerMailAddress(mail.employeeNumber(), mail.mailAddress());
     }
 
     /**
      * 従業員電話番号登録
      */
-    public void registerPhoneNumber(UpdatePhoneNumber phone) {
+    public void registerPhoneNumber(PhoneNumberToChange phone) {
         employeeRepository.registerPhoneNumber(phone.employeeNumber(), phone.phoneNumber());
     }
 
