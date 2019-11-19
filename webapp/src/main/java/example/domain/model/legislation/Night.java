@@ -2,8 +2,8 @@ package example.domain.model.legislation;
 
 import example.domain.type.datetime.DateTime;
 import example.domain.type.datetime.QuarterRoundDateTime;
-import example.domain.type.time.Time;
 import example.domain.type.time.Minute;
+import example.domain.type.time.Time;
 
 import java.time.LocalDateTime;
 
@@ -35,12 +35,12 @@ public class Night {
         DateTime earlyMorningFinishDateTime = new DateTime(LocalDateTime.of(startDateTime.value().date().value(), nightFinishTime.value()));
 
         if (startDateTime.isBefore(earlyMorningFinishDateTime)
-            && endDateTime.isAfter(earlyMorningFinishDateTime)) {
+                && endDateTime.isAfter(earlyMorningFinishDateTime)) {
             return QuarterRoundDateTime.between(startDateTime, earlyMorningFinishDateTime);
         }
 
         if (startDateTime.isBefore(earlyMorningFinishDateTime)
-            && endDateTime.isBefore(earlyMorningFinishDateTime)) {
+                && endDateTime.isBefore(earlyMorningFinishDateTime)) {
             return QuarterRoundDateTime.between(startDateTime, endDateTime);
         }
 
@@ -52,13 +52,13 @@ public class Night {
         DateTime nightFinishDateTime = new DateTime(LocalDateTime.of(startDateTime.value().date().plusDays(1).value(), nightFinishTime.value()));
 
         if (endDateTime.isAfter(nightStartDateTime)
-            && endDateTime.isBefore(nightFinishDateTime)
-            && startDateTime.isAfter(nightStartDateTime)) {
+                && endDateTime.isBefore(nightFinishDateTime)
+                && startDateTime.isAfter(nightStartDateTime)) {
             return QuarterRoundDateTime.between(startDateTime, endDateTime);
         }
 
         if (endDateTime.isAfter(nightStartDateTime)
-            && endDateTime.isBefore(nightFinishDateTime)) {
+                && endDateTime.isBefore(nightFinishDateTime)) {
             return DateTime.between(nightStartDateTime, endDateTime);
         }
 

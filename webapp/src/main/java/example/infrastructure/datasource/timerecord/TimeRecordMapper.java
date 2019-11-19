@@ -1,7 +1,7 @@
 package example.infrastructure.datasource.timerecord;
 
-import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.model.employee.EmployeeNumber;
+import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.model.timerecord.evaluation.WorkDate;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

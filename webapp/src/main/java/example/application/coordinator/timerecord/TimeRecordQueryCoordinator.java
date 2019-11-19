@@ -6,7 +6,9 @@ import example.application.service.timerecord.TimeRecordQueryService;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.*;
-import example.domain.model.timerecord.timefact.*;
+import example.domain.model.timerecord.timefact.EndDateTime;
+import example.domain.model.timerecord.timefact.StartDateTime;
+import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.datetime.DateTime;
 import example.domain.type.time.Minute;
 import org.springframework.stereotype.Service;
@@ -43,8 +45,8 @@ public class TimeRecordQueryCoordinator {
         return new TimeRecord(employeeNumber,
                 new ActualWorkDateTime(
                         new WorkRange(
-                            new StartDateTime(new DateTime(LocalDateTime.of(workDate.value().value(), startTime))),
-                            new EndDateTime(new DateTime(LocalDateTime.of(workDate.value().value(), endTime)))
+                                new StartDateTime(new DateTime(LocalDateTime.of(workDate.value().value(), startTime))),
+                                new EndDateTime(new DateTime(LocalDateTime.of(workDate.value().value(), endTime)))
                         ),
                         new DaytimeBreakTime(new Minute(60)),
                         new NightBreakTime(new Minute(0))

@@ -36,11 +36,11 @@ public class TimeRecordRegisterController {
     Validator validator;
 
     public TimeRecordRegisterController(
-        EmployeeQueryService employeeQueryService,
-        TimeRecordRecordService timeRecordRecordService,
-        TimeRecordCoordinator timeRecordCoordinator,
-        TimeRecordQueryCoordinator timeRecordQueryCoordinator,
-        Validator validator) {
+            EmployeeQueryService employeeQueryService,
+            TimeRecordRecordService timeRecordRecordService,
+            TimeRecordCoordinator timeRecordCoordinator,
+            TimeRecordQueryCoordinator timeRecordQueryCoordinator,
+            Validator validator) {
         this.employeeQueryService = employeeQueryService;
         this.timeRecordRecordService = timeRecordRecordService;
         this.timeRecordCoordinator = timeRecordCoordinator;
@@ -93,7 +93,7 @@ public class TimeRecordRegisterController {
             result.rejectValue("daytimeBreakTime", "", violation.getMessage());
         });
 
-        timeRecordCoordinator.isValid(timeRecord).forEach( error -> {
+        timeRecordCoordinator.isValid(timeRecord).forEach(error -> {
             result.rejectValue(error.field(), "", error.message());
         });
 

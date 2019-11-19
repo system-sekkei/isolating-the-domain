@@ -44,6 +44,6 @@ public class WorkRange {
 
     boolean notOverlap(WorkRange other) {
         return (startDateTime.isAfter(other.startDateTime) && startDateTime.isAfter(other.endDateTime))
-         || (endDateTime.isBefore(other.startDateTime) && endDateTime.isBefore(other.endDateTime));
+                || (endDateTime.isBefore(other.startDateTime) && endDateTime.isBefore(other.endDateTime));
     }
 }

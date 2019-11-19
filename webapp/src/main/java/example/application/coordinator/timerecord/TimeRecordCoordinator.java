@@ -28,11 +28,11 @@ public class TimeRecordCoordinator {
 
     public List<TimeRecordValidError> isValid(TimeRecord timeRecord) {
         List<TimeRecordValidError> result = new ArrayList<>();
-        if(isOverlapWithPreviousWorkRange(timeRecord)) {
+        if (isOverlapWithPreviousWorkRange(timeRecord)) {
             result.add(TimeRecordValidError.前日の勤務時刻と重複);
         }
 
-        if(isOverlapWithNextWorkRange(timeRecord)) {
+        if (isOverlapWithNextWorkRange(timeRecord)) {
             result.add(TimeRecordValidError.翌日の勤務時刻と重複);
         }
 

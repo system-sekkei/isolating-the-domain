@@ -1,8 +1,8 @@
 package example.domain.type.datetime;
 
 import example.domain.type.date.Date;
-import example.domain.type.time.Time;
 import example.domain.type.time.Minute;
+import example.domain.type.time.Time;
 
 import java.time.Duration;
 import java.time.LocalDate;

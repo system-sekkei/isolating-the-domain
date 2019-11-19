@@ -3,7 +3,9 @@ package example.presentation.controller.timerecord;
 import example.application.repository.EmployeeRepository;
 import example.application.repository.TimeRecordRepository;
 import example.domain.model.attendance.TimeRecords;
-import example.domain.model.employee.*;
+import example.domain.model.employee.ContractingEmployees;
+import example.domain.model.employee.Employee;
+import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.TimeRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -60,7 +62,7 @@ class TimeRecordRegisterControllerTest {
     @Test
     void 登録できる() throws Exception {
         when(timeRecordRepository.findTimeRecords(any(), any()))
-            .thenReturn(new TimeRecords(Collections.emptyList()));
+                .thenReturn(new TimeRecords(Collections.emptyList()));
         doNothing().when(timeRecordRepository).registerTimeRecord(any());
 
         mockMvc.perform(post("/timerecord")

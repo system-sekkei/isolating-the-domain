@@ -1,14 +1,14 @@
 package example.infrastructure.datasource.contract;
 
 import example.application.repository.ContractRepository;
-import example.domain.model.contract.ContractWages;
 import example.domain.model.contract.Contract;
 import example.domain.model.contract.ContractWage;
+import example.domain.model.contract.ContractWages;
 import example.domain.model.contract.Contracts;
-import example.domain.model.wage.WageCondition;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
+import example.domain.model.wage.WageCondition;
 import example.domain.type.date.Date;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +21,7 @@ public class ContractDataSource implements ContractRepository {
 
     @Override
     public void registerHourlyWage(Employee employee, Date effectiveDate, WageCondition wageCondition) {
-    	EmployeeNumber employeeNumber = employee.employeeNumber();
+        EmployeeNumber employeeNumber = employee.employeeNumber();
         mapper.deleteContractData(employeeNumber, effectiveDate);
 
         Integer hourlyWageId = mapper.newHourlyWageIdentifier();

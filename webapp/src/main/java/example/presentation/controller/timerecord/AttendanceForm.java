@@ -6,8 +6,8 @@ import example.domain.model.timerecord.timefact.EndDateTime;
 import example.domain.model.timerecord.timefact.StartDateTime;
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.datetime.DateTime;
-import example.domain.type.time.Time;
 import example.domain.type.time.Minute;
+import example.domain.type.time.Time;
 
 import javax.validation.constraints.AssertTrue;
 import java.time.DateTimeException;

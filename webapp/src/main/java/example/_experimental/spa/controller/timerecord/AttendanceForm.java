@@ -2,11 +2,13 @@ package example._experimental.spa.controller.timerecord;
 
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.*;
-import example.domain.model.timerecord.timefact.*;
+import example.domain.model.timerecord.timefact.EndDateTime;
+import example.domain.model.timerecord.timefact.StartDateTime;
+import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.date.Date;
 import example.domain.type.datetime.DateTime;
-import example.domain.type.time.Time;
 import example.domain.type.time.Minute;
+import example.domain.type.time.Time;
 
 import javax.validation.constraints.AssertTrue;
 import java.time.DateTimeException;
@@ -65,8 +67,8 @@ class AttendanceForm {
         InputEndTime inputEndTime = new InputEndTime(Integer.valueOf(endHour), Integer.valueOf(endMinute));
         return new ActualWorkDateTime(
                 new WorkRange(
-                    new StartDateTime(DateTime.parse(this.workDate, startHour, startMinute)),
-                    inputEndTime.endDateTime(workDate)
+                        new StartDateTime(DateTime.parse(this.workDate, startHour, startMinute)),
+                        inputEndTime.endDateTime(workDate)
                 ),
                 new DaytimeBreakTime(daytimeBreakMinute),
                 new NightBreakTime(nightBreakTime));
