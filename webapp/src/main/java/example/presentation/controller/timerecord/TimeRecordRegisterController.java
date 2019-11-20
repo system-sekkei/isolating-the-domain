@@ -93,7 +93,7 @@ public class TimeRecordRegisterController {
             result.rejectValue("daytimeBreakTime", "", violation.getMessage());
         });
 
-        timeRecordCoordinator.isValid(timeRecord).forEach(error -> {
+        timeRecordCoordinator.isValid(timeRecord).errors().forEach(error -> {
             result.rejectValue(error.field(), "", error.message());
         });
 

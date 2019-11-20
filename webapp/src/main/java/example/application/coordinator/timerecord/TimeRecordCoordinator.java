@@ -6,6 +6,8 @@ import example.application.service.timerecord.TimeRecordQueryService;
 import example.domain.model.employee.Employee;
 import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.model.timerecord.evaluation.WorkDate;
+import example.domain.model.timerecord.evaluation.TimeRecordValidError;
+import example.domain.model.timerecord.evaluation.TimeRecordValidResult;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,17 +28,17 @@ public class TimeRecordCoordinator {
         this.employeeQueryService = employeeQueryService;
     }
 
-    public List<TimeRecordValidError> isValid(TimeRecord timeRecord) {
-        List<TimeRecordValidError> result = new ArrayList<>();
+    public TimeRecordValidResult isValid(TimeRecord timeRecord) {
+        List<TimeRecordValidError> errors = new ArrayList<>();
         if (isOverlapWithPreviousWorkRange(timeRecord)) {
-            result.add(TimeRecordValidError.前日の勤務時刻と重複);
+            errors.add(TimeRecordValidError.前日の勤務時刻と重複);
         }
 
         if (isOverlapWithNextWorkRange(timeRecord)) {
-            result.add(TimeRecordValidError.翌日の勤務時刻と重複);
+            errors.add(TimeRecordValidError.翌日の勤務時刻と重複);
         }
 
-        return result;
+        return new TimeRecordValidResult(errors);
     }
 
     /**

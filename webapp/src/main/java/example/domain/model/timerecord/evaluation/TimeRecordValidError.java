@@ -1,4 +1,4 @@
-package example.application.coordinator.timerecord;
+package example.domain.model.timerecord.evaluation;
 
 
 /**

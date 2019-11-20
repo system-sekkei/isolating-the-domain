@@ -1,7 +1,7 @@
 package example.application.service;
 
 import example.application.coordinator.timerecord.TimeRecordCoordinator;
-import example.application.coordinator.timerecord.TimeRecordValidError;
+import example.domain.model.timerecord.evaluation.TimeRecordValidError;
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordRecordService;
@@ -79,7 +79,7 @@ class TimeRecordRecordServiceTest {
 
         TimeRecord timeRecord = new TimeRecord(employeeNumber, AttendanceForm.toActualWorkDateTime("2000-10-20", "8:59", "25:00", "60", "30"));
 
-        assertEquals(TimeRecordValidError.前日の勤務時刻と重複, timeRecordCoordinator.isValid(timeRecord).get(0));
+        assertEquals(TimeRecordValidError.前日の勤務時刻と重複, timeRecordCoordinator.isValid(timeRecord).errors().get(0));
     }
 
     @Test
@@ -91,6 +91,6 @@ class TimeRecordRecordServiceTest {
 
         TimeRecord timeRecord = new TimeRecord(employeeNumber, AttendanceForm.toActualWorkDateTime("2000-10-20", "8:00", "33:00", "60", "30"));
 
-        assertEquals(TimeRecordValidError.翌日の勤務時刻と重複, timeRecordCoordinator.isValid(timeRecord).get(0));
+        assertEquals(TimeRecordValidError.翌日の勤務時刻と重複, timeRecordCoordinator.isValid(timeRecord).errors().get(0));
     }
 }
