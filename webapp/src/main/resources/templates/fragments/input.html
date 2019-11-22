@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>入力フィールドの部品</title>
+</head>
+<body>
+
+<!--入力フィールドの部品-->
+<div th:fragment="macro(field_id,label,placeholder)"
+     class="field"
+     th:classappend="${#fields.hasErrors('__${field_id}__*')}? 'error'">
+ 
+  <label th:text="${label}">ラベル</label>
+  <input class="short-input" type="text"
+           th:field="*{__${field_id}__}"
+           th:placeholder="${placeholder}"/>
+   <div class="ui pointing red basic label"
+        th:if="${#fields.hasErrors('__${field_id}__*')}">
+    <span th:errors="*{__${field_id}__*}">エラー</span>
+  </div>
+</div>
+
+</body>
+</html>

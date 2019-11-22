@@ -33,7 +33,7 @@ context('isolating-the-domain', () => {
     // 従業員変更
     cy.get('.button').contains('変更').click()
     cy.title().should('contains', '変更')
-    cy.get('#name\\.value').clear().type('テスト次郎')
+    cy.get('#name').clear().type('テスト次郎')
     cy.get('.button').contains('保存').click()
     cy.title().should('contains', '詳細')
     cy.get('.button').contains('ＯＫ').click()
@@ -56,6 +56,7 @@ context('isolating-the-domain', () => {
     // 勤務時間入力
     cy.get('a').contains('勤務時間の入力').click()
     cy.title().should('contains', '入力')
+    cy.get('#endHour').clear().type('25')
     cy.get('.button').contains('登録').click()
     cy.title().should('contains', '勤務時間の一覧')
 

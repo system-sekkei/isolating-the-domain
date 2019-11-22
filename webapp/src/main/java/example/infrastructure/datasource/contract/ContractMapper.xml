@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="example.infrastructure.datasource.contract.ContractMapper">
+    <select id="newHourlyWageIdentifier" resultType="Integer">
+        select nextval('給与.時給ID')
+    </select>
+
+    <insert id="insertContractHistory">
+        INSERT INTO 給与.時給契約履歴 (時給ID, 従業員ID, 時給, 適用開始日, 時間外割増率, 深夜割増率)
+        VALUES (#{id}, #{employeeNumber.value}, #{wageCondition.baseHourlyWage.value.value}, #{effectiveDate.value}, #{wageCondition.overTimeExtraRate.value.value.value},
+        #{wageCondition.nightExtraRate.value.value.value});
+    </insert>
+
+    <select id="selectContracts" resultType="example.domain.model.contract.ContractWage">
+        SELECT
+        時給契約.適用開始日 as "effectiveDate.value.value",
+        時給契約.時給 as "wageCondition.baseHourlyWage.value.value",
+        時給契約.時間外割増率 as "wageCondition.overTimeExtraRate.value.value.value",
+        時給契約.深夜割増率 as "wageCondition.nightExtraRate.value.value.value"
+        FROM 給与.時給契約 as 時給契約
+        WHERE 時給契約.従業員ID = #{employeeNumber.value}
+    </select>
+
+    <insert id="insertContract">
+        INSERT INTO 給与.時給契約(従業員ID, 適用開始日, 時給, 時間外割増率, 深夜割増率) VALUES
+        (#{employeeNumber.value}, #{effectiveDate.value}, #{wageCondition.baseHourlyWage.value.value}, #{wageCondition.overTimeExtraRate.value.value.value},
+        #{wageCondition.nightExtraRate.value.value.value})
+    </insert>
+
+    <delete id="deleteContractData">
+        DELETE FROM 給与.時給契約 WHERE
+        従業員ID = #{employeeNumber.value} AND
+        時給契約.適用開始日 = #{effectiveDate.value}
+    </delete>
+</mapper>

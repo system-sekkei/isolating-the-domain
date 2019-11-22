@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: htmlhead(~{::title})">
+  <meta charset="utf-8"/>
+  <title>勤務時間の一覧</title>
+</head>
+<body>
+<div th:replace="fragments/menuHead::menuHead('')"></div>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">
+        勤務時間の一覧
+      </h1>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="attendanceInfo">
+    <table class="table is-bordered is-fullwidth">
+      <tr>
+        <th class="tableHeader">氏名</th>
+        <td th:text="${employee.name()}"></td>
+      </tr>
+    </table>
+    <table class="table is-bordered is-fullwidth">
+      <tr>
+        <th class="tableHeader">総勤務時間</th>
+        <td th:text="${attendance.totalWorkTime()}">50
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <hr />
+
+  <div class="attendanceList">
+    <div class="columns">
+      <div class="column">
+        <a href=""
+           th:href="@{/attendances/{employeeNumber}/{beforeMonth}(employeeNumber=${employee.employeeNumber()},beforeMonth=${beforeMonth})}">
+          <span><i class="fas fa-angle-double-left"></i></span>
+          <span>前の月</span>
+        </a>
+      </div>
+      <div class="column has-text-centered">
+        <h3 class="title is-3" th:text="${attendance.month().toStringWithUnit()}">11月</h3>
+      </div>
+      <div class="column has-text-right">
+        <a href=""
+           th:href="@{/attendances/{employeeNumber}/{afterMonth}(employeeNumber=${employee.employeeNumber()},afterMonth=${afterMonth})}">
+          <span>次の月</span>
+          <span><i class="fas fa-angle-double-right"></i></span>
+        </a>
+      </div>
+    </div>
+
+    <table class="table is-bordered is-fullwidth">
+      <thead>
+      <tr class="has-text-centered">
+        <th colspan="2" class="has-text-centered">日付</th>
+        <th class="has-text-centered">開始時刻</th>
+        <th class="has-text-centered">終了時刻</th>
+        <th class="has-text-centered">休憩時間</th>
+        <th class="has-text-centered">勤務時間</th>
+        <th class="編集ボタン has-text-centered">編集</th>
+      </tr>
+      </thead>
+      <tbody>
+      <th:block th:each="workDate : ${attendance.listWorkDates()}">
+        <tr th:class="${workDate.dayOfWeek()}" th:if="${attendance.statusOf(workDate).isWork()}" th:object="${attendance.at(workDate)}">
+          <td class="has-text-centered"
+              th:text="${workDate.dayOfMonth()}"></td>
+          <td class="has-text-centered"
+              th:text="${workDate.dayOfWeek()}"></td>
+          <td th:text="*{actualWorkDateTime().workRange().start().time()}"></td>
+          <td th:text="*{actualWorkDateTime().workRange().endTimeText()}"></td>
+          <td th:text="*{actualWorkDateTime().breakTime()}"></td>
+          <td th:text="*{actualWorkDateTime().workTime()}"></td>
+          <td class="center aligned selectable linkCell">
+            <a th:href="@{/timerecord?employeeNumber={employeeNumber}&workDate={workDate}(employeeNumber=${employee.employeeNumber()},workDate=${workDate})}">
+              <i class="fas fa-edit"></i>
+            </a>
+          </td>
+        </tr>
+        <tr th:class="${workDate.dayOfWeek()}" th:unless="${attendance.statusOf(workDate).isWork()}">
+          <td class="has-text-centered"
+              th:text="${workDate.dayOfMonth()}"></td>
+          <td class="has-text-centered"
+              th:text="${workDate.dayOfWeek()}"></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="has-text-centered is-hoverable linkCell">
+            <a th:href="@{/timerecord?employeeNumber={employeeNumber}&workDate={workDate}(employeeNumber=${employee.employeeNumber()},workDate=${workDate})}">
+              <i class="edit icon"></i>
+            </a>
+          </td>
+        </tr>
+      </th:block>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+</body>
+</html>
