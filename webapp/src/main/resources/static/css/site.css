@@ -27,16 +27,22 @@
   vertical-align: middle;
 }
 
+.pageFooter {
+  padding: 4em 0;
+}
+
 /*給与 payroll*/
 .payrollList {
   max-width: 960px;
   margin: 0 auto 5rem;
+  padding-top: 2em;
 }
 
 /*従業員 employee*/
 .employeeList {
   max-width: 640px;
   margin: 0 auto 5rem;
+  padding-top: 2em;
 }
 
 .employeeInfo {
@@ -54,6 +60,7 @@
 .employeeDetail {
   max-width: 540px;
   margin: 0 auto;
+  padding: 2em 0;
 }
 
 .actions {
@@ -61,7 +68,6 @@
 }
 
 .linkCell a {
-  color: #000;
   display: block;
 }
 
@@ -111,6 +117,7 @@
 .attendanceList {
   max-width: 800px;
   margin: 0 auto 5rem;
+  padding-top: 2em;
 }
 
 .attendanceInfo {

@@ -7,47 +7,64 @@
 <body>
 <div th:replace="fragments/menuHead::menuHead('')"></div>
 
-<div class="ui container">
-  <div class="pageHeader">
-    <h1 class="ui center aligned header">時給の登録</h1>
+<section class="hero">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">
+        時給の登録
+      </h1>
+    </div>
   </div>
+</section>
 
+<div class="container">
   <form id="custom-form" class="ui form" th:action="@{/wages/{employeeNumber}/register/confirm(employeeNumber=${employee.employeeNumber()})}" method="post">
 
     <div class="wageInfo">
-      <table class="ui celled center aligned definition table">
+      <table class="table is-bordered is-fullwidth">
         <tr>
-          <td class="six wide center aligned tableHeader">氏名</td>
-          <td class="ten wide" th:text="${employee.name()}">テスト太郎</td>
+          <td class="tableHeader has-text-centered">氏名</td>
+          <td th:text="${employee.name()}">テスト太郎</td>
         </tr>
       </table>
     </div>
 
-    <div class="ui section divider"></div>
+    <hr />
   
-    <div class="wageInput">
-      <div class="ui basic segment">
-        <div class="field">
-          <label>開始日</label>
-          <input class="short-input" type="date" placeholder="2018-01-01" name="effectiveDate" th:value="${effectiveDate}">
+    <div class="wageInput has-text-centered">
+      <div class="field is-horizontal">
+        <div class="field-label">
+          <label class="label">開始日</label>
         </div>
-
-        <div class="field">
-          <label>時給</label>
-          <div class="two fields">
-            <div class="ui right labeled small input field">
-              <input type="number" placeholder="936" name="hourlyWage" th:value="${hourlyWage.value()}"/>
-              <div class="ui basic label">円</div>
-            </div>
-          </div>
+        <div class="field-body">
+          <p class="control　is-expanded">
+            <input class="input" type="date" placeholder="2018-01-01" name="effectiveDate"
+            　　　　　 th:value="${effectiveDate}">
+          </p>
         </div>
       </div>
 
-      <div class="ui center aligned basic segment">
-        <a class="ui grey button"
-           th:href="@{/wages/{employeeNumber}(employeeNumber=${employee.employeeNumber()})}">時給の変遷に戻る</a>
-        <button class="ui positive button">確認</button>
+      <div class="field has-addons">
+        <div class="field-label">
+          <label class="label">時給</label>
+        </div>
+        <div class="field-body">
+          <p class="control">
+            <input class="input" type="number" placeholder="936" name="hourlyWage"
+                   th:value="${hourlyWage.value()}"/>
+          </p>
+          <p class="control">
+            <a class="button is-static">円</a>
+          </p>
+        </div>
       </div>
+
+      <div class="pageFooter has-text-centered">
+        <a class="button is-light"
+           th:href="@{/wages/{employeeNumber}(employeeNumber=${employee.employeeNumber()})}">時給の履歴に戻る</a>
+        <button class="button is-primary is-outlined">確認</button>
+      </div>
+
     </div>
   </form>
 </div>

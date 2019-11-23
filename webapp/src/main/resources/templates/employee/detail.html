@@ -26,39 +26,35 @@
     </a>
   </div>
 
-  <section class="section"> 
-    <div class="employeeDetail">
-      <table class="table is-bordered is-fullwidth">
-        <tr>
-          <td class="has-text-centered tableHeader">従業員番号</td>
-          <td th:text="${employee.employeeNumber()}">1</td>
-        </tr>
-        <tr>
-          <td class="has-text-centered tableHeader">氏名</td>
-          <td th:text="${employee.name()}">山田 太郎</td>
-        </tr>
-        <tr>
-          <td class="has-text-centered tableHeader">メールアドレス</td>
-          <td th:text="${employee.mailAddress()}">someone@example.com</td>
-        </tr>
-        <tr>
-          <td class="has-text-centered tableHeader">電話番号</td>
-          <td th:text="${employee.phoneNumber()}">0120-888-888</td>
-        </tr>
-      </table>
-    </div>
-  </section>
+  <div class="employeeDetail">
+    <table class="table is-bordered is-fullwidth">
+      <tr>
+        <td class="has-text-centered tableHeader">従業員番号</td>
+        <td th:text="${employee.employeeNumber()}">1</td>
+      </tr>
+      <tr>
+        <td class="has-text-centered tableHeader">氏名</td>
+        <td th:text="${employee.name()}">山田 太郎</td>
+      </tr>
+      <tr>
+        <td class="has-text-centered tableHeader">メールアドレス</td>
+        <td th:text="${employee.mailAddress()}">someone@example.com</td>
+      </tr>
+      <tr>
+        <td class="has-text-centered tableHeader">電話番号</td>
+        <td th:text="${employee.phoneNumber()}">0120-888-888</td>
+      </tr>
+    </table>
+  </div>
 
-  <section class="section"> 
-    <div class="content has-text-centered">
-      <a class="button is-light" th:href="@{/employees}">一覧に戻る</a>
-      <a class="button is-info is-outlined"
-         th:href="@{/employees/{employeeNumber}/update(employeeNumber=${employee.employeeNumber()})}">
-        変更
-      </a>
-      <button id="deleteConfirmButton" class="button is-danger is-outlined">削除</button>
-    </div>
-  </section>
+  <div class="pageFooter has-text-centered">
+    <a class="button is-light" th:href="@{/employees}">一覧に戻る</a>
+    <a class="button is-info is-outlined"
+       th:href="@{/employees/{employeeNumber}/update(employeeNumber=${employee.employeeNumber()})}">
+      変更
+    </a>
+    <button id="deleteConfirmButton" class="button is-danger is-outlined">削除</button>
+  </div>
 </div>
 
 <!-- 削除の確認 -->
