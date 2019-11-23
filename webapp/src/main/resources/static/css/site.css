@@ -56,12 +56,8 @@
   margin: 0 auto;
 }
 
-#deleteConfirmModal > .actions {
-  text-align: center;
-}
-
-#updateCompletedModal > .actions {
-  text-align: center;
+.actions {
+  padding: 2em 0 0;
 }
 
 .linkCell a {
