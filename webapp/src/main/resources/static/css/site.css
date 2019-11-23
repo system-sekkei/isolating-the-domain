@@ -64,8 +64,17 @@
   text-align: center;
 }
 
-.linkCell {
-  color: blue;
+.linkCell a {
+  color: #000;
+  display: block;
+}
+
+.linkCell:hover {
+  background-color: #D5F5E3;
+}
+
+.linkCell a:hover {
+  color: #00897B;
 }
 
 .caution {
