@@ -12,7 +12,7 @@
     <h1 class="ui center aligned header">従業員情報の変更</h1>
   </div>
   
-    <form id="custom-form" class="ui form" name="body" 
+    <form id="custom-form" class="form" name="body" 
           method="post" action="#"
           th:object="${bulkProfileUpdateForm}"
           th:action="@{/employees/{employeeNumber}/update/register(employeeNumber=${employeeNumber})}">
