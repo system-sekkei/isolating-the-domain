@@ -59,48 +59,48 @@
 
     <table class="table is-bordered is-fullwidth">
       <thead>
-      <tr class="has-text-centered">
-        <th colspan="2" class="has-text-centered">日付</th>
-        <th class="has-text-centered">開始時刻</th>
-        <th class="has-text-centered">終了時刻</th>
-        <th class="has-text-centered">休憩時間</th>
-        <th class="has-text-centered">勤務時間</th>
-        <th class="編集ボタン has-text-centered">編集</th>
-      </tr>
+        <tr class="has-text-centered">
+          <th colspan="2" class="has-text-centered">日付</th>
+          <th class="has-text-centered">開始時刻</th>
+          <th class="has-text-centered">終了時刻</th>
+          <th class="has-text-centered">休憩時間</th>
+          <th class="has-text-centered">勤務時間</th>
+          <th class="編集ボタン has-text-centered">編集</th>
+        </tr>
       </thead>
       <tbody>
-      <th:block th:each="workDate : ${attendance.listWorkDates()}">
-        <tr th:class="${workDate.dayOfWeek()}" th:if="${attendance.statusOf(workDate).isWork()}" th:object="${attendance.at(workDate)}">
-          <td class="has-text-centered"
-              th:text="${workDate.dayOfMonth()}"></td>
-          <td class="has-text-centered"
-              th:text="${workDate.dayOfWeek()}"></td>
-          <td th:text="*{actualWorkDateTime().workRange().start().time()}"></td>
-          <td th:text="*{actualWorkDateTime().workRange().endTimeText()}"></td>
-          <td th:text="*{actualWorkDateTime().breakTime()}"></td>
-          <td th:text="*{actualWorkDateTime().workTime()}"></td>
-          <td class="center aligned selectable linkCell">
-            <a th:href="@{/timerecord?employeeNumber={employeeNumber}&workDate={workDate}(employeeNumber=${employee.employeeNumber()},workDate=${workDate})}">
-              <i class="fas fa-edit"></i>
-            </a>
-          </td>
-        </tr>
-        <tr th:class="${workDate.dayOfWeek()}" th:unless="${attendance.statusOf(workDate).isWork()}">
-          <td class="has-text-centered"
-              th:text="${workDate.dayOfMonth()}"></td>
-          <td class="has-text-centered"
-              th:text="${workDate.dayOfWeek()}"></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td class="has-text-centered is-hoverable linkCell">
-            <a th:href="@{/timerecord?employeeNumber={employeeNumber}&workDate={workDate}(employeeNumber=${employee.employeeNumber()},workDate=${workDate})}">
-              <i class="edit icon"></i>
-            </a>
-          </td>
-        </tr>
-      </th:block>
+        <th:block th:each="workDate : ${attendance.listWorkDates()}">
+          <tr th:class="${workDate.dayOfWeek()}" th:if="${attendance.statusOf(workDate).isWork()}" th:object="${attendance.at(workDate)}">
+            <td class="has-text-centered"
+                th:text="${workDate.dayOfMonth()}"></td>
+            <td class="has-text-centered"
+                th:text="${workDate.dayOfWeek()}"></td>
+            <td th:text="*{actualWorkDateTime().workRange().start().time()}"></td>
+            <td th:text="*{actualWorkDateTime().workRange().endTimeText()}"></td>
+            <td th:text="*{actualWorkDateTime().breakTime()}"></td>
+            <td th:text="*{actualWorkDateTime().workTime()}"></td>
+            <td class="has-text-centered linkCell">
+              <a th:href="@{/timerecord?employeeNumber={employeeNumber}&workDate={workDate}(employeeNumber=${employee.employeeNumber()},workDate=${workDate})}">
+                <i class="fas fa-edit"></i>
+              </a>
+            </td>
+          </tr>
+          <tr th:class="${workDate.dayOfWeek()}" th:unless="${attendance.statusOf(workDate).isWork()}">
+            <td class="has-text-centered"
+                th:text="${workDate.dayOfMonth()}"></td>
+            <td class="has-text-centered"
+                th:text="${workDate.dayOfWeek()}"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="has-text-centered linkCell">
+              <a th:href="@{/timerecord?employeeNumber={employeeNumber}&workDate={workDate}(employeeNumber=${employee.employeeNumber()},workDate=${workDate})}">
+                <i class="edit icon"></i>
+              </a>
+            </td>
+          </tr>
+        </th:block>
       </tbody>
     </table>
 
