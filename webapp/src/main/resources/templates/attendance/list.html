@@ -60,12 +60,12 @@
     <table class="table is-bordered is-fullwidth">
       <thead>
         <tr class="has-text-centered">
-          <th colspan="2" class="has-text-centered">日付</th>
-          <th class="has-text-centered">開始時刻</th>
-          <th class="has-text-centered">終了時刻</th>
-          <th class="has-text-centered">休憩時間</th>
-          <th class="has-text-centered">勤務時間</th>
-          <th class="編集ボタン has-text-centered">編集</th>
+          <th colspan="2" class="has-background-white-ter has-text-centered">日付</th>
+          <th class="has-background-white-ter has-text-centered">開始時刻</th>
+          <th class="has-background-white-ter has-text-centered">終了時刻</th>
+          <th class="has-background-white-ter has-text-centered">休憩時間</th>
+          <th class="has-background-white-ter has-text-centered">勤務時間</th>
+          <th class="編集ボタン has-background-white-ter has-text-centered">編集</th>
         </tr>
       </thead>
       <tbody>
@@ -96,7 +96,7 @@
             <td></td>
             <td class="has-text-centered linkCell">
               <a th:href="@{/timerecord?employeeNumber={employeeNumber}&workDate={workDate}(employeeNumber=${employee.employeeNumber()},workDate=${workDate})}">
-                <i class="edit icon"></i>
+                <i class="fas fa-edit"></i>
               </a>
             </td>
           </tr>
