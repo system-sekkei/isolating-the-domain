@@ -59,6 +59,7 @@
 .employeeInput {
   max-width: 500px;
   margin: 0 auto;
+  padding-top: 2em;
 }
 
 .employeeDetail {
@@ -133,8 +134,9 @@
 }
 
 .attendanceInput {
-  max-width: 400px;
+  max-width: 500px;
   margin: 0 auto;
+  padding-top: 2em;
 }
 
 .編集ボタン {
