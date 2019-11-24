@@ -8,7 +8,7 @@
 <section class="hero is-primary" th:fragment="menuHead(active)">
   <div class="hero-head">
     <nav class="navbar">
-      <div class="navbar-menu">
+      <div class="navbar-menu is-flex">
         <a class="navbar-item" th:classappend="${active.equals('ダッシュボード')} ? 'is-active' : ''"
            th:href="@{/}">
           <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
