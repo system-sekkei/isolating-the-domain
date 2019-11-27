@@ -33,15 +33,11 @@
         <label>勤務日</label>
         <div class="eight wide field">
           <input class="short-input" type="date" placeholder="2018-01-01"
-                 th:field="*{workDate}"/>
+                 th:field="*{workDate.value}"/>
         </div>
         <div class="ui pointing red basic label"
-             th:if="${#fields.hasErrors('workDateComplete')}">
-          <span th:errors="*{workDateComplete}">勤務日を入力してください</span>
-        </div>
-        <div class="ui pointing red basic label"
-             th:if="${#fields.hasErrors('workDateValid')}">
-          <span th:errors="*{workDateValid}">勤務日が不正です</span>
+             th:if="${#fields.hasErrors('workDate.value')}">
+          <span th:errors="*{workDate.value}">勤務日を入力してください</span>
         </div>
       </div>
 
@@ -62,12 +58,12 @@
           </div>
         </div>
         <div class="ui pointing red basic label"
-             th:if="${#fields.hasErrors('startTimeComplete')}">
-          <span th:errors="*{startTimeComplete}">開始時刻を入力してください</span>
+             th:if="${#fields.hasErrors('startHour')}">
+          <span th:errors="*{startHour}">開始時刻を入力してください</span>
         </div>
         <div class="ui pointing red basic label"
-             th:if="${#fields.hasErrors('startTimeValid')}">
-          <span th:errors="*{startTimeValid}">開始時刻が不正です</span>
+             th:if="${#fields.hasErrors('startMinute')}">
+          <span th:errors="*{startMinute}">開始時刻を入力してください</span>
         </div>
         <div class="ui pointing red basic label"
              th:if="${#fields.hasErrors('overlapWithPreviousWorkRange')}">
@@ -93,16 +89,16 @@
           </div>
         </div>
         <div class="ui pointing red basic label"
-             th:if="${#fields.hasErrors('endTimeComplete')}">
-          <span th:errors="*{endTimeComplete}">終了時刻を入力してください</span>
+             th:if="${#fields.hasErrors('endHour')}">
+          <span th:errors="*{endHour}">終了時刻を入力してください</span>
         </div>
         <div class="ui pointing red basic label"
-             th:if="${#fields.hasErrors('endTimeValid')}">
-          <span th:errors="*{endTimeValid}">終了時刻が不正です</span>
+             th:if="${#fields.hasErrors('endMinute')}">
+          <span th:errors="*{endMinute}">終了時刻を入力してください</span>
         </div>
         <div class="ui pointing red basic label"
-             th:if="${#fields.hasErrors('workTimeValid')}">
-          <span th:errors="*{workTimeValid}">終了時刻には開始時刻よりあとの時刻を入力してください</span>
+             th:if="${#fields.hasErrors('timeRecord.actualWorkDateTime.workRange.workTimeValid')}">
+          <span th:errors="*{timeRecord.actualWorkDateTime.workRange.workTimeValid}">終了時刻には開始時刻よりあとの時刻を入力してください</span>
         </div>
         <div class="ui pointing red basic label"
              th:if="${#fields.hasErrors('overlapWithNextWorkRange')}">
@@ -115,14 +111,18 @@
         <div class="two fields">
           <div class="ui right labeled small input field">
             <input class="short-input" type="text" placeholder="15"
-                   th:field="*{daytimeBreakTime}"
+                   th:field="*{daytimeBreakTime.value.value}"
             />
             <div class="ui basic label">分</div>
           </div>
         </div>
         <div class="ui pointing red basic label"
-             th:if="${#fields.hasErrors('daytimeBreakTime')}">
-          <span th:errors="*{daytimeBreakTime}">休憩時間が不正です</span>
+             th:if="${#fields.hasErrors('daytimeBreakTime.value.value')}">
+          <span th:errors="*{daytimeBreakTime.value.value}">休憩時間が不正です</span>
+        </div>
+        <div class="ui pointing red basic label"
+             th:if="${#fields.hasErrors('timeRecord.actualWorkDateTime.daytimeBreakTimeValid')}">
+          <span th:errors="*{timeRecord.actualWorkDateTime.daytimeBreakTimeValid}">休憩時間が不正です</span>
         </div>
       </div>
 
@@ -131,14 +131,18 @@
         <div class="two fields">
           <div class="ui right labeled small input field">
             <input class="short-input" type="text" placeholder="15"
-                   th:field="*{nightBreakTime}"
+                   th:field="*{nightBreakTime.value.value}"
             />
             <div class="ui basic label">分</div>
           </div>
         </div>
         <div class="ui pointing red basic label"
-             th:if="${#fields.hasErrors('nightBreakTimeValid')}">
-          <span th:errors="*{nightBreakTimeValid}">休憩時間（深夜）が不正です</span>
+             th:if="${#fields.hasErrors('nightBreakTime.value.value')}">
+          <span th:errors="*{nightBreakTime.value.value}">休憩時間（深夜）が不正です</span>
+        </div>
+        <div class="ui pointing red basic label"
+             th:if="${#fields.hasErrors('timeRecord.actualWorkDateTime.nightBreakTimeValid')}">
+          <span th:errors="*{timeRecord.actualWorkDateTime.nightBreakTimeValid}">休憩時間（深夜）が不正です</span>
         </div>
       </div>
 

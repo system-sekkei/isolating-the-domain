@@ -1,29 +1,51 @@
 package example.presentation.controller.timerecord;
 
+import example.domain.Conversion;
+import example.domain.FormatCheck;
+import example.domain.FormatCheck2;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.*;
 import example.domain.model.timerecord.timefact.EndDateTime;
 import example.domain.model.timerecord.timefact.StartDateTime;
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.datetime.DateTime;
-import example.domain.type.time.Minute;
-import example.domain.type.time.Time;
 
+import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
-import java.time.DateTimeException;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 public class AttendanceForm {
-
+    @Valid
     EmployeeNumber employeeNumber;
-    String workDate = "";
 
-    String startHour = "";
-    String startMinute = "";
-    String endHour = "";
-    String endMinute = "";
+    @Valid
+    WorkDate workDate;
 
+    @NotBlank(message = "開始時刻を入力してください", groups = FormatCheck.class)
+    @Pattern(regexp = "^\\d{1,2}$", message = "開始時刻が不正です", groups = FormatCheck2.class)
+    String startHour;
+
+    @NotBlank(message = "開始時刻を入力してください", groups = FormatCheck.class)
+    @Pattern(regexp = "^\\d{1,2}$", message = "開始時刻が不正です", groups = FormatCheck2.class)
+    String startMinute;
+
+    @NotBlank(message = "終了時刻を入力してください", groups = FormatCheck.class)
+    @Pattern(regexp = "^\\d{1,2}$", message = "終了時刻が不正です", groups = FormatCheck2.class)
+    String endHour;
+
+    @NotBlank(message = "終了時刻を入力してください", groups = FormatCheck.class)
+    @Pattern(regexp = "^\\d{1,2}$", message = "終了時刻が不正です", groups = FormatCheck2.class)
+    String endMinute;
+
+    @Valid
     DaytimeBreakTime daytimeBreakTime;
+
+    @Valid
     NightBreakTime nightBreakTime;
+
+    @Valid
+    TimeRecord timeRecord; // バリデーションをうごかすための存在
 
     boolean overlapWithPreviousWorkRange;
     boolean overlapWithNextWorkRange;
@@ -31,13 +53,29 @@ public class AttendanceForm {
     public AttendanceForm() {
     }
 
+    @AssertTrue(groups = Conversion.class)
+    boolean isConverted() {
+        StartDateTime startDateTime = new StartDateTime(DateTime.parse(workDate.toString(), startHour, startMinute));
+        InputEndTime inputEndTime = new InputEndTime(Integer.parseInt(endHour), Integer.parseInt(endMinute));
+        EndDateTime endDateTime = inputEndTime.endDateTime(startDateTime);
+
+        ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
+                new WorkRange(startDateTime, endDateTime),
+                daytimeBreakTime,
+                nightBreakTime);
+
+        this.timeRecord = new TimeRecord(employeeNumber, actualWorkDateTime);
+
+        // 形式チェックが通ればオブジェクトは必ず生成できるはずなので常にtrue。
+        return true;
+    }
+
     public TimeRecord toTimeRecord() {
-        ActualWorkDateTime actualWorkDateTime = toActualWorkDateTime();
-        return new TimeRecord(employeeNumber, actualWorkDateTime);
+        return timeRecord;
     }
 
     private ActualWorkDateTime toActualWorkDateTime() {
-        return toActualWorkDateTime(workStartDateTime(), workEndDateTime(), daytimeBreakTime, nightBreakTime);
+        return timeRecord.actualWorkDateTime();
     }
 
     private static ActualWorkDateTime toActualWorkDateTime(StartDateTime startDateTime, EndDateTime endDateTime, DaytimeBreakTime daytimeBreakTime, NightBreakTime nightBreakTime) {
@@ -52,12 +90,12 @@ public class AttendanceForm {
     public static ActualWorkDateTime toActualWorkDateTime(String startDate, String startTime, String endTime, String daytimeBreak, String nightBreak) {
         StartDateTime startDateTime = new StartDateTime(DateTime.parse(startDate, startTime));
         EndDateTime endDateTime = InputEndTime.from(endTime).endDateTime(startDateTime);
-        return toActualWorkDateTime(startDateTime, endDateTime, new DaytimeBreakTime(daytimeBreak), new NightBreakTime(nightBreak));
+        return toActualWorkDateTime(startDateTime, endDateTime, DaytimeBreakTime.from(daytimeBreak), NightBreakTime.from(nightBreak));
     }
 
     public void apply(TimeRecord timeRecord) {
         this.employeeNumber = timeRecord.employeeNumber();
-        this.workDate = timeRecord.workDate().toString();
+        this.workDate = timeRecord.workDate();
 
         String[] startClockTime = timeRecord.actualWorkDateTime().workRange().start().toString().split(" ")[1].split(":");
         this.startHour = startClockTime[0];
@@ -69,125 +107,7 @@ public class AttendanceForm {
 
         this.daytimeBreakTime = timeRecord.actualWorkDateTime().daytimeBreakTime();
         this.nightBreakTime = timeRecord.actualWorkDateTime().nightBreakTime();
-    }
 
-    private Time workStartTime() {
-        return new Time(Integer.valueOf(startHour), Integer.valueOf(this.startMinute));
-    }
-
-    private InputEndTime inputEndTime() {
-        return new InputEndTime(Integer.parseInt(endHour), Integer.parseInt(endMinute));
-    }
-
-    private StartDateTime workStartDateTime() {
-        return new StartDateTime(DateTime.parse(workDate, startHour, startMinute));
-    }
-
-    private EndDateTime workEndDateTime() {
-        InputEndTime time = inputEndTime();
-        return time.endDateTime(workStartDateTime());
-    }
-
-    boolean workDateComplete;
-
-    @AssertTrue(message = "勤務日を入力してください")
-    boolean isWorkDateComplete() {
-        return !workDate.isEmpty();
-    }
-
-    boolean workDateValid;
-
-    @AssertTrue(message = "勤務日が不正です")
-    boolean isWorkDateValid() {
-        if (!isWorkDateComplete()) return true;
-        try {
-            new WorkDate(this.workDate);
-        } catch (DateTimeException ex) {
-            return false;
-        }
-        return true;
-    }
-
-    boolean startTimeComplete;
-
-    @AssertTrue(message = "開始時刻を入力してください")
-    boolean isStartTimeComplete() {
-        if (startHour.isEmpty() || startMinute.isEmpty()) return false;
-        return true;
-    }
-
-    boolean startTimeValid;
-
-    @AssertTrue(message = "開始時刻が不正です")
-    public boolean isStartTimeValid() {
-        if (!isStartTimeComplete()) return true;
-
-        try {
-            workStartTime();
-        } catch (NumberFormatException | DateTimeException ex) {
-            return false;
-        }
-
-        return true;
-    }
-
-    boolean endTimeComplete;
-
-    @AssertTrue(message = "終了時刻を入力してください")
-    boolean isEndTimeComplete() {
-        if (endHour.isEmpty() || endMinute.isEmpty()) return false;
-        return true;
-    }
-
-    boolean endTimeValid;
-
-    @AssertTrue(message = "終了時刻が不正です")
-    public boolean isEndTimeValid() {
-        if (!isEndTimeComplete()) return true;
-
-        try {
-            inputEndTime();
-        } catch (NumberFormatException ex) {
-            return false;
-        }
-
-        return true;
-    }
-
-    private boolean unnecessaryCalculate() {
-        return !isStartTimeComplete() || !isStartTimeValid()
-                || !isEndTimeComplete() || !isEndTimeValid()
-                || !isWorkDateComplete() || !isWorkDateValid();
-    }
-
-    boolean workTimeValid;
-
-    @AssertTrue(message = "終了時刻には開始時刻よりあとの時刻を入力してください")
-    public boolean isWorkTimeValid() {
-        if (unnecessaryCalculate()) return true;
-
-        StartDateTime startDateTime = workStartDateTime();
-        EndDateTime endDateTime = workEndDateTime();
-        if (endDateTime.isAfter(startDateTime)) return true;
-
-        return false;
-    }
-
-    boolean nightBreakTimeValid;
-
-    @AssertTrue(message = "休憩時間（深夜）が不正です")
-    public boolean isNightBreakTimeValid() {
-        if (nightBreakTime == null) return false;
-        if (unnecessaryCalculate() || !isWorkTimeValid()) return true;
-
-        try {
-            Minute nightBindingMinute = toActualWorkDateTime().nightBindingTime().quarterHour().minute();
-            if (nightBindingMinute.lessThan(nightBreakTime.minute())) {
-                return false;
-            }
-        } catch (NumberFormatException | DateTimeException ex) {
-            return false;
-        }
-        return true;
+        this.timeRecord = timeRecord;
     }
 }

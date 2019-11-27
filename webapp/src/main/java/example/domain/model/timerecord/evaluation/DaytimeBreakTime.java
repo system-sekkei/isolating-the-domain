@@ -3,22 +3,26 @@ package example.domain.model.timerecord.evaluation;
 import example.domain.type.time.Minute;
 import example.domain.type.time.QuarterHour;
 
+import javax.validation.Valid;
+
 /**
  * 日中休憩時間
  */
 public class DaytimeBreakTime {
+
+    @Valid
     Minute value;
 
     @Deprecated
     DaytimeBreakTime() {
     }
 
-    public DaytimeBreakTime(String value) {
-        this(Minute.from(value));
-    }
-
     public DaytimeBreakTime(Minute value) {
         this.value = value;
+    }
+
+    public static DaytimeBreakTime from(String value) {
+        return new DaytimeBreakTime(Minute.from(value));
     }
 
     public Minute minute() {
