@@ -49,7 +49,7 @@ class PayrollQueryCoordinatorTest {
 
         {
             WageCondition wageCondition = new WageCondition(new HourlyWage(1000), OverTimeExtraRate.legal(), NightExtraRate.legal());
-            contractRecordService.registerHourlyWage(employee, new Date("2018-11-20"), wageCondition);
+            contractRecordService.registerHourlyWage(employee, Date.from("2018-11-20"), wageCondition);
 
             TimeRecord timeRecord = new TimeRecord(
                     employeeNumber,
@@ -74,7 +74,7 @@ class PayrollQueryCoordinatorTest {
 
         {
             WageCondition wageCondition = new WageCondition(new HourlyWage(2000), OverTimeExtraRate.legal(), NightExtraRate.legal());
-            contractRecordService.registerHourlyWage(employee, new Date("2018-11-25"), wageCondition);
+            contractRecordService.registerHourlyWage(employee, Date.from("2018-11-25"), wageCondition);
 
             Payroll payroll = sut.payroll(employee, new WorkMonth("2018-11"));
             assertEquals("3,700円", payroll.totalPayment().toString());

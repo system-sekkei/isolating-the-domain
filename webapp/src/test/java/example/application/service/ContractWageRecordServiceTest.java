@@ -49,7 +49,7 @@ public class ContractWageRecordServiceTest {
     void 時給が登録できる(EmployeeNumber employeeNumber) {
         Employee employee = employeeQueryService.choose(employeeNumber);
 
-        Date effectiveDate1 = new Date("2018-12-12");
+        Date effectiveDate1 = Date.from("2018-12-12");
         updateHourlyWageContract(employee, effectiveDate1, new HourlyWage(800));
 
         ContractWages history1 = sutQuery.getContractWages(employee);
@@ -63,7 +63,7 @@ public class ContractWageRecordServiceTest {
     void 指定日以降の時給を登録できる(EmployeeNumber employeeNumber) {
         Employee employee = employeeQueryService.choose(employeeNumber);
 
-        Date effectiveDate2 = new Date("2018-12-22");
+        Date effectiveDate2 = Date.from("2018-12-22");
         updateHourlyWageContract(employee, effectiveDate2, new HourlyWage(850));
         ContractWages history2 = sutQuery.getContractWages(employee);
         assertEquals(2, history2.list().size());
@@ -77,7 +77,7 @@ public class ContractWageRecordServiceTest {
     void 指定日以降次の指定があるまでの時給を登録できる(EmployeeNumber employeeNumber) {
         Employee employee = employeeQueryService.choose(employeeNumber);
 
-        Date effectiveDate3 = new Date("2018-12-17");
+        Date effectiveDate3 = Date.from("2018-12-17");
         updateHourlyWageContract(employee, effectiveDate3, new HourlyWage(830));
         ContractWages history3 = sutQuery.getContractWages(employee);
         assertEquals(3, history3.list().size());
@@ -94,7 +94,7 @@ public class ContractWageRecordServiceTest {
     void 同じ指定日の時給を上書きできる(EmployeeNumber employeeNumber) {
         Employee employee = employeeQueryService.choose(employeeNumber);
 
-        Date effectiveDate1 = new Date("2018-12-12");
+        Date effectiveDate1 = Date.from("2018-12-12");
         updateHourlyWageContract(employee, effectiveDate1, new HourlyWage(1000));
 
         ContractWages history = sutQuery.getContractWages(employee);

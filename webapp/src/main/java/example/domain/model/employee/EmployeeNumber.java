@@ -10,8 +10,8 @@ public class EmployeeNumber {
     public EmployeeNumber() {
     }
 
-    public EmployeeNumber(String value) {
-        this.value = Integer.parseInt(value);
+    public static EmployeeNumber from(String value) {
+        return new EmployeeNumber(Integer.parseInt(value));
     }
 
     public EmployeeNumber(Integer value) {

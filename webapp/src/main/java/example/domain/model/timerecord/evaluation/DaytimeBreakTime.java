@@ -14,7 +14,7 @@ public class DaytimeBreakTime {
     }
 
     public DaytimeBreakTime(String value) {
-        this(new Minute(value));
+        this(Minute.from(value));
     }
 
     public DaytimeBreakTime(Minute value) {

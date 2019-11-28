@@ -19,8 +19,8 @@ public class WorkDate {
         value = date;
     }
 
-    public WorkDate(String value) {
-        this(new Date(value));
+    public static WorkDate from(String value) {
+        return new WorkDate(Date.from(value));
     }
 
     public Date value() {

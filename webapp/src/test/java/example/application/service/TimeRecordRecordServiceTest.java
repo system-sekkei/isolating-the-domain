@@ -45,7 +45,7 @@ class TimeRecordRecordServiceTest {
         timeRecordRecordService.registerTimeRecord(registerTimeRecord);
 
         Attendance attendance = attendanceQueryService.findAttendance(employee, new WorkMonth("2000-10"));
-        TimeRecord timeRecord = attendance.at(new WorkDate("2000-10-20"));
+        TimeRecord timeRecord = attendance.at(WorkDate.from("2000-10-20"));
         ActualWorkDateTime actualWorkDateTime = timeRecord.actualWorkDateTime();
 
         assertEquals("14時間30分", actualWorkDateTime.workTime().toString());
@@ -64,7 +64,7 @@ class TimeRecordRecordServiceTest {
                 new TimeRecord(employeeNumber, AttendanceForm.toActualWorkDateTime("2000-10-20", "10:30", "25:00", "60", "30")));
 
         Attendance attendance = attendanceQueryService.findAttendance(employee, new WorkMonth("2000-10"));
-        TimeRecord timeRecord = attendance.at(new WorkDate("2000-10-20"));
+        TimeRecord timeRecord = attendance.at(WorkDate.from("2000-10-20"));
         ActualWorkDateTime actualWorkDateTime = timeRecord.actualWorkDateTime();
 
         assertEquals("13時間0分", actualWorkDateTime.workTime().toString());
