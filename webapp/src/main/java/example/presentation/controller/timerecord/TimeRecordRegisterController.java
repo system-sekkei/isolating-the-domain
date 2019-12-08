@@ -100,10 +100,10 @@ public class TimeRecordRegisterController {
         binder.setAllowedFields(
                 "employeeNumber",
                 "workDate.value",
-                "startHour",
-                "startMinute",
-                "endHour",
-                "endMinute",
+                "startTimeForm.hour.value",
+                "startTimeForm.minute.value",
+                "endTimeForm.hour.value",
+                "endTimeForm.minute.value",
                 "daytimeBreakTime.value.value",
                 "nightBreakTime.value.value"
         );

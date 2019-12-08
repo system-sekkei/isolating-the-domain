@@ -46,24 +46,28 @@
         <div class="two fields">
           <div class="ui right labeled small input field">
             <input class="short-input" type="text" placeholder="9"
-                   th:field="*{startHour}"
+                   th:field="*{startTimeForm.hour.value}"
             />
             <div class="ui basic label">時</div>
           </div>
           <div class="ui right labeled small input field">
             <input class="short-input" type="text" placeholder="30"
-                   th:field="*{startMinute}"
+                   th:field="*{startTimeForm.minute.value}"
             />
             <div class="ui basic label">分</div>
           </div>
         </div>
         <div class="ui pointing red basic label"
-             th:if="${#fields.hasErrors('startHour')}">
-          <span th:errors="*{startHour}">開始時刻を入力してください</span>
+             th:if="${#fields.hasErrors('startTimeForm.valid')}">
+          <span th:errors="*{startTimeForm.valid}">開始時刻が不正です</span>
         </div>
         <div class="ui pointing red basic label"
-             th:if="${#fields.hasErrors('startMinute')}">
-          <span th:errors="*{startMinute}">開始時刻を入力してください</span>
+             th:if="${#fields.hasErrors('startTimeForm.hour.value')}">
+          <span th:errors="*{startTimeForm.hour.value}">開始時刻を入力してください</span>
+        </div>
+        <div class="ui pointing red basic label"
+             th:if="${#fields.hasErrors('startTimeForm.minute.value')}">
+          <span th:errors="*{startTimeForm.minute.value}">開始時刻を入力してください</span>
         </div>
         <div class="ui pointing red basic label"
              th:if="${#fields.hasErrors('overlapWithPreviousWorkRange')}">
@@ -76,25 +80,29 @@
         <div class="two fields">
           <div class="ui right labeled small input field">
             <input class="short-input" type="text" placeholder="12"
-                   th:field="*{endHour}"
+                   th:field="*{endTimeForm.hour.value}"
             />
             <div class="ui basic label">時</div>
           </div>
           <div class="ui right labeled small input field">
             <input class="short-input" type="text" placeholder="30"
-                   th:field="*{endMinute}"
+                   th:field="*{endTimeForm.minute.value}"
             />
             <div class="ui basic label">分</div>
 
           </div>
         </div>
         <div class="ui pointing red basic label"
-             th:if="${#fields.hasErrors('endHour')}">
-          <span th:errors="*{endHour}">終了時刻を入力してください</span>
+             th:if="${#fields.hasErrors('endTimeForm.valid')}">
+          <span th:errors="*{endTimeForm.valid}">終了時刻が不正です</span>
         </div>
         <div class="ui pointing red basic label"
-             th:if="${#fields.hasErrors('endMinute')}">
-          <span th:errors="*{endMinute}">終了時刻を入力してください</span>
+             th:if="${#fields.hasErrors('endTimeForm.hour.value')}">
+          <span th:errors="*{endTimeForm.hour.value}">終了時刻を入力してください</span>
+        </div>
+        <div class="ui pointing red basic label"
+             th:if="${#fields.hasErrors('endTimeForm.minute.value')}">
+          <span th:errors="*{endTimeForm.minute.value}">終了時刻を入力してください</span>
         </div>
         <div class="ui pointing red basic label"
              th:if="${#fields.hasErrors('timeRecord.actualWorkDateTime.workRange.workTimeValid')}">
