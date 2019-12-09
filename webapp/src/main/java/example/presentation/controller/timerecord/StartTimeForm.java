@@ -1,6 +1,6 @@
 package example.presentation.controller.timerecord;
 
-import example.domain.FormatCheck2;
+import example.domain.validation.FormatCheck;
 import example.domain.model.timerecord.evaluation.WorkDate;
 import example.domain.model.timerecord.timefact.StartDateTime;
 import example.domain.type.datetime.DateTime;
@@ -31,7 +31,7 @@ public class StartTimeForm {
 
     boolean valid;
 
-    @AssertTrue(message = "開始時刻が不正です", groups = FormatCheck2.class)
+    @AssertTrue(message = "開始時刻が不正です", groups = FormatCheck.class)
     public boolean isValid() {
         try {
             new Time(hour.toInt(), minute.toInt());

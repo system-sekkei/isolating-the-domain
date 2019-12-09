@@ -1,4 +1,4 @@
-package example.domain;
+package example.domain.validation;
 
 public interface BusinessLogic {
 }

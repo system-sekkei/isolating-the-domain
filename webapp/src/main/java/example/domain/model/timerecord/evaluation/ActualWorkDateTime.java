@@ -1,6 +1,6 @@
 package example.domain.model.timerecord.evaluation;
 
-import example.domain.BusinessLogic;
+import example.domain.validation.BusinessLogic;
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.time.Minute;
 

@@ -1,6 +1,6 @@
 package example.domain.model.timerecord.evaluation;
 
-import example.domain.FormatCheck;
+import example.domain.validation.Required;
 import example.domain.type.date.Date;
 import example.domain.type.date.DayOfWeek;
 import example.domain.type.date.WeekOfMonth;
@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 public class WorkDate {
 
     @Valid
-    @NotNull(message = "勤務日を入力してください", groups = FormatCheck.class)
+    @NotNull(message = "勤務日を入力してください", groups = Required.class)
     Date value;
 
     @Deprecated

@@ -1,6 +1,6 @@
 package example.presentation.controller.timerecord;
 
-import example.domain.FormatCheck2;
+import example.domain.validation.FormatCheck;
 import example.domain.model.timerecord.timefact.EndDateTime;
 import example.domain.model.timerecord.timefact.StartDateTime;
 import example.domain.type.date.Date;
@@ -49,7 +49,7 @@ public class EndTimeForm {
 
     boolean valid;
 
-    @AssertTrue(message = "終了時刻が不正です", groups = FormatCheck2.class)
+    @AssertTrue(message = "終了時刻が不正です", groups = FormatCheck.class)
     public boolean isValid() {
         try {
             // とりあえず、数値かどうかだけチェック

@@ -1,6 +1,6 @@
 package example.presentation.controller.timerecord;
 
-import example.domain.Conversion;
+import example.domain.validation.Conversion;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.*;
 import example.domain.model.timerecord.timefact.EndDateTime;
@@ -31,7 +31,7 @@ public class AttendanceForm {
     NightBreakTime nightBreakTime;
 
     @Valid
-    TimeRecord timeRecord; // バリデーションをうごかすための存在
+    TimeRecord timeRecord;
 
     boolean overlapWithPreviousWorkRange;
     boolean overlapWithNextWorkRange;

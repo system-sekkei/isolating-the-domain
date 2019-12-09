@@ -4,10 +4,10 @@ import example.application.coordinator.timerecord.TimeRecordCoordinator;
 import example.application.coordinator.timerecord.TimeRecordQueryCoordinator;
 import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordRecordService;
-import example.domain.BusinessLogic;
-import example.domain.Conversion;
-import example.domain.FormatCheck;
-import example.domain.FormatCheck2;
+import example.domain.validation.BusinessLogic;
+import example.domain.validation.Conversion;
+import example.domain.validation.Required;
+import example.domain.validation.FormatCheck;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.EmployeeNumber;
@@ -31,7 +31,7 @@ import java.time.LocalDate;
 @RequestMapping("timerecord")
 public class TimeRecordRegisterController {
 
-    @GroupSequence({FormatCheck.class, FormatCheck2.class, Conversion.class, BusinessLogic.class})
+    @GroupSequence({Required.class, FormatCheck.class, Conversion.class, BusinessLogic.class})
     public interface GroupOrder {}
 
     EmployeeQueryService employeeQueryService;

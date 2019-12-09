@@ -1,6 +1,6 @@
 package example.domain.model.timerecord.timefact;
 
-import example.domain.BusinessLogic;
+import example.domain.validation.BusinessLogic;
 import example.domain.type.datetime.QuarterRoundDateTime;
 import example.domain.type.time.Minute;
 import example.domain.type.time.QuarterHour;

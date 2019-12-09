@@ -1,11 +1,11 @@
 package example.presentation.controller.timerecord;
 
-import example.domain.FormatCheck;
+import example.domain.validation.Required;
 
 import javax.validation.constraints.NotBlank;
 
 public class StartHour {
-    @NotBlank(message = "開始時刻を入力してください", groups = FormatCheck.class)
+    @NotBlank(message = "開始時刻を入力してください", groups = Required.class)
     String value;
 
     public StartHour() {

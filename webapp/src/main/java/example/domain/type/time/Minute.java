@@ -1,6 +1,6 @@
 package example.domain.type.time;
 
-import example.domain.FormatCheck;
+import example.domain.validation.FormatCheck;
 
 import javax.validation.constraints.Min;
 import java.math.BigDecimal;
