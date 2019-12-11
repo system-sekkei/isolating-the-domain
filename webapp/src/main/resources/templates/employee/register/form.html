@@ -5,48 +5,46 @@
   <title>従業員情報の新規登録</title>
 </head>
 <body>
-<div th:replace="fragments/menuHead::menuHead('')">
-</div>
-<div class="ui container">
-  <div class="pageHeader">
-    <h1 class="ui center aligned header">従業員情報の新規登録</h1>
+<div th:replace="fragments/menuHead::menuHead('')"></div>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">
+        従業員情報の新規登録
+      </h1>
+    </div>
   </div>
+</section>
 
-  <div class="employeeInput">
-    <form id="custom-form" class="ui form" name="body"
-          method="post" action="#"
-          th:object="${employeeToRegister}"
-          th:action="@{/employees/register/confirm}">
+<div class="container">
+  <form id="custom-form" class="form" name="body"
+        method="post" action="#"
+        th:object="${employeeToRegister}"
+        th:action="@{/employees/register/confirm}">
 
-      <div class="ui basic segment">
-        <div class="field"
-             th:replace="fragments/input::macro('name.value','名前','名前')">
-          <label>氏名</label>
-          <input type="text">
-        </div>
+    <div class="employeeInput has-text-centered">
 
-        <div class="field"
-             th:replace="fragments/input::macro('mailAddress.value','メールアドレス','someone@example.com')">
-          <label>メールアドレス</label>
-          <input type="text">
-        </div>
-
-        <div class="field"
-             th:replace="fragments/input::macro('phoneNumber.value','電話番号','03-1234-5678')">
-          <label>電話番号</label>
-          <input type="text">
-        </div>
+      <div th:replace="fragments/input::macro('name.value','名前','名前')">
+        <label>氏名</label>
       </div>
 
-      <div class="ui center aligned basic segment">
-        <a class="ui grey button"
+      <div th:replace="fragments/input::macro('mailAddress.value','メールアドレス','someone@example.com')">
+        <label>メールアドレス</label>
+      </div>
+
+      <div th:replace="fragments/input::macro('phoneNumber.value','電話番号','03-1234-5678')">
+        <label>電話番号</label>
+      </div>
+
+      <div class="pageFooter has-text-centered">
+        <a class="button is-light"
            th:href="@{/employees}">一覧に戻る</a>
-        <button class="ui positive button">確認</button>
+        <button class="button is-primary is-outlined">確認</button>
       </div>
-    </form>
 
-  </div>
+    </div>
+  </form>
 </div>
-
 </body>
 </html>

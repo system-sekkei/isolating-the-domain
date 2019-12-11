@@ -5,46 +5,55 @@
   <title>従業員の一覧</title>
 </head>
 <body>
-<div th:replace="fragments/menuHead::menuHead('従業員')">
-</div>
+<div th:replace="fragments/menuHead::menuHead('従業員')"></div>
 
-<div class="ui container">
-  <div class="pageHeader">
-    <h1 class="ui center aligned header">従業員の一覧</h1>
-  </div>
-  
-  <div class="ui center aligned basic segment">
-    <a class="ui labeled icon primary button"
-       th:href="@{/employees/register}">
-      <i class="user plus icon"></i>従業員の新規登録</a>
-  </div>
-  
-  <div class="employeeList">
-    <div class="ui basic segment">
-      <table class="ui striped celled table">
-       <thead>
-          <tr class="center aligned">
-            <th class="tableEmployeeNumber">従業員番号</th>
-            <th class="tableEmployeeName">氏名</th>
-            <th>現在の時給</th>
-            <th>開始日</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="contract : ${contracts.list()}">
-            <td class="right aligned"
-                th:text="${contract.employeeNumber()}">123</td>
-            <td class="selectable linkCell">
-              <a th:href="@{/employees/{employeeNumber}(employeeNumber=${contract.employeeNumber()})}"><span th:text="${contract.employeeName()}"></span></a>
-            </td>
-            <td th:text="${contract.todayHourlyWage()}">1,234円</td>
-            <td th:text="${contract.contractStartingDate()}">2001-01-02</td>
-          </tr>
-        </tbody>
-      </table>
+<section class="hero">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">
+        従業員の一覧
+      </h1>
     </div>
   </div>
-</div>
+</section>
 
+<div class="container">
+  <div class="has-text-centered">
+    <a class="button is-primary is-outlined"
+       th:href="@{/employees/register}">
+      <span class="icon is-medium"><i class="fas fa-user-plus"></i></span>
+      <span>従業員の新規登録</span>
+    </a>
+  </div>
+
+  <hr />
+
+  <div class="employeeList">
+    <table class="table is-bordered is-fullwidth">
+      <thead>
+        <tr>
+          <th class="tableEmployeeNumber has-background-white-ter has-text-centered">従業員番号</th>
+          <th class="tableEmployeeName has-background-white-ter has-text-centered">氏名</th>
+          <th class="has-background-white-ter has-text-centered">現在の時給</th>
+          <th class="has-background-white-ter has-text-centered">開始日</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr th:each="contract : ${contracts.list()}">
+          <td class="has-text-right"
+              th:text="${contract.employeeNumber()}">123</td>
+          <td class="linkCell">
+            <a th:href="@{/employees/{employeeNumber}(employeeNumber=${contract.employeeNumber()})}">
+              <span th:text="${contract.employeeName()}"></span>
+            </a>
+          </td>
+          <td class="has-text-right" th:text="${contract.todayHourlyWage()}">1,234円</td>
+          <td th:text="${contract.contractStartingDate()}">2001-01-02</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 </body>
 </html>

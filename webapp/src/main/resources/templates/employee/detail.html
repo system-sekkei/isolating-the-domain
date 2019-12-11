@@ -5,95 +5,109 @@
   <title>詳細</title>
 </head>
 <body>
-<div th:replace="fragments/menuHead::menuHead('')">
-</div>
-<div class="ui container">
-  <div class="pageHeader">
-    <h1 class="ui center aligned header">詳細</h1>
-  </div>
+<div th:replace="fragments/menuHead::menuHead('')"></div>
 
-  <div class="ui center aligned basic segment">
-    <a class="ui labeled icon primary button"
+<section class="hero">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">
+        詳細
+      </h1>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="has-text-centered">
+    <a class="button is-primary is-outlined"
        th:href="@{/wages/{employeeNumber}(employeeNumber=${employee.employeeNumber()})}">
-      <i class="calculator icon"></i>時給の履歴
+      <span class="icon is-medium"><i class="fas fa-calculator"></i></span>
+      <span>時給の履歴</span>
     </a>
   </div>
 
   <div class="employeeDetail">
-    <table class="ui celled definition table">
+    <table class="table is-bordered is-fullwidth">
       <tr>
-        <td class="six wide center aligned tableHeader">従業員番号</td>
-        <td class="ten wide"
-            th:text="${employee.employeeNumber()}">1</td>
+        <td class="has-text-centered tableHeader">従業員番号</td>
+        <td th:text="${employee.employeeNumber()}">1</td>
       </tr>
       <tr>
-        <td class="six wide center aligned tableHeader">氏名</td>
-        <td class="ten wide"
-            th:text="${employee.name()}">山田 太郎</td>
+        <td class="has-text-centered tableHeader">氏名</td>
+        <td th:text="${employee.name()}">山田 太郎</td>
       </tr>
       <tr>
-        <td class="six wide center aligned tableHeader">メールアドレス</td>
-        <td class="ten wide"
-            th:text="${employee.mailAddress()}">someone@example.com</td>
+        <td class="has-text-centered tableHeader">メールアドレス</td>
+        <td th:text="${employee.mailAddress()}">someone@example.com</td>
       </tr>
       <tr>
-        <td class="six wide center aligned tableHeader">電話番号</td>
-        <td class="ten wide"
-            th:text="${employee.phoneNumber()}">0120-888-888</td>
+        <td class="has-text-centered tableHeader">電話番号</td>
+        <td th:text="${employee.phoneNumber()}">0120-888-888</td>
       </tr>
     </table>
   </div>
 
-  <div class="ui center aligned basic segment">
-    <a class="ui grey button" th:href="@{/employees}">一覧に戻る</a>
-    <a class="ui positive button"
+  <div class="pageFooter has-text-centered">
+    <a class="button is-light" th:href="@{/employees}">一覧に戻る</a>
+    <a class="button is-info is-outlined"
        th:href="@{/employees/{employeeNumber}/update(employeeNumber=${employee.employeeNumber()})}">
       変更
     </a>
-    <button id="deleteConfirmButton" class="ui negative button">
-      削除
-    </button>
+    <button id="deleteConfirmButton" class="button is-danger is-outlined">削除</button>
   </div>
 </div>
 
 <!-- 削除の確認 -->
-<div id="deleteConfirmModal" class="ui tiny modal">
-  <h3 class="caution"><strong th:text="${employee.name()}">従業員さん</strong>を削除しますか？</h3>
-  <div class="actions">
-    <div class="ui grey deny button">
-      キャンセル
+<div id="deleteConfirmModal" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content box">
+    <h3 class="caution"><strong th:text="${employee.name()}">従業員さん</strong>を削除しますか？</h3>
+    <div class="actions has-text-centered">
+      <button id="close" class="button is-light">キャンセル</button>
+      <a id="deleteButton" class="button is-danger"
+         th:href="@{/employees/{employeeNumber}/delete(employeeNumber=${employee.employeeNumber()})}">
+        削除
+      </a>
     </div>
-    <a id="deleteButton" class="ui negative button"
-       th:href="@{/employees/{employeeNumber}/delete(employeeNumber=${employee.employeeNumber()})}">
-      削除
-    </a>
   </div>
 </div>
+
 <script>
     $('#deleteConfirmButton').click(function () {
-        $('#deleteConfirmModal').modal('show');
+        $('#deleteConfirmModal').addClass('is-active');
+        }
+    )
+
+    $("#close, div.modal-background").click(function() {
+        $("#deleteConfirmModal").removeClass("is-active");
         }
     );
 </script>
 
 <!-- 変更の完了 -->
-<div id="updateCompletedModal" class="ui tiny modal">
-  <h3 class="complete">従業員情報を変更しました。</h3>
-  <div class="actions">
-    <div class="ui positive deny button">
-      ＯＫ
+<div id="updateCompletedModal" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-content box">
+    <h3 class="complete">従業員情報を変更しました。</h3>
+    <div class="actions has-text-centered">
+      <button id="close" class="button is-info is-outlined">ＯＫ</button>
     </div>
   </div>
 </div>
+
 <script th:inline="javascript">
     /*<![CDATA[*/
     var updateResult = /*[[${updateResult}]]*/ '';
     $(function(){
         if(updateResult === 'completed'){
-            $('#updateCompletedModal').modal('show');
+            $('#updateCompletedModal').addClass('is-active');
         }
     });
     /*]]>*/
+    $("#close, div.modal-background").click(function() {
+        $("#updateCompletedModal").removeClass("is-active");
+        }
+    );
 </script>
 </body>
 </html>

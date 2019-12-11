@@ -5,55 +5,66 @@
   <title>時給の履歴</title>
 </head>
 <body>
-<div th:replace="fragments/menuHead::menuHead('')">
-</div>
+<div th:replace="fragments/menuHead::menuHead('')"></div>
 
-<div class="ui container">
-  <div class="pageHeader">
-    <h1 class="ui center aligned header">時給の履歴</h1>
+<section class="hero">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">
+        時給の履歴
+      </h1>
+    </div>
   </div>
+</section>
 
+<div class="container">
   <div class="wageInfo">
-    <table class="ui celled definition table">
+    <table class="table is-bordered is-fullwidth">
       <tr>
-        <td class="six wide center aligned tableHeader">従業員番号</td>
-        <td class="ten wide"
-            th:text="${employee.employeeNumber()}">1</td>
+        <td class="tableHeader has-text-centered">従業員番号</td>
+        <td th:text="${employee.employeeNumber()}">1</td>
       </tr>
       <tr>
-        <td class="six wide center aligned tableHeader">氏名</td>
-        <td class="ten wide" th:text="${employee.name()}">テスト太郎</td>
+        <td class="tableHeader has-text-centered">氏名</td>
+        <td th:text="${employee.name()}">テスト太郎</td>
       </tr>
     </table>
   </div>
 
-  <div class="ui section divider"></div>
+  <hr />
 
   <div class="wageList">
-    <div class="ui center aligned basic segment">
-      <a class="ui labeled icon primary button"
+
+    <div class="has-text-centered">
+      <a class="button is-primary is-outlined"
          th:href="@{/wages/{employeeNumber}/register(employeeNumber=${employee.employeeNumber()})}">
-      <i class="calculator icon"></i>時給の登録</a>
+      <span class="icon is-medium"><i class="fas fa-coins"></i></span>
+      <span>時給の登録</span>
+      </a>
     </div>
 
-    <table class="ui celled table">
-      <thead>
-      <tr class="center aligned">
-        <th class="eight wide">開始日付</th>
-        <th class="eight wide">時給</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="contractWage : ${contractWages.list()}">
-        <td th:text="${contractWage.effectiveDate()}">2018/12/01</td>
-        <td class="right aligned" th:text="${contractWage.hourlyWage()}">937</td>
-      </tr>
-      </tbody>
-    </table>
+    <section class="section">
+      <table class="table is-bordered is-fullwidth">
+        <thead>
+          <tr>
+            <th class="tableHeader has-text-centered">開始日付</th>
+            <th class="tableHeader has-text-centered">時給</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr th:each="contractWage : ${contractWages.list()}">
+          <td th:text="${contractWage.effectiveDate()}">2018/12/01</td>
+          <td class="has-text-right" th:text="${contractWage.hourlyWage()}">937</td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
 
-    <div class="ui center aligned basic segment">
-      <a class="ui grey button"
-         th:href="@{/employees/{employeeNumber}(employeeNumber=${employee.employeeNumber()})}">詳細に戻る</a>
+    <div class="pageFooter has-text-centered">
+      <div class="has-text-centered">
+        <a class="button is-light"
+           th:href="@{/employees/{employeeNumber}(employeeNumber=${employee.employeeNumber()})}">詳細に戻る</a>
+      </div>
     </div>
   </div>
 </div>

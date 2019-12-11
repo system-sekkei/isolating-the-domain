@@ -5,47 +5,47 @@
   <title>ダッシュボード</title>
 </head>
 <body>
-<div th:replace="fragments/menuHead::menuHead('ダッシュボード')">
-</div>
-<div class="ui container">
-  <div class="pageHeader">
-    <h1 class="ui center aligned header">ダッシュボード</h1>
+<div th:replace="fragments/menuHead::menuHead('ダッシュボード')"></div>
+<section class="hero">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">
+        ダッシュボード
+      </h1>
+    </div>
   </div>
+</section>
 
-  <div class="ui centerd three column grid">
+<div class="container">
+  <div class="columns">
+
     <div class="column">
-      <a th:href="@{/timerecord}">
-        <div class="ui header aligned segment icon">
-          <div class="dashboardIcon">
-            <i class="clock outline icon"></i>
-            <div class="content">勤務時間の入力</div>
-          </div>
-        </div>
-      </a>
-
+      <div class="box button dashboardLink">
+        <a th:href="@{/timerecord}">
+          <i class="far fa-clock dashboardIcon"></i>
+          <span class="title is-5">勤務時間の入力</span>
+        </a>
+      </div>    
     </div>
 
     <div class="column">
-      <a th:href="@{/payroll}">
-        <div class="ui header aligned segment icon">
-          <div class="dashboardIcon">
-            <i class="yen sign icon"></i>
-            <span class="content">給与の一覧</span>
-          </div>
-        </div>
-      </a>
+      <div class="box button dashboardLink">
+        <a th:href="@{/payroll}">
+          <i class="fas fa-yen-sign dashboardIcon"></i>            
+          <span class="title is-5">給与の一覧</span>
+        </a>
+      </div>
     </div>
 
     <div class="column">
-      <a th:href="@{/employees}">
-        <div class="ui header aligned segment icon">
-          <div class="dashboardIcon">
-            <i class="user icon"></i>
-            <div class="content">従業員の一覧</div>
-          </div>
-        </div>
-      </a>
+      <div class="box button dashboardLink">
+        <a th:href="@{/employees}">
+          <i class="fas fa-user dashboardIcon"></i>
+          <span class="title is-5">従業員の一覧</span>
+        </a>
+      </div>
     </div>
+
   </div>
 </div>
 

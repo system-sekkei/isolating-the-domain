@@ -5,81 +5,90 @@
   <title>給与の一覧</title>
 </head>
 <body>
-<div th:replace="fragments/menuHead::menuHead('給与')">
-</div>
-<div class="ui container">
-  <div class="pageHeader">
-    <h1 class="ui center aligned header">給与の一覧</h1>
-  </div>
+<div th:replace="fragments/menuHead::menuHead('給与')"></div>
 
-  <div class="ui section divider"></div>
+<section class="hero">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">
+        給与の一覧
+      </h1>
+    </div>
+  </div>
+</section>
+
+<div class="container"><hr />
 
   <div class="payrollList">
-    <div class="ui centered three column grid">
-      <div class="left aligned column">
+    <div class="columns">
+      <div class="column">
         <a href=""
            th:href="@{/payroll/{beforeMonth}(beforeMonth=${payrolls.workMonth().before()})}">
-          <i class="angle double left link large icon"></i>前の月
+          <span><i class="fas fa-angle-double-left"></i></span>
+          <span>前の月</span>
         </a>
       </div>
-      <div class="column">
-        <h2 class="ui center aligned header" th:text="${payrolls.workMonth().toStringWithUnit()}">11月</h2>
+      <div class="column has-text-centered">
+        <h3 class="title is-3" 
+            th:text="${payrolls.workMonth().toStringWithUnit()}">11月</h3>
       </div>
-      <div class="right aligned column">
+      <div class="column has-text-right">
         <a href=""
            th:href="@{/payroll/{afterMonth}(afterMonth=${payrolls.workMonth().after()})}">
-          次の月<i class="angle double right link large icon"></i>
+          <span>次の月</span>
+          <span><i class="fas fa-angle-double-right"></i></span>
         </a>
       </div>
     </div>
 
-    <div class="ui basic segment">
-      <table class="ui striped celled table">
-        <thead>
-        <tr class="center aligned">
-          <th class="tableEmployeeNumber">従業員番号</th>
-          <th class="tableEmployeeName">氏名</th>
-          <th class="three wide">支払額</th>
-          <th>備考</th>
-          <th class="three wide"></th>
+
+    <table class="table is-bordered is-fullwidth">
+      <thead>
+        <tr class="has-text-centered">
+          <th class="tableEmployeeNumber has-background-white-ter has-text-centered">従業員番号</th>
+          <th class="tableEmployeeName has-background-white-ter has-text-centered">氏名</th>
+          <th class="has-background-white-ter has-text-centered is-3">支払額</th>
+          <th class="has-background-white-ter has-text-centered">備考</th>
+          <th class="has-background-white-ter is-3"></th>
         </tr>
-        </thead>
-        <tbody>
+      </thead>
+
+      <tbody>
         <th:block th:each="payroll : ${payrolls.list()}">
           <tr th:if="${payroll.payrollStatus().available()}">
-            <td class="right aligned"
+            <td class="has-text-right"
                 th:text="${payroll.employeeNumber()}"/>
             <td th:text="${payroll.employeeName()}"/>
-            <td class="right aligned"
+            <td class="has-text-right"
                 th:text="${payroll.totalPayment()}"/>
             <td></td>
-            <td class="ui center aligned">
-              <a class="ui tiny primary basic button"
+            <td class="has-text-centered">
+              <a class="button is-primary is-outlined"
                  th:href="@{/attendances/{employeeNumber}/{workMonth}(employeeNumber=${payroll.employeeNumber()},workMonth=${payrolls.workMonth()})}">
-                <i class="calendar alternate outline icon"></i>勤務時間の一覧
+                <span class="icon is-medium"><i class="far fa-calendar-alt"></i></span>
+                <span>勤務時間の一覧</span>
               </a>
             </td>
           </tr>
           <tr th:unless="${payroll.payrollStatus().available()}">
-            <td class="right aligned"
+            <td class="has-text-right"
                 th:text="${payroll.employeeNumber()}"/>
             <td th:text="${payroll.employeeName()}"/>
             <td></td>
             <td th:utext="#{${payroll.payrollStatus().messageKey()}}"></td>
-            <td class="ui center aligned">
-              <a class="ui tiny primary basic button"
+            <td class="has-text-centered">
+              <a class="button is-primary is-outlined"
                  th:href="@{/attendances/{employeeNumber}/{workMonth}(employeeNumber=${payroll.employeeNumber()},workMonth=${payrolls.workMonth()})}">
-                <i class="calendar alternate outline icon"></i>勤務時間の一覧
+                <span class="icon is-medium"><i class="far fa-calendar-alt"></i></span>
+                <span>勤務時間の一覧</span>
               </a>
             </td>
           </tr>
         </th:block>
-        </tbody>
-      </table>
-    </div>
+      </tbody>
+    </table>
 
   </div>
 </div>
-
 </body>
 </html>

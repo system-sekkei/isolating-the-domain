@@ -5,25 +5,33 @@
     <title>入力フィールドの部品</title>
 </head>
 <body>
-<div id="menuHead" th:fragment="menuHead(active)">
-    <div class="ui top fixed inverted stackable teal menu">
-        <a class="item" th:classappend="${active.equals('ダッシュボード')} ? 'active' : ''"
+<section class="hero is-primary" th:fragment="menuHead(active)">
+  <div class="hero-head">
+    <nav class="navbar">
+      <div class="navbar-menu is-flex">
+        <a class="navbar-item" th:classappend="${active.equals('ダッシュボード')} ? 'is-active' : ''"
            th:href="@{/}">
-            <i class="tachometer alternate icon"></i>ダッシュボード
+          <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
+          <span>ダッシュボード</span>
         </a>
-        <a class="item" th:classappend="${active.equals('勤務時間入力')} ? 'active' : ''"
+        <a class="navbar-item" th:classappend="${active.equals('勤務時間入力')} ? 'is-active' : ''"
            th:href="@{/timerecord}">
-            <i class="clock outline icon"></i>勤務時間の入力
+          <span class="icon"><i class="far fa-clock"></i></span>
+          <span>勤務時間の入力</span>
         </a>
-        <a class="item" th:classappend="${active.equals('給与')} ? 'active' : ''"
+        <a class="navbar-item" th:classappend="${active.equals('給与')} ? 'is-active' : ''"
            th:href="@{/payroll}">
-            <i class="yen sign icon"></i>給与の一覧
+          <span class="icon"><i class="fas fa-yen-sign"></i></span>
+          <span>給与の一覧</span>
         </a>
-        <a class="item" th:classappend="${active.equals('従業員')} ? 'active' : ''"
+        <a class="navbar-item" th:classappend="${active.equals('従業員')} ? 'is-active' : ''"
            th:href="@{/employees}">
-            <i class="user icon"></i>従業員の一覧
+          <span class="icon"><i class="fas fa-user"></i></span>
+          <span>従業員の一覧</span>
         </a>
-    </div>
-</div>
+      </div>
+    </nav>
+  </div>
+</section>
 </body>
 </html>
