@@ -1,7 +1,6 @@
 package example.application.service;
 
 import example.application.coordinator.timerecord.TimeRecordCoordinator;
-import example.domain.model.timerecord.evaluation.TimeRecordValidError;
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordRecordService;
@@ -11,8 +10,8 @@ import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
 import example.domain.model.timerecord.evaluation.TimeRecord;
+import example.domain.model.timerecord.evaluation.TimeRecordValidError;
 import example.domain.model.timerecord.evaluation.WorkDate;
-import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,7 +40,7 @@ class TimeRecordRecordServiceTest {
         EmployeeNumber employeeNumber = new EmployeeNumber(1);
         Employee employee = employeeQueryService.choose(employeeNumber);
 
-        TimeRecord registerTimeRecord = new TimeRecord(employeeNumber, AttendanceForm.toActualWorkDateTime("2000-10-20", "9:00", "25:00", "60", "30"));
+        TimeRecord registerTimeRecord = new TimeRecord(employeeNumber, ActualWorkDateTime.toActualWorkDateTime("2000-10-20", "9:00", "25:00", "60", "30"));
         timeRecordRecordService.registerTimeRecord(registerTimeRecord);
 
         Attendance attendance = attendanceQueryService.findAttendance(employee, new WorkMonth("2000-10"));
@@ -59,9 +58,9 @@ class TimeRecordRecordServiceTest {
         Employee employee = employeeQueryService.choose(employeeNumber);
 
         timeRecordRecordService.registerTimeRecord(
-                new TimeRecord(employeeNumber, AttendanceForm.toActualWorkDateTime("2000-10-20", "8:30", "25:00", "60", "30")));
+                new TimeRecord(employeeNumber, ActualWorkDateTime.toActualWorkDateTime("2000-10-20", "8:30", "25:00", "60", "30")));
         timeRecordRecordService.registerTimeRecord(
-                new TimeRecord(employeeNumber, AttendanceForm.toActualWorkDateTime("2000-10-20", "10:30", "25:00", "60", "30")));
+                new TimeRecord(employeeNumber, ActualWorkDateTime.toActualWorkDateTime("2000-10-20", "10:30", "25:00", "60", "30")));
 
         Attendance attendance = attendanceQueryService.findAttendance(employee, new WorkMonth("2000-10"));
         TimeRecord timeRecord = attendance.at(WorkDate.from("2000-10-20"));
@@ -75,9 +74,9 @@ class TimeRecordRecordServiceTest {
         EmployeeNumber employeeNumber = new EmployeeNumber(1);
 
         timeRecordRecordService.registerTimeRecord(
-                new TimeRecord(employeeNumber, AttendanceForm.toActualWorkDateTime("2000-10-19", "8:30", "33:00", "60", "30")));
+                new TimeRecord(employeeNumber, ActualWorkDateTime.toActualWorkDateTime("2000-10-19", "8:30", "33:00", "60", "30")));
 
-        TimeRecord timeRecord = new TimeRecord(employeeNumber, AttendanceForm.toActualWorkDateTime("2000-10-20", "8:59", "25:00", "60", "30"));
+        TimeRecord timeRecord = new TimeRecord(employeeNumber, ActualWorkDateTime.toActualWorkDateTime("2000-10-20", "8:59", "25:00", "60", "30"));
 
         assertEquals(TimeRecordValidError.前日の勤務時刻と重複, timeRecordCoordinator.isValid(timeRecord).errors().get(0));
     }
@@ -87,9 +86,9 @@ class TimeRecordRecordServiceTest {
         EmployeeNumber employeeNumber = new EmployeeNumber(1);
 
         timeRecordRecordService.registerTimeRecord(
-                new TimeRecord(employeeNumber, AttendanceForm.toActualWorkDateTime("2000-10-21", "8:30", "18:00", "60", "30")));
+                new TimeRecord(employeeNumber, ActualWorkDateTime.toActualWorkDateTime("2000-10-21", "8:30", "18:00", "60", "30")));
 
-        TimeRecord timeRecord = new TimeRecord(employeeNumber, AttendanceForm.toActualWorkDateTime("2000-10-20", "8:00", "33:00", "60", "30"));
+        TimeRecord timeRecord = new TimeRecord(employeeNumber, ActualWorkDateTime.toActualWorkDateTime("2000-10-20", "8:00", "33:00", "60", "30"));
 
         assertEquals(TimeRecordValidError.翌日の勤務時刻と重複, timeRecordCoordinator.isValid(timeRecord).errors().get(0));
     }

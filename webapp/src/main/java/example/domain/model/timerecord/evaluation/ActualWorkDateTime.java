@@ -1,8 +1,12 @@
 package example.domain.model.timerecord.evaluation;
 
+import example.domain.model.timerecord.timefact.EndDateTime;
+import example.domain.model.timerecord.timefact.StartDateTime;
+import example.domain.type.datetime.DateTime;
 import example.domain.validation.BusinessLogic;
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.time.Minute;
+import example.presentation.controller.timerecord.EndTimeForm;
 
 import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
@@ -29,6 +33,12 @@ public class ActualWorkDateTime {
         this.workRange = workRange;
         this.daytimeBreakTime = daytimeBreakTime;
         this.nightBreakTime = nightBreakTime;
+    }
+
+    public static ActualWorkDateTime toActualWorkDateTime(String startDate, String startTime, String endTime, String daytimeBreak, String nightBreak) {
+        StartDateTime startDateTime = new StartDateTime(DateTime.parse(startDate, startTime));
+        EndDateTime endDateTime = EndTimeForm.from(endTime).endDateTime(startDateTime);
+        return new ActualWorkDateTime(new WorkRange(startDateTime, endDateTime), DaytimeBreakTime.from(daytimeBreak), NightBreakTime.from(nightBreak));
     }
 
     public WorkRange workRange() {

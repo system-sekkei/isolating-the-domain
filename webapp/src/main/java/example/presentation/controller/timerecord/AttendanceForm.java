@@ -63,21 +63,6 @@ public class AttendanceForm {
         return timeRecord.actualWorkDateTime();
     }
 
-    private static ActualWorkDateTime toActualWorkDateTime(StartDateTime startDateTime, EndDateTime endDateTime, DaytimeBreakTime daytimeBreakTime, NightBreakTime nightBreakTime) {
-        return new ActualWorkDateTime(
-                new WorkRange(startDateTime, endDateTime),
-                daytimeBreakTime,
-                nightBreakTime);
-    }
-
-    // テストへの流出がキツイので一旦ここに集める。最終domainに持っていきたい。
-    @Deprecated
-    public static ActualWorkDateTime toActualWorkDateTime(String startDate, String startTime, String endTime, String daytimeBreak, String nightBreak) {
-        StartDateTime startDateTime = new StartDateTime(DateTime.parse(startDate, startTime));
-        EndDateTime endDateTime = EndTimeForm.from(endTime).endDateTime(startDateTime);
-        return toActualWorkDateTime(startDateTime, endDateTime, DaytimeBreakTime.from(daytimeBreak), NightBreakTime.from(nightBreak));
-    }
-
     public void apply(TimeRecord timeRecord) {
         this.employeeNumber = timeRecord.employeeNumber();
         this.workDate = timeRecord.workDate();
