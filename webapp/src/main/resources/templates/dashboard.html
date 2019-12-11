@@ -5,18 +5,7 @@
   <title>ダッシュボード</title>
 </head>
 <body>
-<header class="hero is-primary">
-  <div class="hero-head">
-    <div th:replace="fragments/menuHead::menuHead('ダッシュボード')"></div>
-  </div>
-  <div class="hero-body has-background-white">
-    <div class="container has-text-centered">
-      <h1 class="title has-text-black">
-        ダッシュボード
-      </h1>
-    </div>
-  </div>
-</header>
+<header th:replace="fragments/header::header('ダッシュボード', 'ダッシュボード')"></header>
 
 <main class="container">
   <div class="columns">

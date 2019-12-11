@@ -5,17 +5,7 @@
   <title>従業員の一覧</title>
 </head>
 <body>
-<div th:replace="fragments/menuHead::menuHead('従業員')"></div>
-
-<header class="hero">
-  <div class="hero-body">
-    <div class="container has-text-centered">
-      <h1 class="title">
-        従業員の一覧
-      </h1>
-    </div>
-  </div>
-</header>
+<header th:replace="fragments/header::header('従業員の一覧', '従業員')"></header>
 
 <main class="container">
   <div class="has-text-centered">

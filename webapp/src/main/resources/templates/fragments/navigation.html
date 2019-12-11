@@ -2,10 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>入力フィールドの部品</title>
+    <title>ナビゲーションバー</title>
 </head>
 <body>
-<nav class="navbar" th:fragment="menuHead(active)">
+<nav class="navbar" th:fragment="navigation(active)">
   <div class="navbar-menu is-flex">
     <a class="navbar-item" th:classappend="${active.equals('ダッシュボード')} ? 'is-active' : ''"
        th:href="@{/}">

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ナビゲーションバー</title>
+</head>
+<body>
+<header class="hero is-primary" th:fragment="header(title, active)">
+  <div class="hero-head">
+    <div th:replace="fragments/navigation::navigation(${active})"></div>
+  </div>
+  <div class="hero-body has-background-white">
+    <div class="container has-text-centered">
+      <h1 class="title has-text-black" th:text="${title}">
+      </h1>
+    </div>
+  </div>
+</header>
+</body>
+</html>
