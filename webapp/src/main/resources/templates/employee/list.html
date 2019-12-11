@@ -7,7 +7,7 @@
 <body>
 <div th:replace="fragments/menuHead::menuHead('従業員')"></div>
 
-<section class="hero">
+<header class="hero">
   <div class="hero-body">
     <div class="container has-text-centered">
       <h1 class="title">
@@ -15,9 +15,9 @@
       </h1>
     </div>
   </div>
-</section>
+</header>
 
-<div class="container">
+<main class="container">
   <div class="has-text-centered">
     <a class="button is-primary is-outlined"
        th:href="@{/employees/register}">
@@ -54,6 +54,6 @@
       </tbody>
     </table>
   </div>
-</div>
+</main>
 </body>
 </html>

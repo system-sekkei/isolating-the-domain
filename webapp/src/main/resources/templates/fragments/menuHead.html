@@ -5,33 +5,29 @@
     <title>入力フィールドの部品</title>
 </head>
 <body>
-<section class="hero is-primary" th:fragment="menuHead(active)">
-  <div class="hero-head">
-    <nav class="navbar">
-      <div class="navbar-menu is-flex">
-        <a class="navbar-item" th:classappend="${active.equals('ダッシュボード')} ? 'is-active' : ''"
-           th:href="@{/}">
-          <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
-          <span>ダッシュボード</span>
-        </a>
-        <a class="navbar-item" th:classappend="${active.equals('勤務時間入力')} ? 'is-active' : ''"
-           th:href="@{/timerecord}">
-          <span class="icon"><i class="far fa-clock"></i></span>
-          <span>勤務時間の入力</span>
-        </a>
-        <a class="navbar-item" th:classappend="${active.equals('給与')} ? 'is-active' : ''"
-           th:href="@{/payroll}">
-          <span class="icon"><i class="fas fa-yen-sign"></i></span>
-          <span>給与の一覧</span>
-        </a>
-        <a class="navbar-item" th:classappend="${active.equals('従業員')} ? 'is-active' : ''"
-           th:href="@{/employees}">
-          <span class="icon"><i class="fas fa-user"></i></span>
-          <span>従業員の一覧</span>
-        </a>
-      </div>
-    </nav>
+<nav class="navbar" th:fragment="menuHead(active)">
+  <div class="navbar-menu is-flex">
+    <a class="navbar-item" th:classappend="${active.equals('ダッシュボード')} ? 'is-active' : ''"
+       th:href="@{/}">
+      <span class="icon"><i class="fas fa-tachometer-alt"></i></span>
+      <span>ダッシュボード</span>
+    </a>
+    <a class="navbar-item" th:classappend="${active.equals('勤務時間入力')} ? 'is-active' : ''"
+       th:href="@{/timerecord}">
+      <span class="icon"><i class="far fa-clock"></i></span>
+      <span>勤務時間の入力</span>
+    </a>
+    <a class="navbar-item" th:classappend="${active.equals('給与')} ? 'is-active' : ''"
+       th:href="@{/payroll}">
+      <span class="icon"><i class="fas fa-yen-sign"></i></span>
+      <span>給与の一覧</span>
+    </a>
+    <a class="navbar-item" th:classappend="${active.equals('従業員')} ? 'is-active' : ''"
+       th:href="@{/employees}">
+      <span class="icon"><i class="fas fa-user"></i></span>
+      <span>従業員の一覧</span>
+    </a>
   </div>
-</section>
+</nav>
 </body>
 </html>

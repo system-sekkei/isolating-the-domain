@@ -7,7 +7,7 @@
 <body>
 <div th:replace="fragments/menuHead::menuHead('')"></div>
 
-<section class="hero">
+<header class="hero">
   <div class="hero-body">
     <div class="container has-text-centered">
       <h1 class="title">
@@ -15,9 +15,9 @@
       </h1>
     </div>
   </div>
-</section>
+</header>
 
-<div class="container">
+<main class="container">
   <form id="custom-form" class="ui large form" th:action="@{/wages/{employeeNumber}/register/register(employeeNumber=${employee.employeeNumber()})}" method="post">
 
     <div class="wageInput">
@@ -57,6 +57,6 @@
     <input type="hidden" name="effectiveDate" th:value="${effectiveDate}">
     <input type="hidden" name="hourlyWage" th:value="${hourlyWage}"/>
   </form>
-</div>
+</main>
 </body>
 </html>

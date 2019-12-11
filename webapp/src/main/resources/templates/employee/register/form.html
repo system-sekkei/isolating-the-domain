@@ -7,7 +7,7 @@
 <body>
 <div th:replace="fragments/menuHead::menuHead('')"></div>
 
-<section class="hero">
+<header class="hero">
   <div class="hero-body">
     <div class="container has-text-centered">
       <h1 class="title">
@@ -15,9 +15,9 @@
       </h1>
     </div>
   </div>
-</section>
+</header>
 
-<div class="container">
+<main class="container">
   <form id="custom-form" class="form" name="body"
         method="post" action="#"
         th:object="${employeeToRegister}"
@@ -45,6 +45,6 @@
 
     </div>
   </form>
-</div>
+</main>
 </body>
 </html>
