@@ -6,7 +6,6 @@ import example.domain.model.timerecord.evaluation.*;
 import example.domain.model.timerecord.timefact.EndDateTime;
 import example.domain.model.timerecord.timefact.StartDateTime;
 import example.domain.model.timerecord.timefact.WorkRange;
-import example.domain.type.datetime.DateTime;
 
 import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
@@ -57,10 +56,6 @@ public class AttendanceForm {
 
     public TimeRecord toTimeRecord() {
         return timeRecord;
-    }
-
-    private ActualWorkDateTime toActualWorkDateTime() {
-        return timeRecord.actualWorkDateTime();
     }
 
     public void apply(TimeRecord timeRecord) {
