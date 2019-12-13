@@ -47,11 +47,9 @@
       <tbody>
         <th:block th:each="payroll : ${payrolls.list()}">
           <tr th:if="${payroll.payrollStatus().available()}">
-            <td class="has-text-right"
-                th:text="${payroll.employeeNumber()}"/>
-            <td th:text="${payroll.employeeName()}"/>
-            <td class="has-text-right"
-                th:text="${payroll.totalPayment()}"/>
+            <td class="has-text-right" th:text="${payroll.employeeNumber()}"></td>
+            <td th:text="${payroll.employeeName()}"></td>
+            <td class="has-text-right" th:text="${payroll.totalPayment()}"></td>
             <td></td>
             <td class="has-text-centered">
               <a class="button is-primary is-outlined"
@@ -62,9 +60,8 @@
             </td>
           </tr>
           <tr th:unless="${payroll.payrollStatus().available()}">
-            <td class="has-text-right"
-                th:text="${payroll.employeeNumber()}"/>
-            <td th:text="${payroll.employeeName()}"/>
+            <td class="has-text-right" th:text="${payroll.employeeNumber()}"></td>
+            <td th:text="${payroll.employeeName()}"></td>
             <td></td>
             <td th:utext="#{${payroll.payrollStatus().messageKey()}}"></td>
             <td class="has-text-centered">
