@@ -19,7 +19,7 @@
           <label class="label">氏名</label>
         </div>
         <div class="field-body">
-          <p class="control is-expanded">
+          <div class="control is-expanded">
             <p class="select is-fullwidth">
               <select th:field="*{employeeNumber}">
                 <option th:each="employee : ${employees.list()}" th:value="${employee.employeeNumber()}" th:text="${employee.name()}">
@@ -27,7 +27,7 @@
                 </option>
               </select>
             </p>
-          </p>
+          </div>
         </div>
       </div>
 
