@@ -8,20 +8,19 @@
 <header th:replace="fragments/header::header('時給の登録', '')"></header>
 
 <main class="container">
-  <form id="custom-form" class="form" th:action="@{/wages/{employeeNumber}/register/confirm(employeeNumber=${employee.employeeNumber()})}" method="post">
+  <div class="wageInfo">
+    <table class="table is-bordered is-fullwidth">
+      <tr>
+        <td class="tableHeader has-text-centered">氏名</td>
+        <td th:text="${employee.name()}">テスト太郎</td>
+      </tr>
+    </table>
+  </div>
 
-    <div class="wageInfo">
-      <table class="table is-bordered is-fullwidth">
-        <tr>
-          <td class="tableHeader has-text-centered">氏名</td>
-          <td th:text="${employee.name()}">テスト太郎</td>
-        </tr>
-      </table>
-    </div>
+  <hr />
 
-    <hr />
-  
-    <div class="wageInput has-text-centered">
+  <div class="wageInput has-text-centered">
+    <form id="custom-form" class="form" th:action="@{/wages/{employeeNumber}/register/confirm(employeeNumber=${employee.employeeNumber()})}" method="post">
       <div class="field is-horizontal">
         <div class="field-label">
           <label class="label">開始日</label>
@@ -54,9 +53,8 @@
            th:href="@{/wages/{employeeNumber}(employeeNumber=${employee.employeeNumber()})}">時給の履歴に戻る</a>
         <button class="button is-primary is-outlined">確認</button>
       </div>
-
-    </div>
-  </form>
+    </form>
+  </div>
 </main>
 
 </body>

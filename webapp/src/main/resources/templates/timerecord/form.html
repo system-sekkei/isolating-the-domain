@@ -8,12 +8,12 @@
 <header th:replace="fragments/header::header('勤務時間の入力', '勤務時間入力')"></header>
 
 <main class="container">
-  <form id="custom-form" class="form" name="body"
+  <div class="attendanceInput has-text-centered">
+    <form id="custom-form" class="form" name="body"
           method="post" action="#"
           th:object="${attendanceForm}"
           th:action="@{/timerecord}">
 
-    <div class="attendanceInput has-text-centered">
       <div class="field is-horizontal">
         <div class="field-label">
           <label class="label">氏名</label>
@@ -212,9 +212,8 @@
       <div class="formFooter has-text-centered">
         <button class="button is-primary is-outlined">登録</button>
       </div>
-    </div>
-
-  </form>
+    </form>
+  </div>
 
 </main>
 </body>

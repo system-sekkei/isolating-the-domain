@@ -8,9 +8,8 @@
 <header th:replace="fragments/header::header('時給の登録の確認', '')"></header>
 
 <main class="container">
-  <form id="custom-form" class="ui large form" th:action="@{/wages/{employeeNumber}/register/register(employeeNumber=${employee.employeeNumber()})}" method="post">
-
-    <div class="wageInput">
+  <div class="wageInput">
+    <form id="custom-form" class="ui large form" th:action="@{/wages/{employeeNumber}/register/register(employeeNumber=${employee.employeeNumber()})}" method="post">
       <table class="table is-bordered is-fullwidth">
         <tr>
           <td class="has-text-centered tableHeader">氏名</td>
@@ -35,13 +34,13 @@
           <td class="has-background-white-ter">円</td>
         </tr>
       </table>
-    </div>
 
-    <div class="formFooter has-text-centered">
-      <button form="again-form" class="button is-light">入力に戻る</button>
-      <button class="button is-primary is-outlined">登録</button>
-    </div>
-  </form>
+      <div class="formFooter has-text-centered">
+        <button form="again-form" class="button is-light">入力に戻る</button>
+        <button class="button is-primary is-outlined">登録</button>
+      </div>
+    </form>
+  </div>
   
   <form id="again-form" class="ui large form" th:action="@{/wages/{employeeNumber}/register/again(employeeNumber=${employee.employeeNumber()})}" method="post">
     <input type="hidden" name="effectiveDate" th:value="${effectiveDate}">

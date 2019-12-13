@@ -17,36 +17,33 @@
       </p>
     </div>
 
-    <div class="form">
-      <table class="table is-bordered is-fullwidth">
-        <tr>
-          <td class="has-text-centered tableHeader">氏名</td>
-          <td>
-            <p th:text="${employeeToRegister.name()}">山田 太郎</p>
-          </td>
-        </tr>
-        <tr>
-          <td class="has-text-centered tableHeader">メールアドレス</td>
-          <td>
-            <p th:text="${employeeToRegister.mailAddress()}">someone@example.com</p>
-          </td>
-        </tr>
-        <tr>
-          <td class="has-text-centered tableHeader">電話番号</td>
-          <td>
-            <p th:text="${employeeToRegister.phoneNumber()}">0120-888-888</p>
-          </td>
-        </tr>
-      </table>
+    <table class="table is-bordered is-fullwidth">
+      <tr>
+        <td class="has-text-centered tableHeader">氏名</td>
+        <td>
+          <p th:text="${employeeToRegister.name()}">山田 太郎</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="has-text-centered tableHeader">メールアドレス</td>
+        <td>
+          <p th:text="${employeeToRegister.mailAddress()}">someone@example.com</p>
+        </td>
+      </tr>
+      <tr>
+        <td class="has-text-centered tableHeader">電話番号</td>
+        <td>
+          <p th:text="${employeeToRegister.phoneNumber()}">0120-888-888</p>
+        </td>
+      </tr>
+    </table>
+    <div class="formFooter has-text-centered">
+      <a class="button is-light"
+         th:href="@{/employees/register/input/again}">入力に戻る</a>
+      <a class="button is-primary is-outlined"
+         th:href="@{/employees/register/register}">登録</a>
     </div>
   </div>
 </main>
-
-<div class="formFooter has-text-centered">
-  <a class="button is-light"
-     th:href="@{/employees/register/input/again}">入力に戻る</a>
-  <a class="button is-primary is-outlined"
-     th:href="@{/employees/register/register}">登録</a>
-</div>
 </body>
 </html>

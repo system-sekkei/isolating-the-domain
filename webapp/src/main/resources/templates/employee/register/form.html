@@ -8,33 +8,31 @@
 <header th:replace="fragments/header::header('従業員情報の新規登録', '')"></header>
 
 <main class="container">
-  <form id="custom-form" class="form" name="body"
-        method="post" action="#"
-        th:object="${employeeToRegister}"
-        th:action="@{/employees/register/confirm}">
+  <div class="employeeInput has-text-centered">
+    <form id="custom-form" class="form" name="body"
+          method="post" action="#"
+          th:object="${employeeToRegister}"
+          th:action="@{/employees/register/confirm}">
 
-    <div class="employeeInput has-text-centered">
+        <div th:replace="fragments/input::macro('name.value','名前','名前')">
+          <label>氏名</label>
+        </div>
 
-      <div th:replace="fragments/input::macro('name.value','名前','名前')">
-        <label>氏名</label>
-      </div>
+        <div th:replace="fragments/input::macro('mailAddress.value','メールアドレス','someone@example.com')">
+          <label>メールアドレス</label>
+        </div>
 
-      <div th:replace="fragments/input::macro('mailAddress.value','メールアドレス','someone@example.com')">
-        <label>メールアドレス</label>
-      </div>
+        <div th:replace="fragments/input::macro('phoneNumber.value','電話番号','03-1234-5678')">
+          <label>電話番号</label>
+        </div>
 
-      <div th:replace="fragments/input::macro('phoneNumber.value','電話番号','03-1234-5678')">
-        <label>電話番号</label>
-      </div>
-
-      <div class="formFooter has-text-centered">
-        <a class="button is-light"
-           th:href="@{/employees}">一覧に戻る</a>
-        <button class="button is-primary is-outlined">確認</button>
-      </div>
-
-    </div>
-  </form>
+        <div class="formFooter has-text-centered">
+          <a class="button is-light"
+             th:href="@{/employees}">一覧に戻る</a>
+          <button class="button is-primary is-outlined">確認</button>
+        </div>
+    </form>
+  </div>
 </main>
 </body>
 </html>

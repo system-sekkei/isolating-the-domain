@@ -8,23 +8,22 @@
 <header th:replace="fragments/header::header('従業員情報の変更', '')"></header>
 
 <main class="container">
-  <form id="custom-form" class="form" name="body" 
+  <div class="employeeInfo">
+    <table class="table is-bordered is-fullwidth">
+      <tr>
+        <td class="tableHeader has-text-centered">従業員番号</td>
+        <td th:text="${employeeNumber}">9999</td>
+      </tr>
+    </table>
+  </div>
+
+  <hr />
+
+  <div class="employeeInput has-text-centered">
+    <form id="custom-form" class="form" name="body"
         method="post" action="#"
         th:object="${bulkProfileUpdateForm}"
         th:action="@{/employees/{employeeNumber}/update/register(employeeNumber=${employeeNumber})}">
-
-    <div class="employeeInfo">
-      <table class="table is-bordered is-fullwidth">
-        <tr>
-          <td class="tableHeader has-text-centered">従業員番号</td>
-          <td th:text="${employeeNumber}">9999</td>
-        </tr>
-      </table>
-    </div>
-
-    <hr />
-
-    <div class="employeeInput has-text-centered">
       <div class="field"
            th:replace="fragments/input::macro('name','氏名','名前')">
         <label>氏名</label>
@@ -48,8 +47,8 @@
            th:href="@{/employees/{employeeNumber}(employeeNumber=${employeeNumber})}">詳細に戻る</a>
         <button class="button is-primary is-outlined">保存</button>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </main>
 
 </body>
