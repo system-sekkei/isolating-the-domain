@@ -14,11 +14,8 @@
           th:object="${attendanceForm}"
           th:action="@{/timerecord}">
 
-      <div class="field is-horizontal">
-        <div class="field-label">
-          <label class="label">氏名</label>
-        </div>
-        <div class="field-body">
+      <div th:replace="fragments/field::macro('氏名', ~{::div#employeeNameField})">
+        <div id="employeeNameField" class="field-body">
           <div class="control is-expanded">
             <p class="select is-fullwidth">
               <select th:field="*{employeeNumber}">
@@ -31,11 +28,8 @@
         </div>
       </div>
 
-      <div class="field is-horizontal">
-        <div class="field-label">
-          <label class="label">勤務日</label>
-        </div>
-        <div class="field-body">
+      <div th:replace="fragments/field::macro('勤務日', ~{::div#workDateField})">
+        <div id="workDateField" class="field-body">
           <div class="field">
             <p class="control">
               <input class="input" type="date" placeholder="2018-01-01"
@@ -43,17 +37,14 @@
             </p>
             <p class="help is-danger has-text-left"
                th:if="${#fields.hasErrors('workDate.value')}">
-                <span th:errors="*{workDate.value}">勤務日を入力してください</span>
+              <span th:errors="*{workDate.value}">勤務日を入力してください</span>
             </p>
           </div>
         </div>
       </div>
 
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">開始時刻</label>
-        </div>
-        <div class="field-body">
+      <div th:replace="fragments/field::macro('開始時刻', ~{::div#startTimeField})">
+        <div id="startTimeField" class="field-body">
           <div class="field is-expanded">
             <div class="field has-addons">
               <p class="control is-expanded">
@@ -65,7 +56,7 @@
               </p>
             </div>
             <p class="help is-danger has-text-left"
-             th:if="${#fields.hasErrors('startTimeForm.valid')}">
+               th:if="${#fields.hasErrors('startTimeForm.valid')}">
               <span th:errors="*{startTimeForm.valid}">開始時刻が不正です</span>
             </p>
             <p class="help is-danger has-text-left"
@@ -73,7 +64,7 @@
               <span th:errors="*{startTimeForm.hour.value}">開始時刻を入力してください</span>
             </p>
             <p class="help is-danger has-text-left"
-             th:if="${#fields.hasErrors('startTimeForm.minute.value')}">
+               th:if="${#fields.hasErrors('startTimeForm.minute.value')}">
               <span th:errors="*{startTimeForm.minute.value}">開始時刻を入力してください</span>
             </p>
             <p class="help is-danger has-text-left"
@@ -97,11 +88,8 @@
         </div>
       </div>
 
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">終了時刻</label>
-        </div>
-        <div class="field-body">
+      <div th:replace="fragments/field::macro('終了時刻', ~{::div#endTimeField})">
+        <div id="endTimeField" class="field-body">
           <div class="field is-expanded">
             <div class="field has-addons">
               <p class="control is-expanded">
@@ -123,7 +111,7 @@
               <span th:errors="*{endTimeForm.hour.value}">終了時刻を入力してください</span>
             </p>
             <p class="help is-danger has-text-left"
-             th:if="${#fields.hasErrors('endTimeForm.minute.value')}">
+               th:if="${#fields.hasErrors('endTimeForm.minute.value')}">
               <span th:errors="*{endTimeForm.minute.value}">終了時刻を入力してください</span>
             </p>
             <p class="help is-danger has-text-left"
@@ -151,11 +139,8 @@
         </div>
       </div>
 
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">休憩時間</label>
-        </div>
-        <div class="field-body">
+      <div th:replace="fragments/field::macro('休憩時間', ~{::div#daytimeBreakTimeField})">
+        <div id="daytimeBreakTimeField" class="field-body">
           <div class="field">
             <div class="field has-addons">
               <p class="control">
@@ -173,18 +158,15 @@
               <span th:errors="*{daytimeBreakTime.value.value}">休憩時間が不正です</span>
             </p>
             <p class="help is-danger has-text-left"
-             th:if="${#fields.hasErrors('timeRecord.actualWorkDateTime.daytimeBreakTimeValid')}">
+               th:if="${#fields.hasErrors('timeRecord.actualWorkDateTime.daytimeBreakTimeValid')}">
               <span th:errors="*{timeRecord.actualWorkDateTime.daytimeBreakTimeValid}">休憩時間が不正です</span>
             </p>
           </div>
         </div>
       </div>
 
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">休憩時間（深夜）</label>
-        </div>
-        <div class="field-body">
+      <div th:replace="fragments/field::macro('休憩時間（深夜）', ~{::div#nightBreakTimeField})">
+        <div id="nightBreakTimeField" class="field-body">
           <div class="field">
             <div class="field has-addons">
               <p class="control">
@@ -202,7 +184,7 @@
               <span th:errors="*{nightBreakTime.value.value}">休憩時間（深夜）が不正です</span>
             </p>
             <p class="help is-danger has-text-left"
-             th:if="${#fields.hasErrors('timeRecord.actualWorkDateTime.nightBreakTimeValid')}">
+               th:if="${#fields.hasErrors('timeRecord.actualWorkDateTime.nightBreakTimeValid')}">
               <span th:errors="*{timeRecord.actualWorkDateTime.nightBreakTimeValid}">休憩時間（深夜）が不正です</span>
             </p>
           </div>

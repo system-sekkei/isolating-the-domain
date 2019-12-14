@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>フォームフィールド</title>
+</head>
+<body>
+
+<div th:fragment="macro(label, fieldBody)" class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label class="label" th:text="${label}">ラベル</label>
+  </div>
+  <th:block th:replace="${fieldBody}" />
+</div>
+
+</body>
+</html>

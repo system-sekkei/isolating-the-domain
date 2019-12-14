@@ -21,30 +21,26 @@
 
   <div class="wageInput has-text-centered">
     <form id="custom-form" class="form" th:action="@{/wages/{employeeNumber}/register/confirm(employeeNumber=${employee.employeeNumber()})}" method="post">
-      <div class="field is-horizontal">
-        <div class="field-label">
-          <label class="label">開始日</label>
-        </div>
-        <div class="field-body">
+      <div th:replace="fragments/field::macro('開始日', ~{::div#effectiveDateField})">
+        <div id="effectiveDateField" class="field-body">
           <p class="control is-expanded">
             <input class="input" type="date" placeholder="2018-01-01" name="effectiveDate"
-                 th:value="${effectiveDate}">
+                   th:value="${effectiveDate}">
           </p>
         </div>
       </div>
 
-      <div class="field has-addons">
-        <div class="field-label">
-          <label class="label">時給</label>
-        </div>
-        <div class="field-body">
-          <p class="control">
-            <input class="input" type="number" placeholder="936" name="hourlyWage"
-                   th:value="${hourlyWage.value()}"/>
-          </p>
-          <p class="control">
-            <a class="button is-static">円</a>
-          </p>
+      <div th:replace="fragments/field::macro('時給', ~{::div#hourlyWageField})">
+        <div id="hourlyWageField" class="field-body">
+          <div class="field has-addons">
+            <p class="control">
+              <input class="input" type="number" placeholder="936" name="hourlyWage"
+                     th:value="${hourlyWage.value()}"/>
+            </p>
+            <p class="control">
+              <a class="button is-static">円</a>
+            </p>
+          </div>
         </div>
       </div>
 
