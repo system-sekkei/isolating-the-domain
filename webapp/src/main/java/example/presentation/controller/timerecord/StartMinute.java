@@ -5,7 +5,7 @@ import example.domain.validation.Required;
 import javax.validation.constraints.NotBlank;
 
 public class StartMinute {
-    @NotBlank(message = "開始時刻を入力してください", groups = Required.class)
+    @NotBlank(message = "開始時刻(分)を入力してください", groups = Required.class)
     String value;
 
     public StartMinute() {
