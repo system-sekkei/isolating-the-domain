@@ -43,6 +43,10 @@
 }
 
 /*従業員 employee*/
+.employeeListHeader {
+  text-align: center;
+}
+
 .employeeList {
   max-width: 640px;
   margin: 0 auto 5rem;
@@ -57,6 +61,12 @@
 }
 
 .employeeInput {
+  max-width: 500px;
+  margin: 0 auto;
+  padding-top: 2em;
+}
+
+.employeeConfirm {
   max-width: 500px;
   margin: 0 auto;
   padding-top: 2em;
