@@ -10,17 +10,17 @@
 <main class="container">
   <header th:replace="fragments/header::header('従業員の一覧')"></header>
 
-  <div class="has-text-centered">
+  <section class="has-text-centered">
     <a class="button is-primary is-outlined"
        th:href="@{/employees/register}">
       <span class="icon is-medium"><i class="fas fa-user-plus"></i></span>
       <span>従業員の新規登録</span>
     </a>
-  </div>
+  </section>
 
   <hr />
 
-  <div class="employeeList">
+  <section class="employeeList">
     <table class="table is-bordered is-fullwidth">
       <thead>
         <tr>
@@ -45,7 +45,7 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </section>
 </main>
 </body>
 </html>

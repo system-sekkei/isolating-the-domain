@@ -10,19 +10,20 @@
 <main class="container">
   <header th:replace="fragments/header::header('時給の登録の完了')"></header>
 
-  <div class="wageInput">
+  <section class="wageInput">
     <div class="message is-success">
       <div class="message-body">
         <p th:text="${employee.name()} + '(' + ${employee.employeeNumber()} + ')' + 'さんの時給を登録しました。'">時給を登録しました。</p>
       </div>
     </div>
-  </div>
-  <div class="formFooter has-text-centered">
+  </section>
+
+  <section class="formFooter has-text-centered">
     <a class="button is-light"
        th:href="@{/wages/{employeeNumber}(employeeNumber=${employee.employeeNumber()})}">
       時給の履歴に戻る
     </a>
-  </div>
+  </section>
 </main>
 
 </body>

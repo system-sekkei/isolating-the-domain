@@ -10,18 +10,18 @@
 <main class="container">
   <header th:replace="fragments/header::header('時給の登録')"></header>
 
-  <div class="wageInfo">
+  <section class="wageInfo">
     <table class="table is-bordered is-fullwidth">
       <tr>
         <th class="tableHeader has-text-centered">氏名</th>
         <td th:text="${employee.name()}">テスト太郎</td>
       </tr>
     </table>
-  </div>
+  </section>
 
   <hr />
 
-  <div class="wageInput has-text-centered">
+  <section class="wageInput has-text-centered">
     <form id="custom-form" class="form" th:action="@{/wages/{employeeNumber}/register/confirm(employeeNumber=${employee.employeeNumber()})}" method="post">
       <div th:replace="fragments/field::macro('開始日', ~{::div#effectiveDateField})">
         <div id="effectiveDateField" class="field-body">
@@ -52,7 +52,7 @@
         <button class="button is-primary is-outlined">確認</button>
       </div>
     </form>
-  </div>
+  </section>
 </main>
 
 </body>

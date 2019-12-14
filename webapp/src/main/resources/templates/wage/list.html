@@ -10,7 +10,7 @@
 <main class="container">
   <header th:replace="fragments/header::header('時給の履歴')"></header>
 
-  <div class="wageInfo">
+  <section class="wageInfo">
     <table class="table is-bordered is-fullwidth">
       <tr>
         <th class="tableHeader has-text-centered">従業員番号</th>
@@ -21,11 +21,11 @@
         <td th:text="${employee.name()}">テスト太郎</td>
       </tr>
     </table>
-  </div>
+  </section>
 
   <hr />
 
-  <div class="wageList">
+  <section class="wageList">
 
     <div class="has-text-centered">
       <a class="button is-primary is-outlined"
@@ -58,7 +58,7 @@
            th:href="@{/employees/{employeeNumber}(employeeNumber=${employee.employeeNumber()})}">詳細に戻る</a>
       </div>
     </div>
-  </div>
+  </section>
 </main>
 
 </body>

@@ -9,7 +9,7 @@
 
 <main class="container">
   <header th:replace="fragments/header::header('従業員情報の登録の完了')"></header>
-  <div class="employeeInput">
+  <section class="employeeInput">
     <div class="message is-success">
       <p class="message-body"
           th:text="${name} + ' (' + ${employeeNumber} + ') ' + 'さんを登録しました。'">
@@ -21,7 +21,7 @@
       <a class="button is-light"
          th:href="@{/employees}">従業員一覧に戻る</a>
     </div>
-  </div>
+  </section>
 </main>
 </body>
 </html>

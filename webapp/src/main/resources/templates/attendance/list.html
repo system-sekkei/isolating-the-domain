@@ -10,7 +10,7 @@
 <main class="container">
   <header th:replace="fragments/header::header('勤務時間の一覧')"></header>
 
-  <div class="attendanceInfo">
+  <section class="attendanceInfo">
     <table class="table is-bordered is-fullwidth">
       <tr>
         <th class="tableHeader">氏名</th>
@@ -23,11 +23,11 @@
         <td th:text="${attendance.totalWorkTime()}">50</td>
       </tr>
     </table>
-  </div>
+  </section>
 
   <hr />
 
-  <div class="attendanceList">
+  <section class="attendanceList">
     <div class="columns">
       <div class="column">
         <a href=""
@@ -94,7 +94,7 @@
         </th:block>
       </tbody>
     </table>
-  </div>
+  </section>
 </main>
 </body>
 </html>

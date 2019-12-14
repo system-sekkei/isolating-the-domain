@@ -9,15 +9,15 @@
 
 <main class="container">
   <header th:replace="fragments/header::header('詳細')"></header>
-  <div class="has-text-centered">
+  <section class="has-text-centered">
     <a class="button is-primary is-outlined"
        th:href="@{/wages/{employeeNumber}(employeeNumber=${employee.employeeNumber()})}">
       <span class="icon is-medium"><i class="fas fa-calculator"></i></span>
       <span>時給の履歴</span>
     </a>
-  </div>
+  </section>
 
-  <div class="employeeDetail">
+  <section class="employeeDetail">
     <table class="table is-bordered is-fullwidth">
       <tr>
         <th class="has-text-centered tableHeader">従業員番号</th>
@@ -36,7 +36,7 @@
         <td th:text="${employee.phoneNumber()}">0120-888-888</td>
       </tr>
     </table>
-  </div>
+  </section>
 
   <div class="formFooter has-text-centered">
     <a class="button is-light" th:href="@{/employees}">一覧に戻る</a>

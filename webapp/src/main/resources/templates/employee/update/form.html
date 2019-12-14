@@ -10,18 +10,18 @@
 <main class="container">
   <header th:replace="fragments/header::header('従業員情報の変更')"></header>
 
-  <div class="employeeInfo">
+  <section class="employeeInfo">
     <table class="table is-bordered is-fullwidth">
       <tr>
         <th class="tableHeader has-text-centered">従業員番号</th>
         <td th:text="${employeeNumber}">9999</td>
       </tr>
     </table>
-  </div>
+  </section>
 
   <hr />
 
-  <div class="employeeInput has-text-centered">
+  <section class="employeeInput has-text-centered">
     <form id="custom-form" class="form" name="body"
         method="post" action="#"
         th:object="${bulkProfileUpdateForm}"
@@ -50,7 +50,7 @@
         <button class="button is-primary is-outlined">保存</button>
       </div>
     </form>
-  </div>
+  </section>
 </main>
 
 </body>
