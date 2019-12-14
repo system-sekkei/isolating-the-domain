@@ -2,18 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>ヘッダー</title>
+    <title>ページヘッダー</title>
 </head>
 <body>
-<header class="hero is-primary" th:fragment="header(title, active, contents)">
-  <div class="hero-head">
-    <div th:replace="fragments/navigation::navigation(${active})"></div>
-  </div>
-  <div class="hero-body has-background-white">
+<header class="hero" th:fragment="header(title)">
+  <div class="hero-body">
     <div class="container has-text-centered">
       <h1 class="title has-text-black" th:text="${title}">
       </h1>
-      <th:block th:replace="${contents}" />
     </div>
   </div>
 </header>

@@ -5,10 +5,11 @@
   <title>ダッシュボード</title>
 </head>
 <body>
-<header th:replace="fragments/header::header('ダッシュボード', 'ダッシュボード', ~{})">
-</header>
+<header th:replace="fragments/navigation::navigation('ダッシュボード')"></header>
 
 <main class="container">
+  <header th:replace="fragments/header::header('ダッシュボード')"></header>
+
   <div class="columns">
 
     <div class="column">

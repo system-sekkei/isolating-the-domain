@@ -5,9 +5,11 @@
   <title>時給の登録</title>
 </head>
 <body>
-<header th:replace="fragments/header::header('時給の登録', '', ~{})"></header>
+<header th:replace="fragments/navigation::navigation('')"></header>
 
 <main class="container">
+  <header th:replace="fragments/header::header('時給の登録')"></header>
+
   <div class="wageInfo">
     <table class="table is-bordered is-fullwidth">
       <tr>

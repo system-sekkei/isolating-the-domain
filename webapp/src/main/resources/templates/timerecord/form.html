@@ -5,9 +5,11 @@
   <title>勤務時間の入力</title>
 </head>
 <body>
-<header th:replace="fragments/header::header('勤務時間の入力', '勤務時間入力', ~{})"></header>
+<header th:replace="fragments/navigation::navigation('勤務時間入力')"></header>
 
 <main class="container">
+  <header th:replace="fragments/header::header('勤務時間の入力')"></header>
+
   <div class="attendanceInput has-text-centered">
     <form id="custom-form" class="form" name="body"
           method="post" action="#"

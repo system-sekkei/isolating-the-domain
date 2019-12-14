@@ -5,9 +5,10 @@
   <title>詳細</title>
 </head>
 <body>
-<header th:replace="fragments/header::header('詳細', '', ~{})"></header>
+<header th:replace="fragments/navigation::navigation('')"></header>
 
 <main class="container">
+  <header th:replace="fragments/header::header('詳細')"></header>
   <div class="has-text-centered">
     <a class="button is-primary is-outlined"
        th:href="@{/wages/{employeeNumber}(employeeNumber=${employee.employeeNumber()})}">
