@@ -12,21 +12,21 @@
     <form id="custom-form" class="ui large form" th:action="@{/wages/{employeeNumber}/register/register(employeeNumber=${employee.employeeNumber()})}" method="post">
       <table class="table is-bordered is-fullwidth">
         <tr>
-          <td class="has-text-centered tableHeader">氏名</td>
+          <th class="has-text-centered tableHeader">氏名</th>
           <td colspan="2">
             <input class="input is-static" type="text" readonly
                    th:value="${employee.name()}">
           </td>
         </tr>
         <tr>
-          <td class="has-text-centered tableHeader">開始日</td>
+          <th class="has-text-centered tableHeader">開始日</th>
           <td colspan="2">
             <input class="input is-static" type="date" name="effectiveDate" readonly
                    th:value="${effectiveDate}">
           </td>
         </tr>
         <tr>
-          <td class="has-text-centered tableHeader">時給</td>
+          <th class="has-text-centered tableHeader">時給</th>
           <td>
             <input class="input is-static has-text-right" type="number" name="hourlyWage" readonly
                    th:value="${hourlyWage.value()}"/>

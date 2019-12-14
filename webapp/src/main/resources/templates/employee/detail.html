@@ -19,19 +19,19 @@
   <div class="employeeDetail">
     <table class="table is-bordered is-fullwidth">
       <tr>
-        <td class="has-text-centered tableHeader">従業員番号</td>
+        <th class="has-text-centered tableHeader">従業員番号</th>
         <td th:text="${employee.employeeNumber()}">1</td>
       </tr>
       <tr>
-        <td class="has-text-centered tableHeader">氏名</td>
+        <th class="has-text-centered tableHeader">氏名</th>
         <td th:text="${employee.name()}">山田 太郎</td>
       </tr>
       <tr>
-        <td class="has-text-centered tableHeader">メールアドレス</td>
+        <th class="has-text-centered tableHeader">メールアドレス</th>
         <td th:text="${employee.mailAddress()}">someone@example.com</td>
       </tr>
       <tr>
-        <td class="has-text-centered tableHeader">電話番号</td>
+        <th class="has-text-centered tableHeader">電話番号</th>
         <td th:text="${employee.phoneNumber()}">0120-888-888</td>
       </tr>
     </table>
