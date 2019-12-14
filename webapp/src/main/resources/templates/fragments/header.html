@@ -5,7 +5,7 @@
     <title>ヘッダー</title>
 </head>
 <body>
-<header class="hero is-primary" th:fragment="header(title, active)">
+<header class="hero is-primary" th:fragment="header(title, active, contents)">
   <div class="hero-head">
     <div th:replace="fragments/navigation::navigation(${active})"></div>
   </div>
@@ -13,6 +13,7 @@
     <div class="container has-text-centered">
       <h1 class="title has-text-black" th:text="${title}">
       </h1>
+      <th:block th:replace="${contents}" />
     </div>
   </div>
 </header>

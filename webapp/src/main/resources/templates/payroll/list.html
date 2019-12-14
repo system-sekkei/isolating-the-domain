@@ -5,11 +5,11 @@
   <title>給与の一覧</title>
 </head>
 <body>
-<header th:replace="fragments/header::header('給与の一覧', '給与')"></header>
+<header th:replace="fragments/header::header('給与の一覧', '給与', ~{})"></header>
+
+<hr />
 
 <main class="container">
-  <hr />
-
   <div class="payrollList">
     <div class="columns">
       <div class="column">

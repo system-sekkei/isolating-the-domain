@@ -5,10 +5,8 @@
   <title>従業員情報の変更</title>
 </head>
 <body>
-<header th:replace="fragments/header::header('従業員情報の変更', '')"></header>
-
-<main class="container">
-  <div class="employeeInfo">
+<header th:replace="fragments/header::header('従業員情報の変更', '', ~{::div#headerContents})">
+  <div id="headerContents" class="employeeInfo">
     <table class="table is-bordered is-fullwidth">
       <tr>
         <td class="tableHeader has-text-centered">従業員番号</td>
@@ -16,9 +14,11 @@
       </tr>
     </table>
   </div>
+</header>
 
-  <hr />
+<hr />
 
+<main class="container">
   <div class="employeeInput has-text-centered">
     <form id="custom-form" class="form" name="body"
         method="post" action="#"

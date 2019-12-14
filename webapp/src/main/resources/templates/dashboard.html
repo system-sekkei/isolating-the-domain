@@ -5,7 +5,8 @@
   <title>ダッシュボード</title>
 </head>
 <body>
-<header th:replace="fragments/header::header('ダッシュボード', 'ダッシュボード')"></header>
+<header th:replace="fragments/header::header('ダッシュボード', 'ダッシュボード', ~{})">
+</header>
 
 <main class="container">
   <div class="columns">

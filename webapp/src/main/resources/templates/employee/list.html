@@ -5,19 +5,19 @@
   <title>従業員の一覧</title>
 </head>
 <body>
-<header th:replace="fragments/header::header('従業員の一覧', '従業員')"></header>
-
-<main class="container">
-  <div class="has-text-centered">
+<header th:replace="fragments/header::header('従業員の一覧', '従業員', ~{::div#headerContents})">
+  <div id="headerContents" class="has-text-centered">
     <a class="button is-primary is-outlined"
        th:href="@{/employees/register}">
       <span class="icon is-medium"><i class="fas fa-user-plus"></i></span>
       <span>従業員の新規登録</span>
     </a>
   </div>
+</header>
 
-  <hr />
+<hr />
 
+<main class="container">
   <div class="employeeList">
     <table class="table is-bordered is-fullwidth">
       <thead>

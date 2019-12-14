@@ -5,10 +5,8 @@
   <title>勤務時間の一覧</title>
 </head>
 <body>
-<header th:replace="fragments/header::header('勤務時間の一覧', '')"></header>
-
-<main class="container">
-  <div class="attendanceInfo">
+<header th:replace="fragments/header::header('勤務時間の一覧', '', ~{::div#headerContents})">
+  <div id="headerContents" class="attendanceInfo">
     <table class="table is-bordered is-fullwidth">
       <tr>
         <th class="tableHeader">氏名</th>
@@ -23,9 +21,11 @@
       </tr>
     </table>
   </div>
+</header>
 
-  <hr />
+<hr />
 
+<main class="container">
   <div class="attendanceList">
     <div class="columns">
       <div class="column">
