@@ -26,4 +26,18 @@ class AttendanceTest {
 
         assertEquals("960", weekWorkTime.value.minute().toString());
     }
+
+    @Test
+    void 月跨ぎの週の労働時間合計を集計することができる() {
+        EmployeeNumber en = new EmployeeNumber(1);
+        List<TimeRecord> list = Arrays.asList(
+                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2019-12-24", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2019-12-31", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2020-01-01", "9:00", "18:00", "60", "0")));
+        Attendance attendance = new Attendance(new WorkMonth("2019-11"), new TimeRecords(list));
+
+        WeekWorkTime weekWorkTime = attendance.weekWorkTime(new WeekOfMonth(5));
+
+        assertEquals("960", weekWorkTime.value.minute().toString());
+    }
 }
