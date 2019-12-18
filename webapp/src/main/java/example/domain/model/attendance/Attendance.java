@@ -2,7 +2,6 @@ package example.domain.model.attendance;
 
 import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.model.timerecord.evaluation.WorkDate;
-import example.domain.type.date.WeekOfMonth;
 import example.domain.type.time.QuarterHour;
 
 import java.util.List;
@@ -52,13 +51,5 @@ public class Attendance {
         return timeRecords.list().stream()
                 .map(timeRecord -> new PayableWork(timeRecord.actualWorkDateTime()))
                 .collect(Collectors.toList());
-    }
-
-    public WeekWorkTime weekWorkTime(WeekOfMonth weekOfMonth) {
-        return new WeekWorkTime(timeRecords.list().stream()
-                .filter(timeRecord -> timeRecord.actualWorkDateTime().workDate().weekOfMonth().hasSameValue(weekOfMonth))
-                .map(timeRecord -> timeRecord.actualWorkDateTime().workTime().quarterHour())
-                .reduce(QuarterHour::add)
-                .orElseGet(QuarterHour::new));
     }
 }

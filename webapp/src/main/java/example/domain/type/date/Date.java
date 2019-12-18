@@ -86,9 +86,4 @@ public class Date {
     public String yyyyMMdd() {
         return value.format(DateTimeFormatter.ofPattern("uuuuMMdd"));
     }
-
-    public WeekOfMonth weekOfMonth() {
-        WeekFields wf = WeekFields.of(java.time.DayOfWeek.SUNDAY, 1);
-        return new WeekOfMonth(value.get(wf.weekOfMonth()));
-    }
 }
