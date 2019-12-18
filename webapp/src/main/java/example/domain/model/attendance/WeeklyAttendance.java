@@ -21,4 +21,8 @@ public class WeeklyAttendance {
                 .reduce(QuarterHour::add)
                 .orElseGet(QuarterHour::new));
     }
+
+    // TODO: 法定時間内残業 (所定労働時間を超えるが、法定時間内におさまる残業)
+    // TODO: 法定時間外残業
+    // TODO: 法定休日労働
 }
