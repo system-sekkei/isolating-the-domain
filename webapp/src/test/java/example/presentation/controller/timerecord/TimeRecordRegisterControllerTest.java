@@ -95,8 +95,8 @@ class TimeRecordRegisterControllerTest {
             "2019-01-01, 10,00, 10,30, 90,  0, timeRecord.actualWorkDateTime.daytimeBreakTimeValid", // over
             "2019-01-01, 10,00, 23,30,  0,  x, nightBreakTime.value.value",
             "2019-01-01, 10,00, 13,30,  0, 90, timeRecord.actualWorkDateTime.nightBreakTimeValid", // over
-            "2019-01-02, 8,59, 21,00,  0, 0, overlapWithPreviousWorkRange",
-            "2019-01-02, 10,00, 33,01,  0, 0, overlapWithNextWorkRange",
+            "2019-01-02, 8,59, 21,00,  0, 0, startTime.valid",
+            "2019-01-02, 10,00, 33,01,  0, 0, endTime.valid",
     })
     @ParameterizedTest
     void validation(String workDate, String startHour, String startMinute, String endHour, String endMinute, String daytimeBreakTime, String nightBreakTime, String errorField) throws Exception {

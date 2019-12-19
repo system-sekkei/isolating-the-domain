@@ -32,9 +32,6 @@ public class AttendanceForm {
     @Valid
     TimeRecord timeRecord;
 
-    boolean overlapWithPreviousWorkRange;
-    boolean overlapWithNextWorkRange;
-
     public AttendanceForm() {
     }
 

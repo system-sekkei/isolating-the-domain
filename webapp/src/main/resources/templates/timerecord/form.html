@@ -69,10 +69,6 @@
                th:if="${#fields.hasErrors('startTime.minute.value')}">
               <span th:errors="*{startTime.minute.value}">開始時刻を入力してください</span>
             </p>
-            <p class="help is-danger has-text-left"
-               th:if="${#fields.hasErrors('overlapWithPreviousWorkRange')}">
-              <span th:errors="*{overlapWithPreviousWorkRange}">前日の勤務時刻と重複しています</span>
-            </p>
           </div>
           <div class="field is-expanded">
             <div class="field has-addons">
@@ -119,10 +115,6 @@
             <p class="help is-danger has-text-left"
                th:if="${#fields.hasErrors('timeRecord.actualWorkDateTime.workRange.workTimeValid')}">
               <span th:errors="*{timeRecord.actualWorkDateTime.workRange.workTimeValid}">終了時刻には開始時刻よりあとの時刻を入力してください</span>
-            </p>
-            <p class="help is-danger has-text-left"
-               th:if="${#fields.hasErrors('overlapWithNextWorkRange')}">
-              <span th:errors="*{overlapWithNextWorkRange}">翌日の勤務時刻と重複しています</span>
             </p>
           </div>
           <div class="field is-expanded">

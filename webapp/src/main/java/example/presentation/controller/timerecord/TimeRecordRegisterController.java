@@ -17,6 +17,7 @@ import example.domain.type.date.Date;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -83,7 +84,7 @@ public class TimeRecordRegisterController {
         TimeRecord timeRecord = attendanceForm.toTimeRecord();
 
         timeRecordCoordinator.isValid(timeRecord).errors().forEach(error -> {
-            result.rejectValue(error.field(), "", error.message());
+            result.addError(new FieldError("attendanceForm", error.field(), error.message()));
         });
 
         if (result.hasErrors()) return "timerecord/form";
