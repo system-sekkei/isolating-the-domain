@@ -1,14 +1,13 @@
 package example.presentation.controller.timerecord;
 
-import example.domain.validation.FormatCheck;
 import example.domain.model.timerecord.timefact.EndDateTime;
 import example.domain.model.timerecord.timefact.StartDateTime;
 import example.domain.type.date.Date;
 import example.domain.type.datetime.DateTime;
+import example.domain.validation.FormatCheck;
 
 import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -55,7 +54,7 @@ public class EndTime {
             // とりあえず、数値かどうかだけチェック
             int h = hour.toInt();
             int m = minute.toInt();
-        } catch (NumberFormatException | DateTimeException ex) {
+        } catch (NumberFormatException ex) {
             return false;
         }
 
