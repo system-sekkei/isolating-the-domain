@@ -69,10 +69,10 @@ class TimeRecordRegisterControllerTest {
         mockMvc.perform(post("/timerecord")
                 .param("employeeNumber", "1")
                 .param("workDate.value", "2018-01-01")
-                .param("startTimeForm.hour.value", "9")
-                .param("startTimeForm.minute.value", "00")
-                .param("endTimeForm.hour.value", "17")
-                .param("endTimeForm.minute.value", "30")
+                .param("startTime.hour.value", "9")
+                .param("startTime.minute.value", "00")
+                .param("endTime.hour.value", "17")
+                .param("endTime.minute.value", "30")
                 .param("daytimeBreakTime.value.value", "0")
                 .param("nightBreakTime.value.value", "0")
         )
@@ -82,14 +82,14 @@ class TimeRecordRegisterControllerTest {
     @CsvSource(value = {
             "        '', 10,00, 17,30,  0,  0, workDate.value",
             "xxxx-01-01, 10,00, 17,30,  0,  0, workDate.value",
-            "2019-01-01, '',00, 17,30,  0,  0, startTimeForm.hour.value",
-            "2019-01-01, 10,'', 17,30,  0,  0, startTimeForm.minute.value",
-            "2019-01-01,  x,00, 17,30,  0,  0, startTimeForm.valid",
-            "2019-01-01, 10, x, 17,30,  0,  0, startTimeForm.valid",
-            "2019-01-01, 10,00, '',30,  0,  0, endTimeForm.hour.value",
-            "2019-01-01, 10,00, 17,'',  0,  0, endTimeForm.minute.value",
-            "2019-01-01, 10,00,  x,30,  0,  0, endTimeForm.valid",
-            "2019-01-01, 10,00, 17, x,  0,  0, endTimeForm.valid",
+            "2019-01-01, '',00, 17,30,  0,  0, startTime.hour.value",
+            "2019-01-01, 10,'', 17,30,  0,  0, startTime.minute.value",
+            "2019-01-01,  x,00, 17,30,  0,  0, startTime.valid",
+            "2019-01-01, 10, x, 17,30,  0,  0, startTime.valid",
+            "2019-01-01, 10,00, '',30,  0,  0, endTime.hour.value",
+            "2019-01-01, 10,00, 17,'',  0,  0, endTime.minute.value",
+            "2019-01-01, 10,00,  x,30,  0,  0, endTime.valid",
+            "2019-01-01, 10,00, 17, x,  0,  0, endTime.valid",
             "2019-01-01, 20,00, 17,30,  0,  0, timeRecord.actualWorkDateTime.workRange.workTimeValid", // 開始 > 終了
             "2019-01-01, 10,00, 17,30,  x,  0, daytimeBreakTime.value.value",
             "2019-01-01, 10,00, 10,30, 90,  0, timeRecord.actualWorkDateTime.daytimeBreakTimeValid", // over
@@ -112,10 +112,10 @@ class TimeRecordRegisterControllerTest {
         mockMvc.perform(post("/timerecord")
                 .param("employeeNumber", "1")
                 .param("workDate.value", workDate)
-                .param("startTimeForm.hour.value", startHour)
-                .param("startTimeForm.minute.value", startMinute)
-                .param("endTimeForm.hour.value", endHour)
-                .param("endTimeForm.minute.value", endMinute)
+                .param("startTime.hour.value", startHour)
+                .param("startTime.minute.value", startMinute)
+                .param("endTime.hour.value", endHour)
+                .param("endTime.minute.value", endMinute)
                 .param("daytimeBreakTime.value.value", daytimeBreakTime)
                 .param("nightBreakTime.value.value", nightBreakTime)
         )
@@ -133,10 +133,10 @@ class TimeRecordRegisterControllerTest {
         mockMvc.perform(post("/timerecord")
                 .param("employeeNumber", "1")
                 .param("workDate.value", "2018-01-01")
-                .param("startTimeForm.hour.value", "9")
-                .param("startTimeForm.minute.value", "00")
-                .param("endTimeForm.hour.value", "26")
-                .param("endTimeForm.minute.value", "30")
+                .param("startTime.hour.value", "9")
+                .param("startTime.minute.value", "00")
+                .param("endTime.hour.value", "26")
+                .param("endTime.minute.value", "30")
                 .param("daytimeBreakTime.value.value", "0")
                 .param("nightBreakTime.value.value", "0")
         )
@@ -162,6 +162,6 @@ class TimeRecordRegisterControllerTest {
         ModelAndView modelAndView = mvcResult.getModelAndView();
         AttendanceForm attendanceForm = (AttendanceForm) modelAndView.getModel().get("attendanceForm");
 
-        assertEquals("28", attendanceForm.endTimeForm.hour.toString());
+        assertEquals("28", attendanceForm.endTime.hour.toString());
     }
 }

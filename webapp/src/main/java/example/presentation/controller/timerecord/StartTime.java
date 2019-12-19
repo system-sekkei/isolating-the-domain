@@ -10,17 +10,17 @@ import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
 import java.time.DateTimeException;
 
-public class StartTimeForm {
+public class StartTime {
     @Valid
     StartHour hour;
 
     @Valid
     StartMinute minute;
 
-    public StartTimeForm() {
+    public StartTime() {
     }
 
-    public StartTimeForm(StartHour hour, StartMinute minute) {
+    public StartTime(StartHour hour, StartMinute minute) {
         this.hour = hour;
         this.minute = minute;
     }

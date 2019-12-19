@@ -15,24 +15,24 @@ import java.time.LocalTime;
 /**
  * 勤務終了日時
  */
-public class EndTimeForm {
+public class EndTime {
     @Valid
     EndHour hour;
 
     @Valid
     EndMinute minute;
 
-    public EndTimeForm() {
+    public EndTime() {
     }
 
-    EndTimeForm(EndHour hour, EndMinute minute) {
+    EndTime(EndHour hour, EndMinute minute) {
         this.hour = hour;
         this.minute = minute;
     }
 
-    public static EndTimeForm from(String time) {
+    public static EndTime from(String time) {
         String[] s = time.split(":");
-        return new EndTimeForm(new EndHour(s[0]), new EndMinute(s[1]));
+        return new EndTime(new EndHour(s[0]), new EndMinute(s[1]));
     }
 
     public EndDateTime endDateTime(StartDateTime startDateTime) {

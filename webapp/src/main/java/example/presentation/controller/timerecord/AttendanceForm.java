@@ -18,10 +18,10 @@ public class AttendanceForm {
     WorkDate workDate;
 
     @Valid
-    StartTimeForm startTimeForm;
+    StartTime startTime;
 
     @Valid
-    EndTimeForm endTimeForm;
+    EndTime endTime;
 
     @Valid
     DaytimeBreakTime daytimeBreakTime;
@@ -40,8 +40,8 @@ public class AttendanceForm {
 
     @AssertTrue(groups = Conversion.class)
     boolean isConverted() {
-        StartDateTime startDateTime = startTimeForm.startDateTime(workDate);
-        EndDateTime endDateTime = endTimeForm.endDateTime(startDateTime);
+        StartDateTime startDateTime = startTime.startDateTime(workDate);
+        EndDateTime endDateTime = endTime.endDateTime(startDateTime);
 
         ActualWorkDateTime actualWorkDateTime = new ActualWorkDateTime(
                 new WorkRange(startDateTime, endDateTime),
@@ -63,10 +63,10 @@ public class AttendanceForm {
         this.workDate = timeRecord.workDate();
 
         String[] startClockTime = timeRecord.actualWorkDateTime().workRange().start().toString().split(" ")[1].split(":");
-        this.startTimeForm = new StartTimeForm(new StartHour(startClockTime[0]), new StartMinute(startClockTime[1]));
+        this.startTime = new StartTime(new StartHour(startClockTime[0]), new StartMinute(startClockTime[1]));
 
         String[] endClockTime = timeRecord.actualWorkDateTime().workRange().endTimeText().split(":");
-        this.endTimeForm = new EndTimeForm(new EndHour(endClockTime[0]), new EndMinute(endClockTime[1]));
+        this.endTime = new EndTime(new EndHour(endClockTime[0]), new EndMinute(endClockTime[1]));
 
         this.daytimeBreakTime = timeRecord.actualWorkDateTime().daytimeBreakTime();
         this.nightBreakTime = timeRecord.actualWorkDateTime().nightBreakTime();
