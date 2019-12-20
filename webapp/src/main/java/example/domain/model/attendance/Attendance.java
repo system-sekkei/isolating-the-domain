@@ -2,6 +2,7 @@ package example.domain.model.attendance;
 
 import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.model.timerecord.evaluation.WorkDate;
+import example.domain.type.date.Week;
 import example.domain.type.time.QuarterHour;
 
 import java.util.List;
@@ -52,4 +53,16 @@ public class Attendance {
                 .map(timeRecord -> new PayableWork(timeRecord.actualWorkDateTime()))
                 .collect(Collectors.toList());
     }
+
+    public WeekWorkTime weekWorkTime(Week week) {
+        return new WeekWorkTime(timeRecords.list().stream()
+                .filter(timeRecord -> week.contains(timeRecord.actualWorkDateTime().workDate().value()))
+                .map(timeRecord -> timeRecord.actualWorkDateTime().workTime().quarterHour())
+                .reduce(QuarterHour::add)
+                .orElseGet(QuarterHour::new));
+    }
+
+    // TODO: 法定時間内残業 (所定労働時間を超えるが、法定時間内におさまる残業)
+    // TODO: 法定時間外残業
+    // TODO: 法定休日労働
 }
