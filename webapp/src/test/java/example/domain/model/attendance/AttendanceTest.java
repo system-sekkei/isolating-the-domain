@@ -2,6 +2,7 @@ package example.domain.model.attendance;
 
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
+import example.domain.model.timerecord.evaluation.StatutoryDaysOffWork;
 import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.type.date.Date;
 import example.domain.type.date.Week;
@@ -56,5 +57,31 @@ class AttendanceTest {
         WeekWorkTime weekWorkTime = attendance.weekWorkTime(week);
 
         assertEquals("960", weekWorkTime.value.minute().toString());
+    }
+
+    @Test
+    void 指定した週の法定休日労働時間が計算できる() {
+        EmployeeNumber en = new EmployeeNumber(1);
+        List<TimeRecord> list = Arrays.asList(
+                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2019-12-29", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2019-12-30", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2019-12-31", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2020-01-01", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2020-01-02", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2020-01-03", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2020-01-04", "9:00", "18:00", "60", "0")));
+        Attendance attendance = new Attendance(new WorkMonth("2019-12"), new TimeRecords(list));
+        Week week = Week.from(Arrays.asList(
+                Date.from("2019-12-29"),
+                Date.from("2019-12-30"),
+                Date.from("2019-12-31"),
+                Date.from("2020-01-01"),
+                Date.from("2020-01-02"),
+                Date.from("2020-01-03"),
+                Date.from("2020-01-04")));
+
+        StatutoryDaysOffWork statutoryDaysOffWork = attendance.statutoryDaysOffWorkByWeek(week);
+
+        assertEquals("480", statutoryDaysOffWork.quarterHour().minute().toString());
     }
 }

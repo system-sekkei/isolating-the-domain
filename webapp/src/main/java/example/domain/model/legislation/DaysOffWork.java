@@ -3,12 +3,12 @@ package example.domain.model.legislation;
 import example.domain.type.time.Minute;
 
 /**
- * 法定休日労働
+ * 休日労働
  */
-public class StatutoryDaysOffWork {
+public class DaysOffWork {
     Minute value;
 
-    public StatutoryDaysOffWork(Minute value) {
+    public DaysOffWork(Minute value) {
         this.value = value;
     }
 }

@@ -24,4 +24,13 @@ public class Week {
         }
         return false;
     }
+
+    public Date saturday() {
+        for (Date d: dates.list) {
+            if (d.dayOfWeek() == DayOfWeek.土) {
+                return d;
+            }
+        }
+        throw new IllegalStateException("週の情報が不正です。");
+    }
 }
