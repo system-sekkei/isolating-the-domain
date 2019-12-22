@@ -2,6 +2,7 @@ package example.presentation.controller.timerecord;
 
 import example.application.coordinator.timerecord.TimeRecordCoordinator;
 import example.application.coordinator.timerecord.TimeRecordQueryCoordinator;
+import example.application.service.daysoff.DaysOffRecordService;
 import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordRecordService;
 import example.domain.validation.BusinessLogic;
@@ -39,16 +40,19 @@ public class TimeRecordRegisterController {
     TimeRecordRecordService timeRecordRecordService;
     TimeRecordCoordinator timeRecordCoordinator;
     TimeRecordQueryCoordinator timeRecordQueryCoordinator;
+    DaysOffRecordService daysOffRecordService;
 
     public TimeRecordRegisterController(
             EmployeeQueryService employeeQueryService,
             TimeRecordRecordService timeRecordRecordService,
             TimeRecordCoordinator timeRecordCoordinator,
-            TimeRecordQueryCoordinator timeRecordQueryCoordinator) {
+            TimeRecordQueryCoordinator timeRecordQueryCoordinator,
+            DaysOffRecordService daysOffRecordService) {
         this.employeeQueryService = employeeQueryService;
         this.timeRecordRecordService = timeRecordRecordService;
         this.timeRecordCoordinator = timeRecordCoordinator;
         this.timeRecordQueryCoordinator = timeRecordQueryCoordinator;
+        this.daysOffRecordService = daysOffRecordService;
     }
 
     @ModelAttribute("employees")
@@ -90,6 +94,7 @@ public class TimeRecordRegisterController {
         if (result.hasErrors()) return "timerecord/form";
 
         timeRecordRecordService.registerTimeRecord(timeRecord);
+        daysOffRecordService.registerDaysOffRecord(attendanceForm.toDaysOff(), attendanceForm.isDaysOff);
 
         WorkMonth workMonth = WorkMonth.from(timeRecord.workDate());
 
@@ -106,7 +111,8 @@ public class TimeRecordRegisterController {
                 "endTime.hour.value",
                 "endTime.minute.value",
                 "daytimeBreakTime.value.value",
-                "nightBreakTime.value.value"
+                "nightBreakTime.value.value",
+                "isDaysOff"
         );
     }
 }

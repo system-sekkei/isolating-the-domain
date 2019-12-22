@@ -185,6 +185,19 @@
         </div>
       </div>
 
+      <div th:replace="fragments/field::macro('休日', ~{::div#isDaysOffField})">
+        <div id="isDaysOffField" class="field-body">
+          <div class="field">
+            <p class="control">
+              <label class="checkbox">
+                <input type="checkbox" th:field="*{isDaysOff}">
+                休日出勤
+              </label>
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div class="formFooter has-text-centered">
         <button class="button is-primary is-outlined">登録</button>
       </div>

@@ -15,4 +15,12 @@ public class DaysOff {
         this.employeeNumber = employeeNumber;
         this.date = date;
     }
+
+    public EmployeeNumber employeeNumber() {
+        return employeeNumber;
+    }
+
+    public Date date() {
+        return date;
+    }
 }

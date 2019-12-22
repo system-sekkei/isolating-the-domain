@@ -1,5 +1,6 @@
 package example.presentation.controller.timerecord;
 
+import example.domain.model.daysoff.DaysOff;
 import example.domain.validation.Conversion;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.*;
@@ -32,6 +33,10 @@ public class AttendanceForm {
     @Valid
     TimeRecord timeRecord;
 
+    boolean isDaysOff;
+
+    DaysOff daysOff;
+
     public AttendanceForm() {
     }
 
@@ -46,6 +51,7 @@ public class AttendanceForm {
                 nightBreakTime);
 
         this.timeRecord = new TimeRecord(employeeNumber, actualWorkDateTime);
+        this.daysOff = new DaysOff(employeeNumber, workDate.value());
 
         // 形式チェックが通ればオブジェクトは必ず生成できるはずなので常にtrue。
         return true;
@@ -53,6 +59,10 @@ public class AttendanceForm {
 
     public TimeRecord toTimeRecord() {
         return timeRecord;
+    }
+
+    public DaysOff toDaysOff() {
+        return daysOff;
     }
 
     public void apply(TimeRecord timeRecord) {

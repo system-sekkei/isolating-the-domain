@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="example.infrastructure.datasource.daysoff.DaysOffMapper">
+    <insert id="insertDaysOffHistory">
+        INSERT INTO 給与.休日履歴(従業員ID, 休日) VALUES
+        (#{employeeNumber.value}, #{daysOff.value});
+    </insert>
+
+    <insert id="insertDaysOff">
+        INSERT INTO 給与.休日(従業員ID, 休日) VALUES
+        (#{employeeNumber.value}, #{daysOff.value});
+    </insert>
+
+    <delete id="deleteDaysOff">
+        DELETE FROM 給与.休日 WHERE
+        従業員ID = #{employeeNumber.value} AND
+        休日 = #{daysOff.value};
+    </delete>
+</mapper>
