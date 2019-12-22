@@ -1,6 +1,7 @@
 package example.domain.model.timerecord.evaluation;
 
 import example.domain.model.employee.EmployeeNumber;
+import example.domain.model.legislation.DaysOffStatus;
 
 import javax.validation.Valid;
 
@@ -14,13 +15,20 @@ public class TimeRecord {
     @Valid
     ActualWorkDateTime actualWorkDateTime;
 
+    DaysOffStatus daysOffStatus;
+
     @Deprecated
     TimeRecord() {
     }
 
-    public TimeRecord(EmployeeNumber employeeNumber, ActualWorkDateTime actualWorkDateTime) {
+    public TimeRecord(EmployeeNumber employeeNumber, ActualWorkDateTime actualWorkDateTime, DaysOffStatus daysOffStatus) {
         this.employeeNumber = employeeNumber;
         this.actualWorkDateTime = actualWorkDateTime;
+        this.daysOffStatus = daysOffStatus;
+    }
+
+    public TimeRecord(EmployeeNumber employeeNumber, ActualWorkDateTime actualWorkDateTime) {
+        this(employeeNumber, actualWorkDateTime, DaysOffStatus.労働日);
     }
 
     public WorkDate workDate() {
@@ -41,5 +49,9 @@ public class TimeRecord {
 
     public boolean isOverlap(TimeRecord other) {
         return this.actualWorkDateTime.workRange.isOverlap(other.actualWorkDateTime.workRange);
+    }
+
+    public DaysOffStatus daysOffStatus() {
+        return daysOffStatus;
     }
 }

@@ -7,22 +7,24 @@
         select nextval('給与.就業時間ID')
     </select>
     <insert id="insertWorkTimeHistory">
-        INSERT INTO 給与.就業時間履歴 (就業時間ID, 従業員ID, 勤務日, 開始日時, 終了日時, 休憩時間, 深夜休憩時間)
+        INSERT INTO 給与.就業時間履歴 (就業時間ID, 従業員ID, 勤務日, 開始日時, 終了日時, 休憩時間, 深夜休憩時間, 休日)
         VALUES (#{id}, #{employeeNumber.value},
         #{workDate.value.value},
         #{work.actualWorkDateTime.workRange.startDateTime.value.value},
         #{work.actualWorkDateTime.workRange.endDateTime.value.value},
         #{work.actualWorkDateTime.daytimeBreakTime.value.value},
-        #{work.actualWorkDateTime.nightBreakTime.value.value});
+        #{work.actualWorkDateTime.nightBreakTime.value.value},
+        #{work.daysOffStatus});
     </insert>
     <insert id="insertWorkTime">
-        INSERT INTO 給与.就業時間 (従業員ID, 就業時間ID, 勤務日, 開始日時, 終了日時, 休憩時間, 深夜休憩時間)
+        INSERT INTO 給与.就業時間 (従業員ID, 就業時間ID, 勤務日, 開始日時, 終了日時, 休憩時間, 深夜休憩時間, 休日)
         VALUES (#{employeeNumber.value}, #{workTimeId},
         #{workDate.value.value},
         #{work.actualWorkDateTime.workRange.startDateTime.value.value},
         #{work.actualWorkDateTime.workRange.endDateTime.value.value},
         #{work.actualWorkDateTime.daytimeBreakTime.value.value},
-        #{work.actualWorkDateTime.nightBreakTime.value.value});
+        #{work.actualWorkDateTime.nightBreakTime.value.value},
+        #{work.daysOffStatus});
     </insert>
     <delete id="deleteWorkTime">
         DELETE FROM 給与.就業時間 WHERE 従業員ID = #{employeeNumber.value} and 勤務日 = #{workDate.value.value}
@@ -34,7 +36,8 @@
         就業時間.開始日時 as "actualWorkDateTime.workRange.startDateTime.value.value",
         就業時間.終了日時 as "actualWorkDateTime.workRange.endDateTime.value.value",
         就業時間.休憩時間 as "actualWorkDateTime.daytimeBreakTime.value.value",
-        就業時間.深夜休憩時間 as "actualWorkDateTime.nightBreakTime.value.value"
+        就業時間.深夜休憩時間 as "actualWorkDateTime.nightBreakTime.value.value",
+        就業時間.休日 as "daysOffStatus"
         FROM 給与.就業時間 as 就業時間
         WHERE 就業時間.従業員ID = #{employeeNumber.value}
         AND to_char(就業時間.勤務日,'yyyymm') = #{yearMonth}

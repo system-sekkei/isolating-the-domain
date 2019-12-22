@@ -94,7 +94,6 @@ public class TimeRecordRegisterController {
         if (result.hasErrors()) return "timerecord/form";
 
         timeRecordRecordService.registerTimeRecord(timeRecord);
-        daysOffRecordService.registerDaysOffRecord(attendanceForm.toDaysOff(), attendanceForm.isDaysOff);
 
         WorkMonth workMonth = WorkMonth.from(timeRecord.workDate());
 

@@ -1,6 +1,6 @@
 package example.presentation.controller.timerecord;
 
-import example.domain.model.daysoff.DaysOff;
+import example.domain.model.legislation.DaysOffStatus;
 import example.domain.validation.Conversion;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.*;
@@ -30,12 +30,10 @@ public class AttendanceForm {
     @Valid
     NightBreakTime nightBreakTime;
 
-    @Valid
-    TimeRecord timeRecord;
-
     boolean isDaysOff;
 
-    DaysOff daysOff;
+    @Valid
+    TimeRecord timeRecord;
 
     public AttendanceForm() {
     }
@@ -50,8 +48,11 @@ public class AttendanceForm {
                 daytimeBreakTime,
                 nightBreakTime);
 
-        this.timeRecord = new TimeRecord(employeeNumber, actualWorkDateTime);
-        this.daysOff = new DaysOff(employeeNumber, workDate.value());
+        if (isDaysOff) {
+            this.timeRecord = new TimeRecord(employeeNumber, actualWorkDateTime, DaysOffStatus.休日);
+        } else {
+            this.timeRecord = new TimeRecord(employeeNumber, actualWorkDateTime, DaysOffStatus.労働日);
+        }
 
         // 形式チェックが通ればオブジェクトは必ず生成できるはずなので常にtrue。
         return true;
@@ -59,10 +60,6 @@ public class AttendanceForm {
 
     public TimeRecord toTimeRecord() {
         return timeRecord;
-    }
-
-    public DaysOff toDaysOff() {
-        return daysOff;
     }
 
     public void apply(TimeRecord timeRecord) {
@@ -77,6 +74,8 @@ public class AttendanceForm {
 
         this.daytimeBreakTime = timeRecord.actualWorkDateTime().daytimeBreakTime();
         this.nightBreakTime = timeRecord.actualWorkDateTime().nightBreakTime();
+
+        this.isDaysOff = timeRecord.daysOffStatus() == DaysOffStatus.休日;
 
         this.timeRecord = timeRecord;
     }
