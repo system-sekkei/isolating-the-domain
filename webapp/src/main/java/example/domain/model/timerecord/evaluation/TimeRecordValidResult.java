@@ -1,18 +1,19 @@
 package example.domain.model.timerecord.evaluation;
 
-import java.util.List;
-
-/**
- * 勤務実績 検証結果
- */
 public class TimeRecordValidResult {
-    List<TimeRecordValidError> errors;
+    StartTimeValidResult startTimeValidResult;
+    EndTimeValidResult endTimeValidResult;
 
-    public TimeRecordValidResult(List<TimeRecordValidError> errors) {
-        this.errors = errors;
+    public TimeRecordValidResult(StartTimeValidResult startTimeValidResult, EndTimeValidResult endTimeValidResult) {
+        this.startTimeValidResult = startTimeValidResult;
+        this.endTimeValidResult = endTimeValidResult;
     }
 
-    public List<TimeRecordValidError> errors() {
-        return errors;
+    public StartTimeValidResult startTimeValidResult() {
+        return startTimeValidResult;
+    }
+
+    public EndTimeValidResult endTimeValidResult() {
+        return endTimeValidResult;
     }
 }

@@ -4,14 +4,8 @@ import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordQueryService;
 import example.domain.model.employee.Employee;
-import example.domain.model.timerecord.evaluation.TimeRecord;
-import example.domain.model.timerecord.evaluation.WorkDate;
-import example.domain.model.timerecord.evaluation.TimeRecordValidError;
-import example.domain.model.timerecord.evaluation.TimeRecordValidResult;
+import example.domain.model.timerecord.evaluation.*;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 勤務実績登録コーディネーター
@@ -29,47 +23,45 @@ public class TimeRecordCoordinator {
     }
 
     public TimeRecordValidResult isValid(TimeRecord timeRecord) {
-        List<TimeRecordValidError> errors = new ArrayList<>();
-        if (isOverlapWithPreviousWorkRange(timeRecord)) {
-            errors.add(TimeRecordValidError.前日の勤務時刻と重複);
-        }
+        StartTimeValidResult startTimeValidResult = checkOverlapWithPreviousWorkRange(timeRecord);
+        EndTimeValidResult endTimeValidResult = checkOverlapWithNextWorkRange(timeRecord);
 
-        if (isOverlapWithNextWorkRange(timeRecord)) {
-            errors.add(TimeRecordValidError.翌日の勤務時刻と重複);
-        }
-
-        return new TimeRecordValidResult(errors);
+        return new TimeRecordValidResult(startTimeValidResult, endTimeValidResult);
     }
 
     /**
-     * 前の勤務日と勤務時刻が重複していないかどうか
+     * 前の勤務日と勤務開始時刻が重複していないかどうか
      */
-    private boolean isOverlapWithPreviousWorkRange(TimeRecord timeRecord) {
+    StartTimeValidResult checkOverlapWithPreviousWorkRange(TimeRecord timeRecord) {
         Employee employee = employeeQueryService.choose(timeRecord.employeeNumber());
 
         WorkDate previousDate = new WorkDate(timeRecord.workDate().value().previousDay());
 
         if (attendanceQueryService.attendanceStatus(employee, previousDate).isWork()) {
             TimeRecord previous = timeRecordQueryService.timeRecord(employee, previousDate);
-            return timeRecord.isOverlap(previous);
+            if (timeRecord.isOverlap(previous)) {
+                return StartTimeValidResult.前日の勤務時刻と重複;
+            }
         }
 
-        return false;
+        return StartTimeValidResult.正常;
     }
 
     /**
-     * 次の勤務日と勤務時刻が重複していないかどうか
+     * 次の勤務日と勤務終了時刻が重複していないかどうか
      */
-    private boolean isOverlapWithNextWorkRange(TimeRecord timeRecord) {
+    EndTimeValidResult checkOverlapWithNextWorkRange(TimeRecord timeRecord) {
         Employee employee = employeeQueryService.choose(timeRecord.employeeNumber());
 
         WorkDate nextDate = new WorkDate(timeRecord.workDate().value().nextDay());
 
         if (attendanceQueryService.attendanceStatus(employee, nextDate).isWork()) {
             TimeRecord next = timeRecordQueryService.timeRecord(employee, nextDate);
-            return timeRecord.isOverlap(next);
+            if (timeRecord.isOverlap(next)) {
+                return EndTimeValidResult.翌日の勤務時刻と重複;
+            }
         }
 
-        return false;
+        return EndTimeValidResult.正常;
     }
 }

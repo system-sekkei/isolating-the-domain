@@ -5,6 +5,7 @@ import example.application.coordinator.timerecord.TimeRecordQueryCoordinator;
 import example.application.service.daysoff.DaysOffRecordService;
 import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordRecordService;
+import example.domain.model.timerecord.evaluation.*;
 import example.domain.validation.BusinessLogic;
 import example.domain.validation.Conversion;
 import example.domain.validation.Required;
@@ -12,8 +13,6 @@ import example.domain.validation.FormatCheck;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.EmployeeNumber;
-import example.domain.model.timerecord.evaluation.TimeRecord;
-import example.domain.model.timerecord.evaluation.WorkDate;
 import example.domain.type.date.Date;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -87,9 +86,13 @@ public class TimeRecordRegisterController {
         if (result.hasErrors()) return "timerecord/form";
         TimeRecord timeRecord = attendanceForm.toTimeRecord();
 
-        timeRecordCoordinator.isValid(timeRecord).errors().forEach(error -> {
-            result.addError(new FieldError("attendanceForm", error.field(), error.message()));
-        });
+        TimeRecordValidResult valid = timeRecordCoordinator.isValid(timeRecord);
+        if (valid.startTimeValidResult().hasError()) {
+            result.addError(new FieldError("attendanceForm", "startTime.valid", valid.startTimeValidResult().message()));
+        }
+        if (valid.endTimeValidResult().hasError()) {
+            result.addError(new FieldError("attendanceForm", "endTime.valid", valid.endTimeValidResult().message()));
+        }
 
         if (result.hasErrors()) return "timerecord/form";
 
