@@ -6,7 +6,6 @@ import example.domain.model.attendance.TimeRecords;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
-import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
 import example.domain.model.timerecord.evaluation.TimeRecord;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -104,10 +103,10 @@ class TimeRecordRegisterControllerTest {
                 .thenReturn(new TimeRecords(Arrays.asList(
                         new TimeRecord(
                                 new EmployeeNumber(1),
-                                ActualWorkDateTime.toActualWorkDateTime("2019-01-01", "9:00", "33:00", "0", "0")),
+                                AttendanceForm.toActualWorkDateTime("2019-01-01", "9:00", "33:00", "0", "0")),
                         new TimeRecord(
                                 new EmployeeNumber(1),
-                                ActualWorkDateTime.toActualWorkDateTime("2019-01-03", "9:00", "21:00", "0", "0")))));
+                                AttendanceForm.toActualWorkDateTime("2019-01-03", "9:00", "21:00", "0", "0")))));
 
         mockMvc.perform(post("/timerecord")
                 .param("employeeNumber", "1")
@@ -150,7 +149,7 @@ class TimeRecordRegisterControllerTest {
                 .thenReturn(new TimeRecords(Arrays.asList(
                         new TimeRecord(
                                 new EmployeeNumber(1),
-                                ActualWorkDateTime.toActualWorkDateTime("2011-11-11", "9:00", "28:00", "0", "0")))));
+                                AttendanceForm.toActualWorkDateTime("2011-11-11", "9:00", "28:00", "0", "0")))));
 
         MvcResult mvcResult = mockMvc.perform(
                 get("/timerecord")

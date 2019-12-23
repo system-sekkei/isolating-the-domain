@@ -1,6 +1,7 @@
 package example.domain.model.timerecord;
 
 import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
+import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -32,7 +33,7 @@ class ActualWorkTimeTest {
             "9:00, 33:00, 60, 16時間0分",
     })
     void 日中作業時間が計算できる(String begin, String end, String breaks, String expected) {
-        ActualWorkDateTime sut = ActualWorkDateTime.toActualWorkDateTime("2018-11-25", begin, end, breaks, "0");
+        ActualWorkDateTime sut = AttendanceForm.toActualWorkDateTime("2018-11-25", begin, end, breaks, "0");
         assertEquals(expected, sut.daytimeWorkTime().toString());
     }
 
@@ -46,7 +47,7 @@ class ActualWorkTimeTest {
             "23:00, 24:00, 0, 1時間0分",
     })
     void 深夜作業時間が計算できる(String begin, String end, String breaks, String expected) {
-        ActualWorkDateTime sut = ActualWorkDateTime.toActualWorkDateTime("2018-11-25", begin, end, "0", breaks);
+        ActualWorkDateTime sut = AttendanceForm.toActualWorkDateTime("2018-11-25", begin, end, "0", breaks);
         assertEquals(expected, sut.nightWorkTime().toString());
     }
 
@@ -55,13 +56,13 @@ class ActualWorkTimeTest {
             "9:00, 17:00, 60, 0時間0分",
             "09:00, 22:00, 60, 4時間0分"})
     void 時間外作業時間が計算できる(String begin, String end, String breaks, String expected) {
-        ActualWorkDateTime sut = ActualWorkDateTime.toActualWorkDateTime("2018-11-25", begin, end, breaks, "0");
+        ActualWorkDateTime sut = AttendanceForm.toActualWorkDateTime("2018-11-25", begin, end, breaks, "0");
         assertEquals(expected, sut.overWorkTime().toString());
     }
 
     @Test
     void 作業時間が計算できる() {
-        ActualWorkDateTime sut = ActualWorkDateTime.toActualWorkDateTime("2018-11-25", "8:00", "24:00", "120", "30");
+        ActualWorkDateTime sut = AttendanceForm.toActualWorkDateTime("2018-11-25", "8:00", "24:00", "120", "30");
         assertAll(
                 () -> assertEquals("12時間0分", sut.daytimeWorkTime().toString())
                 , () -> assertEquals("5時間30分", sut.overWorkTime().toString())

@@ -1,6 +1,7 @@
 package example.presentation.controller.timerecord;
 
 import example.domain.model.legislation.DaysOffStatus;
+import example.domain.type.datetime.DateTime;
 import example.domain.validation.Conversion;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.*;
@@ -78,5 +79,12 @@ public class AttendanceForm {
         this.isDaysOff = timeRecord.daysOffStatus() == DaysOffStatus.休日;
 
         this.timeRecord = timeRecord;
+    }
+
+    // TODO: ドメイン層にもっていきたい
+    public static ActualWorkDateTime toActualWorkDateTime(String startDate, String startTime, String endTime, String daytimeBreak, String nightBreak) {
+        StartDateTime startDateTime = new StartDateTime(DateTime.parse(startDate, startTime));
+        EndDateTime endDateTime = EndTime.from(endTime).endDateTime(startDateTime);
+        return new ActualWorkDateTime(new WorkRange(startDateTime, endDateTime), DaytimeBreakTime.from(daytimeBreak), NightBreakTime.from(nightBreak));
     }
 }

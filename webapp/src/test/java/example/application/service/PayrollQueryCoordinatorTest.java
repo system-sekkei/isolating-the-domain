@@ -10,11 +10,11 @@ import example.domain.model.employee.*;
 import example.domain.model.legislation.NightExtraRate;
 import example.domain.model.legislation.OverTimeExtraRate;
 import example.domain.model.payroll.Payroll;
-import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
 import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.model.wage.HourlyWage;
 import example.domain.model.wage.WageCondition;
 import example.domain.type.date.Date;
+import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -53,7 +53,7 @@ class PayrollQueryCoordinatorTest {
 
             TimeRecord timeRecord = new TimeRecord(
                     employeeNumber,
-                    ActualWorkDateTime.toActualWorkDateTime("2018-11-20", "9:00", "10:00", "0", "0")
+                    AttendanceForm.toActualWorkDateTime("2018-11-20", "9:00", "10:00", "0", "0")
             );
             timeRecordRecordService.registerTimeRecord(timeRecord);
 
@@ -64,7 +64,7 @@ class PayrollQueryCoordinatorTest {
         {
             TimeRecord timeRecord = new TimeRecord(
                     employeeNumber,
-                    ActualWorkDateTime.toActualWorkDateTime("2018-11-25", "22:00", "23:00", "0", "0")
+                    AttendanceForm.toActualWorkDateTime("2018-11-25", "22:00", "23:00", "0", "0")
             );
             timeRecordRecordService.registerTimeRecord(timeRecord);
 

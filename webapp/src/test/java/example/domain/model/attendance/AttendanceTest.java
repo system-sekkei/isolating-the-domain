@@ -6,6 +6,7 @@ import example.domain.model.timerecord.evaluation.StatutoryWorkOnDaysOff;
 import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.type.date.Date;
 import example.domain.type.date.Week;
+import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
@@ -19,9 +20,9 @@ class AttendanceTest {
     void 指定した週の労働時間合計を集計することができる() {
         EmployeeNumber en = new EmployeeNumber(1);
         List<TimeRecord> list = Arrays.asList(
-                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2019-11-09", "9:00", "18:00", "60", "0")),
-                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2019-11-10", "9:00", "18:00", "60", "0")),
-                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2019-11-11", "9:00", "18:00", "60", "0")));
+                new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-11-09", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-11-10", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-11-11", "9:00", "18:00", "60", "0")));
         Attendance attendance = new Attendance(new WorkMonth("2019-11"), new TimeRecords(list));
         Week week = Week.from(Arrays.asList(
             Date.from("2019-11-10"),
@@ -41,9 +42,9 @@ class AttendanceTest {
     void 月跨ぎの週の労働時間合計を集計することができる() {
         EmployeeNumber en = new EmployeeNumber(1);
         List<TimeRecord> list = Arrays.asList(
-                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2019-12-24", "9:00", "18:00", "60", "0")),
-                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2019-12-31", "9:00", "18:00", "60", "0")),
-                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2020-01-01", "9:00", "18:00", "60", "0")));
+                new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-24", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-31", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2020-01-01", "9:00", "18:00", "60", "0")));
         Attendance attendance = new Attendance(new WorkMonth("2019-12"), new TimeRecords(list));
         Week week = Week.from(Arrays.asList(
                 Date.from("2019-12-29"),
@@ -63,13 +64,13 @@ class AttendanceTest {
     void 指定した週の法定休日労働時間が計算できる() {
         EmployeeNumber en = new EmployeeNumber(1);
         List<TimeRecord> list = Arrays.asList(
-                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2019-12-29", "9:00", "18:00", "60", "0")),
-                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2019-12-30", "9:00", "18:00", "60", "0")),
-                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2019-12-31", "9:00", "18:00", "60", "0")),
-                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2020-01-01", "9:00", "18:00", "60", "0")),
-                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2020-01-02", "9:00", "18:00", "60", "0")),
-                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2020-01-03", "9:00", "18:00", "60", "0")),
-                new TimeRecord(en, ActualWorkDateTime.toActualWorkDateTime("2020-01-04", "9:00", "18:00", "60", "0")));
+                new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-29", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-30", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-31", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2020-01-01", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2020-01-02", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2020-01-03", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2020-01-04", "9:00", "18:00", "60", "0")));
         Attendance attendance = new Attendance(new WorkMonth("2019-12"), new TimeRecords(list));
         Week week = Week.from(Arrays.asList(
                 Date.from("2019-12-29"),
