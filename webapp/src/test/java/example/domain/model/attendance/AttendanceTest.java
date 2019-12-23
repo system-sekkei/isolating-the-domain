@@ -2,7 +2,7 @@ package example.domain.model.attendance;
 
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
-import example.domain.model.timerecord.evaluation.StatutoryDaysOffWork;
+import example.domain.model.timerecord.evaluation.StatutoryWorkOnDaysOff;
 import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.type.date.Date;
 import example.domain.type.date.Week;
@@ -80,8 +80,8 @@ class AttendanceTest {
                 Date.from("2020-01-03"),
                 Date.from("2020-01-04")));
 
-        StatutoryDaysOffWork statutoryDaysOffWork = attendance.statutoryDaysOffWorkByWeek(week);
+        StatutoryWorkOnDaysOff statutoryWorkOnDaysOff = attendance.statutoryDaysOffWorkByWeek(week);
 
-        assertEquals("480", statutoryDaysOffWork.quarterHour().minute().toString());
+        assertEquals("480", statutoryWorkOnDaysOff.quarterHour().minute().toString());
     }
 }

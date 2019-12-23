@@ -1,7 +1,7 @@
 package example.domain.model.attendance;
 
 import example.domain.model.legislation.DaysOff;
-import example.domain.model.timerecord.evaluation.StatutoryDaysOffWork;
+import example.domain.model.timerecord.evaluation.StatutoryWorkOnDaysOff;
 import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.model.timerecord.evaluation.WorkDate;
 import example.domain.type.date.Week;
@@ -67,9 +67,9 @@ public class Attendance {
     // TODO: 法定時間内残業 (所定労働時間を超えるが、法定時間内におさまる残業)
     // TODO: 法定時間外残業
 
-    StatutoryDaysOffWork statutoryDaysOffWorkByWeek(Week week) {
+    StatutoryWorkOnDaysOff statutoryDaysOffWorkByWeek(Week week) {
         DaysOff daysOff = DaysOff.from(week);
-        return new StatutoryDaysOffWork(timeRecords.list().stream()
+        return new StatutoryWorkOnDaysOff(timeRecords.list().stream()
             .filter(timeRecord -> timeRecord.actualWorkDateTime().workDate().value().hasSameValue(daysOff.value()))
             .map(timeRecord -> timeRecord.actualWorkDateTime().workTime().quarterHour())
             .reduce(QuarterHour::add)

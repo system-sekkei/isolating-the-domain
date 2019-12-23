@@ -5,10 +5,10 @@ import example.domain.type.time.QuarterHour;
 /**
  * 法定休日労働
  */
-public class StatutoryDaysOffWork {
+public class StatutoryWorkOnDaysOff {
     QuarterHour value;
 
-    public StatutoryDaysOffWork(QuarterHour value) {
+    public StatutoryWorkOnDaysOff(QuarterHour value) {
         this.value = value;
     }
 
