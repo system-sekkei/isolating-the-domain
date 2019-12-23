@@ -13,7 +13,7 @@ public class DaysOff {
         this.value = value;
     }
 
-    // 第三十五条 使用者は、労働者に対して、毎週少くとも一回の休日を与えなければならない。
+    // 第三十五条 少なくとも週1日、もしくは4週間で4日以上の休日を与える必要がある
     public static DaysOff from(Week week) {
         // TODO: いまはひとまず、土曜日を法定休日とみなしている
         return new DaysOff(week.saturday());
