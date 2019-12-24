@@ -2,11 +2,11 @@ plugins {
     id 'java'
     id 'idea'
     id 'org.springframework.boot' version '2.2.0.RELEASE'
-    id "org.dddjava.jig-gradle-plugin" version "2019.10.4"
+    id "org.dddjava.jig-gradle-plugin" version "2019.12.2"
 }
 
-jigReports.dependsOn(clean, compileJava, processResources)
-bootRun.mustRunAfter(clean)
+[compileJava, processResources]*.shouldRunAfter(clean)
+jigReports.dependsOn(clean, classes)
 
 description 'ドメイン駆動設計によるアプリケーションテンプレート'
 
