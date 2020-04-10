@@ -15,6 +15,7 @@ import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.type.date.Date;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
