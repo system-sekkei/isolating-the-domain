@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class Contract {
     Employee employee;
     ContractWages contractWages;
+    ContractBreakTime contractBreakTime;
 
     public Contract(Employee employee, ContractWages contractWages) {
         this.employee = employee;
