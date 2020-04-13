@@ -3,7 +3,7 @@ package example.domain.model.contract;
 import example.domain.type.date.Date;
 
 /**
- * 休日
+ * 契約上の休日
  */
 public class ContractDaysOff {
     Date value;
