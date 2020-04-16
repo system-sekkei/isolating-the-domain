@@ -3,21 +3,21 @@ package example.domain.model.contract;
 import example.domain.model.legislation.ExtraPayRate;
 
 /**
- * 休日労働割増率
+ * 法定時間外残業 時間外割増率
  */
-public class DaysOffWorkExtraRate {
+public class OverLegalTimeExtraRate {
     ExtraPayRate value;
 
     @Deprecated
-    public DaysOffWorkExtraRate() {
+    public OverLegalTimeExtraRate() {
     }
 
-    public DaysOffWorkExtraRate(Integer value) {
+    public OverLegalTimeExtraRate(Integer value) {
         this.value = new ExtraPayRate(value);
     }
 
-    public static DaysOffWorkExtraRate legal() {
-        return new DaysOffWorkExtraRate(35);
+    public static OverLegalTimeExtraRate legal() {
+        return new OverLegalTimeExtraRate(25);
     }
 
     public ExtraPayRate value() {
