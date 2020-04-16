@@ -6,7 +6,7 @@ import example.application.service.employee.EmployeeQueryService;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.wage.HourlyWage;
-import example.domain.model.wage.WageCondition;
+import example.domain.model.contract.WageCondition;
 import example.domain.type.date.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

@@ -2,7 +2,7 @@ package example.infrastructure.datasource.contract;
 
 import example.domain.model.contract.ContractWage;
 import example.domain.model.employee.EmployeeNumber;
-import example.domain.model.wage.WageCondition;
+import example.domain.model.contract.WageCondition;
 import example.domain.type.date.Date;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

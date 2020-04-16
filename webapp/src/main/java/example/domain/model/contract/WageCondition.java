@@ -1,6 +1,8 @@
-package example.domain.model.wage;
+package example.domain.model.contract;
 
-import example.domain.model.contract.*;
+import example.domain.model.wage.HourlyWage;
+import example.domain.model.wage.NightHourlyExtraWage;
+import example.domain.model.wage.OverTimeHourlyExtraWage;
 
 /**
  * 給与条件

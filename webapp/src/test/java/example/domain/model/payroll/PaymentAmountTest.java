@@ -3,7 +3,7 @@ package example.domain.model.payroll;
 import example.domain.model.attendance.PayableWork;
 import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
 import example.domain.model.wage.HourlyWage;
-import example.domain.model.wage.WageCondition;
+import example.domain.model.contract.WageCondition;
 import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

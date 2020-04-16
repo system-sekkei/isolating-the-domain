@@ -5,7 +5,7 @@ import example.domain.model.attendance.PayableWork;
 import example.domain.model.contract.Contract;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.employee.Name;
-import example.domain.model.wage.WageCondition;
+import example.domain.model.contract.WageCondition;
 
 import java.math.BigDecimal;
 

@@ -10,7 +10,7 @@ import example.domain.model.contract.OverTimeExtraRate;
 import example.domain.model.employee.*;
 import example.domain.model.contract.NightExtraRate;
 import example.domain.model.wage.HourlyWage;
-import example.domain.model.wage.WageCondition;
+import example.domain.model.contract.WageCondition;
 import example.domain.type.date.Date;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
