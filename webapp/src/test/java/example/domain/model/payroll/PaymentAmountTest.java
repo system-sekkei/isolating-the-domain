@@ -2,7 +2,7 @@ package example.domain.model.payroll;
 
 import example.domain.model.attendance.PayableWork;
 import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
-import example.domain.model.wage.HourlyWage;
+import example.domain.model.wage.BaseHourlyWage;
 import example.domain.model.contract.WageCondition;
 import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -34,7 +34,7 @@ class PaymentAmountTest {
     void 割増含めた賃金計算ができる(String begin, String end, String breakMinute, String nightBreakMinute, int hourlyWage, int expected) {
         ActualWorkDateTime actualWorkDateTime = AttendanceForm.toActualWorkDateTime("2018-11-25", begin, end, breakMinute, nightBreakMinute);
         PayableWork payableWork = new PayableWork(actualWorkDateTime);
-        WageCondition wageCondition = new WageCondition(new HourlyWage(hourlyWage));
+        WageCondition wageCondition = new WageCondition(new BaseHourlyWage(hourlyWage));
 
         PaymentAmount paymentAmount = new PaymentAmount(BigDecimal.ZERO)
                 .addConsiderationAmount(payableWork, wageCondition);

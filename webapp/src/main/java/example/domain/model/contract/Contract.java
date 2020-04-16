@@ -3,7 +3,7 @@ package example.domain.model.contract;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.employee.Name;
-import example.domain.model.wage.HourlyWage;
+import example.domain.model.wage.BaseHourlyWage;
 import example.domain.type.date.Date;
 import example.domain.type.date.Dates;
 
@@ -39,12 +39,12 @@ public class Contract {
         return list.get(list.size() - 1).effectiveDate();
     }
 
-    public HourlyWage todayHourlyWage() {
+    public BaseHourlyWage todayHourlyWage() {
         Date today = new Date(LocalDate.now());
         if (contractStatus(today).disable()) {
-            return HourlyWage.disable();
+            return BaseHourlyWage.disable();
         }
-        return availableContractAt(today).hourlyWage();
+        return availableContractAt(today).baseHourlyWage();
     }
 
     public ContractWage availableContractAt(Date date) {

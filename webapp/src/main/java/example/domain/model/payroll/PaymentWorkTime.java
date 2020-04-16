@@ -17,6 +17,6 @@ public class PaymentWorkTime {
 
     public PaymentAmount multiply(HourlyWage hourlyWage) {
         BigDecimal hour = value.bigDecimalValue();
-        return new PaymentAmount(hour.multiply(hourlyWage.value()));
+        return new PaymentAmount(hour.multiply(hourlyWage.value().value()));
     }
 }

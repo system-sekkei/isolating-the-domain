@@ -9,7 +9,7 @@ import example.domain.model.contract.OverLegalTimeExtraRate;
 import example.domain.model.contract.OverTimeExtraRate;
 import example.domain.model.employee.*;
 import example.domain.model.contract.NightExtraRate;
-import example.domain.model.wage.HourlyWage;
+import example.domain.model.wage.BaseHourlyWage;
 import example.domain.model.contract.WageCondition;
 import example.domain.type.date.Date;
 import org.junit.jupiter.api.Test;
@@ -51,13 +51,13 @@ public class ContractWageRecordServiceTest {
         Employee employee = employeeQueryService.choose(employeeNumber);
 
         Date effectiveDate1 = Date.from("2018-12-12");
-        updateHourlyWageContract(employee, effectiveDate1, new HourlyWage(800));
+        updateHourlyWageContract(employee, effectiveDate1, new BaseHourlyWage(800));
 
         ContractWages history1 = sutQuery.getContractWages(employee);
         assertEquals(1, history1.list().size());
         assertAll(
                 () -> assertEquals(effectiveDate1.value(), history1.list().get(0).effectiveDate().value().value()),
-                () -> assertEquals(800, history1.list().get(0).hourlyWage().value().intValue())
+                () -> assertEquals(800, history1.list().get(0).baseHourlyWage().toBigDecimal().intValue())
         );
     }
 
@@ -65,13 +65,13 @@ public class ContractWageRecordServiceTest {
         Employee employee = employeeQueryService.choose(employeeNumber);
 
         Date effectiveDate2 = Date.from("2018-12-22");
-        updateHourlyWageContract(employee, effectiveDate2, new HourlyWage(850));
+        updateHourlyWageContract(employee, effectiveDate2, new BaseHourlyWage(850));
         ContractWages history2 = sutQuery.getContractWages(employee);
         assertEquals(2, history2.list().size());
         assertAll(
                 () -> assertEquals(effectiveDate2.value(), history2.list().get(0).effectiveDate().value().value()),
-                () -> assertEquals(850, history2.list().get(0).hourlyWage().value().intValue()),
-                () -> assertEquals(800, history2.list().get(1).hourlyWage().value().intValue())
+                () -> assertEquals(850, history2.list().get(0).baseHourlyWage().toBigDecimal().intValue()),
+                () -> assertEquals(800, history2.list().get(1).baseHourlyWage().toBigDecimal().intValue())
         );
     }
 
@@ -79,16 +79,16 @@ public class ContractWageRecordServiceTest {
         Employee employee = employeeQueryService.choose(employeeNumber);
 
         Date effectiveDate3 = Date.from("2018-12-17");
-        updateHourlyWageContract(employee, effectiveDate3, new HourlyWage(830));
+        updateHourlyWageContract(employee, effectiveDate3, new BaseHourlyWage(830));
         ContractWages history3 = sutQuery.getContractWages(employee);
         assertEquals(3, history3.list().size());
         assertAll(
-                () -> assertEquals(850, history3.list().get(0).hourlyWage().value().intValue()),
+                () -> assertEquals(850, history3.list().get(0).baseHourlyWage().toBigDecimal().intValue()),
 
                 () -> assertEquals(effectiveDate3.value(), history3.list().get(1).effectiveDate().value().value()),
-                () -> assertEquals(830, history3.list().get(1).hourlyWage().value().intValue()),
+                () -> assertEquals(830, history3.list().get(1).baseHourlyWage().toBigDecimal().intValue()),
 
-                () -> assertEquals(800, history3.list().get(2).hourlyWage().value().intValue())
+                () -> assertEquals(800, history3.list().get(2).baseHourlyWage().toBigDecimal().intValue())
         );
     }
 
@@ -96,19 +96,19 @@ public class ContractWageRecordServiceTest {
         Employee employee = employeeQueryService.choose(employeeNumber);
 
         Date effectiveDate1 = Date.from("2018-12-12");
-        updateHourlyWageContract(employee, effectiveDate1, new HourlyWage(1000));
+        updateHourlyWageContract(employee, effectiveDate1, new BaseHourlyWage(1000));
 
         ContractWages history = sutQuery.getContractWages(employee);
         assertEquals(3, history.list().size());
         assertAll(
-                () -> assertEquals(850, history.list().get(0).hourlyWage().value().intValue()),
-                () -> assertEquals(830, history.list().get(1).hourlyWage().value().intValue()),
-                () -> assertEquals(1000, history.list().get(2).hourlyWage().value().intValue())
+                () -> assertEquals(850, history.list().get(0).baseHourlyWage().toBigDecimal().intValue()),
+                () -> assertEquals(830, history.list().get(1).baseHourlyWage().toBigDecimal().intValue()),
+                () -> assertEquals(1000, history.list().get(2).baseHourlyWage().toBigDecimal().intValue())
         );
     }
 
-    private void updateHourlyWageContract(Employee employee, Date effectiveDate, HourlyWage hourlyWage) {
+    private void updateHourlyWageContract(Employee employee, Date effectiveDate, BaseHourlyWage baseHourlyWage) {
         OverTimeExtraRate overTimeExtraRate = new OverTimeExtraRate(null, new OverLegalTimeExtraRate(25), null, null, null, new NightExtraRate(35));
-        sutRecord.registerHourlyWage(employee, effectiveDate, new WageCondition(hourlyWage, overTimeExtraRate));
+        sutRecord.registerHourlyWage(employee, effectiveDate, new WageCondition(baseHourlyWage, overTimeExtraRate));
     }
 }

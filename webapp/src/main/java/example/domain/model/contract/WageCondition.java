@@ -1,6 +1,6 @@
 package example.domain.model.contract;
 
-import example.domain.model.wage.HourlyWage;
+import example.domain.model.wage.BaseHourlyWage;
 import example.domain.model.wage.NightHourlyExtraWage;
 import example.domain.model.wage.OverTimeHourlyExtraWage;
 
@@ -8,24 +8,24 @@ import example.domain.model.wage.OverTimeHourlyExtraWage;
  * 給与条件
  */
 public class WageCondition {
-    HourlyWage baseHourlyWage;
+    BaseHourlyWage baseHourlyWage;
     OverTimeExtraRate overTimeExtraRate;
 
     @Deprecated
     public WageCondition() {
     }
 
-    public WageCondition(HourlyWage baseHourlyWage, OverTimeExtraRate overTimeExtraRate) {
+    public WageCondition(BaseHourlyWage baseHourlyWage, OverTimeExtraRate overTimeExtraRate) {
         this.baseHourlyWage = baseHourlyWage;
         this.overTimeExtraRate = overTimeExtraRate;
     }
 
-    public WageCondition(HourlyWage baseHourlyWage) {
+    public WageCondition(BaseHourlyWage baseHourlyWage) {
         // FIXME:
         this(baseHourlyWage, new OverTimeExtraRate(null, OverLegalTimeExtraRate.legal(), null, null, null, NightExtraRate.legal()));
     }
 
-    public HourlyWage baseHourlyWage() {
+    public BaseHourlyWage baseHourlyWage() {
         return baseHourlyWage;
     }
 

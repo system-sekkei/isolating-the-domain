@@ -12,7 +12,7 @@ import example.domain.model.contract.OverTimeExtraRate;
 import example.domain.model.employee.*;
 import example.domain.model.payroll.Payroll;
 import example.domain.model.timerecord.evaluation.TimeRecord;
-import example.domain.model.wage.HourlyWage;
+import example.domain.model.wage.BaseHourlyWage;
 import example.domain.model.contract.WageCondition;
 import example.domain.type.date.Date;
 import example.presentation.controller.timerecord.AttendanceForm;
@@ -50,7 +50,7 @@ class PayrollQueryCoordinatorTest {
 
         {
             OverTimeExtraRate overTimeExtraRate = new OverTimeExtraRate(null, OverLegalTimeExtraRate.legal(), null, null, null, NightExtraRate.legal());
-            WageCondition wageCondition = new WageCondition(new HourlyWage(1000), overTimeExtraRate);
+            WageCondition wageCondition = new WageCondition(new BaseHourlyWage(1000), overTimeExtraRate);
             contractRecordService.registerHourlyWage(employee, Date.from("2018-11-20"), wageCondition);
 
             TimeRecord timeRecord = new TimeRecord(
@@ -76,7 +76,7 @@ class PayrollQueryCoordinatorTest {
 
         {
             OverTimeExtraRate overTimeExtraRate = new OverTimeExtraRate(null, OverLegalTimeExtraRate.legal(), null, null, null, NightExtraRate.legal());
-            WageCondition wageCondition = new WageCondition(new HourlyWage(2000), overTimeExtraRate);
+            WageCondition wageCondition = new WageCondition(new BaseHourlyWage(2000), overTimeExtraRate);
             contractRecordService.registerHourlyWage(employee, Date.from("2018-11-25"), wageCondition);
 
             Payroll payroll = sut.payroll(employee, new WorkMonth("2018-11"));

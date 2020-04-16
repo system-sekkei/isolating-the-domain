@@ -30,8 +30,8 @@
         <tr>
           <th class="has-text-centered tableHeader">時給</th>
           <td>
-            <input class="input is-static has-text-right" type="number" name="hourlyWage" readonly
-                   th:value="${hourlyWage.value()}"/>
+            <input class="input is-static has-text-right" type="number" name="baseHourlyWage" readonly
+                   th:value="${baseHourlyWage.value().value().value()}"/>
           </td>
           <td class="has-background-white-ter">円</td>
         </tr>
@@ -46,7 +46,7 @@
   
   <form id="again-form" class="ui large form" th:action="@{/wages/{employeeNumber}/register/again(employeeNumber=${employee.employeeNumber()})}" method="post">
     <input type="hidden" name="effectiveDate" th:value="${effectiveDate}">
-    <input type="hidden" name="hourlyWage" th:value="${hourlyWage}"/>
+    <input type="hidden" name="baseHourlyWage" th:value="${baseHourlyWage}"/>
   </form>
 </main>
 </body>

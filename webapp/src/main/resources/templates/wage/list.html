@@ -46,7 +46,7 @@
         <tbody>
         <tr th:each="contractWage : ${contractWages.list()}">
           <td th:text="${contractWage.effectiveDate()}">2018/12/01</td>
-          <td class="has-text-right" th:text="${contractWage.hourlyWage()}">937</td>
+          <td class="has-text-right" th:text="${contractWage.baseHourlyWage()}">937</td>
         </tr>
         </tbody>
       </table>

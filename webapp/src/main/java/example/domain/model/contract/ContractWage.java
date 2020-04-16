@@ -1,6 +1,6 @@
 package example.domain.model.contract;
 
-import example.domain.model.wage.HourlyWage;
+import example.domain.model.wage.BaseHourlyWage;
 import example.domain.type.date.Date;
 
 /**
@@ -23,7 +23,7 @@ public class ContractWage {
         return wageCondition;
     }
 
-    public HourlyWage hourlyWage() {
+    public BaseHourlyWage baseHourlyWage() {
         return wageCondition.baseHourlyWage();
     }
 

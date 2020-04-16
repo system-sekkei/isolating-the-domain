@@ -48,7 +48,7 @@ class WageRegisterControllerTest {
         mockMvc.perform(
                 post("/wages/1/register/confirm")
                         .param("effectiveDate", "2011-11-11")
-                        .param("hourlyWage", "1234"))
+                        .param("baseHourlyWage", "1234"))
                 .andExpect(view().name("wage/confirm"));
     }
 
@@ -57,7 +57,7 @@ class WageRegisterControllerTest {
         mockMvc.perform(
                 post("/wages/1/register/again")
                         .param("effectiveDate", "2011-11-11")
-                        .param("hourlyWage", "1234"))
+                        .param("baseHourlyWage", "1234"))
                 .andExpect(view().name("wage/form"));
     }
 
@@ -66,7 +66,7 @@ class WageRegisterControllerTest {
         mockMvc.perform(
                 post("/wages/1/register/register")
                         .param("effectiveDate", "2011-11-11")
-                        .param("hourlyWage", "1234"))
+                        .param("baseHourlyWage", "1234"))
                 .andExpect(redirectedUrl("/wages/1/register/completed"));
     }
 }
