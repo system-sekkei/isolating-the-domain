@@ -7,25 +7,20 @@ import example.domain.model.contract.*;
  */
 public class WageCondition {
     HourlyWage baseHourlyWage;
-    WithinLegalOverTimeExtraRate withinLegalOverTimeExtraRate;
-    OverLegalTimeExtraRate overLegalTimeExtraRate;
-    PrescribedDaysOffExtraRate prescribedDaysOffExtraRate;
-    LegalDaysOffExtraRate legalDaysOffExtraRate;
-    OverTime60HoursPerMonthExtraRate overTime60HoursPerMonthExtraRate;
-    NightExtraRate nightExtraRate;
+    OverTimeExtraRate overTimeExtraRate;
 
     @Deprecated
     public WageCondition() {
     }
 
-    public WageCondition(HourlyWage baseHourlyWage, OverLegalTimeExtraRate overLegalTimeExtraRate, NightExtraRate nightExtraRate) {
+    public WageCondition(HourlyWage baseHourlyWage, OverTimeExtraRate overTimeExtraRate) {
         this.baseHourlyWage = baseHourlyWage;
-        this.overLegalTimeExtraRate = overLegalTimeExtraRate;
-        this.nightExtraRate = nightExtraRate;
+        this.overTimeExtraRate = overTimeExtraRate;
     }
 
     public WageCondition(HourlyWage baseHourlyWage) {
-        this(baseHourlyWage, OverLegalTimeExtraRate.legal(), NightExtraRate.legal());
+        // FIXME:
+        this(baseHourlyWage, new OverTimeExtraRate(null, OverLegalTimeExtraRate.legal(), null, null, null, NightExtraRate.legal()));
     }
 
     public HourlyWage baseHourlyWage() {
@@ -33,10 +28,10 @@ public class WageCondition {
     }
 
     public OverTimeHourlyExtraWage overTimeHourlyExtraWage() {
-        return baseHourlyWage.overTimeHourlyExtraWage(overLegalTimeExtraRate);
+        return baseHourlyWage.overTimeHourlyExtraWage(overTimeExtraRate.overLegalTimeExtraRate());
     }
 
     public NightHourlyExtraWage nightHourlyExtraWage() {
-        return baseHourlyWage.nightHourlyExtraWage(nightExtraRate);
+        return baseHourlyWage.nightHourlyExtraWage(overTimeExtraRate.nightExtraRate());
     }
 }
