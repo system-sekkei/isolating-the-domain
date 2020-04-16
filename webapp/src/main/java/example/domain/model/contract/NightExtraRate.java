@@ -1,4 +1,6 @@
-package example.domain.model.legislation;
+package example.domain.model.contract;
+
+import example.domain.model.legislation.ExtraPayRate;
 
 /**
  * 深夜割増率

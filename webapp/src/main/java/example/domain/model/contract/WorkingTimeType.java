@@ -1,4 +1,4 @@
-package example.domain.model.legislation;
+package example.domain.model.contract;
 
 /**
  * 労働時間区分

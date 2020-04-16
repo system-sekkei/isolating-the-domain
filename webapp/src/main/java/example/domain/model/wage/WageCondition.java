@@ -1,7 +1,7 @@
 package example.domain.model.wage;
 
-import example.domain.model.legislation.NightExtraRate;
-import example.domain.model.legislation.OverTimeExtraRate;
+import example.domain.model.contract.NightExtraRate;
+import example.domain.model.contract.OverTimeExtraRate;
 
 /**
  * 給与条件
