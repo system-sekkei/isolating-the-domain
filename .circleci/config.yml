@@ -38,8 +38,8 @@ jobs:
       - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/service-method-call-hierarchy.svg converted/service-method-call-hierarchy.png
       - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/use-case-and-fellows.svg converted/use-case-and-fellows.png
 
-      - run: curl -X POST -F file=@build/jig/business-rule.xlsx -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
-      - run: curl -X POST -F file=@build/jig/application.xlsx -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
+      - run: curl -X POST -F file=@webapp/build/jig/business-rule.xlsx -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
+      - run: curl -X POST -F file=@webapp/build/jig/application.xlsx -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
       - run: for file in $(ls converted); do curl -X POST -F file=@converted/${file} -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload; done;
 
       - store_artifacts:
