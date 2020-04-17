@@ -28,8 +28,20 @@ jobs:
           name: Deploy to Heroku
           command: |
             git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/isolating-the-domain.git master
-      - run: sudo apt-get update && sudo apt-get install -y graphviz fonts-ipafont
+      - run: sudo apt-get update && sudo apt-get install -y graphviz imagemagick fonts-ipafont
       - run: ./gradlew jig
+
+      - run: sudo mkdir converted
+      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/package-relation-depth5.svg converted/package-relation-depth5.png
+      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/category.svg converted/category.png
+      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/category-usage.svg converted/category-usage.png
+      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/service-method-call-hierarchy.svg converted/service-method-call-hierarchy.png
+      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/use-case-and-fellows.svg converted/use-case-and-fellows.png
+
+      - run: curl -X POST -F file=@build/jig/business-rule.xlsx -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
+      - run: curl -X POST -F file=@build/jig/application.xlsx -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
+      - run: for file in $(ls converted); do curl -X POST -F file=@converted/${file} -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload; done;
+
       - store_artifacts:
           path: webapp/build/jig
           destination: example
