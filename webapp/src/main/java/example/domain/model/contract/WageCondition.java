@@ -1,6 +1,5 @@
 package example.domain.model.contract;
 
-import example.domain.model.wage.BaseHourlyWage;
 import example.domain.model.wage.NightHourlyExtraWage;
 import example.domain.model.wage.OverTimeHourlyExtraWage;
 

@@ -3,7 +3,6 @@ package example.domain.model.contract;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.employee.Name;
-import example.domain.model.wage.BaseHourlyWage;
 import example.domain.type.date.Date;
 import example.domain.type.date.Dates;
 

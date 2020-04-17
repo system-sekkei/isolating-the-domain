@@ -1,8 +1,9 @@
-package example.domain.model.wage;
+package example.domain.model.contract;
 
 import example.domain.model.legislation.ExtraPayRate;
-import example.domain.model.contract.NightExtraRate;
-import example.domain.model.contract.OverLegalTimeExtraRate;
+import example.domain.model.wage.HourlyWage;
+import example.domain.model.wage.NightHourlyExtraWage;
+import example.domain.model.wage.OverTimeHourlyExtraWage;
 import example.domain.type.amount.Amount;
 import example.domain.type.amount.RoundingMode;
 

@@ -12,7 +12,7 @@ import example.domain.model.contract.OverTimeExtraRate;
 import example.domain.model.employee.*;
 import example.domain.model.payroll.Payroll;
 import example.domain.model.timerecord.evaluation.TimeRecord;
-import example.domain.model.wage.BaseHourlyWage;
+import example.domain.model.contract.BaseHourlyWage;
 import example.domain.model.contract.WageCondition;
 import example.domain.type.date.Date;
 import example.presentation.controller.timerecord.AttendanceForm;
