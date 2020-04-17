@@ -29,6 +29,7 @@ public class BaseHourlyWage {
     }
 
     BaseHourlyWage(HourlyWage value) {
+
         this.value = value;
     }
 
