@@ -3,11 +3,11 @@ package example.presentation.controller.wage;
 
 import example.application.service.contract.ContractRecordService;
 import example.application.service.employee.EmployeeQueryService;
+import example.domain.model.contract.BaseHourlyWage;
+import example.domain.model.contract.ContractEffectiveDate;
+import example.domain.model.contract.WageCondition;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
-import example.domain.model.contract.BaseHourlyWage;
-import example.domain.model.contract.WageCondition;
-import example.domain.type.date.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,7 +45,7 @@ class WageRegisterController {
 
     @PostMapping(value = "confirm")
     public String confirm(Employee employee,
-                          @RequestParam("effectiveDate") Date effectiveDate,
+                          @RequestParam("effectiveDate") ContractEffectiveDate effectiveDate,
                           @RequestParam("baseHourlyWage") BaseHourlyWage baseHourlyWage,
                           Model model) {
         model.addAttribute("effectiveDate", effectiveDate);
@@ -55,7 +55,7 @@ class WageRegisterController {
 
     @PostMapping(value = "again")
     public String again(Employee employee,
-                        @RequestParam("effectiveDate") Date effectiveDate,
+                        @RequestParam("effectiveDate") ContractEffectiveDate effectiveDate,
                         @RequestParam("baseHourlyWage") BaseHourlyWage baseHourlyWage,
                         Model model) {
         model.addAttribute("effectiveDate", effectiveDate);
@@ -65,7 +65,7 @@ class WageRegisterController {
 
     @PostMapping(value = "register")
     public String register(Employee employee,
-                           @RequestParam("effectiveDate") Date effectiveDate,
+                           @RequestParam("effectiveDate") ContractEffectiveDate effectiveDate,
                            @RequestParam("baseHourlyWage") BaseHourlyWage baseHourlyWage) {
         WageCondition wageCondition = new WageCondition(baseHourlyWage);
         contractRecordService.registerHourlyWage(employee, effectiveDate, wageCondition);

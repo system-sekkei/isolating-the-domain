@@ -1,12 +1,12 @@
 package example.application.repository;
 
 
+import example.domain.model.contract.ContractEffectiveDate;
 import example.domain.model.contract.ContractWages;
 import example.domain.model.contract.Contracts;
+import example.domain.model.contract.WageCondition;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.Employee;
-import example.domain.model.contract.WageCondition;
-import example.domain.type.date.Date;
 
 /**
  * 契約リポジトリ
@@ -14,7 +14,7 @@ import example.domain.type.date.Date;
 public interface ContractRepository {
     ContractWages getContractWages(Employee employee);
 
-    void registerHourlyWage(Employee employee, Date effectiveDate, WageCondition wageCondition);
+    void registerHourlyWage(Employee employee, ContractEffectiveDate effectiveDate, WageCondition wageCondition);
 
     Contracts findContracts(ContractingEmployees contractingEmployees);
 }

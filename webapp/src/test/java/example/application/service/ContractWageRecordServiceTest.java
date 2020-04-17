@@ -4,13 +4,8 @@ import example.application.coordinator.employee.EmployeeRecordCoordinator;
 import example.application.service.contract.ContractQueryService;
 import example.application.service.contract.ContractRecordService;
 import example.application.service.employee.EmployeeQueryService;
-import example.domain.model.contract.ContractWages;
-import example.domain.model.contract.OverLegalTimeExtraRate;
-import example.domain.model.contract.OverTimeExtraRate;
+import example.domain.model.contract.*;
 import example.domain.model.employee.*;
-import example.domain.model.contract.NightExtraRate;
-import example.domain.model.contract.BaseHourlyWage;
-import example.domain.model.contract.WageCondition;
 import example.domain.type.date.Date;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +46,7 @@ public class ContractWageRecordServiceTest {
         Employee employee = employeeQueryService.choose(employeeNumber);
 
         Date effectiveDate1 = Date.from("2018-12-12");
-        updateHourlyWageContract(employee, effectiveDate1, new BaseHourlyWage(800));
+        updateHourlyWageContract(employee, new ContractEffectiveDate(effectiveDate1), new BaseHourlyWage(800));
 
         ContractWages history1 = sutQuery.getContractWages(employee);
         assertEquals(1, history1.list().size());
@@ -65,7 +60,7 @@ public class ContractWageRecordServiceTest {
         Employee employee = employeeQueryService.choose(employeeNumber);
 
         Date effectiveDate2 = Date.from("2018-12-22");
-        updateHourlyWageContract(employee, effectiveDate2, new BaseHourlyWage(850));
+        updateHourlyWageContract(employee, new ContractEffectiveDate(effectiveDate2), new BaseHourlyWage(850));
         ContractWages history2 = sutQuery.getContractWages(employee);
         assertEquals(2, history2.list().size());
         assertAll(
@@ -79,7 +74,7 @@ public class ContractWageRecordServiceTest {
         Employee employee = employeeQueryService.choose(employeeNumber);
 
         Date effectiveDate3 = Date.from("2018-12-17");
-        updateHourlyWageContract(employee, effectiveDate3, new BaseHourlyWage(830));
+        updateHourlyWageContract(employee, new ContractEffectiveDate(effectiveDate3), new BaseHourlyWage(830));
         ContractWages history3 = sutQuery.getContractWages(employee);
         assertEquals(3, history3.list().size());
         assertAll(
@@ -96,7 +91,7 @@ public class ContractWageRecordServiceTest {
         Employee employee = employeeQueryService.choose(employeeNumber);
 
         Date effectiveDate1 = Date.from("2018-12-12");
-        updateHourlyWageContract(employee, effectiveDate1, new BaseHourlyWage(1000));
+        updateHourlyWageContract(employee, new ContractEffectiveDate(effectiveDate1), new BaseHourlyWage(1000));
 
         ContractWages history = sutQuery.getContractWages(employee);
         assertEquals(3, history.list().size());
@@ -107,7 +102,7 @@ public class ContractWageRecordServiceTest {
         );
     }
 
-    private void updateHourlyWageContract(Employee employee, Date effectiveDate, BaseHourlyWage baseHourlyWage) {
+    private void updateHourlyWageContract(Employee employee, ContractEffectiveDate effectiveDate, BaseHourlyWage baseHourlyWage) {
         OverTimeExtraRate overTimeExtraRate = new OverTimeExtraRate(null, new OverLegalTimeExtraRate(25), null, null, null, new NightExtraRate(35));
         sutRecord.registerHourlyWage(employee, effectiveDate, new WageCondition(baseHourlyWage, overTimeExtraRate));
     }
