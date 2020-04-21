@@ -16,6 +16,7 @@ public class Contract {
     Employee employee;
     ContractWages contractWages;
     ContractBreakTime contractBreakTime;
+    ContractDaysOff contractDaysOff;
 
     public Contract(Employee employee, ContractWages contractWages) {
         this.employee = employee;
