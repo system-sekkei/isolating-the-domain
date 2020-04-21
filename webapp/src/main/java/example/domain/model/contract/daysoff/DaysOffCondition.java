@@ -3,12 +3,12 @@ package example.domain.model.contract.daysoff;
 import example.domain.type.date.Date;
 
 /**
- * 契約上の休日
+ * 休日条件
  */
-public class ContractDaysOff {
+public class DaysOffCondition {
     Date value;
 
-    public ContractDaysOff(Date value) {
+    public DaysOffCondition(Date value) {
         this.value = value;
     }
 }

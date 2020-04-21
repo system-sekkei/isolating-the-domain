@@ -3,8 +3,8 @@ package example.domain.model.contract.hours;
 import example.domain.type.time.Minute;
 
 /**
- * 契約休憩時間
+ * 休憩時間条件
  */
-public class ContractBreakTime {
+public class BreakTimeCondition {
     Minute value;
 }
