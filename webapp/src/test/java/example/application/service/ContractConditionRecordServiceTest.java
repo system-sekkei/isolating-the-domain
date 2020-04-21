@@ -15,7 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-public class ContractWageRecordServiceTest {
+public class ContractConditionRecordServiceTest {
     @Autowired
     EmployeeRecordCoordinator employeeRecordCoordinator;
     @Autowired
@@ -39,7 +39,7 @@ public class ContractWageRecordServiceTest {
 
     void 登録直後の従業員は時給を持たない(EmployeeNumber employeeNumber) {
         Employee employee = employeeQueryService.choose(employeeNumber);
-        ContractWages history = sutQuery.getContractWages(employee);
+        ContractConditions history = sutQuery.getContractWages(employee);
         assertTrue(history.list().isEmpty());
     }
 
@@ -49,7 +49,7 @@ public class ContractWageRecordServiceTest {
         Date effectiveDate1 = Date.from("2018-12-12");
         updateHourlyWageContract(employee, new ContractEffectiveDate(effectiveDate1), new BaseHourlyWage(800));
 
-        ContractWages history1 = sutQuery.getContractWages(employee);
+        ContractConditions history1 = sutQuery.getContractWages(employee);
         assertEquals(1, history1.list().size());
         assertAll(
                 () -> assertEquals(effectiveDate1.value(), history1.list().get(0).effectiveDate().value().value()),
@@ -62,7 +62,7 @@ public class ContractWageRecordServiceTest {
 
         Date effectiveDate2 = Date.from("2018-12-22");
         updateHourlyWageContract(employee, new ContractEffectiveDate(effectiveDate2), new BaseHourlyWage(850));
-        ContractWages history2 = sutQuery.getContractWages(employee);
+        ContractConditions history2 = sutQuery.getContractWages(employee);
         assertEquals(2, history2.list().size());
         assertAll(
                 () -> assertEquals(effectiveDate2.value(), history2.list().get(0).effectiveDate().value().value()),
@@ -76,7 +76,7 @@ public class ContractWageRecordServiceTest {
 
         Date effectiveDate3 = Date.from("2018-12-17");
         updateHourlyWageContract(employee, new ContractEffectiveDate(effectiveDate3), new BaseHourlyWage(830));
-        ContractWages history3 = sutQuery.getContractWages(employee);
+        ContractConditions history3 = sutQuery.getContractWages(employee);
         assertEquals(3, history3.list().size());
         assertAll(
                 () -> assertEquals(850, history3.list().get(0).baseHourlyWage().toBigDecimal().intValue()),
@@ -94,7 +94,7 @@ public class ContractWageRecordServiceTest {
         Date effectiveDate1 = Date.from("2018-12-12");
         updateHourlyWageContract(employee, new ContractEffectiveDate(effectiveDate1), new BaseHourlyWage(1000));
 
-        ContractWages history = sutQuery.getContractWages(employee);
+        ContractConditions history = sutQuery.getContractWages(employee);
         assertEquals(3, history.list().size());
         assertAll(
                 () -> assertEquals(850, history.list().get(0).baseHourlyWage().toBigDecimal().intValue()),

@@ -1,8 +1,6 @@
 package example.domain.model.contract;
 
 import example.domain.model.contract.wage.BaseHourlyWage;
-import example.domain.model.contract.wage.ContractWage;
-import example.domain.model.contract.wage.ContractWages;
 import example.domain.model.contract.wage.WageCondition;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
@@ -18,12 +16,11 @@ import java.util.ArrayList;
  */
 public class Contract {
     Employee employee;
-    ContractCondition contractCondition;
+    ContractConditions contractConditions;
 
-    public Contract(Employee employee, ContractWages contractWages) {
+    public Contract(Employee employee, ContractConditions contractConditions) {
         this.employee = employee;
-        // FIXME:
-        this.contractCondition = new ContractCondition(contractWages, null, null);
+        this.contractConditions = contractConditions;
     }
 
     public EmployeeNumber employeeNumber() {
@@ -35,7 +32,7 @@ public class Contract {
     }
 
     public ContractEffectiveDate contractStartingDate() {
-        ArrayList<ContractWage> list = new ArrayList<>(contractCondition.contractWages.list());
+        ArrayList<ContractCondition> list = new ArrayList<>(contractConditions.list());
         if (list.isEmpty()) {
             return ContractEffectiveDate.none();
         }
@@ -50,9 +47,9 @@ public class Contract {
         return availableContractAt(today).baseHourlyWage();
     }
 
-    public ContractWage availableContractAt(Date date) {
-        return contractCondition.contractWages.list().stream()
-                .filter(contractWage -> contractWage.availableAt(date))
+    public ContractCondition availableContractAt(Date date) {
+        return contractConditions.list().stream()
+                .filter(contractCondition -> contractCondition.availableAt(date))
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException(date.toString()));
     }
@@ -69,7 +66,7 @@ public class Contract {
     }
 
     public WageCondition wageConditionAt(Date date) {
-        ContractWage contractWage = availableContractAt(date);
-        return contractWage.wageCondition();
+        ContractCondition contractCondition = availableContractAt(date);
+        return contractCondition.wageCondition();
     }
 }

@@ -5,7 +5,7 @@ import example.application.service.contract.ContractQueryService;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.contract.Contract;
-import example.domain.model.contract.wage.ContractWages;
+import example.domain.model.contract.ContractConditions;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.Employee;
 import example.domain.model.payroll.Payroll;
@@ -38,10 +38,10 @@ public class PayrollQueryCoordinator {
      * 従業員別月次給与取得
      */
     public Payroll payroll(Employee employee, WorkMonth workMonth) {
-        ContractWages contractWages = contractQueryService.getContractWages(employee);
+        ContractConditions contractConditions = contractQueryService.getContractWages(employee);
         Attendance attendance = attendanceQueryService.findAttendance(employee, workMonth);
 
-        return new Payroll(new Contract(employee, contractWages), attendance);
+        return new Payroll(new Contract(employee, contractConditions), attendance);
     }
 
     PayrollQueryCoordinator(ContractQueryService contractQueryService, AttendanceQueryService attendanceQueryService) {

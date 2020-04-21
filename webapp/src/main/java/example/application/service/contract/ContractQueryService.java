@@ -1,7 +1,7 @@
 package example.application.service.contract;
 
 import example.application.repository.ContractRepository;
-import example.domain.model.contract.wage.ContractWages;
+import example.domain.model.contract.ContractConditions;
 import example.domain.model.contract.Contracts;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.Employee;
@@ -17,8 +17,8 @@ public class ContractQueryService {
     /**
      * 契約取得
      */
-    public ContractWages getContractWages(Employee employee) {
-        return contractRepository.getContractWages(employee);
+    public ContractConditions getContractWages(Employee employee) {
+        return contractRepository.getContractConditions(employee);
     }
 
     /**
