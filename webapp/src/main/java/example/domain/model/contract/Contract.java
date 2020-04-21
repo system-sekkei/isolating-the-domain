@@ -1,7 +1,5 @@
 package example.domain.model.contract;
 
-import example.domain.model.contract.daysoff.ContractDaysOff;
-import example.domain.model.contract.hours.ContractBreakTime;
 import example.domain.model.contract.wage.BaseHourlyWage;
 import example.domain.model.contract.wage.ContractWage;
 import example.domain.model.contract.wage.ContractWages;
@@ -20,13 +18,12 @@ import java.util.ArrayList;
  */
 public class Contract {
     Employee employee;
-    ContractWages contractWages;
-    ContractBreakTime contractBreakTime;
-    ContractDaysOff contractDaysOff;
+    ContractCondition contractCondition;
 
     public Contract(Employee employee, ContractWages contractWages) {
         this.employee = employee;
-        this.contractWages = contractWages;
+        // FIXME:
+        this.contractCondition = new ContractCondition(contractWages, null, null);
     }
 
     public EmployeeNumber employeeNumber() {
@@ -38,7 +35,7 @@ public class Contract {
     }
 
     public ContractEffectiveDate contractStartingDate() {
-        ArrayList<ContractWage> list = new ArrayList<>(contractWages.list());
+        ArrayList<ContractWage> list = new ArrayList<>(contractCondition.contractWages.list());
         if (list.isEmpty()) {
             return ContractEffectiveDate.none();
         }
@@ -54,7 +51,7 @@ public class Contract {
     }
 
     public ContractWage availableContractAt(Date date) {
-        return contractWages.list().stream()
+        return contractCondition.contractWages.list().stream()
                 .filter(contractWage -> contractWage.availableAt(date))
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException(date.toString()));
