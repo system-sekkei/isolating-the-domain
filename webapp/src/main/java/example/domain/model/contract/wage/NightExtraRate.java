@@ -16,7 +16,7 @@ public class NightExtraRate {
         this.value = new ExtraPayRate(value);
     }
 
-    public static NightExtraRate legal() {
+    public static NightExtraRate regulation() {
         return new NightExtraRate(35);
     }
 

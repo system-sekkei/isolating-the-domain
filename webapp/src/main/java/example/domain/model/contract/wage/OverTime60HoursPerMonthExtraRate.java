@@ -7,4 +7,12 @@ import example.domain.model.legislation.ExtraPayRate;
  */
 public class OverTime60HoursPerMonthExtraRate {
     ExtraPayRate value;
+
+    public OverTime60HoursPerMonthExtraRate(Integer value) {
+        this.value = new ExtraPayRate(value);
+    }
+
+    public static OverTime60HoursPerMonthExtraRate regulation() {
+        return new OverTime60HoursPerMonthExtraRate(50);
+    }
 }

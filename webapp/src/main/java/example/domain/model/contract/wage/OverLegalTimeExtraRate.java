@@ -16,7 +16,7 @@ public class OverLegalTimeExtraRate {
         this.value = new ExtraPayRate(value);
     }
 
-    public static OverLegalTimeExtraRate legal() {
+    public static OverLegalTimeExtraRate regulation() {
         return new OverLegalTimeExtraRate(25);
     }
 

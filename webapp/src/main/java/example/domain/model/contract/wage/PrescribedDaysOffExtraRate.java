@@ -8,4 +8,11 @@ import example.domain.model.legislation.ExtraPayRate;
 public class PrescribedDaysOffExtraRate {
     ExtraPayRate value;
 
+    public PrescribedDaysOffExtraRate(Integer value) {
+        this.value = new ExtraPayRate(value);
+    }
+
+    public static PrescribedDaysOffExtraRate regulation() {
+        return new PrescribedDaysOffExtraRate(35);
+    }
 }

@@ -20,8 +20,7 @@ public class WageCondition {
     }
 
     public WageCondition(BaseHourlyWage baseHourlyWage) {
-        // FIXME:
-        this(baseHourlyWage, new OverTimeExtraRate(null, OverLegalTimeExtraRate.legal(), null, null, null, NightExtraRate.legal()));
+        this(baseHourlyWage, OverTimeExtraRate.regulation());
     }
 
     public BaseHourlyWage baseHourlyWage() {

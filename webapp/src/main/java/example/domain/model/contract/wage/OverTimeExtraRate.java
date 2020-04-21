@@ -31,6 +31,11 @@ public class OverTimeExtraRate {
         this.nightExtraRate = nightExtraRate;
     }
 
+    public static OverTimeExtraRate regulation() {
+        return new OverTimeExtraRate(WithinLegalOverTimeExtraRate.regulation(), OverLegalTimeExtraRate.regulation(),
+                PrescribedDaysOffExtraRate.regulation(), LegalDaysOffExtraRate.regulation(), OverTime60HoursPerMonthExtraRate.regulation(), NightExtraRate.regulation());
+    }
+
     public OverLegalTimeExtraRate overLegalTimeExtraRate() {
         return overLegalTimeExtraRate;
     }
