@@ -1,4 +1,4 @@
-package example.domain.model.contract;
+package example.domain.model.contract.daysoff;
 
 import example.domain.type.date.Date;
 

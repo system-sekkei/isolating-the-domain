@@ -2,7 +2,7 @@ package example.application.service.contract;
 
 import example.application.repository.ContractRepository;
 import example.domain.model.contract.ContractEffectiveDate;
-import example.domain.model.contract.WageCondition;
+import example.domain.model.contract.wage.WageCondition;
 import example.domain.model.employee.Employee;
 import org.springframework.stereotype.Service;
 

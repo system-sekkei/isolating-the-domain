@@ -1,4 +1,4 @@
-package example.domain.model.contract;
+package example.domain.model.contract.wage;
 
 /**
  * 時間外及び休日、深夜の割増賃金

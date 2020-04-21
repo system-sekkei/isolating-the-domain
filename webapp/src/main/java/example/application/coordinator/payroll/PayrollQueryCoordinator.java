@@ -5,7 +5,7 @@ import example.application.service.contract.ContractQueryService;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.contract.Contract;
-import example.domain.model.contract.ContractWages;
+import example.domain.model.contract.wage.ContractWages;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.Employee;
 import example.domain.model.payroll.Payroll;

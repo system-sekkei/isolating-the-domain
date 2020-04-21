@@ -2,6 +2,9 @@ package example.infrastructure.datasource.contract;
 
 import example.application.repository.ContractRepository;
 import example.domain.model.contract.*;
+import example.domain.model.contract.wage.ContractWage;
+import example.domain.model.contract.wage.ContractWages;
+import example.domain.model.contract.wage.WageCondition;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;

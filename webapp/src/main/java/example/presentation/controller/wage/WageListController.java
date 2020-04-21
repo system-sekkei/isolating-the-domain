@@ -2,7 +2,7 @@ package example.presentation.controller.wage;
 
 import example.application.service.contract.ContractQueryService;
 import example.application.service.employee.EmployeeQueryService;
-import example.domain.model.contract.ContractWages;
+import example.domain.model.contract.wage.ContractWages;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import org.springframework.stereotype.Controller;

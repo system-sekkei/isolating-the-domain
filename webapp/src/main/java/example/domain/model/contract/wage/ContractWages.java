@@ -1,4 +1,4 @@
-package example.domain.model.contract;
+package example.domain.model.contract.wage;
 
 import java.util.List;
 import java.util.stream.Collectors;

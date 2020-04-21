@@ -5,6 +5,7 @@ import example.application.service.contract.ContractQueryService;
 import example.application.service.contract.ContractRecordService;
 import example.application.service.employee.EmployeeQueryService;
 import example.domain.model.contract.*;
+import example.domain.model.contract.wage.*;
 import example.domain.model.employee.*;
 import example.domain.type.date.Date;
 import org.junit.jupiter.api.Test;

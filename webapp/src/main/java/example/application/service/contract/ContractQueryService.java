@@ -1,7 +1,7 @@
 package example.application.service.contract;
 
 import example.application.repository.ContractRepository;
-import example.domain.model.contract.ContractWages;
+import example.domain.model.contract.wage.ContractWages;
 import example.domain.model.contract.Contracts;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.Employee;

@@ -7,6 +7,7 @@ import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordRecordService;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.contract.*;
+import example.domain.model.contract.wage.*;
 import example.domain.model.employee.*;
 import example.domain.model.payroll.Payroll;
 import example.domain.model.timerecord.evaluation.TimeRecord;

@@ -1,5 +1,11 @@
 package example.domain.model.contract;
 
+import example.domain.model.contract.daysoff.ContractDaysOff;
+import example.domain.model.contract.hours.ContractBreakTime;
+import example.domain.model.contract.wage.BaseHourlyWage;
+import example.domain.model.contract.wage.ContractWage;
+import example.domain.model.contract.wage.ContractWages;
+import example.domain.model.contract.wage.WageCondition;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.employee.Name;

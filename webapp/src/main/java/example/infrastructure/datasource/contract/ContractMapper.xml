@@ -13,7 +13,7 @@
         #{wageCondition.overTimeExtraRate.nightExtraRate.value.value.value});
     </insert>
 
-    <select id="selectContracts" resultType="example.domain.model.contract.ContractWage">
+    <select id="selectContracts" resultType="example.domain.model.contract.wage.ContractWage">
         SELECT
         時給契約.適用開始日 as "effectiveDate.value.value",
         時給契約.時給 as "wageCondition.baseHourlyWage.value.value.value",

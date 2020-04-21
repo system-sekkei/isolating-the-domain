@@ -1,5 +1,6 @@
-package example.domain.model.contract;
+package example.domain.model.contract.wage;
 
+import example.domain.model.contract.ContractEffectiveDate;
 import example.domain.type.date.Date;
 
 /**

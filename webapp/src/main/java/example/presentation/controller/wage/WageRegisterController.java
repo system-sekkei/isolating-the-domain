@@ -3,9 +3,9 @@ package example.presentation.controller.wage;
 
 import example.application.service.contract.ContractRecordService;
 import example.application.service.employee.EmployeeQueryService;
-import example.domain.model.contract.BaseHourlyWage;
+import example.domain.model.contract.wage.BaseHourlyWage;
 import example.domain.model.contract.ContractEffectiveDate;
-import example.domain.model.contract.WageCondition;
+import example.domain.model.contract.wage.WageCondition;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import org.springframework.beans.factory.annotation.Value;

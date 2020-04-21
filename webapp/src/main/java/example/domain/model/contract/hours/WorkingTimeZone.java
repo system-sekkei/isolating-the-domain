@@ -1,4 +1,4 @@
-package example.domain.model.contract;
+package example.domain.model.contract.hours;
 
 /**
  * 勤務時間帯
