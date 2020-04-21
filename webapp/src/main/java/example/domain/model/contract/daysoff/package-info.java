@@ -1,4 +1,4 @@
 /**
- * 休日に関する契約
+ * 休日に関する条件
  */
 package example.domain.model.contract.daysoff;

@@ -1,4 +1,4 @@
 /**
- * 就業時間に関する契約
+ * 就業時間に関する条件
  */
 package example.domain.model.contract.hours;
