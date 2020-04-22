@@ -104,7 +104,7 @@ public class ContractConditionRecordServiceTest {
     }
 
     private void updateHourlyWageContract(Employee employee, ContractEffectiveDate effectiveDate, BaseHourlyWage baseHourlyWage) {
-        OverTimeExtraRate overTimeExtraRate = new OverTimeExtraRate(null, new OverLegalUpTo60HoursExtraRate(25), null, null, null, new NightExtraRate(35));
+        OverTimeExtraRate overTimeExtraRate = new OverTimeExtraRate(new OverLegalUpTo60HoursExtraRate(25), null, null, null, null, new NightExtraRate(35));
         sutRecord.registerHourlyWage(employee, effectiveDate, new WageCondition(baseHourlyWage, overTimeExtraRate));
     }
 }
