@@ -50,8 +50,8 @@ public class BaseHourlyWage {
         return value.toString();
     }
 
-    public OverTimeHourlyExtraWage overTimeHourlyExtraWage(OverLegalTimeExtraRate overLegalTimeExtraRate) {
-        return new OverTimeHourlyExtraWage(withExtraPayRate(overLegalTimeExtraRate.value()));
+    public OverTimeHourlyExtraWage overTimeHourlyExtraWage(OverLegalUpTo60HoursExtraRate overLegalUpTo60HoursExtraRate) {
+        return new OverTimeHourlyExtraWage(withExtraPayRate(overLegalUpTo60HoursExtraRate.value()));
     }
 
     public NightHourlyExtraWage nightHourlyExtraWage(NightExtraRate nightExtraRate) {
