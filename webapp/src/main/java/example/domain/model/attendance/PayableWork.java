@@ -30,4 +30,24 @@ public class PayableWork {
     public QuarterHour nightWorkTime() {
         return actualWorkDateTime.nightWorkTime().quarterHour();
     }
+
+    public QuarterHour legalDaysOffWorkTime() {
+        return actualWorkDateTime.legalDaysOffWorkTime().quarterHour();
+    }
+
+    public QuarterHour nonLegalDaysOffWorkTime() {
+        return actualWorkDateTime.nonLegalDaysOffWorkTime().quarterHour();
+    }
+
+    public QuarterHour overLegalMoreThan60HoursWorkTime() {
+        return actualWorkDateTime.overLegalMoreThan60HoursWorkTime().quarterHour();
+    }
+
+    public QuarterHour overLegalUpTo60HoursWorkTime() {
+        return actualWorkDateTime.overLegalUpTo60HoursWorkTime().quarterHour();
+    }
+
+    public QuarterHour overPrescribedWorkTime() {
+        return actualWorkDateTime.overPrescribedWorkTime().quarterHour();
+    }
 }

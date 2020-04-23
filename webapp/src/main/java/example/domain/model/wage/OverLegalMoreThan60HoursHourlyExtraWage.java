@@ -9,4 +9,8 @@ public class OverLegalMoreThan60HoursHourlyExtraWage {
     public OverLegalMoreThan60HoursHourlyExtraWage(HourlyWage value) {
         this.value = value;
     }
+
+    public HourlyWage value() {
+        return value;
+    }
 }

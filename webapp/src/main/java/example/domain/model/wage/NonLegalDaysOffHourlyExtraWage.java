@@ -9,4 +9,8 @@ public class NonLegalDaysOffHourlyExtraWage {
     public NonLegalDaysOffHourlyExtraWage(HourlyWage value) {
         this.value = value;
     }
+
+    public HourlyWage value() {
+        return value;
+    }
 }

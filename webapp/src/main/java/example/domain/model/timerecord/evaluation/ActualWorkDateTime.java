@@ -2,6 +2,7 @@ package example.domain.model.timerecord.evaluation;
 
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.time.Minute;
+import example.domain.type.time.QuarterHour;
 import example.domain.validation.BusinessLogic;
 
 import javax.validation.Valid;
@@ -73,6 +74,32 @@ public class ActualWorkDateTime {
         return nightBindingTime().subtract(nightBreakTime);
     }
 
+    public LegalDaysOffWorkTime legalDaysOffWorkTime() {
+        // TODO:
+        return new LegalDaysOffWorkTime(new QuarterHour());
+    }
+
+    public NonLegalDaysOffWorkTime nonLegalDaysOffWorkTime() {
+        // TODO:
+        return new NonLegalDaysOffWorkTime(new QuarterHour());
+    }
+
+    public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime() {
+        // TODO:
+        return new OverLegalMoreThan60HoursWorkTime(new QuarterHour());
+    }
+
+    public OverLegalUpTo60HoursWorkTime overLegalUpTo60HoursWorkTime() {
+        // TODO:
+        return new OverLegalUpTo60HoursWorkTime(new QuarterHour());
+    }
+
+    public OverPrescribedWorkTime overPrescribedWorkTime() {
+        // TODO:
+        return new OverPrescribedWorkTime(new QuarterHour());
+    }
+
+    // TODO: 削除予定
     public OverWorkTime overWorkTime() {
         return new OverWorkTime(workTime());
     }

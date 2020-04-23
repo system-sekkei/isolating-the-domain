@@ -9,4 +9,8 @@ public class OverPrescribedHourlyExtraWage {
     public OverPrescribedHourlyExtraWage(HourlyWage value) {
         this.value = value;
     }
+
+    public HourlyWage value() {
+        return value;
+    }
 }
