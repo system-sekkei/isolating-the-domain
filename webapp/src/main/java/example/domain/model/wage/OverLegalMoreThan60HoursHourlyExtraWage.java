@@ -5,4 +5,8 @@ package example.domain.model.wage;
  */
 public class OverLegalMoreThan60HoursHourlyExtraWage {
     HourlyWage value;
+
+    public OverLegalMoreThan60HoursHourlyExtraWage(HourlyWage value) {
+        this.value = value;
+    }
 }

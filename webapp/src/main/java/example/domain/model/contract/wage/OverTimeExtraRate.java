@@ -37,4 +37,24 @@ public class OverTimeExtraRate {
     public NightExtraRate nightExtraRate() {
         return nightExtraRate;
     }
+
+    public OverLegalUpTo60HoursExtraRate overLegalUpTo60HoursExtraRate() {
+        return overLegalUpTo60HoursExtraRate;
+    }
+
+    public OverLegalMoreThan60HoursExtraRate overLegalMoreThan60HoursExtraRate() {
+        return overLegalMoreThan60HoursExtraRate;
+    }
+
+    public OverPrescribedExtraRate overPrescribedExtraRate() {
+        return overPrescribedExtraRate;
+    }
+
+    public LegalDaysOffExtraRate legalDaysOffExtraRate() {
+        return legalDaysOffExtraRate;
+    }
+
+    public NonLegalDaysOffExtraRate nonLegalDaysOffExtraRate() {
+        return nonLegalDaysOffExtraRate;
+    }
 }

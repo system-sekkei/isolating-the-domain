@@ -15,4 +15,8 @@ public class OverLegalMoreThan60HoursExtraRate {
     public static OverLegalMoreThan60HoursExtraRate regulation() {
         return new OverLegalMoreThan60HoursExtraRate(50);
     }
+
+    public ExtraPayRate value() {
+        return value;
+    }
 }

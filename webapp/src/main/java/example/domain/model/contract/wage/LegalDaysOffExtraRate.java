@@ -15,4 +15,8 @@ public class LegalDaysOffExtraRate {
     public static LegalDaysOffExtraRate regulation() {
         return new LegalDaysOffExtraRate(35);
     }
+
+    public ExtraPayRate value() {
+        return value;
+    }
 }

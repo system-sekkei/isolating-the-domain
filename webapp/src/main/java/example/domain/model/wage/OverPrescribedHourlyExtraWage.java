@@ -5,4 +5,8 @@ package example.domain.model.wage;
  */
 public class OverPrescribedHourlyExtraWage {
     HourlyWage value;
+
+    public OverPrescribedHourlyExtraWage(HourlyWage value) {
+        this.value = value;
+    }
 }

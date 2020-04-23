@@ -3,6 +3,7 @@ package example.domain.model.wage;
 /**
  * 深夜時給割増額
  */
+// TODO: 削除予定
 public class OverTimeHourlyExtraWage {
     HourlyWage value;
 

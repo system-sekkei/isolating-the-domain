@@ -1,7 +1,6 @@
 package example.domain.model.contract.wage;
 
-import example.domain.model.wage.NightHourlyExtraWage;
-import example.domain.model.wage.OverTimeHourlyExtraWage;
+import example.domain.model.wage.*;
 
 /**
  * 給与条件
@@ -27,6 +26,7 @@ public class WageCondition {
         return baseHourlyWage;
     }
 
+    // TODO: 削除予定
     public OverTimeHourlyExtraWage overTimeHourlyExtraWage() {
         return new OverTimeHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.overLegalTimeExtraRate().value()));
     }
@@ -35,4 +35,23 @@ public class WageCondition {
         return new NightHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.nightExtraRate().value()));
     }
 
+    public LegalDaysOffHourlyExtraWage legalDaysOffHourlyExtraWage() {
+        return new LegalDaysOffHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.legalDaysOffExtraRate().value()));
+    }
+
+    public NonLegalDaysOffHourlyExtraWage nonLegalDaysOffHourlyExtraWage() {
+        return new NonLegalDaysOffHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.nonLegalDaysOffExtraRate().value()));
+    }
+
+    public OverLegalMoreThan60HoursHourlyExtraWage overLegalMoreThan60HoursHourlyExtraWage() {
+        return new OverLegalMoreThan60HoursHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.overLegalMoreThan60HoursExtraRate().value()));
+    }
+
+    public OverLegalUpTo60HoursHourlyExtraWage overLegalUpTo60HoursHourlyExtraWage() {
+        return new OverLegalUpTo60HoursHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.overLegalUpTo60HoursExtraRate().value()));
+    }
+
+    public OverPrescribedHourlyExtraWage overPrescribedHourlyExtraWage() {
+        return new OverPrescribedHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.overPrescribedExtraRate().value()));
+    }
 }

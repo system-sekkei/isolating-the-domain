@@ -15,4 +15,8 @@ public class OverPrescribedExtraRate {
     public static OverPrescribedExtraRate regulation() {
         return new OverPrescribedExtraRate(0);
     }
+
+    public ExtraPayRate value() {
+        return value;
+    }
 }

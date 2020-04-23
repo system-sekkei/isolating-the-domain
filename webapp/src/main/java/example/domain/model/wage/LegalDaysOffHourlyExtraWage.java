@@ -5,4 +5,8 @@ package example.domain.model.wage;
  */
 public class LegalDaysOffHourlyExtraWage {
     HourlyWage value;
+
+    public LegalDaysOffHourlyExtraWage(HourlyWage value) {
+        this.value = value;
+    }
 }
