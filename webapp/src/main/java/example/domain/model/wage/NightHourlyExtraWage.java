@@ -1,7 +1,7 @@
 package example.domain.model.wage;
 
 /**
- * 深夜時給割増額
+ * 深夜 時給割増額
  */
 public class NightHourlyExtraWage {
     HourlyWage value;
