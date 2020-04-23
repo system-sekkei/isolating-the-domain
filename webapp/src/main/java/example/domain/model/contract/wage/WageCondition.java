@@ -28,10 +28,11 @@ public class WageCondition {
     }
 
     public OverTimeHourlyExtraWage overTimeHourlyExtraWage() {
-        return baseHourlyWage.overTimeHourlyExtraWage(overTimeExtraRate.overLegalTimeExtraRate());
+        return new OverTimeHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.overLegalTimeExtraRate().value()));
     }
 
     public NightHourlyExtraWage nightHourlyExtraWage() {
-        return baseHourlyWage.nightHourlyExtraWage(overTimeExtraRate.nightExtraRate());
+        return new NightHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.nightExtraRate().value()));
     }
+
 }

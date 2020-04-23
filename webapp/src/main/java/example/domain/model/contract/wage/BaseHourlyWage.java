@@ -2,8 +2,6 @@ package example.domain.model.contract.wage;
 
 import example.domain.model.legislation.ExtraPayRate;
 import example.domain.model.wage.HourlyWage;
-import example.domain.model.wage.NightHourlyExtraWage;
-import example.domain.model.wage.OverTimeHourlyExtraWage;
 import example.domain.type.amount.Amount;
 import example.domain.type.amount.RoundingMode;
 
@@ -48,14 +46,6 @@ public class BaseHourlyWage {
     @Override
     public String toString() {
         return value.toString();
-    }
-
-    public OverTimeHourlyExtraWage overTimeHourlyExtraWage(OverLegalUpTo60HoursExtraRate overLegalUpTo60HoursExtraRate) {
-        return new OverTimeHourlyExtraWage(withExtraPayRate(overLegalUpTo60HoursExtraRate.value()));
-    }
-
-    public NightHourlyExtraWage nightHourlyExtraWage(NightExtraRate nightExtraRate) {
-        return new NightHourlyExtraWage(withExtraPayRate(nightExtraRate.value()));
     }
 
     HourlyWage withExtraPayRate(ExtraPayRate extraPayRate) {
