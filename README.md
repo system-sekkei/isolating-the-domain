@@ -51,3 +51,13 @@ npm test
 ```
 
 Cypressのヘッドレスブラウザで疎通を実施
+
+## 参考資料
+
+- [労働基準法](https://elaws.e-gov.go.jp/search/elawsSearch/elaws_search/lsg0500/detail?lawId=322AC0000000049#171)
+- [労働基準関係法令のあらまし | 大阪労働局](https://jsite.mhlw.go.jp/osaka-roudoukyoku/hourei_seido_tetsuzuki/roudoukijun_keiyaku/hourei_seido/_122090.html)
+  - 事業者向けに労働基準法をわかりやすくまとめたパンフレット。労働条件通知書の見本付き。
+- [時間外労働の上限規制 わかりやすい解説](https://www.mhlw.go.jp/content/000463185.pdf)
+- [労働基準法が改正されました](https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/roudoukijun/roukikaitei/index.html)
+- [改正労働基準法に係る質疑応答](https://www.mhlw.go.jp/topics/2008/12/dl/tp1216-1k.pdf)
+- [モデル就業規則](https://www.mhlw.go.jp/bunya/roudoukijun/model/dl/model.pdf)
