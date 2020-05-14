@@ -3,7 +3,7 @@ package example.domain.model.contract.wage;
 import example.domain.model.legislation.ExtraPayRate;
 
 /**
- * 所定時間外 法定超 月60時間超 時間外割増率
+ * 法定時間外労働 月60時間超の時間外割増率
  */
 public class OverLegalMoreThan60HoursExtraRate {
     ExtraPayRate value;

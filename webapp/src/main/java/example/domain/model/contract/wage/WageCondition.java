@@ -39,10 +39,6 @@ public class WageCondition {
         return new LegalDaysOffHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.legalDaysOffExtraRate().value()));
     }
 
-    public NonLegalDaysOffHourlyExtraWage nonLegalDaysOffHourlyExtraWage() {
-        return new NonLegalDaysOffHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.nonLegalDaysOffExtraRate().value()));
-    }
-
     public OverLegalMoreThan60HoursHourlyExtraWage overLegalMoreThan60HoursHourlyExtraWage() {
         return new OverLegalMoreThan60HoursHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.overLegalMoreThan60HoursExtraRate().value()));
     }
@@ -51,7 +47,4 @@ public class WageCondition {
         return new OverLegalUpTo60HoursHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.overLegalUpTo60HoursExtraRate().value()));
     }
 
-    public OverPrescribedHourlyExtraWage overPrescribedHourlyExtraWage() {
-        return new OverPrescribedHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.overPrescribedExtraRate().value()));
-    }
 }
