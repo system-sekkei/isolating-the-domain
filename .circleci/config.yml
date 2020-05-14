@@ -36,7 +36,7 @@ jobs:
       - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/category.svg converted/category.png
       - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/category-usage.svg converted/category-usage.png
       - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/service-method-call-hierarchy.svg converted/service-method-call-hierarchy.png
-      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/use-case-and-fellows.svg converted/use-case-and-fellows.png
+      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/composite-usecase.svg converted/composite-usecase.png
 
       - run: curl -X POST -F file=@webapp/build/jig/business-rule.xlsx -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
       - run: curl -X POST -F file=@webapp/build/jig/application.xlsx -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
