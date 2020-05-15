@@ -1,4 +1,4 @@
-package example.domain.model.contract;
+package example.domain.model.contract.shift;
 
 /**
  * 労働日／休日

@@ -1,7 +1,6 @@
 package example.domain.model.contract;
 
-import example.domain.model.contract.shift.DaysOffCondition;
-import example.domain.model.contract.shift.BreakTimeCondition;
+import example.domain.model.contract.shift.Shifts;
 import example.domain.model.contract.wage.BaseHourlyWage;
 import example.domain.model.contract.wage.WageCondition;
 import example.domain.type.date.Date;
@@ -11,9 +10,8 @@ import example.domain.type.date.Date;
  */
 public class ContractCondition {
     ContractEffectiveDate effectiveDate;
+    Shifts shifts;
     WageCondition wageCondition;
-    BreakTimeCondition breakTimeCondition;
-    DaysOffCondition daysOffCondition;
 
     @Deprecated
     public ContractCondition() {
