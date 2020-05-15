@@ -1,4 +1,4 @@
-package example.domain.model.contract.hours;
+package example.domain.model.contract.shift;
 
 /**
  * 1日の労働時間

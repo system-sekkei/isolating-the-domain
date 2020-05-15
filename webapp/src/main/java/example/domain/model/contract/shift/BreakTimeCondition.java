@@ -1,4 +1,4 @@
-package example.domain.model.contract.hours;
+package example.domain.model.contract.shift;
 
 import example.domain.type.time.Minute;
 

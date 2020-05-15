@@ -1,7 +1,7 @@
 package example.domain.model.contract;
 
-import example.domain.model.contract.hours.DaysOffCondition;
-import example.domain.model.contract.hours.BreakTimeCondition;
+import example.domain.model.contract.shift.DaysOffCondition;
+import example.domain.model.contract.shift.BreakTimeCondition;
 import example.domain.model.contract.wage.BaseHourlyWage;
 import example.domain.model.contract.wage.WageCondition;
 import example.domain.type.date.Date;
