@@ -35,10 +35,8 @@ public class PaymentAmount {
                 .add(new PaymentWorkTime(payableWork.overWorkTime()).multiply(wageCondition.overTimeHourlyExtraWage().value()))
                 // TODO:
 //                .add(new PaymentWorkTime(payableWork.overLegalMoreThan60HoursWorkTime()).multiply(wageCondition.overLegalMoreThan60HoursHourlyExtraWage().value()))
-//                .add(new PaymentWorkTime(payableWork.overLegalUpTo60HoursWorkTime()).multiply(wageCondition.overLegalUpTo60HoursHourlyExtraWage().value()))
-//                .add(new PaymentWorkTime(payableWork.overPrescribedWorkTime()).multiply(wageCondition.overPrescribedHourlyExtraWage().value()))
+//                .add(new PaymentWorkTime(payableWork.overLegalWithin60HoursWorkTime()).multiply(wageCondition.overLegalUpTo60HoursHourlyExtraWage().value()))
 //                .add(new PaymentWorkTime(payableWork.legalDaysOffWorkTime()).multiply(wageCondition.legalDaysOffHourlyExtraWage().value()))
-//                .add(new PaymentWorkTime(payableWork.nonLegalDaysOffWorkTime()).multiply(wageCondition.nonLegalDaysOffHourlyExtraWage().value()))
                 .add(new PaymentWorkTime(payableWork.nightWorkTime()).multiply(wageCondition.nightHourlyExtraWage().value()));
     }
 }

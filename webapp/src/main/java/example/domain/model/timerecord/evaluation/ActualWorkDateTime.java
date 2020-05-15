@@ -79,24 +79,14 @@ public class ActualWorkDateTime {
         return new LegalDaysOffWorkTime(new QuarterHour());
     }
 
-    public NonLegalDaysOffWorkTime nonLegalDaysOffWorkTime() {
-        // TODO:
-        return new NonLegalDaysOffWorkTime(new QuarterHour());
-    }
-
     public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime() {
         // TODO:
         return new OverLegalMoreThan60HoursWorkTime(new QuarterHour());
     }
 
-    public OverLegalUpTo60HoursWorkTime overLegalUpTo60HoursWorkTime() {
+    public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime() {
         // TODO:
-        return new OverLegalUpTo60HoursWorkTime(new QuarterHour());
-    }
-
-    public OverPrescribedWorkTime overPrescribedWorkTime() {
-        // TODO:
-        return new OverPrescribedWorkTime(new QuarterHour());
+        return new OverLegalWithin60HoursWorkTime(new QuarterHour());
     }
 
     // TODO: 削除予定

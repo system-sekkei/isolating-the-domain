@@ -3,7 +3,7 @@ package example.domain.model.timerecord.evaluation;
 import example.domain.type.time.QuarterHour;
 
 /**
- * 所定時間外 法定超 月60時間超 勤務時間
+ * 法定時間外労働 月60時間超 勤務時間
  */
 public class OverLegalMoreThan60HoursWorkTime {
 

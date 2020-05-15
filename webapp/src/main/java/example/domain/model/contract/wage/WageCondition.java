@@ -43,8 +43,8 @@ public class WageCondition {
         return new OverLegalMoreThan60HoursHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.overLegalMoreThan60HoursExtraRate().value()));
     }
 
-    public OverLegalUpTo60HoursHourlyExtraWage overLegalUpTo60HoursHourlyExtraWage() {
-        return new OverLegalUpTo60HoursHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.overLegalUpTo60HoursExtraRate().value()));
+    public OverLegalWithin60HoursHourlyExtraWage overLegalUpTo60HoursHourlyExtraWage() {
+        return new OverLegalWithin60HoursHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.overLegalUpTo60HoursExtraRate().value()));
     }
 
 }

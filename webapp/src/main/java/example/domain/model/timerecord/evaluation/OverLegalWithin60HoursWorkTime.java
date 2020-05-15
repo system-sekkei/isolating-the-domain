@@ -3,13 +3,13 @@ package example.domain.model.timerecord.evaluation;
 import example.domain.type.time.QuarterHour;
 
 /**
- * 法定外休日勤務時間
+ * 法定時間外労働 月60時間以内 労働時間
  */
-public class NonLegalDaysOffWorkTime {
+public class OverLegalWithin60HoursWorkTime {
 
     QuarterHour value;
 
-    public NonLegalDaysOffWorkTime(QuarterHour value) {
+    public OverLegalWithin60HoursWorkTime(QuarterHour value) {
         this.value = value;
     }
 
