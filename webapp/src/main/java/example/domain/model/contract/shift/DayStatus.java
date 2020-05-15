@@ -5,5 +5,6 @@ package example.domain.model.contract.shift;
  */
 public enum DayStatus {
     労働日,
-    休日
+    法定外休日,
+    法定休日
 }
