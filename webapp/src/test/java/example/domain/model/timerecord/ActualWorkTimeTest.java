@@ -55,9 +55,9 @@ class ActualWorkTimeTest {
     @CsvSource({
             "9:00, 17:00, 60, 0時間0分",
             "09:00, 22:00, 60, 4時間0分"})
-    void 法定時間外労働月60時間以内時間外作業時間が計算できる(String begin, String end, String breaks, String expected) {
+    void 法定時間外労働時間外作業時間が計算できる(String begin, String end, String breaks, String expected) {
         ActualWorkDateTime sut = AttendanceForm.toActualWorkDateTime("2018-11-25", begin, end, breaks, "0");
-        assertEquals(expected, sut.overLegalWithin60HoursWorkTime().toString());
+        assertEquals(expected, sut.overLegalHoursWorkTime().toString());
     }
 
     @Test

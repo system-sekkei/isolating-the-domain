@@ -79,6 +79,10 @@ public class ActualWorkDateTime {
         return new LegalDaysOffWorkTime(new QuarterHour());
     }
 
+    public OverLegalHoursWorkTime overLegalHoursWorkTime() {
+        return new OverLegalHoursWorkTime(workTime());
+    }
+
     public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime() {
         // TODO:
         return new OverLegalMoreThan60HoursWorkTime(new QuarterHour());
