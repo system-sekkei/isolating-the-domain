@@ -23,10 +23,6 @@ public class PayableWork {
         return actualWorkDateTime.workTime().quarterHour();
     }
 
-    public QuarterHour overWorkTime() {
-        return actualWorkDateTime.overWorkTime().quarterHour();
-    }
-
     public QuarterHour nightWorkTime() {
         return actualWorkDateTime.nightWorkTime().quarterHour();
     }

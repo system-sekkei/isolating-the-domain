@@ -92,30 +92,30 @@ values
 INSERT INTO 給与.契約中(従業員ID) values(1),(2),(3),(4),(5),(6);
 
 -- 時給
-INSERT INTO 給与.時給契約履歴(時給ID, 従業員ID, 時給, 適用開始日, 時間外割増率, 深夜割増率) VALUES
-(1, 1, 950, DATEADD('DAY', -60, CURRENT_DATE), 25, 35),
-(2, 2, 950, DATEADD('DAY', -60, CURRENT_DATE), 25, 35),
-(3, 3, 950, DATEADD('DAY', -60, CURRENT_DATE), 25, 35),
+INSERT INTO 給与.時給契約履歴(時給ID, 従業員ID, 時給, 適用開始日, 法定時間外月６０時間以内割増率, 法定時間外月６０時間超割増率, 法定休日労働割増率, 深夜割増率) VALUES
+(1, 1, 950, DATEADD('DAY', -60, CURRENT_DATE), 25, 50, 35, 35),
+(2, 2, 950, DATEADD('DAY', -60, CURRENT_DATE), 25, 50, 35, 35),
+(3, 3, 950, DATEADD('DAY', -60, CURRENT_DATE), 25, 50, 35, 35),
 -- 時給登録なし
 -- (4, 4, 950, DATEADD('DAY', -60, CURRENT_DATE), 25, 35),
 -- (5, 5, 950, DATEADD('DAY', -60, CURRENT_DATE), 25, 35),
-(6, 6, 950, DATEADD('DAY', -60, CURRENT_DATE), 25, 35);
+(6, 6, 950, DATEADD('DAY', -60, CURRENT_DATE), 25, 50, 35, 35);
 
-INSERT INTO 給与.時給契約(従業員ID, 適用開始日, 時給, 時間外割増率, 深夜割増率) VALUES
-(1, DATEADD('DAY', -60, CURRENT_DATE), 950, 25, 35),
-(2, DATEADD('DAY', -60, CURRENT_DATE), 950, 25, 35),
-(3, DATEADD('DAY', -60, CURRENT_DATE), 950, 25, 35),
+INSERT INTO 給与.時給契約(従業員ID, 適用開始日, 時給, 法定時間外月６０時間以内割増率, 法定時間外月６０時間超割増率, 法定休日労働割増率, 深夜割増率) VALUES
+(1, DATEADD('DAY', -60, CURRENT_DATE), 950, 25, 50, 35, 35),
+(2, DATEADD('DAY', -60, CURRENT_DATE), 950, 25, 50, 35, 35),
+(3, DATEADD('DAY', -60, CURRENT_DATE), 950, 25, 50, 35, 35),
 -- 時給登録なし
 -- (4, DATEADD('DAY', -60, CURRENT_DATE), 950, 25, 35),
 -- (5, DATEADD('DAY', -60, CURRENT_DATE), 950, 25, 35),
-(6, DATEADD('DAY', -60, CURRENT_DATE), 950, 25, 35)
+(6, DATEADD('DAY', -60, CURRENT_DATE), 950, 25, 50, 35, 35)
 ;
 
 -- 時給変遷を確認するためのデータ
-INSERT INTO 給与.時給契約履歴(時給ID, 従業員ID, 時給, 適用開始日, 時間外割増率, 深夜割増率) VALUES
-(7, 6, 955, DATEADD('DAY', -30, CURRENT_DATE), 25, 35);
-INSERT INTO 給与.時給契約(従業員ID, 適用開始日, 時給, 時間外割増率, 深夜割増率) VALUES
-(6, DATEADD('DAY', -30, CURRENT_DATE), 955, 25, 35);
+INSERT INTO 給与.時給契約履歴(時給ID, 従業員ID, 時給, 適用開始日, 法定時間外月６０時間以内割増率, 法定時間外月６０時間超割増率, 法定休日労働割増率, 深夜割増率) VALUES
+(7, 6, 955, DATEADD('DAY', -30, CURRENT_DATE), 25, 50, 35, 35);
+INSERT INTO 給与.時給契約(従業員ID, 適用開始日, 時給, 法定時間外月６０時間以内割増率, 法定時間外月６０時間超割増率, 法定休日労働割増率, 深夜割増率) VALUES
+(6, DATEADD('DAY', -30, CURRENT_DATE), 955, 25, 50, 35, 35);
 
 -- 作業時間
 INSERT INTO 給与.就業時間履歴(就業時間ID, 従業員ID, 勤務日, 開始日時, 終了日時, 休憩時間, 深夜休憩時間, 休日) VALUES

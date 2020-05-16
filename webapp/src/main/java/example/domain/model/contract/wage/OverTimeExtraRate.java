@@ -25,15 +25,11 @@ public class OverTimeExtraRate {
                 LegalDaysOffExtraRate.regulation(), NightExtraRate.regulation());
     }
 
-    public OverLegalWithin60HoursExtraRate overLegalTimeExtraRate() {
-        return overLegalWithin60HoursExtraRate;
-    }
-
     public NightExtraRate nightExtraRate() {
         return nightExtraRate;
     }
 
-    public OverLegalWithin60HoursExtraRate overLegalUpTo60HoursExtraRate() {
+    public OverLegalWithin60HoursExtraRate overLegalWithin60HoursExtraRate() {
         return overLegalWithin60HoursExtraRate;
     }
 

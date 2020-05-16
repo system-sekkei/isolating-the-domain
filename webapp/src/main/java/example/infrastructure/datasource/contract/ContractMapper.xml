@@ -8,8 +8,11 @@
     </select>
 
     <insert id="insertContractHistory">
-        INSERT INTO 給与.時給契約履歴 (時給ID, 従業員ID, 時給, 適用開始日, 時間外割増率, 深夜割増率)
-        VALUES (#{id}, #{employeeNumber.value}, #{wageCondition.baseHourlyWage.value.value.value}, #{effectiveDate.value.value}, #{wageCondition.overTimeExtraRate.overLegalWithin60HoursExtraRate.value.value.value},
+        INSERT INTO 給与.時給契約履歴 (時給ID, 従業員ID, 時給, 適用開始日, 法定時間外月６０時間以内割増率, 法定時間外月６０時間超割増率, 法定休日労働割増率, 深夜割増率)
+        VALUES (#{id}, #{employeeNumber.value},#{wageCondition.baseHourlyWage.value.value.value}, #{effectiveDate.value.value},
+        #{wageCondition.overTimeExtraRate.overLegalWithin60HoursExtraRate.value.value.value},
+        #{wageCondition.overTimeExtraRate.overLegalMoreThan60HoursExtraRate.value.value.value},
+        #{wageCondition.overTimeExtraRate.legalDaysOffExtraRate.value.value.value},
         #{wageCondition.overTimeExtraRate.nightExtraRate.value.value.value});
     </insert>
 
@@ -17,15 +20,20 @@
         SELECT
         時給契約.適用開始日 as "effectiveDate.value.value",
         時給契約.時給 as "wageCondition.baseHourlyWage.value.value.value",
-        時給契約.時間外割増率 as "wageCondition.overTimeExtraRate.overLegalWithin60HoursExtraRate.value.value.value",
+        時給契約.法定時間外月６０時間以内割増率 as "wageCondition.overTimeExtraRate.overLegalWithin60HoursExtraRate.value.value.value",
+        時給契約.法定時間外月６０時間超割増率 as "wageCondition.overTimeExtraRate.overLegalMoreThan60HoursExtraRate.value.value.value",
+        時給契約.法定休日労働割増率 as "wageCondition.overTimeExtraRate.legalDaysOffExtraRate.value.value.value",
         時給契約.深夜割増率 as "wageCondition.overTimeExtraRate.nightExtraRate.value.value.value"
         FROM 給与.時給契約 as 時給契約
         WHERE 時給契約.従業員ID = #{employeeNumber.value}
     </select>
 
     <insert id="insertContract">
-        INSERT INTO 給与.時給契約(従業員ID, 適用開始日, 時給, 時間外割増率, 深夜割増率) VALUES
-        (#{employeeNumber.value}, #{effectiveDate.value.value}, #{wageCondition.baseHourlyWage.value.value.value}, #{wageCondition.overTimeExtraRate.overLegalWithin60HoursExtraRate.value.value.value},
+        INSERT INTO 給与.時給契約(従業員ID, 適用開始日, 時給, 法定時間外月６０時間以内割増率, 法定時間外月６０時間超割増率, 法定休日労働割増率, 深夜割増率) VALUES
+        (#{employeeNumber.value}, #{effectiveDate.value.value}, #{wageCondition.baseHourlyWage.value.value.value},
+        #{wageCondition.overTimeExtraRate.overLegalWithin60HoursExtraRate.value.value.value},
+        #{wageCondition.overTimeExtraRate.overLegalMoreThan60HoursExtraRate.value.value.value},
+        #{wageCondition.overTimeExtraRate.legalDaysOffExtraRate.value.value.value},
         #{wageCondition.overTimeExtraRate.nightExtraRate.value.value.value})
     </insert>
 

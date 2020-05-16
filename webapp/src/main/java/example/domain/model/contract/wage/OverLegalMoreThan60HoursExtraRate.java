@@ -8,6 +8,10 @@ import example.domain.model.legislation.ExtraPayRate;
 public class OverLegalMoreThan60HoursExtraRate {
     ExtraPayRate value;
 
+    @Deprecated
+    public OverLegalMoreThan60HoursExtraRate() {
+    }
+
     public OverLegalMoreThan60HoursExtraRate(Integer value) {
         this.value = new ExtraPayRate(value);
     }

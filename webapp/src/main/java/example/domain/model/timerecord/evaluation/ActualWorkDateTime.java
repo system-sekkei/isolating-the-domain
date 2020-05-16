@@ -85,13 +85,7 @@ public class ActualWorkDateTime {
     }
 
     public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime() {
-        // TODO:
-        return new OverLegalWithin60HoursWorkTime(new QuarterHour());
-    }
-
-    // TODO: 削除予定
-    public OverWorkTime overWorkTime() {
-        return new OverWorkTime(workTime());
+        return new OverLegalWithin60HoursWorkTime(workTime());
     }
 
     @AssertTrue(message = "休憩時間が不正です", groups = BusinessLogic.class)

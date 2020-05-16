@@ -32,11 +32,9 @@ public class PaymentAmount {
 
     public PaymentAmount addConsiderationAmount(PayableWork payableWork, WageCondition wageCondition) {
         return this.add(new PaymentWorkTime(payableWork.workTime()).multiply(wageCondition.baseHourlyWage().value()))
-                .add(new PaymentWorkTime(payableWork.overWorkTime()).multiply(wageCondition.overTimeHourlyExtraWage().value()))
-                // TODO:
-//                .add(new PaymentWorkTime(payableWork.overLegalMoreThan60HoursWorkTime()).multiply(wageCondition.overLegalMoreThan60HoursHourlyExtraWage().value()))
-//                .add(new PaymentWorkTime(payableWork.overLegalWithin60HoursWorkTime()).multiply(wageCondition.overLegalUpTo60HoursHourlyExtraWage().value()))
-//                .add(new PaymentWorkTime(payableWork.legalDaysOffWorkTime()).multiply(wageCondition.legalDaysOffHourlyExtraWage().value()))
+                .add(new PaymentWorkTime(payableWork.overLegalMoreThan60HoursWorkTime()).multiply(wageCondition.overLegalMoreThan60HoursHourlyExtraWage().value()))
+                .add(new PaymentWorkTime(payableWork.overLegalWithin60HoursWorkTime()).multiply(wageCondition.overLegalWithin60HoursHourlyExtraWage().value()))
+                .add(new PaymentWorkTime(payableWork.legalDaysOffWorkTime()).multiply(wageCondition.legalDaysOffHourlyExtraWage().value()))
                 .add(new PaymentWorkTime(payableWork.nightWorkTime()).multiply(wageCondition.nightHourlyExtraWage().value()));
     }
 }

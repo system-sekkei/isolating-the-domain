@@ -26,11 +26,6 @@ public class WageCondition {
         return baseHourlyWage;
     }
 
-    // TODO: 削除予定
-    public OverTimeHourlyExtraWage overTimeHourlyExtraWage() {
-        return new OverTimeHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.overLegalTimeExtraRate().value()));
-    }
-
     public NightHourlyExtraWage nightHourlyExtraWage() {
         return new NightHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.nightExtraRate().value()));
     }
@@ -43,8 +38,8 @@ public class WageCondition {
         return new OverLegalMoreThan60HoursHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.overLegalMoreThan60HoursExtraRate().value()));
     }
 
-    public OverLegalWithin60HoursHourlyExtraWage overLegalUpTo60HoursHourlyExtraWage() {
-        return new OverLegalWithin60HoursHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.overLegalUpTo60HoursExtraRate().value()));
+    public OverLegalWithin60HoursHourlyExtraWage overLegalWithin60HoursHourlyExtraWage() {
+        return new OverLegalWithin60HoursHourlyExtraWage(baseHourlyWage.withExtraPayRate(overTimeExtraRate.overLegalWithin60HoursExtraRate().value()));
     }
 
 }
