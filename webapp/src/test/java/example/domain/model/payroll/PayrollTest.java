@@ -1,6 +1,5 @@
 package example.domain.model.payroll;
 
-import com.sun.tools.javac.util.List;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.TimeRecords;
 import example.domain.model.contract.Contract;
@@ -13,6 +12,8 @@ import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
