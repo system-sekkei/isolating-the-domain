@@ -10,7 +10,7 @@ jigReports.dependsOn(clean, classes)
 
 description 'ドメイン駆動設計によるアプリケーションテンプレート'
 
-sourceCompatibility = '1.8'
+sourceCompatibility = '11'
 
 sourceSets {
     main {
