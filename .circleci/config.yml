@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/openjdk:11-jdk
+      - image: irof/circleci-openjdk:11-jdk-graphviz-imagemagick
     branches:
       only:
         - master
@@ -28,7 +28,6 @@ jobs:
           name: Deploy to Heroku
           command: |
             git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/isolating-the-domain.git master
-      - run: sudo apt-get update && sudo apt-get install -y graphviz imagemagick fonts-ipafont
       - run: ./gradlew jig
 
       - run: sudo mkdir converted
