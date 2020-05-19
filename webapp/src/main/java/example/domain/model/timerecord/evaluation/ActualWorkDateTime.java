@@ -73,9 +73,6 @@ public class ActualWorkDateTime {
         return nightBindingTime().subtract(nightBreakTime);
     }
 
-    public OverLegalHoursWorkTime overLegalHoursWorkTime() {
-        return new OverLegalHoursWorkTime(workTime());
-    }
 
     @AssertTrue(message = "休憩時間が不正です", groups = BusinessLogic.class)
     public boolean isDaytimeBreakTimeValid() {

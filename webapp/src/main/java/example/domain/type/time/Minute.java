@@ -57,4 +57,8 @@ public class Minute {
     public BigDecimal bigDecimalValue() {
         return BigDecimal.valueOf(value);
     }
+
+    public boolean moreThan(Minute value) {
+        return this.value > value.value;
+    }
 }

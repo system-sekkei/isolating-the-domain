@@ -38,4 +38,15 @@ public class QuarterHour {
     public BigDecimal bigDecimalValue() {
         return value.bigDecimalValue().divide(BigDecimal.valueOf(60), 2, RoundingMode.UNNECESSARY);
     }
+
+    public boolean moreThan(QuarterHour value) {
+        return value.minute().moreThan(value.minute());
+    }
+
+    public Minute overMinute(Minute minute) {
+        if (value.lessThan(minute)) {
+            return new Minute(0);
+        }
+        return value.subtract(minute);
+    }
 }

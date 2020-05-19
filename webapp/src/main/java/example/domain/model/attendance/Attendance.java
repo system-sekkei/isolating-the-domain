@@ -67,11 +67,6 @@ public class Attendance {
         return new LegalDaysOffWorkTime(new QuarterHour());
     }
 
-    public OverLegalHoursWorkTime overLegalHoursWorkTime() {
-        // TODO:
-        return new OverLegalHoursWorkTime(new QuarterHour());
-    }
-
     public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime() {
         // TODO:
         return new OverLegalMoreThan60HoursWorkTime(new QuarterHour());

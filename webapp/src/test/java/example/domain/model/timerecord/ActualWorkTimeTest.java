@@ -51,21 +51,11 @@ class ActualWorkTimeTest {
         assertEquals(expected, sut.nightWorkTime().toString());
     }
 
-    @ParameterizedTest
-    @CsvSource({
-            "9:00, 17:00, 60, 0時間0分",
-            "09:00, 22:00, 60, 4時間0分"})
-    void 一日の労働時間外作業時間が計算できる(String begin, String end, String breaks, String expected) {
-        ActualWorkDateTime sut = AttendanceForm.toActualWorkDateTime("2018-11-25", begin, end, breaks, "0");
-        assertEquals(expected, sut.overLegalHoursWorkTime().toString());
-    }
-
     @Test
     void 作業時間が計算できる() {
         ActualWorkDateTime sut = AttendanceForm.toActualWorkDateTime("2018-11-25", "8:00", "24:00", "120", "30");
         assertAll(
                 () -> assertEquals("12時間0分", sut.daytimeWorkTime().toString())
-                , () -> assertEquals("5時間30分", sut.overLegalHoursWorkTime().toString())
                 , () -> assertEquals("1時間30分", sut.nightWorkTime().toString())
         );
     }

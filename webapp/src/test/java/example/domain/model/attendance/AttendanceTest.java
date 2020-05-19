@@ -1,7 +1,7 @@
 package example.domain.model.attendance;
 
 import example.domain.model.employee.EmployeeNumber;
-import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
+import example.domain.model.timerecord.evaluation.OverLegalHoursWorkTime;
 import example.domain.model.timerecord.evaluation.StatutoryWorkOnDaysOff;
 import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.type.date.Date;
@@ -25,13 +25,13 @@ class AttendanceTest {
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-11-11", "9:00", "18:00", "60", "0")));
         Attendance attendance = new Attendance(new WorkMonth("2019-11"), new TimeRecords(list));
         Week week = Week.from(Arrays.asList(
-            Date.from("2019-11-10"),
-            Date.from("2019-11-11"),
-            Date.from("2019-11-12"),
-            Date.from("2019-11-13"),
-            Date.from("2019-11-14"),
-            Date.from("2019-11-15"),
-            Date.from("2019-11-16")));
+                Date.from("2019-11-10"),
+                Date.from("2019-11-11"),
+                Date.from("2019-11-12"),
+                Date.from("2019-11-13"),
+                Date.from("2019-11-14"),
+                Date.from("2019-11-15"),
+                Date.from("2019-11-16")));
 
         WeekWorkTime weekWorkTime = attendance.weekWorkTime(week);
 
