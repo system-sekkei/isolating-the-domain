@@ -1,7 +1,6 @@
 package example.domain.model.attendance;
 
 import example.domain.model.employee.EmployeeNumber;
-import example.domain.model.timerecord.evaluation.OverLegalHoursWorkTime;
 import example.domain.model.timerecord.evaluation.StatutoryWorkOnDaysOff;
 import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.domain.type.date.Date;
