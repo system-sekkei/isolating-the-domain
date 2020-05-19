@@ -1,9 +1,7 @@
 package example.domain.model.attendance;
 
 import example.domain.model.legislation.DaysOff;
-import example.domain.model.timerecord.evaluation.StatutoryWorkOnDaysOff;
-import example.domain.model.timerecord.evaluation.TimeRecord;
-import example.domain.model.timerecord.evaluation.WorkDate;
+import example.domain.model.timerecord.evaluation.*;
 import example.domain.type.date.Week;
 import example.domain.type.time.QuarterHour;
 
@@ -64,9 +62,28 @@ public class Attendance {
                 .orElseGet(QuarterHour::new));
     }
 
-    // TODO: 法定時間内残業 (所定労働時間を超えるが、法定時間内におさまる残業)
-    // TODO: 法定時間外残業
+    public LegalDaysOffWorkTime legalDaysOffWorkTime() {
+        // TODO:
+        return new LegalDaysOffWorkTime(new QuarterHour());
+    }
 
+    public OverLegalHoursWorkTime overLegalHoursWorkTime() {
+        // TODO:
+        return new OverLegalHoursWorkTime(new QuarterHour());
+    }
+
+    public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime() {
+        // TODO:
+        return new OverLegalMoreThan60HoursWorkTime(new QuarterHour());
+    }
+
+    public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime() {
+        // TODO:
+        return new OverLegalWithin60HoursWorkTime(new QuarterHour());
+    }
+
+    // TODO: 削除予定
+    @Deprecated
     StatutoryWorkOnDaysOff statutoryDaysOffWorkByWeek(Week week) {
         DaysOff daysOff = DaysOff.from(week);
         return new StatutoryWorkOnDaysOff(timeRecords.list().stream()

@@ -2,7 +2,6 @@ package example.domain.model.timerecord.evaluation;
 
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.time.Minute;
-import example.domain.type.time.QuarterHour;
 import example.domain.validation.BusinessLogic;
 
 import javax.validation.Valid;
@@ -74,22 +73,8 @@ public class ActualWorkDateTime {
         return nightBindingTime().subtract(nightBreakTime);
     }
 
-    public LegalDaysOffWorkTime legalDaysOffWorkTime() {
-        // TODO:
-        return new LegalDaysOffWorkTime(new QuarterHour());
-    }
-
     public OverLegalHoursWorkTime overLegalHoursWorkTime() {
         return new OverLegalHoursWorkTime(workTime());
-    }
-
-    public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime() {
-        // TODO:
-        return new OverLegalMoreThan60HoursWorkTime(new QuarterHour());
-    }
-
-    public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime() {
-        return new OverLegalWithin60HoursWorkTime(workTime());
     }
 
     @AssertTrue(message = "休憩時間が不正です", groups = BusinessLogic.class)

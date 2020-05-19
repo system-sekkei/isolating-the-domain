@@ -13,6 +13,10 @@ public class OverLegalHoursWorkTime {
         this(workTime, DailyOvertimeWork.legal());
     }
 
+    public OverLegalHoursWorkTime(QuarterHour value) {
+        this.value = value;
+    }
+
     OverLegalHoursWorkTime(WorkTime workTime, DailyOvertimeWork dailyOvertimeWork) {
         this.value = new QuarterHour(dailyOvertimeWork.overMinute(workTime.quarterHour().minute()));
     }

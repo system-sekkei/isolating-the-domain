@@ -1,7 +1,5 @@
 package example.domain.model.payroll;
 
-import example.domain.model.attendance.PayableWork;
-import example.domain.model.contract.wage.WageCondition;
 import example.domain.type.amount.Amount;
 
 import java.math.BigDecimal;
@@ -28,13 +26,5 @@ public class PaymentAmount {
     @Override
     public String toString() {
         return value.toString();
-    }
-
-    public PaymentAmount addConsiderationAmount(PayableWork payableWork, WageCondition wageCondition) {
-        return this.add(new PaymentWorkTime(payableWork.workTime()).multiply(wageCondition.baseHourlyWage().value()))
-                .add(new PaymentWorkTime(payableWork.overLegalMoreThan60HoursWorkTime()).multiply(wageCondition.overLegalMoreThan60HoursHourlyExtraWage().value()))
-                .add(new PaymentWorkTime(payableWork.overLegalWithin60HoursWorkTime()).multiply(wageCondition.overLegalWithin60HoursHourlyExtraWage().value()))
-                .add(new PaymentWorkTime(payableWork.legalDaysOffWorkTime()).multiply(wageCondition.legalDaysOffHourlyExtraWage().value()))
-                .add(new PaymentWorkTime(payableWork.nightWorkTime()).multiply(wageCondition.nightHourlyExtraWage().value()));
     }
 }

@@ -65,7 +65,7 @@ class ActualWorkTimeTest {
         ActualWorkDateTime sut = AttendanceForm.toActualWorkDateTime("2018-11-25", "8:00", "24:00", "120", "30");
         assertAll(
                 () -> assertEquals("12時間0分", sut.daytimeWorkTime().toString())
-                , () -> assertEquals("5時間30分", sut.overLegalWithin60HoursWorkTime().toString())
+                , () -> assertEquals("5時間30分", sut.overLegalHoursWorkTime().toString())
                 , () -> assertEquals("1時間30分", sut.nightWorkTime().toString())
         );
     }
