@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'idea'
-    id 'org.springframework.boot' version '2.2.0.RELEASE'
+    id 'org.springframework.boot' version '2.3.0.RELEASE'
     id "org.dddjava.jig-gradle-plugin" version "2020.5.2"
 }
 
@@ -24,11 +24,12 @@ repositories {
 }
 
 dependencies {
-    implementation platform('org.springframework.boot:spring-boot-dependencies:2.2.0.RELEASE')
+    implementation platform('org.springframework.boot:spring-boot-dependencies:2.3.0.RELEASE')
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
 
-    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.0")
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.2")
 
     runtimeOnly("com.h2database:h2")
 
