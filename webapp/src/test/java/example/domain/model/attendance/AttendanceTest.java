@@ -3,6 +3,7 @@ package example.domain.model.attendance;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.StatutoryWorkOnDaysOff;
 import example.domain.model.timerecord.evaluation.TimeRecord;
+import example.domain.model.timerecord.evaluation.TimeRecords;
 import example.domain.type.date.Date;
 import example.domain.type.date.Week;
 import example.presentation.controller.timerecord.AttendanceForm;

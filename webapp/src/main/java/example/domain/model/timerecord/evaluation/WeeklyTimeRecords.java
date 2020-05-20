@@ -1,6 +1,4 @@
-package example.domain.model.attendance;
-
-import example.domain.model.timerecord.evaluation.TimeRecord;
+package example.domain.model.timerecord.evaluation;
 
 import java.util.List;
 

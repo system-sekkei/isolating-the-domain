@@ -1,7 +1,7 @@
 package example.domain.model.payroll;
 
 import example.domain.model.attendance.Attendance;
-import example.domain.model.attendance.TimeRecords;
+import example.domain.model.timerecord.evaluation.TimeRecords;
 import example.domain.model.contract.Contract;
 import example.domain.model.contract.ContractCondition;
 import example.domain.model.contract.ContractConditions;

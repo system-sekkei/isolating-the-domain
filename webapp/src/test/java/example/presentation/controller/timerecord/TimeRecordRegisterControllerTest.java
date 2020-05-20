@@ -2,7 +2,7 @@ package example.presentation.controller.timerecord;
 
 import example.application.repository.EmployeeRepository;
 import example.application.repository.TimeRecordRepository;
-import example.domain.model.attendance.TimeRecords;
+import example.domain.model.timerecord.evaluation.TimeRecords;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;

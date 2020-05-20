@@ -1,5 +1,7 @@
 package example.domain.model.attendance;
 
+import example.domain.model.timerecord.evaluation.Recorded;
+
 /**
  * 勤怠状況
  */

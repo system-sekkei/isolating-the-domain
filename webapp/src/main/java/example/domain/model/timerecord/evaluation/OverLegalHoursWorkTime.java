@@ -1,6 +1,5 @@
 package example.domain.model.timerecord.evaluation;
 
-import example.domain.model.attendance.WeeklyTimeRecords;
 import example.domain.model.legislation.DailyWorkingHoursLimit;
 import example.domain.model.legislation.WeeklyWorkingHoursLimit;
 import example.domain.type.time.Minute;

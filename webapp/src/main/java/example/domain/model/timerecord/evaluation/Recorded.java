@@ -1,4 +1,4 @@
-package example.domain.model.attendance;
+package example.domain.model.timerecord.evaluation;
 
 /**
  * 勤務記録有無

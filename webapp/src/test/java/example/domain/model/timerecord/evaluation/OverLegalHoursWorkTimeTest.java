@@ -1,6 +1,5 @@
 package example.domain.model.timerecord.evaluation;
 
-import example.domain.model.attendance.WeeklyTimeRecords;
 import example.domain.model.employee.EmployeeNumber;
 import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.api.Disabled;
