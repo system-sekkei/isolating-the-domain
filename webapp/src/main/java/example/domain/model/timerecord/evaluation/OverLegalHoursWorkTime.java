@@ -2,6 +2,7 @@ package example.domain.model.timerecord.evaluation;
 
 import example.domain.model.attendance.WeeklyTimeRecords;
 import example.domain.model.legislation.DailyWorkingHoursLimit;
+import example.domain.model.legislation.WeeklyWorkingHoursLimit;
 import example.domain.type.time.Minute;
 import example.domain.type.time.QuarterHour;
 
@@ -19,18 +20,18 @@ public class OverLegalHoursWorkTime {
     }
 
     public static OverLegalHoursWorkTime from(WeeklyTimeRecords weeklyTimeRecords) {
-        OverLegalHoursWorkTime dailyOverLegalHoursWorkTime = dailyOverLegalHoursWorkTimePerWeek(weeklyTimeRecords);
-        OverLegalHoursWorkTime weeklyOverLegalHoursWorkTime = weeklyOverLegalHoursWorkTime();
+        List<WorkTime> weeklyWorkTimes = weeklyTimeRecords.list().stream()
+                .map(timeRecord -> timeRecord.actualWorkDateTime.workTime()).collect(Collectors.toList());
+
+        OverLegalHoursWorkTime dailyOverLegalHoursWorkTime = dailyOverLegalHoursWorkTimePerWeek(weeklyWorkTimes);
+        OverLegalHoursWorkTime weeklyOverLegalHoursWorkTime = weeklyOverLegalHoursWorkTime(weeklyWorkTimes);
 
         return OverLegalHoursWorkTime.max(dailyOverLegalHoursWorkTime, weeklyOverLegalHoursWorkTime);
     }
 
-    static OverLegalHoursWorkTime dailyOverLegalHoursWorkTimePerWeek(WeeklyTimeRecords weeklyTimeRecords) {
-        List<WorkTime> workTimes = weeklyTimeRecords.list().stream()
-                .map(timeRecord -> timeRecord.actualWorkDateTime.workTime()).collect(Collectors.toList());
-
+    static OverLegalHoursWorkTime dailyOverLegalHoursWorkTimePerWeek(List<WorkTime> weeklyWorkTimes) {
         OverLegalHoursWorkTime overLegalHoursWorkTime = new OverLegalHoursWorkTime(new QuarterHour());
-        for (WorkTime workTime : workTimes) {
+        for (WorkTime workTime : weeklyWorkTimes) {
             overLegalHoursWorkTime = overLegalHoursWorkTime.add(dailyOverLegalHoursWorkTime(workTime));
         }
         return overLegalHoursWorkTime;
@@ -41,13 +42,17 @@ public class OverLegalHoursWorkTime {
     }
 
     static OverLegalHoursWorkTime dailyOverLegalHoursWorkTime(WorkTime workTime) {
-        Minute overMinute = workTime.quarterHour().overMinute(DailyWorkingHoursLimit.legal().toMinute());
-        return new OverLegalHoursWorkTime(new QuarterHour(overMinute));
+        QuarterHour overMinute = workTime.quarterHour().overMinute(new QuarterHour(DailyWorkingHoursLimit.legal().toMinute()));
+        return new OverLegalHoursWorkTime(overMinute);
     }
 
-    static OverLegalHoursWorkTime weeklyOverLegalHoursWorkTime() {
-        // TODO:
-        return new OverLegalHoursWorkTime(new QuarterHour());
+    static OverLegalHoursWorkTime weeklyOverLegalHoursWorkTime(List<WorkTime> weeklyWorkTimes) {
+        QuarterHour weeklyTotal = new QuarterHour(new Minute(0));
+        for (WorkTime workTime : weeklyWorkTimes) {
+            weeklyTotal = weeklyTotal.add(workTime.value);
+        }
+        QuarterHour overMinute = weeklyTotal.overMinute(new QuarterHour(WeeklyWorkingHoursLimit.legal().toMinute()));
+        return new OverLegalHoursWorkTime(overMinute);
     }
 
     static OverLegalHoursWorkTime max(OverLegalHoursWorkTime a, OverLegalHoursWorkTime b) {

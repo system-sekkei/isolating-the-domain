@@ -1,5 +1,6 @@
 package example.domain.model.timerecord.evaluation;
 
+import example.domain.type.time.Minute;
 import example.domain.type.time.QuarterHour;
 
 /**
@@ -11,6 +12,10 @@ public class DaytimeWorkTime {
 
     public DaytimeWorkTime(QuarterHour value) {
         this.value = value;
+    }
+
+    public DaytimeWorkTime(Integer value) {
+        this(new QuarterHour(new Minute(value)));
     }
 
     public QuarterHour quarterHour() {

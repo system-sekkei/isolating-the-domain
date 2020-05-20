@@ -43,10 +43,10 @@ public class QuarterHour {
         return value.minute().moreThan(value.minute());
     }
 
-    public Minute overMinute(Minute minute) {
-        if (value.lessThan(minute)) {
-            return new Minute(0);
+    public QuarterHour overMinute(QuarterHour other) {
+        if (value.lessThan(other.value)) {
+            return new QuarterHour(new Minute(0));
         }
-        return value.subtract(minute);
+        return this.subtract(other);
     }
 }
