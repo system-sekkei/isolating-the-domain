@@ -68,12 +68,11 @@ public class Attendance {
     }
 
     public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime() {
-        // TODO:
+
         return new OverLegalMoreThan60HoursWorkTime(new QuarterHour());
     }
 
     public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime() {
-        // TODO:
         return new OverLegalWithin60HoursWorkTime(new QuarterHour());
     }
 

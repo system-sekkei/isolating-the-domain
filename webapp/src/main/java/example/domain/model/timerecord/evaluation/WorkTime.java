@@ -1,5 +1,6 @@
 package example.domain.model.timerecord.evaluation;
 
+import example.domain.model.legislation.DailyWorkingHoursLimit;
 import example.domain.type.time.QuarterHour;
 
 /**
@@ -11,6 +12,11 @@ public class WorkTime {
 
     public WorkTime(DaytimeWorkTime daytimeWorkTime, NightWorkTime nightWorkTime) {
         this.value = daytimeWorkTime.quarterHour().add(nightWorkTime.quarterHour());
+    }
+
+    OverLegalHoursWorkTime dailyOverLegalHoursWorkTime() {
+        QuarterHour overMinute = value.overMinute(new QuarterHour(DailyWorkingHoursLimit.legal().toMinute()));
+        return new OverLegalHoursWorkTime(overMinute);
     }
 
     public QuarterHour quarterHour() {
