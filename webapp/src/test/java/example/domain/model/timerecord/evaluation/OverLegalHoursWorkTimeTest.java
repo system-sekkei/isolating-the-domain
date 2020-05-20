@@ -12,23 +12,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OverLegalHoursWorkTimeTest {
 
-    // TODO: 実装ができたらDisabledを外す
     @Test
-    @Disabled
-    void 法定時間外労働時間を計算できる() {
+    void 週の法定時間外労働時間を計算できる() {
         EmployeeNumber en = new EmployeeNumber(1);
         List<TimeRecord> list = Arrays.asList(
-                new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-26", "9:00", "18:00", "60", "0")),
+                new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-26", "9:00", "17:00", "60", "0")),
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-27", "9:00", "18:00", "60", "0")),
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-28", "9:00", "18:00", "60", "0")),
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-29", "9:00", "18:00", "60", "0")),
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-30", "9:00", "20:00", "60", "0")),
-                new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-31", "9:00", "18:00", "60", "0")),
-                new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2020-01-01", "9:00", "18:00", "60", "0")));
+                new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-31", "9:00", "18:00", "60", "0")));
         WeeklyTimeRecords weeklyTimeRecords = new WeeklyTimeRecords(list);
         OverLegalHoursWorkTime overLegalHoursWorkTime = OverLegalHoursWorkTime.from(weeklyTimeRecords);
 
-        assertEquals("600", overLegalHoursWorkTime.quarterHour().minute().toString());
+        assertEquals("540", overLegalHoursWorkTime.quarterHour().minute().toString());
     }
 
     @Test
