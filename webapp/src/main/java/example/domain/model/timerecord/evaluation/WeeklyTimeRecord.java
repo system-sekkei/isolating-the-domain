@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 /**
  * 週の勤務実績
  */
-public class WeeklyTimeRecords {
+public class WeeklyTimeRecord {
     List<TimeRecord> list;
 
-    public WeeklyTimeRecords(List<TimeRecord> list) {
+    public WeeklyTimeRecord(List<TimeRecord> list) {
         this.list = list;
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WeeklyTimeRecordsTest {
+class WeeklyTimeRecordTest {
     @Test
     void 週の法定時間外労働時間を計算できる() {
         EmployeeNumber en = new EmployeeNumber(1);
@@ -20,8 +20,8 @@ class WeeklyTimeRecordsTest {
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-29", "9:00", "18:00", "60", "0")),
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-30", "9:00", "20:00", "60", "0")),
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-31", "9:00", "18:00", "60", "0")));
-        WeeklyTimeRecords weeklyTimeRecords = new WeeklyTimeRecords(list);
-        OverLegalHoursWorkTime overLegalHoursWorkTime = weeklyTimeRecords.overLegalHoursWorkTime();
+        WeeklyTimeRecord weeklyTimeRecord = new WeeklyTimeRecord(list);
+        OverLegalHoursWorkTime overLegalHoursWorkTime = weeklyTimeRecord.overLegalHoursWorkTime();
 
         assertEquals("540", overLegalHoursWorkTime.quarterHour().minute().toString());
     }
