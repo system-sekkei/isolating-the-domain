@@ -30,14 +30,20 @@ public class OverTimeExtraRate {
     }
 
     public OverLegalWithin60HoursExtraRate overLegalWithin60HoursExtraRate() {
-        return overLegalWithin60HoursExtraRate;
+        // TODO:
+        return new OverLegalWithin60HoursExtraRate(0);
+        //return overLegalWithin60HoursExtraRate;
     }
 
     public OverLegalMoreThan60HoursExtraRate overLegalMoreThan60HoursExtraRate() {
-        return overLegalMoreThan60HoursExtraRate;
+        // TODO:
+        return new OverLegalMoreThan60HoursExtraRate(0);
+//        return overLegalMoreThan60HoursExtraRate;
     }
 
     public LegalDaysOffExtraRate legalDaysOffExtraRate() {
-        return legalDaysOffExtraRate;
+        // TODO:
+        return new LegalDaysOffExtraRate(0);
+        // return legalDaysOffExtraRate;
     }
 }

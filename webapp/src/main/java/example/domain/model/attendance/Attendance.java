@@ -63,20 +63,6 @@ public class Attendance {
                 .orElseGet(QuarterHour::new));
     }
 
-    public LegalDaysOffWorkTime legalDaysOffWorkTime() {
-        // TODO:
-        return new LegalDaysOffWorkTime(new QuarterHour());
-    }
-
-    public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime() {
-
-        return new OverLegalMoreThan60HoursWorkTime(new QuarterHour());
-    }
-
-    public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime() {
-        return new OverLegalWithin60HoursWorkTime(new QuarterHour());
-    }
-
     // TODO: 削除予定
     @Deprecated
     StatutoryWorkOnDaysOff statutoryDaysOffWorkByWeek(Week week) {

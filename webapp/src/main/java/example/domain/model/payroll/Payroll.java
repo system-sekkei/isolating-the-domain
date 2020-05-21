@@ -38,14 +38,11 @@ public class Payroll {
             WageCondition wageCondition = contract.wageConditionAt(payableWork.date());
 
             paymentAmount = paymentAmount.add(new PaymentWorkTime(payableWork.workTime()).multiply(wageCondition.baseHourlyWage().value()))
-                    .add(new PaymentWorkTime(payableWork.nightWorkTime()).multiply(wageCondition.nightHourlyExtraWage().value()));
+                    .add(new PaymentWorkTime(payableWork.nightWorkTime()).multiply(wageCondition.nightHourlyExtraWage().value()))
+                    .add(new PaymentWorkTime(payableWork.overLegalMoreThan60HoursWorkTime()).multiply(wageCondition.overLegalMoreThan60HoursHourlyExtraWage().value()))
+                    .add(new PaymentWorkTime(payableWork.overLegalWithin60HoursWorkTime()).multiply(wageCondition.overLegalWithin60HoursHourlyExtraWage().value()))
+                    .add(new PaymentWorkTime(payableWork.legalDaysOffWorkTime()).multiply(wageCondition.legalDaysOffHourlyExtraWage().value()));
         }
-
-        // TODO:
-        paymentAmount = paymentAmount
-                .add(new PaymentWorkTime(attendance.overLegalMoreThan60HoursWorkTime().quarterHour()).multiply(new HourlyWage(0)))
-                .add(new PaymentWorkTime(attendance.overLegalWithin60HoursWorkTime().quarterHour()).multiply(new HourlyWage(0)))
-                .add(new PaymentWorkTime(attendance.legalDaysOffWorkTime().quarterHour()).multiply(new HourlyWage(0)));
 
         return paymentAmount;
     }
