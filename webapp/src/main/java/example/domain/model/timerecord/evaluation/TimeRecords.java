@@ -32,4 +32,13 @@ public class TimeRecords {
     public AttendDates attendDates() {
         return new AttendDates(list.stream().map(TimeRecord::workDate).collect(toList()));
     }
+
+    public TimeRecords weeklyRecords(WorkDate day) {
+        // TODO: 該当週の勤務実績を抽出する処理を書く
+        return this;
+    }
+
+    public TimeRecords recordsDayBefore(WorkDate day) {
+        return new TimeRecords(list.stream().dropWhile(record -> record.isWorkedAt(day)).collect(toList()));
+    }
 }

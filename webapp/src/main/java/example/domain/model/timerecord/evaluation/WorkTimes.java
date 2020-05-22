@@ -1,6 +1,5 @@
 package example.domain.model.timerecord.evaluation;
 
-import example.domain.model.legislation.WeeklyWorkingHoursLimit;
 import example.domain.type.time.Minute;
 import example.domain.type.time.QuarterHour;
 
@@ -16,17 +15,12 @@ public class WorkTimes {
         this.list = list;
     }
 
-    public OverLegalHoursWorkTime weeklyOverLegalHoursWorkTime() {
-        QuarterHour overMinute = total().overMinute(new QuarterHour(WeeklyWorkingHoursLimit.legal().toMinute()));
-        return new OverLegalHoursWorkTime(overMinute);
-    }
-
-    public OverLegalHoursWorkTime dailyOverLegalHoursWorkTimePerWeek() {
-        OverLegalHoursWorkTime overLegalHoursWorkTime = new OverLegalHoursWorkTime(new QuarterHour());
+    public OverLegalHoursWorkTime dailyOverLegalHoursWorkTimeTotal() {
+        QuarterHour total = new QuarterHour();
         for (WorkTime workTime : list) {
-            overLegalHoursWorkTime = overLegalHoursWorkTime.add(workTime.dailyOverLegalHoursWorkTime());
+            total = total.add(workTime.dailyOverLegalHoursWorkTime());
         }
-        return overLegalHoursWorkTime;
+        return new OverLegalHoursWorkTime(total);
     }
 
     public QuarterHour total() {

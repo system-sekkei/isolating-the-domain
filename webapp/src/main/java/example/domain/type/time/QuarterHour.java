@@ -39,8 +39,8 @@ public class QuarterHour {
         return value.bigDecimalValue().divide(BigDecimal.valueOf(60), 2, RoundingMode.UNNECESSARY);
     }
 
-    public boolean moreThan(QuarterHour value) {
-        return value.minute().moreThan(value.minute());
+    public boolean moreThan(QuarterHour other) {
+        return moreThan(other.value);
     }
 
     public QuarterHour overMinute(QuarterHour other) {
@@ -48,5 +48,9 @@ public class QuarterHour {
             return new QuarterHour(new Minute(0));
         }
         return this.subtract(other);
+    }
+
+    public boolean moreThan(Minute other) {
+        return this.value.moreThan(other);
     }
 }

@@ -15,7 +15,6 @@ public class Attendance {
 
     WorkMonth month;
     TimeRecords timeRecords;
-    WeeklyTimeRecord weeklyTimeRecord;  // TODO: 仮置き
 
     public Attendance(WorkMonth month, TimeRecords timeRecords) {
         this.month = month;
@@ -74,4 +73,7 @@ public class Attendance {
             .orElseGet(QuarterHour::new));
     }
 
+    public TimeRecords timeRecords() {
+        return timeRecords;
+    }
 }
