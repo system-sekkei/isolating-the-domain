@@ -1,6 +1,6 @@
-package example.domain.model.legislation;
+package example.domain.model.timerecord.evaluation;
 
-import example.domain.model.timerecord.evaluation.WorkTime;
+import example.domain.model.legislation.DailyWorkingHoursLimit;
 
 /**
  * 1日の労働時間の状態

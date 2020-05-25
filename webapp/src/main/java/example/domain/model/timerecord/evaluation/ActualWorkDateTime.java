@@ -1,6 +1,5 @@
 package example.domain.model.timerecord.evaluation;
 
-import example.domain.model.legislation.DailyWorkingHoursStatus;
 import example.domain.model.legislation.WeeklyWorkingHoursLimit;
 import example.domain.model.legislation.WeeklyWorkingHoursStatus;
 import example.domain.model.timerecord.timefact.WorkRange;
@@ -10,7 +9,6 @@ import example.domain.validation.BusinessLogic;
 
 import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
-import java.util.stream.Collectors;
 
 /**
  * 勤務日時実績
