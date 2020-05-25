@@ -21,4 +21,8 @@ public class Year {
     public String toString() {
         return year.toString();
     }
+
+    public boolean sameValue(Year other) {
+        return year.equals(other.year);
+    }
 }

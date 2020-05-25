@@ -52,4 +52,12 @@ public class WorkDate {
     public Date toDate() {
         return value;
     }
+
+    public boolean sameWeek(WorkDate workDate) {
+        return value.sameWeek(workDate.toDate());
+    }
+
+    public boolean isBefore(WorkDate workDate) {
+        return value.isBefore(workDate.value);
+    }
 }

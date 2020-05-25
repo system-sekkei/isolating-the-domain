@@ -84,7 +84,7 @@ public class ActualWorkDateTime {
     }
 
     public OverLegalHoursWorkTime overLegalHoursWorkTime(TimeRecords timeRecords) {
-        TimeRecords weeklyTimeRecord = timeRecords.weeklyRecords(workDate());
+        TimeRecords weeklyTimeRecord = timeRecords.weeklyRecords(workDate()).recordsToDate(workDate());
         WorkTimes weeklyWorkTimes = new WorkTimes(weeklyTimeRecord.list().stream()
                 .map(timeRecord -> timeRecord.actualWorkDateTime.workTime()).collect(Collectors.toList()));
 
