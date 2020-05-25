@@ -85,8 +85,7 @@ public class ActualWorkDateTime {
 
     public OverLegalHoursWorkTime overLegalHoursWorkTime(TimeRecords timeRecords) {
         TimeRecords weeklyTimeRecord = timeRecords.weeklyRecords(workDate()).recordsToDate(workDate());
-        WorkTimes weeklyWorkTimes = new WorkTimes(weeklyTimeRecord.list().stream()
-                .map(timeRecord -> timeRecord.actualWorkDateTime.workTime()).collect(Collectors.toList()));
+        WorkTimes weeklyWorkTimes = weeklyTimeRecord.workTimes();
 
         WeeklyWorkingHoursStatus weeklyWorkingHoursStatus;
         if (weeklyWorkTimes.total().moreThan(new QuarterHour(WeeklyWorkingHoursLimit.legal().toMinute()))) {
@@ -101,8 +100,7 @@ public class ActualWorkDateTime {
             QuarterHour weeklyOverLegalHoursWorkTime = weeklyWorkTimes.total().overMinute(new QuarterHour(WeeklyWorkingHoursLimit.legal().toMinute()));
 
             TimeRecords recordsDayBefore = weeklyTimeRecord.recordsDayBefore(workDate());
-            OverLegalHoursWorkTime overWorkTimeDayBefore = new WorkTimes(recordsDayBefore.list().stream()
-                    .map(timeRecord -> timeRecord.actualWorkDateTime.workTime()).collect(Collectors.toList())).dailyOverLegalHoursWorkTimeTotal();
+            OverLegalHoursWorkTime overWorkTimeDayBefore = recordsDayBefore.workTimes().dailyOverLegalHoursWorkTimeTotal();
 
             overLegalHoursWorkTime = weeklyOverLegalHoursWorkTime.subtract(overWorkTimeDayBefore.quarterHour());
         } else if (workTime().dailyWorkingHoursStatus() == DailyWorkingHoursStatus.一日８時間を超えている) {

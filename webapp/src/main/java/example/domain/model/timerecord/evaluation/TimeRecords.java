@@ -1,6 +1,7 @@
 package example.domain.model.timerecord.evaluation;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -43,5 +44,10 @@ public class TimeRecords {
 
     public TimeRecords recordsDayBefore(WorkDate workDate) {
         return new TimeRecords(list.stream().filter(record -> record.workDate().isBefore(workDate)).collect(toList()));
+    }
+
+    public WorkTimes workTimes() {
+        return new WorkTimes(list().stream()
+                .map(timeRecord -> timeRecord.actualWorkDateTime.workTime()).collect(toList()));
     }
 }
