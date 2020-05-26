@@ -41,14 +41,14 @@ class PayrollQueryCoordinatorTest {
         Employee employee = employeeQueryService.choose(employeeNumber);
 
         {
+            WageCondition wageCondition = new WageCondition(new BaseHourlyWage(1000), OverTimeExtraRate.regulation());
+            contractRecordService.registerHourlyWage(employee, new ContractEffectiveDate(Date.from("2018-11-20")), wageCondition);
+
             Payroll payroll = sut.payroll(employee, new WorkMonth("2018-11"));
             assertEquals("0円", payroll.totalPayment().toString());
         }
 
         {
-            WageCondition wageCondition = new WageCondition(new BaseHourlyWage(1000), OverTimeExtraRate.regulation());
-            contractRecordService.registerHourlyWage(employee, new ContractEffectiveDate(Date.from("2018-11-20")), wageCondition);
-
             TimeRecord timeRecord = new TimeRecord(
                     employeeNumber,
                     AttendanceForm.toActualWorkDateTime("2018-11-20", "9:00", "10:00", "0", "0")

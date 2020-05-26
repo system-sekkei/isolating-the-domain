@@ -73,7 +73,24 @@ public class Attendance {
             .orElseGet(QuarterHour::new));
     }
 
-    public TimeRecords timeRecords() {
-        return timeRecords;
+    public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime() {
+        // TODO:
+        return new OverLegalMoreThan60HoursWorkTime(new QuarterHour());
+    }
+
+    public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime() {
+//        // 前日までの月の法定時間超労働時間を出す
+//        TimeRecords monthlyTimeRecordsDayBefore = timeRecords.monthlyRecords(actualWorkDateTime.workDate()).recordsDayBefore(actualWorkDateTime.workDate());
+//        QuarterHour overLegalHoursWorkTime = monthlyTimeRecordsDayBefore.workTimes().overDailyLimitWorkTimeTotal();
+//
+//        // 今日の分の、60以内/超えの時間を出す
+//
+//        OverLegalHoursWorkTime overLegalHoursWorkTime = overLegalHoursWorkTime(timeRecords);
+//
+//        if (overLegalHoursWorkTime.monthlyOverLegalHoursStatus() == MonthlyOverLegalHoursStatus.月６０時間超) {
+//            return new OverLegalWithin60HoursWorkTime(new QuarterHour(new Hour(60)));
+//        }
+
+        return new OverLegalWithin60HoursWorkTime(new QuarterHour());
     }
 }
