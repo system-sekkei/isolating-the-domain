@@ -75,9 +75,12 @@ public class TimeRecords {
             QuarterHour weeklyOverLegalHoursWorkTime = weeklyWorkTimes.total().overMinute(new QuarterHour(WeeklyWorkingHoursLimit.legal().toMinute()));
 
             TimeRecords recordsDayBefore = weeklyTimeRecord.recordsDayBefore(actualWorkDateTime.workDate());
-            QuarterHour overWorkTimeDayBefore = recordsDayBefore.workTimes().overDailyLimitWorkTimeTotal();
+            QuarterHour overWorkTimeDayBefore = new QuarterHour();
+            for (TimeRecord record : recordsDayBefore.list()) {
+                overWorkTimeDayBefore = overWorkTimeDayBefore.add(overLegalHoursWorkTime(record.actualWorkDateTime).quarterHour());
+            }
 
-            overLegalHoursWorkTime = weeklyOverLegalHoursWorkTime.subtract(overWorkTimeDayBefore);
+            overLegalHoursWorkTime = weeklyOverLegalHoursWorkTime.overMinute(overWorkTimeDayBefore);
         } else if (actualWorkDateTime.workTime().dailyWorkingHoursStatus() == DailyWorkingHoursStatus.一日８時間を超えている) {
             overLegalHoursWorkTime = actualWorkDateTime.workTime().overDailyLimitWorkTime();
         }

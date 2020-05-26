@@ -15,14 +15,6 @@ public class WorkTimes {
         this.list = list;
     }
 
-    public QuarterHour overDailyLimitWorkTimeTotal() {
-        QuarterHour total = new QuarterHour();
-        for (WorkTime workTime : list) {
-            total = total.add(workTime.overDailyLimitWorkTime());
-        }
-        return total;
-    }
-
     public QuarterHour total() {
         QuarterHour total = new QuarterHour(new Minute(0));
         for (WorkTime workTime : list) {
