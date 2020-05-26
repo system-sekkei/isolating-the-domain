@@ -23,7 +23,7 @@ public class WorkTime {
         return value.toString();
     }
 
-    QuarterHour dailyOverLegalHoursWorkTime() {
+    QuarterHour overDailyLimitWorkTime() {
         return quarterHour().overMinute(new QuarterHour(DailyWorkingHoursLimit.legal().toMinute()));
     }
 

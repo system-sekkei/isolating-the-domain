@@ -3,7 +3,6 @@ package example.domain.model.timerecord.evaluation;
 import example.domain.model.legislation.WeeklyWorkingHoursLimit;
 import example.domain.model.legislation.WeeklyWorkingHoursStatus;
 import example.domain.model.timerecord.timefact.WorkRange;
-import example.domain.type.time.Hour;
 import example.domain.type.time.Minute;
 import example.domain.type.time.QuarterHour;
 import example.domain.validation.BusinessLogic;
@@ -99,11 +98,11 @@ public class ActualWorkDateTime {
             QuarterHour weeklyOverLegalHoursWorkTime = weeklyWorkTimes.total().overMinute(new QuarterHour(WeeklyWorkingHoursLimit.legal().toMinute()));
 
             TimeRecords recordsDayBefore = weeklyTimeRecord.recordsDayBefore(workDate());
-            OverLegalHoursWorkTime overWorkTimeDayBefore = recordsDayBefore.workTimes().overLegalHoursWorkTime();
+            QuarterHour overWorkTimeDayBefore = recordsDayBefore.workTimes().overDailyLimitWorkTimeTotal();
 
-            overLegalHoursWorkTime = weeklyOverLegalHoursWorkTime.subtract(overWorkTimeDayBefore.quarterHour());
+            overLegalHoursWorkTime = weeklyOverLegalHoursWorkTime.subtract(overWorkTimeDayBefore);
         } else if (workTime().dailyWorkingHoursStatus() == DailyWorkingHoursStatus.一日８時間を超えている) {
-            overLegalHoursWorkTime = workTime().dailyOverLegalHoursWorkTime();
+            overLegalHoursWorkTime = workTime().overDailyLimitWorkTime();
         }
 
         return new OverLegalHoursWorkTime(overLegalHoursWorkTime);
@@ -117,7 +116,7 @@ public class ActualWorkDateTime {
     public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime(TimeRecords timeRecords) {
 //        // 前日までの月の法定時間超労働時間を出す
         TimeRecords monthlyTimeRecordsDayBefore = timeRecords.monthlyRecords(workDate()).recordsDayBefore(workDate());
-        OverLegalHoursWorkTime overLegalHoursWorkTime = monthlyTimeRecordsDayBefore.workTimes().overLegalHoursWorkTime();
+        QuarterHour overLegalHoursWorkTime = monthlyTimeRecordsDayBefore.workTimes().overDailyLimitWorkTimeTotal();
 //
 //        // 今日の分の、60以内/超えの時間を出す
 //
@@ -127,7 +126,7 @@ public class ActualWorkDateTime {
 //            return new OverLegalWithin60HoursWorkTime(new QuarterHour(new Hour(60)));
 //        }
 
-        return new OverLegalWithin60HoursWorkTime(overLegalHoursWorkTime.quarterHour());
+        return new OverLegalWithin60HoursWorkTime(overLegalHoursWorkTime);
     }
 
 
