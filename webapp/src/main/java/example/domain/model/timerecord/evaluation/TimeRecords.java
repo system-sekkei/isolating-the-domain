@@ -1,7 +1,6 @@
 package example.domain.model.timerecord.evaluation;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -49,5 +48,9 @@ public class TimeRecords {
     public WorkTimes workTimes() {
         return new WorkTimes(list().stream()
                 .map(timeRecord -> timeRecord.actualWorkDateTime.workTime()).collect(toList()));
+    }
+
+    public TimeRecords monthlyRecords(WorkDate workDate) {
+        return new TimeRecords(list.stream().filter(record -> record.workDate().sameMonth(workDate)).collect(toList()));
     }
 }

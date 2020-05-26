@@ -3,6 +3,7 @@ package example.domain.model.timerecord.evaluation;
 import example.domain.model.legislation.WeeklyWorkingHoursLimit;
 import example.domain.model.legislation.WeeklyWorkingHoursStatus;
 import example.domain.model.timerecord.timefact.WorkRange;
+import example.domain.type.time.Hour;
 import example.domain.type.time.Minute;
 import example.domain.type.time.QuarterHour;
 import example.domain.validation.BusinessLogic;
@@ -98,7 +99,7 @@ public class ActualWorkDateTime {
             QuarterHour weeklyOverLegalHoursWorkTime = weeklyWorkTimes.total().overMinute(new QuarterHour(WeeklyWorkingHoursLimit.legal().toMinute()));
 
             TimeRecords recordsDayBefore = weeklyTimeRecord.recordsDayBefore(workDate());
-            OverLegalHoursWorkTime overWorkTimeDayBefore = recordsDayBefore.workTimes().dailyOverLegalHoursWorkTimeTotal();
+            OverLegalHoursWorkTime overWorkTimeDayBefore = recordsDayBefore.workTimes().overLegalHoursWorkTime();
 
             overLegalHoursWorkTime = weeklyOverLegalHoursWorkTime.subtract(overWorkTimeDayBefore.quarterHour());
         } else if (workTime().dailyWorkingHoursStatus() == DailyWorkingHoursStatus.一日８時間を超えている) {
@@ -114,8 +115,19 @@ public class ActualWorkDateTime {
     }
 
     public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime(TimeRecords timeRecords) {
-        // TODO: 月の超過時間集計を考慮した処理にする
-        return new OverLegalWithin60HoursWorkTime(overLegalHoursWorkTime(timeRecords).quarterHour());
+//        // 前日までの月の法定時間超労働時間を出す
+        TimeRecords monthlyTimeRecordsDayBefore = timeRecords.monthlyRecords(workDate()).recordsDayBefore(workDate());
+        OverLegalHoursWorkTime overLegalHoursWorkTime = monthlyTimeRecordsDayBefore.workTimes().overLegalHoursWorkTime();
+//
+//        // 今日の分の、60以内/超えの時間を出す
+//
+//        OverLegalHoursWorkTime overLegalHoursWorkTime = overLegalHoursWorkTime(timeRecords);
+//
+//        if (overLegalHoursWorkTime.monthlyOverLegalHoursStatus() == MonthlyOverLegalHoursStatus.月６０時間超) {
+//            return new OverLegalWithin60HoursWorkTime(new QuarterHour(new Hour(60)));
+//        }
+
+        return new OverLegalWithin60HoursWorkTime(overLegalHoursWorkTime.quarterHour());
     }
 
 

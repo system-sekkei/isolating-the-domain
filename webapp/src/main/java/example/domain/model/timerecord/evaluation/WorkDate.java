@@ -60,4 +60,8 @@ public class WorkDate {
     public boolean isBefore(WorkDate workDate) {
         return value.isBefore(workDate.value);
     }
+
+    public boolean sameMonth(WorkDate workDate) {
+        return value.sameMonth(workDate.toDate());
+    }
 }

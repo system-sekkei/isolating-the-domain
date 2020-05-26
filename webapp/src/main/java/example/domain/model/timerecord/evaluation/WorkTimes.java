@@ -15,7 +15,7 @@ public class WorkTimes {
         this.list = list;
     }
 
-    public OverLegalHoursWorkTime dailyOverLegalHoursWorkTimeTotal() {
+    public OverLegalHoursWorkTime overLegalHoursWorkTime() {
         QuarterHour total = new QuarterHour();
         for (WorkTime workTime : list) {
             total = total.add(workTime.dailyOverLegalHoursWorkTime());

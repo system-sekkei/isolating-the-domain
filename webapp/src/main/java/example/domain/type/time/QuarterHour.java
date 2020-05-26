@@ -14,8 +14,13 @@ public class QuarterHour {
         this(new Minute(0));
     }
 
+
     public QuarterHour(Minute value) {
         this.value = value;
+    }
+
+    public QuarterHour(Hour hour) {
+        this(hour.toMinute());
     }
 
     public Minute minute() {
@@ -52,5 +57,9 @@ public class QuarterHour {
 
     public boolean moreThan(Minute other) {
         return this.value.moreThan(other);
+    }
+
+    public boolean moreThan(Hour hour) {
+        return moreThan(hour.toMinute());
     }
 }

@@ -1,5 +1,6 @@
 package example.domain.model.timerecord.evaluation;
 
+import example.domain.type.time.Hour;
 import example.domain.type.time.QuarterHour;
 
 /**
@@ -30,5 +31,13 @@ public class OverLegalHoursWorkTime {
     @Override
     public String toString() {
         return value.toString();
+    }
+
+    public MonthlyOverLegalHoursStatus monthlyOverLegalHoursStatus() {
+        if (value.moreThan(new Hour(60))) {
+            return MonthlyOverLegalHoursStatus.月６０時間超;
+        }
+
+        return MonthlyOverLegalHoursStatus.月６０時間以内;
     }
 }

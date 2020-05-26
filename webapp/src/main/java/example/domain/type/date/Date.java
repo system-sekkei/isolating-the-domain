@@ -89,7 +89,7 @@ public class Date {
     }
 
     public boolean sameWeek(Date date) {
-        return date.year().sameValue(date.year()) && weekOfWeekBasedYear(date) == weekOfWeekBasedYear(this);
+        return this.year().sameValue(date.year()) && weekOfWeekBasedYear(date) == weekOfWeekBasedYear(this);
     }
 
     private int weekOfWeekBasedYear(Date date) {
@@ -98,5 +98,9 @@ public class Date {
 
     public boolean isBefore(Date date) {
         return value.isBefore(date.value);
+    }
+
+    public boolean sameMonth(Date date) {
+        return this.year().sameValue(date.year()) && this.month() == date.month();
     }
 }
