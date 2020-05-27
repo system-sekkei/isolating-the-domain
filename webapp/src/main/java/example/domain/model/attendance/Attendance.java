@@ -3,6 +3,7 @@ package example.domain.model.attendance;
 import example.domain.model.legislation.DaysOff;
 import example.domain.model.timerecord.evaluation.*;
 import example.domain.type.date.Week;
+import example.domain.type.time.Hour;
 import example.domain.type.time.QuarterHour;
 
 import java.util.List;
@@ -74,23 +75,17 @@ public class Attendance {
     }
 
     public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime() {
-        // TODO:
-        return new OverLegalMoreThan60HoursWorkTime(new QuarterHour());
+        OverLegalHoursWorkTime overLegalHoursWorkTime = timeRecords.overLegalHoursWorkTimes();
+        return new OverLegalMoreThan60HoursWorkTime(overLegalHoursWorkTime.quarterHour().overMinute(new QuarterHour(new Hour(60))));
     }
 
     public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime() {
-//        // 前日までの月の法定時間超労働時間を出す
-//        TimeRecords monthlyTimeRecordsDayBefore = timeRecords.monthlyRecords(actualWorkDateTime.workDate()).recordsDayBefore(actualWorkDateTime.workDate());
-//        QuarterHour overLegalHoursWorkTime = monthlyTimeRecordsDayBefore.workTimes().overDailyLimitWorkTimeTotal();
-//
-//        // 今日の分の、60以内/超えの時間を出す
-//
-//        OverLegalHoursWorkTime overLegalHoursWorkTime = overLegalHoursWorkTime(timeRecords);
-//
-//        if (overLegalHoursWorkTime.monthlyOverLegalHoursStatus() == MonthlyOverLegalHoursStatus.月６０時間超) {
-//            return new OverLegalWithin60HoursWorkTime(new QuarterHour(new Hour(60)));
-//        }
+        OverLegalHoursWorkTime overLegalHoursWorkTime = timeRecords.overLegalHoursWorkTimes();
 
-        return new OverLegalWithin60HoursWorkTime(new QuarterHour());
+        if (overLegalHoursWorkTime.monthlyOverLegalHoursStatus() == MonthlyOverLegalHoursStatus.月６０時間超) {
+            return new OverLegalWithin60HoursWorkTime(new QuarterHour(new Hour(60)));
+        }
+
+        return new OverLegalWithin60HoursWorkTime(overLegalHoursWorkTime.quarterHour());
     }
 }

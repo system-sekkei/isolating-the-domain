@@ -1,7 +1,5 @@
 package example.domain.model.timerecord.evaluation;
 
-import example.domain.model.legislation.WeeklyWorkingHoursLimit;
-import example.domain.model.legislation.WeeklyWorkingHoursStatus;
 import example.domain.type.time.QuarterHour;
 
 import java.util.List;
@@ -58,33 +56,14 @@ public class TimeRecords {
         return new TimeRecords(list.stream().filter(record -> record.workDate().sameMonth(workDate)).collect(toList()));
     }
 
-    public OverLegalHoursWorkTime overLegalHoursWorkTime(ActualWorkDateTime actualWorkDateTime) {
-        TimeRecords weeklyTimeRecord = weeklyRecords(actualWorkDateTime.workDate()).recordsToDate(actualWorkDateTime.workDate());
-        WorkTimes weeklyWorkTimes = weeklyTimeRecord.workTimes();
-
-        WeeklyWorkingHoursStatus weeklyWorkingHoursStatus;
-        if (weeklyWorkTimes.total().moreThan(new QuarterHour(WeeklyWorkingHoursLimit.legal().toMinute()))) {
-            weeklyWorkingHoursStatus = WeeklyWorkingHoursStatus.週の累計労働時間が４０時間を超えている;
-        } else {
-            weeklyWorkingHoursStatus = WeeklyWorkingHoursStatus.週の累計労働時間が４０時間以内;
+    public OverLegalHoursWorkTime overLegalHoursWorkTimes() {
+        OverLegalHoursWorkTime total = new OverLegalHoursWorkTime(new QuarterHour());
+        for (TimeRecord timeRecord : list) {
+            OverLegalHoursWorkTime overLegalHoursWorkTime = timeRecord.overLegalHoursWorkTime(this);
+            total = total.add(overLegalHoursWorkTime);
         }
 
-        QuarterHour overLegalHoursWorkTime = new QuarterHour();
-        if (weeklyWorkingHoursStatus == WeeklyWorkingHoursStatus.週の累計労働時間が４０時間を超えている) {
-            // 週40超えの時間 - 週累計の法定超え残業
-            QuarterHour weeklyOverLegalHoursWorkTime = weeklyWorkTimes.total().overMinute(new QuarterHour(WeeklyWorkingHoursLimit.legal().toMinute()));
-
-            TimeRecords recordsDayBefore = weeklyTimeRecord.recordsDayBefore(actualWorkDateTime.workDate());
-            QuarterHour overWorkTimeDayBefore = new QuarterHour();
-            for (TimeRecord record : recordsDayBefore.list()) {
-                overWorkTimeDayBefore = overWorkTimeDayBefore.add(overLegalHoursWorkTime(record.actualWorkDateTime).quarterHour());
-            }
-
-            overLegalHoursWorkTime = weeklyOverLegalHoursWorkTime.overMinute(overWorkTimeDayBefore);
-        } else if (actualWorkDateTime.workTime().dailyWorkingHoursStatus() == DailyWorkingHoursStatus.一日８時間を超えている) {
-            overLegalHoursWorkTime = actualWorkDateTime.workTime().overDailyLimitWorkTime();
-        }
-
-        return new OverLegalHoursWorkTime(overLegalHoursWorkTime);
+        return total;
     }
+
 }

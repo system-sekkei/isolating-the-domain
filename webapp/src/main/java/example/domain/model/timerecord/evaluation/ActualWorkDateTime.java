@@ -1,5 +1,7 @@
 package example.domain.model.timerecord.evaluation;
 
+import example.domain.model.legislation.WeeklyWorkingHoursLimit;
+import example.domain.model.legislation.WeeklyWorkingHoursStatus;
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.time.Minute;
 import example.domain.type.time.QuarterHour;
@@ -98,5 +100,35 @@ public class ActualWorkDateTime {
         }
 
         return true;
+    }
+
+    public OverLegalHoursWorkTime overLegalHoursWorkTime(TimeRecords timeRecords) {
+        TimeRecords weeklyTimeRecord = timeRecords.weeklyRecords(workDate()).recordsToDate(workDate());
+        WorkTimes weeklyWorkTimes = weeklyTimeRecord.workTimes();
+
+        WeeklyWorkingHoursStatus weeklyWorkingHoursStatus;
+        if (weeklyWorkTimes.total().moreThan(new QuarterHour(WeeklyWorkingHoursLimit.legal().toMinute()))) {
+            weeklyWorkingHoursStatus = WeeklyWorkingHoursStatus.週の累計労働時間が４０時間を超えている;
+        } else {
+            weeklyWorkingHoursStatus = WeeklyWorkingHoursStatus.週の累計労働時間が４０時間以内;
+        }
+
+        QuarterHour overLegalHoursWorkTime = new QuarterHour();
+        if (weeklyWorkingHoursStatus == WeeklyWorkingHoursStatus.週の累計労働時間が４０時間を超えている) {
+            // 週40超えの時間 - 週累計の法定超え残業
+            QuarterHour weeklyOverLegalHoursWorkTime = weeklyWorkTimes.total().overMinute(new QuarterHour(WeeklyWorkingHoursLimit.legal().toMinute()));
+
+            TimeRecords recordsDayBefore = weeklyTimeRecord.recordsDayBefore(workDate());
+            QuarterHour overWorkTimeDayBefore = new QuarterHour();
+            for (TimeRecord record : recordsDayBefore.list()) {
+                overWorkTimeDayBefore = overWorkTimeDayBefore.add(record.overLegalHoursWorkTime(timeRecords).quarterHour());
+            }
+
+            overLegalHoursWorkTime = weeklyOverLegalHoursWorkTime.overMinute(overWorkTimeDayBefore);
+        } else if (workTime().dailyWorkingHoursStatus() == DailyWorkingHoursStatus.一日８時間を超えている) {
+            overLegalHoursWorkTime = workTime().overDailyLimitWorkTime();
+        }
+
+        return new OverLegalHoursWorkTime(overLegalHoursWorkTime);
     }
 }

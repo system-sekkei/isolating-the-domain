@@ -54,4 +54,8 @@ public class TimeRecord {
     public DaysOffStatus daysOffStatus() {
         return daysOffStatus;
     }
+
+    public OverLegalHoursWorkTime overLegalHoursWorkTime(TimeRecords timeRecords) {
+        return actualWorkDateTime.overLegalHoursWorkTime(timeRecords);
+    }
 }
