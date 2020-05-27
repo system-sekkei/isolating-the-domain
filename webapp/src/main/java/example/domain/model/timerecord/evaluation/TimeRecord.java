@@ -2,8 +2,10 @@ package example.domain.model.timerecord.evaluation;
 
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.legislation.DaysOffStatus;
+import example.domain.type.time.QuarterHour;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 /**
  * 勤務実績
@@ -60,6 +62,13 @@ public class TimeRecord {
     }
 
     public LegalDaysOffWorkTime legalDaysOffWorkTime(TimeRecords timeRecords) {
-        return actualWorkDateTime.legalDaysOffWorkTime(timeRecords);
+        TimeRecords weeklyRecords = timeRecords.weeklyRecords(workDate());
+        Optional<TimeRecord> lastDayOff = weeklyRecords.lastDayOff();
+
+        if (lastDayOff.isPresent() && lastDayOff.get().workDate().hasSameValue(workDate())) {
+            return new LegalDaysOffWorkTime(actualWorkDateTime.workTime().value);
+        }
+
+        return new LegalDaysOffWorkTime(new QuarterHour());
     }
 }

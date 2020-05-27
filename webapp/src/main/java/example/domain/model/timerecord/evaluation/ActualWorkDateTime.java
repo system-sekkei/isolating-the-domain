@@ -125,9 +125,4 @@ public class ActualWorkDateTime {
 
         return new OverLegalHoursWorkTime(overLegalHoursWorkTime);
     }
-
-    public LegalDaysOffWorkTime legalDaysOffWorkTime(TimeRecords timeRecords) {
-        // TODO:
-        return new LegalDaysOffWorkTime(new QuarterHour());
-    }
 }

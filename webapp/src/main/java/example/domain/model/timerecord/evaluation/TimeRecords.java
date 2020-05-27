@@ -1,8 +1,11 @@
 package example.domain.model.timerecord.evaluation;
 
+import example.domain.model.legislation.DaysOffStatus;
 import example.domain.type.time.QuarterHour;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -74,5 +77,11 @@ public class TimeRecords {
         }
 
         return total;
+    }
+
+    public Optional<TimeRecord> lastDayOff() {
+        return list.stream()
+                .filter(record -> record.daysOffStatus == DaysOffStatus.休日)
+                .max(Comparator.comparing(r -> r.workDate().toDate().value()));
     }
 }
