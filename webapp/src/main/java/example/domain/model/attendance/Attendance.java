@@ -88,4 +88,8 @@ public class Attendance {
 
         return new OverLegalWithin60HoursWorkTime(overLegalHoursWorkTime.quarterHour());
     }
+
+    public LegalDaysOffWorkTime legalDaysOffWorkTime() {
+        return timeRecords.legalDaysOffWorkTime();
+    }
 }

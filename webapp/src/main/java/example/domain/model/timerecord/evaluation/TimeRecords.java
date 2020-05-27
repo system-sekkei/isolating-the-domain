@@ -66,4 +66,13 @@ public class TimeRecords {
         return total;
     }
 
+    public LegalDaysOffWorkTime legalDaysOffWorkTime() {
+        LegalDaysOffWorkTime total = new LegalDaysOffWorkTime(new QuarterHour());
+        for (TimeRecord timeRecord : list) {
+            LegalDaysOffWorkTime legalDaysOffWorkTime = timeRecord.legalDaysOffWorkTime(this);
+            total = total.add(legalDaysOffWorkTime);
+        }
+
+        return total;
+    }
 }

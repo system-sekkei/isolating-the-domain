@@ -58,4 +58,8 @@ public class TimeRecord {
     public OverLegalHoursWorkTime overLegalHoursWorkTime(TimeRecords timeRecords) {
         return actualWorkDateTime.overLegalHoursWorkTime(timeRecords);
     }
+
+    public LegalDaysOffWorkTime legalDaysOffWorkTime(TimeRecords timeRecords) {
+        return actualWorkDateTime.legalDaysOffWorkTime(timeRecords);
+    }
 }

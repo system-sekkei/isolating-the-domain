@@ -76,12 +76,6 @@ public class ActualWorkDateTime {
         return nightBindingTime().subtract(nightBreakTime);
     }
 
-    public LegalDaysOffWorkTime legalDaysOffWorkTime() {
-        // TODO:
-        return new LegalDaysOffWorkTime(new QuarterHour());
-    }
-
-
     @AssertTrue(message = "休憩時間が不正です", groups = BusinessLogic.class)
     public boolean isDaytimeBreakTimeValid() {
         Minute daytimeBindingMinute = daytimeBindingTime().quarterHour().minute();
@@ -130,5 +124,10 @@ public class ActualWorkDateTime {
         }
 
         return new OverLegalHoursWorkTime(overLegalHoursWorkTime);
+    }
+
+    public LegalDaysOffWorkTime legalDaysOffWorkTime(TimeRecords timeRecords) {
+        // TODO:
+        return new LegalDaysOffWorkTime(new QuarterHour());
     }
 }

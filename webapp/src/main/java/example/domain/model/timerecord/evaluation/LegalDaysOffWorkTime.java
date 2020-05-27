@@ -21,4 +21,8 @@ public class LegalDaysOffWorkTime {
     public String toString() {
         return value.toString();
     }
+
+    LegalDaysOffWorkTime add(LegalDaysOffWorkTime value) {
+        return new LegalDaysOffWorkTime(this.value.add(value.value));
+    }
 }
