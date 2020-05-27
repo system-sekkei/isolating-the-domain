@@ -17,6 +17,7 @@ public class TimeRecord {
     @Valid
     ActualWorkDateTime actualWorkDateTime;
 
+    // FIXME: 休日はシフトを元に判断するように変更する。
     DaysOffStatus daysOffStatus;
 
     @Deprecated
