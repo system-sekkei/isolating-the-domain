@@ -55,25 +55,6 @@ public class Attendance {
                 .collect(Collectors.toList());
     }
 
-    WeekWorkTime weekWorkTime(Week week) {
-        return new WeekWorkTime(timeRecords.list().stream()
-                .filter(timeRecord -> week.contains(timeRecord.actualWorkDateTime().workDate().value()))
-                .map(timeRecord -> timeRecord.actualWorkDateTime().workTime().quarterHour())
-                .reduce(QuarterHour::add)
-                .orElseGet(QuarterHour::new));
-    }
-
-    // TODO: 削除予定
-    @Deprecated
-    StatutoryWorkOnDaysOff statutoryDaysOffWorkByWeek(Week week) {
-        DaysOff daysOff = DaysOff.from(week);
-        return new StatutoryWorkOnDaysOff(timeRecords.list().stream()
-            .filter(timeRecord -> timeRecord.actualWorkDateTime().workDate().value().hasSameValue(daysOff.value()))
-            .map(timeRecord -> timeRecord.actualWorkDateTime().workTime().quarterHour())
-            .reduce(QuarterHour::add)
-            .orElseGet(QuarterHour::new));
-    }
-
     public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime() {
         OverLegalHoursWorkTime overLegalHoursWorkTime = timeRecords.overLegalHoursWorkTimes();
         return new OverLegalMoreThan60HoursWorkTime(overLegalHoursWorkTime.quarterHour().overMinute(new QuarterHour(new Hour(60))));
