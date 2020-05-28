@@ -21,14 +21,14 @@ public class OverLegalHoursWorkTime {
 
         WeeklyWorkingHoursStatus weeklyWorkingHoursStatus;
         if (weeklyWorkTimes.total().moreThan(new QuarterHour(WeeklyWorkingHoursLimit.legal().toMinute()))) {
-            weeklyWorkingHoursStatus = WeeklyWorkingHoursStatus.週の累計労働時間が４０時間を超えている;
+            weeklyWorkingHoursStatus = WeeklyWorkingHoursStatus.週の法定時間内労働時間の累計が４０時間を超えている;
         } else {
-            weeklyWorkingHoursStatus = WeeklyWorkingHoursStatus.週の累計労働時間が４０時間以内;
+            weeklyWorkingHoursStatus = WeeklyWorkingHoursStatus.週の法定時間内労働時間の累計が４０時間以内;
         }
 
         QuarterHour overLegalHoursWorkTime = new QuarterHour();
-        if (weeklyWorkingHoursStatus == WeeklyWorkingHoursStatus.週の累計労働時間が４０時間を超えている) {
-            // 週40超えの時間 - 週累計の法定超え残業
+        if (weeklyWorkingHoursStatus == WeeklyWorkingHoursStatus.週の法定時間内労働時間の累計が４０時間を超えている) {
+            // TODO: 週の法定内労働時間累計が40時間を超えているかどうかで計算するように変える
             QuarterHour weeklyOverLegalHoursWorkTime = weeklyWorkTimes.total().overMinute(new QuarterHour(WeeklyWorkingHoursLimit.legal().toMinute()));
 
             TimeRecords recordsDayBefore = weeklyTimeRecord.recordsDayBefore(actualWorkDateTime.workDate());
