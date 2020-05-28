@@ -15,9 +15,9 @@ public class OverLegalHoursWorkTime {
         this.value = value;
     }
 
-    public static OverLegalHoursWorkTime daily(ActualWorkDateTime actualWorkDateTime, TimeRecords timeRecords) { // FIXME: 週がわたってこないと、月をまたぐ際に計算がおかしくなる
-        TimeRecords weeklyTimeRecord = timeRecords.weeklyRecords(actualWorkDateTime.workDate()).recordsToDate(actualWorkDateTime.workDate());
-        WorkTimes weeklyWorkTimes = weeklyTimeRecord.workTimes();
+    public static OverLegalHoursWorkTime daily(ActualWorkDateTime actualWorkDateTime, WeeklyTimeRecord weeklyTimeRecord) {
+        TimeRecords weeklyTimeRecordToDate = weeklyTimeRecord.recordsToDate(actualWorkDateTime.workDate());
+        WorkTimes weeklyWorkTimes = weeklyTimeRecordToDate.workTimes();
 
         WeeklyWorkingHoursStatus weeklyWorkingHoursStatus;
         if (weeklyWorkTimes.total().moreThan(new QuarterHour(WeeklyWorkingHoursLimit.legal().toMinute()))) {
@@ -31,10 +31,10 @@ public class OverLegalHoursWorkTime {
             // TODO: 週の法定内労働時間累計が40時間を超えているかどうかで計算するように変える
             QuarterHour weeklyOverLegalHoursWorkTime = weeklyWorkTimes.total().overMinute(new QuarterHour(WeeklyWorkingHoursLimit.legal().toMinute()));
 
-            TimeRecords recordsDayBefore = weeklyTimeRecord.recordsDayBefore(actualWorkDateTime.workDate());
+            TimeRecords recordsDayBefore = weeklyTimeRecordToDate.recordsDayBefore(actualWorkDateTime.workDate());
             QuarterHour overWorkTimeDayBefore = new QuarterHour();
             for (TimeRecord record : recordsDayBefore.list()) {
-                overWorkTimeDayBefore = overWorkTimeDayBefore.add(daily(record.actualWorkDateTime, timeRecords).quarterHour());
+                overWorkTimeDayBefore = overWorkTimeDayBefore.add(daily(record.actualWorkDateTime, weeklyTimeRecord).quarterHour());
             }
 
             overLegalHoursWorkTime = weeklyOverLegalHoursWorkTime.overMinute(overWorkTimeDayBefore);

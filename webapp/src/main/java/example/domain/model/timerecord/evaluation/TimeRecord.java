@@ -59,11 +59,12 @@ public class TimeRecord {
     }
 
     public OverLegalHoursWorkTime overLegalHoursWorkTime(TimeRecords timeRecords) {
-        return OverLegalHoursWorkTime.daily(actualWorkDateTime, timeRecords);
+        WeeklyTimeRecord weeklyTimeRecord = timeRecords.weeklyRecords(actualWorkDateTime.workDate());
+        return OverLegalHoursWorkTime.daily(actualWorkDateTime, weeklyTimeRecord);
     }
 
     public LegalDaysOffWorkTime legalDaysOffWorkTime(TimeRecords timeRecords) {
-        TimeRecords weeklyRecords = timeRecords.weeklyRecords(workDate());
+        WeeklyTimeRecord weeklyRecords = timeRecords.weeklyRecords(workDate());
         Optional<TimeRecord> lastDayOff = weeklyRecords.lastDayOff();
 
         if (lastDayOff.isPresent() && lastDayOff.get().workDate().hasSameValue(workDate())) {

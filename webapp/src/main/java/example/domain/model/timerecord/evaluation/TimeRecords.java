@@ -38,8 +38,8 @@ public class TimeRecords {
         return new AttendDates(list.stream().map(TimeRecord::workDate).collect(toList()));
     }
 
-    public TimeRecords weeklyRecords(WorkDate workDate) {
-        return new TimeRecords(list.stream().filter(record -> record.workDate().sameWeek(workDate)).collect(toList()));
+    public WeeklyTimeRecord weeklyRecords(WorkDate workDate) {
+        return new WeeklyTimeRecord(new TimeRecords(list.stream().filter(record -> record.workDate().sameWeek(workDate)).collect(toList())));
     }
 
     public TimeRecords recordsToDate(WorkDate workDate) {
@@ -77,11 +77,5 @@ public class TimeRecords {
         }
 
         return total;
-    }
-
-    public Optional<TimeRecord> lastDayOff() {
-        return list.stream()
-                .filter(record -> record.daysOffStatus == DaysOffStatus.休日)
-                .max(Comparator.comparing(r -> r.workDate().toDate().value()));
     }
 }

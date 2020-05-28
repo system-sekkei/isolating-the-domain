@@ -19,8 +19,8 @@ class ActualWorkDateTimeTest {
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-28", "9:00", "18:00", "60", "0")),
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-29", "9:00", "18:00", "60", "0")),
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-30", "9:00", "20:00", "60", "0")));
-        TimeRecords weeklyTimeRecord = new TimeRecords(list).weeklyRecords(WorkDate.from("2019-12-30"));
-        ActualWorkDateTime actualWorkDateTime = weeklyTimeRecord.at(WorkDate.from("2019-12-30")).actualWorkDateTime;
+        WeeklyTimeRecord weeklyTimeRecord = new TimeRecords(list).weeklyRecords(WorkDate.from("2019-12-30"));
+        ActualWorkDateTime actualWorkDateTime = weeklyTimeRecord.value.at(WorkDate.from("2019-12-30")).actualWorkDateTime;
 
         OverLegalHoursWorkTime overLegalHoursWorkTime = OverLegalHoursWorkTime.daily(actualWorkDateTime, weeklyTimeRecord);
 
@@ -37,8 +37,8 @@ class ActualWorkDateTimeTest {
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2020-05-28", "9:00", "20:00", "60", "0")),
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2020-05-29", "9:00", "18:00", "60", "0")),
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2020-05-30", "9:00", "19:00", "60", "0")));
-        TimeRecords weeklyTimeRecord = new TimeRecords(list).weeklyRecords(WorkDate.from("2020-05-30"));
-        ActualWorkDateTime actualWorkDateTime = weeklyTimeRecord.at(WorkDate.from("2020-05-30")).actualWorkDateTime;
+        WeeklyTimeRecord weeklyTimeRecord = new TimeRecords(list).weeklyRecords(WorkDate.from("2020-05-30"));
+        ActualWorkDateTime actualWorkDateTime = weeklyTimeRecord.value.at(WorkDate.from("2020-05-30")).actualWorkDateTime;
 
         OverLegalHoursWorkTime overLegalHoursWorkTime = OverLegalHoursWorkTime.daily(actualWorkDateTime, weeklyTimeRecord);
 
