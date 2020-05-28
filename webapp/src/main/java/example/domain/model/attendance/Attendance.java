@@ -1,8 +1,6 @@
 package example.domain.model.attendance;
 
-import example.domain.model.legislation.DaysOff;
 import example.domain.model.timerecord.evaluation.*;
-import example.domain.type.date.Week;
 import example.domain.type.time.Hour;
 import example.domain.type.time.QuarterHour;
 

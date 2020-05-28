@@ -59,7 +59,7 @@ public class TimeRecord {
     }
 
     public OverLegalHoursWorkTime overLegalHoursWorkTime(TimeRecords timeRecords) {
-        return actualWorkDateTime.overLegalHoursWorkTime(timeRecords);
+        return OverLegalHoursWorkTime.daily(actualWorkDateTime, timeRecords);
     }
 
     public LegalDaysOffWorkTime legalDaysOffWorkTime(TimeRecords timeRecords) {
