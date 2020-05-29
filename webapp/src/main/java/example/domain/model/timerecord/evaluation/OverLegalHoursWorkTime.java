@@ -16,20 +16,10 @@ public class OverLegalHoursWorkTime {
     }
 
     public static OverLegalHoursWorkTime daily(ActualWorkDateTime actualWorkDateTime, WeeklyTimeRecord weeklyTimeRecord) {
-        TimeRecords weeklyTimeRecordToDate = weeklyTimeRecord.recordsToDate(actualWorkDateTime.workDate());
-        WorkTimes weeklyWorkTimes = weeklyTimeRecordToDate.workTimes();
-
-        WeeklyWorkingHoursStatus weeklyWorkingHoursStatus;
-        if (weeklyWorkTimes.total().moreThan(new QuarterHour(WeeklyWorkingHoursLimit.legal().toMinute()))) {
-            weeklyWorkingHoursStatus = WeeklyWorkingHoursStatus.週の法定時間内労働時間の累計が４０時間を超えている;
-        } else {
-            weeklyWorkingHoursStatus = WeeklyWorkingHoursStatus.週の法定時間内労働時間の累計が４０時間以内;
-        }
-
         QuarterHour overLegalHoursWorkTime = new QuarterHour();
-        if (weeklyWorkingHoursStatus == WeeklyWorkingHoursStatus.週の法定時間内労働時間の累計が４０時間を超えている) {
-            // TODO: 週の法定内労働時間累計が40時間を超えているかどうかで計算するように変える
-            QuarterHour weeklyOverLegalHoursWorkTime = weeklyWorkTimes.total().overMinute(new QuarterHour(WeeklyWorkingHoursLimit.legal().toMinute()));
+        if (weeklyTimeRecord.weeklyWorkingHoursStatus() == WeeklyWorkingHoursStatus.週の法定時間内労働時間の累計が４０時間を超えている) {
+            TimeRecords weeklyTimeRecordToDate = weeklyTimeRecord.recordsToDate(actualWorkDateTime.workDate());
+            WorkTimes weeklyWorkTimes = weeklyTimeRecordToDate.workTimes();
 
             TimeRecords recordsDayBefore = weeklyTimeRecordToDate.recordsDayBefore(actualWorkDateTime.workDate());
             QuarterHour overWorkTimeDayBefore = new QuarterHour();
@@ -37,7 +27,7 @@ public class OverLegalHoursWorkTime {
                 overWorkTimeDayBefore = overWorkTimeDayBefore.add(daily(record.actualWorkDateTime, weeklyTimeRecord).quarterHour());
             }
 
-            overLegalHoursWorkTime = weeklyOverLegalHoursWorkTime.overMinute(overWorkTimeDayBefore);
+            overLegalHoursWorkTime = weeklyWorkTimes.total().overMinute(WeeklyWorkingHoursLimit.legal().toMinute()).overMinute(overWorkTimeDayBefore);
         } else if (actualWorkDateTime.workTime().dailyWorkingHoursStatus() == DailyWorkingHoursStatus.一日８時間を超えている) {
             overLegalHoursWorkTime = actualWorkDateTime.workTime().overDailyLimitWorkTime();
         }

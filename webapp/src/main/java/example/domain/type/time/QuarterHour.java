@@ -14,7 +14,6 @@ public class QuarterHour {
         this(new Minute(0));
     }
 
-
     public QuarterHour(Minute value) {
         this.value = value;
     }
@@ -49,10 +48,7 @@ public class QuarterHour {
     }
 
     public QuarterHour overMinute(QuarterHour other) {
-        if (value.lessThan(other.value)) {
-            return new QuarterHour(new Minute(0));
-        }
-        return this.subtract(other);
+        return overMinute(other.value);
     }
 
     public boolean moreThan(Minute other) {
@@ -61,5 +57,12 @@ public class QuarterHour {
 
     public boolean moreThan(Hour hour) {
         return moreThan(hour.toMinute());
+    }
+
+    public QuarterHour overMinute(Minute other) {
+        if (value.lessThan(other)) {
+            return new QuarterHour(new Minute(0));
+        }
+        return new QuarterHour(value.subtract(other));
     }
 }

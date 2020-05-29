@@ -73,4 +73,8 @@ public class TimeRecord {
 
         return new LegalDaysOffWorkTime(new QuarterHour());
     }
+
+    public QuarterHour withinDailyLimitWorkTime() {
+        return actualWorkDateTime.workTime().withinDailyLimitWorkTime();
+    }
 }

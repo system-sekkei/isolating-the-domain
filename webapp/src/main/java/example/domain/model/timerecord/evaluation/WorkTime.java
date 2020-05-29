@@ -24,10 +24,18 @@ public class WorkTime {
     }
 
     QuarterHour overDailyLimitWorkTime() {
-        return quarterHour().overMinute(new QuarterHour(DailyWorkingHoursLimit.legal().toMinute()));
+        return value.overMinute(DailyWorkingHoursLimit.legal().toMinute());
     }
 
     public DailyWorkingHoursStatus dailyWorkingHoursStatus() {
         return DailyWorkingHoursStatus.from(this);
+    }
+
+    QuarterHour withinDailyLimitWorkTime() {
+        if (value.moreThan(DailyWorkingHoursLimit.legal().toMinute())) {
+            return new QuarterHour(DailyWorkingHoursLimit.legal().toMinute());
+        }
+
+        return value;
     }
 }

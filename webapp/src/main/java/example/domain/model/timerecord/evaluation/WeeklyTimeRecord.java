@@ -1,6 +1,9 @@
 package example.domain.model.timerecord.evaluation;
 
 import example.domain.model.legislation.DaysOffStatus;
+import example.domain.model.legislation.WeeklyWorkingHoursLimit;
+import example.domain.model.legislation.WeeklyWorkingHoursStatus;
+import example.domain.type.time.QuarterHour;
 
 import java.util.Comparator;
 import java.util.Optional;
@@ -13,6 +16,14 @@ public class WeeklyTimeRecord {
 
     public WeeklyTimeRecord(TimeRecords value) {
         this.value = value;
+    }
+
+    public WeeklyWorkingHoursStatus weeklyWorkingHoursStatus() {
+        if (value.withinDailyLimitWorkTimeTotal().moreThan(WeeklyWorkingHoursLimit.legal().toMinute())) {
+            return WeeklyWorkingHoursStatus.週の法定時間内労働時間の累計が４０時間を超えている;
+        } else {
+            return WeeklyWorkingHoursStatus.週の法定時間内労働時間の累計が４０時間以内;
+        }
     }
 
     public TimeRecords recordsToDate(WorkDate workDate) {

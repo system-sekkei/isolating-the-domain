@@ -1,11 +1,8 @@
 package example.domain.model.timerecord.evaluation;
 
-import example.domain.model.legislation.DaysOffStatus;
 import example.domain.type.time.QuarterHour;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -74,6 +71,16 @@ public class TimeRecords {
         for (TimeRecord timeRecord : list) {
             LegalDaysOffWorkTime legalDaysOffWorkTime = timeRecord.legalDaysOffWorkTime(this);
             total = total.add(legalDaysOffWorkTime);
+        }
+
+        return total;
+    }
+
+    public QuarterHour withinDailyLimitWorkTimeTotal() {
+        QuarterHour total = new QuarterHour();
+        for (TimeRecord timeRecord : list) {
+            QuarterHour overDailyLimitWorkTime = timeRecord.withinDailyLimitWorkTime();
+            total = total.add(overDailyLimitWorkTime);
         }
 
         return total;
