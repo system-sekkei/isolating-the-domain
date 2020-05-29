@@ -96,4 +96,7 @@ public class ActualWorkDateTime {
         return true;
     }
 
+    public QuarterHour overDailyLimitWorkTime() {
+        return workTime().overDailyLimitWorkTime();
+    }
 }
