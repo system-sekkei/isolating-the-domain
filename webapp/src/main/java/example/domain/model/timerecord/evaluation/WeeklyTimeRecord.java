@@ -3,7 +3,6 @@ package example.domain.model.timerecord.evaluation;
 import example.domain.model.legislation.DaysOffStatus;
 import example.domain.model.legislation.WeeklyWorkingHoursLimit;
 import example.domain.model.legislation.WeeklyWorkingHoursStatus;
-import example.domain.type.time.QuarterHour;
 
 import java.util.Comparator;
 import java.util.Optional;
@@ -26,8 +25,8 @@ public class WeeklyTimeRecord {
         }
     }
 
-    public TimeRecords recordsToDate(WorkDate workDate) {
-        return value.recordsToDate(workDate);
+    public WeeklyTimeRecord recordsToDate(WorkDate workDate) {
+        return new WeeklyTimeRecord(value.recordsToDate(workDate));
     }
 
     public Optional<TimeRecord> lastDayOff() {

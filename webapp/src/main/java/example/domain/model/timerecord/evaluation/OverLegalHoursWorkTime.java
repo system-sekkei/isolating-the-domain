@@ -18,13 +18,12 @@ public class OverLegalHoursWorkTime {
     public static OverLegalHoursWorkTime daily(ActualWorkDateTime actualWorkDateTime, WeeklyTimeRecord weeklyTimeRecord) {
         QuarterHour overLegalHoursWorkTime = new QuarterHour();
         if (weeklyTimeRecord.weeklyWorkingHoursStatus() == WeeklyWorkingHoursStatus.週の法定時間内労働時間の累計が４０時間を超えている) {
-            TimeRecords weeklyTimeRecordToDate = weeklyTimeRecord.recordsToDate(actualWorkDateTime.workDate());
-            WorkTimes weeklyWorkTimes = weeklyTimeRecordToDate.workTimes();
+            WorkTimes weeklyWorkTimes = weeklyTimeRecord.value.workTimes();
 
-            TimeRecords recordsDayBefore = weeklyTimeRecordToDate.recordsDayBefore(actualWorkDateTime.workDate());
+            TimeRecords recordsDayBefore = weeklyTimeRecord.value.recordsDayBefore(actualWorkDateTime.workDate());
             QuarterHour overWorkTimeDayBefore = new QuarterHour();
             for (TimeRecord record : recordsDayBefore.list()) {
-                overWorkTimeDayBefore = overWorkTimeDayBefore.add(daily(record.actualWorkDateTime, weeklyTimeRecord).quarterHour());
+                overWorkTimeDayBefore = overWorkTimeDayBefore.add(daily(record.actualWorkDateTime, new WeeklyTimeRecord(recordsDayBefore)).quarterHour());
             }
 
             overLegalHoursWorkTime = weeklyWorkTimes.total().overMinute(WeeklyWorkingHoursLimit.legal().toMinute()).overMinute(overWorkTimeDayBefore);

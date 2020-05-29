@@ -79,8 +79,8 @@ public class TimeRecords {
     public QuarterHour withinDailyLimitWorkTimeTotal() {
         QuarterHour total = new QuarterHour();
         for (TimeRecord timeRecord : list) {
-            QuarterHour overDailyLimitWorkTime = timeRecord.withinDailyLimitWorkTime();
-            total = total.add(overDailyLimitWorkTime);
+            QuarterHour workTime = timeRecord.withinDailyLimitWorkTime();
+            total = total.add(workTime);
         }
 
         return total;
