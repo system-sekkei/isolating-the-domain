@@ -1,6 +1,7 @@
 package example.domain.model.attendance;
 
 import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
+import example.domain.model.timerecord.evaluation.TimeRecords;
 import example.domain.type.date.Date;
 import example.domain.type.time.QuarterHour;
 
@@ -25,5 +26,17 @@ public class PayableWork {
 
     public QuarterHour nightWorkTime() {
         return actualWorkDateTime.nightWorkTime().quarterHour();
+    }
+
+    public QuarterHour overLegalMoreThan60HoursWorkTime(TimeRecords timeRecords) {
+        return actualWorkDateTime.overLegalMoreThan60HoursWorkTime(timeRecords).quarterHour();
+    }
+
+    public QuarterHour overLegalWithin60HoursWorkTime(TimeRecords timeRecords) {
+        return actualWorkDateTime.overLegalWithin60HoursWorkTime(timeRecords).quarterHour();
+    }
+
+    public QuarterHour legalDaysOffWorkTime(TimeRecords timeRecords) {
+        return actualWorkDateTime.legalDaysOffWorkTime(timeRecords).quarterHour();
     }
 }

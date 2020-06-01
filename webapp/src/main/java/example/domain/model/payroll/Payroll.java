@@ -37,13 +37,11 @@ public class Payroll {
             WageCondition wageCondition = contract.wageConditionAt(payableWork.date());
 
             paymentAmount = paymentAmount.add(new PaymentWorkTime(payableWork.workTime()).multiply(wageCondition.baseHourlyWage().value()))
-                    .add(new PaymentWorkTime(payableWork.nightWorkTime()).multiply(wageCondition.nightHourlyExtraWage().value()));
+                    .add(new PaymentWorkTime(payableWork.nightWorkTime()).multiply(wageCondition.nightHourlyExtraWage().value()))
+                    .add(new PaymentWorkTime(payableWork.overLegalMoreThan60HoursWorkTime(attendance.timeRecords())).multiply(wageCondition.overLegalMoreThan60HoursHourlyExtraWage().value()))
+                    .add(new PaymentWorkTime(payableWork.overLegalWithin60HoursWorkTime(attendance.timeRecords())).multiply(wageCondition.overLegalWithin60HoursHourlyExtraWage().value())
+                    .add(new PaymentWorkTime(payableWork.legalDaysOffWorkTime(attendance.timeRecords())).multiply(wageCondition.legalDaysOffHourlyExtraWage().value())));
         }
-
-        WageCondition wageCondition = contract.wageConditionAt(contract.contractStartingDate().value()); // FIXME: 契約は月途中で切り替わる可能性がある。
-        paymentAmount = paymentAmount.add(new PaymentWorkTime(attendance.overLegalMoreThan60HoursWorkTime().quarterHour()).multiply(wageCondition.overLegalMoreThan60HoursHourlyExtraWage().value()))
-                .add(new PaymentWorkTime(attendance.overLegalWithin60HoursWorkTime().quarterHour()).multiply(wageCondition.overLegalWithin60HoursHourlyExtraWage().value())
-                .add(new PaymentWorkTime(attendance.legalDaysOffWorkTime().quarterHour()).multiply(wageCondition.legalDaysOffHourlyExtraWage().value())));
 
         return paymentAmount;
     }

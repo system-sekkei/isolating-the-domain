@@ -59,18 +59,8 @@ public class TimeRecords {
     public OverLegalHoursWorkTime overLegalHoursWorkTimes() {
         OverLegalHoursWorkTime total = new OverLegalHoursWorkTime(new QuarterHour());
         for (TimeRecord timeRecord : list) {
-            OverLegalHoursWorkTime overLegalHoursWorkTime = timeRecord.overLegalHoursWorkTime(this);
+            OverLegalHoursWorkTime overLegalHoursWorkTime = timeRecord.actualWorkDateTime.overLegalHoursWorkTime(this);
             total = total.add(overLegalHoursWorkTime);
-        }
-
-        return total;
-    }
-
-    public LegalDaysOffWorkTime legalDaysOffWorkTime() {
-        LegalDaysOffWorkTime total = new LegalDaysOffWorkTime(new QuarterHour());
-        for (TimeRecord timeRecord : list) {
-            LegalDaysOffWorkTime legalDaysOffWorkTime = timeRecord.legalDaysOffWorkTime(this);
-            total = total.add(legalDaysOffWorkTime);
         }
 
         return total;

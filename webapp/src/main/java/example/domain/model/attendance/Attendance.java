@@ -53,6 +53,10 @@ public class Attendance {
                 .collect(Collectors.toList());
     }
 
+    public TimeRecords timeRecords() {
+        return timeRecords;
+    }
+
     public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime() {
         OverLegalHoursWorkTime overLegalHoursWorkTime = timeRecords.overLegalHoursWorkTimes();
         return new OverLegalMoreThan60HoursWorkTime(overLegalHoursWorkTime.quarterHour().overMinute(new QuarterHour(new Hour(60))));
@@ -68,7 +72,4 @@ public class Attendance {
         return new OverLegalWithin60HoursWorkTime(overLegalHoursWorkTime.quarterHour());
     }
 
-    public LegalDaysOffWorkTime legalDaysOffWorkTime() {
-        return timeRecords.legalDaysOffWorkTime();
-    }
 }
