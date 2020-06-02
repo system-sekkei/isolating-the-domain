@@ -38,9 +38,9 @@ public class Payroll {
 
             paymentAmount = paymentAmount.add(new PaymentWorkTime(payableWork.workTime()).multiply(wageCondition.baseHourlyWage().value()))
                     .add(new PaymentWorkTime(payableWork.nightWorkTime()).multiply(wageCondition.nightHourlyExtraWage().value()))
-                    .add(new PaymentWorkTime(payableWork.overLegalMoreThan60HoursWorkTime(attendance.timeRecords())).multiply(wageCondition.overLegalMoreThan60HoursHourlyExtraWage().value()))
-                    .add(new PaymentWorkTime(payableWork.overLegalWithin60HoursWorkTime(attendance.timeRecords())).multiply(wageCondition.overLegalWithin60HoursHourlyExtraWage().value())
-                    .add(new PaymentWorkTime(payableWork.legalDaysOffWorkTime(attendance.timeRecords())).multiply(wageCondition.legalDaysOffHourlyExtraWage().value())));
+                    .add(new PaymentWorkTime(payableWork.overLegalMoreThan60HoursWorkTime(attendance).quarterHour()).multiply(wageCondition.overLegalMoreThan60HoursHourlyExtraWage().value()))
+                    .add(new PaymentWorkTime(payableWork.overLegalWithin60HoursWorkTime(attendance).quarterHour()).multiply(wageCondition.overLegalWithin60HoursHourlyExtraWage().value())
+                    .add(new PaymentWorkTime(payableWork.legalDaysOffWorkTime(attendance).quarterHour()).multiply(wageCondition.legalDaysOffHourlyExtraWage().value())));
         }
 
         return paymentAmount;

@@ -1,5 +1,6 @@
 package example.domain.model.timerecord.evaluation;
 
+import example.domain.model.attendance.Attendance;
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.time.Minute;
 import example.domain.type.time.QuarterHour;
@@ -99,8 +100,8 @@ public class ActualWorkDateTime {
         return workTime().overDailyLimitWorkTime();
     }
 
-    public LegalDaysOffWorkTime legalDaysOffWorkTime(TimeRecords timeRecords) {
-        WeeklyTimeRecord weeklyRecords = timeRecords.weeklyRecords(workDate());
+    public LegalDaysOffWorkTime legalDaysOffWorkTime(Attendance attendance) {
+        WeeklyTimeRecord weeklyRecords = attendance.timeRecords().weeklyRecords(workDate());  // FIXME:  このTimerecordsは月次だと計算がおかしくなる(週の途中で月をまたぐ可能性があるから)
         Optional<TimeRecord> lastDayOff = weeklyRecords.lastDayOff();
 
         if (lastDayOff.isPresent() && lastDayOff.get().workDate().hasSameValue(workDate())) {
@@ -110,18 +111,19 @@ public class ActualWorkDateTime {
         return new LegalDaysOffWorkTime(new QuarterHour());
     }
 
-    public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime(TimeRecords timeRecords) {
+    public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime(Attendance attendance) {
         // TODO:
         return new OverLegalMoreThan60HoursWorkTime(new QuarterHour());
     }
 
-    public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime(TimeRecords timeRecords) {
+    public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime(Attendance attendance) {
         // TODO:
-        return new OverLegalWithin60HoursWorkTime(overLegalHoursWorkTime(timeRecords).quarterHour());
+        OverLegalWithin60HoursWorkTime.daily(this, attendance);
+        return new OverLegalWithin60HoursWorkTime(overLegalHoursWorkTime(attendance.timeRecords()).quarterHour());
     }
 
     public OverLegalHoursWorkTime overLegalHoursWorkTime(TimeRecords timeRecords) {
-        WeeklyTimeRecord weeklyTimeRecord = timeRecords.weeklyRecords(workDate());
+        WeeklyTimeRecord weeklyTimeRecord = timeRecords.weeklyRecords(workDate()); // FIXME: このTimerecordsは月次だと計算がおかしくなる(週の途中で月をまたぐ可能性があるから)
         return OverLegalHoursWorkTime.daily(this, weeklyTimeRecord);
     }
 }
