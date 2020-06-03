@@ -1,14 +1,12 @@
 package example.domain.model.payroll;
 
 import example.domain.model.attendance.Attendance;
-import example.domain.model.timerecord.evaluation.TimeRecords;
+import example.domain.model.timerecord.evaluation.*;
 import example.domain.model.contract.Contract;
 import example.domain.model.contract.ContractCondition;
 import example.domain.model.contract.ContractConditions;
 import example.domain.model.contract.wage.BaseHourlyWage;
 import example.domain.model.contract.wage.WageCondition;
-import example.domain.model.timerecord.evaluation.ActualWorkDateTime;
-import example.domain.model.timerecord.evaluation.TimeRecord;
 import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -44,7 +42,8 @@ class PayrollTest {
         Contract contract = new Contract(null, contractConditions);
         TimeRecord timeRecord = new TimeRecord(null, actualWorkDateTime, null);
         TimeRecords timeRecords = new TimeRecords(List.of(timeRecord));
-        Attendance attendance = new Attendance(null, timeRecords);
+        WeeklyTimeRecords weeklyTimeRecords = new WeeklyTimeRecords(List.of(new WeeklyTimeRecord(timeRecords)));
+        Attendance attendance = new Attendance(null, weeklyTimeRecords);
         Payroll payroll = new Payroll(contract, attendance);
 
         PaymentAmount paymentAmount = payroll.totalPayment();

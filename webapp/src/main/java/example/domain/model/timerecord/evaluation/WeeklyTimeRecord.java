@@ -1,12 +1,13 @@
 package example.domain.model.timerecord.evaluation;
 
+import example.domain.model.attendance.WorkMonth;
 import example.domain.model.legislation.DaysOffStatus;
 import example.domain.model.legislation.WeeklyWorkingHoursLimit;
 import example.domain.model.legislation.WeeklyWorkingHoursStatus;
-import example.domain.type.time.QuarterHour;
 
 import java.util.Comparator;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 週の勤務実績
@@ -38,5 +39,12 @@ public class WeeklyTimeRecord {
 
     public WorkTimes workTimes() {
         return value.workTimes();
+    }
+
+    public TimeRecords findByMonth(WorkMonth month) {
+        return new TimeRecords(
+            value.list().stream()
+                .filter(timeRecord -> timeRecord.workDate().sameMonth(month))
+                .collect(Collectors.toList()));
     }
 }

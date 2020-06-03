@@ -30,7 +30,7 @@
         DELETE FROM 給与.就業時間 WHERE 従業員ID = #{employeeNumber.value} and 勤務日 = #{workDate.value.value}
     </delete>
 
-    <select id="selectByMonth" resultType="example.domain.model.timerecord.evaluation.TimeRecord">
+    <select id="selectByMonths" resultType="example.domain.model.timerecord.evaluation.TimeRecord">
         SELECT
         就業時間.従業員ID as "employeeNumber.value",
         就業時間.開始日時 as "actualWorkDateTime.workRange.startDateTime.value.value",
@@ -40,6 +40,9 @@
         就業時間.休日 as "daysOffStatus"
         FROM 給与.就業時間 as 就業時間
         WHERE 就業時間.従業員ID = #{employeeNumber.value}
-        AND to_char(就業時間.勤務日,'yyyymm') = #{yearMonth}
+        AND to_char(就業時間.勤務日,'yyyymm') IN
+            <foreach item="yearMonth" collection="yearMonths" open="(" separator="," close=")">
+                #{yearMonth}
+            </foreach>
     </select>
 </mapper>

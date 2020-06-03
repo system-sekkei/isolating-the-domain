@@ -18,5 +18,5 @@ public interface TimeRecordMapper {
 
     void deleteWorkTime(@Param("employeeNumber") EmployeeNumber employeeNumber, @Param("workDate") WorkDate workDate);
 
-    List<TimeRecord> selectByMonth(@Param("employeeNumber") EmployeeNumber employeeNumber, @Param("yearMonth") String yearMonth);
+    List<TimeRecord> selectByMonths(@Param("employeeNumber") EmployeeNumber employeeNumber, @Param("yearMonths") List<String> yearMonths);
 }

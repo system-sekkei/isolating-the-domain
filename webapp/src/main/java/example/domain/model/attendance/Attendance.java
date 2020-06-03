@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
 public class Attendance {
 
     WorkMonth month;
-    TimeRecords timeRecords;
+    WeeklyTimeRecords weeklyTimeRecords;
 
-    public Attendance(WorkMonth month, TimeRecords timeRecords) {
+    public Attendance(WorkMonth month, WeeklyTimeRecords weeklyTimeRecords) {
         this.month = month;
-        this.timeRecords = timeRecords;
+        this.weeklyTimeRecords = weeklyTimeRecords;
     }
 
     public WorkMonth month() {
@@ -29,41 +29,41 @@ public class Attendance {
     }
 
     public TimeRecord at(WorkDate workDate) {
-        return timeRecords.at(workDate);
+        return monthlyTimeRecords().at(workDate);
     }
 
     public AttendanceStatus statusOf(WorkDate workDate) {
-        return AttendanceStatus.from(timeRecords.recordedAt(workDate));
+        return AttendanceStatus.from(monthlyTimeRecords().recordedAt(workDate));
     }
 
     public AttendDates attendDates() {
-        return timeRecords.attendDates();
+        return monthlyTimeRecords().attendDates();
     }
 
     public TotalWorkTime totalWorkTime() {
-        return new TotalWorkTime(timeRecords.list().stream()
+        return new TotalWorkTime(monthlyTimeRecords().list().stream()
                 .map(timeRecord -> timeRecord.actualWorkDateTime().workTime().quarterHour())
                 .reduce(QuarterHour::add)
                 .orElseGet(QuarterHour::new));
     }
 
     public List<PayableWork> listPayableWork() {
-        return timeRecords.list().stream()
+        return monthlyTimeRecords().list().stream()
                 .map(timeRecord -> new PayableWork(timeRecord.actualWorkDateTime()))
                 .collect(Collectors.toList());
     }
 
-    public TimeRecords timeRecords() {
-        return timeRecords;
+    public TimeRecords monthlyTimeRecords() {
+        return weeklyTimeRecords.monthlyTimeRecords(month);
     }
 
     public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime() {
-        OverLegalHoursWorkTime overLegalHoursWorkTime = timeRecords.overLegalHoursWorkTimes();
+        OverLegalHoursWorkTime overLegalHoursWorkTime = monthlyTimeRecords().overLegalHoursWorkTimes();
         return new OverLegalMoreThan60HoursWorkTime(overLegalHoursWorkTime.quarterHour().overMinute(new QuarterHour(new Hour(60))));
     }
 
     public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime() {
-        OverLegalHoursWorkTime overLegalHoursWorkTime = timeRecords.overLegalHoursWorkTimes();
+        OverLegalHoursWorkTime overLegalHoursWorkTime = monthlyTimeRecords().overLegalHoursWorkTimes();
 
         if (overLegalHoursWorkTime.monthlyOverLegalHoursStatus() == MonthlyOverLegalHoursStatus.月６０時間超) {
             return new OverLegalWithin60HoursWorkTime(new QuarterHour(new Hour(60)));
