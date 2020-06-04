@@ -7,8 +7,6 @@ import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.timerecord.evaluation.TimeRecord;
-import example.domain.model.timerecord.evaluation.WeeklyTimeRecord;
-import example.domain.model.timerecord.evaluation.WeeklyTimeRecords;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -23,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -65,7 +62,7 @@ class TimeRecordRegisterControllerTest {
     @Test
     void 登録できる() throws Exception {
         when(timeRecordRepository.findTimeRecords(any(), any()))
-                .thenReturn(new WeeklyTimeRecords(Collections.emptyList()));
+                .thenReturn(new TimeRecords(Collections.emptyList()));
         doNothing().when(timeRecordRepository).registerTimeRecord(any());
 
         mockMvc.perform(post("/timerecord")
@@ -102,16 +99,14 @@ class TimeRecordRegisterControllerTest {
     })
     @ParameterizedTest
     void validation(String workDate, String startHour, String startMinute, String endHour, String endMinute, String daytimeBreakTime, String nightBreakTime, String errorField) throws Exception {
-        TimeRecords timeRecords = new TimeRecords(Arrays.asList(
-                new TimeRecord(
-                        new EmployeeNumber(1),
-                        AttendanceForm.toActualWorkDateTime("2019-01-01", "9:00", "33:00", "0", "0")),
-                new TimeRecord(
-                        new EmployeeNumber(1),
-                        AttendanceForm.toActualWorkDateTime("2019-01-03", "9:00", "21:00", "0", "0"))));
-
         when(timeRecordRepository.findTimeRecords(any(), any()))
-                .thenReturn(new WeeklyTimeRecords(List.of(new WeeklyTimeRecord(timeRecords))));
+                .thenReturn(new TimeRecords(Arrays.asList(
+                        new TimeRecord(
+                                new EmployeeNumber(1),
+                                AttendanceForm.toActualWorkDateTime("2019-01-01", "9:00", "33:00", "0", "0")),
+                        new TimeRecord(
+                                new EmployeeNumber(1),
+                                AttendanceForm.toActualWorkDateTime("2019-01-03", "9:00", "21:00", "0", "0")))));
 
         mockMvc.perform(post("/timerecord")
                 .param("employeeNumber", "1")
@@ -132,7 +127,7 @@ class TimeRecordRegisterControllerTest {
     void 日跨ぎが登録できる() throws Exception {
         doNothing().when(timeRecordRepository).registerTimeRecord(any());
         when(timeRecordRepository.findTimeRecords(any(), any()))
-                .thenReturn(new WeeklyTimeRecords(Collections.emptyList()));
+                .thenReturn(new TimeRecords(Collections.emptyList()));
 
         mockMvc.perform(post("/timerecord")
                 .param("employeeNumber", "1")
@@ -149,14 +144,12 @@ class TimeRecordRegisterControllerTest {
 
     @Test
     void 日跨ぎを表示すると24時を超える() throws Exception {
-        TimeRecords timeRecords = new TimeRecords(Arrays.asList(
-                new TimeRecord(
-                        new EmployeeNumber(1),
-                        AttendanceForm.toActualWorkDateTime("2011-11-11", "9:00", "28:00", "0", "0"))));
-
         when(employeeRepository.choose(any())).thenReturn(new Employee(new EmployeeNumber(1), null, null, null));
         when(timeRecordRepository.findTimeRecords(any(), any()))
-                .thenReturn(new WeeklyTimeRecords(List.of(new WeeklyTimeRecord(timeRecords))));
+                .thenReturn(new TimeRecords(Arrays.asList(
+                        new TimeRecord(
+                                new EmployeeNumber(1),
+                                AttendanceForm.toActualWorkDateTime("2011-11-11", "9:00", "28:00", "0", "0")))));
 
         MvcResult mvcResult = mockMvc.perform(
                 get("/timerecord")

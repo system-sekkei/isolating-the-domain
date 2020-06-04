@@ -103,17 +103,4 @@ public class Date {
     public boolean sameMonth(Date date) {
         return this.year().sameValue(date.year()) && this.month() == date.month();
     }
-
-    public boolean sameMonth(YearMonth yearMonth) {
-        return this.year().sameValue(yearMonth.year()) && this.month() == yearMonth.month();
-    }
-
-    public boolean isContainWeekOfMonth(YearMonth yearMonth) {
-        // TODO:
-        return true;
-    }
-
-    public int weekNumber() {
-        return value.get(WeekFields.of(Locale.JAPANESE).weekOfWeekBasedYear());
-    }
 }

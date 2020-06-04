@@ -70,8 +70,4 @@ public class WorkMonth {
     public String yyyyMM() {
         return value.value().format(DateTimeFormatter.ofPattern("uuuuMM"));
     }
-
-    public YearMonth toYearMonth() {
-        return value;
-    }
 }

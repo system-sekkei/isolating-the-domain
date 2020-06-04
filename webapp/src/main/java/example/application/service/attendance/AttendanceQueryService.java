@@ -6,7 +6,6 @@ import example.domain.model.attendance.AttendanceStatus;
 import example.domain.model.timerecord.evaluation.TimeRecords;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.employee.Employee;
-import example.domain.model.timerecord.evaluation.WeeklyTimeRecords;
 import example.domain.model.timerecord.evaluation.WorkDate;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +21,7 @@ public class AttendanceQueryService {
      * 月次勤怠取得
      */
     public Attendance findAttendance(Employee employee, WorkMonth month) {
-        WeeklyTimeRecords timeRecords = timeRecordRepository.findTimeRecords(employee, month);
+        TimeRecords timeRecords = timeRecordRepository.findTimeRecords(employee, month);
         return new Attendance(month, timeRecords);
     }
 

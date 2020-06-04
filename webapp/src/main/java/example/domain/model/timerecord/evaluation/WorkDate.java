@@ -1,6 +1,5 @@
 package example.domain.model.timerecord.evaluation;
 
-import example.domain.model.attendance.WorkMonth;
 import example.domain.validation.Required;
 import example.domain.type.date.Date;
 import example.domain.type.date.DayOfWeek;
@@ -64,17 +63,5 @@ public class WorkDate {
 
     public boolean sameMonth(WorkDate workDate) {
         return value.sameMonth(workDate.toDate());
-    }
-
-    public boolean sameMonth(WorkMonth month) {
-        return value.sameMonth(month.toYearMonth());
-    }
-
-    public boolean isContainWeekOfMonth(WorkMonth month) {
-        return value.isContainWeekOfMonth(month.toYearMonth());
-    }
-
-    public int weekNumber() {
-        return value.weekNumber();
     }
 }

@@ -19,8 +19,7 @@ public class TimeRecordQueryService {
      * 日次勤務実績取得
      */
     public TimeRecord timeRecord(Employee employee, WorkDate workDate) {
-        WorkMonth workMonth = WorkMonth.from(workDate);
-        return timeRecordRepository.findTimeRecords(employee, workMonth).monthlyTimeRecords(workMonth).at(workDate);
+        return timeRecordRepository.findTimeRecords(employee, WorkMonth.from(workDate)).at(workDate);
     }
 
     TimeRecordQueryService(TimeRecordRepository timeRecordRepository) {
