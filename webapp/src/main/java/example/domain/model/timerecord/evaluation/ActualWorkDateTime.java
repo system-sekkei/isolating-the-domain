@@ -118,7 +118,7 @@ public class ActualWorkDateTime {
 
     public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime(Attendance attendance) {
         // TODO:
-        OverLegalWithin60HoursWorkTime.daily(this, attendance);
+        // OverLegalWithin60HoursWorkTime.daily(this);
         return new OverLegalWithin60HoursWorkTime(overLegalHoursWorkTime(attendance).quarterHour());
     }
 

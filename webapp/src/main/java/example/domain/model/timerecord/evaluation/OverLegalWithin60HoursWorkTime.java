@@ -14,7 +14,7 @@ public class OverLegalWithin60HoursWorkTime {
         this.value = value;
     }
 
-    public static OverLegalWithin60HoursWorkTime daily(ActualWorkDateTime actualWorkDateTime, Attendance attendance) {
+    public static OverLegalWithin60HoursWorkTime daily(ActualWorkDateTime actualWorkDateTime) {
         // TODO:
         return null;
     }
