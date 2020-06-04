@@ -19,7 +19,7 @@ http://localhost:8080 でダッシュボード画面を表示
 java -jar webapp/build/libs/webapp.jar
 ```
 
-## Jig 設計ドキュメントの自動生成
+## JIG 設計ドキュメントの自動生成
 
 ```sh
 ./gradlew :webapp:jig
@@ -27,7 +27,7 @@ java -jar webapp/build/libs/webapp.jar
 
 `webapp/build/jig` 以下にソースコードから自動生成したクラス一覧やクラスの関連図を出力
 
-[Jig 設計ドキュメント](https://github.com/dddjava/Jig)
+[JIG 設計ドキュメント](https://github.com/dddjava/Jig)
 
 ## 設計ガイド
 
