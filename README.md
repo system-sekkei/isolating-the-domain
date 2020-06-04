@@ -15,19 +15,19 @@ http://localhost:8080 でダッシュボード画面を表示
 ## 実行可能Jarのビルドと実行
 
 ```sh
-./gradlew :webapp:clean :webapp:build
+./gradlew clean build
 java -jar webapp/build/libs/webapp.jar
 ```
 
 ## JIG 設計ドキュメントの自動生成
 
 ```sh
-./gradlew :webapp:jig
+./gradlew jig
 ```
 
 `webapp/build/jig` 以下にソースコードから自動生成したクラス一覧やクラスの関連図を出力
 
-[JIG 設計ドキュメント](https://github.com/dddjava/Jig)
+[JIG 設計ドキュメント](https://github.com/dddjava/jig)
 
 ## 設計ガイド
 
@@ -42,15 +42,6 @@ java -jar webapp/build/libs/webapp.jar
 ## アーキテクチャ
 
 ![アーキテクチャ](architecture.png)
-
-## 動作検証
-
-```sh
-npm install
-npm test
-```
-
-Cypressのヘッドレスブラウザで疎通を実施
 
 ## 参考資料
 

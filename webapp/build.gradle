@@ -36,6 +36,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group: 'org.junit.vintage')
     }
+    testImplementation('org.seleniumhq.selenium:htmlunit-driver')
 }
 
 test {
