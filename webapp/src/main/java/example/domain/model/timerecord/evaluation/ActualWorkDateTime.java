@@ -101,7 +101,7 @@ public class ActualWorkDateTime {
     }
 
     public LegalDaysOffWorkTime legalDaysOffWorkTime(Attendance attendance) {
-        WeeklyTimeRecord weeklyRecords = attendance.timeRecords().weeklyRecords(workDate());  // FIXME:  このTimerecordsは月次だと計算がおかしくなる(週の途中で月をまたぐ可能性があるから)
+        WeeklyTimeRecord weeklyRecords = attendance.weeklyRecords(workDate());
         Optional<TimeRecord> lastDayOff = weeklyRecords.lastDayOff();
 
         if (lastDayOff.isPresent() && lastDayOff.get().workDate().hasSameValue(workDate())) {
@@ -119,11 +119,11 @@ public class ActualWorkDateTime {
     public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime(Attendance attendance) {
         // TODO:
         OverLegalWithin60HoursWorkTime.daily(this, attendance);
-        return new OverLegalWithin60HoursWorkTime(overLegalHoursWorkTime(attendance.timeRecords()).quarterHour());
+        return new OverLegalWithin60HoursWorkTime(overLegalHoursWorkTime(attendance).quarterHour());
     }
 
-    public OverLegalHoursWorkTime overLegalHoursWorkTime(TimeRecords timeRecords) {
-        WeeklyTimeRecord weeklyTimeRecord = timeRecords.weeklyRecords(workDate()); // FIXME: このTimerecordsは月次だと計算がおかしくなる(週の途中で月をまたぐ可能性があるから)
+    public OverLegalHoursWorkTime overLegalHoursWorkTime(Attendance attendance) {
+        WeeklyTimeRecord weeklyTimeRecord = attendance.weeklyRecords(workDate());
         return OverLegalHoursWorkTime.daily(this, weeklyTimeRecord);
     }
 }

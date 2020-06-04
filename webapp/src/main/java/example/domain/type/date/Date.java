@@ -89,6 +89,7 @@ public class Date {
     }
 
     public boolean sameWeek(Date date) {
+        // TODO: この比較で年跨ぎ時におかしくならないか確認する
         return this.year().sameValue(date.year()) && weekOfWeekBasedYear(date) == weekOfWeekBasedYear(this);
     }
 

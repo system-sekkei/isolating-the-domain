@@ -33,7 +33,7 @@ public class OverLegalHoursWorkTime {
         return new OverLegalHoursWorkTime(overLegalHoursWorkTime);
     }
 
-    OverLegalHoursWorkTime add(OverLegalHoursWorkTime value) {
+    public OverLegalHoursWorkTime add(OverLegalHoursWorkTime value) {
         return new OverLegalHoursWorkTime(this.value.add(value.value));
     }
 

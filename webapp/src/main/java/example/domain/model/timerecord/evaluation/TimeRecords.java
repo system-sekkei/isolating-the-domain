@@ -35,10 +35,6 @@ public class TimeRecords {
         return new AttendDates(list.stream().map(TimeRecord::workDate).collect(toList()));
     }
 
-    public WeeklyTimeRecord weeklyRecords(WorkDate workDate) {
-        return new WeeklyTimeRecord(new TimeRecords(list.stream().filter(record -> record.workDate().sameWeek(workDate)).collect(toList())));
-    }
-
     public TimeRecords recordsToDate(WorkDate workDate) {
         return new TimeRecords(list.stream().filter(record -> record.workDate().isBefore(workDate) || record.workDate().hasSameValue(workDate)).collect(toList()));
     }
@@ -50,20 +46,6 @@ public class TimeRecords {
     public WorkTimes workTimes() {
         return new WorkTimes(list().stream()
                 .map(timeRecord -> timeRecord.actualWorkDateTime.workTime()).collect(toList()));
-    }
-
-    public TimeRecords monthlyRecords(WorkDate workDate) {
-        return new TimeRecords(list.stream().filter(record -> record.workDate().sameMonth(workDate)).collect(toList()));
-    }
-
-    public OverLegalHoursWorkTime overLegalHoursWorkTimes() {
-        OverLegalHoursWorkTime total = new OverLegalHoursWorkTime(new QuarterHour());
-        for (TimeRecord timeRecord : list) {
-            OverLegalHoursWorkTime overLegalHoursWorkTime = timeRecord.actualWorkDateTime.overLegalHoursWorkTime(this);
-            total = total.add(overLegalHoursWorkTime);
-        }
-
-        return total;
     }
 
     public QuarterHour withinDailyLimitWorkTimeTotal() {

@@ -44,7 +44,8 @@ class PayrollTest {
         Contract contract = new Contract(null, contractConditions);
         TimeRecord timeRecord = new TimeRecord(null, actualWorkDateTime, null);
         TimeRecords timeRecords = new TimeRecords(List.of(timeRecord));
-        Attendance attendance = new Attendance(null, timeRecords);
+        TimeRecords beforeTimeRecords = new TimeRecords(List.of());
+        Attendance attendance = new Attendance(null, timeRecords, beforeTimeRecords);
         Payroll payroll = new Payroll(contract, attendance);
 
         PaymentAmount paymentAmount = payroll.totalPayment();

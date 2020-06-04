@@ -22,7 +22,8 @@ public class AttendanceQueryService {
      */
     public Attendance findAttendance(Employee employee, WorkMonth month) {
         TimeRecords timeRecords = timeRecordRepository.findTimeRecords(employee, month);
-        return new Attendance(month, timeRecords);
+        TimeRecords beforeTimeRecords = timeRecordRepository.findTimeRecords(employee, month.before());
+        return new Attendance(month, timeRecords, beforeTimeRecords);
     }
 
     /**

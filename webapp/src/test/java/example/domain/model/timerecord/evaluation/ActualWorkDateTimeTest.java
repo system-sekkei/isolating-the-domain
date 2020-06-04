@@ -1,5 +1,7 @@
 package example.domain.model.timerecord.evaluation;
 
+import example.domain.model.attendance.Attendance;
+import example.domain.model.attendance.WorkMonth;
 import example.domain.model.employee.EmployeeNumber;
 import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.api.Test;
@@ -19,8 +21,10 @@ class ActualWorkDateTimeTest {
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-28", "9:00", "18:00", "60", "0")),
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-29", "9:00", "18:00", "60", "0")),
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-30", "9:00", "20:00", "60", "0")));
-        WeeklyTimeRecord weeklyTimeRecord = new TimeRecords(list).weeklyRecords(WorkDate.from("2019-12-30"));
-        ActualWorkDateTime actualWorkDateTime = weeklyTimeRecord.value.at(WorkDate.from("2019-12-30")).actualWorkDateTime;
+        WorkDate workDate = WorkDate.from("2019-12-30");
+        Attendance attendance = new Attendance(WorkMonth.from(workDate), new TimeRecords(list), new TimeRecords(List.of()));
+        WeeklyTimeRecord weeklyTimeRecord = attendance.weeklyRecords(workDate);
+        ActualWorkDateTime actualWorkDateTime = weeklyTimeRecord.value.at(workDate).actualWorkDateTime;
 
         OverLegalHoursWorkTime overLegalHoursWorkTime = OverLegalHoursWorkTime.daily(actualWorkDateTime, weeklyTimeRecord);
 
@@ -37,8 +41,10 @@ class ActualWorkDateTimeTest {
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2020-05-28", "9:00", "20:00", "60", "0")),
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2020-05-29", "9:00", "18:00", "60", "0")),
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2020-05-30", "9:00", "19:00", "60", "0")));
-        WeeklyTimeRecord weeklyTimeRecord = new TimeRecords(list).weeklyRecords(WorkDate.from("2020-05-30"));
-        ActualWorkDateTime actualWorkDateTime = weeklyTimeRecord.value.at(WorkDate.from("2020-05-30")).actualWorkDateTime;
+        WorkDate workDate = WorkDate.from("2020-05-30");
+        Attendance attendance = new Attendance(WorkMonth.from(workDate), new TimeRecords(list), new TimeRecords(List.of()));
+        WeeklyTimeRecord weeklyTimeRecord = attendance.weeklyRecords(workDate);
+        ActualWorkDateTime actualWorkDateTime = weeklyTimeRecord.value.at(workDate).actualWorkDateTime;
 
         OverLegalHoursWorkTime overLegalHoursWorkTime = OverLegalHoursWorkTime.daily(actualWorkDateTime, weeklyTimeRecord);
 
