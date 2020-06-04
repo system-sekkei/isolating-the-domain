@@ -35,7 +35,7 @@ public class WageListController {
     @GetMapping
     public String list(Employee employee, Model model) {
         ContractConditions contractConditions = contractQueryService.getContractWages(employee);
-        model.addAttribute("contractWages", contractConditions);
+        model.addAttribute("contractConditions", contractConditions);
         return "wage/list";
     }
 
