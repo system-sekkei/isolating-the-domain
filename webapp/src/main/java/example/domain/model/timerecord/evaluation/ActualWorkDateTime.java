@@ -1,6 +1,5 @@
 package example.domain.model.timerecord.evaluation;
 
-import example.domain.model.attendance.Attendance;
 import example.domain.model.timerecord.timefact.WorkRange;
 import example.domain.type.time.Minute;
 import example.domain.type.time.QuarterHour;
@@ -100,9 +99,8 @@ public class ActualWorkDateTime {
         return workTime().overDailyLimitWorkTime();
     }
 
-    public LegalDaysOffWorkTime legalDaysOffWorkTime(Attendance attendance) {
-        WeeklyTimeRecord weeklyRecords = attendance.weeklyRecords(workDate());
-        Optional<TimeRecord> lastDayOff = weeklyRecords.lastDayOff();
+    public LegalDaysOffWorkTime legalDaysOffWorkTime(WeeklyTimeRecord weeklyTimeRecord) {
+        Optional<TimeRecord> lastDayOff = weeklyTimeRecord.lastDayOff();
 
         if (lastDayOff.isPresent() && lastDayOff.get().workDate().hasSameValue(workDate())) {
             return new LegalDaysOffWorkTime(workTime().value);
@@ -111,19 +109,18 @@ public class ActualWorkDateTime {
         return new LegalDaysOffWorkTime(new QuarterHour());
     }
 
-    public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime(Attendance attendance) {
+    public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime(WeeklyTimeRecord weeklyTimeRecord) {
         // TODO:
         return new OverLegalMoreThan60HoursWorkTime(new QuarterHour());
     }
 
-    public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime(Attendance attendance) {
+    public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime(WeeklyTimeRecord weeklyTimeRecord) {
         // TODO:
         // OverLegalWithin60HoursWorkTime.daily(this);
-        return new OverLegalWithin60HoursWorkTime(overLegalHoursWorkTime(attendance).quarterHour());
+        return new OverLegalWithin60HoursWorkTime(overLegalHoursWorkTime(weeklyTimeRecord).quarterHour());
     }
 
-    public OverLegalHoursWorkTime overLegalHoursWorkTime(Attendance attendance) {
-        WeeklyTimeRecord weeklyTimeRecord = attendance.weeklyRecords(workDate());
+    public OverLegalHoursWorkTime overLegalHoursWorkTime(WeeklyTimeRecord weeklyTimeRecord) {
         return OverLegalHoursWorkTime.daily(this, weeklyTimeRecord);
     }
 }

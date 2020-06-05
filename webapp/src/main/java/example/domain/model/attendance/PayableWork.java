@@ -27,15 +27,15 @@ public class PayableWork {
         return actualWorkDateTime.nightWorkTime().quarterHour();
     }
 
-    public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime(Attendance attendance) {
-        return actualWorkDateTime.overLegalMoreThan60HoursWorkTime(attendance);
+    public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime(WeeklyTimeRecord weeklyTimeRecord) {
+        return actualWorkDateTime.overLegalMoreThan60HoursWorkTime(weeklyTimeRecord);
     }
 
-    public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime(Attendance attendance) {
-        return actualWorkDateTime.overLegalWithin60HoursWorkTime(attendance);
+    public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime(WeeklyTimeRecord weeklyTimeRecord) {
+        return actualWorkDateTime.overLegalWithin60HoursWorkTime(weeklyTimeRecord);
     }
 
-    public LegalDaysOffWorkTime legalDaysOffWorkTime(Attendance attendance) {
-        return actualWorkDateTime.legalDaysOffWorkTime(attendance);
+    public LegalDaysOffWorkTime legalDaysOffWorkTime(WeeklyTimeRecord weeklyTimeRecord) {
+        return actualWorkDateTime.legalDaysOffWorkTime(weeklyTimeRecord);
     }
 }

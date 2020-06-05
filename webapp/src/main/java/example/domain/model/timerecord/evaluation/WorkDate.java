@@ -53,8 +53,8 @@ public class WorkDate {
         return value;
     }
 
-    public boolean sameWeek(WorkDate workDate) {
-        return value.sameWeek(workDate.toDate());
+    public boolean sameWeek(Date date) {
+        return value.sameWeek(date);
     }
 
     public boolean isBefore(WorkDate workDate) {

@@ -3,19 +3,32 @@ package example.domain.model.timerecord.evaluation;
 import example.domain.model.legislation.DaysOffStatus;
 import example.domain.model.legislation.WeeklyWorkingHoursLimit;
 import example.domain.model.legislation.WeeklyWorkingHoursStatus;
-import example.domain.type.time.QuarterHour;
+import example.domain.type.date.Date;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * 週の勤務実績
  */
 public class WeeklyTimeRecord {
+    // TODO: 週番号情報
     TimeRecords value;
 
     public WeeklyTimeRecord(TimeRecords value) {
         this.value = value;
+    }
+
+    public static WeeklyTimeRecord weeklyRecords(TimeRecords monthlyTimeRecords, TimeRecords beforeMonthlyRecords, Date date) {
+        List<TimeRecord> list = Stream.concat(
+                beforeMonthlyRecords.list().stream(),
+                monthlyTimeRecords.list().stream()).collect(Collectors.toList());
+        return new WeeklyTimeRecord(new TimeRecords(list.stream().filter(record -> record.workDate().sameWeek(date)).collect(toList())));
     }
 
     public WeeklyWorkingHoursStatus weeklyWorkingHoursStatus() {

@@ -2,6 +2,7 @@ package example.application.coordinator.payroll;
 
 import example.application.service.attendance.AttendanceQueryService;
 import example.application.service.contract.ContractQueryService;
+import example.application.service.timerecord.TimeRecordQueryService;
 import example.domain.model.attendance.Attendance;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.contract.Contract;
@@ -40,8 +41,9 @@ public class PayrollQueryCoordinator {
     public Payroll payroll(Employee employee, WorkMonth workMonth) {
         ContractConditions contractConditions = contractQueryService.getContractWages(employee);
         Attendance attendance = attendanceQueryService.findAttendance(employee, workMonth);
+        Attendance beforeMonthAttendance = attendanceQueryService.findAttendance(employee, workMonth.before());
 
-        return new Payroll(new Contract(employee, contractConditions), attendance);
+        return new Payroll(new Contract(employee, contractConditions), attendance, beforeMonthAttendance);
     }
 
     PayrollQueryCoordinator(ContractQueryService contractQueryService, AttendanceQueryService attendanceQueryService) {
