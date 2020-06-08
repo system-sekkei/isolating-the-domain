@@ -89,12 +89,7 @@ public class Date {
     }
 
     public boolean sameWeek(Date date) {
-        // TODO: この比較で年跨ぎ時におかしくならないか確認する
-        return this.year().sameValue(date.year()) && weekOfWeekBasedYear(date) == weekOfWeekBasedYear(this);
-    }
-
-    private int weekOfWeekBasedYear(Date date) {
-        return date.value().get(WeekFields.of(Locale.JAPANESE).weekOfWeekBasedYear());
+        return this.weekBasedYear() == date.weekBasedYear() && this.weekOfWeekBasedYear() == date.weekOfWeekBasedYear();
     }
 
     public boolean isBefore(Date date) {
@@ -103,5 +98,13 @@ public class Date {
 
     public boolean sameMonth(Date date) {
         return this.year().sameValue(date.year()) && this.month() == date.month();
+    }
+
+    int weekBasedYear() {
+        return value().get(WeekFields.of(Locale.JAPANESE).weekBasedYear());
+    }
+
+    int weekOfWeekBasedYear() {
+        return value().get(WeekFields.of(Locale.JAPANESE).weekOfWeekBasedYear());
     }
 }

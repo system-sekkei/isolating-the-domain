@@ -39,7 +39,7 @@ public class Payroll {
         for (PayableWork payableWork : attendance.listPayableWork()) {
             WageCondition wageCondition = contract.wageConditionAt(payableWork.date());
 
-            WeeklyTimeRecord weeklyTimeRecord = WeeklyTimeRecord.weeklyRecords(attendance.timeRecords(), beforeMonthAttendance.timeRecords(), payableWork.date());
+            WeeklyTimeRecord weeklyTimeRecord = WeeklyTimeRecord.from(attendance.timeRecords(), beforeMonthAttendance.timeRecords(), payableWork.date());
 
             paymentAmount = paymentAmount.add(new PaymentWorkTime(payableWork.workTime()).multiply(wageCondition.baseHourlyWage().value()))
                     .add(new PaymentWorkTime(payableWork.nightWorkTime()).multiply(wageCondition.nightHourlyExtraWage().value()))

@@ -17,17 +17,16 @@ import static java.util.stream.Collectors.toList;
  * 週の勤務実績
  */
 public class WeeklyTimeRecord {
-    // TODO: 週番号情報
     TimeRecords value;
 
     public WeeklyTimeRecord(TimeRecords value) {
         this.value = value;
     }
 
-    public static WeeklyTimeRecord weeklyRecords(TimeRecords monthlyTimeRecords, TimeRecords beforeMonthlyRecords, Date date) {
+    public static WeeklyTimeRecord from(TimeRecords monthlyRecords, TimeRecords beforeMonthlyRecords, Date date) {
         List<TimeRecord> list = Stream.concat(
                 beforeMonthlyRecords.list().stream(),
-                monthlyTimeRecords.list().stream()).collect(Collectors.toList());
+                monthlyRecords.list().stream()).collect(Collectors.toList());
         return new WeeklyTimeRecord(new TimeRecords(list.stream().filter(record -> record.workDate().sameWeek(date)).collect(toList())));
     }
 
