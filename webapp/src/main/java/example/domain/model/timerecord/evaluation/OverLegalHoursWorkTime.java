@@ -2,17 +2,18 @@ package example.domain.model.timerecord.evaluation;
 
 import example.domain.model.legislation.WeeklyWorkingHoursLimit;
 import example.domain.model.legislation.WeeklyWorkingHoursStatus;
-import example.domain.type.time.Hour;
 import example.domain.type.time.QuarterHour;
 
 /**
  * 法定時間外労働 労働時間
  */
 public class OverLegalHoursWorkTime {
-    QuarterHour value;
+    OverLegalWithin60HoursWorkTime within60Hours;
+    OverLegalMoreThan60HoursWorkTime moreThan60Hours;
 
-    public OverLegalHoursWorkTime(QuarterHour value) {
-        this.value = value;
+    public OverLegalHoursWorkTime(OverLegalWithin60HoursWorkTime within60Hours, OverLegalMoreThan60HoursWorkTime moreThan60Hours) {
+        this.within60Hours = within60Hours;
+        this.moreThan60Hours = moreThan60Hours;
     }
 
     public static OverLegalHoursWorkTime daily(ActualWorkDateTime actualWorkDateTime, WeeklyTimeRecord weeklyTimeRecord) {
@@ -30,34 +31,22 @@ public class OverLegalHoursWorkTime {
             overLegalHoursWorkTime = actualWorkDateTime.overDailyLimitWorkTime();
         }
 
-        return new OverLegalHoursWorkTime(overLegalHoursWorkTime);
-    }
+        // TODO: 月60時間超えの判定
+        OverLegalWithin60HoursWorkTime within60Hours = new OverLegalWithin60HoursWorkTime(overLegalHoursWorkTime);
+        OverLegalMoreThan60HoursWorkTime moreThan60Hours = new OverLegalMoreThan60HoursWorkTime(new QuarterHour());
 
-    public OverLegalHoursWorkTime add(OverLegalHoursWorkTime value) {
-        return new OverLegalHoursWorkTime(this.value.add(value.value));
+        return new OverLegalHoursWorkTime(within60Hours, moreThan60Hours);
     }
-
-    static OverLegalHoursWorkTime max(OverLegalHoursWorkTime a, OverLegalHoursWorkTime b) {
-        if (a.value.moreThan(b.value)) {
-            return a;
-        }
-        return b;
-     }
 
     public QuarterHour quarterHour() {
-        return value;
+        return within60Hours.quarterHour().add(moreThan60Hours.quarterHour());
     }
 
-    @Override
-    public String toString() {
-        return value.toString();
+    public OverLegalWithin60HoursWorkTime within60HoursWorkTime() {
+        return within60Hours;
     }
 
-    public MonthlyOverLegalHoursStatus monthlyOverLegalHoursStatus() {
-        if (value.moreThan(new Hour(60))) {
-            return MonthlyOverLegalHoursStatus.月６０時間超;
-        }
-
-        return MonthlyOverLegalHoursStatus.月６０時間以内;
+    public OverLegalMoreThan60HoursWorkTime moreThan60HoursWorkTime() {
+        return moreThan60Hours;
     }
 }

@@ -6,6 +6,7 @@ import example.domain.model.contract.Contract;
 import example.domain.model.contract.wage.WageCondition;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.employee.Name;
+import example.domain.model.timerecord.evaluation.OverLegalHoursWorkTime;
 import example.domain.model.timerecord.evaluation.WeeklyTimeRecord;
 
 import java.math.BigDecimal;
@@ -41,10 +42,12 @@ public class Payroll {
 
             WeeklyTimeRecord weeklyTimeRecord = WeeklyTimeRecord.from(attendance.timeRecords(), beforeMonthAttendance.timeRecords(), payableWork.date());
 
+            OverLegalHoursWorkTime overLegalHoursWorkTime = payableWork.overLegalHoursWorkTime(weeklyTimeRecord);
+
             paymentAmount = paymentAmount.add(new PaymentWorkTime(payableWork.workTime()).multiply(wageCondition.baseHourlyWage().value()))
                     .add(new PaymentWorkTime(payableWork.nightWorkTime()).multiply(wageCondition.nightHourlyExtraWage().value()))
-                    .add(new PaymentWorkTime(payableWork.overLegalMoreThan60HoursWorkTime(weeklyTimeRecord).quarterHour()).multiply(wageCondition.overLegalMoreThan60HoursHourlyExtraWage().value()))
-                    .add(new PaymentWorkTime(payableWork.overLegalWithin60HoursWorkTime(weeklyTimeRecord).quarterHour()).multiply(wageCondition.overLegalWithin60HoursHourlyExtraWage().value())
+                    .add(new PaymentWorkTime(overLegalHoursWorkTime.moreThan60HoursWorkTime().quarterHour()).multiply(wageCondition.overLegalMoreThan60HoursHourlyExtraWage().value()))
+                    .add(new PaymentWorkTime(overLegalHoursWorkTime.within60HoursWorkTime().quarterHour()).multiply(wageCondition.overLegalWithin60HoursHourlyExtraWage().value())
                     .add(new PaymentWorkTime(payableWork.legalDaysOffWorkTime(weeklyTimeRecord).quarterHour()).multiply(wageCondition.legalDaysOffHourlyExtraWage().value())));
         }
 

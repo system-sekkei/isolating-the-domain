@@ -109,17 +109,6 @@ public class ActualWorkDateTime {
         return new LegalDaysOffWorkTime(new QuarterHour());
     }
 
-    public OverLegalMoreThan60HoursWorkTime overLegalMoreThan60HoursWorkTime(WeeklyTimeRecord weeklyTimeRecord) {
-        // TODO:
-        return new OverLegalMoreThan60HoursWorkTime(new QuarterHour());
-    }
-
-    public OverLegalWithin60HoursWorkTime overLegalWithin60HoursWorkTime(WeeklyTimeRecord weeklyTimeRecord) {
-        // TODO:
-        // OverLegalWithin60HoursWorkTime.daily(this);
-        return new OverLegalWithin60HoursWorkTime(overLegalHoursWorkTime(weeklyTimeRecord).quarterHour());
-    }
-
     public OverLegalHoursWorkTime overLegalHoursWorkTime(WeeklyTimeRecord weeklyTimeRecord) {
         return OverLegalHoursWorkTime.daily(this, weeklyTimeRecord);
     }
