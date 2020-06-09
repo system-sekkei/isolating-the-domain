@@ -47,7 +47,7 @@ public class Amount {
     }
 
     public Amount addAll(Amount... amounts) {
-        int total = 0;
+        int total = value;
         for (Amount amount : amounts) {
             total = total + amount.value;
         }

@@ -30,7 +30,7 @@ public class PaymentAmount {
     }
 
     public PaymentAmount addAll(PaymentAmount... paymentAmounts) {
-        Amount amount = new Amount(0);
+        Amount amount = value;
         Amount[] amounts = Arrays.stream(paymentAmounts).map(paymentAmount -> paymentAmount.value).toArray(Amount[]::new);
         return new PaymentAmount(amount.addAll(amounts));
     }
