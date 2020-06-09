@@ -23,6 +23,7 @@ public class ContractEffectiveDate {
         this.value = value;
     }
 
+    // TODO: 契約期間がない契約はありえない
     public static ContractEffectiveDate none() {
         return new ContractEffectiveDate(Date.distantFuture());
     }

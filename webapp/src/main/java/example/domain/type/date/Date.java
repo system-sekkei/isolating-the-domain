@@ -10,6 +10,7 @@ import java.util.Locale;
 /**
  * 日付
  */
+// TODO: LocalDateでいいのではないかを検討する
 public class Date {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
