@@ -110,6 +110,6 @@ public class ActualWorkDateTime {
     }
 
     public OverLegalHoursWorkTime overLegalHoursWorkTime(WeeklyTimeRecord weeklyTimeRecord) {
-        return OverLegalHoursWorkTime.daily(this, weeklyTimeRecord);
+        return OverLegalHoursWorkTime.from(this, weeklyTimeRecord);
     }
 }

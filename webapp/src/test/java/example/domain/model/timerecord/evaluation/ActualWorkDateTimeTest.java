@@ -23,7 +23,7 @@ class ActualWorkDateTimeTest {
         WeeklyTimeRecord weeklyTimeRecord = WeeklyTimeRecord.from(new TimeRecords(list), new TimeRecords(List.of()), workDate.toDate());
         ActualWorkDateTime actualWorkDateTime = weeklyTimeRecord.value.at(workDate).actualWorkDateTime;
 
-        OverLegalHoursWorkTime overLegalHoursWorkTime = OverLegalHoursWorkTime.daily(actualWorkDateTime, weeklyTimeRecord);
+        OverLegalHoursWorkTime overLegalHoursWorkTime = OverLegalHoursWorkTime.from(actualWorkDateTime, weeklyTimeRecord);
 
         assertEquals("120", overLegalHoursWorkTime.quarterHour().minute().toString());
     }
@@ -42,7 +42,7 @@ class ActualWorkDateTimeTest {
         WeeklyTimeRecord weeklyTimeRecord = WeeklyTimeRecord.from(new TimeRecords(list), new TimeRecords(List.of()), workDate.toDate());
         ActualWorkDateTime actualWorkDateTime = weeklyTimeRecord.value.at(workDate).actualWorkDateTime;
 
-        OverLegalHoursWorkTime overLegalHoursWorkTime = OverLegalHoursWorkTime.daily(actualWorkDateTime, weeklyTimeRecord);
+        OverLegalHoursWorkTime overLegalHoursWorkTime = OverLegalHoursWorkTime.from(actualWorkDateTime, weeklyTimeRecord);
 
         assertEquals("480", overLegalHoursWorkTime.quarterHour().minute().toString());
     }
