@@ -6,6 +6,7 @@ import java.math.RoundingMode;
 /**
  * 15分単位の時間
  */
+ // TODO: ドメイン(ビジネス)への移動を検討した方がいいかもしれない
 public class QuarterHour {
 
     Minute value;
