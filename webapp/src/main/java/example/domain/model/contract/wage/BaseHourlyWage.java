@@ -36,7 +36,7 @@ public class BaseHourlyWage {
     }
 
     public BigDecimal toBigDecimal() {
-        return value.value().value();
+        return new BigDecimal(value.value().value());
     }
 
     public HourlyWage value() {

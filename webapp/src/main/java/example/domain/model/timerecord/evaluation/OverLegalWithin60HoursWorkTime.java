@@ -1,6 +1,5 @@
 package example.domain.model.timerecord.evaluation;
 
-import example.domain.model.attendance.Attendance;
 import example.domain.type.time.QuarterHour;
 
 /**
@@ -12,11 +11,6 @@ public class OverLegalWithin60HoursWorkTime {
 
     public OverLegalWithin60HoursWorkTime(QuarterHour value) {
         this.value = value;
-    }
-
-    public static OverLegalWithin60HoursWorkTime daily(ActualWorkDateTime actualWorkDateTime) {
-        // TODO:
-        return null;
     }
 
     public QuarterHour quarterHour() {

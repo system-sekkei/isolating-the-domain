@@ -13,6 +13,7 @@ import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -50,6 +51,6 @@ class PayrollTest {
 
         PaymentAmount paymentAmount = payroll.totalPayment();
 
-        assertEquals(expected, paymentAmount.value.value().intValue());
+        assertEquals(expected, new BigDecimal(paymentAmount.value.value()).intValue());
     }
 }

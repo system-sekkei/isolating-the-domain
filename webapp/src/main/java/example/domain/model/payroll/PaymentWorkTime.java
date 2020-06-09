@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 /**
  * 支払い対象時間
  */
+ // TODO: 削除する
 public class PaymentWorkTime {
     QuarterHour value;
 
@@ -17,6 +18,6 @@ public class PaymentWorkTime {
 
     public PaymentAmount multiply(HourlyWage hourlyWage) {
         BigDecimal hour = value.bigDecimalValue();
-        return new PaymentAmount(hour.multiply(hourlyWage.value().value()));
+        return new PaymentAmount(hour.multiply(new BigDecimal(hourlyWage.value().value())));
     }
 }

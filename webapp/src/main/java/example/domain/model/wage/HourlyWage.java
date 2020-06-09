@@ -26,7 +26,7 @@ public class HourlyWage {
 
     @Override
     public String toString() {
-        if (value.value().equals(disable().value().value())) {
+        if (value.value() == disable().value().value()) {
             return "";
         }
         return value.toString();
