@@ -23,8 +23,7 @@ public class PaymentAmount {
     }
 
     public static PaymentAmount from(HourlyWage wage, QuarterHour workTime) {
-        BigDecimal hour = workTime.bigDecimalValue();
-        return new PaymentAmount(hour.multiply(new BigDecimal(wage.value().value())));
+        return new PaymentAmount(wage.multiply(workTime));
     }
 
     PaymentAmount add(PaymentAmount paymentAmount) {

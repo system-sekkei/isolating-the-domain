@@ -1,5 +1,7 @@
 package example.domain.type.amount;
 
+import example.domain.type.time.QuarterHour;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -34,7 +36,15 @@ public class Amount {
     }
 
     public Amount multiply(Percentage rate, RoundingMode roundingMode) {
-        return new Amount(new BigDecimal(value()).multiply(rate.rate()).setScale(new BigDecimal(value()).scale(), roundingMode.value).intValue());
+        return multiply(rate.rate(), roundingMode);
+    }
+
+    public Amount multiply(QuarterHour time, RoundingMode roundingMode) {
+        return multiply(time.bigDecimalValue(), roundingMode);
+    }
+
+    Amount multiply(BigDecimal other, RoundingMode roundingMode) {
+        return new Amount(new BigDecimal(value()).multiply(other).setScale(0, roundingMode.value).intValue());
     }
 
     @Override
@@ -53,4 +63,5 @@ public class Amount {
         }
         return new Amount(total);
     }
+
 }

@@ -1,6 +1,7 @@
 package example.domain.model.wage;
 
 import example.domain.type.amount.Amount;
+import example.domain.type.amount.RoundingMode;
 import example.domain.type.time.QuarterHour;
 
 /**
@@ -38,6 +39,6 @@ public class HourlyWage {
     }
 
     public Amount multiply(QuarterHour time) {
-        return new Amount(value.value() * time.minute().toInt());
+        return value.multiply(time, RoundingMode.四捨五入); // TODO: 端数処理の仕方は就業規則で決める
     }
 }
