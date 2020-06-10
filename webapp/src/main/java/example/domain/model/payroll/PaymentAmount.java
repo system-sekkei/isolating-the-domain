@@ -1,6 +1,8 @@
 package example.domain.model.payroll;
 
+import example.domain.model.wage.HourlyWage;
 import example.domain.type.amount.Amount;
+import example.domain.type.time.QuarterHour;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -18,6 +20,11 @@ public class PaymentAmount {
 
     public PaymentAmount(Amount value) {
         this.value = value;
+    }
+
+    public static PaymentAmount from(HourlyWage wage, QuarterHour workTime) {
+        BigDecimal hour = workTime.bigDecimalValue();
+        return new PaymentAmount(hour.multiply(new BigDecimal(wage.value().value())));
     }
 
     PaymentAmount add(PaymentAmount paymentAmount) {

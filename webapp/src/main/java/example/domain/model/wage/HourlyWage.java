@@ -1,6 +1,7 @@
 package example.domain.model.wage;
 
 import example.domain.type.amount.Amount;
+import example.domain.type.time.QuarterHour;
 
 /**
  * 時給
@@ -34,5 +35,9 @@ public class HourlyWage {
 
     public Amount value() {
         return value;
+    }
+
+    public Amount multiply(QuarterHour time) {
+        return new Amount(value.value() * time.minute().toInt());
     }
 }

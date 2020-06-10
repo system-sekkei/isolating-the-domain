@@ -44,12 +44,12 @@ public class Payroll {
 
             OverLegalHoursWorkTime overLegalHoursWorkTime = payableWork.overLegalHoursWorkTime(weeklyTimeRecord);
 
-            // TODO: 支払い対象時間を出すことがもっとわかりやすいようにする
-            PaymentAmount 基本給 = new PaymentWorkTime(payableWork.workTime()).multiply(wageCondition.baseHourlyWage().value());
-            PaymentAmount 深夜割増 = new PaymentWorkTime(payableWork.nightWorkTime()).multiply(wageCondition.nightHourlyExtraWage().value());
-            PaymentAmount 法定時間外労働月60時間超割増 = new PaymentWorkTime(overLegalHoursWorkTime.moreThan60HoursWorkTime().quarterHour()).multiply(wageCondition.overLegalMoreThan60HoursHourlyExtraWage().value());
-            PaymentAmount 法定時間外労働月60時間以内割増 = new PaymentWorkTime(overLegalHoursWorkTime.within60HoursWorkTime().quarterHour()).multiply(wageCondition.overLegalWithin60HoursHourlyExtraWage().value());
-            PaymentAmount 法定休日労働割増 = new PaymentWorkTime(payableWork.legalDaysOffWorkTime(weeklyTimeRecord).quarterHour()).multiply(wageCondition.legalDaysOffHourlyExtraWage().value());
+            PaymentAmount 基本給 = PaymentAmount.from(wageCondition.baseHourlyWage().value(), payableWork.workTime());
+            PaymentAmount 深夜割増 = PaymentAmount.from(wageCondition.nightHourlyExtraWage().value(), payableWork.nightWorkTime());
+            PaymentAmount 法定時間外労働月60時間超割増 = PaymentAmount.from(wageCondition.overLegalMoreThan60HoursHourlyExtraWage().value(), overLegalHoursWorkTime.moreThan60HoursWorkTime().quarterHour());
+            PaymentAmount 法定時間外労働月60時間以内割増 = PaymentAmount.from(wageCondition.overLegalWithin60HoursHourlyExtraWage().value(), overLegalHoursWorkTime.within60HoursWorkTime().quarterHour());
+            PaymentAmount 法定休日労働割増 = PaymentAmount.from(wageCondition.legalDaysOffHourlyExtraWage().value(), payableWork.legalDaysOffWorkTime(weeklyTimeRecord).quarterHour());
+
             paymentAmount = paymentAmount.addAll(基本給, 深夜割増, 法定時間外労働月60時間超割増, 法定時間外労働月60時間以内割増, 法定休日労働割増);
         }
 

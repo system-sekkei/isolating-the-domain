@@ -61,4 +61,8 @@ public class Minute {
     public boolean moreThan(Minute value) {
         return this.value > value.value;
     }
+
+    public int toInt() {
+        return value;
+    }
 }
