@@ -30,15 +30,15 @@ public class WeeklyTimeRecord {
         return new WeeklyTimeRecord(new TimeRecords(list.stream().filter(record -> record.workDate().sameWeek(date)).collect(toList())));
     }
 
-    public WeeklyWorkingHoursStatus weeklyWorkingHoursStatus() {
-        if (value.withinDailyLimitWorkTimeTotal().moreThan(WeeklyWorkingHoursLimit.legal().toMinute())) {
+    public WeeklyWorkingHoursStatus weeklyWorkingHoursStatus(WorkDate workDate) {
+        if (recordsToDate(workDate).value.withinDailyLimitWorkTimeTotal().moreThan(WeeklyWorkingHoursLimit.legal().toMinute())) {
             return WeeklyWorkingHoursStatus.法定時間内労働時間の累計が４０時間を超えている;
         } else {
             return WeeklyWorkingHoursStatus.法定時間内労働時間の累計が４０時間以内;
         }
     }
 
-    public WeeklyTimeRecord recordsToDate(WorkDate workDate) {
+    WeeklyTimeRecord recordsToDate(WorkDate workDate) {
         return new WeeklyTimeRecord(value.recordsToDate(workDate));
     }
 
