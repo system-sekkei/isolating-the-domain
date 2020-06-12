@@ -15,7 +15,7 @@ public class ContractConditions {
 
     public List<ContractCondition> list() {
         return list.stream()
-                .sorted((c1, c2) -> c2.effectiveDate().value().value.compareTo(c1.effectiveDate().value().value))
+                .sorted((c1, c2) -> c2.effectiveDate().value().compareTo(c1.effectiveDate().value()))
                 .collect(Collectors.toList());
     }
 }

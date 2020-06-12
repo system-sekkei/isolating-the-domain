@@ -7,7 +7,6 @@ import example.application.service.employee.EmployeeQueryService;
 import example.domain.model.contract.*;
 import example.domain.model.contract.wage.*;
 import example.domain.model.employee.*;
-import example.domain.type.date.Date;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -49,13 +48,13 @@ public class ContractConditionRecordServiceTest {
     void 時給が登録できる(EmployeeNumber employeeNumber) {
         Employee employee = employeeQueryService.choose(employeeNumber);
 
-        Date effectiveDate1 = new Date(LocalDate.parse("2018-12-12", DateTimeFormatter.ISO_DATE));
+        LocalDate effectiveDate1 = LocalDate.parse("2018-12-12", DateTimeFormatter.ISO_DATE);
         updateHourlyWageContract(employee, new ContractEffectiveDate(effectiveDate1), new BaseHourlyWage(800));
 
         ContractConditions history1 = sutQuery.getContractWages(employee);
         assertEquals(1, history1.list().size());
         assertAll(
-                () -> assertEquals(effectiveDate1.value, history1.list().get(0).effectiveDate().value().value),
+                () -> assertEquals(effectiveDate1, history1.list().get(0).effectiveDate().value()),
                 () -> assertEquals(800, history1.list().get(0).baseHourlyWage().toBigDecimal().intValue())
         );
     }
@@ -63,12 +62,12 @@ public class ContractConditionRecordServiceTest {
     void 指定日以降の時給を登録できる(EmployeeNumber employeeNumber) {
         Employee employee = employeeQueryService.choose(employeeNumber);
 
-        Date effectiveDate2 = new Date(LocalDate.parse("2018-12-22", DateTimeFormatter.ISO_DATE));
+        LocalDate effectiveDate2 = LocalDate.parse("2018-12-22", DateTimeFormatter.ISO_DATE);
         updateHourlyWageContract(employee, new ContractEffectiveDate(effectiveDate2), new BaseHourlyWage(850));
         ContractConditions history2 = sutQuery.getContractWages(employee);
         assertEquals(2, history2.list().size());
         assertAll(
-                () -> assertEquals(effectiveDate2.value, history2.list().get(0).effectiveDate().value().value),
+                () -> assertEquals(effectiveDate2, history2.list().get(0).effectiveDate().value()),
                 () -> assertEquals(850, history2.list().get(0).baseHourlyWage().toBigDecimal().intValue()),
                 () -> assertEquals(800, history2.list().get(1).baseHourlyWage().toBigDecimal().intValue())
         );
@@ -77,14 +76,14 @@ public class ContractConditionRecordServiceTest {
     void 指定日以降次の指定があるまでの時給を登録できる(EmployeeNumber employeeNumber) {
         Employee employee = employeeQueryService.choose(employeeNumber);
 
-        Date effectiveDate3 = new Date(LocalDate.parse("2018-12-17", DateTimeFormatter.ISO_DATE));
+        LocalDate effectiveDate3 = LocalDate.parse("2018-12-17", DateTimeFormatter.ISO_DATE);
         updateHourlyWageContract(employee, new ContractEffectiveDate(effectiveDate3), new BaseHourlyWage(830));
         ContractConditions history3 = sutQuery.getContractWages(employee);
         assertEquals(3, history3.list().size());
         assertAll(
                 () -> assertEquals(850, history3.list().get(0).baseHourlyWage().toBigDecimal().intValue()),
 
-                () -> assertEquals(effectiveDate3.value, history3.list().get(1).effectiveDate().value().value),
+                () -> assertEquals(effectiveDate3, history3.list().get(1).effectiveDate().value()),
                 () -> assertEquals(830, history3.list().get(1).baseHourlyWage().toBigDecimal().intValue()),
 
                 () -> assertEquals(800, history3.list().get(2).baseHourlyWage().toBigDecimal().intValue())
@@ -94,7 +93,7 @@ public class ContractConditionRecordServiceTest {
     void 同じ指定日の時給を上書きできる(EmployeeNumber employeeNumber) {
         Employee employee = employeeQueryService.choose(employeeNumber);
 
-        Date effectiveDate1 = new Date(LocalDate.parse("2018-12-12", DateTimeFormatter.ISO_DATE));
+        LocalDate effectiveDate1 = LocalDate.parse("2018-12-12", DateTimeFormatter.ISO_DATE);
         updateHourlyWageContract(employee, new ContractEffectiveDate(effectiveDate1), new BaseHourlyWage(1000));
 
         ContractConditions history = sutQuery.getContractWages(employee);

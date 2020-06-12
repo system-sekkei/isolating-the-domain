@@ -1,6 +1,7 @@
 package example.domain.model.contract;
 
 import example.domain.type.date.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,17 +11,18 @@ import java.time.format.DateTimeFormatter;
  */
 public class ContractEffectiveDate {
 
-    Date value;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    LocalDate value;
 
     @Deprecated
     public ContractEffectiveDate() {
     }
 
     public ContractEffectiveDate(String value) {
-        this(new Date(LocalDate.parse(value, DateTimeFormatter.ISO_DATE)));
+        this(LocalDate.parse(value, DateTimeFormatter.ISO_DATE));
     }
 
-    public ContractEffectiveDate(Date value) {
+    public ContractEffectiveDate(LocalDate value) {
         this.value = value;
     }
 
@@ -29,8 +31,8 @@ public class ContractEffectiveDate {
         return new ContractEffectiveDate(distantFuture());
     }
 
-    public static Date distantFuture() {
-        return new Date(LocalDate.of(9999, 12, 31));
+    public static LocalDate distantFuture() {
+        return LocalDate.of(9999, 12, 31);
     }
 
     @Override
@@ -38,18 +40,18 @@ public class ContractEffectiveDate {
         if (notAvailable()) {
             return "未設定";
         }
-        return value.value.format(DateTimeFormatter.ofPattern("uuuu年M月d日"));
+        return value.format(DateTimeFormatter.ofPattern("uuuu年M月d日"));
     }
 
     private boolean notAvailable() {
-        return value.value.equals(distantFuture().value);
+        return value.equals(distantFuture());
     }
 
     public boolean isAfter(Date date) {
-        return value.value.isAfter(date.value);
+        return value.isAfter(date.value);
     }
 
-    public Date value() {
+    public LocalDate value() {
         return value;
     }
 }

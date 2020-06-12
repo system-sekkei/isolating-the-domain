@@ -11,7 +11,6 @@ import example.domain.model.contract.wage.*;
 import example.domain.model.employee.*;
 import example.domain.model.payroll.Payroll;
 import example.domain.model.timerecord.evaluation.TimeRecord;
-import example.domain.type.date.Date;
 import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +44,7 @@ class PayrollQueryCoordinatorTest {
 
         {
             WageCondition wageCondition = new WageCondition(new BaseHourlyWage(1000), OverTimeExtraRate.regulation());
-            contractRecordService.registerHourlyWage(employee, new ContractEffectiveDate(new Date(LocalDate.parse("2018-11-20", DateTimeFormatter.ISO_DATE))), wageCondition);
+            contractRecordService.registerHourlyWage(employee, new ContractEffectiveDate(LocalDate.parse("2018-11-20", DateTimeFormatter.ISO_DATE)), wageCondition);
 
             Payroll payroll = sut.payroll(employee, new WorkMonth("2018-11"));
             assertEquals("0円", payroll.totalPayment().toString());
@@ -75,7 +74,7 @@ class PayrollQueryCoordinatorTest {
 
         {
             WageCondition wageCondition = new WageCondition(new BaseHourlyWage(2000), OverTimeExtraRate.regulation());
-            contractRecordService.registerHourlyWage(employee, new ContractEffectiveDate(new Date(LocalDate.parse("2018-11-25", DateTimeFormatter.ISO_DATE))), wageCondition);
+            contractRecordService.registerHourlyWage(employee, new ContractEffectiveDate(LocalDate.parse("2018-11-25", DateTimeFormatter.ISO_DATE)), wageCondition);
 
             Payroll payroll = sut.payroll(employee, new WorkMonth("2018-11"));
             assertEquals("3,700円", payroll.totalPayment().toString());
