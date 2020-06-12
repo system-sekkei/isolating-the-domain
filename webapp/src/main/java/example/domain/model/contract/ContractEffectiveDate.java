@@ -2,6 +2,7 @@ package example.domain.model.contract;
 
 import example.domain.type.date.Date;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -25,7 +26,11 @@ public class ContractEffectiveDate {
 
     // TODO: 契約期間がない契約はありえない
     public static ContractEffectiveDate none() {
-        return new ContractEffectiveDate(Date.distantFuture());
+        return new ContractEffectiveDate(distantFuture());
+    }
+
+    public static Date distantFuture() {
+        return new Date(LocalDate.of(9999, 12, 31));
     }
 
     @Override
@@ -37,7 +42,7 @@ public class ContractEffectiveDate {
     }
 
     private boolean notAvailable() {
-        return value.hasSameValue(Date.distantFuture());
+        return value.hasSameValue(distantFuture());
     }
 
     public boolean isAfter(Date date) {

@@ -4,8 +4,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.WeekFields;
-import java.util.Locale;
 
 /**
  * 日付
@@ -26,14 +24,6 @@ public class Date {
 
     public Date(LocalDate value) {
         this.value = value;
-    }
-
-    public static Date distantPast() {
-        return new Date(LocalDate.of(1, 1, 1));
-    }
-
-    public static Date distantFuture() {
-        return new Date(LocalDate.of(9999, 12, 31));
     }
 
     public LocalDate value() {
@@ -89,23 +79,8 @@ public class Date {
         return value.format(DateTimeFormatter.ofPattern("uuuuMMdd"));
     }
 
-    public boolean sameWeek(Date date) {
-        return this.weekBasedYear() == date.weekBasedYear() && this.weekOfWeekBasedYear() == date.weekOfWeekBasedYear();
-    }
-
     public boolean isBefore(Date date) {
         return value.isBefore(date.value);
     }
 
-    public boolean sameMonth(Date date) {
-        return this.year().sameValue(date.year()) && this.month() == date.month();
-    }
-
-    int weekBasedYear() {
-        return value().get(WeekFields.of(Locale.JAPANESE).weekBasedYear());
-    }
-
-    int weekOfWeekBasedYear() {
-        return value().get(WeekFields.of(Locale.JAPANESE).weekOfWeekBasedYear());
-    }
 }

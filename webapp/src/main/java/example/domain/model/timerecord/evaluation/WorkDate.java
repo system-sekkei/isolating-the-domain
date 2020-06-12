@@ -6,6 +6,8 @@ import example.domain.type.date.DayOfWeek;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.temporal.WeekFields;
+import java.util.Locale;
 
 /**
  * 勤務日付
@@ -53,15 +55,19 @@ public class WorkDate {
         return value;
     }
 
-    public boolean sameWeek(Date date) {
-        return value.sameWeek(date);
-    }
-
     public boolean isBefore(WorkDate workDate) {
         return value.isBefore(workDate.value);
     }
 
-    public boolean sameMonth(WorkDate workDate) {
-        return value.sameMonth(workDate.toDate());
+    public boolean sameWeek(Date date) {
+        return weekBasedYear(value()) == weekBasedYear(date) && weekOfWeekBasedYear(value()) == weekOfWeekBasedYear(date);
+    }
+
+    int weekBasedYear(Date date) {
+        return date.value().get(WeekFields.of(Locale.JAPANESE).weekBasedYear());
+    }
+
+    int weekOfWeekBasedYear(Date date) {
+        return date.value().get(WeekFields.of(Locale.JAPANESE).weekOfWeekBasedYear());
     }
 }
