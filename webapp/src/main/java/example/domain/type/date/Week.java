@@ -18,7 +18,7 @@ public class Week {
 
     public boolean contains(Date date) {
         for (Date d: dates.list) {
-            if (date.hasSameValue(d)) {
+            if (date.value.equals(d.value)) {
                 return true;
             }
         }
@@ -27,7 +27,7 @@ public class Week {
 
     public Date saturday() {
         for (Date d: dates.list) {
-            if (d.dayOfWeek() == DayOfWeek.土) {
+            if (DayOfWeek.of(d.value.getDayOfWeek()) == DayOfWeek.土) {
                 return d;
             }
         }

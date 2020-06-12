@@ -5,6 +5,8 @@ import example.domain.type.date.Date;
 import example.presentation.controller.timerecord.AttendanceForm;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +27,7 @@ class WeeklyTimeRecordTest {
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2020-05-30", "9:00", "18:00", "60", "0")),
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2020-05-31", "9:00", "20:00", "60", "0"))));
 
-        WeeklyTimeRecord weeklyTimeRecord = WeeklyTimeRecord.from(timeRecords, beforeMonthlyRecords, Date.from("2020-06-01"));
+        WeeklyTimeRecord weeklyTimeRecord = WeeklyTimeRecord.from(timeRecords, beforeMonthlyRecords, new Date(LocalDate.parse("2020-06-01", DateTimeFormatter.ISO_DATE)));
 
         List<String> result = weeklyTimeRecord.value.list().stream().map(r -> r.workDate().toDate().toString()).collect(Collectors.toList());
 
@@ -43,7 +45,7 @@ class WeeklyTimeRecordTest {
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-29", "9:00", "18:00", "60", "0")),
                 new TimeRecord(en, AttendanceForm.toActualWorkDateTime("2019-12-28", "9:00", "20:00", "60", "0"))));
 
-        WeeklyTimeRecord weeklyTimeRecord = WeeklyTimeRecord.from(timeRecords, beforeMonthlyRecords, Date.from("2020-01-02"));
+        WeeklyTimeRecord weeklyTimeRecord = WeeklyTimeRecord.from(timeRecords, beforeMonthlyRecords, new Date(LocalDate.parse("2020-01-02", DateTimeFormatter.ISO_DATE)));
 
         List<String> result = weeklyTimeRecord.value.list().stream().map(r -> r.workDate().toDate().toString()).collect(Collectors.toList());
 

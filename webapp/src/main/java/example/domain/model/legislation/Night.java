@@ -1,5 +1,6 @@
 package example.domain.model.legislation;
 
+import example.domain.type.date.Date;
 import example.domain.type.datetime.DateTime;
 import example.domain.type.datetime.QuarterRoundDateTime;
 import example.domain.type.time.Minute;
@@ -32,7 +33,7 @@ public class Night {
     }
 
     private Minute before(QuarterRoundDateTime startDateTime, QuarterRoundDateTime endDateTime) {
-        DateTime earlyMorningFinishDateTime = new DateTime(LocalDateTime.of(startDateTime.value().date().value(), nightFinishTime.value()));
+        DateTime earlyMorningFinishDateTime = new DateTime(LocalDateTime.of(startDateTime.value().date().value, nightFinishTime.value()));
 
         if (startDateTime.isBefore(earlyMorningFinishDateTime)
                 && endDateTime.isAfter(earlyMorningFinishDateTime)) {
@@ -48,8 +49,8 @@ public class Night {
     }
 
     private Minute after(QuarterRoundDateTime startDateTime, QuarterRoundDateTime endDateTime) {
-        DateTime nightStartDateTime = new DateTime(LocalDateTime.of(startDateTime.value().date().value(), nightStartTime.value()));
-        DateTime nightFinishDateTime = new DateTime(LocalDateTime.of(startDateTime.value().date().plusDays(1).value(), nightFinishTime.value()));
+        DateTime nightStartDateTime = new DateTime(LocalDateTime.of(startDateTime.value().date().value, nightStartTime.value()));
+        DateTime nightFinishDateTime = new DateTime(LocalDateTime.of(new Date(startDateTime.value().date().value.plusDays(1)).value, nightFinishTime.value()));
 
         if (endDateTime.isAfter(nightStartDateTime)
                 && endDateTime.isBefore(nightFinishDateTime)

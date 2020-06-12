@@ -35,6 +35,6 @@ public class ContractCondition {
     }
 
     public boolean availableAt(Date date) {
-        return effectiveDate.value().hasSameValue(date) || date.isAfter(effectiveDate.value());
+        return effectiveDate.value().value.equals(date.value) || date.value.isAfter(effectiveDate.value().value);
     }
 }

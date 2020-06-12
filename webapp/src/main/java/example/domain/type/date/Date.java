@@ -12,46 +12,14 @@ import java.time.format.DateTimeFormatter;
 public class Date {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate value;
+    public LocalDate value;
 
     @Deprecated
     public Date() {
     }
 
-    public static Date from(String value) {
-        return new Date(LocalDate.parse(value, DateTimeFormatter.ISO_DATE));
-    }
-
     public Date(LocalDate value) {
         this.value = value;
-    }
-
-    public LocalDate value() {
-        return value;
-    }
-
-    public Year year() {
-        return new Year(value.getYear());
-    }
-
-    public Month month() {
-        return Month.of(value.getMonth().getValue());
-    }
-
-    public int dayOfMonth() {
-        return value.getDayOfMonth();
-    }
-
-    public DayOfWeek dayOfWeek() {
-        return DayOfWeek.of(value.getDayOfWeek());
-    }
-
-    public boolean hasSameValue(Date other) {
-        return value.equals(other.value);
-    }
-
-    public int compareTo(Date other) {
-        return value.compareTo(other.value);
     }
 
     @Override
@@ -59,28 +27,8 @@ public class Date {
         return value.format(DateTimeFormatter.ISO_DATE);
     }
 
-    public Date plusDays(int days) {
-        return new Date(value.plusDays(days));
-    }
-
-    public Date previousDay() {
-        return new Date(value.minusDays(1));
-    }
-
-    public Date nextDay() {
-        return new Date(value.plusDays(1));
-    }
-
-    public boolean isAfter(Date date) {
-        return value.isAfter(date.value);
-    }
-
     public String yyyyMMdd() {
         return value.format(DateTimeFormatter.ofPattern("uuuuMMdd"));
-    }
-
-    public boolean isBefore(Date date) {
-        return value.isBefore(date.value);
     }
 
 }

@@ -45,7 +45,7 @@ public class WeeklyTimeRecord {
     public Optional<TimeRecord> lastDayOff() {
         return value.list.stream()
                 .filter(record -> record.daysOffStatus == DaysOffStatus.休日)
-                .max(Comparator.comparing(r -> r.workDate().toDate().value()));
+                .max(Comparator.comparing(r -> r.workDate().toDate().value));
     }
 
     public WorkTimes workTimes() {

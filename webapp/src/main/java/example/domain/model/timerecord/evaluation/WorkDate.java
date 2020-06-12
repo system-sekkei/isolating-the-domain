@@ -6,6 +6,8 @@ import example.domain.type.date.DayOfWeek;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
 
@@ -27,7 +29,7 @@ public class WorkDate {
     }
 
     public static WorkDate from(String value) {
-        return new WorkDate(Date.from(value));
+        return new WorkDate(new Date(LocalDate.parse(value, DateTimeFormatter.ISO_DATE)));
     }
 
     public Date value() {
@@ -35,15 +37,15 @@ public class WorkDate {
     }
 
     public int dayOfMonth() {
-        return value.dayOfMonth();
+        return value.value.getDayOfMonth();
     }
 
     public DayOfWeek dayOfWeek() {
-        return value.dayOfWeek();
+        return DayOfWeek.of(value.value.getDayOfWeek());
     }
 
     public boolean hasSameValue(WorkDate other) {
-        return value.hasSameValue(other.value);
+        return value.value.equals(other.value.value);
     }
 
     @Override
@@ -56,7 +58,7 @@ public class WorkDate {
     }
 
     public boolean isBefore(WorkDate workDate) {
-        return value.isBefore(workDate.value);
+        return value.value.isBefore(workDate.value.value);
     }
 
     public boolean sameWeek(Date date) {
@@ -64,10 +66,10 @@ public class WorkDate {
     }
 
     int weekBasedYear(Date date) {
-        return date.value().get(WeekFields.of(Locale.JAPANESE).weekBasedYear());
+        return date.value.get(WeekFields.of(Locale.JAPANESE).weekBasedYear());
     }
 
     int weekOfWeekBasedYear(Date date) {
-        return date.value().get(WeekFields.of(Locale.JAPANESE).weekOfWeekBasedYear());
+        return date.value.get(WeekFields.of(Locale.JAPANESE).weekOfWeekBasedYear());
     }
 }

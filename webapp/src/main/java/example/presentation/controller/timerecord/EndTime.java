@@ -37,9 +37,9 @@ public class EndTime {
     public EndDateTime endDateTime(StartDateTime startDateTime) {
         Date date = startDateTime.date();
         // TODO 1日を超える扱い
-        Date endDate = isOverFlow() ? date.plusDays(1) : date;
+        Date endDate = isOverFlow() ? new Date(date.value.plusDays(1)) : date;
         LocalTime endTime = LocalTime.of(hour.toInt() % 24, minute.toInt());
-        return new EndDateTime(new DateTime(LocalDateTime.of(endDate.value(), endTime)));
+        return new EndDateTime(new DateTime(LocalDateTime.of(endDate.value, endTime)));
     }
 
     boolean isOverFlow() {

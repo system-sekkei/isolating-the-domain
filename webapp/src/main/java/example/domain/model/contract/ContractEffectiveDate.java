@@ -17,7 +17,7 @@ public class ContractEffectiveDate {
     }
 
     public ContractEffectiveDate(String value) {
-        this(Date.from(value));
+        this(new Date(LocalDate.parse(value, DateTimeFormatter.ISO_DATE)));
     }
 
     public ContractEffectiveDate(Date value) {
@@ -38,15 +38,15 @@ public class ContractEffectiveDate {
         if (notAvailable()) {
             return "未設定";
         }
-        return value.value().format(DateTimeFormatter.ofPattern("uuuu年M月d日"));
+        return value.value.format(DateTimeFormatter.ofPattern("uuuu年M月d日"));
     }
 
     private boolean notAvailable() {
-        return value.hasSameValue(distantFuture());
+        return value.value.equals(distantFuture().value);
     }
 
     public boolean isAfter(Date date) {
-        return value.isAfter(date);
+        return value.value.isAfter(date.value);
     }
 
     public Date value() {

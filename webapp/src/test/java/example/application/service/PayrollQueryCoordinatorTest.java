@@ -17,6 +17,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -42,7 +45,7 @@ class PayrollQueryCoordinatorTest {
 
         {
             WageCondition wageCondition = new WageCondition(new BaseHourlyWage(1000), OverTimeExtraRate.regulation());
-            contractRecordService.registerHourlyWage(employee, new ContractEffectiveDate(Date.from("2018-11-20")), wageCondition);
+            contractRecordService.registerHourlyWage(employee, new ContractEffectiveDate(new Date(LocalDate.parse("2018-11-20", DateTimeFormatter.ISO_DATE))), wageCondition);
 
             Payroll payroll = sut.payroll(employee, new WorkMonth("2018-11"));
             assertEquals("0円", payroll.totalPayment().toString());
@@ -72,7 +75,7 @@ class PayrollQueryCoordinatorTest {
 
         {
             WageCondition wageCondition = new WageCondition(new BaseHourlyWage(2000), OverTimeExtraRate.regulation());
-            contractRecordService.registerHourlyWage(employee, new ContractEffectiveDate(Date.from("2018-11-25")), wageCondition);
+            contractRecordService.registerHourlyWage(employee, new ContractEffectiveDate(new Date(LocalDate.parse("2018-11-25", DateTimeFormatter.ISO_DATE))), wageCondition);
 
             Payroll payroll = sut.payroll(employee, new WorkMonth("2018-11"));
             assertEquals("3,700円", payroll.totalPayment().toString());

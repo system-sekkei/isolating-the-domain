@@ -54,8 +54,8 @@ public class YearMonth {
     }
 
     public List<Date> days() {
-        IntStream intStream = IntStream.rangeClosed(start().dayOfMonth(), end().dayOfMonth());
-        return intStream.mapToObj(i -> new Date(start().value().plusDays((long) i - 1))).collect(Collectors.toList());
+        IntStream intStream = IntStream.rangeClosed(start().value.getDayOfMonth(), end().value.getDayOfMonth());
+        return intStream.mapToObj(i -> new Date(start().value.plusDays((long) i - 1))).collect(Collectors.toList());
     }
 
     public YearMonth before() {
