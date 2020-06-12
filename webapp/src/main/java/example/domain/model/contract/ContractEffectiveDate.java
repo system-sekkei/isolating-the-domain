@@ -1,6 +1,5 @@
 package example.domain.model.contract;
 
-import example.domain.type.date.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -47,8 +46,8 @@ public class ContractEffectiveDate {
         return value.equals(distantFuture());
     }
 
-    public boolean isAfter(Date date) {
-        return value.isAfter(date.value);
+    public boolean isAfter(LocalDate date) {
+        return value.isAfter(date);
     }
 
     public LocalDate value() {

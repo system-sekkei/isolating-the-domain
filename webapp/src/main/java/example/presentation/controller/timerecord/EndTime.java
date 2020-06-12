@@ -2,12 +2,12 @@ package example.presentation.controller.timerecord;
 
 import example.domain.model.timerecord.timefact.EndDateTime;
 import example.domain.model.timerecord.timefact.StartDateTime;
-import example.domain.type.date.Date;
 import example.domain.type.datetime.DateTime;
 import example.domain.validation.FormatCheck;
 
 import javax.validation.Valid;
 import javax.validation.constraints.AssertTrue;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -35,11 +35,11 @@ public class EndTime {
     }
 
     public EndDateTime endDateTime(StartDateTime startDateTime) {
-        Date date = startDateTime.date();
+        LocalDate date = startDateTime.date();
         // TODO 1日を超える扱い
-        Date endDate = isOverFlow() ? new Date(date.value.plusDays(1)) : date;
+        LocalDate endDate = isOverFlow() ? date.plusDays(1) : date;
         LocalTime endTime = LocalTime.of(hour.toInt() % 24, minute.toInt());
-        return new EndDateTime(new DateTime(LocalDateTime.of(endDate.value, endTime)));
+        return new EndDateTime(new DateTime(LocalDateTime.of(endDate, endTime)));
     }
 
     boolean isOverFlow() {

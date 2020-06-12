@@ -1,6 +1,5 @@
 package example.domain.type.datetime;
 
-import example.domain.type.date.Date;
 import example.domain.type.time.Minute;
 import example.domain.type.time.Time;
 
@@ -36,8 +35,8 @@ public class DateTime {
         return parse(date, hour + ":" + minute);
     }
 
-    public Date date() {
-        return new Date(value.toLocalDate());
+    public LocalDate date() {
+        return value.toLocalDate();
     }
 
     public Time time() {

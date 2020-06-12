@@ -32,7 +32,7 @@ public class EndDateTime {
     }
 
     public String endTimeTextWith(StartDateTime startDateTime) {
-        Period period = startDateTime.value.date().value.until(value.date().value);
+        Period period = startDateTime.value.date().until(value.date());
         return clockTimeTextOverDays(period.getDays());
     }
 

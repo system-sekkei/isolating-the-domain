@@ -1,7 +1,6 @@
 package example.domain.model.daysoff;
 
 import example.domain.model.employee.EmployeeNumber;
-import example.domain.type.date.Date;
 
 import java.time.LocalDate;
 

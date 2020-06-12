@@ -5,7 +5,6 @@ import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordQueryService;
 import example.domain.model.employee.Employee;
 import example.domain.model.timerecord.evaluation.*;
-import example.domain.type.date.Date;
 import org.springframework.stereotype.Service;
 
 /**
@@ -36,7 +35,7 @@ public class TimeRecordCoordinator {
     StartTimeValidResult checkOverlapWithPreviousWorkRange(TimeRecord timeRecord) {
         Employee employee = employeeQueryService.choose(timeRecord.employeeNumber());
 
-        WorkDate previousDate = new WorkDate(new Date(timeRecord.workDate().value().value.minusDays(1)));
+        WorkDate previousDate = new WorkDate(timeRecord.workDate().value().minusDays(1));
 
         if (attendanceQueryService.attendanceStatus(employee, previousDate).isWork()) {
             TimeRecord previous = timeRecordQueryService.timeRecord(employee, previousDate);
@@ -54,7 +53,7 @@ public class TimeRecordCoordinator {
     EndTimeValidResult checkOverlapWithNextWorkRange(TimeRecord timeRecord) {
         Employee employee = employeeQueryService.choose(timeRecord.employeeNumber());
 
-        WorkDate nextDate = new WorkDate(new Date(timeRecord.workDate().value().value.plusDays(1)));
+        WorkDate nextDate = new WorkDate(timeRecord.workDate().value().plusDays(1));
 
         if (attendanceQueryService.attendanceStatus(employee, nextDate).isWork()) {
             TimeRecord next = timeRecordQueryService.timeRecord(employee, nextDate);

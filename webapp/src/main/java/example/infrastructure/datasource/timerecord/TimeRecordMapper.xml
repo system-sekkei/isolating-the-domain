@@ -9,7 +9,7 @@
     <insert id="insertWorkTimeHistory">
         INSERT INTO 給与.就業時間履歴 (就業時間ID, 従業員ID, 勤務日, 開始日時, 終了日時, 休憩時間, 深夜休憩時間, 休日)
         VALUES (#{id}, #{employeeNumber.value},
-        #{workDate.value.value},
+        #{workDate.value},
         #{work.actualWorkDateTime.workRange.startDateTime.value.value},
         #{work.actualWorkDateTime.workRange.endDateTime.value.value},
         #{work.actualWorkDateTime.daytimeBreakTime.value.value},
@@ -19,7 +19,7 @@
     <insert id="insertWorkTime">
         INSERT INTO 給与.就業時間 (従業員ID, 就業時間ID, 勤務日, 開始日時, 終了日時, 休憩時間, 深夜休憩時間, 休日)
         VALUES (#{employeeNumber.value}, #{workTimeId},
-        #{workDate.value.value},
+        #{workDate.value},
         #{work.actualWorkDateTime.workRange.startDateTime.value.value},
         #{work.actualWorkDateTime.workRange.endDateTime.value.value},
         #{work.actualWorkDateTime.daytimeBreakTime.value.value},
@@ -27,7 +27,7 @@
         #{work.daysOffStatus});
     </insert>
     <delete id="deleteWorkTime">
-        DELETE FROM 給与.就業時間 WHERE 従業員ID = #{employeeNumber.value} and 勤務日 = #{workDate.value.value}
+        DELETE FROM 給与.就業時間 WHERE 従業員ID = #{employeeNumber.value} and 勤務日 = #{workDate.value}
     </delete>
 
     <select id="selectByMonth" resultType="example.domain.model.timerecord.evaluation.TimeRecord">

@@ -1,9 +1,10 @@
 package example.domain.model.timerecord.timefact;
 
-import example.domain.type.date.Date;
 import example.domain.type.datetime.DateTime;
 import example.domain.type.datetime.QuarterRoundDateTime;
 import example.domain.type.time.Time;
+
+import java.time.LocalDate;
 
 /**
  * 勤務開始日時
@@ -29,7 +30,7 @@ public class StartDateTime {
         return value.quarterRoundUp();
     }
 
-    public Date date() {
+    public LocalDate date() {
         return value.date();
     }
 

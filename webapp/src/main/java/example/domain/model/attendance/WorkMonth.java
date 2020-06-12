@@ -1,11 +1,11 @@
 package example.domain.model.attendance;
 
 import example.domain.model.timerecord.evaluation.WorkDate;
-import example.domain.type.date.Date;
 import example.domain.type.date.Month;
 import example.domain.type.date.Year;
 import example.domain.type.date.YearMonth;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,11 +37,11 @@ public class WorkMonth {
     }
 
     public static WorkMonth from(WorkDate workDate) {
-        return new WorkMonth(new Year(workDate.toDate().value.getYear()), Month.of(workDate.toDate().value.getMonth().getValue()));
+        return new WorkMonth(new Year(workDate.toDate().getYear()), Month.of(workDate.toDate().getMonth().getValue()));
     }
 
     public List<WorkDate> days() {
-        List<Date> days = value.days();
+        List<LocalDate> days = value.days();
         List<WorkDate> workDates = days.stream().map(WorkDate::new)
                 .collect(Collectors.toList());
         return workDates;

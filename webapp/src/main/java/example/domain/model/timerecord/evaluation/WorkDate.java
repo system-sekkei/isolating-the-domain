@@ -1,8 +1,8 @@
 package example.domain.model.timerecord.evaluation;
 
-import example.domain.validation.Required;
-import example.domain.type.date.Date;
 import example.domain.type.date.DayOfWeek;
+import example.domain.validation.Required;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -18,34 +18,35 @@ public class WorkDate {
 
     @Valid
     @NotNull(message = "勤務日を入力してください", groups = Required.class)
-    Date value;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    LocalDate value;
 
     @Deprecated
     public WorkDate() {
     }
 
-    public WorkDate(Date date) {
+    public WorkDate(LocalDate date) {
         value = date;
     }
 
     public static WorkDate from(String value) {
-        return new WorkDate(new Date(LocalDate.parse(value, DateTimeFormatter.ISO_DATE)));
+        return new WorkDate(LocalDate.parse(value, DateTimeFormatter.ISO_DATE));
     }
 
-    public Date value() {
+    public LocalDate value() {
         return value;
     }
 
     public int dayOfMonth() {
-        return value.value.getDayOfMonth();
+        return value.getDayOfMonth();
     }
 
     public DayOfWeek dayOfWeek() {
-        return DayOfWeek.of(value.value.getDayOfWeek());
+        return DayOfWeek.of(value.getDayOfWeek());
     }
 
     public boolean hasSameValue(WorkDate other) {
-        return value.value.equals(other.value.value);
+        return value.equals(other.value);
     }
 
     @Override
@@ -53,23 +54,23 @@ public class WorkDate {
         return value.toString();
     }
 
-    public Date toDate() {
+    public LocalDate toDate() {
         return value;
     }
 
     public boolean isBefore(WorkDate workDate) {
-        return value.value.isBefore(workDate.value.value);
+        return value.isBefore(workDate.value);
     }
 
-    public boolean sameWeek(Date date) {
+    public boolean sameWeek(LocalDate date) {
         return weekBasedYear(value()) == weekBasedYear(date) && weekOfWeekBasedYear(value()) == weekOfWeekBasedYear(date);
     }
 
-    int weekBasedYear(Date date) {
-        return date.value.get(WeekFields.of(Locale.JAPANESE).weekBasedYear());
+    int weekBasedYear(LocalDate date) {
+        return date.get(WeekFields.of(Locale.JAPANESE).weekBasedYear());
     }
 
-    int weekOfWeekBasedYear(Date date) {
-        return date.value.get(WeekFields.of(Locale.JAPANESE).weekOfWeekBasedYear());
+    int weekOfWeekBasedYear(LocalDate date) {
+        return date.get(WeekFields.of(Locale.JAPANESE).weekOfWeekBasedYear());
     }
 }

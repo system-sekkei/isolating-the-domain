@@ -1,5 +1,6 @@
 package example.domain.type.date;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -12,25 +13,7 @@ public class Week {
         this.dates = dates;
     }
 
-    public static Week from(List<Date> list) {
+    public static Week from(List<LocalDate> list) {
         return new Week(new Dates(list));
-    }
-
-    public boolean contains(Date date) {
-        for (Date d: dates.list) {
-            if (date.value.equals(d.value)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public Date saturday() {
-        for (Date d: dates.list) {
-            if (DayOfWeek.of(d.value.getDayOfWeek()) == DayOfWeek.土) {
-                return d;
-            }
-        }
-        throw new IllegalStateException("週の情報が不正です。");
     }
 }

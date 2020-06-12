@@ -45,8 +45,8 @@ public class TimeRecordQueryCoordinator {
         return new TimeRecord(employeeNumber,
                 new ActualWorkDateTime(
                         new WorkRange(
-                                new StartDateTime(new DateTime(LocalDateTime.of(workDate.value().value, startTime))),
-                                new EndDateTime(new DateTime(LocalDateTime.of(workDate.value().value, endTime)))
+                                new StartDateTime(new DateTime(LocalDateTime.of(workDate.value(), startTime))),
+                                new EndDateTime(new DateTime(LocalDateTime.of(workDate.value(), endTime)))
                         ),
                         new DaytimeBreakTime(new Minute(60)),
                         new NightBreakTime(new Minute(0))

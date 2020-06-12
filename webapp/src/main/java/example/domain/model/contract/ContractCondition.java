@@ -3,7 +3,8 @@ package example.domain.model.contract;
 import example.domain.model.contract.shift.Shifts;
 import example.domain.model.contract.wage.BaseHourlyWage;
 import example.domain.model.contract.wage.WageCondition;
-import example.domain.type.date.Date;
+
+import java.time.LocalDate;
 
 /**
  * 労働条件
@@ -34,7 +35,7 @@ public class ContractCondition {
         return effectiveDate;
     }
 
-    public boolean availableAt(Date date) {
-        return effectiveDate.value().equals(date.value) || date.value.isAfter(effectiveDate.value());
+    public boolean availableAt(LocalDate date) {
+        return effectiveDate.value().equals(date) || date.isAfter(effectiveDate.value());
     }
 }

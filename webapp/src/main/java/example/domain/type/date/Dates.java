@@ -1,14 +1,16 @@
 package example.domain.type.date;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
  * 日付
  */
+// TODO: 削除する
 public class Dates {
-    List<Date> list;
+    List<LocalDate> list;
 
-    public Dates(List<Date> list) {
+    public Dates(List<LocalDate> list) {
         this.list = list;
     }
 
@@ -16,7 +18,7 @@ public class Dates {
         return list.isEmpty();
     }
 
-    public Date first() {
+    public LocalDate first() {
         return list.iterator().next();
     }
 }

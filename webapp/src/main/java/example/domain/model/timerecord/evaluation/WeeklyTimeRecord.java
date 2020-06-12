@@ -3,8 +3,8 @@ package example.domain.model.timerecord.evaluation;
 import example.domain.model.legislation.DaysOffStatus;
 import example.domain.model.legislation.WeeklyWorkingHoursLimit;
 import example.domain.model.legislation.WeeklyWorkingHoursStatus;
-import example.domain.type.date.Date;
 
+import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +23,7 @@ public class WeeklyTimeRecord {
         this.value = value;
     }
 
-    public static WeeklyTimeRecord from(TimeRecords monthlyRecords, TimeRecords beforeMonthlyRecords, Date date) {
+    public static WeeklyTimeRecord from(TimeRecords monthlyRecords, TimeRecords beforeMonthlyRecords, LocalDate date) {
         List<TimeRecord> list = Stream.concat(
                 beforeMonthlyRecords.list().stream(),
                 monthlyRecords.list().stream()).collect(Collectors.toList());
@@ -45,7 +45,7 @@ public class WeeklyTimeRecord {
     public Optional<TimeRecord> lastDayOff() {
         return value.list.stream()
                 .filter(record -> record.daysOffStatus == DaysOffStatus.休日)
-                .max(Comparator.comparing(r -> r.workDate().toDate().value));
+                .max(Comparator.comparing(r -> r.workDate().toDate()));
     }
 
     public WorkTimes workTimes() {

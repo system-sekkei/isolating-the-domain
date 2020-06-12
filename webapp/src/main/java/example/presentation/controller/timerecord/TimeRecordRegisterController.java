@@ -5,17 +5,17 @@ import example.application.coordinator.timerecord.TimeRecordQueryCoordinator;
 import example.application.service.daysoff.DaysOffRecordService;
 import example.application.service.employee.EmployeeQueryService;
 import example.application.service.timerecord.TimeRecordRecordService;
-import example.domain.model.timerecord.evaluation.*;
-import example.domain.validation.BusinessLogic;
-import example.domain.validation.Conversion;
-import example.domain.validation.Required;
-import example.domain.validation.FormatCheck;
 import example.domain.model.attendance.WorkMonth;
 import example.domain.model.employee.ContractingEmployees;
 import example.domain.model.employee.EmployeeNumber;
-import example.domain.type.date.Date;
+import example.domain.model.timerecord.evaluation.TimeRecord;
+import example.domain.model.timerecord.evaluation.TimeRecordValidResult;
+import example.domain.model.timerecord.evaluation.WorkDate;
+import example.domain.validation.BusinessLogic;
+import example.domain.validation.Conversion;
+import example.domain.validation.FormatCheck;
+import example.domain.validation.Required;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -75,7 +75,7 @@ public class TimeRecordRegisterController {
             TimeRecord timeRecord = timeRecordQueryCoordinator.timeRecord(employeeNumber, workDate);
             attendanceForm.apply(timeRecord);
         } else {
-            TimeRecord timeRecord = timeRecordQueryCoordinator.defaultTimeRecord(new WorkDate(new Date(LocalDate.now())));
+            TimeRecord timeRecord = timeRecordQueryCoordinator.defaultTimeRecord(new WorkDate(LocalDate.now()));
             attendanceForm.apply(timeRecord);
         }
         return "timerecord/form";

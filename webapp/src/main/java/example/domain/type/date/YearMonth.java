@@ -1,5 +1,6 @@
 package example.domain.type.date;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -45,17 +46,17 @@ public class YearMonth {
         return Month.of(value.getMonthValue());
     }
 
-    public Date start() {
-        return new Date(value.atDay(1));
+    public LocalDate start() {
+        return value.atDay(1);
     }
 
-    public Date end() {
-        return new Date(value.atEndOfMonth());
+    public LocalDate end() {
+        return value.atEndOfMonth();
     }
 
-    public List<Date> days() {
-        IntStream intStream = IntStream.rangeClosed(start().value.getDayOfMonth(), end().value.getDayOfMonth());
-        return intStream.mapToObj(i -> new Date(start().value.plusDays((long) i - 1))).collect(Collectors.toList());
+    public List<LocalDate> days() {
+        IntStream intStream = IntStream.rangeClosed(start().getDayOfMonth(), end().getDayOfMonth());
+        return intStream.mapToObj(i -> start().plusDays((long) i - 1)).collect(Collectors.toList());
     }
 
     public YearMonth before() {

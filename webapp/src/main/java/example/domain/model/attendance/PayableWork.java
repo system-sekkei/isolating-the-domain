@@ -1,8 +1,9 @@
 package example.domain.model.attendance;
 
 import example.domain.model.timerecord.evaluation.*;
-import example.domain.type.date.Date;
 import example.domain.type.time.QuarterHour;
+
+import java.time.LocalDate;
 
 /**
  * 支払い対象となる稼働
@@ -15,7 +16,7 @@ public class PayableWork {
         this.actualWorkDateTime = actualWorkDateTime;
     }
 
-    public Date date() {
+    public LocalDate date() {
         return actualWorkDateTime.workDate().toDate();
     }
 
