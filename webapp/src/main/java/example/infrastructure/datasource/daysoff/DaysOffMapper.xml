@@ -5,17 +5,17 @@
 <mapper namespace="example.infrastructure.datasource.daysoff.DaysOffMapper">
     <insert id="insertDaysOffHistory">
         INSERT INTO 給与.休日履歴(従業員ID, 休日) VALUES
-        (#{employeeNumber.value}, #{daysOff.value});
+        (#{employeeNumber.value}, #{daysOff});
     </insert>
 
     <insert id="insertDaysOff">
         INSERT INTO 給与.休日(従業員ID, 休日) VALUES
-        (#{employeeNumber.value}, #{daysOff.value});
+        (#{employeeNumber.value}, #{daysOff});
     </insert>
 
     <delete id="deleteDaysOff">
         DELETE FROM 給与.休日 WHERE
         従業員ID = #{employeeNumber.value} AND
-        休日 = #{daysOff.value};
+        休日 = #{daysOff};
     </delete>
 </mapper>

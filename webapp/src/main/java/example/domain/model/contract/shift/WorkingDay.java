@@ -1,12 +1,12 @@
 package example.domain.model.contract.shift;
 
-import example.domain.type.date.Date;
+import java.time.LocalDate;
 
 /**
  * 勤務日
  */
 public class WorkingDay {
-    Date date;
+    LocalDate date;
     StartingTime startingTime;
     EndingTime endingTime;
     BreakTime breakTime;
