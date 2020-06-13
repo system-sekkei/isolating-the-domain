@@ -27,7 +27,13 @@ public class OverLegalHoursWorkTime {
             overLegalHoursWorkTime = 勤務日時実績.overDailyLimitWorkTime();
         }
 
-        // TODO: 月60時間超えの判定
+        if (monthlyTimeRecord.monthlyWorkingHoursStatus(workDate) == MonthlyOverLegalHoursStatus.月６０時間超) {
+            // TODO: 60時間超の計算処理を書く
+            OverLegalWithin60HoursWorkTime within60Hours = new OverLegalWithin60HoursWorkTime(overLegalHoursWorkTime);
+            OverLegalMoreThan60HoursWorkTime moreThan60Hours = new OverLegalMoreThan60HoursWorkTime(new QuarterHour());
+            return new OverLegalHoursWorkTime(within60Hours, moreThan60Hours);
+        }
+
         OverLegalWithin60HoursWorkTime within60Hours = new OverLegalWithin60HoursWorkTime(overLegalHoursWorkTime);
         OverLegalMoreThan60HoursWorkTime moreThan60Hours = new OverLegalMoreThan60HoursWorkTime(new QuarterHour());
 

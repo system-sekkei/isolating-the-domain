@@ -15,4 +15,9 @@ public class MonthlyTimeRecord {
     public List<TimeRecord> list() {
         return value.list();
     }
+
+    public MonthlyOverLegalHoursStatus monthlyWorkingHoursStatus(WorkDate workDate) {
+        // TODO:
+        return MonthlyOverLegalHoursStatus.月６０時間以内;
+    }
 }
