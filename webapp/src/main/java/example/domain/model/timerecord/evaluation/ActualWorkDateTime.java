@@ -108,8 +108,4 @@ public class ActualWorkDateTime {
 
         return new LegalDaysOffWorkTime(new QuarterHour());
     }
-
-    public OverLegalHoursWorkTime overLegalHoursWorkTime(WeeklyTimeRecord weeklyTimeRecord) {
-        return OverLegalHoursWorkTime.from(this, weeklyTimeRecord);
-    }
 }

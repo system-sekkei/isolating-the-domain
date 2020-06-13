@@ -23,11 +23,11 @@ public class WeeklyTimeRecord {
         this.value = value;
     }
 
-    public static WeeklyTimeRecord from(TimeRecords monthlyRecords, TimeRecords beforeMonthlyRecords, LocalDate date) {
+    public static WeeklyTimeRecord from(MonthlyTimeRecord monthlyRecords, BeforeMonthlyTimeRecord beforeMonthlyRecords, WorkDate workDate) {
         List<TimeRecord> list = Stream.concat(
                 beforeMonthlyRecords.list().stream(),
                 monthlyRecords.list().stream()).collect(Collectors.toList());
-        return new WeeklyTimeRecord(new TimeRecords(list.stream().filter(record -> record.workDate().sameWeek(date)).collect(toList())));
+        return new WeeklyTimeRecord(new TimeRecords(list.stream().filter(record -> record.workDate().sameWeek(workDate.value)).collect(toList())));
     }
 
     public WeeklyWorkingHoursStatus weeklyWorkingHoursStatus(WorkDate workDate) {

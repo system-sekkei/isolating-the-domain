@@ -16,8 +16,8 @@ public class PayableWork {
         this.actualWorkDateTime = actualWorkDateTime;
     }
 
-    public LocalDate date() {
-        return actualWorkDateTime.workDate().toDate();
+    public WorkDate workDate() {
+        return actualWorkDateTime.workDate();
     }
 
     public QuarterHour workTime() {
@@ -28,8 +28,8 @@ public class PayableWork {
         return actualWorkDateTime.nightWorkTime().quarterHour();
     }
 
-    public OverLegalHoursWorkTime overLegalHoursWorkTime(WeeklyTimeRecord weeklyTimeRecord) {
-        return actualWorkDateTime.overLegalHoursWorkTime(weeklyTimeRecord);
+    public OverLegalHoursWorkTime overLegalHoursWorkTime(MonthlyTimeRecord monthlyTimeRecord, BeforeMonthlyTimeRecord beforeMonthlyTimeRecord, WorkDate workDate) {
+        return OverLegalHoursWorkTime.from(monthlyTimeRecord, beforeMonthlyTimeRecord, workDate);
     }
 
     public LegalDaysOffWorkTime legalDaysOffWorkTime(WeeklyTimeRecord weeklyTimeRecord) {
