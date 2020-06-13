@@ -1,8 +1,6 @@
 package example.domain.model.timerecord.evaluation;
 
-import example.domain.model.timerecord.evaluation.WorkDate;
-import example.domain.type.date.Dates;
-
+import java.time.LocalDate;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -17,7 +15,7 @@ public class AttendDates {
         this.list = list;
     }
 
-    public Dates toDates() {
-        return new Dates(list.stream().map(WorkDate::toDate).collect(toList()));
+    public List<LocalDate> toDates() {
+        return list.stream().map(WorkDate::toDate).collect(toList());
     }
 }

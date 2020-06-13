@@ -5,10 +5,10 @@ import example.domain.model.contract.wage.WageCondition;
 import example.domain.model.employee.Employee;
 import example.domain.model.employee.EmployeeNumber;
 import example.domain.model.employee.Name;
-import example.domain.type.date.Dates;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 従業員契約
@@ -57,11 +57,11 @@ public class Contract {
         return contractStartingDate().isAfter(date) ? ContractStatus.契約なし : ContractStatus.契約あり;
     }
 
-    public ContractStatus contractStatus(Dates dates) {
+    public ContractStatus contractStatus(List<LocalDate> dates) {
         if (dates.isEmpty()) {
             return ContractStatus.判定不能;
         }
-        return contractStatus(dates.first());
+        return contractStatus(dates.iterator().next());
     }
 
     public WageCondition wageConditionAt(LocalDate date) {

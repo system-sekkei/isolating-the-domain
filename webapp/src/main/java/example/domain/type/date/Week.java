@@ -7,13 +7,13 @@ import java.util.List;
  * 週
  */
 public class Week {
-    Dates dates;
+    List<LocalDate> dates;
 
-    public Week(Dates dates) {
+    public Week(List<LocalDate> dates) {
         this.dates = dates;
     }
 
     public static Week from(List<LocalDate> list) {
-        return new Week(new Dates(list));
+        return new Week(list);
     }
 }
