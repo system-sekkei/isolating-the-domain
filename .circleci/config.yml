@@ -43,6 +43,10 @@ jobs:
       - run: curl -X POST -F file=@webapp/build/jig/application.xlsx -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
       - run: for file in $(ls converted); do curl -X POST -F file=@converted/${file} -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload; done;
 
+      - run: curl -X POST -F file=@build/jig-erd-overview.png -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
+      - run: curl -X POST -F file=@build/jig-erd-summary.png -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
+      - run: curl -X POST -F file=@build/jig-erd-detail.png -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
+
       - store_artifacts:
           path: webapp/build/jig
           destination: example
