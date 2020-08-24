@@ -28,6 +28,11 @@ jobs:
           name: Deploy to Heroku
           command: |
             git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/isolating-the-domain.git master
+
+      - run: curl -X POST -F file=@webapp/build/jig-erd-overview.png -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
+      - run: curl -X POST -F file=@webapp/build/jig-erd-summary.png -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
+      - run: curl -X POST -F file=@webapp/build/jig-erd-detail.png -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
+
       - run: ./gradlew jig
 
       - run: sudo mkdir converted
@@ -42,10 +47,6 @@ jobs:
       - run: curl -X POST -F file=@webapp/build/jig/business-rule.xlsx -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
       - run: curl -X POST -F file=@webapp/build/jig/application.xlsx -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
       - run: for file in $(ls converted); do curl -X POST -F file=@converted/${file} -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload; done;
-
-      - run: curl -X POST -F file=@webapp/build/jig-erd-overview.png -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
-      - run: curl -X POST -F file=@webapp/build/jig-erd-summary.png -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
-      - run: curl -X POST -F file=@webapp/build/jig-erd-detail.png -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
 
       - store_artifacts:
           path: webapp/build/jig
