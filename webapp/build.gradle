@@ -40,7 +40,7 @@ dependencies {
         exclude(group: 'org.junit.vintage')
     }
     testImplementation('org.seleniumhq.selenium:htmlunit-driver')
-    testImplementation 'irof:jig-erd:release.latest'
+    testImplementation 'irof:jig-erd:latest.release'
 }
 
 test {
