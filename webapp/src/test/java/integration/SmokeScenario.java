@@ -2,6 +2,7 @@ package integration;
 
 import example.Application;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Disabled
 @SpringBootTest(classes = Application.class)
 @AutoConfigureMockMvc
 public class SmokeScenario {
