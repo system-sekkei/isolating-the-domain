@@ -14,7 +14,7 @@ import example.domain.model.timerecord.evaluation.WeeklyTimeRecord;
 import java.math.BigDecimal;
 
 /**
- * 給与
+ * *給与
  */
 public class Payroll {
 

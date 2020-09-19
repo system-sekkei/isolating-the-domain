@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * 週間シフト
+ * *週間シフト
  */
 public class WeeklyShift {
     Week week;

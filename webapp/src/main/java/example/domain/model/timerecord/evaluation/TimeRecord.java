@@ -7,7 +7,7 @@ import example.domain.type.time.QuarterHour;
 import javax.validation.Valid;
 
 /**
- * 勤務実績
+ * *勤務実績
  */
 public class TimeRecord {
 

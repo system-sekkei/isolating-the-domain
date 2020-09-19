@@ -41,7 +41,8 @@ jobs:
       - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/category-usage.svg converted/category-usage.png
       - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/service-method-call-hierarchy.svg converted/service-method-call-hierarchy.png
       - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/composite-usecase.svg converted/composite-usecase.png
-      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/overconcentration-business-rule.svg converted/overconcentration-business-rule.png
+      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/business-rule-overconcentration.svg converted/business-rule-overconcentration.png
+      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/business-rule-core.svg converted/business-rule-core.png
 
       - run: curl -X POST -F channel=${SLACK_CANNEL} -F token=${SLACK_TOKEN} -F text=https://github.com/system-sekkei/isolating-the-domain https://slack.com/api/chat.postMessage
       - run: curl -X POST -F file=@webapp/build/jig/business-rule.xlsx -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload

@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'org.springframework.boot' version '2.3.3.RELEASE'
-    id "org.dddjava.jig-gradle-plugin" version "2020.8.4"
+    id "org.dddjava.jig-gradle-plugin" version "2020.9.3"
 }
 
 [compileJava, processResources]*.shouldRunAfter(clean)
