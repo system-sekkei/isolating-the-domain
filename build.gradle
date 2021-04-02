@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'idea'
-    id 'org.springframework.boot' version '2.3.3.RELEASE'
+    id 'org.springframework.boot' version '2.4.4'
     id "org.dddjava.jig-gradle-plugin" version "2021.3.4.3"
 }
 
@@ -24,7 +24,7 @@ repositories {
 }
 
 dependencies {
-    implementation platform('org.springframework.boot:spring-boot-dependencies:2.3.3.RELEASE')
+    implementation platform('org.springframework.boot:spring-boot-dependencies:2.4.4')
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-validation")
@@ -33,9 +33,7 @@ dependencies {
 
     runtimeOnly("com.h2database:h2")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude(group: 'org.junit.vintage')
-    }
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation('org.seleniumhq.selenium:htmlunit-driver')
     testImplementation 'com.github.irof:jig-erd:latest.release'
 }
