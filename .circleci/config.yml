@@ -23,33 +23,33 @@ jobs:
           key: v1-dependencies-{{ checksum "build.gradle" }}
       - run: ./gradlew test
       - store_test_results:
-          path: webapp/build/test-results
+          path: build/test-results
       - run:
           name: Deploy to Heroku
           command: |
             git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/isolating-the-domain.git master
 
-      - run: curl -X POST -F file=@webapp/build/jig-erd-overview.png -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
-      - run: curl -X POST -F file=@webapp/build/jig-erd-summary.png -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
-      - run: curl -X POST -F file=@webapp/build/jig-erd-detail.png -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
+      - run: curl -X POST -F file=@build/jig-erd-overview.png -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
+      - run: curl -X POST -F file=@build/jig-erd-summary.png -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
+      - run: curl -X POST -F file=@build/jig-erd-detail.png -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
 
       - run: ./gradlew jig
 
       - run: sudo mkdir converted
-      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/package-relation-depth5.svg converted/package-relation-depth5.png
-      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/category.svg converted/category.png
-      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/category-usage.svg converted/category-usage.png
-      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/service-method-call-hierarchy.svg converted/service-method-call-hierarchy.png
-      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/composite-usecase.svg converted/composite-usecase.png
-      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/business-rule-overconcentration.svg converted/business-rule-overconcentration.png
-      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf webapp/build/jig/business-rule-core.svg converted/business-rule-core.png
+      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf build/jig/package-relation-depth5.svg converted/package-relation-depth5.png
+      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf build/jig/category.svg converted/category.png
+      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf build/jig/category-usage.svg converted/category-usage.png
+      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf build/jig/service-method-call-hierarchy.svg converted/service-method-call-hierarchy.png
+      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf build/jig/composite-usecase.svg converted/composite-usecase.png
+      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf build/jig/business-rule-overconcentration.svg converted/business-rule-overconcentration.png
+      - run: sudo convert -font /usr/share/fonts/opentype/ipafont-mincho/ipam.ttf build/jig/business-rule-core.svg converted/business-rule-core.png
 
       - run: curl -X POST -F channel=${SLACK_CANNEL} -F token=${SLACK_TOKEN} -F text=https://github.com/system-sekkei/isolating-the-domain https://slack.com/api/chat.postMessage
-      - run: curl -X POST -F file=@webapp/build/jig/business-rule.xlsx -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
-      - run: curl -X POST -F file=@webapp/build/jig/application.xlsx -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
+      - run: curl -X POST -F file=@build/jig/business-rule.xlsx -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
+      - run: curl -X POST -F file=@build/jig/application.xlsx -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
       - run: for file in $(ls converted); do curl -X POST -F file=@converted/${file} -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload; done;
 
       - store_artifacts:
-          path: webapp/build/jig
+          path: build/jig
           destination: example
 
