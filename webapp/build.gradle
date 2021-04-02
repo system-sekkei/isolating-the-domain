@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'org.springframework.boot' version '2.3.3.RELEASE'
-    id "org.dddjava.jig-gradle-plugin" version "2020.9.3"
+    id "org.dddjava.jig-gradle-plugin" version "2021.3.4.3"
 }
 
 [compileJava, processResources]*.shouldRunAfter(clean)
@@ -20,10 +20,7 @@ sourceSets {
 }
 
 repositories {
-    jcenter()
-    maven {
-        url "https://dl.bintray.com/jignite/maven/"
-    }
+    mavenCentral()
 }
 
 dependencies {
@@ -40,7 +37,7 @@ dependencies {
         exclude(group: 'org.junit.vintage')
     }
     testImplementation('org.seleniumhq.selenium:htmlunit-driver')
-    testImplementation 'irof:jig-erd:latest.release'
+    testImplementation 'com.github.irof:jig-erd:latest.release'
 }
 
 test {
