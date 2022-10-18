@@ -24,10 +24,6 @@ jobs:
       - run: ./gradlew test
       - store_test_results:
           path: build/test-results
-      - run:
-          name: Deploy to Heroku
-          command: |
-            git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/isolating-the-domain.git master
 
       - run: curl -X POST -F file=@build/jig-erd-overview.png -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
       - run: curl -X POST -F file=@build/jig-erd-summary.png -F channels=${SLACK_CANNEL} -F token=${SLACK_TOKEN} https://slack.com/api/files.upload
