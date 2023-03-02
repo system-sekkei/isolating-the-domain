@@ -1,3 +1,11 @@
+**本リポジトリは2020年時点から更新されていません。近々アップデートを予定していますが、それまでは以下から差分を抽出してください。**
+
+- https://speakerdeck.com/masuda220/
+- [Software Design 2023年2月号](https://gihyo.jp/magazine/SD/archive/2023/202302)
+
+また、技術要素としてはJava11&SpringBoot2.xとなっています。SpringBoot3.x対応の例は [system-sekkei/library](https://github.com/system-sekkei/library) を参照してください。
+libraryはCCSR(isolating-the-domainにRDRA)のサンプルとなっています。
+
 # ドメインを独立させる Isolating the Domain
 - Spring Boot
 - Spring MVC (direct field access)
